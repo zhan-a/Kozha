@@ -1,1 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Educational Sign Language Translator (SiGML)</title>
+  
+  <!-- CWASA core (keep these URLs per their docs) -->
+  <link rel="stylesheet" href="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script defer src="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/allcsa.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@xenova/transformers@3.2.1/dist/transformers.min.js" crossorigin="anonymous"></script>
+  <!-- Lightweight POS/NLP (compromise) for in-browser EDU pipeline -->
+  <script defer src="https://unpkg.com/compromise@14.12.0/builds/compromise.min.js" crossorigin="anonymous"></script>
 
+  <!-- ffmpeg.wasm (only used when a video file is uploaded) -->
+  <script defer src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.6/dist/ffmpeg.min.js" crossorigin="anonymous"></script>
+
+  <style>
+    :root{
+      --bg: #0b1020;
+      --card: #0f162c;
+      --muted: #97a2c2;
+      --accent: #5b8cff;
+      --accent-2: #22d3ee;
+      --border: #1c2442;
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; padding:24px; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: linear-gradient(180deg, #0b1020 0%, #0b1226 100%);
+      color:white;
+    }
+    .container{max-width:1200px; margin:0 auto;}
+    .title{font-weight:800; letter-spacing:-0.02em; font-size: clamp(24px, 5vw, 36px);}
+    .subtle{color:var(--muted)}
+
+    .grid{display:grid; gap:16px; grid-template-columns: 1fr;}
+    @media (min-width: 980px){ .grid{ grid-template-columns: 480px 1fr; } }
+
+    .card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:16px;}
+    .card h3{margin:0 0 12px; font-size: 16px; letter-spacing:0.02em; color:#c9d4ff}
+
+    /* Hides whole cards without removing them from DOM */
+    .hidden-card{
+      display: none !important;
+    }
+
+    label{font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:#9fb0ff}
+    input[type="text"], textarea, select{
+      width:100%; background:#0c1326; color:white; border:1px solid #1b2550; border-radius:12px; padding:10px 12px; outline:none;
+    }
+    textarea{min-height:64px}
+
+    .row{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+    .grow{flex:1 1 auto}
+
+    button{
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+      border:none; color:white; padding:10px 14px; border-radius:12px; cursor:pointer; font-weight:700;
+    }
+    button.secondary{background:#111a37; color:#d6defe; border:1px solid #1f2b5b}
+    button:disabled{opacity:0.55; cursor:default}
+
+    .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
+    .chip{background:#0c1326; border:1px solid #1b2550; color:#cdd7ff; border-radius:999px; padding:6px 10px; font-size:12px}
+
+    .avatar-wrap{ background:#0a1124; border:1px solid #1b2550; border-radius:16px; padding:12px; display:inline-block }
+    .CWASAAvatar.av0{ width: 448px; height: 360px; }
+
+    .muted{ color:#a7b3de }
+    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+
+    .log{ background:#0c1326; border:1px dashed #243163; padding:8px 10px; border-radius:10px; min-height: 40px; white-space: pre-wrap }
+
+    .tabs{ display:flex; gap:6px; margin-bottom:8px }
+    .tabs button{ background:#0f1836; border:1px solid #1c2859 }
+    .tabs button.active{ background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%); border:none }
+
+    .kbd{padding:2px 6px; border-radius:6px; background:#0f1731; border:1px solid #1d2a5b; color:#c9d4ff; font-size:12px}
+
+    .hint{font-size:12px; color:#8aa0ff}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div style="margin-bottom:16px">
+      <div class="title">Educational Sign Language Translator</div>
+      <div class="subtle">Plan tokens from text or speech and render SiGML with CWASA</div>
+    </div>
+
+    <div class="grid">
+      <!-- LEFT: Inputs -->
+      <section>
+        <div class="card">
+          <h3>Text</h3>
+          <div class="row">
+            <textarea id="textIn" placeholder="Type a phrase…" class="grow"></textarea>
+          </div>
+          <div class="row" style="margin-top:8px">
+            <label class="hint">Language hint (for STT only)</label>
+            <select id="langHint">
+              <option value="auto">auto</option>
+              <option value="en" selected>en</option>
+              <option value="ru">ru</option>
+              <option value="es">es</option>
+              <option value="de">de</option>
+              <option value="fr">fr</option>
+              <option value="zh">zh</option>
+              <option value="ja">ja</option>
+            </select>
+            <span class="grow"></span>
+            <div class="row" style="gap:6px; align-items:center">
+              <button id="planSpaCyBtn" class="secondary">Plan (spaCy)</button>
+              <button id="planOpenAIBtn">Plan (OpenAI)</button>
+            </div>
+            <button id="planBtn">Plan</button>
+          </div>
+        </div>
+
+        <!-- STEM / EDU tools -->
+        <div class="card">
+          <h3>STEM / EDU tools</h3>
+          <div class="row" style="margin-bottom:8px">
+            <label class="row" style="gap:6px; align-items:center"><input type="checkbox" id="eduNlpToggle" /> Use EDU NLP pipeline</label>
+            <label class="row" style="gap:6px; align-items:center"><input type="checkbox" id="applyAbbrev" /> Apply abbreviations</label>
+            <label class="row" style="gap:6px; align-items:center"><input type="checkbox" id="stemMode" /> STEM mode</label>
+          </div>
+          <div class="row" style="margin-bottom:8px">
+            <label class="grow">Load abbreviations JSON (URL)</label>
+            <input id="abbrevUrl" type="text" placeholder="abbreviations.json" />
+            <button id="loadAbbrevUrlBtn">Load</button>
+          </div>
+          <div class="row">
+            <label class="grow">Or upload JSON file</label>
+            <input id="abbrevFile" type="file" accept="application/json" />
+            <button id="clearAbbrevBtn" class="secondary">Clear</button>
+          </div>
+          <div class="hint" style="margin-top:6px">EDU NLP extracts pronouns, verb lemmas, and key nouns; abbreviations collapse multi-word forms (e.g., “carbon dioxide” → “co2”).</div>
+        </div>
+
+        <div class="card">
+          <h3>Microphone</h3>
+          <div class="row">
+            <button id="recordBtn" class="secondary">● Start recording</button>
+            <button id="transcribeBtn">Transcribe</button>
+            <div id="micStatus" class="muted">Idle</div>
+          </div>
+          <textarea id="transcription" placeholder="Transcription will appear here" style="margin-top:8px"></textarea>
+          <div class="hint" style="margin-top:6px">On-device Whisper (transformers.js). First run downloads model; allow ~100–200MB cache.</div>
+        </div>
+
+        <div class="card">
+          <h3>Video Upload → Sign</h3>
+          <input type="file" id="videoFile" accept="video/*" />
+          <div class="row" style="margin-top:8px">
+            <button id="videoToSignBtn">Video → Sign</button>
+            <div id="videoStatus" class="muted">No file</div>
+          </div>
+        </div>
+
+        <!-- Settings card is kept but hidden -->
+        <div class="card hidden-card">
+          <h3>Settings</h3>
+          <div class="row">
+            <label class="grow">OpenAI API key (optional, stored locally)</label>
+            <input id="openaiKey" type="text" placeholder="sk-..." />
+            <button id="saveKeyBtn" class="secondary">Save</button>
+          </div>
+          <div class="row" style="margin-top:8px">
+            <label class="grow">Database .sigml URL(s)</label>
+            <input id="dbUrlInput" type="text" placeholder="database/hamnosys_bsl_version1.sigml" />
+            <button id="loadDbBtn">Load</button>
+          </div>
+          <div class="hint" style="margin-top:6px">You can load multiple files one-by-one. Loaded signs override earlier duplicates by gloss.</div>
+        </div>
+
+        <!-- Concept CSV (still visible) -->
+        <div class="row" style="margin-top:8px">
+          <label class="grow">Concept CSV (optional)</label>
+          <input id="conceptUrlInput" type="text" placeholder="database/hamnosys_bsl.csv" />
+          <button id="loadConceptBtn">Load</button>
+        </div>
+        <div class="row">
+          <label class="grow">Or upload CSV/TSV</label>
+          <input id="conceptFile" type="file" accept=".csv,.tsv,text/csv,text/tab-separated-values" />
+        </div>
+      </section>
+
+      <!-- RIGHT: Outputs + CWASA -->
+      <section>
+        <!-- Planner card is kept but hidden -->
+        <div class="card hidden-card">
+          <h3>Planner</h3>
+          <div class="row">
+            <div class="grow">
+              <label>Planner log</label>
+              <div id="planLog" class="log"></div>
+            </div>
+          </div>
+          <div class="row" style="margin-top:8px">
+            <div class="grow">
+              <label>Normalized</label>
+              <input type="text" id="normalizedOut" readonly />
+            </div>
+            <div class="grow">
+              <label>Tokens</label>
+              <input type="text" id="tokensOut" readonly />
+            </div>
+          </div>
+          <details style="margin-top:8px">
+            <summary class="hint">Vocabulary (from database)</summary>
+            <div id="allowedOut" class="mono" style="margin-top:8px; max-height:160px; overflow:auto"></div>
+          </details>
+          <h3>EDU Diagnostics</h3>
+          <div class="row">
+            <div class="grow">
+              <label>Timeframe guess</label>
+              <input type="text" id="timeframeOut" readonly />
+            </div>
+            <div class="grow">
+              <label>Abbreviations applied</label>
+              <input type="text" id="abbrevCountOut" readonly />
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Render (CWASA)</h3>
+          <div class="row" style="align-items:flex-start">
+            <div class="avatar-wrap">
+              <div class="CWASAAvatar av0"></div>
+            </div>
+            <div class="grow">
+              <div class="row" style="margin-bottom:8px">
+                <button id="renderBtn">Play planned signs</button>
+                <button id="stopBtn" class="secondary">Stop</button>
+                <div id="renderStatus" class="muted">CWASA loading…</div>
+              </div>
+              <label>Queued tokens</label>
+              <div id="queuedChips" class="chips"></div>
+              <div class="hint" style="margin-top:6px">Renders by concatenating the matching <span class="kbd">&lt;hns_sign&gt;</span> blocks into one SiGML and sending to <span class="kbd">CWASA.playSiGMLText</span>.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+  // ------------------------------
+  // CWASA init
+  // ------------------------------
+  const renderStatus = document.getElementById('renderStatus');
+
+  function initCWASA() {
+    if (!window.CWASA) {
+      renderStatus.textContent = 'CWASA script not loaded. Check URLs.';
+      return;
+    }
+    CWASA.init({
+      useClientConfig: false,
+      useCwaConfig: true,
+      avSettings: [{
+        width: 384,
+        height: 320,
+        avList: 'avs',
+        initAv: 'luna',
+        ambIdle: true,
+        allowFrameSteps: false,
+        allowSiGMLText: false,
+      }]
+    });
+    if (CWASA.ready && typeof CWASA.ready.then === 'function') {
+      CWASA.ready.then(() => { renderStatus.textContent = 'Ready'; });
+    } else {
+      setTimeout(() => { renderStatus.textContent = 'Ready'; }, 300);
+    }
+  }
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      try { initCWASA(); } catch (e) {
+        console.error(e);
+        renderStatus.textContent = 'CWASA init error — see console.';
+      }
+    }, 150);
+  });
+  </script>
+
+  <script>
+    // ------------------------------
+    // Abbreviations loading + EDU NLP helpers
+    // ------------------------------
+    const abbrevUrl = document.getElementById('abbrevUrl');
+    const loadAbbrevUrlBtn = document.getElementById('loadAbbrevUrlBtn');
+    const abbrevFile = document.getElementById('abbrevFile');
+    const clearAbbrevBtn = document.getElementById('clearAbbrevBtn');
+    const applyAbbrev = document.getElementById('applyAbbrev');
+    const eduNlpToggle = document.getElementById('eduNlpToggle');
+    const stemMode = document.getElementById('stemMode');
+    const timeframeOut = document.getElementById('timeframeOut');
+    const abbrevCountOut = document.getElementById('abbrevCountOut');
+
+    // Abbrev store (phrase -> replacement)
+    let ABBREV = new Map();
+
+    // Optional: preload a minimal STEM set
+    const STEM_PRESET = {
+      'carbon dioxide': 'co2',
+      'deoxyribonucleic acid': 'dna',
+      'adenosine triphosphate': 'atp',
+      'machine learning': 'ml',
+      'artificial intelligence': 'ai',
+      'central processing unit': 'cpu',
+      'graphics processing unit': 'gpu',
+    };
+
+    function applyStemPreset(){
+      for (const [k,v] of Object.entries(STEM_PRESET)) ABBREV.set(k.toLowerCase(), v.toLowerCase());
+    }
+
+    function clearAbbrev(){ ABBREV.clear(); updateAbbrevCount(0); log('Cleared abbreviations.'); }
+
+    function updateAbbrevCount(n){ abbrevCountOut.value = String(n); }
+
+    async function loadAbbrevFromUrl(url){
+      try{
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const obj = await res.json();
+        let n = 0;
+        for (const [k,v] of Object.entries(obj||{})){
+          ABBREV.set(String(k).toLowerCase().trim(), String(v).toLowerCase().trim());
+          n++;
+        }
+        updateAbbrevCount(ABBREV.size);
+        log(`Loaded ${n} abbreviations from ${url}`);
+      }catch(e){ log('Abbrev load error: ' + e); }
+    }
+
+    async function loadAbbrevFromFile(file){
+      try{
+        const txt = await file.text();
+        const obj = JSON.parse(txt);
+        let n = 0;
+        for (const [k,v] of Object.entries(obj||{})){
+          ABBREV.set(String(k).toLowerCase().trim(), String(v).toLowerCase().trim());
+          n++;
+        }
+        updateAbbrevCount(ABBREV.size);
+        log(`Loaded ${n} abbreviations from file: ${file.name}`);
+      }catch(e){ log('Abbrev file error: ' + e); }
+    }
+
+    function replaceAbbreviationsBrowser(text){
+      if (!applyAbbrev.checked || ABBREV.size === 0) return { text, count: 0 };
+      const pairs = Array.from(ABBREV.entries()).sort((a,b)=> b[0].length - a[0].length);
+      let count = 0; let out = text;
+      for (const [phrase, replRaw] of pairs){
+        const escaped = phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        // Safari-safe boundaries: left via capture, right via lookahead
+        const re = new RegExp('(^|[^A-Za-z0-9_])(' + escaped + ')(?=[^A-Za-z0-9_]|$)', 'gi');
+        out = out.replace(re, (match, pre, matched) => {
+          count++;
+          const raw = String(replRaw);
+          const repl = (/^[a-z]{2,5}$/i.test(raw) && /^[a-z]{2,5}$/.test(raw)) ? raw.toUpperCase() : raw;
+          return pre + repl;
+        });
+      }
+      return { text: out, count };
+    }
+
+    // EDU NLP using compromise: pronouns, verb lemmas, key nouns
+    const EDU_STOPWORDS = new Set(['a','an','the','and','or','but','if','then','than','of','to','in','on','at','for','from','with','as','by','is','are','am','be','been','was','were','do','does','did','that','this','those','these','it','my','your','our']);
+
+    function timeframeGuess(str){
+      const s = (str || '').toLowerCase();
+      if (/\bwill\b|\btomorrow\b|\bnext\b/.test(s)) return 'In the future';
+      if (/\byesterday\b|\bago\b|\blast\b/.test(s)) return 'In the past';
+      return 'Now';
+    }
+
+    function processEducationalText(text){
+      const doc = window.nlp(text);
+      const tokens = [];
+      const pronouns = doc.match('#Pronoun').out('array').map(s=>s.toLowerCase());
+      for (const p of pronouns){ if (!EDU_STOPWORDS.has(p)) tokens.push(p); }
+      const verbInf = doc.verbs().toInfinitive().out('array').map(s=>s.toLowerCase());
+      for (const v of verbInf){ if (!EDU_STOPWORDS.has(v)) tokens.push(v); }
+      const nouns = doc.nouns().toSingular().out('array').map(s=>s.toLowerCase());
+      for (const n of nouns){ if (!EDU_STOPWORDS.has(n)) tokens.push(n); }
+      const seen = new Set();
+      const uniq = tokens.filter(t=>{ if (seen.has(t)) return false; seen.add(t); return true; });
+      return uniq;
+    }
+
+    // UI wiring
+    loadAbbrevUrlBtn.addEventListener('click', ()=>{ const u = abbrevUrl.value.trim(); if (u) loadAbbrevFromUrl(u); });
+    if (abbrevFile) {
+      abbrevFile.addEventListener('change', (e) => {
+        const files = e.target && e.target.files;
+        const f = files && files[0];
+        if (f) loadAbbrevFromFile(f);
+      });
+    }
+    clearAbbrevBtn.addEventListener('click', ()=> clearAbbrev());
+    stemMode.addEventListener('change', ()=>{ if (stemMode.checked){ applyStemPreset(); updateAbbrevCount(ABBREV.size); log('STEM preset loaded.'); } });
+  </script>
+
+  <script>
+    // ------------------------------
+    // Database loading (SiGML) & vocab
+    // ------------------------------
+    const allowedOut = document.getElementById('allowedOut');
+    const dbUrlInput = document.getElementById('dbUrlInput');
+    const loadDbBtn = document.getElementById('loadDbBtn');
+    const conceptUrlInput = document.getElementById('conceptUrlInput');
+    const loadConceptBtn  = document.getElementById('loadConceptBtn');
+    const conceptFile     = document.getElementById('conceptFile');
+
+    const glossToSign = new Map(); // gloss -> <hns_sign>...</hns_sign>
+    const letterToSign = new Map(); // letter -> <hns_sign>...</hns_sign> for fingerspelling
+
+    // Canonical indices
+    const baseToGloss = new Map();   // "abroad" -> "abroad(a)#1" (preferred)
+    const conceptToGloss = new Map(); // optional CSV lexicon: "cell phone" -> "cellular_telephone(n)#1"
+
+    // Normalize a gloss like "abroad(a)#1" -> "abroad"
+    function glossBase(gloss) {
+      return String(gloss)
+        .toLowerCase()
+        .replace(/\(.*?\)/g, '')    // remove (a)/(v)/etc
+        .replace(/#\d+$/g, '')      // remove #1
+        .replace(/[^a-z0-9]+/g, ' ')// keep letters/numbers, collapse others
+        .trim();
+    }
+
+    function rebuildBaseIndex() {
+      baseToGloss.clear();
+      for (const g of glossToSign.keys()) {
+        const b = glossBase(g);
+        // prefer first seen; later loads can override
+        if (!baseToGloss.has(b)) baseToGloss.set(b, g);
+      }
+    }
+
+    async function loadSigmlUrl(url, isAutoload = false){
+      try{
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) {
+          if (isAutoload && res.status === 404) {
+            log(`Optional DB missing: ${url} (skipping)`);
+            return;
+          }
+          throw new Error('HTTP ' + res.status);
+        }
+        const xmlText = await res.text();
+        const doc = new DOMParser().parseFromString(xmlText, 'application/xml');
+        const signs = Array.from(doc.querySelectorAll('hns_sign'));
+        let added = 0;
+        for (const s of signs){
+          const gloss = (s.getAttribute('gloss') || '').trim().toLowerCase();
+          if (!gloss) continue;
+          glossToSign.set(gloss, s.outerHTML);
+          added++;
+        }
+        refreshAllowedOutput();
+        log(`Loaded ${added} signs from ${url}`);
+      }catch(e){
+        if (isAutoload) {
+          log(`Optional DB missing: ${url} (skipping)`);
+        } else {
+          log(`Failed to load ${url}: ${e}. If this is a CORS error, host the file under /database on the same origin or enable CORS on the source.`);
+        }
+      }
+    }
+
+    function refreshAllowedOutput(){
+      const list = Array.from(glossToSign.keys()).sort();
+      if (allowedOut) {
+        allowedOut.textContent = list.join(', ');
+      }
+      rebuildBaseIndex();
+    }
+
+    // Load alphabet SIGML for fingerspelling support
+    async function loadAlphabetSigmlUrl(url, isAutoload = false){
+      try{
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) {
+          if (isAutoload && res.status === 404) {
+            log(`Optional alphabet DB missing: ${url} (skipping)`);
+            return;
+          }
+          throw new Error('HTTP ' + res.status);
+        }
+        const xmlText = await res.text();
+        // The alphabet file has multiple <sigml> blocks with <!-- Letter: X --> comments
+        // We need to parse each <hns_sign> and get the gloss (which is the letter)
+        const doc = new DOMParser().parseFromString('<root>' + xmlText + '</root>', 'application/xml');
+        const signs = Array.from(doc.querySelectorAll('hns_sign'));
+        let added = 0;
+        for (const s of signs){
+          const gloss = (s.getAttribute('gloss') || '').trim().toUpperCase();
+          // Only accept single uppercase letters A-Z
+          if (!gloss || gloss.length !== 1 || gloss < 'A' || gloss > 'Z') continue;
+          // Store with the outer <hns_sign> tag included
+          letterToSign.set(gloss, s.outerHTML);
+          added++;
+        }
+        log(`Loaded ${added} alphabet letters for fingerspelling from ${url}`);
+      }catch(e){
+        if (isAutoload) {
+          log(`Optional alphabet DB missing: ${url} (skipping)`);
+        } else {
+          log(`Failed to load alphabet ${url}: ${e}.`);
+        }
+      }
+    }
+
+    function parseTable(text){
+      // Support BOM
+      let cleaned = text;
+      if (text.charCodeAt(0) === 0xFEFF) {
+        cleaned = text.slice(1);
+      }
+      const delim = cleaned.includes('\t') ? '\t' : ',';
+      const lines = cleaned.split(/\r?\n/).filter(line => line.trim());
+      if (!lines.length) return { header: [], rows: [] };
+      const header = (lines.shift() || '').split(delim).map(s=>s.trim().toLowerCase());
+      const rows = lines.map(line => {
+        const cols = line.split(delim).map(s=>s.trim());
+        const obj = {};
+        for (let i=0;i<header.length;i++) obj[header[i]] = cols[i] || '';
+        return obj;
+      });
+      return { header, rows };
+    }
+
+    async function loadConceptCsvUrl(url, isAutoload = false){
+      try{
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) {
+          if (isAutoload && res.status === 404) {
+            log(`Optional DB missing: ${url} (skipping)`);
+            return;
+          }
+          throw new Error('HTTP ' + res.status);
+        }
+        const txt = await res.text();
+        const { header, rows } = parseTable(txt);
+        if (!header.includes('concept') || !header.includes('gloss'))
+          throw new Error('CSV must have "concept" and "gloss" headers');
+        let n = 0;
+        for (const r of rows){
+          const concept = String(r.concept||'').toLowerCase().trim();
+          const gloss   = String(r.gloss||'').toLowerCase().trim();
+          if (!concept || !gloss) continue;
+          conceptToGloss.set(glossBase(concept), gloss);
+          n++;
+        }
+        log(`Loaded ${n} concepts from ${url}`);
+      }catch(e){ 
+        if (isAutoload) {
+          log(`Optional DB missing: ${url} (skipping)`);
+        } else {
+          log('Concept CSV load error: ' + e);
+        }
+      }
+    }
+
+    async function loadConceptCsvFile(file){
+      try{
+        const txt = await file.text();
+        const { header, rows } = parseTable(txt);
+        if (!header.includes('concept') || !header.includes('gloss'))
+          throw new Error('CSV must have "concept" and "gloss" headers');
+        let n = 0;
+        for (const r of rows){
+          const concept = String(r.concept||'').toLowerCase().trim();
+          const gloss   = String(r.gloss||'').toLowerCase().trim();
+          if (!concept || !gloss) continue;
+          conceptToGloss.set(glossBase(concept), gloss);
+          n++;
+        }
+        log(`Loaded ${n} concept→gloss entries from file: ${file.name}`);
+      }catch(e){ log('Concept CSV file error: ' + e); }
+    }
+
+    loadConceptBtn?.addEventListener('click', ()=>{
+      const u = conceptUrlInput?.value.trim();
+      if (u) loadConceptCsvUrl(u);
+    });
+    if (conceptFile) {
+      conceptFile.addEventListener('change', (e) => {
+        const files = e.target && e.target.files;
+        const f = files && files[0];
+        if (f) loadConceptCsvFile(f);
+      });
+    }
+
+
+    loadDbBtn?.addEventListener('click', () => {
+      const u = dbUrlInput.value.trim();
+      if (u) loadSigmlUrl(u);
+    });
+
+    // Auto-load default DB paths on page load
+    window.addEventListener('load', async () => {
+      await loadSigmlUrl('database/hamnosys_bsl_version1.sigml', true);
+      await loadConceptCsvUrl('database/hamnosys_bsl.csv', true);
+      await loadAlphabetSigmlUrl('database/bsl_alphabet_sigml.sigml', true);
+    });
+  </script>
+
+  <script>
+    // ------------------------------
+    // Planning pipeline (normalize → heuristic → fuzzy map)
+    // ------------------------------
+    const textIn = document.getElementById('textIn');
+    const planSpaCyBtn = document.getElementById('planSpaCyBtn');
+    const planOpenAIBtn = document.getElementById('planOpenAIBtn');
+    const planLog = document.getElementById('planLog');
+    const normalizedOut = document.getElementById('normalizedOut');
+    const tokensOut = document.getElementById('tokensOut');
+    const queuedChips = document.getElementById('queuedChips');
+
+
+    
+    // Call Python / spaCy backend (Render, Railway, etc.)
+    async function planWithSpaCyBackend(rawText) {
+      try {
+        const resp = await fetch('https://asl-spacy-backend.onrender.com/plan', {
+          method: 'POST',
+          mode: 'cors',
+          credentials: 'omit',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: rawText }),
+        });
+    
+        console.log("Backend response:", resp.status, resp.ok);
+    
+        if (!resp.ok) {
+          // Try to read body for extra info (optional)
+          let detail = "";
+          try { detail = await resp.text(); } catch (_) {}
+          throw new Error(`Backend HTTP ${resp.status} ${detail}`);
+        }
+    
+        const json = await resp.json();
+        console.log('BACKEND JSON:', json);
+        return json;
+      } catch (e) {
+        console.error("spaCy backend fetch failed:", e);
+        throw e;
+      }
+    }
+
+
+    
+    const STOPWORDS = new Set(['a','an','the','and','or','but','if','then','than','of','to','in','on','at','for','from','with','as','by','is','are','am','be','been','was','were','do','does','did','that','this','those','these','it','my','your','our']);
+    const TOPIC_TIME = new Set(['today','yesterday','tomorrow','morning','afternoon','evening','night','noon','week','month','year','time']);
+
+
+    
+    function normalizeText(str){
+      // Safari-safe: try Unicode property escapes first, fallback to classic ASCII
+      try {
+        return (str||'').toLowerCase().replace(/[\p{P}\p{S}]/gu,' ').split(/\s+/).filter(Boolean);
+      } catch(e) {
+        // Fallback for older browsers
+        return (str||'').toLowerCase().replace(/[^\w\s]/g,' ').split(/\s+/).filter(Boolean);
+      }
+    }
+
+    function heuristicPlan(tokens){
+      const kept = tokens.filter(t => !STOPWORDS.has(t));
+      const front = kept.filter(t => TOPIC_TIME.has(t));
+      const rest = kept.filter(t => !TOPIC_TIME.has(t));
+      return [...front, ...rest];
+    }
+
+    // Simple Levenshtein distance + similarity ratio
+    function levenshtein(a,b){
+      const m=a.length, n=b.length; if(!m) return n; if(!n) return m;
+      const dp = new Array(n+1); for(let j=0;j<=n;j++) dp[j]=j;
+      for(let i=1;i<=m;i++){
+        let prev = dp[0]; dp[0]=i;
+        for(let j=1;j<=n;j++){
+          const temp = dp[j];
+          dp[j] = Math.min(
+            dp[j] + 1,
+            dp[j-1] + 1,
+            prev + (a[i-1]===b[j-1]?0:1)
+          );
+          prev = temp;
+        }
+      }
+      return dp[n];
+    }
+    function similarity(a,b){
+      if (!a||!b) return 0;
+      const d = levenshtein(a,b);
+      return 1 - d / Math.max(a.length, b.length);
+    }
+
+    function mapToAvailable(tokens, allowedGlosses, cutoff = 0.82){
+      const mapped = [], subs = {}, missing = [], fingerspelled = [];
+      if (!allowedGlosses.length) return { mapped, subs, missing: [...tokens], fingerspelled };
+
+      // Build local base index once per call
+      const bases = allowedGlosses.map(g => glossBase(g));
+      const baseToGlossLocal = new Map();
+      for (let i=0; i<allowedGlosses.length; i++){
+        const g = allowedGlosses[i];
+        const b = bases[i];
+        if (!baseToGlossLocal.has(b)) baseToGlossLocal.set(b, g);
+      }
+
+      for (const t of tokens){
+        // 1) exact gloss match
+        if (allowedGlosses.includes(t)) { 
+          mapped.push(t); 
+          continue; 
+        }
+
+        // 2) concept lexicon (CSV) - check first for plain words
+        const tBase = glossBase(t);
+        if (conceptToGloss.has(tBase)) {
+          const g = conceptToGloss.get(tBase);
+          mapped.push(g);
+          if (t !== g) subs[t] = g;
+          continue;
+        }
+
+        // 3) base index from loaded glosses (global)
+        if (baseToGloss.has(tBase)) {
+          const g = baseToGloss.get(tBase);
+          mapped.push(g);
+          if (t !== g) subs[t] = g;
+          continue;
+        }
+
+        // 4) local base index (fallback)
+        if (baseToGlossLocal.has(tBase)) {
+          const g = baseToGlossLocal.get(tBase);
+          mapped.push(g);
+          if (t !== tBase) subs[t] = g;
+          continue;
+        }
+
+        // 5) fuzzy match on bases
+        let bestBase = null, bestScore = 0;
+        for (const b of baseToGlossLocal.keys()){
+          const s = similarity(tBase, b);
+          if (s > bestScore) { bestScore = s; bestBase = b; }
+        }
+        if (bestBase && bestScore >= cutoff){
+          const g = baseToGlossLocal.get(bestBase);
+          mapped.push(g);
+          subs[t] = g;
+        } else {
+          // 6) Word not found - include for fingerspelling if alphabet is available
+          if (letterToSign.size > 0) {
+            // Check if the word can be fingerspelled (has at least one letter A-Z)
+            const hasLetter = /[A-Za-z]/.test(t);
+            if (hasLetter) {
+              mapped.push(t); // Include in mapped so it can be fingerspelled
+              fingerspelled.push(t);
+            } else {
+              missing.push(t);
+            }
+          } else {
+            missing.push(t);
+          }
+        }
+      }
+      return { mapped, subs, missing, fingerspelled };
+    }
+
+    function currentAllowed(){
+      return Array.from(glossToSign.keys()).sort();
+    }
+
+    function chipify(tokens){
+      queuedChips.innerHTML = '';
+      for (const t of tokens){
+        const div = document.createElement('div');
+        div.className = 'chip';
+        div.textContent = t;
+        queuedChips.appendChild(div);
+      }
+    }
+
+    // Optional OpenAI planner
+    async function planWithOpenAI(rawText, allowed){
+      const key = localStorage.getItem('openai_key');
+      if (!key) return null;
+      const system = "You rewrite user sentences into ASL-friendly word order as tokens. Use ONLY words from the allowed vocabulary provided. If a word is not present, substitute the closest semantic match from the allowed list. Return ONLY the final token sequence as a single space-separated line. No explanations.";
+      const user = `ALLOWED:\n${allowed.join(', ')}\n\nTEXT:\n${rawText}\n\nFORMAT:\nspace-separated tokens, lowercase`;
+      try{
+        const resp = await fetch('https://api.openai.com/v1/chat/completions',{
+          method:'POST',
+          headers:{ 'Authorization': `Bearer ${key}`, 'Content-Type':'application/json' },
+          body: JSON.stringify({
+            model:'gpt-4o-mini',
+            temperature:0.1,
+            messages:[{role:'system', content:system},{role:'user', content:user}],
+          })
+        });
+        if (!resp.ok) throw new Error('OpenAI HTTP ' + resp.status);
+        const data = await resp.json();
+        let content = '';
+        if (
+          data &&
+          Array.isArray(data.choices) &&
+          data.choices.length > 0 &&
+          data.choices[0] &&
+          data.choices[0].message &&
+          typeof data.choices[0].message.content === 'string'
+        ) {
+          content = data.choices[0].message.content.trim();
+        }
+        const toks = content.split(/\s+/).filter(w => allowed.includes(w));
+        return toks.length ? toks : null;
+      }catch(e){ log('OpenAI planner error: ' + e); return null; }
+    }
+
+    async function doPlan(mode) {
+      const raw0 = textIn.value.trim();
+      if (!raw0) {
+        log('Empty text.');
+        return;
+      }
+    
+      const allowed = currentAllowed();
+      if (allowed.length === 0) {
+        log('database/ is empty — add .sigml files first.');
+        return;
+      }
+    
+      // 1) Client-side abbreviations + timeframe
+      const { text: raw, count: abCount } = replaceAbbreviationsBrowser(raw0);
+      if (typeof abbrevCountOut !== 'undefined' && abbrevCountOut) {
+        abbrevCountOut.value = String(abCount);
+      }
+      if (typeof timeframeOut !== 'undefined' && timeframeOut) {
+        timeframeOut.value = timeframeGuess(raw);
+      }
+    
+      let mapped = null, subs = {}, missing = [];
+    
+      // 2) Allow exact gloss input (e.g., abroad(a)#1 abroad(n)#1 ...)
+      const rawTokens = raw.split(/\s+/).map(s => s.toLowerCase()).filter(Boolean);
+      if (rawTokens.length && rawTokens.every(t => allowed.includes(t))) {
+        if (normalizedOut) normalizedOut.value = rawTokens.join(' ');
+        if (planLog) planLog.textContent = 'planned (exact gloss)';
+        if (tokensOut) tokensOut.value = rawTokens.join(' ');
+        chipify(rawTokens);
+        window.__plannedTokens = rawTokens;
+        return;
+      }
+    
+      // 3) Check if entire phrase matches a concept (before tokenizing)
+      const phraseBase = glossBase(raw);
+      if (conceptToGloss.has(phraseBase)) {
+        const g = conceptToGloss.get(phraseBase);
+        mapped = [g];
+        if (normalizedOut) normalizedOut.value = raw;
+        if (planLog) planLog.textContent = `concept-map: "${raw}" → "${g}"`;
+        if (tokensOut) tokensOut.value = g;
+        chipify(mapped);
+        window.__plannedTokens = mapped;
+        return;
+      }
+    
+      // 4) Backend planners: spaCy or OpenAI
+      if (mode === 'spacy') {
+        try {
+          const backend = await planWithSpaCyBackend(raw);
+          if (backend.error) {
+            log('Backend error: ' + backend.error);
+            throw new Error(backend.error);
+          }
+      
+          const backendTokens = String(backend.final || '')
+            .replace(/[.\n]/g, ' ')
+            .split(/\s+/)
+            .filter(Boolean);
+      
+          console.log('BACKEND.final:', backend.final);
+          console.log('BACKEND tokens:', backendTokens);
+      
+          const m = mapToAvailable(backendTokens, allowed, 0.82);
+          const mappedFromBackend  = m.mapped;
+          const subsFromBackend    = m.subs;
+          const missingFromBackend = m.missing;
+          const fingerspelledFromBackend = m.fingerspelled || [];
+      
+          console.log('mappedFromBackend:', mappedFromBackend);
+          console.log('subsFromBackend:', subsFromBackend);
+          console.log('missingFromBackend:', missingFromBackend);
+          console.log('fingerspelledFromBackend:', fingerspelledFromBackend);
+      
+          const displayTokens = mappedFromBackend.length
+            ? mappedFromBackend
+            : backendTokens;
+      
+          console.log('displayTokens actually used:', displayTokens);
+      
+          if (normalizedOut) normalizedOut.value = backendTokens.join(' ');
+          if (planLog) {
+            const lines = ['spacy-backend'];
+            if (Object.keys(subsFromBackend).length) {
+              lines.push('substitutions: ' + JSON.stringify(subsFromBackend));
+            }
+            if (fingerspelledFromBackend.length) {
+              lines.push('fingerspelled: ' + fingerspelledFromBackend.join(', '));
+            }
+            if (missingFromBackend.length) {
+              lines.push('missing: ' + missingFromBackend.join(', '));
+            }
+            planLog.textContent = lines.join('\n');
+          }
+      
+          if (tokensOut) tokensOut.value = displayTokens.join(' ');
+          chipify(displayTokens);
+          window.__plannedTokens = displayTokens;
+          return;
+        } catch (e) {
+          log('Python backend error, will fall back: ' + e);
+        }
+      }
+
+      else if (mode === 'openai') {
+        try {
+          const openTokens = await planWithOpenAI(raw, allowed);
+          if (openTokens && openTokens.length) {
+            const m = mapToAvailable(openTokens, allowed, 0.82);
+            mapped  = m.mapped;
+            subs    = m.subs;
+            missing = m.missing;
+            const fingerspelled = m.fingerspelled || [];
+    
+            if (normalizedOut) normalizedOut.value = openTokens.join(' ');
+            if (planLog) {
+              const lines = ['openai-backend'];
+              if (Object.keys(subs).length) lines.push('substitutions: ' + JSON.stringify(subs));
+              if (fingerspelled.length) lines.push('fingerspelled: ' + fingerspelled.join(', '));
+              if (missing.length) lines.push('missing: ' + missing.join(', '));
+              planLog.textContent = lines.join('\n');
+            }
+          }
+        } catch (e) {
+          log('OpenAI planner error, will fall back: ' + e);
+        }
+      }
+    
+      // 5) If backend didn’t produce anything, use EDU NLP pipeline (optional) + heuristic
+      if (!mapped || !mapped.length) {
+        // EDU NLP pipeline (if checkbox on)
+        if (typeof eduNlpToggle !== 'undefined' && eduNlpToggle.checked) {
+          const eduTokens = processEducationalText(raw);
+          const mEdu = mapToAvailable(eduTokens, allowed, 0.82);
+          mapped  = mEdu.mapped;
+          subs    = mEdu.subs;
+          missing = mEdu.missing;
+          const fingerspelled = mEdu.fingerspelled || [];
+    
+          if (normalizedOut) normalizedOut.value = eduTokens.join(' ');
+          if (planLog) {
+            const lines = ['edu-nlp'];
+            if (Object.keys(subs).length) lines.push('substitutions: ' + JSON.stringify(subs));
+            if (fingerspelled.length) lines.push('fingerspelled: ' + fingerspelled.join(', '));
+            if (missing.length) lines.push('missing: ' + missing.join(', '));
+            planLog.textContent = lines.join('\n');
+          }
+        }
+      }
+    
+      // 6) Final fallback: pure heuristic on normalized tokens
+      if (!mapped || !mapped.length) {
+        const norm = normalizeText(raw);
+        const heur = heuristicPlan(norm);
+        const mHeur = mapToAvailable(heur, allowed, 0.82);
+        mapped  = mHeur.mapped;
+        subs    = mHeur.subs;
+        missing = mHeur.missing;
+        const fingerspelled = mHeur.fingerspelled || [];
+    
+        if (normalizedOut) normalizedOut.value = norm.join(' ');
+        if (planLog) {
+          const lines = [];
+          if (heur.length) lines.push('heuristic: ' + heur.join(' '));
+          if (Object.keys(subs).length) lines.push('substitutions: ' + JSON.stringify(subs));
+          if (fingerspelled.length) lines.push('fingerspelled: ' + fingerspelled.join(', '));
+          if (missing.length) lines.push('missing: ' + missing.join(', '));
+          planLog.textContent = lines.length ? lines.join('\n') : 'planned';
+        }
+      }
+    
+      // 7) Push tokens to UI + CWASA
+      if (!mapped || !mapped.length) {
+        log('No tokens mapped to available signs.');
+        return;
+      }
+    
+      if (tokensOut) tokensOut.value = mapped.join(' ');
+      chipify(mapped);
+      window.__plannedTokens = mapped;
+    }
+    const planBtn = document.getElementById('planBtn');
+    planBtn.addEventListener('click', () => doPlan('heuristic'));
+    planSpaCyBtn.addEventListener('click', () => doPlan('spacy'));
+    planOpenAIBtn.addEventListener('click', () => doPlan('openai'));
+  </script>
+
+  <script>
+    // ------------------------------
+    // Render with CWASA (concatenate SiGML blocks for planned tokens)
+    // ------------------------------
+    const renderBtn = document.getElementById('renderBtn');
+    const stopBtn = document.getElementById('stopBtn');
+
+    // Helper function to check if a character is an uppercase letter A-Z
+    function isUpperLetter(char) {
+      return char >= 'A' && char <= 'Z';
+    }
+
+    // Fingerspell a word by looking up each letter in letterToSign
+    function fingerspellWord(word){
+      const blocks = [];
+      const upperWord = (word || '').toUpperCase();
+      for (const char of upperWord){
+        // Only fingerspell letters A-Z
+        if (isUpperLetter(char)){
+          const letterBlock = letterToSign.get(char);
+          if (letterBlock) {
+            blocks.push(letterBlock);
+          }
+        }
+        // Numbers and other characters are skipped (could be extended later)
+      }
+      return blocks;
+    }
+
+    function buildSigml(tokens){
+      const blocks = [];
+      for (const t of tokens){
+        const b = glossToSign.get(t);
+        if (b) {
+          blocks.push(b);
+        } else if (letterToSign.size > 0) {
+          // Word not found in dictionary - try fingerspelling
+          const letterBlocks = fingerspellWord(t);
+          if (letterBlocks.length > 0) {
+            blocks.push(...letterBlocks);
+            log(`Fingerspelling: "${t}"`);
+          }
+        }
+      }
+      if (!blocks.length) return null;
+      return `<?xml version="1.0" encoding="utf-8"?>\n<sigml>\n${blocks.join('\n')}\n</sigml>`;
+    }
+
+    function playSigml(sigml){
+      try{
+        CWASA.playSiGMLText(sigml, 0);
+      }catch(e){ log('CWASA play error: ' + e); }
+    }
+
+    renderBtn.addEventListener('click', () => {
+      const toks = window.__plannedTokens || [];
+      if (!toks.length){ log('Nothing to render — token list is empty.'); return; }
+      const sigml = buildSigml(toks);
+      if (!sigml){ log('No matching signs for planned tokens.'); return; }
+      playSigml(sigml);
+    });
+
+    stopBtn.addEventListener('click', () => {
+      try{ CWASA.stop(0); }catch(_e){}
+    });
+  </script>
+
+  <script>
+    // ------------------------------
+    // Microphone recording + on-device Whisper (transformers.js)
+    // ------------------------------
+    const recordBtn = document.getElementById('recordBtn');
+    const transcribeBtn = document.getElementById('transcribeBtn');
+    const micStatus = document.getElementById('micStatus');
+    const transcription = document.getElementById('transcription');
+    const langHint = document.getElementById('langHint');
+
+    let mediaRecorder = null;
+    let recordedChunks = [];
+
+    function pickAsrModel(){
+      const ua = navigator.userAgent || '';
+      const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(ua);
+      return isMobile ? 'Xenova/whisper-tiny.en' : 'Xenova/whisper-small';
+    }
+
+    async function ensureASR(){
+      const { pipeline } = window.transformers;
+      const model = pickAsrModel();
+      if (!window.__asr || window.__asrModelName !== model){
+        window.__asr = await pipeline('automatic-speech-recognition', model);
+        window.__asrModelName = model;
+      }
+      return window.__asr;
+    }
+
+    recordBtn.addEventListener('click', async () => {
+      if (!mediaRecorder){
+        // start
+        try{
+          const stream = await navigator.mediaDevices.getUserMedia({ audio:true });
+          recordedChunks = [];
+          mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+          mediaRecorder.ondataavailable = (e)=>{ if(e.data.size>0) recordedChunks.push(e.data); };
+          mediaRecorder.onstop = ()=>{ stream.getTracks().forEach(t=>t.stop()); };
+          mediaRecorder.start();
+          recordBtn.textContent = '■ Stop recording';
+          recordBtn.classList.remove('secondary');
+          micStatus.textContent = 'Recording…';
+        }catch(e){ micStatus.textContent = 'Mic error: ' + e; }
+      } else {
+        // stop
+        mediaRecorder.stop();
+        mediaRecorder = null;
+        recordBtn.textContent = '● Start recording';
+        recordBtn.classList.add('secondary');
+        micStatus.textContent = `Recorded ${(recordedChunks.reduce((s,b)=>s+b.size,0)/1024/1024).toFixed(1)} MB`;
+      }
+    });
+
+    transcribeBtn.addEventListener('click', async () => {
+      if (!recordedChunks.length){ micStatus.textContent = 'Nothing recorded.'; return; }
+      micStatus.textContent = 'Loading ASR model… (first time can take a while)';
+      try{
+        const asr = await ensureASR();
+        micStatus.textContent = 'Transcribing…';
+        const blob = new Blob(recordedChunks, { type: 'audio/webm' });
+        const result = await asr(blob, { chunk_length_s: 30, stride_length_s: 5 });
+        transcription.value = (result?.text || '').trim();
+        micStatus.textContent = 'Done.';
+      }catch(e){ micStatus.textContent = 'Transcription error: ' + e; }
+    });
+  </script>
+
+  <script>
+    // ------------------------------
+    // Video → Sign: extract audio with ffmpeg.wasm → Whisper ASR → plan → render
+    // ------------------------------
+    const videoFile = document.getElementById('videoFile');
+    const videoToSignBtn = document.getElementById('videoToSignBtn');
+    const videoStatus = document.getElementById('videoStatus');
+
+    async function ensureFFmpeg(){
+      if (!window.__ffmpeg){
+        const { createFFmpeg, fetchFile } = FFmpeg;
+        const ffmpeg = createFFmpeg({ log: false });
+        await ffmpeg.load();
+        window.__ffmpeg = { ffmpeg, fetchFile };
+      }
+      return window.__ffmpeg;
+    }
+
+    videoToSignBtn.addEventListener('click', async () => {
+      let file = null;
+      if (videoFile && videoFile.files && videoFile.files.length > 0) {
+        file = videoFile.files[0];
+      }
+
+      if (!file){ videoStatus.textContent = 'Choose a video first.'; return; }
+      try{
+        videoStatus.textContent = 'Preparing ffmpeg…';
+        const { ffmpeg, fetchFile } = await ensureFFmpeg();
+        videoStatus.textContent = 'Extracting audio…';
+        ffmpeg.FS('writeFile', 'in', await fetchFile(file));
+        // extract mono 16k WAV — what Whisper likes
+        await ffmpeg.run('-i', 'in', '-vn', '-ac', '1', '-ar', '16000', '-f', 'wav', 'out.wav');
+        const data = ffmpeg.FS('readFile', 'out.wav');
+        const wavBlob = new Blob([data.buffer], { type: 'audio/wav' });
+
+        videoStatus.textContent = 'Loading ASR model…';
+        const asr = await ensureASR();
+        videoStatus.textContent = 'Transcribing…';
+        const result = await asr(wavBlob, { chunk_length_s: 30, stride_length_s: 5 });
+        const text = (result?.text || '').trim();
+        transcription.value = text;
+        videoStatus.textContent = 'Planning…';
+        textIn.value = text;
+        await doPlan();
+        videoStatus.textContent = 'Ready to render.';
+      }catch(e){ videoStatus.textContent = 'Video→Sign error: ' + e; }
+    });
+  </script>
+
+  <script>
+    // ------------------------------
+    // Settings (OpenAI key)
+    // ------------------------------
+    const openaiKey = document.getElementById('openaiKey');
+    const saveKeyBtn = document.getElementById('saveKeyBtn');
+
+    if (openaiKey) openaiKey.value = localStorage.getItem('openai_key') || '';
+    saveKeyBtn?.addEventListener('click', () => {
+      const v = openaiKey.value.trim();
+      if (v){ localStorage.setItem('openai_key', v); log('Saved OpenAI key locally.'); }
+      else { localStorage.removeItem('openai_key'); log('Cleared OpenAI key.'); }
+    });
+  </script>
+
+  <script>
+    // ------------------------------
+    // Logger helper
+    // ------------------------------
+    function log(msg){
+      const el = document.getElementById('planLog');
+      const now = new Date().toLocaleTimeString();
+      if (!el) return;
+      const prev = el.textContent ? (el.textContent + '\n') : '';
+      el.textContent = prev + `[${now}] ${msg}`;
+    }
+  </script>
+
+  <script>
+    // ------------------------------
+    // Global error handlers (defensive)
+    // ------------------------------
+    window.addEventListener('error', e => {
+      log('JS error: ' + (e?.error?.message || e.message));
+    });
+    window.addEventListener('unhandledrejection', e => {
+      log('Promise rejection: ' + (e?.reason?.message || e.reason));
+    });
+  </script>
+</body>
+</html>
