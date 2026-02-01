@@ -169,7 +169,7 @@
           </div>
           <div class="row" style="margin-top:8px">
             <label class="grow">Database .sigml URL(s)</label>
-            <input id="dbUrlInput" type="text" placeholder="database/hamnosys_bsl_version1.sigml" />
+            <input id="dbUrlInput" type="text" placeholder="data/hamnosys_bsl_version1.sigml" />
             <button id="loadDbBtn">Load</button>
           </div>
           <div class="hint" style="margin-top:6px">You can load multiple files one-by-one. Loaded signs override earlier duplicates by gloss.</div>
@@ -178,7 +178,7 @@
         <!-- Concept CSV (still visible) -->
         <div class="row" style="margin-top:8px">
           <label class="grow">Concept CSV (optional)</label>
-          <input id="conceptUrlInput" type="text" placeholder="database/hamnosys_bsl.csv" />
+          <input id="conceptUrlInput" type="text" placeholder="data/hamnosys_bsl.csv" />
           <button id="loadConceptBtn">Load</button>
         </div>
         <div class="row">
@@ -607,9 +607,9 @@
 
     // Auto-load default DB paths on page load
     window.addEventListener('load', async () => {
-      await loadSigmlUrl('database/hamnosys_bsl_version1.sigml', true);
-      await loadConceptCsvUrl('database/hamnosys_bsl.csv', true);
-      await loadAlphabetSigmlUrl('database/bsl_alphabet_sigml.sigml', true);
+      await loadSigmlUrl('data/hamnosys_bsl_version1.sigml', true);
+      await loadConceptCsvUrl('data/hamnosys_bsl.csv', true);
+      await loadAlphabetSigmlUrl('data/bsl_alphabet_sigml.sigml', true);
     });
   </script>
 
