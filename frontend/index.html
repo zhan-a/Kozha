@@ -104,15 +104,11 @@
               <option value="ja">ja</option>
             </select>
             <span class="grow"></span>
-            <div class="row" style="gap:6px; align-items:center">
-              <button id="planSpaCyBtn" class="secondary">Plan (spaCy)</button>
-              <button id="planOpenAIBtn">Plan (OpenAI)</button>
-            </div>
-            <button id="planBtn">Plan</button>
+            <button id="translateBtn">Translate</button>
           </div>
         </div>
         
-        <div class="card">
+        <div class="card hidden-card">
           <h3>STEM / EDU tools</h3>
           <div class="row" style="margin-bottom:8px">
             <label class="row" style="gap:6px; align-items:center"><input type="checkbox" id="eduNlpToggle" /> Use EDU NLP pipeline</label>
@@ -223,12 +219,9 @@
             </div>
             <div class="grow">
               <div class="row" style="margin-bottom:8px">
-                <button id="renderBtn">Play planned signs</button>
                 <button id="stopBtn" class="secondary">Stop</button>
                 <div id="renderStatus" class="muted">CWASA loading…</div>
               </div>
-              <label>Queued tokens</label>
-              <div id="queuedChips" class="chips"></div>
               <div class="hint" style="margin-top:6px">Renders by concatenating the matching <span class="kbd">&lt;hns_sign&gt;</span> blocks into one SiGML and sending to <span class="kbd">CWASA.playSiGMLText</span>.</div>
             </div>
           </div>
@@ -583,12 +576,9 @@
 
   <script>
     const textIn = document.getElementById('textIn');
-    const planSpaCyBtn = document.getElementById('planSpaCyBtn');
-    const planOpenAIBtn = document.getElementById('planOpenAIBtn');
     const planLog = document.getElementById('planLog');
     const normalizedOut = document.getElementById('normalizedOut');
     const tokensOut = document.getElementById('tokensOut');
-    const queuedChips = document.getElementById('queuedChips');
 
     async function planWithSpaCyBackend(rawText) {
       try {
@@ -713,16 +703,6 @@
     function currentAllowed(){
       return Array.from(glossToSign.keys()).sort();
     }
-
-    function chipify(tokens){
-      queuedChips.innerHTML = '';
-      for (const t of tokens){
-        const div = document.createElement('div');
-        div.className = 'chip';
-        div.textContent = t;
-        queuedChips.appendChild(div);
-      }
-    }
     async function planWithOpenAI(rawText, allowed){
       const key = localStorage.getItem('openai_key');
       if (!key) return null;
@@ -784,7 +764,6 @@
         if (normalizedOut) normalizedOut.value = rawTokens.join(' ');
         if (planLog) planLog.textContent = 'planned (exact gloss)';
         if (tokensOut) tokensOut.value = rawTokens.join(' ');
-        chipify(rawTokens);
         window.__plannedTokens = rawTokens;
         return;
       }
@@ -796,7 +775,6 @@
         if (normalizedOut) normalizedOut.value = raw;
         if (planLog) planLog.textContent = `concept-map: "${raw}" → "${g}"`;
         if (tokensOut) tokensOut.value = g;
-        chipify(mapped);
         window.__plannedTokens = mapped;
         return;
       }
@@ -850,7 +828,6 @@
           }
       
           if (tokensOut) tokensOut.value = displayTokens.join(' ');
-          chipify(displayTokens);
           window.__plannedTokens = displayTokens;
           return;
         } catch (e) {
@@ -927,17 +904,11 @@
       }
     
       if (tokensOut) tokensOut.value = mapped.join(' ');
-      chipify(mapped);
       window.__plannedTokens = mapped;
     }
-    const planBtn = document.getElementById('planBtn');
-    planBtn.addEventListener('click', () => doPlan('heuristic'));
-    planSpaCyBtn.addEventListener('click', () => doPlan('spacy'));
-    planOpenAIBtn.addEventListener('click', () => doPlan('openai'));
   </script>
 
   <script>
-    const renderBtn = document.getElementById('renderBtn');
     const stopBtn = document.getElementById('stopBtn');
 
     function isUpperLetter(char) {
@@ -983,14 +954,41 @@
       }catch(e){ log('CWASA play error: ' + e); }
     }
 
-    renderBtn.addEventListener('click', () => {
-      const toks = window.__plannedTokens || [];
-      if (!toks.length){ log('Nothing to render — token list is empty.'); return; }
-      const sigml = buildSigml(toks);
-      if (!sigml){ log('No matching signs for planned tokens.'); return; }
-      playSigml(sigml);
-    });
+    const translateBtn = document.getElementById('translateBtn');
 
+translateBtn?.addEventListener('click', async () => {
+  if (!window.CWASA) {
+    renderStatus.textContent = 'CWASA not loaded.';
+    return;
+  }
+
+  translateBtn.disabled = true;
+  try {
+    renderStatus.textContent = 'Translating…';
+    await doPlan('spacy');
+
+    const toks = window.__plannedTokens || [];
+    if (!toks.length) {
+      renderStatus.textContent = 'No tokens planned.';
+      return;
+    }
+
+    const sigml = buildSigml(toks);
+    if (!sigml) {
+      renderStatus.textContent = 'No matching signs.';
+      return;
+    }
+
+    renderStatus.textContent = 'Playing…';
+    playSigml(sigml);
+  } catch (e) {
+    console.error(e);
+    renderStatus.textContent = 'Translate error (see console).';
+  } finally {
+    translateBtn.disabled = false;
+  }
+  });
+    
     stopBtn.addEventListener('click', () => {
       try{ CWASA.stop(0); }catch(_e){}
     });
@@ -1098,7 +1096,7 @@
         transcription.value = text;
         videoStatus.textContent = 'Planning…';
         textIn.value = text;
-        await doPlan();
+        await doPlan('spacy');
         videoStatus.textContent = 'Ready to render.';
       }catch(e){ videoStatus.textContent = 'Video→Sign error: ' + e; }
     });
