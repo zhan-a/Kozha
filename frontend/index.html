@@ -624,32 +624,29 @@
     const normalizedOut = document.getElementById('normalizedOut');
     const tokensOut = document.getElementById('tokensOut');
     const queuedChips = document.getElementById('queuedChips');
-    
+
     async function planWithSpaCyBackend(rawText) {
-      const resp = await fetch('/api/plan', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: rawText }),
-      });
+      try {
+        const resp = await fetch('/api/plan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: rawText }),
+        });
     
-      if (!resp.ok) {
-        const detail = await resp.text().catch(() => '');
-        throw new Error(`Backend HTTP ${resp.status} ${detail}`);
-      }
-      return resp.json();
-    }
-    catch (e) {
+        if (!resp.ok) {
+          const detail = await resp.text().catch(() => '');
+          throw new Error(`Backend HTTP ${resp.status} ${detail}`);
+        }
+        return await resp.json();
+      } 
+      catch (e) {
         console.error("spaCy backend fetch failed:", e);
         throw e;
       }
     }
-
-
     
     const STOPWORDS = new Set(['a','an','the','and','or','but','if','then','than','of','to','in','on','at','for','from','with','as','by','is','are','am','be','been','was','were','do','does','did','that','this','those','these','it','my','your','our']);
     const TOPIC_TIME = new Set(['today','yesterday','tomorrow','morning','afternoon','evening','night','noon','week','month','year','time']);
-
-
     
     function normalizeText(str){
       // Safari-safe: try Unicode property escapes first, fallback to classic ASCII
