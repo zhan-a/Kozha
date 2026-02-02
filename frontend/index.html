@@ -5,14 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Educational Sign Language Translator (SiGML)</title>
   
-  <!-- CWASA core (keep these URLs per their docs) -->
   <link rel="stylesheet" href="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script defer src="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/allcsa.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/@xenova/transformers@3.2.1/dist/transformers.min.js" crossorigin="anonymous"></script>
-  <!-- Lightweight POS/NLP (compromise) for in-browser EDU pipeline -->
   <script defer src="https://unpkg.com/compromise@14.12.0/builds/compromise.min.js" crossorigin="anonymous"></script>
 
-  <!-- ffmpeg.wasm (only used when a video file is uploaded) -->
   <script defer src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.6/dist/ffmpeg.min.js" crossorigin="anonymous"></script>
 
   <style>
@@ -40,8 +37,6 @@
 
     .card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:16px;}
     .card h3{margin:0 0 12px; font-size: 16px; letter-spacing:0.02em; color:#c9d4ff}
-
-    /* Hides whole cards without removing them from DOM */
     .hidden-card{
       display: none !important;
     }
@@ -90,7 +85,6 @@
     </div>
 
     <div class="grid">
-      <!-- LEFT: Inputs -->
       <section>
         <div class="card">
           <h3>Text</h3>
@@ -117,8 +111,7 @@
             <button id="planBtn">Plan</button>
           </div>
         </div>
-
-        <!-- STEM / EDU tools -->
+        
         <div class="card">
           <h3>STEM / EDU tools</h3>
           <div class="row" style="margin-bottom:8px">
@@ -175,7 +168,6 @@
           <div class="hint" style="margin-top:6px">You can load multiple files one-by-one. Loaded signs override earlier duplicates by gloss.</div>
         </div>
 
-        <!-- Concept CSV (still visible) -->
         <div class="row" style="margin-top:8px">
           <label class="grow">Concept CSV (optional)</label>
           <input id="conceptUrlInput" type="text" placeholder="data/hamnosys_bsl.csv" />
@@ -187,9 +179,7 @@
         </div>
       </section>
 
-      <!-- RIGHT: Outputs + CWASA -->
       <section>
-        <!-- Planner card is kept but hidden -->
         <div class="card hidden-card">
           <h3>Planner</h3>
           <div class="row">
@@ -248,9 +238,6 @@
   </div>
 
   <script>
-  // ------------------------------
-  // CWASA init
-  // ------------------------------
   const renderStatus = document.getElementById('renderStatus');
 
   function initCWASA() {
@@ -288,9 +275,6 @@
   </script>
 
   <script>
-    // ------------------------------
-    // Abbreviations loading + EDU NLP helpers
-    // ------------------------------
     const abbrevUrl = document.getElementById('abbrevUrl');
     const loadAbbrevUrlBtn = document.getElementById('loadAbbrevUrlBtn');
     const abbrevFile = document.getElementById('abbrevFile');
@@ -301,10 +285,8 @@
     const timeframeOut = document.getElementById('timeframeOut');
     const abbrevCountOut = document.getElementById('abbrevCountOut');
 
-    // Abbrev store (phrase -> replacement)
     let ABBREV = new Map();
 
-    // Optional: preload a minimal STEM set
     const STEM_PRESET = {
       'carbon dioxide': 'co2',
       'deoxyribonucleic acid': 'dna',
@@ -370,7 +352,6 @@
       return { text: out, count };
     }
 
-    // EDU NLP using compromise: pronouns, verb lemmas, key nouns
     const EDU_STOPWORDS = new Set(['a','an','the','and','or','but','if','then','than','of','to','in','on','at','for','from','with','as','by','is','are','am','be','been','was','were','do','does','did','that','this','those','these','it','my','your','our']);
 
     function timeframeGuess(str){
@@ -394,7 +375,6 @@
       return uniq;
     }
 
-    // UI wiring
     loadAbbrevUrlBtn.addEventListener('click', ()=>{ const u = abbrevUrl.value.trim(); if (u) loadAbbrevFromUrl(u); });
     if (abbrevFile) {
       abbrevFile.addEventListener('change', (e) => {
@@ -408,9 +388,6 @@
   </script>
 
   <script>
-    // ------------------------------
-    // Database loading (SiGML) & vocab
-    // ------------------------------
     const allowedOut = document.getElementById('allowedOut');
     const dbUrlInput = document.getElementById('dbUrlInput');
     const loadDbBtn = document.getElementById('loadDbBtn');
@@ -418,20 +395,18 @@
     const loadConceptBtn  = document.getElementById('loadConceptBtn');
     const conceptFile     = document.getElementById('conceptFile');
 
-    const glossToSign = new Map(); // gloss -> <hns_sign>...</hns_sign>
-    const letterToSign = new Map(); // letter -> <hns_sign>...</hns_sign> for fingerspelling
+    const glossToSign = new Map();
+    const letterToSign = new Map();
 
-    // Canonical indices
-    const baseToGloss = new Map();   // "abroad" -> "abroad(a)#1" (preferred)
-    const conceptToGloss = new Map(); // optional CSV lexicon: "cell phone" -> "cellular_telephone(n)#1"
+    const baseToGloss = new Map();
+    const conceptToGloss = new Map();
 
-    // Normalize a gloss like "abroad(a)#1" -> "abroad"
     function glossBase(gloss) {
       return String(gloss)
         .toLowerCase()
-        .replace(/\(.*?\)/g, '')    // remove (a)/(v)/etc
-        .replace(/#\d+$/g, '')      // remove #1
-        .replace(/[^a-z0-9]+/g, ' ')// keep letters/numbers, collapse others
+        .replace(/\(.*?\)/g, '')
+        .replace(/#\d+$/g, '')
+        .replace(/[^a-z0-9]+/g, ' ')
         .trim();
     }
 
@@ -483,7 +458,6 @@
       rebuildBaseIndex();
     }
 
-    // Load alphabet SIGML for fingerspelling support
     async function loadAlphabetSigmlUrl(url, isAutoload = false){
       try{
         const res = await fetch(url, { cache: 'no-store' });
@@ -495,16 +469,12 @@
           throw new Error('HTTP ' + res.status);
         }
         const xmlText = await res.text();
-        // The alphabet file has multiple <sigml> blocks with <!-- Letter: X --> comments
-        // We need to parse each <hns_sign> and get the gloss (which is the letter)
         const doc = new DOMParser().parseFromString('<root>' + xmlText + '</root>', 'application/xml');
         const signs = Array.from(doc.querySelectorAll('hns_sign'));
         let added = 0;
         for (const s of signs){
           const gloss = (s.getAttribute('gloss') || '').trim().toUpperCase();
-          // Only accept single uppercase letters A-Z
           if (!gloss || gloss.length !== 1 || gloss < 'A' || gloss > 'Z') continue;
-          // Store with the outer <hns_sign> tag included
           letterToSign.set(gloss, s.outerHTML);
           added++;
         }
@@ -519,7 +489,6 @@
     }
 
     function parseTable(text){
-      // Support BOM
       let cleaned = text;
       if (text.charCodeAt(0) === 0xFEFF) {
         cleaned = text.slice(1);
@@ -605,7 +574,6 @@
       if (u) loadSigmlUrl(u);
     });
 
-    // Auto-load default DB paths on page load
     window.addEventListener('load', async () => {
       await loadSigmlUrl('/data/hamnosys_bsl_version1.sigml', true);
       await loadConceptCsvUrl('/data/hamnosys_bsl.csv', true);
@@ -614,9 +582,6 @@
   </script>
 
   <script>
-    // ------------------------------
-    // Planning pipeline (normalize → heuristic → fuzzy map)
-    // ------------------------------
     const textIn = document.getElementById('textIn');
     const planSpaCyBtn = document.getElementById('planSpaCyBtn');
     const planOpenAIBtn = document.getElementById('planOpenAIBtn');
@@ -649,11 +614,9 @@
     const TOPIC_TIME = new Set(['today','yesterday','tomorrow','morning','afternoon','evening','night','noon','week','month','year','time']);
     
     function normalizeText(str){
-      // Safari-safe: try Unicode property escapes first, fallback to classic ASCII
       try {
         return (str||'').toLowerCase().replace(/[\p{P}\p{S}]/gu,' ').split(/\s+/).filter(Boolean);
       } catch(e) {
-        // Fallback for older browsers
         return (str||'').toLowerCase().replace(/[^\w\s]/g,' ').split(/\s+/).filter(Boolean);
       }
     }
@@ -664,8 +627,6 @@
       const rest = kept.filter(t => !TOPIC_TIME.has(t));
       return [...front, ...rest];
     }
-
-    // Simple Levenshtein distance + similarity ratio
     function levenshtein(a,b){
       const m=a.length, n=b.length; if(!m) return n; if(!n) return m;
       const dp = new Array(n+1); for(let j=0;j<=n;j++) dp[j]=j;
@@ -692,8 +653,6 @@
     function mapToAvailable(tokens, allowedGlosses, cutoff = 0.82){
       const mapped = [], subs = {}, missing = [], fingerspelled = [];
       if (!allowedGlosses.length) return { mapped, subs, missing: [...tokens], fingerspelled };
-
-      // Build local base index once per call
       const bases = allowedGlosses.map(g => glossBase(g));
       const baseToGlossLocal = new Map();
       for (let i=0; i<allowedGlosses.length; i++){
@@ -703,13 +662,10 @@
       }
 
       for (const t of tokens){
-        // 1) exact gloss match
         if (allowedGlosses.includes(t)) { 
           mapped.push(t); 
           continue; 
         }
-
-        // 2) concept lexicon (CSV) - check first for plain words
         const tBase = glossBase(t);
         if (conceptToGloss.has(tBase)) {
           const g = conceptToGloss.get(tBase);
@@ -717,24 +673,18 @@
           if (t !== g) subs[t] = g;
           continue;
         }
-
-        // 3) base index from loaded glosses (global)
         if (baseToGloss.has(tBase)) {
           const g = baseToGloss.get(tBase);
           mapped.push(g);
           if (t !== g) subs[t] = g;
           continue;
         }
-
-        // 4) local base index (fallback)
         if (baseToGlossLocal.has(tBase)) {
           const g = baseToGlossLocal.get(tBase);
           mapped.push(g);
           if (t !== tBase) subs[t] = g;
           continue;
         }
-
-        // 5) fuzzy match on bases
         let bestBase = null, bestScore = 0;
         for (const b of baseToGlossLocal.keys()){
           const s = similarity(tBase, b);
@@ -745,12 +695,10 @@
           mapped.push(g);
           subs[t] = g;
         } else {
-          // 6) Word not found - include for fingerspelling if alphabet is available
           if (letterToSign.size > 0) {
-            // Check if the word can be fingerspelled (has at least one letter A-Z)
             const hasLetter = /[A-Za-z]/.test(t);
             if (hasLetter) {
-              mapped.push(t); // Include in mapped so it can be fingerspelled
+              mapped.push(t);
               fingerspelled.push(t);
             } else {
               missing.push(t);
@@ -762,7 +710,6 @@
       }
       return { mapped, subs, missing, fingerspelled };
     }
-
     function currentAllowed(){
       return Array.from(glossToSign.keys()).sort();
     }
@@ -776,8 +723,6 @@
         queuedChips.appendChild(div);
       }
     }
-
-    // Optional OpenAI planner
     async function planWithOpenAI(rawText, allowed){
       const key = localStorage.getItem('openai_key');
       if (!key) return null;
@@ -824,7 +769,6 @@
         return;
       }
     
-      // 1) Client-side abbreviations + timeframe
       const { text: raw, count: abCount } = replaceAbbreviationsBrowser(raw0);
       if (typeof abbrevCountOut !== 'undefined' && abbrevCountOut) {
         abbrevCountOut.value = String(abCount);
@@ -835,7 +779,6 @@
     
       let mapped = null, subs = {}, missing = [];
     
-      // 2) Allow exact gloss input (e.g., abroad(a)#1 abroad(n)#1 ...)
       const rawTokens = raw.split(/\s+/).map(s => s.toLowerCase()).filter(Boolean);
       if (rawTokens.length && rawTokens.every(t => allowed.includes(t))) {
         if (normalizedOut) normalizedOut.value = rawTokens.join(' ');
@@ -846,7 +789,6 @@
         return;
       }
     
-      // 3) Check if entire phrase matches a concept (before tokenizing)
       const phraseBase = glossBase(raw);
       if (conceptToGloss.has(phraseBase)) {
         const g = conceptToGloss.get(phraseBase);
@@ -859,7 +801,6 @@
         return;
       }
     
-      // 4) Backend planners: spaCy or OpenAI
       if (mode === 'spacy') {
         try {
           const backend = await planWithSpaCyBackend(raw);
@@ -940,10 +881,7 @@
           log('OpenAI planner error, will fall back: ' + e);
         }
       }
-    
-      // 5) If backend didn’t produce anything, use EDU NLP pipeline (optional) + heuristic
       if (!mapped || !mapped.length) {
-        // EDU NLP pipeline (if checkbox on)
         if (typeof eduNlpToggle !== 'undefined' && eduNlpToggle.checked) {
           const eduTokens = processEducationalText(raw);
           const mEdu = mapToAvailable(eduTokens, allowed, 0.82);
@@ -963,7 +901,6 @@
         }
       }
     
-      // 6) Final fallback: pure heuristic on normalized tokens
       if (!mapped || !mapped.length) {
         const norm = normalizeText(raw);
         const heur = heuristicPlan(norm);
@@ -984,7 +921,6 @@
         }
       }
     
-      // 7) Push tokens to UI + CWASA
       if (!mapped || !mapped.length) {
         log('No tokens mapped to available signs.');
         return;
@@ -1001,18 +937,13 @@
   </script>
 
   <script>
-    // ------------------------------
-    // Render with CWASA (concatenate SiGML blocks for planned tokens)
-    // ------------------------------
     const renderBtn = document.getElementById('renderBtn');
     const stopBtn = document.getElementById('stopBtn');
 
-    // Helper function to check if a character is an uppercase letter A-Z
     function isUpperLetter(char) {
       return char >= 'A' && char <= 'Z';
     }
 
-    // Fingerspell a word by looking up each letter in letterToSign
     function fingerspellWord(word){
       const blocks = [];
       const upperWord = (word || '').toUpperCase();
@@ -1024,7 +955,6 @@
             blocks.push(letterBlock);
           }
         }
-        // Numbers and other characters are skipped (could be extended later)
       }
       return blocks;
     }
@@ -1036,7 +966,6 @@
         if (b) {
           blocks.push(b);
         } else if (letterToSign.size > 0) {
-          // Word not found in dictionary - try fingerspelling
           const letterBlocks = fingerspellWord(t);
           if (letterBlocks.length > 0) {
             blocks.push(...letterBlocks);
@@ -1068,9 +997,6 @@
   </script>
 
   <script>
-    // ------------------------------
-    // Microphone recording + on-device Whisper (transformers.js)
-    // ------------------------------
     const recordBtn = document.getElementById('recordBtn');
     const transcribeBtn = document.getElementById('transcribeBtn');
     const micStatus = document.getElementById('micStatus');
@@ -1111,7 +1037,6 @@
           micStatus.textContent = 'Recording…';
         }catch(e){ micStatus.textContent = 'Mic error: ' + e; }
       } else {
-        // stop
         mediaRecorder.stop();
         mediaRecorder = null;
         recordBtn.textContent = '● Start recording';
@@ -1135,9 +1060,6 @@
   </script>
 
   <script>
-    // ------------------------------
-    // Video → Sign: extract audio with ffmpeg.wasm → Whisper ASR → plan → render
-    // ------------------------------
     const videoFile = document.getElementById('videoFile');
     const videoToSignBtn = document.getElementById('videoToSignBtn');
     const videoStatus = document.getElementById('videoStatus');
@@ -1164,7 +1086,6 @@
         const { ffmpeg, fetchFile } = await ensureFFmpeg();
         videoStatus.textContent = 'Extracting audio…';
         ffmpeg.FS('writeFile', 'in', await fetchFile(file));
-        // extract mono 16k WAV — what Whisper likes
         await ffmpeg.run('-i', 'in', '-vn', '-ac', '1', '-ar', '16000', '-f', 'wav', 'out.wav');
         const data = ffmpeg.FS('readFile', 'out.wav');
         const wavBlob = new Blob([data.buffer], { type: 'audio/wav' });
@@ -1184,9 +1105,6 @@
   </script>
 
   <script>
-    // ------------------------------
-    // Settings (OpenAI key)
-    // ------------------------------
     const openaiKey = document.getElementById('openaiKey');
     const saveKeyBtn = document.getElementById('saveKeyBtn');
 
@@ -1199,9 +1117,6 @@
   </script>
 
   <script>
-    // ------------------------------
-    // Logger helper
-    // ------------------------------
     function log(msg){
       const el = document.getElementById('planLog');
       const now = new Date().toLocaleTimeString();
@@ -1212,9 +1127,6 @@
   </script>
 
   <script>
-    // ------------------------------
-    // Global error handlers (defensive)
-    // ------------------------------
     window.addEventListener('error', e => {
       log('JS error: ' + (e?.error?.message || e.message));
     });
