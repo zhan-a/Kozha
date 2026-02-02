@@ -13,6 +13,9 @@ from spacy.matcher import PhraseMatcher
 APP_ROOT = Path(__file__).resolve().parent
 REPO_ROOT = APP_ROOT.parent
 FRONTEND_DIR = REPO_ROOT / "frontend"
+DATA_DIR = FRONTEND_DIR / "data"
+
+app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
 
 def load_abbreviations(filepath: Path) -> Dict[str, str]:
     if not filepath.exists():
@@ -150,29 +153,7 @@ def plan_from_text(text: str, language_hint: Optional[str] = None) -> Dict[str, 
     rewritten = process_text(text)
     return {"allowed": [], "raw": text, "final": rewritten}
 
-
-app = FastAPI(
-    docs_url=None,
-    redoc_url=None,
-    openapi_url=None
-)
-
-
-@app.get("/", include_in_schema=False)
-def serve_index():
-    index_path = FRONTEND_DIR / "index.html"
-    if index_path.exists():
-        return FileResponse(index_path)
-    return {"error": "frontend/index.html not found"}
-
-
-if FRONTEND_DIR.exists():
-    app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
-
-class TextRequest(BaseModel):
-    text: str
-
-@app.get("/api/health", include_in_schema=False)
+@app.get("/api/health")
 def health():
     return {"ok": True}
 
@@ -180,13 +161,16 @@ def health():
 def api_plan(req: TextRequest):
     return plan_from_text(req.text)
 
+if DATA_DIR.exists():
+    app.mount("/data", StaticFiles(directory=DATA_DIR), name="data")
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        "https://mironovb.github.io",
-    ],
-    allow_credentials=False,
-    allow_methods=["POST", "OPTIONS"],
-    allow_headers=["Content-Type"],
-)
+# This serves index.html when hitting /
+@app.get("/", include_in_schema=False)
+def serve_index():
+    return FileResponse(FRONTEND_DIR / "index.html")
+
+# This serves everything else in frontend (js/css/etc)
+app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
+
+class TextRequest(BaseModel):
+    text: str
