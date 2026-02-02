@@ -164,12 +164,10 @@ def api_plan(req: TextRequest):
 if DATA_DIR.exists():
     app.mount("/data", StaticFiles(directory=DATA_DIR), name="data")
 
-# This serves index.html when hitting /
 @app.get("/", include_in_schema=False)
 def serve_index():
     return FileResponse(FRONTEND_DIR / "index.html")
 
-# This serves everything else in frontend (js/css/etc)
 app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
 
 class TextRequest(BaseModel):
