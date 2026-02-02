@@ -624,33 +624,21 @@
     const normalizedOut = document.getElementById('normalizedOut');
     const tokensOut = document.getElementById('tokensOut');
     const queuedChips = document.getElementById('queuedChips');
-
-
     
-    // Call Python / spaCy backend (Render, Railway, etc.)
     async function planWithSpaCyBackend(rawText) {
-      try {
-        const resp = await fetch('https://asl-spacy-backend.onrender.com/plan', {
-          method: 'POST',
-          mode: 'cors',
-          credentials: 'omit',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text: rawText }),
-        });
+      const resp = await fetch('/api/plan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: rawText }),
+      });
     
-        console.log("Backend response:", resp.status, resp.ok);
-    
-        if (!resp.ok) {
-          // Try to read body for extra info (optional)
-          let detail = "";
-          try { detail = await resp.text(); } catch (_) {}
-          throw new Error(`Backend HTTP ${resp.status} ${detail}`);
-        }
-    
-        const json = await resp.json();
-        console.log('BACKEND JSON:', json);
-        return json;
-      } catch (e) {
+      if (!resp.ok) {
+        const detail = await resp.text().catch(() => '');
+        throw new Error(`Backend HTTP ${resp.status} ${detail}`);
+      }
+      return resp.json();
+    }
+    catch (e) {
         console.error("spaCy backend fetch failed:", e);
         throw e;
       }
