@@ -5,35 +5,45 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
+concurrency:
+  group: deploy-main
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout (optional)
         uses: actions/checkout@v4
 
-      - name: Setup SSH
+      - name: Start ssh-agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+
+      - name: Trust host key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H "${{ secrets.EC2_HOST }}" >> ~/.ssh/known_hosts
 
       - name: Deploy to EC2
         run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
-            set -e
+          ssh -o ServerAliveInterval=30 -o ServerAliveCountMax=3 \
+              "${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}" \
+              'bash -lc "
+                set -euo pipefail
 
-            cd /home/ubuntu/Kozha
-            git fetch --all
-            git reset --hard origin/main
+                cd /home/ubuntu/Kozha
 
-            cd /home/ubuntu/Kozha/backend
-            source .venv/bin/activate
-            pip install -r requirements.txt
-            deactivate
+                git fetch --prune origin
+                git reset --hard origin/main
+                git clean -fd
 
-            sudo systemctl restart kozha.service
-            sudo systemctl --no-pager status kozha.service
-          EOF
+                cd backend
+                source .venv/bin/activate
+                pip install -r requirements.txt
+
+                sudo systemctl restart kozha.service
+                sudo systemctl --no-pager status kozha.service
+              "'
