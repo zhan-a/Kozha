@@ -3,717 +3,1133 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bridgn — Sign Language, Instantly</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+  <title>Educational Sign Language Translator (SiGML)</title>
+  
+  <link rel="stylesheet" href="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script defer src="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/allcsa.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@xenova/transformers@3.2.1/dist/transformers.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://unpkg.com/compromise@14.12.0/builds/compromise.min.js" crossorigin="anonymous"></script>
+
+  <script defer src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.6/dist/ffmpeg.min.js" crossorigin="anonymous"></script>
+
   <style>
-    :root {
-      --ink: #1a1612;
-      --ink-2: #3d3630;
-      --ink-3: #7a6f65;
-      --paper: #f5f1eb;
-      --paper-2: #ede8e0;
-      --paper-3: #e4ddd3;
-      --accent: #c96a2e;
-      --accent-2: #e8843e;
-      --accent-light: #f5e4d6;
-      --green: #2d6a4f;
-      --border: rgba(26,22,18,0.12);
-      --radius: 16px;
-      --radius-sm: 10px;
+    :root{
+      --bg: #0b1020;
+      --card: #0f162c;
+      --muted: #97a2c2;
+      --accent: #5b8cff;
+      --accent-2: #22d3ee;
+      --border: #1c2442;
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; padding:24px; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: linear-gradient(180deg, #0b1020 0%, #0b1226 100%);
+      color:white;
+    }
+    .container{max-width:1200px; margin:0 auto;}
+    .title{font-weight:800; letter-spacing:-0.02em; font-size: clamp(24px, 5vw, 36px);}
+    .subtle{color:var(--muted)}
+
+    .grid{display:grid; gap:16px; grid-template-columns: 1fr;}
+    @media (min-width: 980px){ .grid{ grid-template-columns: 480px 1fr; } }
+
+    .card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:16px;}
+    .card h3{margin:0 0 12px; font-size: 16px; letter-spacing:0.02em; color:#c9d4ff}
+    .hidden-card{
+      display: none !important;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    label{font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:#9fb0ff}
+    input[type="text"], textarea, select{
+      width:100%; background:#0c1326; color:white; border:1px solid #1b2550; border-radius:12px; padding:10px 12px; outline:none;
+    }
+    textarea{min-height:64px}
 
-    html { scroll-behavior: smooth; }
+    .row{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+    .grow{flex:1 1 auto}
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--paper);
-      color: var(--ink);
-      overflow-x: hidden;
+    button{
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+      border:none; color:white; padding:10px 14px; border-radius:12px; cursor:pointer; font-weight:700;
     }
+    button.secondary{background:#111a37; color:#d6defe; border:1px solid #1f2b5b}
+    button:disabled{opacity:0.55; cursor:default}
 
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 48px;
-      height: 64px;
-      background: rgba(245,241,235,0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
+    .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px}
+    .chip{background:#0c1326; border:1px solid #1b2550; color:#cdd7ff; border-radius:999px; padding:6px 10px; font-size:12px}
 
-    .nav-logo {
-      font-family: 'Instrument Serif', serif;
-      font-size: 22px;
-      color: var(--ink);
-      text-decoration: none;
-      letter-spacing: -0.01em;
-    }
-    .nav-logo span { color: var(--accent); }
+    .avatar-wrap{ background:#0a1124; border:1px solid #1b2550; border-radius:16px; padding:12px; display:inline-block }
+    .CWASAAvatar.av0{ width: 448px; height: 360px; }
 
-    .nav-links {
-      display: flex; gap: 32px; list-style: none;
-    }
-    .nav-links a {
-      text-decoration: none;
-      color: var(--ink-2);
-      font-size: 14px;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--accent); }
+    .muted{ color:#a7b3de }
+    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
 
-    .nav-cta {
-      display: flex; gap: 10px; align-items: center;
-    }
-    .btn-ghost {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--ink-2);
-      background: none;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 8px 18px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-    .btn-ghost:hover { background: var(--paper-2); color: var(--ink); }
+    .log{ background:#0c1326; border:1px dashed #243163; padding:8px 10px; border-radius:10px; min-height: 40px; white-space: pre-wrap }
 
-    .btn-primary {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      color: white;
-      background: var(--accent);
-      border: none;
-      border-radius: var(--radius-sm);
-      padding: 8px 20px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-    .btn-primary:hover { background: var(--accent-2); transform: translateY(-1px); }
+    .tabs{ display:flex; gap:6px; margin-bottom:8px }
+    .tabs button{ background:#0f1836; border:1px solid #1c2859 }
+    .tabs button.active{ background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%); border:none }
 
-    /* ── HERO ── */
-    .hero {
-      padding: 140px 48px 100px;
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 420px;
-      gap: 64px;
-      align-items: center;
-    }
+    .kbd{padding:2px 6px; border-radius:6px; background:#0f1731; border:1px solid #1d2a5b; color:#c9d4ff; font-size:12px}
 
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--accent-light);
-      border: 1px solid rgba(201,106,46,0.2);
-      color: var(--accent);
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 6px 14px;
-      border-radius: 999px;
-      margin-bottom: 28px;
-    }
-    .hero-eyebrow::before {
-      content: '';
-      width: 6px; height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-      animation: pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.8); }
-    }
-
-    .hero h1 {
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(44px, 6vw, 72px);
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      margin-bottom: 24px;
-    }
-    .hero h1 em {
-      font-style: italic;
-      color: var(--accent);
-    }
-
-    .hero-sub {
-      font-size: 18px;
-      line-height: 1.7;
-      color: var(--ink-3);
-      max-width: 480px;
-      margin-bottom: 40px;
-      font-weight: 300;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .btn-large {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 16px;
-      font-weight: 600;
-      color: white;
-      background: var(--accent);
-      border: none;
-      border-radius: var(--radius);
-      padding: 14px 28px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.25s;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .btn-large:hover {
-      background: var(--accent-2);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(201,106,46,0.3);
-    }
-
-    .btn-large-ghost {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--ink-2);
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 14px 28px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.25s;
-    }
-    .btn-large-ghost:hover {
-      background: var(--paper-2);
-      transform: translateY(-1px);
-    }
-
-    .hero-stat {
-      display: flex;
-      gap: 32px;
-      margin-top: 48px;
-      padding-top: 40px;
-      border-top: 1px solid var(--border);
-    }
-    .stat-item {}
-    .stat-num {
-      font-family: 'Instrument Serif', serif;
-      font-size: 32px;
-      color: var(--ink);
-      line-height: 1;
-    }
-    .stat-label {
-      font-size: 12px;
-      color: var(--ink-3);
-      margin-top: 4px;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-    }
-
-    /* hero right — demo card */
-    .hero-demo-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 28px;
-      box-shadow: 0 24px 64px rgba(26,22,18,0.08), 0 4px 12px rgba(26,22,18,0.04);
-      position: relative;
-    }
-
-    .demo-input-wrap {
-      position: relative;
-      margin-bottom: 16px;
-    }
-    .demo-input {
-      width: 100%;
-      background: var(--paper);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 14px 16px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
-      color: var(--ink);
-      outline: none;
-      resize: none;
-      transition: border-color 0.2s;
-      min-height: 80px;
-    }
-    .demo-input:focus { border-color: var(--accent); }
-
-    .demo-controls {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 20px;
-    }
-    .demo-chip {
-      background: var(--paper);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 6px 14px;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--ink-2);
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-    .demo-chip:hover, .demo-chip.active {
-      background: var(--accent-light);
-      border-color: rgba(201,106,46,0.3);
-      color: var(--accent);
-    }
-
-    .demo-avatar-area {
-      background: var(--paper);
-      border-radius: var(--radius);
-      height: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px dashed var(--border);
-      position: relative;
-      overflow: hidden;
-    }
-    .avatar-placeholder {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      color: var(--ink-3);
-      font-size: 13px;
-    }
-    .avatar-icon {
-      width: 56px; height: 56px;
-      background: var(--accent-light);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 26px;
-    }
-
-    .demo-status-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 14px;
-      font-size: 12px;
-      color: var(--ink-3);
-    }
-    .status-dot {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--green);
-      font-weight: 500;
-    }
-    .status-dot::before {
-      content: '';
-      width: 7px; height: 7px;
-      background: var(--green);
-      border-radius: 50%;
-    }
-
-    /* ── FEATURES ── */
-    .section {
-      padding: 96px 48px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 16px;
-    }
-
-    .section-title {
-      font-family: 'Instrument Serif', serif;
-      font-size: clamp(32px, 4vw, 48px);
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      margin-bottom: 56px;
-      max-width: 600px;
-    }
-    .section-title em { font-style: italic; color: var(--accent); }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .feature-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 32px 28px;
-      transition: all 0.25s;
-    }
-    .feature-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(26,22,18,0.08);
-      border-color: rgba(201,106,46,0.2);
-    }
-
-    .feature-icon {
-      width: 48px; height: 48px;
-      background: var(--accent-light);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      margin-bottom: 20px;
-    }
-
-    .feature-title {
-      font-family: 'Instrument Serif', serif;
-      font-size: 20px;
-      color: var(--ink);
-      margin-bottom: 10px;
-    }
-
-    .feature-body {
-      font-size: 14px;
-      line-height: 1.7;
-      color: var(--ink-3);
-    }
-
-    /* ── HOW IT WORKS ── */
-    .how-section {
-      background: var(--ink);
-      padding: 96px 48px;
-    }
-    .how-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .how-section .section-label { color: var(--accent-2); }
-    .how-section .section-title { color: var(--paper); }
-
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2px;
-      background: rgba(255,255,255,0.06);
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-
-    .step-item {
-      background: rgba(26,22,18,0.95);
-      padding: 40px 32px;
-      position: relative;
-    }
-
-    .step-num {
-      font-family: 'Instrument Serif', serif;
-      font-size: 56px;
-      color: rgba(201,106,46,0.2);
-      line-height: 1;
-      margin-bottom: 16px;
-    }
-
-    .step-title {
-      font-family: 'Instrument Serif', serif;
-      font-size: 22px;
-      color: var(--paper);
-      margin-bottom: 12px;
-    }
-
-    .step-body {
-      font-size: 14px;
-      line-height: 1.7;
-      color: rgba(245,241,235,0.5);
-    }
-
-    /* ── CONTRIBUTE ── */
-    .contribute-banner {
-      background: var(--accent-light);
-      border: 1px solid rgba(201,106,46,0.2);
-      border-radius: 24px;
-      padding: 56px 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 40px;
-    }
-
-    .contribute-text h2 {
-      font-family: 'Instrument Serif', serif;
-      font-size: 36px;
-      color: var(--ink);
-      margin-bottom: 12px;
-      letter-spacing: -0.02em;
-    }
-
-    .contribute-text p {
-      font-size: 16px;
-      color: var(--ink-2);
-      line-height: 1.6;
-      max-width: 480px;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 40px 48px;
-    }
-
-    .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .footer-logo {
-      font-family: 'Instrument Serif', serif;
-      font-size: 18px;
-      color: var(--ink);
-    }
-    .footer-logo span { color: var(--accent); }
-
-    .footer-links {
-      display: flex;
-      gap: 24px;
-      list-style: none;
-    }
-    .footer-links a {
-      font-size: 13px;
-      color: var(--ink-3);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .footer-links a:hover { color: var(--accent); }
-
-    .footer-copy {
-      font-size: 12px;
-      color: var(--ink-3);
-    }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .fade-up {
-      animation: fadeUp 0.6s ease forwards;
-    }
-    .delay-1 { animation-delay: 0.1s; opacity: 0; }
-    .delay-2 { animation-delay: 0.2s; opacity: 0; }
-    .delay-3 { animation-delay: 0.3s; opacity: 0; }
-    .delay-4 { animation-delay: 0.4s; opacity: 0; }
-    .delay-5 { animation-delay: 0.5s; opacity: 0; }
-
-    /* Mobile */
-    @media (max-width: 900px) {
-      nav { padding: 0 24px; }
-      .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; gap: 40px; }
-      .hero-demo-card { display: none; }
-      .section { padding: 64px 24px; }
-      .features-grid { grid-template-columns: 1fr; }
-      .steps-grid { grid-template-columns: 1fr; }
-      .contribute-banner { flex-direction: column; padding: 40px 32px; }
-      footer { padding: 32px 24px; }
-      .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
-      .how-section { padding: 64px 24px; }
-    }
+    .hint{font-size:12px; color:#8aa0ff}
   </style>
 </head>
 <body>
-
-  <!-- NAV -->
-  <nav>
-    <a href="index.html" class="nav-logo">Bridg<span>n</span></a>
-    <ul class="nav-links">
-      <li><a href="#features">Features</a></li>
-      <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="contribute.html">Contribute</a></li>
-    </ul>
-    <div class="nav-cta">
-      <a href="contribute.html" class="btn-ghost">Volunteer</a>
-      <a href="app.html" class="btn-primary">Try it free →</a>
-    </div>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div>
-      <div class="hero-eyebrow fade-up delay-1">Now in early access</div>
-      <h1 class="fade-up delay-2">Speak once.<br><em>Sign</em> to everyone.</h1>
-      <p class="hero-sub fade-up delay-3">
-        Bridgn translates spoken and written language into sign language animations — making education, lectures, and everyday conversation accessible to Deaf and hard-of-hearing communities.
-      </p>
-      <div class="hero-actions fade-up delay-4">
-        <a href="app.html" class="btn-large">Open the translator ›</a>
-        <a href="#how-it-works" class="btn-large-ghost">See how it works</a>
-      </div>
-      <div class="hero-stat fade-up delay-5">
-        <div class="stat-item">
-          <div class="stat-num">BSL</div>
-          <div class="stat-label">British Sign Language</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">On-device</div>
-          <div class="stat-label">Speech recognition</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">Free</div>
-          <div class="stat-label">Always for educators</div>
-        </div>
-      </div>
+  <div class="container">
+    <div style="margin-bottom:16px">
+      <div class="title">Educational Sign Language Translator</div>
+      <div class="subtle">Plan tokens from text or speech and render SiGML with CWASA</div>
     </div>
 
-    <div class="hero-demo-card fade-up delay-3">
-      <div class="demo-input-wrap">
-        <textarea class="demo-input" id="heroInput" placeholder="Type a sentence to translate…">Good morning, everyone.</textarea>
-      </div>
-      <div class="demo-controls">
-        <div class="demo-chip active" id="chip-text">✏️ Text</div>
-        <div class="demo-chip" id="chip-mic">🎙 Voice</div>
-        <div class="demo-chip" id="chip-video">🎬 Video</div>
-      </div>
-      <div class="demo-avatar-area">
-        <div class="avatar-placeholder">
-          <div class="avatar-icon">🤟</div>
-          <span>Sign animation appears here</span>
+    <div class="grid">
+      <section>
+        <div class="card">
+          <h3>Text</h3>
+          <div class="row">
+            <textarea id="textIn" placeholder="Type a phrase…" class="grow"></textarea>
+          </div>
+          <div class="row" style="margin-top:8px">
+            <label class="hint">Language hint (for STT only)</label>
+            <select id="langHint">
+              <option value="auto">auto</option>
+              <option value="en" selected>en</option>
+              <option value="ru">ru</option>
+              <option value="es">es</option>
+              <option value="de">de</option>
+              <option value="fr">fr</option>
+              <option value="zh">zh</option>
+              <option value="ja">ja</option>
+            </select>
+            <span class="grow"></span>
+            <button id="translateBtn">Translate</button>
+          </div>
         </div>
-      </div>
-      <div class="demo-status-bar">
-        <span class="status-dot">CWASA renderer ready</span>
-        <a href="app.html" style="color: var(--accent); font-weight:600; font-size:12px; text-decoration:none;">Open full app →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FEATURES -->
-  <section class="section" id="features">
-    <div class="section-label">What we offer</div>
-    <h2 class="section-title">Built for <em>real</em> classrooms<br>and real conversations.</h2>
-
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">🎙️</div>
-        <div class="feature-title">Voice-to-Sign</div>
-        <p class="feature-body">Record speech directly in your browser. On-device Whisper model transcribes locally — no audio ever leaves your device.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">📝</div>
-        <div class="feature-title">Text-to-Sign</div>
-        <p class="feature-body">Type any sentence and watch it rendered into SiGML sign animations via the CWASA avatar engine.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🎬</div>
-        <div class="feature-title">Video Lectures</div>
-        <p class="feature-body">Upload a recorded video and Bridgn extracts the audio, transcribes it, and sequences the sign translation automatically.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔬</div>
-        <div class="feature-title">STEM Vocabulary</div>
-        <p class="feature-body">Pre-loaded with scientific abbreviation packs. "Carbon dioxide" becomes "CO₂" before planning — no manual editing needed.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">⚡</div>
-        <div class="feature-title">Instant Planning</div>
-        <p class="feature-body">Our NLP pipeline normalizes input into sign-order tokens using spaCy, heuristics, or OpenAI — with transparent fallbacks.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🌍</div>
-        <div class="feature-title">Open & Extendable</div>
-        <p class="feature-body">Community volunteers can contribute sign glosses and database entries directly. The more people contribute, the richer it gets.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <div class="how-section" id="how-it-works">
-    <div class="how-inner">
-      <div class="section-label">The process</div>
-      <h2 class="section-title" style="margin-bottom:48px;">Three steps.<br><em>Zero</em> friction.</h2>
-
-      <div class="steps-grid">
-        <div class="step-item">
-          <div class="step-num">01</div>
-          <div class="step-title">Input your words</div>
-          <p class="step-body">Type text, record your voice, or upload a video file. Bridgn supports all three input modes in a single session.</p>
+        
+        <div class="card hidden-card">
+          <h3>STEM / EDU tools</h3>
+          <div class="row" style="margin-bottom:8px">
+            <label class="row" style="gap:6px; align-items:center"><input type="checkbox" id="eduNlpToggle" /> Use EDU NLP pipeline</label>
+            <label class="row" style="gap:6px; align-items:center"><input type="checkbox" id="applyAbbrev" /> Apply abbreviations</label>
+            <label class="row" style="gap:6px; align-items:center"><input type="checkbox" id="stemMode" /> STEM mode</label>
+          </div>
+          <div class="row" style="margin-bottom:8px">
+            <label class="grow">Load abbreviations JSON (URL)</label>
+            <input id="abbrevUrl" type="text" placeholder="abbreviations.json" />
+            <button id="loadAbbrevUrlBtn">Load</button>
+          </div>
+          <div class="row">
+            <label class="grow">Or upload JSON file</label>
+            <input id="abbrevFile" type="file" accept="application/json" />
+            <button id="clearAbbrevBtn" class="secondary">Clear</button>
+          </div>
+          <div class="hint" style="margin-top:6px">EDU NLP extracts pronouns, verb lemmas, and key nouns; abbreviations collapse multi-word forms (e.g., “carbon dioxide” → “co2”).</div>
         </div>
-        <div class="step-item">
-          <div class="step-num">02</div>
-          <div class="step-title">NLP tokenisation</div>
-          <p class="step-body">Your text is normalised, stripped of stopwords, and mapped against our sign database using a tiered planning pipeline — exact match → concept map → fuzzy → fingerspelling.</p>
+
+        <div class="card">
+          <h3>Microphone</h3>
+          <div class="row">
+            <button id="recordBtn" class="secondary">● Start recording</button>
+            <button id="transcribeBtn">Transcribe</button>
+            <div id="micStatus" class="muted">Idle</div>
+          </div>
+          <textarea id="transcription" placeholder="Transcription will appear here" style="margin-top:8px"></textarea>
+          <div class="hint" style="margin-top:6px">On-device Whisper (transformers.js). First run downloads model; allow ~100–200MB cache.</div>
         </div>
-        <div class="step-item">
-          <div class="step-num">03</div>
-          <div class="step-title">Live sign animation</div>
-          <p class="step-body">Matched glosses are assembled into SiGML and played instantly via the CWASA signing avatar. The whole pipeline runs in the browser.</p>
+
+        <div class="card">
+          <h3>Video Upload → Sign</h3>
+          <input type="file" id="videoFile" accept="video/*" />
+          <div class="row" style="margin-top:8px">
+            <button id="videoToSignBtn">Video → Sign</button>
+            <div id="videoStatus" class="muted">No file</div>
+          </div>
         </div>
-      </div>
+
+        <!-- Settings card is kept but hidden -->
+        <div class="card hidden-card">
+          <h3>Settings</h3>
+          <div class="row">
+            <label class="grow">OpenAI API key (optional, stored locally)</label>
+            <input id="openaiKey" type="text" placeholder="sk-..." />
+            <button id="saveKeyBtn" class="secondary">Save</button>
+          </div>
+          <div class="row" style="margin-top:8px">
+            <label class="grow">Database .sigml URL(s)</label>
+            <input id="dbUrlInput" type="text" placeholder="data/hamnosys_bsl_version1.sigml" />
+            <button id="loadDbBtn">Load</button>
+          </div>
+          <div class="hint" style="margin-top:6px">You can load multiple files one-by-one. Loaded signs override earlier duplicates by gloss.</div>
+        </div>
+
+        <div class="row" style="margin-top:8px">
+          <label class="grow">Concept CSV</label>
+          <input id="conceptUrlInput" type="text" placeholder="data/hamnosys_bsl.csv" />
+          <button id="loadConceptBtn">Load</button>
+        </div>
+        <div class="row">
+          <label class="grow">Or upload CSV/TSV</label>
+          <input id="conceptFile" type="file" accept=".csv,.tsv,text/csv,text/tab-separated-values" />
+        </div>
+      </section>
+
+      <section>
+        <div class="card hidden-card">
+          <h3>Planner</h3>
+          <div class="row">
+            <div class="grow">
+              <label>Planner log</label>
+              <div id="planLog" class="log"></div>
+            </div>
+          </div>
+          <div class="row" style="margin-top:8px">
+            <div class="grow">
+              <label>Normalized</label>
+              <input type="text" id="normalizedOut" readonly />
+            </div>
+            <div class="grow">
+              <label>Tokens</label>
+              <input type="text" id="tokensOut" readonly />
+            </div>
+          </div>
+          <details style="margin-top:8px">
+            <summary class="hint">Vocabulary (from database)</summary>
+            <div id="allowedOut" class="mono" style="margin-top:8px; max-height:160px; overflow:auto"></div>
+          </details>
+          <h3>EDU Diagnostics</h3>
+          <div class="row">
+            <div class="grow">
+              <label>Timeframe guess</label>
+              <input type="text" id="timeframeOut" readonly />
+            </div>
+            <div class="grow">
+              <label>Abbreviations applied</label>
+              <input type="text" id="abbrevCountOut" readonly />
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Render (CWASA)</h3>
+          <div class="row" style="align-items:flex-start">
+            <div class="avatar-wrap">
+              <div class="CWASAAvatar av0"></div>
+            </div>
+            <div class="grow">
+              <div class="row" style="margin-bottom:8px">
+                <button id="stopBtn" class="secondary">Stop</button>
+                <div id="renderStatus" class="muted">CWASA loading…</div>
+              </div>
+              <div class="hint" style="margin-top:6px">Renders by concatenating the matching <span class="kbd">&lt;hns_sign&gt;</span> blocks into one SiGML and sending to <span class="kbd">CWASA.playSiGMLText</span>.</div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </div>
 
-  <!-- CONTRIBUTE BANNER -->
-  <section class="section">
-    <div class="contribute-banner">
-      <div class="contribute-text">
-        <h2>Help us grow the dictionary.</h2>
-        <p>Bridgn's sign database is built by volunteers. If you know sign language, work in education, or just want to help, you can contribute new glosses, test translations, or report gaps — right from your browser.</p>
-      </div>
-      <div style="flex-shrink:0;">
-        <a href="contribute.html" class="btn-large" style="white-space:nowrap;">Become a volunteer →</a>
-      </div>
-    </div>
-  </section>
+  <script>
+  const renderStatus = document.getElementById('renderStatus');
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-logo">Bridg<span>n</span></div>
-      <ul class="footer-links">
-        <li><a href="app.html">Translator</a></li>
-        <li><a href="contribute.html">Contribute</a></li>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#how-it-works">How it works</a></li>
-      </ul>
-      <div class="footer-copy">© 2025 Bridgn. Open for education.</div>
-    </div>
-  </footer>
+  function initCWASA() {
+    if (!window.CWASA) {
+      renderStatus.textContent = 'CWASA script not loaded. Check URLs.';
+      return;
+    }
+    CWASA.init({
+      useClientConfig: false,
+      useCwaConfig: true,
+      avSettings: [{
+        width: 384,
+        height: 320,
+        avList: 'avs',
+        initAv: 'luna',
+        ambIdle: true,
+        allowFrameSteps: false,
+        allowSiGMLText: false,
+      }]
+    });
+    if (CWASA.ready && typeof CWASA.ready.then === 'function') {
+      CWASA.ready.then(() => { renderStatus.textContent = 'Ready'; });
+    } else {
+      setTimeout(() => { renderStatus.textContent = 'Ready'; }, 300);
+    }
+  }
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      try { initCWASA(); } catch (e) {
+        console.error(e);
+        renderStatus.textContent = 'CWASA init error — see console.';
+      }
+    }, 150);
+  });
+  </script>
 
   <script>
-    // Tab chips behaviour
-    const chips = document.querySelectorAll('.demo-chip');
-    chips.forEach(c => {
-      c.addEventListener('click', () => {
-        chips.forEach(x => x.classList.remove('active'));
-        c.classList.add('active');
+    const abbrevUrl = document.getElementById('abbrevUrl');
+    const loadAbbrevUrlBtn = document.getElementById('loadAbbrevUrlBtn');
+    const abbrevFile = document.getElementById('abbrevFile');
+    const clearAbbrevBtn = document.getElementById('clearAbbrevBtn');
+    const applyAbbrev = document.getElementById('applyAbbrev');
+    const eduNlpToggle = document.getElementById('eduNlpToggle');
+    const stemMode = document.getElementById('stemMode');
+    const timeframeOut = document.getElementById('timeframeOut');
+    const abbrevCountOut = document.getElementById('abbrevCountOut');
+
+    let ABBREV = new Map();
+
+    const STEM_PRESET = {
+      'carbon dioxide': 'co2',
+      'deoxyribonucleic acid': 'dna',
+      'adenosine triphosphate': 'atp',
+      'machine learning': 'ml',
+      'artificial intelligence': 'ai',
+      'central processing unit': 'cpu',
+      'graphics processing unit': 'gpu',
+    };
+
+    function applyStemPreset(){
+      for (const [k,v] of Object.entries(STEM_PRESET)) ABBREV.set(k.toLowerCase(), v.toLowerCase());
+    }
+
+    function clearAbbrev(){ ABBREV.clear(); updateAbbrevCount(0); log('Cleared abbreviations.'); }
+
+    function updateAbbrevCount(n){ abbrevCountOut.value = String(n); }
+
+    async function loadAbbrevFromUrl(url){
+      try{
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const obj = await res.json();
+        let n = 0;
+        for (const [k,v] of Object.entries(obj||{})){
+          ABBREV.set(String(k).toLowerCase().trim(), String(v).toLowerCase().trim());
+          n++;
+        }
+        updateAbbrevCount(ABBREV.size);
+        log(`Loaded ${n} abbreviations from ${url}`);
+      }catch(e){ log('Abbrev load error: ' + e); }
+    }
+
+    async function loadAbbrevFromFile(file){
+      try{
+        const txt = await file.text();
+        const obj = JSON.parse(txt);
+        let n = 0;
+        for (const [k,v] of Object.entries(obj||{})){
+          ABBREV.set(String(k).toLowerCase().trim(), String(v).toLowerCase().trim());
+          n++;
+        }
+        updateAbbrevCount(ABBREV.size);
+        log(`Loaded ${n} abbreviations from file: ${file.name}`);
+      }catch(e){ log('Abbrev file error: ' + e); }
+    }
+
+    function replaceAbbreviationsBrowser(text){
+      if (!applyAbbrev.checked || ABBREV.size === 0) return { text, count: 0 };
+      const pairs = Array.from(ABBREV.entries()).sort((a,b)=> b[0].length - a[0].length);
+      let count = 0; let out = text;
+      for (const [phrase, replRaw] of pairs){
+        const escaped = phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        // Safari-safe boundaries: left via capture, right via lookahead
+        const re = new RegExp('(^|[^A-Za-z0-9_])(' + escaped + ')(?=[^A-Za-z0-9_]|$)', 'gi');
+        out = out.replace(re, (match, pre, matched) => {
+          count++;
+          const raw = String(replRaw);
+          const repl = (/^[a-z]{2,5}$/i.test(raw) && /^[a-z]{2,5}$/.test(raw)) ? raw.toUpperCase() : raw;
+          return pre + repl;
+        });
+      }
+      return { text: out, count };
+    }
+
+    const EDU_STOPWORDS = new Set(['a','an','the','and','or','but','if','then','than','of','to','in','on','at','for','from','with','as','by','is','are','am','be','been','was','were','do','does','did','that','this','those','these','it','my','your','our']);
+
+    function timeframeGuess(str){
+      const s = (str || '').toLowerCase();
+      if (/\bwill\b|\btomorrow\b|\bnext\b/.test(s)) return 'In the future';
+      if (/\byesterday\b|\bago\b|\blast\b/.test(s)) return 'In the past';
+      return 'Now';
+    }
+
+    function processEducationalText(text){
+      const doc = window.nlp(text);
+      const tokens = [];
+      const pronouns = doc.match('#Pronoun').out('array').map(s=>s.toLowerCase());
+      for (const p of pronouns){ if (!EDU_STOPWORDS.has(p)) tokens.push(p); }
+      const verbInf = doc.verbs().toInfinitive().out('array').map(s=>s.toLowerCase());
+      for (const v of verbInf){ if (!EDU_STOPWORDS.has(v)) tokens.push(v); }
+      const nouns = doc.nouns().toSingular().out('array').map(s=>s.toLowerCase());
+      for (const n of nouns){ if (!EDU_STOPWORDS.has(n)) tokens.push(n); }
+      const seen = new Set();
+      const uniq = tokens.filter(t=>{ if (seen.has(t)) return false; seen.add(t); return true; });
+      return uniq;
+    }
+
+    loadAbbrevUrlBtn.addEventListener('click', ()=>{ const u = abbrevUrl.value.trim(); if (u) loadAbbrevFromUrl(u); });
+    if (abbrevFile) {
+      abbrevFile.addEventListener('change', (e) => {
+        const files = e.target && e.target.files;
+        const f = files && files[0];
+        if (f) loadAbbrevFromFile(f);
       });
+    }
+    clearAbbrevBtn.addEventListener('click', ()=> clearAbbrev());
+    stemMode.addEventListener('change', ()=>{ if (stemMode.checked){ applyStemPreset(); updateAbbrevCount(ABBREV.size); log('STEM preset loaded.'); } });
+  </script>
+
+  <script>
+    const allowedOut = document.getElementById('allowedOut');
+    const dbUrlInput = document.getElementById('dbUrlInput');
+    const loadDbBtn = document.getElementById('loadDbBtn');
+    const conceptUrlInput = document.getElementById('conceptUrlInput');
+    const loadConceptBtn  = document.getElementById('loadConceptBtn');
+    const conceptFile     = document.getElementById('conceptFile');
+
+    const glossToSign = new Map();
+    const letterToSign = new Map();
+
+    const baseToGloss = new Map();
+    const conceptToGloss = new Map();
+
+    function glossBase(gloss) {
+      return String(gloss)
+        .toLowerCase()
+        .replace(/\(.*?\)/g, '')
+        .replace(/#\d+$/g, '')
+        .replace(/[^a-z0-9]+/g, ' ')
+        .trim();
+    }
+
+    function rebuildBaseIndex() {
+      baseToGloss.clear();
+      for (const g of glossToSign.keys()) {
+        const b = glossBase(g);
+        // prefer first seen; later loads can override
+        if (!baseToGloss.has(b)) baseToGloss.set(b, g);
+      }
+    }
+
+    async function loadSigmlUrl(url, isAutoload = false){
+      try{
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) {
+          if (isAutoload && res.status === 404) {
+            log(`Optional DB missing: ${url} (skipping)`);
+            return;
+          }
+          throw new Error('HTTP ' + res.status);
+        }
+        const xmlText = await res.text();
+        const doc = new DOMParser().parseFromString(xmlText, 'application/xml');
+        const signs = Array.from(doc.querySelectorAll('hns_sign'));
+        let added = 0;
+        for (const s of signs){
+          const gloss = (s.getAttribute('gloss') || '').trim().toLowerCase();
+          if (!gloss) continue;
+          glossToSign.set(gloss, s.outerHTML);
+          added++;
+        }
+        refreshAllowedOutput();
+        log(`Loaded ${added} signs from ${url}`);
+      }catch(e){
+        if (isAutoload) {
+          log(`Optional DB missing: ${url} (skipping)`);
+        } else {
+          log(`Failed to load ${url}: ${e}. If this is a CORS error, host the file under /database on the same origin or enable CORS on the source.`);
+        }
+      }
+    }
+
+    function refreshAllowedOutput(){
+      const list = Array.from(glossToSign.keys()).sort();
+      if (allowedOut) {
+        allowedOut.textContent = list.join(', ');
+      }
+      rebuildBaseIndex();
+    }
+
+    async function loadAlphabetSigmlUrl(url, isAutoload = false){
+      try{
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) {
+          if (isAutoload && res.status === 404) {
+            log(`Optional alphabet DB missing: ${url} (skipping)`);
+            return;
+          }
+          throw new Error('HTTP ' + res.status);
+        }
+        const xmlText = await res.text();
+        const doc = new DOMParser().parseFromString('<root>' + xmlText + '</root>', 'application/xml');
+        const signs = Array.from(doc.querySelectorAll('hns_sign'));
+        let added = 0;
+        for (const s of signs){
+          const gloss = (s.getAttribute('gloss') || '').trim().toUpperCase();
+          if (!gloss || gloss.length !== 1 || gloss < 'A' || gloss > 'Z') continue;
+          letterToSign.set(gloss, s.outerHTML);
+          added++;
+        }
+        log(`Loaded ${added} alphabet letters for fingerspelling from ${url}`);
+      }catch(e){
+        if (isAutoload) {
+          log(`Optional alphabet DB missing: ${url} (skipping)`);
+        } else {
+          log(`Failed to load alphabet ${url}: ${e}.`);
+        }
+      }
+    }
+
+    function parseTable(text){
+      let cleaned = text;
+      if (text.charCodeAt(0) === 0xFEFF) {
+        cleaned = text.slice(1);
+      }
+      const delim = cleaned.includes('\t') ? '\t' : ',';
+      const lines = cleaned.split(/\r?\n/).filter(line => line.trim());
+      if (!lines.length) return { header: [], rows: [] };
+      const header = (lines.shift() || '').split(delim).map(s=>s.trim().toLowerCase());
+      const rows = lines.map(line => {
+        const cols = line.split(delim).map(s=>s.trim());
+        const obj = {};
+        for (let i=0;i<header.length;i++) obj[header[i]] = cols[i] || '';
+        return obj;
+      });
+      return { header, rows };
+    }
+
+    async function loadConceptCsvUrl(url, isAutoload = false){
+      try{
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) {
+          if (isAutoload && res.status === 404) {
+            log(`Optional DB missing: ${url} (skipping)`);
+            return;
+          }
+          throw new Error('HTTP ' + res.status);
+        }
+        const txt = await res.text();
+        const { header, rows } = parseTable(txt);
+        if (!header.includes('concept') || !header.includes('gloss'))
+          throw new Error('CSV must have "concept" and "gloss" headers');
+        let n = 0;
+        for (const r of rows){
+          const concept = String(r.concept||'').toLowerCase().trim();
+          const gloss   = String(r.gloss||'').toLowerCase().trim();
+          if (!concept || !gloss) continue;
+          conceptToGloss.set(glossBase(concept), gloss);
+          n++;
+        }
+        log(`Loaded ${n} concepts from ${url}`);
+      }catch(e){ 
+        if (isAutoload) {
+          log(`Optional DB missing: ${url} (skipping)`);
+        } else {
+          log('Concept CSV load error: ' + e);
+        }
+      }
+    }
+
+    async function loadConceptCsvFile(file){
+      try{
+        const txt = await file.text();
+        const { header, rows } = parseTable(txt);
+        if (!header.includes('concept') || !header.includes('gloss'))
+          throw new Error('CSV must have "concept" and "gloss" headers');
+        let n = 0;
+        for (const r of rows){
+          const concept = String(r.concept||'').toLowerCase().trim();
+          const gloss   = String(r.gloss||'').toLowerCase().trim();
+          if (!concept || !gloss) continue;
+          conceptToGloss.set(glossBase(concept), gloss);
+          n++;
+        }
+        log(`Loaded ${n} concept→gloss entries from file: ${file.name}`);
+      }catch(e){ log('Concept CSV file error: ' + e); }
+    }
+
+    loadConceptBtn?.addEventListener('click', ()=>{
+      const u = conceptUrlInput?.value.trim();
+      if (u) loadConceptCsvUrl(u);
+    });
+    if (conceptFile) {
+      conceptFile.addEventListener('change', (e) => {
+        const files = e.target && e.target.files;
+        const f = files && files[0];
+        if (f) loadConceptCsvFile(f);
+      });
+    }
+
+
+    loadDbBtn?.addEventListener('click', () => {
+      const u = dbUrlInput.value.trim();
+      if (u) loadSigmlUrl(u);
+    });
+
+    window.addEventListener('load', async () => {
+      await loadSigmlUrl('/data/hamnosys_bsl_version1.sigml', true);
+      await loadConceptCsvUrl('/data/hamnosys_bsl.csv', true);
+      await loadAlphabetSigmlUrl('/data/bsl_alphabet_sigml.sigml', true);
+    });
+  </script>
+
+  <script>
+    const textIn = document.getElementById('textIn');
+    const planLog = document.getElementById('planLog');
+    const normalizedOut = document.getElementById('normalizedOut');
+    const tokensOut = document.getElementById('tokensOut');
+
+    async function planWithSpaCyBackend(rawText) {
+      try {
+        const resp = await fetch('/api/plan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: rawText }),
+        });
+    
+        if (!resp.ok) {
+          const detail = await resp.text().catch(() => '');
+          throw new Error(`Backend HTTP ${resp.status} ${detail}`);
+        }
+        return await resp.json();
+      } 
+      catch (e) {
+        console.error("spaCy backend fetch failed:", e);
+        throw e;
+      }
+    }
+    
+    const STOPWORDS = new Set(['a','an','the','and','or','but','if','then','than','of','to','in','on','at','for','from','with','as','by','is','are','am','be','been','was','were','do','does','did','that','this','those','these','it','my','your','our']);
+    const TOPIC_TIME = new Set(['today','yesterday','tomorrow','morning','afternoon','evening','night','noon','week','month','year','time']);
+    
+    function normalizeText(str){
+      try {
+        return (str||'').toLowerCase().replace(/[\p{P}\p{S}]/gu,' ').split(/\s+/).filter(Boolean);
+      } catch(e) {
+        return (str||'').toLowerCase().replace(/[^\w\s]/g,' ').split(/\s+/).filter(Boolean);
+      }
+    }
+
+    function heuristicPlan(tokens){
+      const kept = tokens.filter(t => !STOPWORDS.has(t));
+      const front = kept.filter(t => TOPIC_TIME.has(t));
+      const rest = kept.filter(t => !TOPIC_TIME.has(t));
+      return [...front, ...rest];
+    }
+    function levenshtein(a,b){
+      const m=a.length, n=b.length; if(!m) return n; if(!n) return m;
+      const dp = new Array(n+1); for(let j=0;j<=n;j++) dp[j]=j;
+      for(let i=1;i<=m;i++){
+        let prev = dp[0]; dp[0]=i;
+        for(let j=1;j<=n;j++){
+          const temp = dp[j];
+          dp[j] = Math.min(
+            dp[j] + 1,
+            dp[j-1] + 1,
+            prev + (a[i-1]===b[j-1]?0:1)
+          );
+          prev = temp;
+        }
+      }
+      return dp[n];
+    }
+    function similarity(a,b){
+      if (!a||!b) return 0;
+      const d = levenshtein(a,b);
+      return 1 - d / Math.max(a.length, b.length);
+    }
+
+    function mapToAvailable(tokens, allowedGlosses, cutoff = 0.82){
+      const mapped = [], subs = {}, missing = [], fingerspelled = [];
+      if (!allowedGlosses.length) return { mapped, subs, missing: [...tokens], fingerspelled };
+      const bases = allowedGlosses.map(g => glossBase(g));
+      const baseToGlossLocal = new Map();
+      for (let i=0; i<allowedGlosses.length; i++){
+        const g = allowedGlosses[i];
+        const b = bases[i];
+        if (!baseToGlossLocal.has(b)) baseToGlossLocal.set(b, g);
+      }
+
+      for (const t of tokens){
+        if (allowedGlosses.includes(t)) { 
+          mapped.push(t); 
+          continue; 
+        }
+        const tBase = glossBase(t);
+        if (conceptToGloss.has(tBase)) {
+          const g = conceptToGloss.get(tBase);
+          mapped.push(g);
+          if (t !== g) subs[t] = g;
+          continue;
+        }
+        if (baseToGloss.has(tBase)) {
+          const g = baseToGloss.get(tBase);
+          mapped.push(g);
+          if (t !== g) subs[t] = g;
+          continue;
+        }
+        if (baseToGlossLocal.has(tBase)) {
+          const g = baseToGlossLocal.get(tBase);
+          mapped.push(g);
+          if (t !== tBase) subs[t] = g;
+          continue;
+        }
+        let bestBase = null, bestScore = 0;
+        for (const b of baseToGlossLocal.keys()){
+          const s = similarity(tBase, b);
+          if (s > bestScore) { bestScore = s; bestBase = b; }
+        }
+        if (bestBase && bestScore >= cutoff){
+          const g = baseToGlossLocal.get(bestBase);
+          mapped.push(g);
+          subs[t] = g;
+        } else {
+          if (letterToSign.size > 0) {
+            const hasLetter = /[A-Za-z]/.test(t);
+            if (hasLetter) {
+              mapped.push(t);
+              fingerspelled.push(t);
+            } else {
+              missing.push(t);
+            }
+          } else {
+            missing.push(t);
+          }
+        }
+      }
+      return { mapped, subs, missing, fingerspelled };
+    }
+    function currentAllowed(){
+      return Array.from(glossToSign.keys()).sort();
+    }
+    async function planWithOpenAI(rawText, allowed){
+      const key = localStorage.getItem('openai_key');
+      if (!key) return null;
+      const system = "You rewrite user sentences into ASL-friendly word order as tokens. Use ONLY words from the allowed vocabulary provided. If a word is not present, substitute the closest semantic match from the allowed list. Return ONLY the final token sequence as a single space-separated line. No explanations.";
+      const user = `ALLOWED:\n${allowed.join(', ')}\n\nTEXT:\n${rawText}\n\nFORMAT:\nspace-separated tokens, lowercase`;
+      try{
+        const resp = await fetch('https://api.openai.com/v1/chat/completions',{
+          method:'POST',
+          headers:{ 'Authorization': `Bearer ${key}`, 'Content-Type':'application/json' },
+          body: JSON.stringify({
+            model:'gpt-4o-mini',
+            temperature:0.1,
+            messages:[{role:'system', content:system},{role:'user', content:user}],
+          })
+        });
+        if (!resp.ok) throw new Error('OpenAI HTTP ' + resp.status);
+        const data = await resp.json();
+        let content = '';
+        if (
+          data &&
+          Array.isArray(data.choices) &&
+          data.choices.length > 0 &&
+          data.choices[0] &&
+          data.choices[0].message &&
+          typeof data.choices[0].message.content === 'string'
+        ) {
+          content = data.choices[0].message.content.trim();
+        }
+        const toks = content.split(/\s+/).filter(w => allowed.includes(w));
+        return toks.length ? toks : null;
+      }catch(e){ log('OpenAI planner error: ' + e); return null; }
+    }
+
+    async function doPlan(mode) {
+      const raw0 = textIn.value.trim();
+      if (!raw0) {
+        log('Empty text.');
+        return;
+      }
+    
+      const allowed = currentAllowed();
+      if (allowed.length === 0) {
+        log('database/ is empty — add .sigml files first.');
+        return;
+      }
+    
+      const { text: raw, count: abCount } = replaceAbbreviationsBrowser(raw0);
+      if (typeof abbrevCountOut !== 'undefined' && abbrevCountOut) {
+        abbrevCountOut.value = String(abCount);
+      }
+      if (typeof timeframeOut !== 'undefined' && timeframeOut) {
+        timeframeOut.value = timeframeGuess(raw);
+      }
+    
+      let mapped = null, subs = {}, missing = [];
+    
+      const rawTokens = raw.split(/\s+/).map(s => s.toLowerCase()).filter(Boolean);
+      if (rawTokens.length && rawTokens.every(t => allowed.includes(t))) {
+        if (normalizedOut) normalizedOut.value = rawTokens.join(' ');
+        if (planLog) planLog.textContent = 'planned (exact gloss)';
+        if (tokensOut) tokensOut.value = rawTokens.join(' ');
+        window.__plannedTokens = rawTokens;
+        return;
+      }
+    
+      const phraseBase = glossBase(raw);
+      if (conceptToGloss.has(phraseBase)) {
+        const g = conceptToGloss.get(phraseBase);
+        mapped = [g];
+        if (normalizedOut) normalizedOut.value = raw;
+        if (planLog) planLog.textContent = `concept-map: "${raw}" → "${g}"`;
+        if (tokensOut) tokensOut.value = g;
+        window.__plannedTokens = mapped;
+        return;
+      }
+    
+      if (mode === 'spacy') {
+        try {
+          const backend = await planWithSpaCyBackend(raw);
+          if (backend.error) {
+            log('Backend error: ' + backend.error);
+            throw new Error(backend.error);
+          }
+      
+          const backendTokens = String(backend.final || '')
+            .replace(/[.\n]/g, ' ')
+            .split(/\s+/)
+            .filter(Boolean);
+      
+          console.log('BACKEND.final:', backend.final);
+          console.log('BACKEND tokens:', backendTokens);
+      
+          const m = mapToAvailable(backendTokens, allowed, 0.82);
+          const mappedFromBackend  = m.mapped;
+          const subsFromBackend    = m.subs;
+          const missingFromBackend = m.missing;
+          const fingerspelledFromBackend = m.fingerspelled || [];
+      
+          console.log('mappedFromBackend:', mappedFromBackend);
+          console.log('subsFromBackend:', subsFromBackend);
+          console.log('missingFromBackend:', missingFromBackend);
+          console.log('fingerspelledFromBackend:', fingerspelledFromBackend);
+      
+          const displayTokens = mappedFromBackend.length
+            ? mappedFromBackend
+            : backendTokens;
+      
+          console.log('displayTokens actually used:', displayTokens);
+      
+          if (normalizedOut) normalizedOut.value = backendTokens.join(' ');
+          if (planLog) {
+            const lines = ['spacy-backend'];
+            if (Object.keys(subsFromBackend).length) {
+              lines.push('substitutions: ' + JSON.stringify(subsFromBackend));
+            }
+            if (fingerspelledFromBackend.length) {
+              lines.push('fingerspelled: ' + fingerspelledFromBackend.join(', '));
+            }
+            if (missingFromBackend.length) {
+              lines.push('missing: ' + missingFromBackend.join(', '));
+            }
+            planLog.textContent = lines.join('\n');
+          }
+      
+          if (tokensOut) tokensOut.value = displayTokens.join(' ');
+          window.__plannedTokens = displayTokens;
+          return;
+        } catch (e) {
+          log('Python backend error, will fall back: ' + e);
+        }
+      }
+
+      else if (mode === 'openai') {
+        try {
+          const openTokens = await planWithOpenAI(raw, allowed);
+          if (openTokens && openTokens.length) {
+            const m = mapToAvailable(openTokens, allowed, 0.82);
+            mapped  = m.mapped;
+            subs    = m.subs;
+            missing = m.missing;
+            const fingerspelled = m.fingerspelled || [];
+    
+            if (normalizedOut) normalizedOut.value = openTokens.join(' ');
+            if (planLog) {
+              const lines = ['openai-backend'];
+              if (Object.keys(subs).length) lines.push('substitutions: ' + JSON.stringify(subs));
+              if (fingerspelled.length) lines.push('fingerspelled: ' + fingerspelled.join(', '));
+              if (missing.length) lines.push('missing: ' + missing.join(', '));
+              planLog.textContent = lines.join('\n');
+            }
+          }
+        } catch (e) {
+          log('OpenAI planner error, will fall back: ' + e);
+        }
+      }
+      if (!mapped || !mapped.length) {
+        if (typeof eduNlpToggle !== 'undefined' && eduNlpToggle.checked) {
+          const eduTokens = processEducationalText(raw);
+          const mEdu = mapToAvailable(eduTokens, allowed, 0.82);
+          mapped  = mEdu.mapped;
+          subs    = mEdu.subs;
+          missing = mEdu.missing;
+          const fingerspelled = mEdu.fingerspelled || [];
+    
+          if (normalizedOut) normalizedOut.value = eduTokens.join(' ');
+          if (planLog) {
+            const lines = ['edu-nlp'];
+            if (Object.keys(subs).length) lines.push('substitutions: ' + JSON.stringify(subs));
+            if (fingerspelled.length) lines.push('fingerspelled: ' + fingerspelled.join(', '));
+            if (missing.length) lines.push('missing: ' + missing.join(', '));
+            planLog.textContent = lines.join('\n');
+          }
+        }
+      }
+    
+      if (!mapped || !mapped.length) {
+        const norm = normalizeText(raw);
+        const heur = heuristicPlan(norm);
+        const mHeur = mapToAvailable(heur, allowed, 0.82);
+        mapped  = mHeur.mapped;
+        subs    = mHeur.subs;
+        missing = mHeur.missing;
+        const fingerspelled = mHeur.fingerspelled || [];
+    
+        if (normalizedOut) normalizedOut.value = norm.join(' ');
+        if (planLog) {
+          const lines = [];
+          if (heur.length) lines.push('heuristic: ' + heur.join(' '));
+          if (Object.keys(subs).length) lines.push('substitutions: ' + JSON.stringify(subs));
+          if (fingerspelled.length) lines.push('fingerspelled: ' + fingerspelled.join(', '));
+          if (missing.length) lines.push('missing: ' + missing.join(', '));
+          planLog.textContent = lines.length ? lines.join('\n') : 'planned';
+        }
+      }
+    
+      if (!mapped || !mapped.length) {
+        log('No tokens mapped to available signs.');
+        return;
+      }
+    
+      if (tokensOut) tokensOut.value = mapped.join(' ');
+      window.__plannedTokens = mapped;
+    }
+  </script>
+
+  <script>
+    const stopBtn = document.getElementById('stopBtn');
+
+    function isUpperLetter(char) {
+      return char >= 'A' && char <= 'Z';
+    }
+
+    function fingerspellWord(word){
+      const blocks = [];
+      const upperWord = (word || '').toUpperCase();
+      for (const char of upperWord){
+        // Only fingerspell letters A-Z
+        if (isUpperLetter(char)){
+          const letterBlock = letterToSign.get(char);
+          if (letterBlock) {
+            blocks.push(letterBlock);
+          }
+        }
+      }
+      return blocks;
+    }
+
+    function buildSigml(tokens){
+      const blocks = [];
+      for (const t of tokens){
+        const b = glossToSign.get(t);
+        if (b) {
+          blocks.push(b);
+        } else if (letterToSign.size > 0) {
+          const letterBlocks = fingerspellWord(t);
+          if (letterBlocks.length > 0) {
+            blocks.push(...letterBlocks);
+            log(`Fingerspelling: "${t}"`);
+          }
+        }
+      }
+      if (!blocks.length) return null;
+      return `<?xml version="1.0" encoding="utf-8"?>\n<sigml>\n${blocks.join('\n')}\n</sigml>`;
+    }
+
+    function playSigml(sigml){
+      try{
+        CWASA.playSiGMLText(sigml, 0);
+      }catch(e){ log('CWASA play error: ' + e); }
+    }
+
+    const translateBtn = document.getElementById('translateBtn');
+
+translateBtn?.addEventListener('click', async () => {
+  if (!window.CWASA) {
+    renderStatus.textContent = 'CWASA not loaded.';
+    return;
+  }
+
+  translateBtn.disabled = true;
+  try {
+    renderStatus.textContent = 'Translating…';
+    await doPlan('spacy');
+
+    const toks = window.__plannedTokens || [];
+    if (!toks.length) {
+      renderStatus.textContent = 'No tokens planned.';
+      return;
+    }
+
+    const sigml = buildSigml(toks);
+    if (!sigml) {
+      renderStatus.textContent = 'No matching signs.';
+      return;
+    }
+
+    renderStatus.textContent = 'Playing…';
+    playSigml(sigml);
+  } catch (e) {
+    console.error(e);
+    renderStatus.textContent = 'Translate error (see console).';
+  } finally {
+    translateBtn.disabled = false;
+  }
+  });
+    
+    stopBtn.addEventListener('click', () => {
+      try{ CWASA.stop(0); }catch(_e){}
+    });
+  </script>
+
+  <script>
+    const recordBtn = document.getElementById('recordBtn');
+    const transcribeBtn = document.getElementById('transcribeBtn');
+    const micStatus = document.getElementById('micStatus');
+    const transcription = document.getElementById('transcription');
+    const langHint = document.getElementById('langHint');
+
+    let mediaRecorder = null;
+    let recordedChunks = [];
+
+    function pickAsrModel(){
+      const ua = navigator.userAgent || '';
+      const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(ua);
+      return isMobile ? 'Xenova/whisper-tiny.en' : 'Xenova/whisper-small';
+    }
+
+    async function ensureASR(){
+      const { pipeline } = window.transformers;
+      const model = pickAsrModel();
+      if (!window.__asr || window.__asrModelName !== model){
+        window.__asr = await pipeline('automatic-speech-recognition', model);
+        window.__asrModelName = model;
+      }
+      return window.__asr;
+    }
+
+    recordBtn.addEventListener('click', async () => {
+      if (!mediaRecorder){
+        // start
+        try{
+          const stream = await navigator.mediaDevices.getUserMedia({ audio:true });
+          recordedChunks = [];
+          mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+          mediaRecorder.ondataavailable = (e)=>{ if(e.data.size>0) recordedChunks.push(e.data); };
+          mediaRecorder.onstop = ()=>{ stream.getTracks().forEach(t=>t.stop()); };
+          mediaRecorder.start();
+          recordBtn.textContent = '■ Stop recording';
+          recordBtn.classList.remove('secondary');
+          micStatus.textContent = 'Recording…';
+        }catch(e){ micStatus.textContent = 'Mic error: ' + e; }
+      } else {
+        mediaRecorder.stop();
+        mediaRecorder = null;
+        recordBtn.textContent = '● Start recording';
+        recordBtn.classList.add('secondary');
+        micStatus.textContent = `Recorded ${(recordedChunks.reduce((s,b)=>s+b.size,0)/1024/1024).toFixed(1)} MB`;
+      }
+    });
+
+    transcribeBtn.addEventListener('click', async () => {
+      if (!recordedChunks.length){ micStatus.textContent = 'Nothing recorded.'; return; }
+      micStatus.textContent = 'Loading ASR model… (first time can take a while)';
+      try{
+        const asr = await ensureASR();
+        micStatus.textContent = 'Transcribing…';
+        const blob = new Blob(recordedChunks, { type: 'audio/webm' });
+        const result = await asr(blob, { chunk_length_s: 30, stride_length_s: 5 });
+        transcription.value = (result?.text || '').trim();
+        micStatus.textContent = 'Done.';
+      }catch(e){ micStatus.textContent = 'Transcription error: ' + e; }
+    });
+  </script>
+
+  <script>
+    const videoFile = document.getElementById('videoFile');
+    const videoToSignBtn = document.getElementById('videoToSignBtn');
+    const videoStatus = document.getElementById('videoStatus');
+
+    async function ensureFFmpeg(){
+      if (!window.__ffmpeg){
+        const { createFFmpeg, fetchFile } = FFmpeg;
+        const ffmpeg = createFFmpeg({ log: false });
+        await ffmpeg.load();
+        window.__ffmpeg = { ffmpeg, fetchFile };
+      }
+      return window.__ffmpeg;
+    }
+
+    videoToSignBtn.addEventListener('click', async () => {
+      let file = null;
+      if (videoFile && videoFile.files && videoFile.files.length > 0) {
+        file = videoFile.files[0];
+      }
+
+      if (!file){ videoStatus.textContent = 'Choose a video first.'; return; }
+      try{
+        videoStatus.textContent = 'Preparing ffmpeg…';
+        const { ffmpeg, fetchFile } = await ensureFFmpeg();
+        videoStatus.textContent = 'Extracting audio…';
+        ffmpeg.FS('writeFile', 'in', await fetchFile(file));
+        await ffmpeg.run('-i', 'in', '-vn', '-ac', '1', '-ar', '16000', '-f', 'wav', 'out.wav');
+        const data = ffmpeg.FS('readFile', 'out.wav');
+        const wavBlob = new Blob([data.buffer], { type: 'audio/wav' });
+
+        videoStatus.textContent = 'Loading ASR model…';
+        const asr = await ensureASR();
+        videoStatus.textContent = 'Transcribing…';
+        const result = await asr(wavBlob, { chunk_length_s: 30, stride_length_s: 5 });
+        const text = (result?.text || '').trim();
+        transcription.value = text;
+        videoStatus.textContent = 'Planning…';
+        textIn.value = text;
+        await doPlan('spacy');
+        videoStatus.textContent = 'Ready to render.';
+      }catch(e){ videoStatus.textContent = 'Video→Sign error: ' + e; }
+    });
+  </script>
+
+  <script>
+    const openaiKey = document.getElementById('openaiKey');
+    const saveKeyBtn = document.getElementById('saveKeyBtn');
+
+    if (openaiKey) openaiKey.value = localStorage.getItem('openai_key') || '';
+    saveKeyBtn?.addEventListener('click', () => {
+      const v = openaiKey.value.trim();
+      if (v){ localStorage.setItem('openai_key', v); log('Saved OpenAI key locally.'); }
+      else { localStorage.removeItem('openai_key'); log('Cleared OpenAI key.'); }
+    });
+  </script>
+
+  <script>
+    function log(msg){
+      const el = document.getElementById('planLog');
+      const now = new Date().toLocaleTimeString();
+      if (!el) return;
+      const prev = el.textContent ? (el.textContent + '\n') : '';
+      el.textContent = prev + `[${now}] ${msg}`;
+    }
+  </script>
+
+  <script>
+    window.addEventListener('error', e => {
+      log('JS error: ' + (e?.error?.message || e.message));
+    });
+    window.addEventListener('unhandledrejection', e => {
+      log('Promise rejection: ' + (e?.reason?.message || e.reason));
     });
   </script>
 </body>
