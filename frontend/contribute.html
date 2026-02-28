@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bridgn — Contribute</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #1a1612;
+      --ink-2: #3d3630;
+      --ink-3: #7a6f65;
+      --paper: #f5f1eb;
+      --paper-2: #ede8e0;
+      --paper-3: #e4ddd3;
+      --accent: #c96a2e;
+      --accent-2: #e8843e;
+      --accent-light: #f5e4d6;
+      --green: #2d6a4f;
+      --green-light: #d4edda;
+      --border: rgba(26,22,18,0.12);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 64px;
+      background: rgba(245,241,235,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Instrument Serif', serif; font-size: 22px; color: var(--ink); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--ink-2); font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a.active { color: var(--accent); }
+    .btn-primary { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; color: white; background: var(--accent); border: none; border-radius: var(--radius-sm); padding: 8px 20px; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+    .btn-primary:hover { background: var(--accent-2); }
+
+    /* HERO */
+    .page-hero {
+      padding: 100px 48px 72px;
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .page-hero .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent-light); border: 1px solid rgba(201,106,46,0.2);
+      color: var(--accent); font-size: 12px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 6px 14px; border-radius: 999px; margin-bottom: 28px;
+    }
+    .page-hero h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(40px, 6vw, 64px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+    .page-hero p {
+      font-size: 18px; color: var(--ink-3); line-height: 1.7;
+      max-width: 600px; margin: 0 auto 40px; font-weight: 300;
+    }
+
+    /* IMPACT STRIP */
+    .impact-strip {
+      background: var(--ink);
+      padding: 48px;
+    }
+    .impact-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+      text-align: center;
+    }
+    .impact-num {
+      font-family: 'Instrument Serif', serif;
+      font-size: 44px;
+      color: var(--accent-2);
+      line-height: 1;
+    }
+    .impact-label {
+      font-size: 13px;
+      color: rgba(245,241,235,0.5);
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    /* MAIN CONTENT */
+    .page-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 48px;
+    }
+
+    .section-label {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 40px;
+    }
+    .section-title em { font-style: italic; color: var(--accent); }
+
+    /* ROLES GRID */
+    .roles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 80px;
+    }
+    .role-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .role-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(26,22,18,0.08);
+      border-color: rgba(201,106,46,0.25);
+    }
+    .role-card.featured {
+      border-color: var(--accent);
+      background: var(--accent-light);
+    }
+    .role-icon {
+      font-size: 32px; margin-bottom: 14px;
+    }
+    .role-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 20px; color: var(--ink); margin-bottom: 8px;
+    }
+    .role-desc {
+      font-size: 14px; line-height: 1.7; color: var(--ink-3); margin-bottom: 16px;
+    }
+    .role-tag {
+      display: inline-block;
+      background: var(--paper-2); border: 1px solid var(--border);
+      border-radius: 999px; padding: 4px 12px;
+      font-size: 11px; font-weight: 600;
+      color: var(--ink-3); letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .role-card.featured .role-tag {
+      background: rgba(201,106,46,0.15);
+      border-color: rgba(201,106,46,0.3);
+      color: var(--accent);
+    }
+
+    /* CONTRIBUTION FORM */
+    .form-section {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 48px;
+      margin-bottom: 80px;
+    }
+    .form-header {
+      margin-bottom: 32px;
+    }
+    .form-header h2 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 28px;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .form-header p {
+      font-size: 15px;
+      color: var(--ink-3);
+      line-height: 1.6;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-field.full { grid-column: 1 / -1; }
+    .field-label {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--ink-3);
+    }
+    .field-label .req { color: var(--accent); }
+    input[type="text"], input[type="email"], select, textarea {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(201,106,46,0.1);
+    }
+    textarea { min-height: 100px; resize: vertical; }
+
+    .checkbox-group {
+      display: flex; flex-direction: column; gap: 10px;
+      margin-bottom: 16px;
+    }
+    .check-option {
+      display: flex; align-items: flex-start; gap: 10px;
+      cursor: pointer;
+    }
+    .check-option input[type="checkbox"] {
+      margin-top: 2px; accent-color: var(--accent);
+      flex-shrink: 0; width: auto;
+    }
+    .check-option-text { font-size: 14px; color: var(--ink-2); line-height: 1.5; }
+    .check-option-text strong { color: var(--ink); }
+
+    .btn-submit {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px; font-weight: 600;
+      color: white; background: var(--accent);
+      border: none; border-radius: var(--radius);
+      padding: 13px 32px; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-submit:hover { background: var(--accent-2); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(201,106,46,0.3); }
+
+    /* PROCESS SECTION */
+    .process-list {
+      display: flex; flex-direction: column; gap: 2px;
+      border-radius: var(--radius); overflow: hidden;
+      margin-bottom: 80px;
+    }
+    .process-item {
+      display: flex; align-items: flex-start; gap: 24px;
+      padding: 28px 32px;
+      background: white; border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+    }
+    .process-item:first-child { border-top: 1px solid var(--border); border-radius: var(--radius) var(--radius) 0 0; }
+    .process-item:last-child { border-bottom: 1px solid var(--border); border-radius: 0 0 var(--radius) var(--radius); }
+    .process-num {
+      font-family: 'Instrument Serif', serif;
+      font-size: 40px;
+      color: rgba(201,106,46,0.2);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 48px;
+    }
+    .process-body {}
+    .process-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 18px;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .process-desc { font-size: 14px; line-height: 1.6; color: var(--ink-3); }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 40px 48px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .footer-logo { font-family: 'Instrument Serif', serif; font-size: 18px; color: var(--ink); }
+    .footer-logo span { color: var(--accent); }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { font-size: 13px; color: var(--ink-3); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-copy { font-size: 12px; color: var(--ink-3); }
+
+    /* TOAST */
+    .toast {
+      position: fixed; bottom: 32px; right: 32px;
+      background: var(--ink); color: white;
+      padding: 14px 20px; border-radius: var(--radius);
+      font-size: 14px; font-weight: 500;
+      box-shadow: 0 8px 24px rgba(26,22,18,0.25);
+      transform: translateY(100px); opacity: 0;
+      transition: all 0.3s;
+      z-index: 999;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-up { animation: fadeUp 0.6s ease forwards; }
+    .delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .delay-2 { animation-delay: 0.2s; opacity: 0; }
+    .delay-3 { animation-delay: 0.3s; opacity: 0; }
+
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .page-hero { padding: 80px 24px 48px; }
+      .impact-strip { padding: 40px 24px; }
+      .impact-inner { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .page-content { padding: 48px 24px; }
+      .roles-grid { grid-template-columns: 1fr; }
+      .form-section { padding: 28px 24px; }
+      .form-grid { grid-template-columns: 1fr; }
+      footer { padding: 32px 24px; }
+      .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Bridg<span>n</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="index.html#how-it-works">How it works</a></li>
+      <li><a href="contribute.html" class="active">Contribute</a></li>
+    </ul>
+    <a href="app.html" class="btn-primary">Open Translator →</a>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="eyebrow fade-up delay-1">Open contribution program</div>
+    <h1 class="fade-up delay-2">Every gloss you add<br><em>bridges</em> a conversation.</h1>
+    <p class="fade-up delay-3">Bridgn's sign database is built entirely by volunteers. Whether you're a sign language interpreter, a teacher, a researcher, or simply someone who cares — there's a role for you.</p>
+  </section>
+
+  <!-- IMPACT STRIP -->
+  <div class="impact-strip">
+    <div class="impact-inner">
+      <div>
+        <div class="impact-num">1 in 5</div>
+        <div class="impact-label">People have some hearing loss</div>
+      </div>
+      <div>
+        <div class="impact-num">466M</div>
+        <div class="impact-label">People are Deaf worldwide</div>
+      </div>
+      <div>
+        <div class="impact-num">300+</div>
+        <div class="impact-label">Sign languages exist globally</div>
+      </div>
+      <div>
+        <div class="impact-num">Free</div>
+        <div class="impact-label">Bridgn is open for education</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="page-content">
+
+    <!-- ROLES -->
+    <div class="section-label">Ways to help</div>
+    <h2 class="section-title">Pick the role that <em>fits you.</em></h2>
+
+    <div class="roles-grid">
+      <div class="role-card featured">
+        <div class="role-icon">🤟</div>
+        <div class="role-title">Sign Language Expert</div>
+        <p class="role-desc">Review, correct, and add new sign glosses to the database. Your expertise directly improves translation accuracy for real users.</p>
+        <span class="role-tag">High impact</span>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">🏫</div>
+        <div class="role-title">Educator</div>
+        <p class="role-desc">Test Bridgn in real classroom settings. Report gaps in vocabulary for your subject area and suggest educational improvements.</p>
+        <span class="role-tag">Field testing</span>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">💻</div>
+        <div class="role-title">Developer</div>
+        <p class="role-desc">Improve the NLP pipeline, fix bugs, expand language support, or build new features. The codebase is open for contributions.</p>
+        <span class="role-tag">Technical</span>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">🔬</div>
+        <div class="role-title">Researcher</div>
+        <p class="role-desc">Help us understand how Deaf and HoH users interact with sign technology. Usability studies, interviews, and academic collaboration welcome.</p>
+        <span class="role-tag">Research</span>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">🌍</div>
+        <div class="role-title">Translator / Localiser</div>
+        <p class="role-desc">Help us add support for new sign languages and regions. We currently support BSL — your language could be next.</p>
+        <span class="role-tag">Expansion</span>
+      </div>
+      <div class="role-card">
+        <div class="role-icon">📣</div>
+        <div class="role-title">Community Builder</div>
+        <p class="role-desc">Share Bridgn with Deaf schools, community centres, and educators. Help us reach the people who need it most.</p>
+        <span class="role-tag">Outreach</span>
+      </div>
+    </div>
+
+    <!-- CONTRIBUTION FORM -->
+    <div class="form-section">
+      <div class="form-header">
+        <h2>Join the volunteer program</h2>
+        <p>Fill in the form and we'll reach out with onboarding details. No commitment required — contribute as little or as much as you like.</p>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-field">
+          <label class="field-label">First name <span class="req">*</span></label>
+          <input type="text" id="firstName" placeholder="Your name" />
+        </div>
+        <div class="form-field">
+          <label class="field-label">Last name</label>
+          <input type="text" id="lastName" placeholder="Optional" />
+        </div>
+        <div class="form-field">
+          <label class="field-label">Email <span class="req">*</span></label>
+          <input type="email" id="email" placeholder="you@example.com" />
+        </div>
+        <div class="form-field">
+          <label class="field-label">Country / Region</label>
+          <input type="text" id="region" placeholder="Where are you based?" />
+        </div>
+      </div>
+
+      <div class="form-field" style="margin-bottom:16px;">
+        <label class="field-label">How would you like to contribute? <span class="req">*</span></label>
+      </div>
+
+      <div class="checkbox-group">
+        <label class="check-option">
+          <input type="checkbox" name="role" value="sign-expert" />
+          <span class="check-option-text"><strong>Sign language expert</strong> — add or review glosses</span>
+        </label>
+        <label class="check-option">
+          <input type="checkbox" name="role" value="educator" />
+          <span class="check-option-text"><strong>Educator</strong> — test in classroom, report vocabulary gaps</span>
+        </label>
+        <label class="check-option">
+          <input type="checkbox" name="role" value="developer" />
+          <span class="check-option-text"><strong>Developer</strong> — code contributions, bug fixes</span>
+        </label>
+        <label class="check-option">
+          <input type="checkbox" name="role" value="researcher" />
+          <span class="check-option-text"><strong>Researcher</strong> — usability studies, academic collaboration</span>
+        </label>
+        <label class="check-option">
+          <input type="checkbox" name="role" value="translator" />
+          <span class="check-option-text"><strong>Localiser / Translator</strong> — add support for new sign languages</span>
+        </label>
+        <label class="check-option">
+          <input type="checkbox" name="role" value="community" />
+          <span class="check-option-text"><strong>Community builder</strong> — outreach and partnerships</span>
+        </label>
+      </div>
+
+      <div class="form-field" style="margin-bottom:24px;">
+        <label class="field-label">Tell us about yourself</label>
+        <textarea id="about" placeholder="Any relevant background, experience with sign language, or ideas you want to share..."></textarea>
+      </div>
+
+      <button class="btn-submit" onclick="submitForm()">Submit application →</button>
+    </div>
+
+    <!-- CONTRIBUTION PROCESS -->
+    <div class="section-label">What happens next</div>
+    <h2 class="section-title">Simple onboarding,<br>real <em>impact.</em></h2>
+
+    <div class="process-list">
+      <div class="process-item">
+        <div class="process-num">01</div>
+        <div class="process-body">
+          <div class="process-title">We review your application</div>
+          <p class="process-desc">Within a few days, our team will review your submission and match you with the right contribution track based on your background and interests.</p>
+        </div>
+      </div>
+      <div class="process-item">
+        <div class="process-num">02</div>
+        <div class="process-body">
+          <div class="process-title">Short onboarding call</div>
+          <p class="process-desc">We'll schedule a quick call to walk you through the tools, data formats (SiGML, HamNoSys, CSV), and how contributions get reviewed and merged.</p>
+        </div>
+      </div>
+      <div class="process-item">
+        <div class="process-num">03</div>
+        <div class="process-body">
+          <div class="process-title">Start contributing</div>
+          <p class="process-desc">Add signs at your own pace via our contribution tools. Each gloss you add is peer-reviewed before going into the live database.</p>
+        </div>
+      </div>
+      <div class="process-item">
+        <div class="process-num">04</div>
+        <div class="process-body">
+          <div class="process-title">See your work in the wild</div>
+          <p class="process-desc">Every accepted contribution is credited and goes live for all Bridgn users — teachers, students, and Deaf community members — immediately.</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /page-content -->
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">Bridg<span>n</span></div>
+      <ul class="footer-links">
+        <li><a href="app.html">Translator</a></li>
+        <li><a href="contribute.html">Contribute</a></li>
+        <li><a href="index.html#features">Features</a></li>
+      </ul>
+      <div class="footer-copy">© 2025 Bridgn. Open for education.</div>
+    </div>
+  </footer>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3500);
+    }
+
+    function submitForm() {
+      const firstName = document.getElementById('firstName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const roles = Array.from(document.querySelectorAll('input[name="role"]:checked')).map(c => c.value);
+
+      if (!firstName) { showToast('Please enter your first name.'); return; }
+      if (!email || !email.includes('@')) { showToast('Please enter a valid email address.'); return; }
+      if (roles.length === 0) { showToast('Please select at least one contribution area.'); return; }
+
+      // In production this would POST to an API endpoint
+      console.log('Volunteer application:', { firstName, email, roles, about: document.getElementById('about').value });
+      showToast('✓ Application submitted! We\'ll be in touch soon.');
+
+      // Clear form
+      document.getElementById('firstName').value = '';
+      document.getElementById('lastName').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('region').value = '';
+      document.getElementById('about').value = '';
+      document.querySelectorAll('input[name="role"]').forEach(c => c.checked = false);
+    }
+  </script>
+</body>
+</html>
