@@ -33,17 +33,13 @@ jobs:
               "${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}" \
               'bash -lc "
                 set -euo pipefail
-
                 cd /home/ubuntu/Kozha
-
                 git fetch --prune origin
                 git reset --hard origin/main
                 git clean -fd
-
                 cd backend
-                source .venv/bin/activate
+                source /home/ubuntu/kozha-venv/bin/activate
                 pip install -r requirements.txt
-
                 sudo systemctl restart kozha.service
                 sudo systemctl --no-pager status kozha.service
               "'
