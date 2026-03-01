@@ -1,50 +1,38 @@
 name: Deploy
-
 on:
   push:
     branches: ["main"]
   workflow_dispatch:
-
 concurrency:
   group: deploy-main
   cancel-in-progress: true
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout (optional)
         uses: actions/checkout@v4
-
       - name: Start ssh-agent
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
-
       - name: Trust host key
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan -H "${{ secrets.EC2_HOST }}" >> ~/.ssh/known_hosts
-
       - name: Deploy to EC2
         run: |
           ssh -o ServerAliveInterval=30 -o ServerAliveCountMax=3 \
               "${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}" \
               'bash -lc "
                 set -euo pipefail
-
                 cd /home/ubuntu/Kozha
-
                 git fetch --prune origin
                 git reset --hard origin/main
                 git clean -fd
-
                 cd backend
                 source /home/ubuntu/kozha-venv/bin/activate
                 pip install -r requirements.txt
-
                 sudo systemctl restart kozha.service
                 sudo systemctl --no-pager status kozha.service
               "'
-
