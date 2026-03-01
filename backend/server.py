@@ -10,6 +10,9 @@ import re
 import spacy
 from spacy.matcher import PhraseMatcher
 
+class TextRequest(BaseModel):
+    text: str
+
 APP_ROOT = Path(__file__).resolve().parent
 REPO_ROOT = APP_ROOT.parent
 FRONTEND_DIR = REPO_ROOT / "frontend"
@@ -169,6 +172,3 @@ def serve_index():
     return FileResponse(FRONTEND_DIR / "index.html")
 
 app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
-
-class TextRequest(BaseModel):
-    text: str
