@@ -41,9 +41,10 @@ jobs:
                 git clean -fd
 
                 cd backend
-                source .venv/bin/activate
+                source /home/ubuntu/kozha-venv/bin/activate
                 pip install -r requirements.txt
 
                 sudo systemctl restart kozha.service
                 sudo systemctl --no-pager status kozha.service
               "'
+
