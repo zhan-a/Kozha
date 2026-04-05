@@ -303,38 +303,39 @@
       transform: translateY(-1px);
     }
 
-    /* CWASA avatar area — replaces placeholder */
+    /* CWASA avatar area */
     .demo-avatar-area {
       background: var(--paper);
       border-radius: var(--radius);
-      height: 220px;
       display: flex;
       align-items: center;
       justify-content: center;
       border: 1px solid var(--border);
       position: relative;
       overflow: hidden;
+      /* Fixed height to match CWASA canvas */
+      height: 260px;
     }
 
-    /* Make CWASA canvas fill the container */
-    .demo-avatar-area .CWASAAvatar {
-      width: 100% !important;
-      height: 100% !important;
-    }
-    .demo-avatar-area canvas {
-      width: 100% !important;
-      height: 100% !important;
-      display: block;
+    /* CWASA avatar needs explicit pixel dimensions for WebGL canvas */
+    #heroAvatar {
+      width: 364px;
+      height: 240px;
     }
 
-    /* Loading state shown while CWASA initialises */
+    /* Loading overlay — positioned absolutely over the avatar */
     .avatar-loading {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       gap: 10px;
       color: var(--ink-3);
       font-size: 13px;
+      z-index: 2;
+      background: var(--paper);
     }
     .avatar-loading .spinner {
       width: 32px; height: 32px;
@@ -652,8 +653,8 @@
           <div class="spinner"></div>
           <span>Loading avatar…</span>
         </div>
-        <!-- CWASA will render into this div -->
-        <div class="CWASAAvatar av0" style="width:100%;height:100%;"></div>
+        <!-- CWASA renders into this div — needs explicit pixel dimensions -->
+        <div class="CWASAAvatar av0" id="heroAvatar"></div>
       </div>
 
 
@@ -764,7 +765,6 @@
         c.classList.add('active');
       });
     });
-
     let cwasaReady = false;
 
     function initCWASA() {
@@ -785,15 +785,14 @@
           useCwaConfig: true,
           avSettings: [{
             width: 364,
-            height: 220,
-            avList: 'avs',
+            height: 240,
+            avList: 'avsfull',
             initAv: 'luna',
             ambIdle: true,
             allowFrameSteps: false,
             allowSiGMLText: false
           }]
         });
-
         if (CWASA.ready && typeof CWASA.ready.then === 'function') {
           CWASA.ready.then(function() {
             if (loadingEl) loadingEl.style.display = 'none';
@@ -834,11 +833,13 @@
         }
       }, 150);
     });
-      document.getElementById('heroTranslateBtn').addEventListener('click', function() {
+
+    document.getElementById('heroTranslateBtn').addEventListener('click', function() {
       if (!cwasaReady) return;
 
       const inputText = document.getElementById('heroInput').value.trim();
       if (!inputText) return;
+
       const words = inputText.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/);
 
       let sigmlSigns = words.map(function(word) {
