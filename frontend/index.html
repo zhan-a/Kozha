@@ -7,6 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+  <!-- CWASA stylesheet & script from UEA (vhg2024 — matches app.html) -->
+  <link rel="stylesheet" href="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script defer src="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/allcsa.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <style>
     :root {
       --ink: #1a1612;
@@ -241,28 +244,29 @@
 
     .demo-input-wrap {
       position: relative;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
     .demo-input {
       width: 100%;
       background: var(--paper);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
-      padding: 14px 16px;
+      padding: 12px 16px;
       font-family: 'DM Sans', sans-serif;
       font-size: 15px;
       color: var(--ink);
       outline: none;
       resize: none;
       transition: border-color 0.2s;
-      min-height: 80px;
+      min-height: 56px;
     }
     .demo-input:focus { border-color: var(--accent); }
 
     .demo-controls {
       display: flex;
       gap: 8px;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
+      align-items: center;
     }
     .demo-chip {
       background: var(--paper);
@@ -281,18 +285,50 @@
       color: var(--accent);
     }
 
+    .demo-translate-btn {
+      margin-left: auto;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .demo-translate-btn:hover {
+      background: var(--accent-2);
+      transform: translateY(-1px);
+    }
+
+    /* CWASA avatar area — replaces placeholder */
     .demo-avatar-area {
       background: var(--paper);
       border-radius: var(--radius);
-      height: 200px;
+      height: 220px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px dashed var(--border);
+      border: 1px solid var(--border);
       position: relative;
       overflow: hidden;
     }
-    .avatar-placeholder {
+
+    /* Make CWASA canvas fill the container */
+    .demo-avatar-area .CWASAAvatar {
+      width: 100% !important;
+      height: 100% !important;
+    }
+    .demo-avatar-area canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+
+    /* Loading state shown while CWASA initialises */
+    .avatar-loading {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -300,14 +336,15 @@
       color: var(--ink-3);
       font-size: 13px;
     }
-    .avatar-icon {
-      width: 56px; height: 56px;
-      background: var(--accent-light);
+    .avatar-loading .spinner {
+      width: 32px; height: 32px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 26px;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
     .demo-status-bar {
@@ -322,15 +359,17 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      color: var(--green);
       font-weight: 500;
     }
     .status-dot::before {
       content: '';
       width: 7px; height: 7px;
-      background: var(--green);
       border-radius: 50%;
     }
+    .status-dot.ready { color: var(--green); }
+    .status-dot.ready::before { background: var(--green); }
+    .status-dot.loading { color: var(--ink-3); }
+    .status-dot.loading::before { background: var(--ink-3); animation: pulse 1.5s ease-in-out infinite; }
 
     /* ── FEATURES ── */
     .section {
@@ -550,6 +589,9 @@
 </head>
 <body>
 
+  <!-- Hidden SToCA div required by CWASA -->
+  <div class="SToCA"></div>
+
   <!-- NAV -->
   <nav>
     <a href="index.html" class="nav-logo">Bridg<span>n</span></a>
@@ -600,15 +642,23 @@
         <div class="demo-chip active" id="chip-text">✏️ Text</div>
         <div class="demo-chip" id="chip-mic">🎙 Voice</div>
         <div class="demo-chip" id="chip-video">🎬 Video</div>
+        <button class="demo-translate-btn" id="heroTranslateBtn" disabled>Translate ▶</button>
       </div>
-      <div class="demo-avatar-area">
-        <div class="avatar-placeholder">
-          <div class="avatar-icon">🤟</div>
-          <span>Sign animation appears here</span>
+
+      <!-- CWASA avatar canvas — real rendering -->
+      <div class="demo-avatar-area" id="avatarContainer">
+        <!-- Loading state while CWASA loads -->
+        <div class="avatar-loading" id="avatarLoading">
+          <div class="spinner"></div>
+          <span>Loading avatar…</span>
         </div>
+        <!-- CWASA will render into this div -->
+        <div class="CWASAAvatar av0" style="width:100%;height:100%;"></div>
       </div>
+
+
       <div class="demo-status-bar">
-        <span class="status-dot">CWASA renderer ready</span>
+        <span class="status-dot loading" id="statusDot">Connecting…</span>
         <a href="app.html" style="color: var(--accent); font-weight:600; font-size:12px; text-decoration:none;">Open full app →</a>
       </div>
     </div>
@@ -707,13 +757,107 @@
   </footer>
 
   <script>
-    // Tab chips behaviour
     const chips = document.querySelectorAll('.demo-chip');
     chips.forEach(c => {
       c.addEventListener('click', () => {
         chips.forEach(x => x.classList.remove('active'));
         c.classList.add('active');
       });
+    });
+
+    let cwasaReady = false;
+
+    function initCWASA() {
+      const statusDot = document.getElementById('statusDot');
+      const loadingEl = document.getElementById('avatarLoading');
+      const translateBtn = document.getElementById('heroTranslateBtn');
+
+      if (!window.CWASA) {
+        statusDot.textContent = 'CWASA script not loaded';
+        statusDot.className = 'status-dot loading';
+        if (loadingEl) loadingEl.innerHTML = '<div style="text-align:center;color:var(--ink-3);font-size:13px;">Avatar could not load.<br><a href="app.html" style="color:var(--accent);font-weight:600;">Try the full app →</a></div>';
+        return;
+      }
+
+      try {
+        CWASA.init({
+          useClientConfig: false,
+          useCwaConfig: true,
+          avSettings: [{
+            width: 364,
+            height: 220,
+            avList: 'avs',
+            initAv: 'luna',
+            ambIdle: true,
+            allowFrameSteps: false,
+            allowSiGMLText: false
+          }]
+        });
+
+        if (CWASA.ready && typeof CWASA.ready.then === 'function') {
+          CWASA.ready.then(function() {
+            if (loadingEl) loadingEl.style.display = 'none';
+            statusDot.textContent = 'CWASA renderer ready';
+            statusDot.className = 'status-dot ready';
+            translateBtn.disabled = false;
+            cwasaReady = true;
+          }).catch(function(err) {
+            console.warn('CWASA init warning:', err);
+            showAvatarError(statusDot, loadingEl);
+          });
+        } else {
+          setTimeout(function() {
+            if (loadingEl) loadingEl.style.display = 'none';
+            statusDot.textContent = 'CWASA renderer ready';
+            statusDot.className = 'status-dot ready';
+            translateBtn.disabled = false;
+            cwasaReady = true;
+          }, 300);
+        }
+      } catch(err) {
+        console.error('CWASA init error:', err);
+        showAvatarError(statusDot, loadingEl);
+      }
+    }
+
+    function showAvatarError(statusDot, loadingEl) {
+      statusDot.textContent = 'Avatar unavailable';
+      statusDot.className = 'status-dot loading';
+      if (loadingEl) loadingEl.innerHTML = '<div style="text-align:center;color:var(--ink-3);font-size:13px;">Avatar could not load.<br><a href="app.html" style="color:var(--accent);font-weight:600;">Try the full app →</a></div>';
+    }
+
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        try { initCWASA(); } catch(e) {
+          console.error(e);
+          document.getElementById('statusDot').textContent = 'CWASA init error';
+        }
+      }, 150);
+    });
+      document.getElementById('heroTranslateBtn').addEventListener('click', function() {
+      if (!cwasaReady) return;
+
+      const inputText = document.getElementById('heroInput').value.trim();
+      if (!inputText) return;
+      const words = inputText.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/);
+
+      let sigmlSigns = words.map(function(word) {
+        return '<hns_sign gloss="' + word.toUpperCase() + '"/>';
+      }).join('\n');
+
+      const sigml = '<?xml version="1.0" encoding="UTF-8"?>\n' +
+        '<sigml>\n' + sigmlSigns + '\n</sigml>';
+
+      try {
+        CWASA.playSiGMLText(sigml, 0);
+        this.textContent = 'Playing…';
+        const btn = this;
+        setTimeout(function() {
+          btn.textContent = 'Translate ▶';
+        }, 3000);
+      } catch(err) {
+        console.warn('Play error:', err);
+      }
     });
   </script>
 </body>
