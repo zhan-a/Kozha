@@ -7,7 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
-  <!-- CWASA stylesheet & script from UEA (vhg2024 — matches app.html) -->
   <link rel="stylesheet" href="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script defer src="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/allcsa.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <style>
@@ -38,7 +37,6 @@
       overflow-x: hidden;
     }
 
-    /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -103,7 +101,6 @@
     }
     .btn-primary:hover { background: var(--accent-2); transform: translateY(-1px); }
 
-    /* ── HERO ── */
     .hero {
       padding: 140px 48px 100px;
       max-width: 1100px;
@@ -232,7 +229,6 @@
       letter-spacing: 0.04em;
     }
 
-    /* hero right — demo card */
     .hero-demo-card {
       background: white;
       border: 1px solid var(--border);
@@ -303,7 +299,6 @@
       transform: translateY(-1px);
     }
 
-    /* CWASA avatar area */
     .demo-avatar-area {
       background: var(--paper);
       border-radius: var(--radius);
@@ -313,17 +308,14 @@
       border: 1px solid var(--border);
       position: relative;
       overflow: hidden;
-      /* Fixed height to match CWASA canvas */
       height: 260px;
     }
 
-    /* CWASA avatar needs explicit pixel dimensions for WebGL canvas */
     #heroAvatar {
       width: 364px;
       height: 240px;
     }
 
-    /* Loading overlay — positioned absolutely over the avatar */
     .avatar-loading {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -372,7 +364,6 @@
     .status-dot.loading { color: var(--ink-3); }
     .status-dot.loading::before { background: var(--ink-3); animation: pulse 1.5s ease-in-out infinite; }
 
-    /* ── FEATURES ── */
     .section {
       padding: 96px 48px;
       max-width: 1100px;
@@ -418,17 +409,6 @@
       border-color: rgba(201,106,46,0.2);
     }
 
-    .feature-icon {
-      width: 48px; height: 48px;
-      background: var(--accent-light);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      margin-bottom: 20px;
-    }
-
     .feature-title {
       font-family: 'Instrument Serif', serif;
       font-size: 20px;
@@ -442,7 +422,6 @@
       color: var(--ink-3);
     }
 
-    /* ── HOW IT WORKS ── */
     .how-section {
       background: var(--ink);
       padding: 96px 48px;
@@ -491,7 +470,6 @@
       color: rgba(245,241,235,0.5);
     }
 
-    /* ── CONTRIBUTE ── */
     .contribute-banner {
       background: var(--accent-light);
       border: 1px solid rgba(201,106,46,0.2);
@@ -518,7 +496,6 @@
       max-width: 480px;
     }
 
-    /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--border);
       padding: 40px 48px;
@@ -557,7 +534,6 @@
       color: var(--ink-3);
     }
 
-    /* ── ANIMATIONS ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -572,7 +548,6 @@
     .delay-4 { animation-delay: 0.4s; opacity: 0; }
     .delay-5 { animation-delay: 0.5s; opacity: 0; }
 
-    /* Mobile */
     @media (max-width: 900px) {
       nav { padding: 0 24px; }
       .nav-links { display: none; }
@@ -589,11 +564,7 @@
   </style>
 </head>
 <body>
-
-  <!-- Hidden SToCA div required by CWASA -->
   <div class="SToCA"></div>
-
-  <!-- NAV -->
   <nav>
     <a href="index.html" class="nav-logo">Bridg<span>n</span></a>
     <ul class="nav-links">
@@ -607,7 +578,6 @@
     </div>
   </nav>
 
-  <!-- HERO -->
   <section class="hero">
     <div>
       <div class="hero-eyebrow fade-up delay-1">Now in early access</div>
@@ -645,15 +615,11 @@
         <div class="demo-chip" id="chip-video">🎬 Video</div>
         <button class="demo-translate-btn" id="heroTranslateBtn" disabled>Translate ▶</button>
       </div>
-
-      <!-- CWASA avatar canvas — real rendering -->
       <div class="demo-avatar-area" id="avatarContainer">
-        <!-- Loading state while CWASA loads -->
         <div class="avatar-loading" id="avatarLoading">
           <div class="spinner"></div>
           <span>Loading avatar…</span>
         </div>
-        <!-- CWASA renders into this div — needs explicit pixel dimensions -->
         <div class="CWASAAvatar av0" id="heroAvatar"></div>
       </div>
 
@@ -664,47 +630,37 @@
       </div>
     </div>
   </section>
-
-  <!-- FEATURES -->
   <section class="section" id="features">
     <div class="section-label">What we offer</div>
     <h2 class="section-title">Built for <em>real</em> classrooms<br>and real conversations.</h2>
 
     <div class="features-grid">
       <div class="feature-card">
-        <div class="feature-icon">🎙️</div>
         <div class="feature-title">Voice-to-Sign</div>
         <p class="feature-body">Record speech directly in your browser. On-device Whisper model transcribes locally — no audio ever leaves your device.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">📝</div>
         <div class="feature-title">Text-to-Sign</div>
         <p class="feature-body">Type any sentence and watch it rendered into SiGML sign animations via the CWASA avatar engine.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🎬</div>
         <div class="feature-title">Video Lectures</div>
         <p class="feature-body">Upload a recorded video and Bridgn extracts the audio, transcribes it, and sequences the sign translation automatically.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🔬</div>
         <div class="feature-title">STEM Vocabulary</div>
         <p class="feature-body">Pre-loaded with scientific abbreviation packs. "Carbon dioxide" becomes "CO₂" before planning — no manual editing needed.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">⚡</div>
         <div class="feature-title">Instant Planning</div>
         <p class="feature-body">Our NLP pipeline normalizes input into sign-order tokens using spaCy, heuristics, or OpenAI — with transparent fallbacks.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🌍</div>
         <div class="feature-title">Open & Extendable</div>
         <p class="feature-body">Community volunteers can contribute sign glosses and database entries directly. The more people contribute, the richer it gets.</p>
       </div>
     </div>
   </section>
-
-  <!-- HOW IT WORKS -->
   <div class="how-section" id="how-it-works">
     <div class="how-inner">
       <div class="section-label">The process</div>
@@ -730,7 +686,6 @@
     </div>
   </div>
 
-  <!-- CONTRIBUTE BANNER -->
   <section class="section">
     <div class="contribute-banner">
       <div class="contribute-text">
@@ -742,8 +697,6 @@
       </div>
     </div>
   </section>
-
-  <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
       <div class="footer-logo">Bridg<span>n</span></div>
@@ -765,6 +718,7 @@
         c.classList.add('active');
       });
     });
+    
     let cwasaReady = false;
 
     function initCWASA() {
@@ -793,6 +747,7 @@
             allowSiGMLText: false
           }]
         });
+
         if (CWASA.ready && typeof CWASA.ready.then === 'function') {
           CWASA.ready.then(function() {
             if (loadingEl) loadingEl.style.display = 'none';
@@ -834,30 +789,213 @@
       }, 150);
     });
 
-    document.getElementById('heroTranslateBtn').addEventListener('click', function() {
-      if (!cwasaReady) return;
+    const glossToSign = new Map();
+    const letterToSign = new Map();
+    const baseToGloss = new Map();
+    const conceptToGloss = new Map();
 
+    function glossBase(gloss) {
+      return String(gloss).toLowerCase().replace(/\(.*?\)/g,'').replace(/#\d+$/g,'').replace(/[^a-z0-9]+/g,' ').trim();
+    }
+
+    function rebuildBaseIndex() {
+      baseToGloss.clear();
+      for (const g of glossToSign.keys()) {
+        const b = glossBase(g);
+        if (!baseToGloss.has(b)) baseToGloss.set(b, g);
+      }
+    }
+
+    async function loadSigmlUrl(url) {
+      try {
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) return;
+        const xmlText = await res.text();
+        const doc = new DOMParser().parseFromString(xmlText, 'application/xml');
+        const signs = Array.from(doc.querySelectorAll('hns_sign'));
+        let added = 0;
+        for (const s of signs) {
+          const gloss = (s.getAttribute('gloss')||'').trim().toLowerCase();
+          if (!gloss) continue;
+          glossToSign.set(gloss, s.outerHTML);
+          added++;
+        }
+        rebuildBaseIndex();
+        console.log('[index] Loaded ' + added + ' signs from ' + url);
+      } catch(e) { console.warn('[index] DB load error:', e); }
+    }
+
+    async function loadAlphabetSigmlUrl(url) {
+      try {
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) return;
+        const xmlText = await res.text();
+        const doc = new DOMParser().parseFromString('<root>' + xmlText + '</root>', 'application/xml');
+        const signs = Array.from(doc.querySelectorAll('hns_sign'));
+        for (const s of signs) {
+          const gloss = (s.getAttribute('gloss')||'').trim().toUpperCase();
+          if (gloss.length === 1 && gloss >= 'A' && gloss <= 'Z') {
+            letterToSign.set(gloss, s.outerHTML);
+          }
+        }
+        console.log('[index] Loaded ' + letterToSign.size + ' alphabet letters');
+      } catch(e) { console.warn('[index] Alphabet load error:', e); }
+    }
+
+    async function loadConceptCsvUrl(url) {
+      try {
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) return;
+        let txt = await res.text();
+        if (txt.charCodeAt(0) === 0xFEFF) txt = txt.slice(1);
+        const delim = txt.includes('\t') ? '\t' : ',';
+        const lines = txt.split(/\r?\n/).filter(l => l.trim());
+        const header = (lines.shift()||'').split(delim).map(s => s.trim().toLowerCase());
+        const ci = header.indexOf('concept'), gi = header.indexOf('gloss');
+        if (ci < 0 || gi < 0) return;
+        for (const line of lines) {
+          const cols = line.split(delim);
+          const concept = (cols[ci]||'').trim().toLowerCase();
+          const gloss = (cols[gi]||'').trim().toLowerCase();
+          if (concept && gloss) conceptToGloss.set(glossBase(concept), gloss);
+        }
+        console.log('[index] Loaded ' + conceptToGloss.size + ' concepts');
+      } catch(e) { console.warn('[index] Concept CSV error:', e); }
+    }
+
+    window.addEventListener('load', async function() {
+      await loadSigmlUrl('/data/hamnosys_bsl_version1.sigml');
+      await loadConceptCsvUrl('/data/hamnosys_bsl.csv');
+      await loadAlphabetSigmlUrl('/data/bsl_alphabet_sigml.sigml');
+    });
+
+    const STOPWORDS = new Set(['a','an','the','and','or','but','if','then','than','of','to','in','on','at','for','from','with','as','by','is','are','am','be','been','was','were','do','does','did','that','this','those','these','it','my','your','our']);
+
+    function levenshtein(a,b) {
+      const m=a.length, n=b.length;
+      if(!m) return n; if(!n) return m;
+      const dp = new Array(n+1);
+      for(let j=0;j<=n;j++) dp[j]=j;
+      for(let i=1;i<=m;i++){
+        let prev = dp[0]; dp[0]=i;
+        for(let j=1;j<=n;j++){
+          const temp = dp[j];
+          dp[j] = Math.min(dp[j]+1, dp[j-1]+1, prev+(a[i-1]===b[j-1]?0:1));
+          prev = temp;
+        }
+      }
+      return dp[n];
+    }
+
+    function similarity(a,b) {
+      if (!a||!b) return 0;
+      return 1 - levenshtein(a,b) / Math.max(a.length, b.length);
+    }
+
+    function mapToAvailable(tokens, cutoff) {
+      cutoff = cutoff || 0.82;
+      const allowed = Array.from(glossToSign.keys());
+      const mapped = [], missing = [];
+      if (!allowed.length) return { mapped: tokens, missing: [] };
+
+      for (const t of tokens) {
+        if (glossToSign.has(t)) { mapped.push(t); continue; }
+        const tBase = glossBase(t);
+        if (conceptToGloss.has(tBase)) { mapped.push(conceptToGloss.get(tBase)); continue; }
+        if (baseToGloss.has(tBase)) { mapped.push(baseToGloss.get(tBase)); continue; }
+        let bestBase = null, bestScore = 0;
+        for (const b of baseToGloss.keys()) {
+          const s = similarity(tBase, b);
+          if (s > bestScore) { bestScore = s; bestBase = b; }
+        }
+        if (bestBase && bestScore >= cutoff) { mapped.push(baseToGloss.get(bestBase)); continue; }
+        if (letterToSign.size > 0 && /[A-Za-z]/.test(t)) { mapped.push(t); }
+        else { missing.push(t); }
+      }
+      return { mapped, missing };
+    }
+
+    function fingerspellWord(word) {
+      const blocks = [];
+      for (const char of (word||'').toUpperCase()) {
+        if (char >= 'A' && char <= 'Z') {
+          const lb = letterToSign.get(char);
+          if (lb) blocks.push(lb);
+        }
+      }
+      return blocks;
+    }
+
+    function buildSigml(tokens) {
+      const blocks = [];
+      for (const t of tokens) {
+        const b = glossToSign.get(t);
+        if (b) { blocks.push(b); }
+        else if (letterToSign.size > 0) {
+          const lb = fingerspellWord(t);
+          if (lb.length > 0) blocks.push(...lb);
+        }
+      }
+      if (!blocks.length) return null;
+      return '<?xml version="1.0" encoding="utf-8"?>\n<sigml>\n' + blocks.join('\n') + '\n</sigml>';
+    }
+
+    document.getElementById('heroTranslateBtn').addEventListener('click', async function() {
+      if (!cwasaReady) return;
+      const btn = this;
       const inputText = document.getElementById('heroInput').value.trim();
       if (!inputText) return;
 
-      const words = inputText.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/);
-
-      let sigmlSigns = words.map(function(word) {
-        return '<hns_sign gloss="' + word.toUpperCase() + '"/>';
-      }).join('\n');
-
-      const sigml = '<?xml version="1.0" encoding="UTF-8"?>\n' +
-        '<sigml>\n' + sigmlSigns + '\n</sigml>';
+      btn.disabled = true;
+      btn.textContent = 'Translating…';
 
       try {
+        let planTokens = [];
+        try {
+          const resp = await fetch('/api/plan', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: inputText })
+          });
+          if (resp.ok) {
+            const data = await resp.json();
+            const finalText = String(data.final || '').replace(/[.\n]/g, ' ').trim();
+            planTokens = finalText.split(/\s+/).filter(Boolean);
+          }
+        } catch(e) {
+          console.warn('[index] /api/plan unavailable, using heuristic:', e);
+        }
+
+        if (!planTokens.length) {
+          planTokens = inputText.toLowerCase()
+            .replace(/[^\w\s]/g, ' ')
+            .split(/\s+/)
+            .filter(function(w) { return w && !STOPWORDS.has(w); });
+        }
+        
+        const { mapped } = mapToAvailable(planTokens);
+        if (!mapped.length) {
+          btn.textContent = 'No signs found';
+          setTimeout(function() { btn.textContent = 'Translate ▶'; btn.disabled = false; }, 2000);
+          return;
+        }
+        const sigml = buildSigml(mapped);
+        if (!sigml) {
+          btn.textContent = 'No signs found';
+          setTimeout(function() { btn.textContent = 'Translate ▶'; btn.disabled = false; }, 2000);
+          return;
+        }
+
         CWASA.playSiGMLText(sigml, 0);
-        this.textContent = 'Playing…';
-        const btn = this;
+        btn.textContent = 'Playing…';
         setTimeout(function() {
           btn.textContent = 'Translate ▶';
-        }, 3000);
+          btn.disabled = false;
+        }, 4000);
       } catch(err) {
-        console.warn('Play error:', err);
+        console.warn('[index] Translate error:', err);
+        btn.textContent = 'Translate ▶';
+        btn.disabled = false;
       }
     });
   </script>
