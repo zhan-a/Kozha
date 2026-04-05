@@ -113,7 +113,7 @@ def process_sentence(doc_or_span, stopwords: set, abbr_spans: Optional[Dict[int,
             candidate = "me"
         elif token.pos_ == "VERB":
             candidate = token.lemma_.lower()
-        elif token.pos_ in {"NOUN","PROPN","ADJ"} and text not in stopwords:
+        elif token.pos_ in {"NOUN","PROPN","ADJ","INTJ"} and text not in stopwords:
             candidate = text
 
         if not candidate or candidate in stopwords:
