@@ -2209,18 +2209,23 @@
 		</hamnosys_manual>
 	</hns_sign>
 	<hns_sign gloss="bad(a)#1">
-		<hamnosys_nonmanual/>
-		<hamnosys_manual>
-			<hamfinger2/>
-			<hamthumbacrossmod/>
-			<hampinky/>
-			<hamextfingerul/>
-			<hampalmdr/>
-			<hamneck/>
-			<hamlrat/>
-			<hamclose/>
-			<hammoveo/>
-		</hamnosys_manual>
+		<hamnosys_nonmanual>
+   		   <hamreference>static</hamreference>
+    	</hamnosys_nonmanual>
+    	<hamnosys_manual>
+      		<!-- Dominant hand: Thumbs Up (approx) (Left) -->
+		    <hamthumbacrossmod/>
+			<hamextfingeru/>
+		    <hampalml/>
+		    <hamchest/>
+		    <hamsymmlr/>
+		    <!-- Non-dominant hand: Fist (Right) -->
+		    <hamfist/>
+		    <hamextfingerul/>
+		    <hampalmi/>
+			<hamneutralspace/>
+		    <hamtouch/>
+    	</hamnosys_manual>
 	</hns_sign>
 	<hns_sign gloss="bag(n)#1">
 		<hamnosys_nonmanual/>
