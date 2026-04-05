@@ -1,5 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sigml>
+	<hns_sign gloss="there">
+	    <hamnosys_nonmanual>
+	      <hamreference>static</hamreference>
+	    </hamnosys_nonmanual>
+	    <hamnosys_manual>
+	      <!-- Dominant hand: Four Fingers (Left) -->
+	      <hamfinger2345/>
+	      <hamextfingerr/>
+	      <hampalmo/>
+	      <hamstomach/>
+	      <hamsymmlr/>
+	      <!-- Non-dominant hand: Index Finger (Right) -->
+	      <hamfinger2/>
+	      <hamextfingerdr/>
+	      <hampalmu/>
+	      <hamchest/>
+	      <hamtouch/>
+	    </hamnosys_manual>
+		</hns_sign>
+		<hns_sign gloss="here">
+		    <hamnosys_nonmanual>
+		      <hamreference>static</hamreference>
+		    </hamnosys_nonmanual>
+		    <hamnosys_manual>
+		      <!-- Dominant hand: Flat Hand (Right) -->
+		      <hamflathand/>
+		      <hamextfingerl/>
+		      <hampalmi/>
+		      <hamstomach/>
+		      <hamsymmlr/>
+		      <!-- Non-dominant hand: L Shape (Left) -->
+		      <hampinch12open/>
+		      <hamextfingerd/>
+		      <hampalmd/>
+		      <hamchest/>
+		      <hamtouch/>
+		    </hamnosys_manual>
+		</hns_sign>
+	 	<hns_sign gloss="UNKNOWN">
+		    <hamnosys_nonmanual>
+		      <hamreference>static</hamreference>
+		    </hamnosys_nonmanual>
+		    <hamnosys_manual>
+		      <!-- Dominant hand: Index Finger (Right) -->
+		      <hamfinger2/>
+		      <hamextfingerl/>
+		      <hampalmi/>
+		      <hamstomach/>
+		      <hamsymmlr/>
+		      <!-- Non-dominant hand: Index Finger (Left) -->
+		      <hamfinger2/>
+		      <hamextfingeru/>
+		      <hampalmo/>
+		      <hamchin/>
+		      <hamtouch/>
+		    </hamnosys_manual>
+		  </hns_sign>
 		<hns_sign gloss="A">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="V"/>
