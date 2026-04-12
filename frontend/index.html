@@ -804,11 +804,11 @@
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-title">Voice-to-Sign</div>
-        <p class="feature-body">Record speech directly in your browser. On-device Whisper model transcribes locally — no audio ever leaves your device.</p>
+        <p class="feature-body">Record speech directly in your browser. Transcription happens locally — no audio is sent anywhere. Completely free and private.</p>
       </div>
       <div class="feature-card">
         <div class="feature-title">Text-to-Sign</div>
-        <p class="feature-body">Type any sentence and watch it rendered into SiGML sign animations via the CWASA avatar engine.</p>
+        <p class="feature-body">Type any sentence and watch it translated into sign language animations in real time.</p>
       </div>
       <div class="feature-card">
         <div class="feature-title">Video Lectures</div>
@@ -820,11 +820,11 @@
       </div>
       <div class="feature-card">
         <div class="feature-title">Instant Planning</div>
-        <p class="feature-body">Our NLP pipeline normalizes input into sign-order tokens using spaCy, heuristics, or OpenAI — with transparent fallbacks.</p>
+        <p class="feature-body">Your text is automatically processed and mapped to sign language word order — no manual editing needed.</p>
       </div>
       <div class="feature-card">
         <div class="feature-title">Open & Extendable</div>
-        <p class="feature-body">Community volunteers can contribute sign glosses and database entries directly. The more people contribute, the richer it gets.</p>
+        <p class="feature-body">Community volunteers can contribute new signs and translations directly. The more people contribute, the richer it gets.</p>
       </div>
     </div>
   </section>
@@ -841,13 +841,13 @@
         </div>
         <div class="step-item">
           <div class="step-num">02</div>
-          <div class="step-title">NLP tokenisation</div>
-          <p class="step-body">Your text is normalised, stripped of stopwords, and mapped against our sign database using a tiered planning pipeline — exact match → concept map → fuzzy → fingerspelling.</p>
+          <div class="step-title">Smart processing</div>
+          <p class="step-body">Your text is processed and matched against our sign language database to find the best possible translation for each word and phrase.</p>
         </div>
         <div class="step-item">
           <div class="step-num">03</div>
           <div class="step-title">Live sign animation</div>
-          <p class="step-body">Matched glosses are assembled into SiGML and played instantly via the CWASA signing avatar. The whole pipeline runs in the browser.</p>
+          <p class="step-body">The translated signs are played as a smooth animation. Everything runs in your browser — no server processing, no delays.</p>
         </div>
       </div>
     </div>
@@ -857,7 +857,7 @@
     <div class="contribute-banner">
       <div class="contribute-text">
         <h2>Help us grow the dictionary.</h2>
-        <p>Bridgn's sign database is built by volunteers. If you know sign language, work in education, or just want to help, you can contribute new glosses, test translations, or report gaps — right from your browser.</p>
+        <p>Bridgn's sign database is built by volunteers. If you know sign language, work in education, or just want to help, you can contribute new signs, test translations, or report gaps — right from your browser.</p>
       </div>
       <div style="flex-shrink:0;">
         <a href="contribute.html" class="btn-large" style="white-space:nowrap;">Become a volunteer →</a>
@@ -898,7 +898,7 @@
       const translateBtn = document.getElementById('heroTranslateBtn');
 
       if (!window.CWASA) {
-        statusDot.textContent = 'CWASA script not loaded';
+        statusDot.textContent = 'Avatar not available';
         statusDot.className = 'status-dot loading';
         if (loadingEl) loadingEl.innerHTML = '<div style="text-align:center;color:var(--ink-3);font-size:13px;">Avatar could not load.<br><a href="app.html" style="color:var(--accent);font-weight:600;">Try the full app →</a></div>';
         return;
@@ -922,7 +922,7 @@
         if (CWASA.ready && typeof CWASA.ready.then === 'function') {
           CWASA.ready.then(function() {
             if (loadingEl) loadingEl.style.display = 'none';
-            statusDot.textContent = 'CWASA renderer ready';
+            statusDot.textContent = 'Ready';
             statusDot.className = 'status-dot ready';
             translateBtn.disabled = false;
             cwasaReady = true;
@@ -933,7 +933,7 @@
         } else {
           setTimeout(function() {
             if (loadingEl) loadingEl.style.display = 'none';
-            statusDot.textContent = 'CWASA renderer ready';
+            statusDot.textContent = 'Ready';
             statusDot.className = 'status-dot ready';
             translateBtn.disabled = false;
             cwasaReady = true;
@@ -955,7 +955,7 @@
       setTimeout(function() {
         try { initCWASA(); } catch(e) {
           console.error(e);
-          document.getElementById('statusDot').textContent = 'CWASA init error';
+          document.getElementById('statusDot').textContent = 'Avatar failed to load';
         }
       }, 150);
     });
@@ -1285,7 +1285,7 @@
           recordBtn.textContent = 'Transcribing…';
           recordBtn.classList.remove('recording');
           recordBtn.disabled = true;
-          micStatus.textContent = 'Loading Whisper model (first run downloads ~150 MB)…';
+          micStatus.textContent = 'Preparing speech recognition…';
 
           try {
             const asr = await ensureASR();
@@ -1334,7 +1334,7 @@
         videoBtn.disabled = true;
 
         try {
-          videoStatus.textContent = 'Loading ffmpeg…';
+          videoStatus.textContent = 'Preparing…';
           const { ffmpeg, fetchFile } = await ensureFFmpeg();
 
           videoStatus.textContent = 'Extracting audio from video…';
@@ -1343,7 +1343,7 @@
           const data = ffmpeg.FS('readFile', 'out.wav');
           const wavBlob = new Blob([data.buffer], { type: 'audio/wav' });
 
-          videoStatus.textContent = 'Loading Whisper model (first run downloads ~150 MB)…';
+          videoStatus.textContent = 'Preparing speech recognition…';
           const asr = await ensureASR();
 
           videoStatus.textContent = 'Transcribing audio…';

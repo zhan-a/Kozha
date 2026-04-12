@@ -634,7 +634,6 @@
           </div>
           <label class="field-label">Transcription</label>
           <textarea id="transcription" placeholder="Transcription will appear here…"></textarea>
-          <p class="hint">Runs fully in your browser using open-source Whisper. Free, unlimited, and private — no audio is sent anywhere.</p>
         </div>
       </div>
 
@@ -648,7 +647,6 @@
             <button id="videoToSignBtn" class="btn btn-primary">Process Video → Sign</button>
             <span id="videoStatus" class="status-badge">No file selected</span>
           </div>
-          <p class="hint" style="margin-top:12px;">Extracts audio via ffmpeg, transcribes with Whisper, then plans and renders sign animation.</p>
         </div>
       </div>
 
@@ -657,12 +655,11 @@
         <div class="card">
           <div class="card-title"><span class="card-title-icon">🗄️</span> Sign Database</div>
 
-          <label class="field-label">SiGML database URL</label>
+          <label class="field-label">Sign database URL</label>
           <div class="row" style="margin-bottom:14px;">
             <input id="dbUrlInput" type="text" placeholder="/data/hamnosys_bsl_version1.sigml" class="grow" />
             <button id="loadDbBtn" class="btn btn-primary">Load</button>
           </div>
-          <p class="hint" style="margin-bottom:14px;">Load multiple files one-by-one. Later entries override earlier duplicates by gloss.</p>
 
           <label class="field-label">Concept map CSV (URL)</label>
           <div class="row" style="margin-bottom:8px;">
@@ -674,12 +671,11 @@
           <input id="conceptFile" type="file" accept=".csv,.tsv,text/csv,text/tab-separated-values" />
 
           <div style="margin-top:16px; padding-top:14px; border-top:1px solid var(--border);">
-            <label class="field-label">OpenAI API key (optional)</label>
+            <label class="field-label">API key (optional)</label>
             <div class="row">
               <input id="openaiKey" type="text" placeholder="sk-…" class="grow" />
               <button id="saveKeyBtn" class="btn btn-secondary">Save locally</button>
             </div>
-            <p class="hint">Stored in localStorage only. Used as an optional GPT-4o-mini planner fallback.</p>
           </div>
         </div>
 
@@ -692,10 +688,10 @@
       <!-- PANEL: ADVANCED -->
       <div class="content-panel" id="panel-advanced">
         <div class="card">
-          <div class="card-title"><span class="card-title-icon">⚙️</span> EDU NLP Pipeline</div>
+          <div class="card-title"><span class="card-title-icon">⚙️</span> Text Processing</div>
 
           <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:16px;">
-            <label class="check-label"><input type="checkbox" id="eduNlpToggle" /> Use EDU NLP pipeline</label>
+            <label class="check-label"><input type="checkbox" id="eduNlpToggle" /> Use advanced text processing</label>
             <label class="check-label"><input type="checkbox" id="applyAbbrev" /> Apply abbreviations</label>
             <label class="check-label"><input type="checkbox" id="stemMode" /> STEM mode (preload STEM abbreviations)</label>
           </div>
@@ -712,7 +708,6 @@
             <button id="clearAbbrevBtn" class="btn btn-danger">Clear</button>
           </div>
 
-          <p class="hint" style="margin-top:10px;">EDU NLP extracts pronouns, verb lemmas, and key nouns. Abbreviations collapse multi-word forms (e.g., "carbon dioxide" → "CO₂").</p>
         </div>
       </div>
 
@@ -754,11 +749,8 @@
           <div class="CWASAAvatar av0"></div>
         </div>
         <div class="avatar-controls">
-          <span id="renderStatus" class="status-badge loading">CWASA loading…</span>
+          <span id="renderStatus" class="status-badge loading">Loading…</span>
           <button id="stopBtn" class="btn btn-secondary">⏹ Stop</button>
-        </div>
-        <div style="width:100%; font-size:12px; color:var(--ink-3); line-height:1.5; padding-top:4px; border-top:1px solid var(--border);">
-          Sign animations rendered via <strong>CWASA</strong> using SiGML + HamNoSys gloss sequences. Unmatched words are fingerspelled when the alphabet database is loaded.
         </div>
       </div>
     </div>
@@ -772,7 +764,7 @@
 
   function initCWASA() {
     if (!window.CWASA) {
-      renderStatus.textContent = 'CWASA script not loaded.';
+      renderStatus.textContent = 'Avatar not available.';
       renderStatus.className = 'status-badge';
       return;
     }
@@ -805,7 +797,7 @@
     setTimeout(() => {
       try { initCWASA(); } catch (e) {
         console.error(e);
-        renderStatus.textContent = 'CWASA init error — see console.';
+        renderStatus.textContent = 'Avatar failed to load.';
       }
     }, 150);
   });
@@ -1229,7 +1221,7 @@
 
     const translateBtn = document.getElementById('translateBtn');
     translateBtn?.addEventListener('click', async () => {
-      if (!window.CWASA) { renderStatus.textContent = 'CWASA not loaded.'; return; }
+      if (!window.CWASA) { renderStatus.textContent = 'Avatar not loaded.'; return; }
       translateBtn.disabled = true;
       try {
         renderStatus.textContent = 'Translating…';
@@ -1310,7 +1302,7 @@
 
     transcribeBtn.addEventListener('click', async () => {
       if (!recordedChunks.length){ micStatus.textContent = 'Nothing recorded.'; return; }
-      micStatus.textContent = 'Loading ASR model…'; micStatus.className = 'status-badge loading';
+      micStatus.textContent = 'Preparing speech recognition…'; micStatus.className = 'status-badge loading';
       try{
         const asr = await ensureASR();
         micStatus.textContent = 'Transcribing…';
@@ -1340,14 +1332,14 @@
       const file = videoFile?.files?.[0];
       if (!file){ videoStatus.textContent = 'Choose a video first.'; return; }
       try{
-        videoStatus.textContent = 'Preparing ffmpeg…'; videoStatus.className = 'status-badge loading';
+        videoStatus.textContent = 'Preparing…'; videoStatus.className = 'status-badge loading';
         const { ffmpeg, fetchFile } = await ensureFFmpeg();
         videoStatus.textContent = 'Extracting audio…';
         ffmpeg.FS('writeFile', 'in', await fetchFile(file));
         await ffmpeg.run('-i', 'in', '-vn', '-ac', '1', '-ar', '16000', '-f', 'wav', 'out.wav');
         const data = ffmpeg.FS('readFile', 'out.wav');
         const wavBlob = new Blob([data.buffer], { type: 'audio/wav' });
-        videoStatus.textContent = 'Loading ASR model…';
+        videoStatus.textContent = 'Preparing speech recognition…';
         const asr = await ensureASR();
         videoStatus.textContent = 'Transcribing…';
         const result = await asr(wavBlob, getAsrOptions());
