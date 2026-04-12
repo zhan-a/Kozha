@@ -550,18 +550,35 @@
           <label class="field-label">Enter your phrase</label>
           <textarea id="textIn" placeholder="Type a phrase to translate into sign language…" rows="3"></textarea>
 
-          <div class="row" style="margin-top: 12px;">
+          <div class="row" style="margin-top: 12px; gap: 12px;">
             <div class="grow">
-              <label class="field-label" style="margin-bottom:6px;">Language hint (for speech)</label>
+              <label class="field-label" style="margin-bottom:6px;">Input language</label>
               <select id="langHint">
-                <option value="auto">auto-detect</option>
                 <option value="en" selected>English</option>
+                <option value="de">German</option>
                 <option value="ru">Russian</option>
                 <option value="es">Spanish</option>
-                <option value="de">German</option>
                 <option value="fr">French</option>
                 <option value="zh">Chinese</option>
                 <option value="ja">Japanese</option>
+                <option value="ar">Arabic</option>
+                <option value="pt">Portuguese</option>
+                <option value="it">Italian</option>
+                <option value="el">Greek</option>
+                <option value="pl">Polish</option>
+              </select>
+            </div>
+            <div class="grow">
+              <label class="field-label" style="margin-bottom:6px;">Sign language</label>
+              <select id="signLangSelect">
+                <option value="bsl" selected>BSL (British)</option>
+                <option value="asl">ASL (American)</option>
+                <option value="dgs">DGS (German)</option>
+                <option value="lsf">LSF (French)</option>
+                <option value="lse">LSE (Spanish)</option>
+                <option value="pjm">PJM (Polish)</option>
+                <option value="gsl">GSL (Greek)</option>
+                <option value="rsl">RSL (Russian)</option>
               </select>
             </div>
           </div>
@@ -960,6 +977,70 @@
     });
   </script>
 
+  <!-- ── TRANSLATION ENGINE (OPUS-MT via transformers.js) ── -->
+  <script>
+    const SIGN_LANG_BASE = {
+      bsl: 'en', asl: 'en', dgs: 'de', lsf: 'fr',
+      lse: 'es', pjm: 'pl', gsl: 'el', rsl: 'ru'
+    };
+
+    const translatorCache = {};
+
+    async function loadTranslator(src, tgt) {
+      const key = src + '-' + tgt;
+      if (translatorCache[key]) return translatorCache[key];
+      const { pipeline } = window.transformers;
+      const modelName = 'Xenova/opus-mt-' + src + '-' + tgt;
+      log('Loading translation model: ' + modelName + '…');
+      const translator = await pipeline('translation', modelName);
+      translatorCache[key] = translator;
+      return translator;
+    }
+
+    async function translateText(text, srcLang, tgtLang) {
+      if (!text.trim() || srcLang === tgtLang) return text;
+      // Direct pair
+      try {
+        const translator = await loadTranslator(srcLang, tgtLang);
+        const result = await translator(text);
+        return (result?.[0]?.translation_text || text).trim();
+      } catch (directErr) {
+        // Pivot through English
+        if (srcLang !== 'en' && tgtLang !== 'en') {
+          log('Direct model unavailable, pivoting through English…');
+          try {
+            const toEn = await loadTranslator(srcLang, 'en');
+            const enResult = await toEn(text);
+            const enText = (enResult?.[0]?.translation_text || '').trim();
+            if (!enText) throw new Error('Empty pivot result');
+            const fromEn = await loadTranslator('en', tgtLang);
+            const finalResult = await fromEn(enText);
+            return (finalResult?.[0]?.translation_text || enText).trim();
+          } catch (pivotErr) {
+            log('Pivot translation failed: ' + pivotErr.message);
+            return text;
+          }
+        }
+        log('Translation model not available: ' + directErr.message);
+        return text;
+      }
+    }
+
+    function getInputLang() { return document.getElementById('langHint').value; }
+    function getSignLang() { return document.getElementById('signLangSelect').value; }
+    function getTargetLang() { return SIGN_LANG_BASE[getSignLang()] || 'en'; }
+
+    async function translateIfNeeded(text, statusFn) {
+      const src = getInputLang();
+      const tgt = getTargetLang();
+      if (src === tgt) return text;
+      if (statusFn) statusFn('Translating ' + src.toUpperCase() + ' → ' + tgt.toUpperCase() + '…');
+      const translated = await translateText(text, src, tgt);
+      if (translated !== text) log('Translated: "' + text.substring(0, 40) + '…" → "' + translated.substring(0, 40) + '…"');
+      return translated;
+    }
+  </script>
+
   <script>
     const textIn = document.getElementById('textIn');
     const planLog = document.getElementById('planLog');
@@ -1119,6 +1200,10 @@
       try {
         renderStatus.textContent = 'Translating…';
         renderStatus.className = 'status-badge loading';
+        // Translate input if needed before planning
+        const originalText = textIn.value.trim();
+        const translated = await translateIfNeeded(originalText, (msg) => { renderStatus.textContent = msg; });
+        textIn.value = translated;
         await doPlan('spacy');
         const toks = window.__plannedTokens || [];
         if (!toks.length) { renderStatus.textContent = 'No tokens planned.'; renderStatus.className = 'status-badge'; return; }
@@ -1145,13 +1230,27 @@
     let mediaRecorder = null;
     let recordedChunks = [];
 
-    function pickAsrModel(){ const ua = navigator.userAgent||''; const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(ua); return isMobile ? 'Xenova/whisper-tiny.en' : 'Xenova/whisper-small'; }
+    function pickAsrModel(){
+      const ua = navigator.userAgent||'';
+      const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(ua);
+      const lang = getInputLang();
+      // Use multilingual models; .en variants only support English
+      if (lang === 'en') return isMobile ? 'Xenova/whisper-tiny.en' : 'Xenova/whisper-small.en';
+      return isMobile ? 'Xenova/whisper-tiny' : 'Xenova/whisper-small';
+    }
 
     async function ensureASR(){
       const { pipeline } = window.transformers;
       const model = pickAsrModel();
       if (!window.__asr || window.__asrModelName !== model){ window.__asr = await pipeline('automatic-speech-recognition', model); window.__asrModelName = model; }
       return window.__asr;
+    }
+
+    function getAsrOptions(){
+      const opts = { chunk_length_s: 30, stride_length_s: 5 };
+      const lang = getInputLang();
+      if (lang && lang !== 'en') { opts.language = lang; opts.task = 'transcribe'; }
+      return opts;
     }
 
     recordBtn.addEventListener('click', async () => {
@@ -1182,9 +1281,12 @@
         const asr = await ensureASR();
         micStatus.textContent = 'Transcribing…';
         const blob = new Blob(recordedChunks, { type: 'audio/webm' });
-        const result = await asr(blob, { chunk_length_s: 30, stride_length_s: 5 });
-        transcription.value = (result?.text||'').trim();
-        textIn.value = transcription.value;
+        const result = await asr(blob, getAsrOptions());
+        const rawText = (result?.text||'').trim();
+        transcription.value = rawText;
+        // Translate if input language differs from sign language base
+        const translated = await translateIfNeeded(rawText, (msg) => { micStatus.textContent = msg; micStatus.className = 'status-badge loading'; });
+        textIn.value = translated;
         micStatus.textContent = 'Done ✓'; micStatus.className = 'status-badge ready';
       }catch(e){ micStatus.textContent = 'Error: ' + e; micStatus.className = 'status-badge'; }
     });
@@ -1214,11 +1316,13 @@
         videoStatus.textContent = 'Loading ASR model…';
         const asr = await ensureASR();
         videoStatus.textContent = 'Transcribing…';
-        const result = await asr(wavBlob, { chunk_length_s: 30, stride_length_s: 5 });
-        const text = (result?.text||'').trim();
-        transcription.value = text;
+        const result = await asr(wavBlob, getAsrOptions());
+        const rawText = (result?.text||'').trim();
+        transcription.value = rawText;
+        // Translate if needed
+        const translated = await translateIfNeeded(rawText, (msg) => { videoStatus.textContent = msg; });
         videoStatus.textContent = 'Planning…';
-        textIn.value = text;
+        textIn.value = translated;
         await doPlan('spacy');
         videoStatus.textContent = 'Ready to render ✓'; videoStatus.className = 'status-badge ready';
       }catch(e){ videoStatus.textContent = 'Error: ' + e; videoStatus.className = 'status-badge'; }
