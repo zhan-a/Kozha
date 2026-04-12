@@ -9,6 +9,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script defer src="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/allcsa.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2/dist/transformers.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.6/dist/ffmpeg.min.js" crossorigin="anonymous"></script>
   <style>
     :root {
       --ink: #1a1612;
@@ -298,6 +300,60 @@
       background: var(--accent-2);
       transform: translateY(-1px);
     }
+
+    /* Voice/Video tab panels in demo card */
+    .demo-tab-panel { display: none; }
+    .demo-tab-panel.active { display: block; }
+
+    .demo-record-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 10px 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 100%;
+    }
+    .demo-record-btn:hover { background: var(--accent-2); }
+    .demo-record-btn.recording {
+      background: #c0392b;
+    }
+    .demo-record-btn.recording:hover { background: #e74c3c; }
+
+    .demo-status {
+      font-size: 12px;
+      color: var(--ink-3);
+      margin-top: 8px;
+      min-height: 18px;
+    }
+
+    .demo-file-input {
+      width: 100%;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: var(--ink-3);
+      margin-bottom: 10px;
+    }
+
+    .demo-process-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 10px 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 100%;
+    }
+    .demo-process-btn:hover { background: var(--accent-2); }
+    .demo-process-btn:disabled { opacity: 0.5; cursor: default; }
 
     .demo-avatar-area {
       background: var(--paper);
@@ -606,14 +662,31 @@
     </div>
 
     <div class="hero-demo-card fade-up delay-3">
-      <div class="demo-input-wrap">
-        <textarea class="demo-input" id="heroInput" placeholder="Type a sentence to translate…">Good morning, everyone.</textarea>
-      </div>
       <div class="demo-controls">
-        <div class="demo-chip active" id="chip-text">✏️ Text</div>
-        <div class="demo-chip" id="chip-mic">🎙 Voice</div>
-        <div class="demo-chip" id="chip-video">🎬 Video</div>
+        <div class="demo-chip active" data-tab="text" id="chip-text">✏️ Text</div>
+        <div class="demo-chip" data-tab="voice" id="chip-mic">🎙 Voice</div>
+        <div class="demo-chip" data-tab="video" id="chip-video">🎬 Video</div>
         <button class="demo-translate-btn" id="heroTranslateBtn" disabled>Translate ▶</button>
+      </div>
+
+      <!-- Text tab -->
+      <div class="demo-tab-panel active" id="tab-text">
+        <div class="demo-input-wrap">
+          <textarea class="demo-input" id="heroInput" placeholder="Type a sentence to translate…">Good morning, everyone.</textarea>
+        </div>
+      </div>
+
+      <!-- Voice tab -->
+      <div class="demo-tab-panel" id="tab-voice">
+        <button class="demo-record-btn" id="heroRecordBtn">● Start recording</button>
+        <div class="demo-status" id="heroMicStatus">On-device Whisper — no audio leaves your device.</div>
+      </div>
+
+      <!-- Video tab -->
+      <div class="demo-tab-panel" id="tab-video">
+        <input type="file" accept="video/*" class="demo-file-input" id="heroVideoFile" />
+        <button class="demo-process-btn" id="heroVideoBtn">Process video</button>
+        <div class="demo-status" id="heroVideoStatus">Upload a video to extract and transcribe audio.</div>
       </div>
       <div class="demo-avatar-area" id="avatarContainer">
         <div class="avatar-loading" id="avatarLoading">
@@ -716,9 +789,13 @@
       c.addEventListener('click', () => {
         chips.forEach(x => x.classList.remove('active'));
         c.classList.add('active');
+        // Switch tab panels
+        document.querySelectorAll('.demo-tab-panel').forEach(p => p.classList.remove('active'));
+        const tab = c.getAttribute('data-tab');
+        if (tab) document.getElementById('tab-' + tab).classList.add('active');
       });
     });
-    
+
     let cwasaReady = false;
 
     function initCWASA() {
@@ -998,6 +1075,131 @@
         btn.disabled = false;
       }
     });
+
+    /* ── Whisper ASR (on-device, open-source) ── */
+    function pickAsrModel() {
+      const ua = navigator.userAgent || '';
+      const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(ua);
+      return isMobile ? 'Xenova/whisper-tiny.en' : 'Xenova/whisper-small';
+    }
+
+    async function ensureASR() {
+      if (!window.transformers) throw new Error('Transformers.js not loaded yet');
+      const { pipeline } = window.transformers;
+      const model = pickAsrModel();
+      if (!window.__asr || window.__asrModelName !== model) {
+        window.__asr = await pipeline('automatic-speech-recognition', model);
+        window.__asrModelName = model;
+      }
+      return window.__asr;
+    }
+
+    /* ── Voice recording ── */
+    (function() {
+      const recordBtn = document.getElementById('heroRecordBtn');
+      const micStatus = document.getElementById('heroMicStatus');
+      const heroInput = document.getElementById('heroInput');
+      const translateBtn = document.getElementById('heroTranslateBtn');
+      let mediaRecorder = null;
+      let recordedChunks = [];
+
+      recordBtn.addEventListener('click', async () => {
+        if (!mediaRecorder) {
+          try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            recordedChunks = [];
+            mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
+            mediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) recordedChunks.push(e.data); };
+            mediaRecorder.onstop = () => { stream.getTracks().forEach(t => t.stop()); };
+            mediaRecorder.start();
+            recordBtn.textContent = '■ Stop recording';
+            recordBtn.classList.add('recording');
+            micStatus.textContent = 'Recording…';
+          } catch (e) {
+            micStatus.textContent = 'Mic error: ' + e.message;
+          }
+        } else {
+          mediaRecorder.stop();
+          mediaRecorder = null;
+          recordBtn.textContent = 'Transcribing…';
+          recordBtn.classList.remove('recording');
+          recordBtn.disabled = true;
+          micStatus.textContent = 'Loading Whisper model (first run downloads ~150 MB)…';
+
+          try {
+            const asr = await ensureASR();
+            micStatus.textContent = 'Transcribing audio…';
+            const blob = new Blob(recordedChunks, { type: 'audio/webm' });
+            const result = await asr(blob, { chunk_length_s: 30, stride_length_s: 5 });
+            const text = (result?.text || '').trim();
+            heroInput.value = text;
+            micStatus.textContent = 'Transcribed! Hit Translate to see signs.';
+            // Switch to text tab to show result
+            chips.forEach(x => x.classList.remove('active'));
+            document.getElementById('chip-text').classList.add('active');
+            document.querySelectorAll('.demo-tab-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('tab-text').classList.add('active');
+          } catch (e) {
+            micStatus.textContent = 'Transcription error: ' + e.message;
+          }
+          recordBtn.textContent = '● Start recording';
+          recordBtn.disabled = false;
+        }
+      });
+    })();
+
+    /* ── Video upload + transcription ── */
+    (function() {
+      const videoFile = document.getElementById('heroVideoFile');
+      const videoBtn = document.getElementById('heroVideoBtn');
+      const videoStatus = document.getElementById('heroVideoStatus');
+      const heroInput = document.getElementById('heroInput');
+
+      async function ensureFFmpeg() {
+        if (!window.__ffmpeg) {
+          const { createFFmpeg, fetchFile } = FFmpeg;
+          const ffmpeg = createFFmpeg({ log: false });
+          await ffmpeg.load();
+          window.__ffmpeg = { ffmpeg, fetchFile };
+        }
+        return window.__ffmpeg;
+      }
+
+      videoBtn.addEventListener('click', async () => {
+        const file = videoFile?.files?.[0];
+        if (!file) { videoStatus.textContent = 'Choose a video file first.'; return; }
+        videoBtn.disabled = true;
+
+        try {
+          videoStatus.textContent = 'Loading ffmpeg…';
+          const { ffmpeg, fetchFile } = await ensureFFmpeg();
+
+          videoStatus.textContent = 'Extracting audio from video…';
+          ffmpeg.FS('writeFile', 'in', await fetchFile(file));
+          await ffmpeg.run('-i', 'in', '-vn', '-ac', '1', '-ar', '16000', '-f', 'wav', 'out.wav');
+          const data = ffmpeg.FS('readFile', 'out.wav');
+          const wavBlob = new Blob([data.buffer], { type: 'audio/wav' });
+
+          videoStatus.textContent = 'Loading Whisper model (first run downloads ~150 MB)…';
+          const asr = await ensureASR();
+
+          videoStatus.textContent = 'Transcribing audio…';
+          const result = await asr(wavBlob, { chunk_length_s: 30, stride_length_s: 5 });
+          const text = (result?.text || '').trim();
+          heroInput.value = text;
+          videoStatus.textContent = 'Transcribed! Hit Translate to see signs.';
+
+          // Switch to text tab to show result
+          chips.forEach(x => x.classList.remove('active'));
+          document.getElementById('chip-text').classList.add('active');
+          document.querySelectorAll('.demo-tab-panel').forEach(p => p.classList.remove('active'));
+          document.getElementById('tab-text').classList.add('active');
+        } catch (e) {
+          videoStatus.textContent = 'Error: ' + e.message;
+        }
+        videoBtn.disabled = false;
+      });
+    })();
   </script>
 </body>
 </html>
