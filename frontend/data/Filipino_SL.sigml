@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sigml_collection language="Filipino_SL" count="14">
+
+  <!-- ALL -->
+  <hamgestural_sign><sign_manual><handconfig extfidir="u" handshape="fist" palmor="d"/><location_bodyarm location="shoulders" side="right_at" contact=" "/><seq_motion><rpt_motion repetition="None" manner="normal"><par_motion><tgt_motion><changeposture/><handconfig bend1="0.0 2.5 0.0 0.0 0.0" extfidir="ul" handshape="fist" palmor="ul" specialfingers="2" thumbpos="out"/><location_bodyarm location="shoulders" side="left_at" contact=" "/></tgt_motion><circularmotion axis="u" circular_size=" " start="none"/></par_motion></rpt_motion></seq_motion></sign_manual></hamgestural_sign>
+
+  <!-- DOCTOR -->
+  <hamgestural_sign><sign_manual><split_handconfig><handconfig bend1="-3.0 -1.0 4.0 1.0 0.0" bend3="2.4 2.0 2.0 -5.0" bend4="2.4 2.0 2.0 -3.0" bend5="2.4 2.0 2.0 -4.0" extfidir="uol" handshape="pinch12open" palmor="d" specialfingers="345"/><handconfig extfidir="or" handshape="fist" palmor="u" specialfingers="2345" thumbpos="across"/></split_handconfig><handconstellation contact=" "><location_hand location="wristback" side=" "/><location_hand digits="3" location="tip" side=" "/><location_bodyarm location="neutralspace" side=" " contact=" "/></handconstellation><split_motion><seq_motion><rpt_motion repetition="None" manner="normal"><par_motion><tgt_motion><changeposture/></tgt_motion><directedmotion direction="d" curve="none" curve_size="normal" zigzag_style="none" ellipse_direction="none" zigzag_size="none"/></par_motion></rpt_motion></seq_motion><seq_motion/></split_motion></sign_manual></hamgestural_sign>
+
+  <!-- FAMILY -->
+  <hamgestural_sign><sign_manual outofphase="false" lr_symm="true"><split_handconfig><handconfig bend1="4.0 1.5 -4.0 0.3 -0.1" bend2="2.25 2.0 2.0 0.0" bend3="0.0 0.0 0.0 0.5" bend4="0.0 0.0 0.0 -0.1" bend5="0.0 0.0 0.0 -0.1" extfidir="u" handshape="pinch12open" palmor="d"/><handconfig bend1="4.0 1.5 -4.0 0.3 -0.1" bend2="2.25 2.0 2.0 0.0" bend3="0.0 0.0 0.0 0.5" bend4="0.0 0.0 0.0 -0.1" bend5="0.0 0.0 0.0 -0.1" extfidir="u" handshape="pinch12open" palmor="d"/></split_handconfig><handconstellation contact="touch"><location_hand location="thumbside" side="ulnar"/><location_hand location="thumbside" side="ulnar"/><location_bodyarm location="neutralspace" side=" " contact=" "/></handconstellation><seq_motion><rpt_motion repetition="None" manner="normal"><par_motion><tgt_motion><changeposture/><split_handconfig><handconfig bend1="4.0 1.5 -4.0 0.3 -0.1" bend2="2.25 2.0 2.0 0.0" bend3="0.0 0.0 0.0 0.5" bend4="0.0 0.0 0.0 -0.1" bend5="0.0 0.0 0.0 -0.1" extfidir="u" handshape="pinch12open" palmor="u"/><handconfig bend1="4.0 1.5 -4.0 0.3 -0.1" bend2="2.25 2.0 2.0 0.0" bend3="0.0 0.0 0.0 0.5" bend4="0.0 0.0 0.0 -0.1" bend5="0.0 0.0 0.0 -0.1" extfidir="u" handshape="pinch12open" palmor="u"/></split_handconfig><handconstellation contact="touch"><location_hand location="pinkyside" side="radial"/><location_hand location="pinkyside" side="radial"/></handconstellation></tgt_motion><circularmotion axis="u" circular_size=" " start="none"/></par_motion></rpt_motion></seq_motion></sign_manual></hamgestural_sign>
+
+  <!-- handshape_A -->
+  <hamgestural_sign><sign_manual><handconfig extfidir="u" handshape="fist" palmor="d" /></sign_manual></hamgestural_sign>
+
+  <!-- handshape_B -->
+  <hamgestural_sign><sign_manual><handconfig extfidir="u" handshape="fist" palmor="d" specialfingers="2345" thumbpos="across" /></sign_manual></hamgestural_sign>
+
+  <!-- handshape_C -->
+  <hamgestural_sign><sign_manual><handconfig bend1="-4.0 -2.5 7.0 0.0 0.0" extfidir="u" handshape="fist" mainbend="round" palmor="d" specialfingers="2345" thumbpos="opposed" /></sign_manual></hamgestural_sign>
+
+  <!-- handshape_D -->
+  <hamgestural_sign><sign_manual><handconfig bend1="-3.0 -1.0 4.0 1.0 0.0" bend3="2.4 2.0 2.0 -5.0" bend4="2.4 2.0 2.0 -3.0" bend5="2.4 2.0 2.0 -4.0" extfidir="u" handshape="pinch12open" palmor="d" specialfingers="345" /></sign_manual></hamgestural_sign>
+
+  <!-- handshape_E -->
+  <hamgestural_sign><sign_manual><handconfig bend2="-0.5 4.0 4.0 0.0" bend3="-0.5 4.0 4.0 0.0" bend4="-0.5 4.0 4.0 0.0" bend5="-0.5 4.0 4.0 0.0" extfidir="u" handshape="fist" mainbend="hooked" palmor="d" /></sign_manual></hamgestural_sign>
+
+  <!-- handshape_F -->
+  <hamgestural_sign><sign_manual><handconfig bend1="4.0 1.5 -4.0 0.3 -0.1" bend2="2.25 2.0 2.0 0.0" bend3="0.0 0.0 0.0 0.5" bend4="0.0 0.0 0.0 -0.1" bend5="0.0 0.0 0.0 -0.1" extfidir="u" handshape="pinch12open" palmor="d" /></sign_manual></hamgestural_sign>
+
+  <!-- handshape_G -->
+  <hamgestural_sign><sign_manual><handconfig extfidir="u" handshape="fist" palmor="d" specialfingers="2" /></sign_manual></hamgestural_sign>
+
+  <!-- handshape_H -->
+  <hamgestural_sign><sign_manual><handconfig extfidir="u" handshape="fist" palmor="d" specialfingers="23" /></sign_manual></hamgestural_sign>
+
+  <!-- handshape_I -->
+  <hamgestural_sign><sign_manual><handconfig extfidir="u" handshape="fist" palmor="d" specialfingers="5" /></sign_manual></hamgestural_sign>
+
+  <!-- handshape_K -->
+  <hamgestural_sign><sign_manual><handconfig bend1="0 -0.26 0 0 0" bend3="2 0 0 0" extfidir="u" handshape="fist" palmor="d" specialfingers="23" /></sign_manual></hamgestural_sign>
+
+  <!-- handshape_L -->
+  <hamgestural_sign><sign_manual><handconfig bend1="0 2.5 0 0 0" extfidir="u" handshape="fist" palmor="d" specialfingers="2" thumbpos="out" /></sign_manual></hamgestural_sign>
+
+</sigml_collection>
