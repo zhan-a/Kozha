@@ -613,6 +613,13 @@
                 <option value="pjm">PJM (Polish)</option>
                 <option value="gsl">GSL (Greek)</option>
                 <option value="rsl">RSL (Russian)</option>
+                <option value="algerian">Algerian SL</option>
+                <option value="bangla">Bangla SL</option>
+                <option value="ngt">NGT (Dutch)</option>
+                <option value="fsl">FSL (Filipino)</option>
+                <option value="isl">ISL (Indian)</option>
+                <option value="kurdish">Kurdish SL</option>
+                <option value="vsl">VSL (Vietnamese)</option>
               </select>
             </div>
           </div>
@@ -996,19 +1003,79 @@
     if (conceptFile) conceptFile.addEventListener('change', (e) => { const f = e.target?.files?.[0]; if (f) loadConceptCsvFile(f); });
     loadDbBtn?.addEventListener('click', () => { const u = dbUrlInput.value.trim(); if (u) loadSigmlUrl(u); });
 
+  </script>
+
+  <!-- ── SIGN LANGUAGE DATABASE SWITCHING ── -->
+  <script>
+    const SIGN_LANG_BASE = {
+      bsl: 'en', asl: 'en', dgs: 'de', lsf: 'fr',
+      lse: 'es', pjm: 'pl', gsl: 'el', rsl: 'ru',
+      algerian: 'ar', bangla: 'bn', ngt: 'nl', fsl: 'tl',
+      isl: 'hi', kurdish: 'ku', vsl: 'vi'
+    };
+
+    const SIGN_LANG_DB = {
+      bsl:      { sigml: ['/data/hamnosys_bsl_version1.sigml'], csv: '/data/hamnosys_bsl.csv', alphabet: '/data/bsl_alphabet_sigml.sigml' },
+      asl:      { sigml: ['/data/hamnosys_bsl_version1.sigml'], csv: '/data/hamnosys_bsl.csv', alphabet: '/data/bsl_alphabet_sigml.sigml' },
+      dgs:      { sigml: ['/data/German_SL_DGS.sigml'], csv: null, alphabet: null },
+      lsf:      { sigml: ['/data/French_SL_LSF.sigml'], csv: null, alphabet: null },
+      lse:      { sigml: [], csv: null, alphabet: null },
+      pjm:      { sigml: ['/data/Polish_SL_PJM.sigml'], csv: null, alphabet: null },
+      gsl:      { sigml: ['/data/Greek_SL_GSL.sigml'], csv: null, alphabet: null },
+      rsl:      { sigml: [], csv: null, alphabet: null },
+      algerian: { sigml: ['/data/Algerian_SL.sigml'], csv: null, alphabet: null },
+      bangla:   { sigml: ['/data/Bangla_SL.sigml'], csv: null, alphabet: null },
+      ngt:      { sigml: ['/data/Dutch_SL_NGT.sigml'], csv: null, alphabet: null },
+      fsl:      { sigml: ['/data/Filipino_SL.sigml'], csv: null, alphabet: null },
+      isl:      { sigml: ['/data/Indian_SL.sigml'], csv: null, alphabet: null },
+      kurdish:  { sigml: ['/data/Kurdish_SL.sigml'], csv: null, alphabet: null },
+      vsl:      { sigml: ['/data/Vietnamese_SL.sigml'], csv: null, alphabet: null },
+    };
+
+    function extractEmbeddedAlphabet() {
+      for (const [gloss, sigml] of glossToSign.entries()) {
+        const upper = gloss.toUpperCase();
+        if (upper.length === 1 && upper >= 'A' && upper <= 'Z' && !letterToSign.has(upper)) {
+          letterToSign.set(upper, sigml);
+        }
+      }
+    }
+
+    async function switchSignLanguage(langCode) {
+      glossToSign.clear();
+      letterToSign.clear();
+      baseToGloss.clear();
+      conceptToGloss.clear();
+      refreshAllowedOutput();
+
+      const db = SIGN_LANG_DB[langCode];
+      if (!db) { log('No database for: ' + langCode); return; }
+
+      for (const url of db.sigml) {
+        await loadSigmlUrl(url, true);
+      }
+      if (db.csv) await loadConceptCsvUrl(db.csv, true);
+      if (db.alphabet) await loadAlphabetSigmlUrl(db.alphabet, true);
+
+      extractEmbeddedAlphabet();
+      log('Loaded ' + langCode.toUpperCase() + ': ' + glossToSign.size + ' signs, ' + letterToSign.size + ' letters');
+    }
+
+    document.getElementById('signLangSelect').addEventListener('change', async function() {
+      renderStatus.textContent = 'Loading…';
+      renderStatus.className = 'status-badge loading';
+      await switchSignLanguage(this.value);
+      renderStatus.textContent = 'Ready';
+      renderStatus.className = 'status-badge ready';
+    });
+
     window.addEventListener('load', async () => {
-      await loadSigmlUrl('/data/hamnosys_bsl_version1.sigml', true);
-      await loadConceptCsvUrl('/data/hamnosys_bsl.csv', true);
-      await loadAlphabetSigmlUrl('/data/bsl_alphabet_sigml.sigml', true);
+      await switchSignLanguage('bsl');
     });
   </script>
 
   <!-- ── TRANSLATION ENGINE (OPUS-MT via transformers.js) ── -->
   <script>
-    const SIGN_LANG_BASE = {
-      bsl: 'en', asl: 'en', dgs: 'de', lsf: 'fr',
-      lse: 'es', pjm: 'pl', gsl: 'el', rsl: 'ru'
-    };
 
     const translatorCache = {};
 

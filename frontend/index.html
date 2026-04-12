@@ -759,6 +759,13 @@
             <option value="pjm">PJM (Polish)</option>
             <option value="gsl">GSL (Greek)</option>
             <option value="rsl">RSL (Russian)</option>
+            <option value="algerian">Algerian SL</option>
+            <option value="bangla">Bangla SL</option>
+            <option value="ngt">NGT (Dutch)</option>
+            <option value="fsl">FSL (Filipino)</option>
+            <option value="isl">ISL (Indian)</option>
+            <option value="kurdish">Kurdish SL</option>
+            <option value="vsl">VSL (Vietnamese)</option>
           </select>
         </div>
       </div>
@@ -1034,10 +1041,64 @@
       } catch(e) { console.warn('[index] Concept CSV error:', e); }
     }
 
+    /* ── Sign language database switching ── */
+    var SIGN_LANG_DB = {
+      bsl:      { sigml: ['/data/hamnosys_bsl_version1.sigml'], csv: '/data/hamnosys_bsl.csv', alphabet: '/data/bsl_alphabet_sigml.sigml' },
+      asl:      { sigml: ['/data/hamnosys_bsl_version1.sigml'], csv: '/data/hamnosys_bsl.csv', alphabet: '/data/bsl_alphabet_sigml.sigml' },
+      dgs:      { sigml: ['/data/German_SL_DGS.sigml'], csv: null, alphabet: null },
+      lsf:      { sigml: ['/data/French_SL_LSF.sigml'], csv: null, alphabet: null },
+      lse:      { sigml: [], csv: null, alphabet: null },
+      pjm:      { sigml: ['/data/Polish_SL_PJM.sigml'], csv: null, alphabet: null },
+      gsl:      { sigml: ['/data/Greek_SL_GSL.sigml'], csv: null, alphabet: null },
+      rsl:      { sigml: [], csv: null, alphabet: null },
+      algerian: { sigml: ['/data/Algerian_SL.sigml'], csv: null, alphabet: null },
+      bangla:   { sigml: ['/data/Bangla_SL.sigml'], csv: null, alphabet: null },
+      ngt:      { sigml: ['/data/Dutch_SL_NGT.sigml'], csv: null, alphabet: null },
+      fsl:      { sigml: ['/data/Filipino_SL.sigml'], csv: null, alphabet: null },
+      isl:      { sigml: ['/data/Indian_SL.sigml'], csv: null, alphabet: null },
+      kurdish:  { sigml: ['/data/Kurdish_SL.sigml'], csv: null, alphabet: null },
+      vsl:      { sigml: ['/data/Vietnamese_SL.sigml'], csv: null, alphabet: null },
+    };
+
+    function extractEmbeddedAlphabet() {
+      for (var entry of glossToSign.entries()) {
+        var upper = entry[0].toUpperCase();
+        if (upper.length === 1 && upper >= 'A' && upper <= 'Z' && !letterToSign.has(upper)) {
+          letterToSign.set(upper, entry[1]);
+        }
+      }
+    }
+
+    async function switchSignLanguage(langCode) {
+      glossToSign.clear();
+      letterToSign.clear();
+      baseToGloss.clear();
+      conceptToGloss.clear();
+
+      var db = SIGN_LANG_DB[langCode];
+      if (!db) return;
+
+      for (var i = 0; i < db.sigml.length; i++) {
+        await loadSigmlUrl(db.sigml[i]);
+      }
+      if (db.csv) await loadConceptCsvUrl(db.csv);
+      if (db.alphabet) await loadAlphabetSigmlUrl(db.alphabet);
+
+      extractEmbeddedAlphabet();
+      console.log('[index] Switched to ' + langCode + ': ' + glossToSign.size + ' signs, ' + letterToSign.size + ' letters');
+    }
+
+    document.getElementById('heroSignLang').addEventListener('change', async function() {
+      var statusDot = document.getElementById('statusDot');
+      statusDot.textContent = 'Loading…';
+      statusDot.className = 'status-dot loading';
+      await switchSignLanguage(this.value);
+      statusDot.textContent = 'Ready';
+      statusDot.className = 'status-dot ready';
+    });
+
     window.addEventListener('load', async function() {
-      await loadSigmlUrl('/data/hamnosys_bsl_version1.sigml');
-      await loadConceptCsvUrl('/data/hamnosys_bsl.csv');
-      await loadAlphabetSigmlUrl('/data/bsl_alphabet_sigml.sigml');
+      await switchSignLanguage('bsl');
     });
 
     const STOPWORDS = new Set(['a','an','the','and','or','but','if','then','than','of','to','in','on','at','for','from','with','as','by','is','are','am','be','been','was','were','do','does','did','that','this','those','these','it','my','your','our']);
@@ -1114,7 +1175,9 @@
     /* ── Translation engine (OPUS-MT via transformers.js) ── */
     var SIGN_LANG_BASE = {
       bsl: 'en', asl: 'en', dgs: 'de', lsf: 'fr',
-      lse: 'es', pjm: 'pl', gsl: 'el', rsl: 'ru'
+      lse: 'es', pjm: 'pl', gsl: 'el', rsl: 'ru',
+      algerian: 'ar', bangla: 'bn', ngt: 'nl', fsl: 'tl',
+      isl: 'hi', kurdish: 'ku', vsl: 'vi'
     };
 
     var heroTranslatorCache = {};
