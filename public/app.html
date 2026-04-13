@@ -1256,11 +1256,13 @@
       const phraseBase = glossBase(raw);
       if (conceptToGloss.has(phraseBase)) {
         const g = conceptToGloss.get(phraseBase);
-        mapped = [g];
-        if (normalizedOut) normalizedOut.value = raw;
-        if (planLog) planLog.textContent = `concept-map: "${raw}" → "${g}"`;
-        if (tokensOut) tokensOut.value = g;
-        window.__plannedTokens = mapped; return;
+        if (glossToSign.has(g)) {
+          mapped = [g];
+          if (normalizedOut) normalizedOut.value = raw;
+          if (planLog) planLog.textContent = `concept-map: "${raw}" → "${g}"`;
+          if (tokensOut) tokensOut.value = g;
+          window.__plannedTokens = mapped; return;
+        }
       }
       if (mode === 'spacy') {
         try {
@@ -1317,7 +1319,7 @@
       for (const t of tokens){
         const b = glossToSign.get(t);
         if (b) { blocks.push(b); }
-        else if (letterToSign.size > 0) { const lb = fingerspellWord(t); if (lb.length > 0){ blocks.push(...lb); log(`Fingerspelling: "${t}"`); } }
+        else if (letterToSign.size > 0) { const base = glossBase(t); const lb = fingerspellWord(base || t); if (lb.length > 0){ blocks.push(...lb); log(`Fingerspelling: "${base || t}"`); } }
       }
       if (!blocks.length) return null;
       return `<?xml version="1.0" encoding="utf-8"?>\n<sigml>\n${blocks.join('\n')}\n</sigml>`;
