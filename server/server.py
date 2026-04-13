@@ -354,7 +354,7 @@ def process_sentence(doc_or_span, stopwords: set, time_words: set, pronouns: dic
                     j += 1
                 continue
 
-        if text in ABBREV_VALUES:
+        if text in ABBREV_VALUES and text not in stopwords:
             letters = [c.lower() for c in text if c.isalnum()]
             for ch in letters:
                 tokens_with_pos.append((ch, "ABBR"))
