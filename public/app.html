@@ -11,7 +11,6 @@
 
   <link rel="stylesheet" href="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script defer src="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/allcsa.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2/dist/transformers.min.js" crossorigin="anonymous"></script>
   <script defer src="https://unpkg.com/compromise@14.12.0/builds/compromise.min.js" crossorigin="anonymous"></script>
   <script defer src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.6/dist/ffmpeg.min.js" crossorigin="anonymous"></script>
 
@@ -1112,10 +1111,18 @@
 
     const translatorCache = {};
 
+    let _pipeline = null;
+    async function getPipeline() {
+      if (_pipeline) return _pipeline;
+      const mod = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2');
+      _pipeline = mod.pipeline;
+      return _pipeline;
+    }
+
     async function loadTranslator(src, tgt) {
       const key = src + '-' + tgt;
       if (translatorCache[key]) return translatorCache[key];
-      const { pipeline } = window.transformers;
+      const pipeline = await getPipeline();
       const modelName = 'Xenova/opus-mt-' + src + '-' + tgt;
       log('Loading translation model: ' + modelName + '…');
       const translator = await pipeline('translation', modelName);
@@ -1368,7 +1375,7 @@
     }
 
     async function ensureASR(){
-      const { pipeline } = window.transformers;
+      const pipeline = await getPipeline();
       const model = pickAsrModel();
       if (!window.__asr || window.__asrModelName !== model){ window.__asr = await pipeline('automatic-speech-recognition', model); window.__asrModelName = model; }
       return window.__asr;
