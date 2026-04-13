@@ -119,6 +119,7 @@ STOPWORDS = {
         "que","qui","dont","où",
         "ce","cette","ces",
         "ne","se","si",
+        "l'","d'","n'","s'","c'","qu'",
     },
     "es": {
         "el","la","los","las","un","una","unos","unas","y","o","pero","si",
@@ -284,7 +285,7 @@ PRONOUNS = {
                  "notre","votre","leur","pas","très","plus","moins",
                  "et","ou","mais"},
         "normalize": {
-            "je": "moi",
+            "je": "moi", "j'": "moi",
             "il": "il", "lui": "il",
             "elle": "il",
             "ils": "ils", "eux": "ils",
