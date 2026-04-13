@@ -44,7 +44,6 @@
       flex-direction: column;
     }
 
-    /* ── NAV ── */
     .app-nav {
       position: sticky; top: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -86,7 +85,6 @@
     }
     .nav-link-sm:hover { color: var(--accent); }
 
-    /* ── MAIN LAYOUT ── */
     .app-shell {
       flex: 1;
       display: flex;
@@ -97,7 +95,6 @@
       gap: 24px;
     }
 
-    /* ── SIDEBAR ── */
     .sidebar {
       width: var(--sidebar);
       flex-shrink: 0;
@@ -162,7 +159,6 @@
       margin: 8px 0;
     }
 
-    /* ── CONTENT AREA ── */
     .content-area {
       flex: 1;
       min-width: 0;
@@ -171,7 +167,6 @@
       gap: 20px;
     }
 
-    /* ── RENDER PANEL (right) ── */
     .render-panel {
       width: 420px;
       flex-shrink: 0;
@@ -180,7 +175,6 @@
       gap: 16px;
     }
 
-    /* ── CARDS ── */
     .card {
       background: white;
       border: 1px solid var(--border);
@@ -202,7 +196,6 @@
       font-size: 16px;
     }
 
-    /* ── FORM ELEMENTS ── */
     label.field-label {
       display: block;
       font-size: 11px;
@@ -238,7 +231,6 @@
       color: var(--ink-3);
     }
 
-    /* ── BUTTONS ── */
     .btn {
       font-family: 'DM Sans', sans-serif;
       font-size: 14px;
@@ -301,7 +293,6 @@
     }
     .btn-translate:disabled { opacity: 0.5; cursor: default; }
 
-    /* ── ROW LAYOUT ── */
     .row {
       display: flex;
       gap: 8px;
@@ -310,7 +301,6 @@
     }
     .grow { flex: 1 1 auto; min-width: 0; }
 
-    /* ── STATUS INDICATOR ── */
     .status-badge {
       display: inline-flex;
       align-items: center;
@@ -337,7 +327,6 @@
       background: currentColor;
     }
 
-    /* ── LOG ── */
     .log-area {
       background: var(--paper);
       border: 1px solid var(--border);
@@ -353,7 +342,6 @@
       white-space: pre-wrap;
     }
 
-    /* ── AVATAR AREA ── */
     .avatar-wrapper {
       background: var(--paper);
       border: 1px solid var(--border);
@@ -381,7 +369,6 @@
       width: 100%;
     }
 
-    /* ── TABS for input mode ── */
     .input-tabs {
       display: flex;
       gap: 4px;
@@ -413,11 +400,9 @@
       box-shadow: 0 1px 4px rgba(26,22,18,0.08);
     }
 
-    /* Tab panels */
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
-    /* ── CHIPS ── */
     .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
     .chip {
       background: var(--paper);
@@ -429,7 +414,6 @@
       color: var(--ink-2);
     }
 
-    /* ── HINT TEXT ── */
     .hint {
       font-size: 12px;
       color: var(--ink-3);
@@ -437,18 +421,15 @@
       margin-top: 6px;
     }
 
-    /* ── SECTION PANELS (sidebar driven) ── */
     .content-panel { display: none; }
     .content-panel.active { display: flex; flex-direction: column; gap: 16px; }
 
-    /* ── ADVANCED PANEL ── */
     .advanced-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 14px;
     }
 
-    /* ── CHECKBOX LABEL ── */
     .check-label {
       display: flex;
       align-items: center;
@@ -463,14 +444,12 @@
       accent-color: var(--accent);
     }
 
-    /* ── MAIN 3-COLUMN LAYOUT ── */
     @media (min-width: 1100px) {
       .app-shell {
         flex-direction: row;
       }
     }
 
-    /* ── MOBILE ── */
     @media (max-width: 1099px) {
       .app-shell { flex-direction: column; padding: 16px; }
       .sidebar { width: 100%; flex-direction: row; flex-wrap: wrap; gap: 4px; }
@@ -484,7 +463,6 @@
 </head>
 <body>
 
-  <!-- NAV -->
   <nav class="app-nav">
     <div style="display:flex; align-items:center; gap:12px;">
       <a href="index.html" class="nav-logo">Bridg<span>n</span></a>
@@ -496,10 +474,8 @@
     </div>
   </nav>
 
-  <!-- APP SHELL -->
   <div class="app-shell">
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
       <div class="sidebar-section-label">Input</div>
 
@@ -540,10 +516,8 @@
       </button>
     </aside>
 
-    <!-- MAIN CONTENT -->
     <div class="content-area">
 
-      <!-- PANEL: TRANSLATE -->
       <div class="content-panel active" id="panel-translate">
         <div class="card">
           <div class="card-title"><span class="card-title-icon">✏️</span> Text Input</div>
@@ -630,7 +604,6 @@
         </div>
       </div>
 
-      <!-- PANEL: MICROPHONE -->
       <div class="content-panel" id="panel-microphone">
         <div class="card">
           <div class="card-title"><span class="card-title-icon">🎙️</span> Microphone Input</div>
@@ -644,7 +617,6 @@
         </div>
       </div>
 
-      <!-- PANEL: VIDEO -->
       <div class="content-panel" id="panel-video">
         <div class="card">
           <div class="card-title"><span class="card-title-icon">🎬</span> Video Upload → Sign</div>
@@ -657,7 +629,6 @@
         </div>
       </div>
 
-      <!-- PANEL: DATABASE -->
       <div class="content-panel" id="panel-database">
         <div class="card">
           <div class="card-title"><span class="card-title-icon">🗄️</span> Sign Database</div>
@@ -692,7 +663,6 @@
         </div>
       </div>
 
-      <!-- PANEL: ADVANCED -->
       <div class="content-panel" id="panel-advanced">
         <div class="card">
           <div class="card-title"><span class="card-title-icon">⚙️</span> Text Processing</div>
@@ -718,7 +688,6 @@
         </div>
       </div>
 
-      <!-- PANEL: PLANNER -->
       <div class="content-panel" id="panel-planner">
         <div class="card">
           <div class="card-title"><span class="card-title-icon">📋</span> Planner Diagnostics</div>
@@ -747,9 +716,8 @@
         </div>
       </div>
 
-    </div><!-- /content-area -->
+    </div>
 
-    <!-- RENDER PANEL -->
     <div class="render-panel">
       <div class="avatar-wrapper">
         <div class="avatar-stage">
@@ -762,9 +730,7 @@
       </div>
     </div>
 
-  </div><!-- /app-shell -->
-
-  <!-- ===== ALL ORIGINAL SCRIPTS (fully preserved) ===== -->
+  </div>
 
   <script>
   const renderStatus = document.getElementById('renderStatus');
@@ -811,7 +777,6 @@
   </script>
 
   <script>
-    // ── SIDEBAR PANEL SWITCHER ──
     function switchPanel(name, btn) {
       document.querySelectorAll('.content-panel').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.sidebar-item').forEach(b => b.classList.remove('active'));
@@ -1005,7 +970,6 @@
 
   </script>
 
-  <!-- ── SIGN LANGUAGE DATABASE SWITCHING ── -->
   <script>
     const SIGN_LANG_BASE = {
       bsl: 'en', asl: 'en', dgs: 'de', lsf: 'fr',
@@ -1074,7 +1038,6 @@
     });
   </script>
 
-  <!-- ── TRANSLATION ENGINE (OPUS-MT via transformers.js) ── -->
   <script>
 
     const translatorCache = {};
@@ -1092,13 +1055,11 @@
 
     async function translateText(text, srcLang, tgtLang) {
       if (!text.trim() || srcLang === tgtLang) return text;
-      // Direct pair
       try {
         const translator = await loadTranslator(srcLang, tgtLang);
         const result = await translator(text);
         return (result?.[0]?.translation_text || text).trim();
       } catch (directErr) {
-        // Pivot through English
         if (srcLang !== 'en' && tgtLang !== 'en') {
           log('Direct model unavailable, pivoting through English…');
           try {
@@ -1293,7 +1254,6 @@
       try {
         renderStatus.textContent = 'Translating…';
         renderStatus.className = 'status-badge loading';
-        // Translate input if needed before planning
         const originalText = textIn.value.trim();
         const translated = await translateIfNeeded(originalText, (msg) => { renderStatus.textContent = msg; });
         textIn.value = translated;
@@ -1327,7 +1287,6 @@
       const ua = navigator.userAgent||'';
       const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(ua);
       const lang = getInputLang();
-      // Use multilingual models; .en variants only support English
       if (lang === 'en') return isMobile ? 'Xenova/whisper-tiny.en' : 'Xenova/whisper-small.en';
       return isMobile ? 'Xenova/whisper-tiny' : 'Xenova/whisper-small';
     }
@@ -1377,7 +1336,6 @@
         const result = await asr(blob, getAsrOptions());
         const rawText = (result?.text||'').trim();
         transcription.value = rawText;
-        // Translate if input language differs from sign language base
         const translated = await translateIfNeeded(rawText, (msg) => { micStatus.textContent = msg; micStatus.className = 'status-badge loading'; });
         textIn.value = translated;
         micStatus.textContent = 'Done ✓'; micStatus.className = 'status-badge ready';
@@ -1412,7 +1370,6 @@
         const result = await asr(wavBlob, getAsrOptions());
         const rawText = (result?.text||'').trim();
         transcription.value = rawText;
-        // Translate if needed
         const translated = await translateIfNeeded(rawText, (msg) => { videoStatus.textContent = msg; });
         videoStatus.textContent = 'Planning…';
         textIn.value = translated;

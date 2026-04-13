@@ -1,4 +1,3 @@
-<!-- Letter: A -->
 <hns_sign gloss="A">
     <hamnosys_manual>
             <hamfist/>
@@ -8,7 +7,6 @@
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: B -->
 <hns_sign gloss="B">
     <hamnosys_manual>
             <hamflathand/>
@@ -18,7 +16,6 @@
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: C -->
 <hns_sign gloss="C">
     <hamnosys_manual>
             <hamceeall/>
@@ -27,7 +24,6 @@
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: D -->
 <hns_sign gloss="D">
     <hamnosys_manual>
             <hampinch12open/>
@@ -40,7 +36,6 @@
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: E -->
 <hns_sign gloss="E">
     <hamnosys_manual>
             <hamflathand/>
@@ -58,7 +53,6 @@
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: F -->
 <hns_sign gloss="F">
     <hamnosys_manual>
             <hampinch12open/>
@@ -70,26 +64,23 @@
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: G -->
 <hns_sign gloss="G">
     <hamnosys_manual>
             <hamfinger2/>
             <hamextfingero/>
-            <hampalmd/>
+            <hampalml/>
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: H -->
 <hns_sign gloss="H">
     <hamnosys_manual>
-            <hamfinger23/>
-            <hamthumbacrossmod/>
-            <hamextfingeru/>
+            <hamfinger23spread/>
+            <hamfingerbendmod/>
+            <hamextfingerdo/>
             <hampalmd/>
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: I -->
 <hns_sign gloss="I">
     <hamnosys_manual>
             <hamfist/>
@@ -100,7 +91,6 @@
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: J -->
 <hns_sign gloss="J">
     <hamnosys_manual>
             <hamfist/>
@@ -111,7 +101,6 @@
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: K -->
 <hns_sign gloss="K">
     <hamnosys_manual>
             <hamfinger23spread/>
@@ -125,7 +114,6 @@
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: L -->
 <hns_sign gloss="L">
     <hamnosys_manual>
             <hamfinger2/>
@@ -135,7 +123,6 @@
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: M -->
 <hns_sign gloss="M">
     <hamnosys_manual>
             <hamflathand/>
@@ -143,11 +130,10 @@
             <hampinky/>
             <hamdoublehooked/>
             <hamextfingerdo/>
-            <hampalmd/>
+            <hampalml/>
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: N -->
 <hns_sign gloss="N">
     <hamnosys_manual>
             <hamfinger23/>
@@ -157,7 +143,6 @@
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: O -->
 <hns_sign gloss="O">
     <hamnosys_manual>
             <hampinchall/>
@@ -166,22 +151,14 @@
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: P -->
 <hns_sign gloss="P">
     <hamnosys_manual>
             <hampinch12open/>
-            <hammiddlefinger/>
-            <hamfingerstraightmod/>
-            <hamringfinger/>
-            <hamfingerstraightmod/>
-            <hampinky/>
-            <hamfingerstraightmod/>
-            <hamextfingeru/>
-            <hampalmd/>
+            <hamextfingerdo/>
+            <hampalml/>
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: Q -->
 <hns_sign gloss="Q">
     <hamnosys_manual>
             <hamfinger2/>
@@ -190,7 +167,6 @@
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: R -->
 <hns_sign gloss="R">
     <hamnosys_manual>
             <hamfinger23/>
@@ -198,42 +174,39 @@
             <hamindexfinger/>
             <hamfingernail/>
             <hammiddlefinger/>
-            <hamextfingero/>
+            <hamextfingeru/>
             <hampalmd/>
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: S -->
 <hns_sign gloss="S">
     <hamnosys_manual>
-            <hamfist/>
-            <hamthumbacrossmod/>
+            <hampinchall/>
             <hamextfingeru/>
             <hampalmd/>
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: T -->
 <hns_sign gloss="T">
     <hamnosys_manual>
-            <hampinch12open/>
-            <hamfingerstraightmod/>
+            <hamfist/>
+            <hamthumboutmod/>
+            <hamindexfinger/>
+            <hamfingerbendmod/>
             <hamextfingeru/>
-            <hampalmd/>
+            <hampalml/>
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: U -->
 <hns_sign gloss="U">
     <hamnosys_manual>
             <hamfinger23/>
             <hamthumbacrossmod/>
-            <hamextfingeru/>
+            <hamextfingerdo/>
             <hampalmd/>
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: V -->
 <hns_sign gloss="V">
     <hamnosys_manual>
             <hamfinger23spread/>
@@ -243,7 +216,6 @@
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: W -->
 <hns_sign gloss="W">
     <hamnosys_manual>
             <hamfinger23spread/>
@@ -253,7 +225,6 @@
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: X -->
 <hns_sign gloss="X">
     <hamnosys_manual>
             <hamfinger2/>
@@ -264,7 +235,6 @@
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: Y -->
 <hns_sign gloss="Y">
     <hamnosys_manual>
             <hamfinger2/>
@@ -275,7 +245,6 @@
     </hamnosys_manual>
 </hns_sign>
 
-<!-- Letter: Z -->
 <hns_sign gloss="Z">
     <hamnosys_manual>
             <hamfinger2/>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <sigml_collection language="Bangla_SL" count="94">
 
-  <!-- ং -->
   <hns_sign gloss="help - me">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -28,7 +27,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- ঃ -->
   <hns_sign gloss="help - me">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -56,7 +54,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- অ -->
   <hns_sign gloss="O">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -87,7 +84,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- আ -->
   <hns_sign gloss="A">
   		<hamnosys_nonmanual>
   			<hnm_mouthpicture picture="V"/>
@@ -128,7 +124,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- আট -->
   <hns_sign gloss="eight">
   		<hamnosys_nonmanual>
   			<hnm_mouthpicture picture="e_It"/>
@@ -149,7 +144,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- আপনারা -->
   <hns_sign gloss="yourself">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -191,7 +185,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- আপনি -->
   <hns_sign gloss="">
   		<hamnosys_manual>
   			<hamfinger2/>
@@ -207,7 +200,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- আমরা -->
   <hns_sign gloss="">
   		<hamnosys_manual>
   			<hamfinger2/>
@@ -236,7 +228,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- আমার -->
   <hns_sign gloss="">
   		<hamnosys_manual>
   			<hamflathand/>
@@ -249,7 +240,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- আমি -->
   <hns_sign gloss="">
   		<hamnosys_manual>
   			<hamfinger2/>
@@ -263,10 +253,8 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ই -->
 
 
-  <!-- উ -->
   <hns_sign gloss="O">
   		<hamnosys_nonmanual>
   			<hnm_mouthpicture picture="u"/>
@@ -304,7 +292,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- এ -->
   <hns_sign gloss="O">
   		<hamnosys_nonmanual>
   			<hnm_mouthpicture picture="u"/>
@@ -342,7 +329,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- এক -->
   <hns_sign gloss="one">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -358,7 +344,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- একটি -->
   <hns_sign gloss="one">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -372,7 +357,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- এখানে -->
   <hns_sign gloss="">
   		<hamnosys_manual>
   			<hamfinger2/>
@@ -383,7 +367,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ও -->
   <hns_sign gloss="O">
   		<hamnosys_nonmanual>
   			<hnm_mouthpicture picture="u"/>
@@ -421,7 +404,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ক -->
   <hns_sign gloss="d">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -454,7 +436,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- কয়টা বাজে -->
   <hns_sign gloss="what time">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -504,7 +485,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- কাপ -->
   <hamgestural_sign gloss="cup1">
     <sign_manual both_hands="true" lr_symm="true">
       <split_handconfig>
@@ -531,7 +511,6 @@
     </sign_manual>
   </hamgestural_sign>
 
-  <!-- কেন -->
   <hns_sign gloss="why">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -552,7 +531,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- কোটি -->
   <hamgestural_sign gloss="crore">
     <sign_manual>
       <handconfig ceeopening="tight" handshape="ceeall"/>
@@ -562,7 +540,6 @@
     </sign_manual>
   </hamgestural_sign>
 
-  <!-- খ -->
   <hns_sign gloss="P">
   		<hamnosys_nonmanual>
   			<hnm_mouthpicture picture="PE:"/>
@@ -595,7 +572,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- খাও -->
   <hns_sign gloss="">
   		<hamnosys_manual>
   			<hampinchall/>
@@ -610,7 +586,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- খাবার -->
   <hns_sign gloss="">
   		<hamnosys_manual>
   			<hampinchall/>
@@ -626,7 +601,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- গ -->
   <hns_sign gloss="bottle">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -657,7 +631,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- গাড়ী -->
   <hns_sign gloss="car">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -691,7 +664,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- ঘ -->
   <hns_sign gloss="d">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -722,7 +694,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- চ -->
   <hns_sign gloss="agree">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -752,7 +723,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- চা -->
   <hns_sign gloss="">
   		<hamnosys_manual>
   			<hamparbegin/>
@@ -793,7 +763,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- চামচ -->
   <hns_sign gloss="">
   		<hamnosys_manual>
   			<hamfinger2/>
@@ -814,7 +783,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- চার -->
   <hns_sign gloss="four">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -830,7 +798,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- চাল -->
   <hamgestural_sign gloss="rice1">
     <sign_manual>
       <sign_manual>
@@ -851,7 +818,6 @@
     </sign_manual>
   </hamgestural_sign>
 
-  <!-- চেয়ার -->
   <hamgestural_sign gloss="chair1">
     <sign_manual both_hands="true" lr_symm="true">
       <handconfig handshape="fist" thumbpos="across"/>
@@ -864,7 +830,6 @@
     </sign_manual>
   </hamgestural_sign>
 
-  <!-- ছ -->
   <hns_sign gloss="K">
   		<hamnosys_nonmanual>
   			<hnm_mouthpicture picture="ke_I"/>
@@ -893,7 +858,6 @@
   </hamnosys_manual>
   </hns_sign>
 
-  <!-- ছয় -->
   <hns_sign gloss="six">
   		<hamnosys_nonmanual>
   			<hnm_mouthpicture picture="sIks"/>
@@ -911,7 +875,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- জ -->
   <hamgestural_sign gloss="chairman1">
     <sign_manual both_hands="true" lr_symm="true">
       <split_handconfig>
@@ -933,7 +896,6 @@
     </sign_manual>
   </hamgestural_sign>
 
-  <!-- ঝ -->
   <hns_sign gloss="">
   		<hamnosys_manual>
   			<hamparbegin/>
@@ -965,7 +927,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ট -->
   <hns_sign gloss="P">
   		<hamnosys_nonmanual>
   			<hnm_mouthpicture picture="PE:"/>
@@ -1001,7 +962,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- টেবিল -->
   <hamgestural_sign gloss="table">
     <sign_manual both_hands="true" lr_symm="true">
       <handconfig handshape="flat" thumbpos="across"/>
@@ -1017,7 +977,6 @@
     </sign_manual>
   </hamgestural_sign>
 
-  <!-- টেলিফোন -->
   <hns_sign gloss="telephone">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -1033,7 +992,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- ঠ -->
   <hns_sign gloss="agree">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -1069,7 +1027,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- ড -->
   <hns_sign gloss="P">
   		<hamnosys_nonmanual>
   			<hnm_mouthpicture picture="PE:"/>
@@ -1101,7 +1058,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ডিম -->
   <hns_sign gloss="">
   		<hamnosys_manual>
   			<hamfinger23/>
@@ -1120,7 +1076,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ঢ -->
   <hns_sign gloss="">
   		<hamnosys_manual>
   			<hamparbegin/>
@@ -1155,7 +1110,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ত -->
   <hns_sign gloss="">
   		<hamnosys_manual>
   			<hamparbegin/>
@@ -1195,7 +1149,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- তিন -->
   <hns_sign gloss="three">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1213,7 +1166,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- তুমি -->
   <hns_sign gloss="">
   		<hamnosys_manual>
   			<hamfinger2/>
@@ -1229,7 +1181,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- তোমরা -->
   <hns_sign gloss="yourself">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -1271,7 +1222,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- থ -->
   <hns_sign gloss="M">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1309,7 +1259,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- দ -->
   <hns_sign gloss="M">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1346,7 +1295,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- দাঁড়ানো -->
   <hns_sign gloss="">
   		<hamnosys_manual>
   			<hamparbegin/>
@@ -1385,7 +1333,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- দাও -->
   <hns_sign gloss="take">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -1402,7 +1349,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- দুই -->
   <hns_sign gloss="two">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1418,7 +1364,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- দুধ -->
   <hamgestural_sign gloss="milk1">
     <sign_manual both_hands="true" lr_symm="true" outofphase="true" ud_symm="true">
       <handconfig handshape="finger2345" mainbend="round" thumbpos="opposed"/>
@@ -1438,7 +1383,6 @@
     </sign_manual>
   </hamgestural_sign>
 
-  <!-- ধ -->
   <hns_sign gloss="l">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -1468,7 +1412,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- ন -->
   <hns_sign gloss="N">
   		<hamnosys_nonmanual>
   			<hnm_mouthpicture picture="en"/>
@@ -1505,7 +1448,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- নাও -->
   <hns_sign gloss="take">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -1522,7 +1464,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- নাম -->
   <hns_sign gloss="name">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -1543,7 +1484,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- নয় -->
   <hns_sign gloss="nine">
   		<hamnosys_nonmanual>
   			<hnm_mouthpicture picture="sIks"/>
@@ -1561,7 +1501,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- প -->
   <hns_sign gloss="P">
   		<hamnosys_nonmanual>
   			<hnm_mouthpicture picture="PE:"/>
@@ -1596,7 +1535,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- পাঁচ -->
   <hns_sign gloss="five">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1612,7 +1550,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- পাখী -->
   <hamgestural_sign gloss="bird1">
     <sign_manual both_hands="true" lr_symm="true">
       <handconfig handshape="flat" second_handshape="flat" second_thumbpos="out"/>
@@ -1628,7 +1565,6 @@
     </sign_manual>
   </hamgestural_sign>
 
-  <!-- পানি -->
   <hns_sign gloss="water1">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -1645,7 +1581,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- ফ -->
   <hns_sign gloss="f">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -1670,7 +1605,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- ফুল -->
   <hns_sign gloss="">
   		<hamnosys_manual>
   			<hampinchall/>
@@ -1689,7 +1623,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ব -->
   <hns_sign gloss="l">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -1717,7 +1650,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- বই -->
   <hns_sign gloss="book">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -1744,7 +1676,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- বাস -->
   <!DOCTYPE sigml SYSTEM "http://www.visicast.cmp.uea.ac.uk/sigml/sigml.dtd">
   <sigml>
   <hamgestural_sign gloss="car1">
@@ -1792,7 +1723,6 @@
     </sign_manual>
   </hamgestural_sign>
 
-  <!-- বাসা -->
   <hamgestural_sign gloss="house1">
     <sign_manual both_hands="true" lr_symm="true">
       <handconfig handshape="flat"/>
@@ -1808,7 +1738,6 @@
     </sign_manual>
   </hamgestural_sign>
 
-  <!-- ভ -->
   <hns_sign gloss="P">
   		<hamnosys_nonmanual>
   			<hnm_mouthpicture picture="PE:"/>
@@ -1840,7 +1769,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ভাল -->
   <hns_sign gloss="">
   		<hamnosys_manual>
   			<hampinch12open/>
@@ -1851,7 +1779,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ম -->
   <hns_sign gloss="M">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1890,7 +1817,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- মা -->
   <hns_sign gloss="mother">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -1916,7 +1842,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- মাছ -->
   <hns_sign gloss="">
   		<hamnosys_manual>
   			<hamflathand/>
@@ -1930,7 +1855,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- মুরগী -->
   <hns_sign gloss="">
   		<hamnosys_manual>
   			<hamcee12/>
@@ -1949,7 +1873,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- যাই -->
   <hns_sign gloss="go">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -1973,7 +1896,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- র -->
   <hns_sign gloss="l">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -2006,7 +1928,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- ল -->
   <hns_sign gloss="l">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -2037,7 +1958,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- লক্ষ -->
   <hns_sign gloss="lakh">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2053,7 +1973,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- লবন -->
   <hns_sign gloss="">
   		<hamnosys_manual>
   			<hampinch12/>
@@ -2072,7 +1991,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- শূন্য -->
   <hamgestural_sign gloss="zero1">
     <sign_manual>
       <handconfig handshape="pinchall"/>
@@ -2083,7 +2001,6 @@
     </sign_manual>
   </hamgestural_sign>
 
-  <!-- শোনা -->
   <hamgestural_sign gloss="hear1">
     <sign_manual>
       <handconfig handshape="ceeall" mainbend="bent"/>
@@ -2099,7 +2016,6 @@
     </sign_manual>
   </hamgestural_sign>
 
-  <!-- স -->
   <hns_sign gloss="">
   		<hamnosys_manual>
   			<hamparbegin/>
@@ -2137,7 +2053,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- সাত -->
   <hns_sign gloss="seven">
   		<hamnosys_nonmanual>
   			<hnm_mouthpicture picture="seVan"/>
@@ -2160,7 +2075,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- হ -->
   <hns_sign gloss="l">
   	<hamnosys_nonmanual>
   	</hamnosys_nonmanual>
@@ -2188,7 +2102,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!-- হাজার -->
   <hns_sign gloss="thousand">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2206,7 +2119,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- া -->
   <hns_sign gloss="A">
   		<hamnosys_nonmanual>
   			<hnm_mouthpicture picture="V"/>
@@ -2247,7 +2159,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ি -->
   <hns_sign gloss="U">
   		<hamnosys_nonmanual>
   			<hnm_mouthpicture picture="ju"/>
@@ -2285,7 +2196,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ু -->
   <hns_sign gloss="O">
   		<hamnosys_nonmanual>
   			<hnm_mouthpicture picture="u"/>
@@ -2323,7 +2233,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ে -->
   <hns_sign gloss="O">
   		<hamnosys_nonmanual>
   			<hnm_mouthpicture picture="u"/>
@@ -2361,7 +2270,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ো -->
   <hns_sign gloss="O">
   		<hamnosys_nonmanual>
   			<hnm_mouthpicture picture="u"/>
@@ -2399,7 +2307,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ড় -->
   <hns_sign gloss="T">
   		<hamnosys_nonmanual>
   			<hnm_mouthpicture picture="ti:"/>
@@ -2435,7 +2342,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- য় -->
   <hns_sign gloss="M">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>

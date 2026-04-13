@@ -301,7 +301,6 @@
       transform: translateY(-1px);
     }
 
-    /* Voice/Video tab panels in demo card */
     .demo-tab-panel { display: none; }
     .demo-tab-panel.active { display: block; }
 
@@ -770,20 +769,17 @@
         </div>
       </div>
 
-      <!-- Text tab -->
       <div class="demo-tab-panel active" id="tab-text">
         <div class="demo-input-wrap">
           <textarea class="demo-input" id="heroInput" placeholder="Type a sentence to translate…">Good morning, everyone.</textarea>
         </div>
       </div>
 
-      <!-- Voice tab -->
       <div class="demo-tab-panel" id="tab-voice">
         <button class="demo-record-btn" id="heroRecordBtn">● Start recording</button>
         <div class="demo-status" id="heroMicStatus">Free and unlimited — runs locally in your browser.</div>
       </div>
 
-      <!-- Video tab -->
       <div class="demo-tab-panel" id="tab-video">
         <input type="file" accept="video/*" class="demo-file-input" id="heroVideoFile" />
         <button class="demo-process-btn" id="heroVideoBtn">Process video</button>
@@ -890,7 +886,6 @@
       c.addEventListener('click', () => {
         chips.forEach(x => x.classList.remove('active'));
         c.classList.add('active');
-        // Switch tab panels
         document.querySelectorAll('.demo-tab-panel').forEach(p => p.classList.remove('active'));
         const tab = c.getAttribute('data-tab');
         if (tab) document.getElementById('tab-' + tab).classList.add('active');
@@ -1041,7 +1036,6 @@
       } catch(e) { console.warn('[index] Concept CSV error:', e); }
     }
 
-    /* ── Sign language database switching ── */
     var SIGN_LANG_DB = {
       bsl:      { sigml: ['/data/hamnosys_bsl_version1.sigml'], csv: '/data/hamnosys_bsl.csv', alphabet: '/data/bsl_alphabet_sigml.sigml' },
       asl:      { sigml: ['/data/hamnosys_bsl_version1.sigml'], csv: '/data/hamnosys_bsl.csv', alphabet: '/data/asl_alphabet_sigml.sigml' },
@@ -1172,7 +1166,6 @@
       return '<?xml version="1.0" encoding="utf-8"?>\n<sigml>\n' + blocks.join('\n') + '\n</sigml>';
     }
 
-    /* ── Translation engine (OPUS-MT via transformers.js) ── */
     var SIGN_LANG_BASE = {
       bsl: 'en', asl: 'en', dgs: 'de', lsf: 'fr',
       lse: 'es', pjm: 'pl', gsl: 'el', rsl: 'ru',
@@ -1239,7 +1232,6 @@
       btn.textContent = 'Translating…';
 
       try {
-        // Translate if input language differs from sign language base
         var translatedText = await heroTranslateIfNeeded(inputText, function(msg) { btn.textContent = msg; });
 
         var planTokens = [];
@@ -1291,7 +1283,6 @@
       }
     });
 
-    /* ── Whisper ASR (on-device, open-source, multilingual) ── */
     function pickAsrModel() {
       const ua = navigator.userAgent || '';
       const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(ua);
@@ -1318,7 +1309,6 @@
       return opts;
     }
 
-    /* ── Voice recording ── */
     (function() {
       const recordBtn = document.getElementById('heroRecordBtn');
       const micStatus = document.getElementById('heroMicStatus');
@@ -1356,11 +1346,9 @@
             const blob = new Blob(recordedChunks, { type: 'audio/webm' });
             const result = await asr(blob, getAsrOptions());
             const rawText = (result?.text || '').trim();
-            // Translate if needed
             const text = await heroTranslateIfNeeded(rawText, (msg) => { micStatus.textContent = msg; });
             heroInput.value = text;
             micStatus.textContent = 'Transcribed! Hit Translate to see signs.';
-            // Switch to text tab to show result
             chips.forEach(x => x.classList.remove('active'));
             document.getElementById('chip-text').classList.add('active');
             document.querySelectorAll('.demo-tab-panel').forEach(p => p.classList.remove('active'));
@@ -1374,7 +1362,6 @@
       });
     })();
 
-    /* ── Video upload + transcription ── */
     (function() {
       const videoFile = document.getElementById('heroVideoFile');
       const videoBtn = document.getElementById('heroVideoBtn');
@@ -1412,12 +1399,10 @@
           videoStatus.textContent = 'Transcribing audio…';
           const result = await asr(wavBlob, getAsrOptions());
           const rawText = (result?.text || '').trim();
-          // Translate if needed
           const text = await heroTranslateIfNeeded(rawText, (msg) => { videoStatus.textContent = msg; });
           heroInput.value = text;
           videoStatus.textContent = 'Transcribed! Hit Translate to see signs.';
 
-          // Switch to text tab to show result
           chips.forEach(x => x.classList.remove('active'));
           document.getElementById('chip-text').classList.add('active');
           document.querySelectorAll('.demo-tab-panel').forEach(p => p.classList.remove('active'));

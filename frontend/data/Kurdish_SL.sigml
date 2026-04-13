@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <sigml_collection language="Kurdish_SL" count="558">
 
-  <!-- ئ -->
   <hns_sign gloss="ئ">
           <hamnosys_manual>
               <hamfist/>
@@ -11,7 +10,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئارد -->
   <hns_sign gloss="ئارد">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -40,7 +38,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئازا -->
   <hns_sign gloss="ئازا">
           <hamnosys_manual>
               <hamfist/>
@@ -56,7 +53,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئازاد کردن -->
   <hns_sign gloss="ئازاد کردن">
           <hamnosys_manual>
               <hamfist/>
@@ -72,7 +68,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئازاردان -->
   <hns_sign gloss="ئازاردان">
           <hamnosys_manual>
               <hamparbegin/>
@@ -94,7 +89,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئاسایش -->
   <hns_sign gloss="ئاسایش">
           <hamnosys_manual>
               <hamfist/>
@@ -108,7 +102,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئاسمان -->
   <hns_sign gloss="ئاسمان">
           <hamnosys_manual>
               <hamflathand/>
@@ -136,7 +129,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئاسن بەرزکردنەوە -->
   <hns_sign gloss="ئاسن بەرزکردنەوە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -151,7 +143,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئامادەیی -->
   <hns_sign gloss="ئامادەیی">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -199,7 +190,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئامراز -->
   <hns_sign gloss="ئامراز">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -217,7 +207,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئامێدی -->
   <hns_sign gloss="ئامێدی">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -228,7 +217,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئاهەنگ -->
   <hns_sign gloss="ئاهەنگ">
           <hamnosys_manual>
               <hamsymmpar/>
@@ -244,7 +232,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئاودان -->
   <hns_sign gloss="ئاودان">
           <hamnosys_manual>
               <hamsymmpar/>
@@ -258,7 +245,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئاژەڵ -->
   <hns_sign gloss="ئاژەڵ">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -281,7 +267,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئاگاداری -->
   <hns_sign gloss="ئاگاداری">
           <hamnosys_manual>
               <hamfinger2/>
@@ -300,7 +285,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئایەت -->
   <hns_sign gloss="ئایەت">
           <hamnosys_manual>
               <hamcee12/>
@@ -312,7 +296,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئۆتۆمبیل -->
   <hns_sign gloss="ئۆتۆمبیل">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -327,7 +310,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئۆرکێسترا -->
   <hns_sign gloss="ئۆرکێسترا">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -346,7 +328,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئیسلام -->
   <hns_sign gloss="ئیسلام">
           <hamnosys_manual>
               <hamfinger2345/>
@@ -357,7 +338,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئیش -->
   <hns_sign gloss="ئیش">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -371,7 +351,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئیمارات -->
   <hns_sign gloss="ئیمارات">
           <hamnosys_manual>
               <hamfinger2/>
@@ -385,7 +364,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئیمێڵ -->
   <hns_sign gloss="ئیمێڵ">
           <hamnosys_manual>
               <hamfist/>
@@ -396,7 +374,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئێران -->
   <hns_sign gloss="ئێران">
           <hamnosys_manual>
               <hamfist/>
@@ -409,7 +386,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئێرە -->
   <hns_sign gloss="ئێرە">
           <hamnosys_manual>
               <hamfinger2/>
@@ -419,7 +395,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئێستر -->
   <hns_sign gloss="ئێستر">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -458,7 +433,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئەستێرە رژان -->
   <hns_sign gloss="ئەستێرە رژان">
           <hamnosys_manual>
               <hamcee12/>
@@ -481,7 +455,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئەستێرە -->
   <hns_sign gloss="ئەستێرە">
           <hamnosys_manual>
               <hamcee12/>
@@ -498,7 +471,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئەسپ -->
   <hns_sign gloss="ئەسپ">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -514,7 +486,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئەفریقیا -->
   <hns_sign gloss="ئەفریقیا">
           <hamnosys_manual>
               <hamfinger2345/>
@@ -526,7 +497,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئەفسەر -->
   <hns_sign gloss="ئەفسەر">
           <hamnosys_manual>
               <hamcee12/>
@@ -537,7 +507,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئەمە -->
   <hns_sign gloss="ئەمە">
           <hamnosys_manual>
               <hamfinger2/>
@@ -547,7 +516,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئەنتەرنێت -->
   <hns_sign gloss="ئەنتەرنێت">
           <hamnosys_manual>
               <hamflathand/>
@@ -562,7 +530,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئەنفال -->
   <hns_sign gloss="ئەنفال">
           <hamnosys_manual>
               <hamflathand/>
@@ -576,7 +543,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئەوروپا -->
   <hns_sign gloss="ئەوروپا">
           <hamnosys_manual>
               <hamfinger2345/>
@@ -590,7 +556,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئەوقاف -->
   <hns_sign gloss="ئەوقاف">
           <hamnosys_manual>
               <hamflathand/>
@@ -603,7 +568,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ئەوێ -->
   <hns_sign gloss="ئەوێ">
           <hamnosys_manual>
               <hamfinger2/>
@@ -614,7 +578,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ا -->
   <hns_sign gloss="ا">
           <hamnosys_manual>
               <hamfinger2345/>
@@ -625,7 +588,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ب -->
   <hns_sign gloss="ب">
           <hamnosys_manual>
               <hamflathand/>
@@ -635,7 +597,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- با پیرە -->
   <hns_sign gloss="با پیرە">
           <hamnosys_manual>
               <hamfist/>
@@ -645,7 +606,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بابل -->
   <hns_sign gloss="بابل">
           <hamnosys_manual>
               <hamflathand/>
@@ -660,7 +620,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- باج دان -->
   <hns_sign gloss="باج دان">
           <hamnosys_manual>
               <hamparbegin/>
@@ -683,7 +642,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- باخ -->
   <hns_sign gloss="باخ">
           <hamnosys_manual>
               <hamcee12/>
@@ -693,7 +651,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- باخچەی ساوایان -->
   <hns_sign gloss="باخچەی ساوایان">
           <hamnosys_manual>
               <hamcee12/>
@@ -716,7 +673,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بازار -->
   <hns_sign gloss="بازار">
           <hamnosys_manual>
               <hampinchall/>
@@ -730,7 +686,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بازدان -->
   <hns_sign gloss="بازدان">
           <hamnosys_manual>
               <hamfinger23spread/>
@@ -741,7 +696,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- باشم -->
   <hns_sign gloss="باشم">
           <hamnosys_manual>
               <hamfinger2/>
@@ -762,7 +716,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- باشوور -->
   <hns_sign gloss="باشوور">
           <hamnosys_manual>
               <hamfinger2/>
@@ -773,7 +726,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بامیە -->
   <hns_sign gloss="بامیە">
           <hamnosys_manual>
               <hamfinger23/>
@@ -783,7 +735,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- باوک -->
   <hns_sign gloss="باوک">
           <hamnosys_manual>
               <hamflathand/>
@@ -794,7 +745,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- باکوور -->
   <hns_sign gloss="باکوور">
           <hamnosys_manual>
               <hamfinger2/>
@@ -805,7 +755,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بتڵی غاز -->
   <hns_sign gloss="بتڵی غاز">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -822,7 +771,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- برا -->
   <hns_sign gloss="برا">
           <hamnosys_manual>
               <hamfinger23/>
@@ -832,7 +780,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- برایەتی -->
   <hns_sign gloss="برایەتی">
           <hamnosys_manual>
               <hamfinger23/>
@@ -850,7 +797,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- برژاندن -->
   <hns_sign gloss="برژاندن">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -876,7 +822,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- برۆ -->
   <hns_sign gloss="برۆ">
           <hamnosys_manual>
               <hamcee12/>
@@ -895,7 +840,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بریتی یە -->
   <hns_sign gloss="بریتی یە">
           <hamnosys_manual>
               <hamfinger23/>
@@ -910,7 +854,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بزن -->
   <hns_sign gloss="بزن">
           <hamnosys_manual>
               <hamfinger2/>
@@ -924,7 +867,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بنکە -->
   <hns_sign gloss="بنکە">
           <hamnosys_manual>
               <hamparbegin/>
@@ -944,7 +886,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بنیادنان -->
   <hns_sign gloss="بنیادنان">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -966,7 +907,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بژارکردن -->
   <hns_sign gloss="بژارکردن">
           <hamnosys_manual>
               <hamfist/>
@@ -977,7 +917,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بۆنە -->
   <hns_sign gloss="بۆنە">
           <hamnosys_manual>
               <hamfinger2/>
@@ -993,7 +932,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بۆینباغ -->
   <hns_sign gloss="بۆینباغ">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -1018,7 +956,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بیبەر -->
   <hns_sign gloss="بیبەر">
           <hamnosys_manual>
               <hamfinger2/>
@@ -1037,7 +974,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بیرکاری -->
   <hns_sign gloss="بیرکاری">
           <hamnosys_manual>
               <hamfist/>
@@ -1058,7 +994,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بیست و حەوت -->
   <hns_sign gloss="بیست و حەوت">
           <hamnosys_manual>
               <hamsymmpar/>
@@ -1090,7 +1025,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بیست و دوو -->
   <hns_sign gloss="بیست و دوو">
           <hamnosys_manual>
               <hamfinger23spread/>
@@ -1107,7 +1041,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بیست و سێ -->
   <hns_sign gloss="بیست و سێ">
           <hamnosys_manual>
               <hamfinger23spread/>
@@ -1125,7 +1058,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بیست و شەش -->
   <hns_sign gloss="بیست و شەش">
           <hamnosys_manual>
               <hamsymmpar/>
@@ -1156,7 +1088,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بیست و نۆ -->
   <hns_sign gloss="بیست و نۆ">
           <hamnosys_manual>
               <hamsymmpar/>
@@ -1188,7 +1119,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بیست و هەشت -->
   <hns_sign gloss="بیست و هەشت">
           <hamnosys_manual>
               <hamsymmpar/>
@@ -1220,7 +1150,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بیست و پێنج -->
   <hns_sign gloss="بیست و پێنج">
           <hamnosys_manual>
               <hamfinger23spread/>
@@ -1238,7 +1167,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بیست و چوار -->
   <hns_sign gloss="بیست و چوار">
           <hamnosys_manual>
               <hamfinger23spread/>
@@ -1256,7 +1184,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بیست و یەک -->
   <hns_sign gloss="بیست و یەک">
           <hamnosys_manual>
               <hamfinger23spread/>
@@ -1273,7 +1200,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بیست -->
   <hns_sign gloss="بیست">
           <hamnosys_manual>
               <hamfinger23spread/>
@@ -1286,7 +1212,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بێ تاقەت -->
   <hns_sign gloss="بێ تاقەت">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -1301,7 +1226,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بێ هێز -->
   <hns_sign gloss="بێ هێز">
           <hamnosys_manual>
               <hamflathand/>
@@ -1318,7 +1242,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بێ ووچان -->
   <hns_sign gloss="بێ ووچان">
           <hamnosys_manual>
               <hamfinger2/>
@@ -1331,7 +1254,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بێجامە -->
   <hns_sign gloss="بێجامە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -1346,7 +1268,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بەراز -->
   <hns_sign gloss="بەراز">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -1376,7 +1297,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بەرخ -->
   <hns_sign gloss="بەرخ">
           <hamnosys_manual>
               <hamflathand/>
@@ -1398,7 +1318,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بەرداخ -->
   <hns_sign gloss="بەرداخ">
           <hamnosys_manual>
               <hamcee12/>
@@ -1409,7 +1328,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بەرپرسیەتی -->
   <hns_sign gloss="بەرپرسیەتی">
           <hamnosys_manual>
               <hamflathand/>
@@ -1419,7 +1337,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بەریتانیا -->
   <hns_sign gloss="بەریتانیا">
           <hamnosys_manual>
               <hamfinger23/>
@@ -1431,7 +1348,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بەزەیی -->
   <hns_sign gloss="بەزەیی">
           <hamnosys_manual>
               <hamceeall/>
@@ -1445,7 +1361,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بەسڕە -->
   <hns_sign gloss="بەسڕە">
           <hamnosys_manual>
               <hamfinger2/>
@@ -1457,7 +1372,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بەغدا -->
   <hns_sign gloss="بەغدا">
           <hamnosys_manual>
               <hamflathand/>
@@ -1467,7 +1381,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بەهارات -->
   <hns_sign gloss="بەهارات">
           <hamnosys_manual>
               <hampinch12/>
@@ -1498,7 +1411,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بەهێز -->
   <hns_sign gloss="بەهێز">
           <hamnosys_manual>
               <hamfist/>
@@ -1509,7 +1421,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- بەیانی -->
   <hns_sign gloss="بەیانی">
           <hamnosys_manual>
               <hamfinger2/>
@@ -1524,7 +1435,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ت -->
   <hns_sign gloss="ت">
           <hamnosys_manual>
               <hamflathand/>
@@ -1534,7 +1444,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تابلۆ -->
   <hns_sign gloss="تابلۆ">
           <hamnosys_manual>
               <hamfinger23/>
@@ -1547,7 +1456,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تازیە -->
   <hns_sign gloss="تازیە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -1558,7 +1466,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تاوە -->
   <hns_sign gloss="تاوە">
           <hamnosys_manual>
               <hamfist/>
@@ -1572,7 +1479,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تاژی -->
   <hns_sign gloss="تاژی">
           <hamnosys_manual>
               <hamceeall/>
@@ -1588,7 +1494,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تایبەت -->
   <hns_sign gloss="تایبەت">
           <hamnosys_manual>
               <hamflathand/>
@@ -1601,7 +1506,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تایت -->
   <hns_sign gloss="تایت">
           <hamnosys_manual>
               <hamparbegin/>
@@ -1631,7 +1535,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ترس -->
   <hns_sign gloss="ترس">
           <hamnosys_manual>
               <hamparbegin/>
@@ -1651,7 +1554,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ترسنۆک -->
   <hns_sign gloss="ترسنۆک">
           <hamnosys_manual>
               <hamfinger2345/>
@@ -1663,7 +1565,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ترمز -->
   <hns_sign gloss="ترمز">
           <hamnosys_manual>
               <hamfinger23/>
@@ -1676,7 +1577,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تکریت -->
   <hns_sign gloss="تکریت">
           <hamnosys_manual>
               <hamfinger2/>
@@ -1691,7 +1591,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تۆخ -->
   <hns_sign gloss="تۆخ">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -1704,7 +1603,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تیر هاوێشتن -->
   <hns_sign gloss="تیر هاوێشتن">
           <hamnosys_manual>
               <hampinch12/>
@@ -1726,7 +1624,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تێبینی -->
   <hns_sign gloss="تێبینی">
           <hamnosys_manual>
               <hamfinger2/>
@@ -1737,7 +1634,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تێگەیشتوو -->
   <hns_sign gloss="تێگەیشتوو">
           <hamnosys_manual>
               <hamfinger2/>
@@ -1750,7 +1646,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تەباخ -->
   <hns_sign gloss="تەباخ">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -1764,7 +1659,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تەباشیر -->
   <hns_sign gloss="تەباشیر">
           <hamnosys_manual>
               <hampinch12/>
@@ -1777,7 +1671,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تەبلەی جگەرە -->
   <hns_sign gloss="تەبلەی جگەرە">
           <hamnosys_manual>
               <hamparbegin/>
@@ -1801,7 +1694,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تەختە -->
   <hns_sign gloss="تەختە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -1826,7 +1718,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تەختەڕەش -->
   <hns_sign gloss="تەختەڕەش">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -1869,7 +1760,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تەلاق دان -->
   <hns_sign gloss="تەلاق دان">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -1887,7 +1777,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تەماتە -->
   <hns_sign gloss="تەماتە">
           <hamnosys_manual>
               <hamfinger2/>
@@ -1911,7 +1800,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تەمبەڵ -->
   <hns_sign gloss="تەمبەڵ">
           <hamnosys_manual>
               <hamparbegin/>
@@ -1935,7 +1823,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تەمەن -->
   <hns_sign gloss="تەمەن">
           <hamnosys_manual>
               <hamflathand/>
@@ -1951,7 +1838,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تەنها -->
   <hns_sign gloss="تەنها">
           <hamnosys_manual>
               <hamfinger2/>
@@ -1961,7 +1847,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تەواو -->
   <hns_sign gloss="تەواو">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -1979,7 +1864,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تەکسی -->
   <hns_sign gloss="تەکسی">
           <hamnosys_manual>
               <hamparbegin/>
@@ -1999,7 +1883,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- تەکنەلۆجیا -->
   <hns_sign gloss="تەکنەلۆجیا">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -2031,7 +1914,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ج -->
   <hns_sign gloss="ج">
           <hamnosys_manual>
               <hamfist/>
@@ -2044,7 +1926,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- جاران -->
   <hns_sign gloss="جاران">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -2062,7 +1943,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- جام -->
   <hns_sign gloss="جام">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -2083,7 +1963,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- جزوە -->
   <hns_sign gloss="جزوە">
           <hamnosys_manual>
               <hamparbegin/>
@@ -2114,7 +1993,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- جل و بەرگ -->
   <hns_sign gloss="جل و بەرگ">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -2147,7 +2025,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- جمناستیک -->
   <hns_sign gloss="جمناستیک">
           <hamnosys_manual>
               <hamfinger2/>
@@ -2160,7 +2037,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- جوان -->
   <hns_sign gloss="جوان">
           <hamnosys_manual>
               <hamflathand/>
@@ -2177,7 +2053,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- جورج -->
   <hns_sign gloss="جورج">
           <hamnosys_manual>
               <hamfinger2345/>
@@ -2189,7 +2064,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- جوگرافیا -->
   <hns_sign gloss="جوگرافیا">
           <hamnosys_manual>
               <hamflathand/>
@@ -2205,7 +2079,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- جۆر -->
   <hns_sign gloss="جۆر">
           <hamnosys_manual>
               <hamflathand/>
@@ -2228,7 +2101,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- جیهان -->
   <hns_sign gloss="جیهان">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -2245,7 +2117,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- جەماوەر -->
   <hns_sign gloss="جەماوەر">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -2260,7 +2131,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- جەمسەر -->
   <hns_sign gloss="جەمسەر">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -2273,7 +2143,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- جەمەدانی -->
   <hns_sign gloss="جەمەدانی">
           <hamnosys_manual>
               <hamfinger2/>
@@ -2287,7 +2156,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- جەژنی لە دایک بوون -->
   <hns_sign gloss="جەژنی لە دایک بوون">
           <hamnosys_manual>
               <hamfinger2/>
@@ -2298,7 +2166,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- حەفتا و یەک -->
   <hns_sign gloss="حەفتا و یەک">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -2324,7 +2191,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- حەفتا -->
   <hns_sign gloss="حەفتا">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -2342,7 +2208,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- حەوت -->
   <hns_sign gloss="حەوت">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -2360,7 +2225,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- حەڤدە -->
   <hns_sign gloss="حەڤدە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -2396,7 +2260,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- خ -->
   <hns_sign gloss="خ">
           <hamnosys_manual>
               <hamfinger2/>
@@ -2406,7 +2269,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- خاوێنی -->
   <hns_sign gloss="خاوێنی">
           <hamnosys_manual>
               <hamfinger23/>
@@ -2419,7 +2281,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- خاچ -->
   <hns_sign gloss="خاچ">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -2437,7 +2298,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- خلیسکان -->
   <hns_sign gloss="خلیسکان">
           <hamnosys_manual>
               <hamfinger23spread/>
@@ -2454,7 +2314,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- خواردن -->
   <hns_sign gloss="خواردن">
           <hamnosys_manual>
               <hamflathand/>
@@ -2471,7 +2330,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- خودا -->
   <hns_sign gloss="خودا">
           <hamnosys_manual>
               <hamfinger2/>
@@ -2482,7 +2340,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- خوشک -->
   <hns_sign gloss="خوشک">
           <hamnosys_manual>
               <hamfinger2/>
@@ -2504,7 +2361,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- خولەک -->
   <hns_sign gloss="خولەک">
           <hamnosys_manual>
               <hamparbegin/>
@@ -2524,7 +2380,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- خوێ -->
   <hns_sign gloss="خوێ">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -2560,7 +2415,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- خۆر -->
   <hns_sign gloss="خۆر">
           <hamnosys_manual>
               <hampinch12open/>
@@ -2571,7 +2425,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- خۆشوشتن -->
   <hns_sign gloss="خۆشوشتن">
           <hamnosys_manual>
               <hamfist/>
@@ -2581,7 +2434,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- خۆشەویستی -->
   <hns_sign gloss="خۆشەویستی">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -2595,7 +2447,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- خۆپیشاندان -->
   <hns_sign gloss="خۆپیشاندان">
           <hamnosys_manual>
               <hamfist/>
@@ -2612,7 +2463,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- خۆڕاگری -->
   <hns_sign gloss="خۆڕاگری">
           <hamnosys_manual>
               <hampinchall/>
@@ -2629,7 +2479,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- خیار -->
   <hns_sign gloss="خیار">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -2659,7 +2508,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- خێزان -->
   <hns_sign gloss="خێزان">
           <hamnosys_manual>
               <hamfinger2345/>
@@ -2671,7 +2519,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- خەڵاتە -->
   <hns_sign gloss="خەڵاتە">
           <hamnosys_manual>
               <hampinch12/>
@@ -2693,7 +2540,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- خەڵوز -->
   <hns_sign gloss="خەڵوز">
           <hamnosys_manual>
               <hamcee12/>
@@ -2703,7 +2549,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- د -->
   <hns_sign gloss="د">
           <hamnosys_manual>
               <hamcee12/>
@@ -2713,7 +2558,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دؤشاو -->
   <hns_sign gloss="دؤشاو">
           <hamnosys_manual>
               <hamparbegin/>
@@ -2741,7 +2585,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دابەش -->
   <hns_sign gloss="دابەش">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -2765,7 +2608,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- داد -->
   <hns_sign gloss="داد">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -2779,7 +2621,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دادوەر -->
   <hns_sign gloss="دادوەر">
           <hamnosys_manual>
               <hamcee12/>
@@ -2795,7 +2636,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دارستان -->
   <hns_sign gloss="دارستان">
           <hamnosys_manual>
               <hamfinger2345/>
@@ -2808,7 +2648,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دان_بەخشین -->
   <hns_sign gloss="دان/بەخشین">
           <hamnosys_manual>
               <hamflathand/>
@@ -2818,7 +2657,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دانا -->
   <hns_sign gloss="دانا">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -2840,7 +2678,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دانان -->
   <hns_sign gloss="دانان">
           <hamnosys_manual>
               <hamflathand/>
@@ -2852,7 +2689,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- داپیرە -->
   <hns_sign gloss="داپیرە">
           <hamnosys_manual>
               <hamfist/>
@@ -2874,7 +2710,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- داگیر کردن -->
   <hns_sign gloss="داگیر کردن">
           <hamnosys_manual>
               <hamfinger2345/>
@@ -2890,7 +2725,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دایک -->
   <hns_sign gloss="دایک">
           <hamnosys_manual>
               <hamfinger23/>
@@ -2902,7 +2736,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ددان شوشتن -->
   <hns_sign gloss="ددان شوشتن">
           <hamnosys_manual>
               <hamfinger2/>
@@ -2914,7 +2747,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- درۆزن -->
   <hns_sign gloss="درۆزن">
           <hamnosys_manual>
               <hamfinger23/>
@@ -2925,7 +2757,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- درەنگ -->
   <hns_sign gloss="درەنگ">
           <hamnosys_manual>
               <hamparbegin/>
@@ -2948,7 +2779,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دهۆک -->
   <hns_sign gloss="دهۆک">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -2963,7 +2793,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دوانزە -->
   <hns_sign gloss="دوانزە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -2993,7 +2822,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دوو -->
   <hns_sign gloss="دوو">
           <hamnosys_manual>
               <hamfinger23/>
@@ -3004,7 +2832,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دووجا -->
   <hns_sign gloss="دووجا">
           <hamnosys_manual>
               <hamfinger2/>
@@ -3025,7 +2852,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دوژمنایەتی -->
   <hns_sign gloss="دوژمنایەتی">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -3039,7 +2865,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دوکان -->
   <hns_sign gloss="دوکان">
           <hamnosys_manual>
               <hamfinger23spread/>
@@ -3054,7 +2879,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دۆخین -->
   <hns_sign gloss="دۆخین">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -3087,7 +2911,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دۆلار -->
   <hns_sign gloss="دۆلار">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -3100,7 +2923,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دۆلکە -->
   <hns_sign gloss="دۆلکە">
           <hamnosys_manual>
               <hamfist/>
@@ -3114,7 +2936,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دیالە -->
   <hns_sign gloss="دیالە">
           <hamnosys_manual>
               <hamflathand/>
@@ -3127,7 +2948,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دیموکراتی -->
   <hns_sign gloss="دیموکراتی">
           <hamnosys_manual>
               <hamfinger23spread/>
@@ -3149,7 +2969,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دیکتاتۆری -->
   <hns_sign gloss="دیکتاتۆری">
           <hamnosys_manual>
               <hamfinger23spread/>
@@ -3165,7 +2984,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دە -->
   <hns_sign gloss="دە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -3179,7 +2997,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دەتوانم -->
   <hns_sign gloss="دەتوانم">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -3196,7 +3013,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دەردان -->
   <hns_sign gloss="دەردان">
           <hamnosys_manual>
               <hampinchall/>
@@ -3215,7 +3031,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دەرس دان -->
   <hns_sign gloss="دەرس دان">
           <hamnosys_manual>
               <hamparbegin/>
@@ -3246,7 +3061,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دەرهێنان -->
   <hns_sign gloss="دەرهێنان">
           <hamnosys_manual>
               <hamparbegin/>
@@ -3269,7 +3083,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دەزانم -->
   <hns_sign gloss="دەزانم">
           <hamnosys_manual>
               <hamfinger2/>
@@ -3282,7 +3095,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دەست لێ دان -->
   <hns_sign gloss="دەست لێ دان">
           <hamnosys_manual>
               <hamparbegin/>
@@ -3305,7 +3117,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دەستەسڕ -->
   <hns_sign gloss="دەستەسڕ">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -3322,7 +3133,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دەمامک -->
   <hns_sign gloss="دەمامک">
           <hamnosys_manual>
               <hamflathand/>
@@ -3334,7 +3144,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دەموچاو شوشتن -->
   <hns_sign gloss="دەموچاو شوشتن">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -3350,7 +3159,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دەنگ و باس -->
   <hns_sign gloss="دەنگ و باس">
           <hamnosys_manual>
               <hamfinger2/>
@@ -3368,7 +3176,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دەنگ -->
   <hns_sign gloss="دەنگ">
           <hamnosys_manual>
               <hamcee12/>
@@ -3379,7 +3186,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دەکەم -->
   <hns_sign gloss="دەکەم">
           <hamnosys_manual>
               <hamfinger23/>
@@ -3389,7 +3195,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دەگمەن -->
   <hns_sign gloss="دەگمەن">
           <hamnosys_manual>
               <hamflathand/>
@@ -3402,7 +3207,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دەیان -->
   <hns_sign gloss="دەیان">
           <hamnosys_manual>
               <hamfist/>
@@ -3418,7 +3222,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- دەیەوێت -->
   <hns_sign gloss="دەیەوێت">
           <hamnosys_manual>
               <hamflathand/>
@@ -3434,7 +3237,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ر -->
   <hns_sign gloss="ر">
           <hamnosys_manual>
               <hamfinger2/>
@@ -3446,7 +3248,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ز -->
   <hns_sign gloss="ز">
           <hamnosys_manual>
               <hamfinger2/>
@@ -3458,7 +3259,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- زانا -->
   <hns_sign gloss="زانا">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -3480,7 +3280,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- زانست -->
   <hns_sign gloss="زانست">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -3503,7 +3302,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- زانیاری -->
   <hns_sign gloss="زانیاری">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -3525,7 +3323,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- زوو -->
   <hns_sign gloss="زوو">
           <hamnosys_manual>
               <hamflathand/>
@@ -3540,7 +3337,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- زۆردار -->
   <hns_sign gloss="زۆردار">
           <hamnosys_manual>
               <hamfinger2/>
@@ -3551,7 +3347,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- زۆرلێکراو -->
   <hns_sign gloss="زۆرلێکراو">
           <hamnosys_manual>
               <hamfinger2/>
@@ -3562,7 +3357,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- زیاتر -->
   <hns_sign gloss="زیاتر">
           <hamnosys_manual>
               <hamflathand/>
@@ -3572,7 +3366,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- زیرەک -->
   <hns_sign gloss="زیرەک">
           <hamnosys_manual>
               <hamfinger2/>
@@ -3594,7 +3387,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- س -->
   <hns_sign gloss="س">
           <hamnosys_manual>
               <hamfist/>
@@ -3604,7 +3396,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سزادان -->
   <hns_sign gloss="سزادان">
           <hamnosys_manual>
               <hamfinger2345/>
@@ -3622,7 +3413,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سست -->
   <hns_sign gloss="سست">
           <hamnosys_manual>
               <hamflathand/>
@@ -3639,7 +3429,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سفر -->
   <hns_sign gloss="سفر">
           <hamnosys_manual>
               <hamparbegin/>
@@ -3659,7 +3448,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سلێمانی -->
   <hns_sign gloss="سلێمانی">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -3681,7 +3469,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سماق -->
   <hns_sign gloss="سماق">
           <hamnosys_manual>
               <hamflathand/>
@@ -3692,7 +3479,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سمۆرە -->
   <hns_sign gloss="سمۆرە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -3719,7 +3505,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سمێل -->
   <hns_sign gloss="سمێل">
           <hamnosys_manual>
               <hampinch12/>
@@ -3730,7 +3515,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سنکی قاپ -->
   <hns_sign gloss="سنکی قاپ">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -3760,7 +3544,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سووڕانەوە -->
   <hns_sign gloss="سووڕانەوە">
           <hamnosys_manual>
               <hamfinger2/>
@@ -3773,7 +3556,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سپیایی -->
   <hns_sign gloss="سپیایی">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -3804,7 +3586,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سڵاو -->
   <hns_sign gloss="سڵاو">
           <hamnosys_manual>
               <hamflathand/>
@@ -3823,7 +3604,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سی و یەک -->
   <hns_sign gloss="سی و یەک">
           <hamnosys_manual>
               <hamflathand/>
@@ -3843,7 +3623,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سی -->
   <hns_sign gloss="سی">
           <hamnosys_manual>
               <hamflathand/>
@@ -3858,7 +3637,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سێ -->
   <hns_sign gloss="سێ">
           <hamnosys_manual>
               <hamflathand/>
@@ -3871,7 +3649,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سێزدە -->
   <hns_sign gloss="سێزدە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -3903,7 +3680,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سێنی -->
   <hns_sign gloss="سێنی">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -3913,7 +3689,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سەد و یەک -->
   <hns_sign gloss="سەد و یەک">
           <hamnosys_manual>
               <hamfist/>
@@ -3937,7 +3712,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سەد -->
   <hns_sign gloss="سەد">
           <hamnosys_manual>
               <hamfist/>
@@ -3953,7 +3727,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سەدە -->
   <hns_sign gloss="سەدە">
           <hamnosys_manual>
               <hamfinger23spread/>
@@ -3975,7 +3748,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سەر -->
   <hns_sign gloss="سەر">
           <hamnosys_manual>
               <hamfinger2/>
@@ -3989,7 +3761,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سەرباز -->
   <hns_sign gloss="سەرباز">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4005,7 +3776,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سەردەم -->
   <hns_sign gloss="سەردەم">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4032,7 +3802,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سەرسووڕمان -->
   <hns_sign gloss="سەرسووڕمان">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4050,7 +3819,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سەرنج راکێش -->
   <hns_sign gloss="سەرنج راکێش">
           <hamnosys_manual>
               <hamfinger23spread/>
@@ -4073,7 +3841,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سەرۆک -->
   <hns_sign gloss="سەرۆک">
           <hamnosys_manual>
               <hamfinger2/>
@@ -4087,7 +3854,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سەرەتایی -->
   <hns_sign gloss="سەرەتایی">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4134,7 +3900,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سەرەکی -->
   <hns_sign gloss="سەرەکی">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4152,7 +3917,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سەماوەر -->
   <hns_sign gloss="سەماوەر">
           <hamnosys_manual>
               <hamfist/>
@@ -4177,7 +3941,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سەوزە -->
   <hns_sign gloss="سەوزە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4205,7 +3968,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سەوڵ لێ دان -->
   <hns_sign gloss="سەوڵ لێ دان">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4218,7 +3980,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- سەگ -->
   <hns_sign gloss="سەگ">
           <hamnosys_manual>
               <hamceeall/>
@@ -4233,7 +3994,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ش -->
   <hns_sign gloss="ش">
           <hamnosys_manual>
               <hamfist/>
@@ -4244,7 +4004,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- شارەزایی -->
   <hns_sign gloss="شارەزایی">
           <hamnosys_manual>
               <hamfinger2/>
@@ -4267,7 +4026,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- شامپۆ -->
   <hns_sign gloss="شامپۆ">
           <hamnosys_manual>
               <hamparbegin/>
@@ -4302,7 +4060,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- شانزە -->
   <hns_sign gloss="شانزە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4338,7 +4095,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- شایەتی دان -->
   <hns_sign gloss="شایەتی دان">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4355,7 +4111,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- شوشتن -->
   <hns_sign gloss="شوشتن">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4373,7 +4128,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- شوێن -->
   <hns_sign gloss="شوێن">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4385,7 +4139,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- شۆستە -->
   <hns_sign gloss="شۆستە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4397,7 +4150,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- شیردەر -->
   <hns_sign gloss="شیردەر">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4429,7 +4181,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- شێت -->
   <hns_sign gloss="شێت">
           <hamnosys_manual>
               <hamfinger2345/>
@@ -4444,7 +4195,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- شەرمن -->
   <hns_sign gloss="شەرمن">
           <hamnosys_manual>
               <hamflathand/>
@@ -4462,7 +4212,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- شەرواڵ -->
   <hns_sign gloss="شەرواڵ">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4478,7 +4227,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- شەست و یەک -->
   <hns_sign gloss="شەست و یەک">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4504,7 +4252,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- شەست -->
   <hns_sign gloss="شەست">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4522,7 +4269,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- شەش -->
   <hns_sign gloss="شەش">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4540,7 +4286,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- شەقام -->
   <hns_sign gloss="شەقام">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4551,7 +4296,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- شەقڵاوە -->
   <hns_sign gloss="شەقڵاوە">
           <hamnosys_manual>
               <hamflathand/>
@@ -4564,7 +4308,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- شەڕ -->
   <hns_sign gloss="شەڕ">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4577,7 +4320,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- شەڕەف -->
   <hns_sign gloss="شەڕەف">
           <hamnosys_manual>
               <hampinch12/>
@@ -4589,7 +4331,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- شەکر -->
   <hns_sign gloss="شەکر">
           <hamnosys_manual>
               <hamflathand/>
@@ -4599,7 +4340,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- شەیتان -->
   <hns_sign gloss="شەیتان">
           <hamnosys_manual>
               <hamfinger23spread/>
@@ -4615,7 +4355,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ع -->
   <hns_sign gloss="ع">
           <hamnosys_manual>
               <hamfinger2/>
@@ -4626,7 +4365,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- عارەبانە -->
   <hns_sign gloss="عارەبانە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4637,7 +4375,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- عیراق -->
   <hns_sign gloss="عیراق">
           <hamnosys_manual>
               <hamflathand/>
@@ -4647,7 +4384,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- عەسارە -->
   <hns_sign gloss="عەسارە">
           <hamnosys_manual>
               <hamparbegin/>
@@ -4673,7 +4409,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- عەنکاوە -->
   <hns_sign gloss="عەنکاوە">
           <hamnosys_manual>
               <hamfinger23/>
@@ -4685,7 +4420,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- غ -->
   <hns_sign gloss="غ">
           <hamnosys_manual>
               <hamfinger2/>
@@ -4698,7 +4432,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- غاردان -->
   <hns_sign gloss="غاردان">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4712,7 +4445,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ف -->
   <hns_sign gloss="ف">
           <hamnosys_manual>
               <hamfinger2/>
@@ -4722,7 +4454,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- فارس -->
   <hns_sign gloss="فارس">
           <hamnosys_manual>
               <hamfist/>
@@ -4733,7 +4464,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- فرمان -->
   <hns_sign gloss="فرمان">
           <hamnosys_manual>
               <hamfist/>
@@ -4745,7 +4475,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- فلپین -->
   <hns_sign gloss="فلپین">
           <hamnosys_manual>
               <hamfinger2/>
@@ -4759,7 +4488,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- فلکە -->
   <hns_sign gloss="فلکە">
           <hamnosys_manual>
               <hamfinger2/>
@@ -4773,7 +4501,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- فنجان -->
   <hns_sign gloss="فنجان">
           <hamnosys_manual>
               <hamfist/>
@@ -4792,7 +4519,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- فڕن -->
   <hns_sign gloss="فڕن">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4809,7 +4535,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- فڕێ دان -->
   <hns_sign gloss="فڕێ دان">
           <hamnosys_manual>
               <hampinch12/>
@@ -4834,7 +4559,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- فڵچەی ددان -->
   <hns_sign gloss="فڵچەی ددان">
           <hamnosys_manual>
               <hamparbegin/>
@@ -4869,7 +4593,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- فێنک -->
   <hns_sign gloss="فێنک">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4885,7 +4608,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ق -->
   <hns_sign gloss="ق">
           <hamnosys_manual>
               <hamfinger23/>
@@ -4895,7 +4617,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- قاپ -->
   <hns_sign gloss="قاپ">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4907,7 +4628,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- قایشی خۆبەستان -->
   <hns_sign gloss="قایشی خۆبەستان">
           <hamnosys_manual>
               <hamfist/>
@@ -4921,7 +4641,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- قسە -->
   <hns_sign gloss="قسە">
           <hamnosys_manual>
               <hamfinger23/>
@@ -4935,7 +4654,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- قوتابخانە -->
   <hns_sign gloss="قوتابخانە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4953,7 +4671,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- قوتابی -->
   <hns_sign gloss="قوتابی">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -4997,7 +4714,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- قووت دان -->
   <hns_sign gloss="قووت دان">
           <hamnosys_manual>
               <hamcee12/>
@@ -5009,7 +4725,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- قژ -->
   <hns_sign gloss="قژ">
           <hamnosys_manual>
               <hampinch12/>
@@ -5021,7 +4736,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- قۆری -->
   <hns_sign gloss="قۆری">
           <hamnosys_manual>
               <hamfist/>
@@ -5039,7 +4753,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- قیبلەنامە -->
   <hns_sign gloss="قیبلەنامە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -5057,7 +4770,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- قەرزار -->
   <hns_sign gloss="قەرزار">
           <hamnosys_manual>
               <hamfinger23spread/>
@@ -5075,7 +4787,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- قەڵەو -->
   <hns_sign gloss="قەڵەو">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -5085,7 +4796,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- قەیماخ -->
   <hns_sign gloss="قەیماخ">
           <hamnosys_manual>
               <hamparbegin/>
@@ -5106,7 +4816,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ل -->
   <hns_sign gloss="ل">
           <hamnosys_manual>
               <hamfinger2/>
@@ -5117,7 +4826,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- لا -->
   <hns_sign gloss="لا">
           <hamnosys_manual>
               <hamflathand/>
@@ -5127,7 +4835,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- لافیتە -->
   <hns_sign gloss="لافیتە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -5140,7 +4847,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- لاواز -->
   <hns_sign gloss="لاواز">
           <hamnosys_manual>
               <hamflathand/>
@@ -5152,7 +4858,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- لیمۆ بەسرە -->
   <hns_sign gloss="لیمۆ بەسرە">
           <hamnosys_manual>
               <hamparbegin/>
@@ -5186,7 +4891,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- لیمۆن دوزی -->
   <hns_sign gloss="لیمۆن دوزی">
           <hamnosys_manual>
               <hamflathand/>
@@ -5206,7 +4910,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- لەخەو هەڵسان -->
   <hns_sign gloss="لەخەو هەڵسان">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -5219,7 +4922,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- لەش -->
   <hns_sign gloss="لەش">
           <hamnosys_manual>
               <hamfinger23/>
@@ -5233,7 +4935,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- لەوەڕاندن -->
   <hns_sign gloss="لەوەڕاندن">
           <hamnosys_manual>
               <hamfist/>
@@ -5245,7 +4946,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- م -->
   <hns_sign gloss="م">
           <hamnosys_manual>
               <hamfinger2/>
@@ -5256,7 +4956,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ماست -->
   <hns_sign gloss="ماست">
           <hamnosys_manual>
               <hamfinger2/>
@@ -5270,7 +4969,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ماش -->
   <hns_sign gloss="ماش">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -5289,7 +4987,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مامۆستا -->
   <hns_sign gloss="مامۆستا">
           <hamnosys_manual>
               <hamparbegin/>
@@ -5311,7 +5008,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ماندوو -->
   <hns_sign gloss="ماندوو">
           <hamnosys_manual>
               <hamparbegin/>
@@ -5330,7 +5026,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مانگ -->
   <hns_sign gloss="مانگ">
           <hamnosys_manual>
               <hamcee12/>
@@ -5341,7 +5036,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مانگا -->
   <hns_sign gloss="مانگا">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -5368,7 +5062,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مزگەوت -->
   <hns_sign gloss="مزگەوت">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -5397,7 +5090,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مشتەکۆڵە -->
   <hns_sign gloss="مشتەکۆڵە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -5413,7 +5105,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مشک -->
   <hns_sign gloss="مشک">
           <hamnosys_manual>
               <hamfinger23/>
@@ -5426,7 +5117,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ملیار -->
   <hns_sign gloss="ملیار">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -5441,7 +5131,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ملیۆن -->
   <hns_sign gloss="ملیۆن">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -5463,7 +5152,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- موفتی -->
   <hns_sign gloss="موفتی">
           <hamnosys_manual>
               <hamcee12/>
@@ -5478,7 +5166,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مووشەک -->
   <hns_sign gloss="مووشەک">
           <hamnosys_manual>
               <hamparbegin/>
@@ -5498,7 +5185,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مڕۆڤ -->
   <hns_sign gloss="مڕۆڤ">
           <hamnosys_manual>
               <hamfinger2/>
@@ -5510,7 +5196,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مۆسیقا -->
   <hns_sign gloss="مۆسیقا">
           <hamnosys_manual>
               <hamparbegin/>
@@ -5541,7 +5226,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مۆلەت -->
   <hns_sign gloss="مۆلەت">
           <hamnosys_manual>
               <hampinchall/>
@@ -5552,7 +5236,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مۆم -->
   <hns_sign gloss="مۆم">
           <hamnosys_manual>
               <hamfinger2/>
@@ -5562,7 +5245,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مێژوو -->
   <hns_sign gloss="مێژوو">
           <hamnosys_manual>
               <hamfinger2/>
@@ -5585,7 +5267,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مەتبەخ -->
   <hns_sign gloss="مەتبەخ">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -5615,7 +5296,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مەحاڵ -->
   <hns_sign gloss="مەحاڵ">
           <hamnosys_manual>
               <hamfinger2/>
@@ -5626,7 +5306,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مەسعود بارزانی -->
   <hns_sign gloss="مەسعود بارزانی">
           <hamnosys_manual>
               <hamfinger2/>
@@ -5638,7 +5317,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مەعجونی تاشین -->
   <hns_sign gloss="مەعجونی تاشین">
           <hamnosys_manual>
               <hamparbegin/>
@@ -5675,7 +5353,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مەعجونی ددان -->
   <hns_sign gloss="مەعجونی ددان">
           <hamnosys_manual>
               <hamparbegin/>
@@ -5698,7 +5375,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مەلا مستەفا بارزانی -->
   <hns_sign gloss="مەلا مستەفا بارزانی">
           <hamnosys_manual>
               <hamfist/>
@@ -5710,7 +5386,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مەنتکاوە -->
   <hns_sign gloss="مەنتکاوە">
           <hamnosys_manual>
               <hamfinger23spread/>
@@ -5722,7 +5397,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مەنجەڵ -->
   <hns_sign gloss="مەنجەڵ">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -5748,7 +5422,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مەوعید -->
   <hns_sign gloss="مەوعید">
           <hamnosys_manual>
               <hampinch12open/>
@@ -5761,7 +5434,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مەڕ -->
   <hns_sign gloss="مەڕ">
           <hamnosys_manual>
               <hamflathand/>
@@ -5773,7 +5445,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مەکینەی تاشین -->
   <hns_sign gloss="مەکینەی تاشین">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -5790,7 +5461,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- مەکینەی تاشینی کارەبایی -->
   <hns_sign gloss="مەکینەی تاشینی کارەبایی">
           <hamnosys_manual>
               <hamfist/>
@@ -5806,7 +5476,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ن -->
   <hns_sign gloss="ن">
           <hamnosys_manual>
               <hamfinger2/>
@@ -5817,7 +5486,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- نا ئومێدی -->
   <hns_sign gloss="نا ئومێدی">
           <hamnosys_manual>
               <hamflathand/>
@@ -5835,7 +5503,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- نابینا -->
   <hns_sign gloss="نابینا">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -5847,7 +5514,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ناتوانم -->
   <hns_sign gloss="ناتوانم">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -5872,7 +5538,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- نازانم -->
   <hns_sign gloss="نازانم">
           <hamnosys_manual>
               <hamflathand/>
@@ -5884,7 +5549,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ناسنامە -->
   <hns_sign gloss="ناسنامە">
           <hamnosys_manual>
               <hamparbegin/>
@@ -5904,7 +5568,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ناشرین -->
   <hns_sign gloss="ناشرین">
           <hamnosys_manual>
               <hamfinger2/>
@@ -5919,7 +5582,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- نان -->
   <hns_sign gloss="نان">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -5947,7 +5609,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ناو -->
   <hns_sign gloss="ناو">
           <hamnosys_manual>
               <hamfinger2/>
@@ -5961,7 +5622,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ناوەندی -->
   <hns_sign gloss="ناوەندی">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -6004,7 +5664,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ناکەم -->
   <hns_sign gloss="ناکەم">
           <hamnosys_manual>
               <hamfinger23/>
@@ -6016,7 +5675,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- نرخ -->
   <hns_sign gloss="نرخ">
           <hamnosys_manual>
               <hamcee12/>
@@ -6026,7 +5684,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- نزیکەیی -->
   <hns_sign gloss="نزیکەیی">
           <hamnosys_manual>
               <hamfinger2345/>
@@ -6037,7 +5694,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- نۆ -->
   <hns_sign gloss="نۆ">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -6055,7 +5711,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- نۆزدە -->
   <hns_sign gloss="نۆزدە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -6091,7 +5746,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- نۆک -->
   <hns_sign gloss="نۆک">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -6112,7 +5766,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- نیسک -->
   <hns_sign gloss="نیسک">
           <hamnosys_manual>
               <hamfist/>
@@ -6131,7 +5784,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- نیوچەوان -->
   <hns_sign gloss="نیوچەوان">
           <hamnosys_manual>
               <hamfinger2/>
@@ -6145,7 +5797,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- نیگار -->
   <hns_sign gloss="نیگار">
           <hamnosys_manual>
               <hamfinger23/>
@@ -6158,7 +5809,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- نیگارکێش -->
   <hns_sign gloss="نیگارکێش">
           <hamnosys_manual>
               <hamfinger23/>
@@ -6171,7 +5821,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- نەجەف -->
   <hns_sign gloss="نەجەف">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -6184,7 +5833,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- نەخشە -->
   <hns_sign gloss="نەخشە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -6204,7 +5852,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- نەخۆشەوان -->
   <hns_sign gloss="نەخۆشەوان">
           <hamnosys_manual>
               <hamfinger2/>
@@ -6219,7 +5866,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- نەخێر -->
   <hns_sign gloss="نەخێر">
           <hamnosys_manual>
               <hamfinger2/>
@@ -6231,7 +5877,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- نەرویج -->
   <hns_sign gloss="نەرویج">
           <hamnosys_manual>
               <hamflathand/>
@@ -6241,7 +5886,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- نەزان -->
   <hns_sign gloss="نەزان">
           <hamnosys_manual>
               <hamfinger2/>
@@ -6266,7 +5910,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- نەورۆز -->
   <hns_sign gloss="نەورۆز">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -6278,7 +5921,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- نەوەد و یەک -->
   <hns_sign gloss="نەوەد و یەک">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -6303,7 +5945,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- نەوەد -->
   <hns_sign gloss="نەوەد">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -6321,7 +5962,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ه -->
   <hns_sign gloss="ه">
           <hamnosys_manual>
               <hamflathand/>
@@ -6332,7 +5972,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هاندان -->
   <hns_sign gloss="هاندان">
           <hamnosys_manual>
               <hamcee12/>
@@ -6356,7 +5995,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هاون -->
   <hns_sign gloss="هاون">
           <hamnosys_manual>
               <hamparbegin/>
@@ -6380,7 +6018,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هونەر -->
   <hns_sign gloss="هونەر">
           <hamnosys_manual>
               <hamfist/>
@@ -6397,7 +6034,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هۆ -->
   <hns_sign gloss="هۆ">
           <hamnosys_manual>
               <hamfinger2/>
@@ -6409,7 +6045,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هیندستان -->
   <hns_sign gloss="هیندستان">
           <hamnosys_manual>
               <hamfinger2/>
@@ -6419,7 +6054,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هیوا -->
   <hns_sign gloss="هیوا">
           <hamnosys_manual>
               <hamflathand/>
@@ -6437,7 +6071,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هیوادارم -->
   <hns_sign gloss="هیوادارم">
           <hamnosys_manual>
               <hamfinger2/>
@@ -6450,7 +6083,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هێز -->
   <hns_sign gloss="هێز">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -6465,7 +6097,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هێل -->
   <hns_sign gloss="هێل">
           <hamnosys_manual>
               <hampinch12/>
@@ -6485,7 +6116,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هێلی درێژی -->
   <hns_sign gloss="هێلی درێژی">
           <hamnosys_manual>
               <hamfinger2/>
@@ -6496,7 +6126,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هێلی پانی -->
   <hns_sign gloss="هێلی پانی">
           <hamnosys_manual>
               <hamfinger2/>
@@ -6508,7 +6137,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هێلی کەمەرەیی -->
   <hns_sign gloss="هێلی کەمەرەیی">
           <hamnosys_manual>
               <hamparbegin/>
@@ -6538,7 +6166,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هێنان -->
   <hns_sign gloss="هێنان">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -6553,7 +6180,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هەزار -->
   <hns_sign gloss="هەزار">
           <hamnosys_manual>
               <hamfist/>
@@ -6569,7 +6195,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هەزاران -->
   <hns_sign gloss="هەزاران">
           <hamnosys_manual>
               <hamfist/>
@@ -6590,7 +6215,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هەست -->
   <hns_sign gloss="هەست">
           <hamnosys_manual>
               <hamfinger2/>
@@ -6612,7 +6236,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هەستان -->
   <hns_sign gloss="هەستان">
           <hamnosys_manual>
               <hamflathand/>
@@ -6623,7 +6246,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هەشت -->
   <hns_sign gloss="هەشت">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -6641,7 +6263,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هەشتا و یەک -->
   <hns_sign gloss="هەشتا و یەک">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -6667,7 +6288,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هەشتا -->
   <hns_sign gloss="هەشتا">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -6686,7 +6306,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هەناسەدان -->
   <hns_sign gloss="هەناسەدان">
           <hamnosys_manual>
               <hamfinger2345/>
@@ -6697,7 +6316,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هەنگوین -->
   <hns_sign gloss="هەنگوین">
           <hamnosys_manual>
               <hamparbegin/>
@@ -6734,7 +6352,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هەوا -->
   <hns_sign gloss="هەوا">
           <hamnosys_manual>
               <hamflathand/>
@@ -6747,7 +6364,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هەولێر -->
   <hns_sign gloss="هەولێر">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -6772,7 +6388,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هەوڵ دان -->
   <hns_sign gloss="هەوڵ دان">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -6788,7 +6403,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هەویر -->
   <hns_sign gloss="هەویر">
           <hamnosys_manual>
               <hamsymmpar/>
@@ -6802,7 +6416,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هەژدە -->
   <hns_sign gloss="هەژدە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -6838,7 +6451,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هەڵم -->
   <hns_sign gloss="هەڵم">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -6857,7 +6469,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- هەڵەپاس -->
   <hns_sign gloss="هەڵەپاس">
           <hamnosys_manual>
               <hamfinger23spread/>
@@ -6873,7 +6484,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- و -->
   <hns_sign gloss="و">
           <hamnosys_manual>
               <hamfinger2/>
@@ -6887,7 +6497,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- وازهێنان -->
   <hns_sign gloss="وازهێنان">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -6909,7 +6518,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- وانە -->
   <hns_sign gloss="وانە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -6935,7 +6543,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- وو -->
   <hns_sign gloss="وو">
           <hamnosys_manual>
               <hamfinger23/>
@@ -6949,7 +6556,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ووشتر -->
   <hns_sign gloss="ووشتر">
           <hamnosys_manual>
               <hamparbegin/>
@@ -6974,7 +6580,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ووشە -->
   <hns_sign gloss="ووشە">
           <hamnosys_manual>
               <hampinch12/>
@@ -6984,7 +6589,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- وێنەگرتن -->
   <hns_sign gloss="وێنەگرتن">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -7005,7 +6609,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- وە -->
   <hns_sign gloss="وە">
           <hamnosys_manual>
               <hamfinger2/>
@@ -7018,7 +6621,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- وەرزش -->
   <hns_sign gloss="وەرزش">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -7031,7 +6633,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- وەزارەت -->
   <hns_sign gloss="وەزارەت">
           <hamnosys_manual>
               <hampinch12/>
@@ -7045,7 +6646,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- وەزیر -->
   <hns_sign gloss="وەزیر">
           <hamnosys_manual>
               <hamfinger2/>
@@ -7059,7 +6659,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- وەڵام -->
   <hns_sign gloss="وەڵام">
           <hamnosys_manual>
               <hamfinger2/>
@@ -7071,7 +6670,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پ -->
   <hns_sign gloss="پ">
           <hamnosys_manual>
               <hamflathand/>
@@ -7084,7 +6682,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پارزونگ -->
   <hns_sign gloss="پارزونگ">
           <hamnosys_manual>
               <hamparbegin/>
@@ -7104,7 +6701,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پارێزگا -->
   <hns_sign gloss="پارێزگا">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -7121,7 +6717,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پارە -->
   <hns_sign gloss="پارە">
           <hamnosys_manual>
               <hamcee12/>
@@ -7131,7 +6726,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پارەدان -->
   <hns_sign gloss="پارەدان">
           <hamnosys_manual>
               <hamparbegin/>
@@ -7157,7 +6751,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پاشا -->
   <hns_sign gloss="پاشا">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -7170,7 +6763,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پاشایەتی -->
   <hns_sign gloss="پاشایەتی">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -7183,7 +6775,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پانتۆڵ -->
   <hns_sign gloss="پانتۆڵ">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -7196,7 +6787,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پانزە -->
   <hns_sign gloss="پانزە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -7226,7 +6816,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پاڵ دان -->
   <hns_sign gloss="پاڵ دان">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -7238,7 +6827,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پایتەخت -->
   <hns_sign gloss="پایتەخت">
           <hamnosys_manual>
               <hamparbegin/>
@@ -7260,7 +6848,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پرسیار -->
   <hns_sign gloss="پرسیار">
           <hamnosys_manual>
               <hamfinger23/>
@@ -7275,7 +6862,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پزیشک -->
   <hns_sign gloss="پزیشک">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -7303,7 +6889,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پزیشکی ددان -->
   <hns_sign gloss="پزیشکی ددان">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -7339,7 +6924,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پسوولەی خۆراک -->
   <hns_sign gloss="پسوولەی خۆراک">
           <hamnosys_manual>
               <hamparbegin/>
@@ -7360,7 +6944,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پشتێن -->
   <hns_sign gloss="پشتێن">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -7395,7 +6978,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پشوو -->
   <hns_sign gloss="پشوو">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -7413,7 +6995,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پۆتین -->
   <hns_sign gloss="پۆتین">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -7428,7 +7009,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پۆلیس -->
   <hns_sign gloss="پۆلیس">
           <hamnosys_manual>
               <hampinch12open/>
@@ -7438,7 +7018,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پۆڵ -->
   <hns_sign gloss="پۆڵ">
           <hamnosys_manual>
               <hamfinger2345/>
@@ -7457,7 +7036,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پیالە -->
   <hns_sign gloss="پیالە">
           <hamnosys_manual>
               <hamcee12/>
@@ -7477,7 +7055,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پیرۆز -->
   <hns_sign gloss="پیرۆز">
           <hamnosys_manual>
               <hamflathand/>
@@ -7488,7 +7065,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پیسی -->
   <hns_sign gloss="پیسی">
           <hamnosys_manual>
               <hamfist/>
@@ -7509,7 +7085,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پیشاندان -->
   <hns_sign gloss="پیشاندان">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -7522,7 +7097,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پێشبڕکێ -->
   <hns_sign gloss="پێشبڕکێ">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -7541,7 +7115,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پێغەمبەر -->
   <hns_sign gloss="پێغەمبەر">
           <hamnosys_manual>
               <hamflathand/>
@@ -7562,7 +7135,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پێنج -->
   <hns_sign gloss="پێنج">
           <hamnosys_manual>
               <hamfinger2345/>
@@ -7573,7 +7145,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پێک دادان -->
   <hns_sign gloss="پێک دادان">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -7589,7 +7160,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پەنجا و یەک -->
   <hns_sign gloss="پەنجا و یەک">
           <hamnosys_manual>
               <hamfinger2345/>
@@ -7607,7 +7177,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پەنجا -->
   <hns_sign gloss="پەنجا">
           <hamnosys_manual>
               <hamfinger2345/>
@@ -7620,7 +7189,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پەنیر -->
   <hns_sign gloss="پەنیر">
           <hamnosys_manual>
               <hamparbegin/>
@@ -7651,7 +7219,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- پەیکەرتاشین -->
   <hns_sign gloss="پەیکەرتاشین">
           <hamnosys_manual>
               <hamparbegin/>
@@ -7672,7 +7239,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- چ -->
   <hns_sign gloss="چ">
           <hamnosys_manual>
               <hamfist/>
@@ -7684,7 +7250,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- چالاک -->
   <hns_sign gloss="چالاک">
           <hamnosys_manual>
               <hamfinger2/>
@@ -7701,7 +7266,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- چاندن -->
   <hns_sign gloss="چاندن">
           <hamnosys_manual>
               <hamfinger23/>
@@ -7715,7 +7279,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- چاو -->
   <hns_sign gloss="چاو">
           <hamnosys_manual>
               <hamcee12/>
@@ -7734,7 +7297,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- چاوکراوە -->
   <hns_sign gloss="چاوکراوە">
           <hamnosys_manual>
               <hamfinger23spread/>
@@ -7749,7 +7311,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- چاکەت -->
   <hns_sign gloss="چاکەت">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -7764,7 +7325,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- چرپە -->
   <hns_sign gloss="چرپە">
           <hamnosys_manual>
               <hamflathand/>
@@ -7775,7 +7335,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- چرکە -->
   <hns_sign gloss="چرکە">
           <hamnosys_manual>
               <hamparbegin/>
@@ -7792,7 +7351,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- چل و یەک -->
   <hns_sign gloss="چل و یەک">
           <hamnosys_manual>
               <hamflathand/>
@@ -7810,7 +7368,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- چل -->
   <hns_sign gloss="چل">
           <hamnosys_manual>
               <hamflathand/>
@@ -7822,7 +7379,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- چوار -->
   <hns_sign gloss="چوار">
           <hamnosys_manual>
               <hamflathand/>
@@ -7833,7 +7389,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- چواردە -->
   <hns_sign gloss="چواردە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -7863,7 +7418,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- چۆن -->
   <hns_sign gloss="چۆن">
           <hamnosys_manual>
               <hamflathand/>
@@ -7878,7 +7432,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- چۆنی -->
   <hns_sign gloss="چۆنی">
           <hamnosys_manual>
               <hamflathand/>
@@ -7893,7 +7446,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- چین -->
   <hns_sign gloss="چین">
           <hamnosys_manual>
               <hamfinger2/>
@@ -7903,7 +7455,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- چەلۆ -->
   <hns_sign gloss="چەلۆ">
           <hamnosys_manual>
               <hamparbegin/>
@@ -7932,7 +7483,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- چەمچە -->
   <hns_sign gloss="چەمچە">
           <hamnosys_manual>
               <hamfist/>
@@ -7946,7 +7496,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- چەند -->
   <hns_sign gloss="چەند">
           <hamnosys_manual>
               <hamceeopen/>
@@ -7958,7 +7507,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ڕ -->
   <hns_sign gloss="ڕ">
           <hamnosys_manual>
               <hamfinger2/>
@@ -7975,7 +7523,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ڕؤژو -->
   <hns_sign gloss="ڕؤژو">
           <hamnosys_manual>
               <hamflathand/>
@@ -7986,7 +7533,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ڕاستگؤ -->
   <hns_sign gloss="ڕاستگؤ">
           <hamnosys_manual>
               <hamflathand/>
@@ -8010,7 +7556,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ڕامیاری -->
   <hns_sign gloss="ڕامیاری">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -8021,7 +7566,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ڕانک و چۆغەڵ -->
   <hns_sign gloss="ڕانک و چۆغەڵ">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -8048,7 +7592,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ڕاکێشان -->
   <hns_sign gloss="ڕاکێشان">
           <hamnosys_manual>
               <hamsymmpar/>
@@ -8060,7 +7603,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ڕستە -->
   <hns_sign gloss="ڕستە">
           <hamnosys_manual>
               <hamsymmpar/>
@@ -8073,7 +7615,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ڕنۆک -->
   <hns_sign gloss="ڕنۆک">
           <hamnosys_manual>
               <hamfinger2345/>
@@ -8088,7 +7629,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ڕوسیا -->
   <hns_sign gloss="ڕوسیا">
           <hamnosys_manual>
               <hamparbegin/>
@@ -8111,7 +7651,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ڕوو -->
   <hns_sign gloss="ڕوو">
           <hamnosys_manual>
               <hamfinger2/>
@@ -8122,7 +7661,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ڕووخان -->
   <hns_sign gloss="ڕووخان">
           <hamnosys_manual>
               <hamsymmpar/>
@@ -8138,7 +7676,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ڕۆن -->
   <hns_sign gloss="ڕۆن">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -8163,7 +7700,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ڕۆژ -->
   <hns_sign gloss="ڕۆژ">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -8181,7 +7717,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ڕۆژئاوا -->
   <hns_sign gloss="ڕۆژئاوا">
           <hamnosys_manual>
               <hamfinger2/>
@@ -8192,7 +7727,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ڕۆژهەڵات -->
   <hns_sign gloss="ڕۆژهەڵات">
           <hamnosys_manual>
               <hamfinger2/>
@@ -8203,7 +7737,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ڕێزمان -->
   <hns_sign gloss="ڕێزمان">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -8217,7 +7750,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ڕێگا -->
   <hns_sign gloss="ڕێگا">
           <hamnosys_manual>
               <hamflathand/>
@@ -8227,7 +7759,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ڕەفە -->
   <hns_sign gloss="ڕەفە">
           <hamnosys_manual>
               <hamflathand/>
@@ -8241,7 +7772,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ڕەنگ -->
   <hns_sign gloss="ڕەنگ">
           <hamnosys_manual>
               <hamfinger2/>
@@ -8260,7 +7790,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ژ -->
   <hns_sign gloss="ژ">
           <hamnosys_manual>
               <hamflathand/>
@@ -8273,7 +7802,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ژاپۆن -->
   <hns_sign gloss="ژاپۆن">
           <hamnosys_manual>
               <hamfinger2/>
@@ -8284,7 +7812,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ژاژی -->
   <hns_sign gloss="ژاژی">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -8301,7 +7828,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ژیان -->
   <hns_sign gloss="ژیان">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -8320,7 +7846,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ژێر -->
   <hns_sign gloss="ژێر">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -8340,7 +7865,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ژێرە -->
   <hns_sign gloss="ژێرە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -8358,7 +7882,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ڤ -->
   <hns_sign gloss="ڤ">
           <hamnosys_manual>
               <hamfinger2/>
@@ -8372,7 +7895,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ڤیدیۆ -->
   <hns_sign gloss="ڤیدیۆ">
           <hamnosys_manual>
               <hamflathand/>
@@ -8387,7 +7909,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ک -->
   <hns_sign gloss="ک">
           <hamnosys_manual>
               <hamfinger2/>
@@ -8397,7 +7918,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کات -->
   <hns_sign gloss="کات">
           <hamnosys_manual>
               <hamparbegin/>
@@ -8413,7 +7933,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کاتژمێر -->
   <hns_sign gloss="کاتژمێر">
           <hamnosys_manual>
               <hamparbegin/>
@@ -8429,7 +7948,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کاراتی -->
   <hns_sign gloss="کاراتی">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -8446,7 +7964,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کاریگەری -->
   <hns_sign gloss="کاریگەری">
           <hamnosys_manual>
               <hamfinger2345/>
@@ -8462,7 +7979,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کاسێتی ڤیدیۆ -->
   <hns_sign gloss="کاسێتی ڤیدیۆ">
           <hamnosys_manual>
               <hamparbegin/>
@@ -8481,7 +7997,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کاڵ -->
   <hns_sign gloss="کاڵ">
           <hamnosys_manual>
               <hamflathand/>
@@ -8498,7 +8013,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کتلی -->
   <hns_sign gloss="کتلی">
           <hamnosys_manual>
               <hamfist/>
@@ -8516,7 +8030,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کتێبخانە -->
   <hns_sign gloss="کتێبخانە">
           <hamnosys_manual>
               <hamsymmpar/>
@@ -8530,7 +8043,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کلینس -->
   <hns_sign gloss="کلینس">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -8547,7 +8059,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کلێتە -->
   <hns_sign gloss="کلێتە">
           <hamnosys_manual>
               <hamfinger2345/>
@@ -8566,7 +8077,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کلێسە -->
   <hns_sign gloss="کلێسە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -8605,7 +8115,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کوت -->
   <hns_sign gloss="کوت">
           <hamnosys_manual>
               <hamfinger23/>
@@ -8619,7 +8128,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کودی -->
   <hns_sign gloss="کودی">
           <hamnosys_manual>
               <hamparbegin/>
@@ -8648,7 +8156,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کوران -->
   <hns_sign gloss="کوران">
           <hamnosys_manual>
               <hamfinger2345/>
@@ -8659,7 +8166,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کورتەک و شەرواڵ -->
   <hns_sign gloss="کورتەک و شەرواڵ">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -8697,7 +8203,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کورد -->
   <hns_sign gloss="کورد">
           <hamnosys_manual>
               <hamflathand/>
@@ -8710,7 +8215,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کوردستان -->
   <hns_sign gloss="کوردستان">
           <hamnosys_manual>
               <hampinch12open/>
@@ -8721,7 +8225,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کونجی -->
   <hns_sign gloss="کونجی">
           <hamnosys_manual>
               <hamparbegin/>
@@ -8744,7 +8247,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کوڵاو -->
   <hns_sign gloss="کوڵاو">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -8761,7 +8263,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کوێت -->
   <hns_sign gloss="کوێت">
           <hamnosys_manual>
               <hamfinger23spread/>
@@ -8773,7 +8274,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کڕێن -->
   <hns_sign gloss="کڕێن">
           <hamnosys_manual>
               <hamfinger2/>
@@ -8787,7 +8287,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کڵاش -->
   <hns_sign gloss="کڵاش">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -8820,7 +8319,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کۆ -->
   <hns_sign gloss="کۆ">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -8838,7 +8336,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کۆتایی پێهات -->
   <hns_sign gloss="کۆتایی پێهات">
           <hamnosys_manual>
               <hampinch12open/>
@@ -8854,7 +8351,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کۆمێدی -->
   <hns_sign gloss="کۆمێدی">
           <hamnosys_manual>
               <hamfinger2345/>
@@ -8865,7 +8361,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کۆمەڵە -->
   <hns_sign gloss="کۆمەڵە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -8877,7 +8372,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کیشوەر -->
   <hns_sign gloss="کیشوەر">
           <hamnosys_manual>
               <hamfinger23spread/>
@@ -8899,7 +8393,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کیشوەری ئوسترالیا -->
   <hns_sign gloss="کیشوەری ئوسترالیا">
           <hamnosys_manual>
               <hamflathand/>
@@ -8915,7 +8408,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کیمیا -->
   <hns_sign gloss="کیمیا">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -8957,7 +8449,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کێشان -->
   <hns_sign gloss="کێشان">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -8974,7 +8465,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کێشی زەوی -->
   <hns_sign gloss="کێشی زەوی">
           <hamnosys_manual>
               <hamparbegin/>
@@ -9003,7 +8493,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کەر -->
   <hns_sign gloss="کەر">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -9016,7 +8505,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کەروێشک -->
   <hns_sign gloss="کەروێشک">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -9038,7 +8526,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کەرکوک -->
   <hns_sign gloss="کەرکوک">
           <hamnosys_manual>
               <hamfinger2/>
@@ -9048,7 +8535,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کەرە -->
   <hns_sign gloss="کەرە">
           <hamnosys_manual>
               <hamparbegin/>
@@ -9069,7 +8555,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کەفیل -->
   <hns_sign gloss="کەفیل">
           <hamnosys_manual>
               <hamparbegin/>
@@ -9090,7 +8575,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کەل و پەلی خۆراک -->
   <hns_sign gloss="کەل و پەلی خۆراک">
           <hamnosys_manual>
               <hamflathand/>
@@ -9109,7 +8593,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کەلار -->
   <hns_sign gloss="کەلار">
           <hamnosys_manual>
               <hamfinger2/>
@@ -9121,7 +8604,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کەم ئەندام -->
   <hns_sign gloss="کەم ئەندام">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -9133,7 +8615,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کەم -->
   <hns_sign gloss="کەم">
           <hamnosys_manual>
               <hamfinger2/>
@@ -9149,7 +8630,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کەمانجە -->
   <hns_sign gloss="کەمانجە">
           <hamnosys_manual>
               <hamparbegin/>
@@ -9180,7 +8660,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کەوگیر -->
   <hns_sign gloss="کەوگیر">
           <hamnosys_manual>
               <hamparbegin/>
@@ -9211,7 +8690,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- کەڕ -->
   <hns_sign gloss="کەڕ">
           <hamnosys_manual>
               <hamfinger23/>
@@ -9221,7 +8699,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- گ -->
   <hns_sign gloss="گ">
           <hamnosys_manual>
               <hamfinger23/>
@@ -9233,7 +8710,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- گا -->
   <hns_sign gloss="گا">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -9272,7 +8748,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- گاسن -->
   <hns_sign gloss="گاسن">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -9285,7 +8760,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- گامێش -->
   <hns_sign gloss="گامێش">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -9302,7 +8776,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- گرێ دان -->
   <hns_sign gloss="گرێ دان">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -9327,7 +8800,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- گواستنەوە -->
   <hns_sign gloss="گواستنەوە">
           <hamnosys_manual>
               <hamfinger23spread/>
@@ -9345,7 +8817,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- گوڵ -->
   <hns_sign gloss="گوڵ">
           <hamnosys_manual>
               <hamfist/>
@@ -9355,7 +8826,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- گوڵدان -->
   <hns_sign gloss="گوڵدان">
           <hamnosys_manual>
               <hamparbegin/>
@@ -9383,7 +8853,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- گوێ -->
   <hns_sign gloss="گوێ">
           <hamnosys_manual>
               <hampinch12/>
@@ -9394,7 +8863,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- گوێزان -->
   <hns_sign gloss="گوێزان">
           <hamnosys_manual>
               <hamparbegin/>
@@ -9416,7 +8884,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- گڕیان -->
   <hns_sign gloss="گڕیان">
           <hamnosys_manual>
               <hamcee12/>
@@ -9431,7 +8898,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- گڵ کەند -->
   <hns_sign gloss="گڵ کەند">
           <hamnosys_manual>
               <hamcee12/>
@@ -9445,7 +8911,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- گۆڤار -->
   <hns_sign gloss="گۆڤار">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -9459,7 +8924,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- گیا -->
   <hns_sign gloss="گیا">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -9472,7 +8936,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- گیانلەبەری مالێ -->
   <hns_sign gloss="گیانلەبەری مالێ">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -9498,7 +8961,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- گیانلەبەری کێوی -->
   <hns_sign gloss="گیانلەبەری کێوی">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -9530,7 +8992,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- گێل -->
   <hns_sign gloss="گێل">
           <hamnosys_manual>
               <hamcee12/>
@@ -9550,7 +9011,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- گەشت و گوزار -->
   <hns_sign gloss="گەشت و گوزار">
           <hamnosys_manual>
               <hamflathand/>
@@ -9567,7 +9027,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- گەشتی بۆشایی -->
   <hns_sign gloss="گەشتی بۆشایی">
           <hamnosys_manual>
               <hamparbegin/>
@@ -9590,7 +9049,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- گەڕانەوە -->
   <hns_sign gloss="گەڕانەوە">
           <hamnosys_manual>
               <hamfinger2/>
@@ -9602,7 +9060,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ڵ -->
   <hns_sign gloss="ڵ">
           <hamnosys_manual>
               <hamfinger2/>
@@ -9618,7 +9075,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ڵاڵ -->
   <hns_sign gloss="ڵاڵ">
           <hamnosys_manual>
               <hamfinger23/>
@@ -9628,7 +9084,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ۆ -->
   <hns_sign gloss="ۆ">
           <hamnosys_manual>
               <hamfinger2/>
@@ -9648,7 +9103,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ی -->
   <hns_sign gloss="ی">
           <hamnosys_manual>
               <hamcee12/>
@@ -9658,7 +9112,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- یاد -->
   <hns_sign gloss="یاد">
           <hamnosys_manual>
               <hamfinger2/>
@@ -9674,7 +9127,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- یارمەتی دان -->
   <hns_sign gloss="یارمەتی دان">
           <hamnosys_manual>
               <hamparbegin/>
@@ -9695,7 +9147,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- یان -->
   <hns_sign gloss="یان">
           <hamnosys_manual>
               <hamfinger2/>
@@ -9706,7 +9157,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- یانزە -->
   <hns_sign gloss="یانزە">
           <hamnosys_manual>
               <hamsymmlr/>
@@ -9735,7 +9185,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- یەک -->
   <hns_sign gloss="یەک">
           <hamnosys_manual>
               <hamfinger2/>
@@ -9745,7 +9194,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- یەکان -->
   <hns_sign gloss="یەکان">
           <hamnosys_manual>
               <hamfinger2/>
@@ -9760,7 +9208,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- یەکسان -->
   <hns_sign gloss="یەکسان">
           <hamnosys_manual>
               <hamfinger23/>
@@ -9776,7 +9223,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ێ -->
   <hns_sign gloss="ێ">
           <hamnosys_manual>
               <hamcee12/>
@@ -9797,7 +9243,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ە -->
   <hns_sign gloss="ە">
           <hamnosys_manual>
               <hamflathand/>
@@ -9807,7 +9252,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ‌‌ح -->
   <hns_sign gloss="‌‌ح">
           <hamnosys_manual>
               <hamflathand/>
@@ -9823,7 +9267,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ‌‌حەساوە -->
   <hns_sign gloss="‌‌حەساوە">
           <hamnosys_manual>
               <hamflathand/>
@@ -9848,7 +9291,6 @@
           </hamnosys_manual>
       </hns_sign>
 
-  <!-- ‌‌‌‌دەرمان_‌حەب‌ -->
   <hns_sign gloss="‌‌‌‌دەرمان/‌حەب‌">
           <hamnosys_manual>
               <hampinch12/>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <sigml_collection language="Algerian_SL" count="418">
 
-  <!-- 1 -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -16,7 +15,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- 10 -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -33,7 +31,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- 16 -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -61,7 +58,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- 17 -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -88,7 +84,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- 18 -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -115,7 +110,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- 19 -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -142,7 +136,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- 2 -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -157,7 +150,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- 20 -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -173,7 +165,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- 3 -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -188,7 +179,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- 30 -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -206,7 +196,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- 4 -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -221,7 +210,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- 40 -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -241,7 +229,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- 5 -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -254,7 +241,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- 50 -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -274,7 +260,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- 6 -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -300,7 +285,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- 7 -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -321,7 +305,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- 70 -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -353,7 +336,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- 8 -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -374,7 +356,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- 80 -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -408,7 +389,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- 9 -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -429,7 +409,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- 90 -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -462,7 +441,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- آخر -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -486,7 +464,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -510,7 +487,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أبدا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -528,7 +504,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أبيض -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -550,7 +525,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أثينا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -582,7 +556,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أجنبي -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -630,7 +603,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أحسب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -656,7 +628,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أحسنت -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -685,7 +656,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أحمر -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -708,7 +678,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أخ -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -727,7 +696,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أخت -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -745,7 +713,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أختار -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -765,7 +732,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أذن -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -786,7 +752,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أرض -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -819,7 +784,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أريكة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -846,7 +810,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أزرق -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -866,7 +829,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أزهار -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -887,7 +849,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أساسي -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -912,7 +873,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أستاذ -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -941,7 +901,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أسود -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -956,7 +915,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أعلم -->
   <hns_sign gloss="$ALPHA:K-N-O-W">
   		<hamnosys_nonmanual>
   			<hnm_head tag="TR"/>
@@ -998,7 +956,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أكتوبر -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1014,7 +971,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ألم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1035,7 +991,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ألمانيا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1051,7 +1006,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1069,7 +1023,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أمام -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1102,7 +1055,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أمتعة  -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1118,7 +1070,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أمس -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1135,7 +1086,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أنا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1157,7 +1107,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أنت -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1171,7 +1120,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أنف -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1192,7 +1140,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أوت -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1220,7 +1167,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أوروبا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1238,7 +1184,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أول -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1258,7 +1203,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أيضا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1278,7 +1222,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- أين -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1299,7 +1242,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- إبرة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1316,7 +1258,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- إجراء -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1334,7 +1275,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- إذا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1354,7 +1294,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- إشارة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1390,7 +1329,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- إعلان عام -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1413,7 +1351,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- إنجليترا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1431,7 +1368,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ابن -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1457,7 +1393,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- اتجاه -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1476,7 +1411,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- اسم  -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1521,7 +1455,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- اقتصاد -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1552,7 +1485,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- الآن -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1573,7 +1505,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- الآنسة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1590,7 +1521,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- الأحد -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1609,7 +1539,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- الإثنين -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1625,7 +1554,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- الحمدلله -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1655,7 +1583,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- الخميس -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1682,7 +1609,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- السبت -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1699,7 +1625,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- الظهيرة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1717,7 +1642,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- الله -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1736,7 +1660,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- الليل -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1765,7 +1688,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- اليوم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1786,7 +1708,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- امرأة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1802,7 +1723,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- باريس -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1825,7 +1745,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- باهض -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1862,7 +1781,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ببطء -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1882,7 +1800,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- بخيل -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1925,7 +1842,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- برنامج -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1960,7 +1876,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- بسيط -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1984,7 +1899,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- بشرة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -1999,7 +1913,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- بعد غد -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2028,7 +1941,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- بقعة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2071,7 +1983,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- بنت -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2090,7 +2001,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- بيت -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2108,7 +2018,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- تأخر -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2151,7 +2060,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- تجارة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2193,7 +2101,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- تحت -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2224,7 +2131,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- تحذير -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2263,7 +2169,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- تحقيق -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2280,7 +2185,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- تفويض -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2300,7 +2204,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- تقريبا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2322,7 +2225,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- تلقائي -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2339,7 +2241,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- تواصل -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2372,7 +2273,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- توقف -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2388,7 +2288,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ثلاجة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2422,7 +2321,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ثلج -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2441,7 +2339,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- جانفي -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2470,7 +2367,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- جبل -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2492,7 +2388,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- جديد -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2522,7 +2417,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- جرس -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2539,7 +2433,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- جسر -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2562,7 +2455,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- جسم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2593,7 +2485,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- جليد -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2611,7 +2502,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- جميل -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2631,7 +2521,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- جنوب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2645,7 +2534,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- حادث -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2673,7 +2561,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- حار -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2693,7 +2580,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- حبة عنب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2726,7 +2612,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- حتى -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2767,7 +2652,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- حجم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2824,7 +2708,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- حر -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2845,7 +2728,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- حرارة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2865,7 +2747,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- حزمة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2886,7 +2767,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- حساء -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2923,7 +2803,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- حسنا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2949,7 +2828,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- حقيبة ظهر -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -2979,7 +2857,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- حقيبة كتف -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3008,7 +2885,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- حلم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3033,7 +2909,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- حيوان -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3053,7 +2928,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- خال -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3073,7 +2947,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- خريف -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3114,7 +2987,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- خزانة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3135,7 +3007,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- خطأ -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3157,7 +3028,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- خطر -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3190,7 +3060,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- دائرة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3217,7 +3086,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- دائما -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3232,7 +3100,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- دجاجة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3253,7 +3120,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- دعوة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3274,7 +3140,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- دولي -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3300,7 +3165,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ديمقراطية -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3326,7 +3190,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ذكي -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3345,7 +3208,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- رأس -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3382,7 +3244,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- رئيس -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3400,7 +3261,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- راكب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3435,7 +3295,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- رجل -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3455,7 +3314,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- رسم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3472,7 +3330,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- رقص -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3508,7 +3365,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- رياضة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3549,7 +3405,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- زواج -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3593,7 +3448,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- زوج -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3610,7 +3464,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- سؤال -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3634,7 +3487,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- سائق -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3666,7 +3518,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ساعة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3699,7 +3550,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- سعيد -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3716,7 +3566,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- سكاكين -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3745,7 +3594,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- سكر -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3782,7 +3630,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- سماء -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3815,7 +3662,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- سمنة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3854,7 +3700,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- سهل -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3886,7 +3731,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- سوق -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3928,7 +3772,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- سيء -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3964,7 +3807,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- سيجارة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -3981,7 +3823,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- سيرا على الأقدام -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4018,7 +3859,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- شاب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4046,7 +3886,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- شاي -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4072,7 +3911,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- شتاء -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4094,7 +3932,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- شجرة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4126,7 +3963,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- شركة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4145,7 +3981,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- شعر -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4163,7 +3998,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- شكرا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4184,7 +4018,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- شمس -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4202,7 +4035,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- شهية -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4236,7 +4068,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- شوكة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4272,7 +4103,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- صباح -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4298,7 +4128,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- صحف -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4329,7 +4158,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- صعب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4368,7 +4196,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- صمت -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4402,7 +4229,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- صوت -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4423,7 +4249,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ضربة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4454,7 +4279,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ضوء -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4471,7 +4295,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- طائرة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4497,7 +4320,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- طابق -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4529,7 +4351,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- طبق -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4564,7 +4385,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- طبيب أسنان -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4589,7 +4409,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- طحين -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4610,7 +4429,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- طريق -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4629,7 +4447,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- طعام -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4646,7 +4463,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- طعم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4668,7 +4484,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- طفل -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4682,7 +4497,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- طلب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4701,7 +4515,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- طماطم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4747,7 +4560,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- عائلة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4771,7 +4583,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- عادة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4800,7 +4611,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- عاصمة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4828,7 +4638,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- عالم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4854,7 +4663,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- عالِم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4887,7 +4695,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- عام -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4910,7 +4717,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- عامل -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4943,7 +4749,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- عدد -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -4988,7 +4793,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- عصفور -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5009,7 +4813,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- علاقة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5041,7 +4844,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- عم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5057,7 +4859,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- عمة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5077,7 +4878,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- عمل -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5100,7 +4900,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- عيد ميلاد -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5117,7 +4916,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- غابة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5138,7 +4936,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- غاضب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5168,7 +4965,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- غبي -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5197,7 +4993,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- غدا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5213,7 +5008,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- غرفة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5240,7 +5034,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- غضب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5270,7 +5063,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- غني -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5290,7 +5082,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- فائز -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5341,7 +5132,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- فبراير -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5364,7 +5154,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- فرد من العائلة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5398,7 +5187,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- فرصة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5417,7 +5205,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- فرن -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5435,7 +5222,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- فرنسا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5451,7 +5237,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- فريد -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5503,7 +5288,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- فقط -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5520,7 +5304,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- فكرة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5536,7 +5319,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- فنان -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5580,7 +5362,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- فنجان -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5607,7 +5388,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- فهم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5640,7 +5420,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- قائمة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5695,7 +5474,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- قارب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5712,7 +5490,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- قاض -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5735,7 +5512,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- قانون -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5771,7 +5547,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- قبو -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5801,7 +5576,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- قريبا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5823,7 +5597,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- قصة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5874,7 +5647,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- قط -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5899,7 +5671,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- قلب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5925,7 +5696,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- قنبلة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5955,7 +5725,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- قهوة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -5985,7 +5754,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- قوي -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6007,7 +5775,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- قيادة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6029,7 +5796,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- كاميرا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6061,7 +5827,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- كتاب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6079,7 +5844,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- كثيرا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6104,7 +5868,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- كحول -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6121,7 +5884,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- كرة القدم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6156,7 +5918,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- كرز -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6172,7 +5933,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- كرسي -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6194,7 +5954,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- كل شيء -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6241,7 +6000,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- كل يوم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6264,7 +6022,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- كلمة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6281,7 +6038,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- كم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6297,7 +6053,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- كهربائي -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6316,7 +6071,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- كيف -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6331,7 +6085,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- كيلوجرامات -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6350,7 +6103,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- كيلومتر -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6372,7 +6124,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- لا أعلم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   			<hnm_mouthgesture tag="L31"/>
@@ -6412,7 +6163,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- لا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6436,7 +6186,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- لحم بقر -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6460,7 +6209,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- لذا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6481,7 +6229,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- لطيف -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6504,7 +6251,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- لعبة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6524,7 +6270,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- لغة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6552,7 +6297,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- لقب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6582,7 +6326,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- لماذا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6601,7 +6344,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- لون -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6623,7 +6365,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- لي -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6639,7 +6380,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ماء -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6658,7 +6398,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مال -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6677,7 +6416,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ماي -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6702,7 +6440,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مباشرة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6722,7 +6459,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مبنى -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6738,7 +6474,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- متحف -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6774,7 +6509,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- متعب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6803,7 +6537,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- متى -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6825,7 +6558,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مجتمع -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6864,7 +6596,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مجتهد -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6891,7 +6622,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مجموعة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6908,7 +6638,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- محظوظ -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6927,7 +6656,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- محكمة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6950,7 +6678,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مختبر -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -6979,7 +6706,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مختلف -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7000,7 +6726,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مدخل -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7031,7 +6756,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مدرسة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7051,7 +6775,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مرآة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7070,7 +6793,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مراسل -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7091,7 +6813,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مربع -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7117,7 +6838,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مرة أخرى -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7138,7 +6858,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مرحبا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7175,7 +6894,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مرهم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7204,7 +6922,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مريض -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7230,7 +6947,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مزدوج -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7247,7 +6963,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مسؤول -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7277,7 +6992,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مسافة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7305,7 +7019,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مستقبل -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7322,7 +7035,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مسرح -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7356,7 +7068,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مشغول -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7377,7 +7088,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مشكلة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7420,7 +7130,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مضحك -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7443,7 +7152,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مطر -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7466,7 +7174,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مظلة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7503,7 +7210,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مع -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7521,7 +7227,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- معا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7537,7 +7242,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- معجب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7555,7 +7259,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- معجنات -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7583,7 +7286,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- معركة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7606,7 +7308,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- معطف -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7631,7 +7332,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- معلومة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7677,7 +7377,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مغسلة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7776,7 +7475,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مغلق -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7799,7 +7497,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مفتاح -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7815,7 +7512,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مقلاة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7833,7 +7529,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مكتبة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7849,7 +7544,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ملح -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7867,7 +7561,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- من فضلك -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7890,7 +7583,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- من -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7908,7 +7600,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- منتصف الليل -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7925,7 +7616,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مهم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7950,7 +7640,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مواد -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7975,7 +7664,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- مواصلة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -7998,7 +7686,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- موت -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8035,7 +7722,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- موسم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8073,7 +7759,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- موسيقى -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8110,7 +7795,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- موضوع -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8158,7 +7842,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ناعم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8190,7 +7873,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- نبيل -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8222,7 +7904,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- نتائج -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8254,7 +7935,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- نجمة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8304,7 +7984,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- نحن -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8335,7 +8014,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- نسخة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8359,7 +8037,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- نصف -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8391,7 +8068,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- نظيف -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8419,7 +8095,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- نعم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8436,7 +8111,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- نفس -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8456,7 +8130,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- نهر -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8478,7 +8151,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- نوفمبر -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8495,7 +8167,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- هادئ -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8518,7 +8189,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- هدايا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8573,7 +8243,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- هنا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8593,7 +8262,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- هواء -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8610,7 +8278,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- واجب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8630,7 +8297,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- واسع -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8645,7 +8311,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- واضح -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8676,7 +8341,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- والدين -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8706,7 +8370,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- وجبة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8723,7 +8386,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- وحيد -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8740,7 +8402,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- وزير -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8758,7 +8419,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- وصفة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8835,7 +8495,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- وقت -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8857,7 +8516,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يأخذ -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8878,7 +8536,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يبادل -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8902,7 +8559,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يبتسم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8927,7 +8583,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يبقى -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8948,7 +8603,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يبكي -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -8974,7 +8628,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يتابع -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9001,7 +8654,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يتحدث -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9022,7 +8674,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يتخلص من -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9058,7 +8709,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يتخلى -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9084,7 +8734,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يتصل هاتفيا -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9110,7 +8759,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يتعلم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9129,7 +8777,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يتوسل -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9152,7 +8799,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يثبت -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9190,7 +8836,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يجتمع -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9207,7 +8852,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يجد -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9231,7 +8875,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يجيب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9263,7 +8906,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يحاول -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9307,7 +8949,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يحب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9330,7 +8971,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يحيي -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9351,7 +8991,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يخفي -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9383,7 +9022,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يد -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9401,7 +9039,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يدخن -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9422,7 +9059,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يدرس -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9448,7 +9084,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يدفع -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9482,7 +9117,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يدير -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9497,7 +9131,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يذهب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9529,7 +9162,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يراقب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9551,7 +9183,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يربح -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9592,7 +9223,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يرسل -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9616,7 +9246,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يرسم -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9638,7 +9267,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يسار -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9674,7 +9302,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يساعد -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9711,7 +9338,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يستجوب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9735,7 +9361,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يستقبل -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9760,7 +9385,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يستمع -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9781,7 +9405,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يسقي -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9804,7 +9427,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يشاهد -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9826,7 +9448,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يشتري -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9859,7 +9480,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يشرح -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9888,7 +9508,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يشعر بالبرد -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9907,7 +9526,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يشكر -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9928,7 +9546,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يصف -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9957,7 +9574,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يضحك -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -9981,7 +9597,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يطلب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10008,7 +9623,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يظهر -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10033,7 +9647,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يعاني -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10064,7 +9677,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يعترف -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10094,7 +9706,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يعطي -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10112,7 +9723,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يعلق -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10180,7 +9790,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يعني -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10210,7 +9819,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يعود -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10233,7 +9841,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يغسل -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10268,7 +9875,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يغفر -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10296,7 +9902,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يغير -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10345,7 +9950,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يفتح -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10376,7 +9980,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يفحص -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10398,7 +10001,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يقابل -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10428,7 +10030,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يقدر -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10445,7 +10046,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يقرأ -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10476,7 +10076,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يقفز -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10520,7 +10119,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يقول -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10534,7 +10132,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يكبر -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10549,7 +10146,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يكتب على الآلة الكاتبة -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10575,7 +10171,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يكرر -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10605,7 +10200,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يلعب -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10625,7 +10219,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يلغي -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10665,7 +10258,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يلمس -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10707,7 +10299,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يمتلك -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10733,7 +10324,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يمسح -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10763,7 +10353,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يمشي -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10795,7 +10384,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يناقش -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10817,7 +10405,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ينام -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10841,7 +10428,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ينتبه -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10865,7 +10451,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ينتمي إلى -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10884,7 +10469,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ينسى -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10909,7 +10493,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- ينقذ -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>
@@ -10934,7 +10517,6 @@
   		</hamnosys_manual>
   	</hns_sign>
 
-  <!-- يونيو -->
   <hns_sign gloss="">
   		<hamnosys_nonmanual>
   		</hamnosys_nonmanual>

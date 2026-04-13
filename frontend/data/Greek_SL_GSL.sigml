@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <sigml_collection language="Greek_SL_GSL" count="889">
 
-  <!-- 0 -->
   <hns_sign gloss="0">
       <hamnosys_manual>
             <hampinch12open/>
@@ -20,7 +19,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 1 -->
   <hns_sign gloss="1">
       <hamnosys_manual>
             <hamfinger2/>
@@ -36,7 +34,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 10 -->
   <hns_sign gloss="10">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -58,7 +55,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 100 -->
   <hns_sign gloss="100">
       <hamnosys_manual>
             <hamfinger2/>
@@ -80,7 +76,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 11 -->
   <hns_sign gloss="11">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -124,7 +119,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 12 -->
   <hns_sign gloss="12">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -168,7 +162,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 13 -->
   <hns_sign gloss="13">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -214,7 +207,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 14 -->
   <hns_sign gloss="14">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -258,7 +250,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 15 -->
   <hns_sign gloss="15">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -302,7 +293,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 16 -->
   <hns_sign gloss="16">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -337,7 +327,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 17 -->
   <hns_sign gloss="17">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -372,7 +361,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 18 -->
   <hns_sign gloss="18">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -409,7 +397,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 19 -->
   <hns_sign gloss="19">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -444,7 +431,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 2 -->
   <hns_sign gloss="2">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -460,7 +446,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 20 -->
   <hns_sign gloss="20">
       <hamnosys_manual>
             <hamfinger23/>
@@ -491,7 +476,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 3 -->
   <hns_sign gloss="3">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -509,7 +493,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 30 -->
   <hns_sign gloss="30">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -542,7 +525,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 4 -->
   <hns_sign gloss="4">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -558,7 +540,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 40 -->
   <hns_sign gloss="40">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -587,7 +568,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 5 -->
   <hns_sign gloss="5">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -603,7 +583,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 50 -->
   <hns_sign gloss="50">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -622,7 +601,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 6 -->
   <hns_sign gloss="6">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -644,7 +622,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 60 -->
   <hns_sign gloss="60">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -690,7 +667,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 7 -->
   <hns_sign gloss="7">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -712,7 +688,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 70 -->
   <hns_sign gloss="70">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -756,7 +731,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 8 -->
   <hns_sign gloss="8">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -780,7 +754,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 80 -->
   <hns_sign gloss="80">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -824,7 +797,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 9 -->
   <hns_sign gloss="9">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -846,7 +818,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- 90 -->
   <hns_sign gloss="90">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -884,7 +855,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΓΑΠΩ -->
   <hns_sign gloss="ΑΓΑΠΩ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -900,7 +870,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΓΓΙΖΩ -->
   <hns_sign gloss="ΑΓΓΙΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -946,7 +915,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΓΓΛΙΑ -->
   <hns_sign gloss="ΑΓΓΛΙΑ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -970,7 +938,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΓΕΛΑΔΑ -->
   <hns_sign gloss="ΑΓΕΛΑΔΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1018,21 +985,18 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΓΝΟΩ -->
   <hns_sign gloss="ΑΓΝΟΩ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΓΝΩΣΤΟΣ -->
   <hns_sign gloss="ΑΓΝΩΣΤΟΣ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΓΟΡΑ -->
   <hns_sign gloss="ΑΓΟΡΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1090,7 +1054,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΓΟΡΑΖΩ -->
   <hns_sign gloss="ΑΓΟΡΑΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1109,7 +1072,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΓΟΡΙ -->
   <hns_sign gloss="ΑΓΟΡΙ">
       <hamnosys_manual>
             <hampinch12/>
@@ -1130,7 +1092,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΓΡΙΟΣ -->
   <hns_sign gloss="ΑΓΡΙΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1153,7 +1114,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΓΩΓΟΣ -->
   <hns_sign gloss="ΑΓΩΓΟΣ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -1191,7 +1151,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΔΕΙΑ -->
   <hns_sign gloss="ΑΔΕΙΑ">
       <hamnosys_manual>
             <hamflathand/>
@@ -1221,7 +1180,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΔΕΙΑΖΩ -->
   <hns_sign gloss="ΑΔΕΙΑΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1242,7 +1200,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΔΕΙΟΣ -->
   <hns_sign gloss="ΑΔΕΙΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1262,7 +1219,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΔΕΛΦΟΣ -->
   <hns_sign gloss="ΑΔΕΛΦΟΣ">
       <hamnosys_manual>
             <hampinch12/>
@@ -1304,7 +1260,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΕΡΑΣ -->
   <hns_sign gloss="ΑΕΡΑΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1356,7 +1311,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΕΡΙΟ -->
   <hns_sign gloss="ΑΕΡΙΟ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -1385,14 +1339,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΘΗΝΑ -->
   <hns_sign gloss="ΑΘΗΝΑ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΘΩΟΣ -->
   <hns_sign gloss="ΑΘΩΟΣ">
       <hamnosys_manual>
             <hamflathand/>
@@ -1414,7 +1366,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΙΘΟΥΣΑ -->
   <hns_sign gloss="ΑΙΘΟΥΣΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1454,7 +1405,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΙΜΑ -->
   <hns_sign gloss="ΑΙΜΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1502,7 +1452,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΙΣΘΑΝΟΜΑΙ -->
   <hns_sign gloss="ΑΙΣΘΑΝΟΜΑΙ">
       <hamnosys_manual>
             <hampinchall/>
@@ -1525,7 +1474,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΙΤΙΑ -->
   <hns_sign gloss="ΑΙΤΙΑ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -1548,7 +1496,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΙΩΝΑΣ -->
   <hns_sign gloss="ΑΙΩΝΑΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -1572,7 +1519,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΚΑΤΑΣΤΑΣΙΑ -->
   <hns_sign gloss="ΑΚΑΤΑΣΤΑΣΙΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1597,7 +1543,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΚΟΛΟΥΘΩ -->
   <hns_sign gloss="ΑΚΟΛΟΥΘΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1632,7 +1577,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΚΟΥΩ -->
   <hns_sign gloss="ΑΚΟΥΩ">
       <hamnosys_manual>
             <hamceeall/>
@@ -1656,7 +1600,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΚΡΙΒΟΣ -->
   <hns_sign gloss="ΑΚΡΙΒΟΣ">
       <hamnosys_manual>
             <hamcee12/>
@@ -1707,7 +1650,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΚΡΟΓΙΑΛΙΑ -->
   <hns_sign gloss="ΑΚΡΟΓΙΑΛΙΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1751,7 +1693,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΚΥΡΩΝΩ -->
   <hns_sign gloss="ΑΚΥΡΩΝΩ">
       <hamnosys_manual>
             <hamfinger23/>
@@ -1789,7 +1730,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΛΑΤΙ -->
   <hns_sign gloss="ΑΛΑΤΙ">
       <hamnosys_manual>
             <hampinch12/>
@@ -1808,7 +1748,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΛΕΥΡΙ -->
   <hns_sign gloss="ΑΛΕΥΡΙ">
       <hamnosys_manual>
             <hampinchall/>
@@ -1847,7 +1786,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΛΗΘΕΙΑ -->
   <hns_sign gloss="ΑΛΗΘΕΙΑ">
       <hamnosys_manual>
             <hamflathand/>
@@ -1870,7 +1808,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΛΗΘΙΝΟΣ -->
   <hns_sign gloss="ΑΛΗΘΙΝΟΣ">
       <hamnosys_manual>
             <hamflathand/>
@@ -1919,7 +1856,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΛΛΑ -->
   <hns_sign gloss="ΑΛΛΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1951,7 +1887,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΛΛΑΖΩ -->
   <hns_sign gloss="ΑΛΛΑΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1993,7 +1928,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΛΛΗΛΟΓΡΑΦΙΑ -->
   <hns_sign gloss="ΑΛΛΗΛΟΓΡΑΦΙΑ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -2065,7 +1999,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΛΛΟΣ -->
   <hns_sign gloss="ΑΛΛΟΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -2093,7 +2026,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΛΥΣΙΔΑ -->
   <hns_sign gloss="ΑΛΥΣΙΔΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2140,7 +2072,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΜΦΙΒΑΛΛΩ -->
   <hns_sign gloss="ΑΜΦΙΒΑΛΛΩ">
       <hamnosys_manual>
             <hamflathand/>
@@ -2167,7 +2098,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΝ -->
   <hns_sign gloss="ΑΝ">
       <hamnosys_manual>
             <hamflathand/>
@@ -2195,7 +2125,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΝΑΒΑΛΛΩ -->
   <hns_sign gloss="ΑΝΑΒΑΛΛΩ">
       <hamnosys_manual>
             <hamflathand/>
@@ -2234,7 +2163,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΝΑΒΩ -->
   <hns_sign gloss="ΑΝΑΒΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2260,7 +2188,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΝΑΓΓΕΛΙΑ -->
   <hns_sign gloss="ΑΝΑΓΓΕΛΙΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2295,7 +2222,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΝΑΜΕΣΑ -->
   <hns_sign gloss="ΑΝΑΜΕΣΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2338,7 +2264,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΝΑΣΤΑΤΩΝΩ -->
   <hns_sign gloss="ΑΝΑΣΤΑΤΩΝΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2382,7 +2307,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΝΑΤΟΛΗ -->
   <hns_sign gloss="ΑΝΑΤΟΛΗ">
       <hamnosys_manual>
             <hamflathand/>
@@ -2405,7 +2329,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΝΑΤΟΛΙΚΑ -->
   <hns_sign gloss="ΑΝΑΤΟΛΙΚΑ">
       <hamnosys_manual>
             <hamflathand/>
@@ -2433,7 +2356,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΝΑΧΩΡΗΣΗ -->
   <hns_sign gloss="ΑΝΑΧΩΡΗΣΗ">
       <hamnosys_manual>
             <hamflathand/>
@@ -2455,7 +2377,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΝΕΤΟΣ -->
   <hns_sign gloss="ΑΝΕΤΟΣ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -2492,7 +2413,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΝΕΧΟΜΑΙ -->
   <hns_sign gloss="ΑΝΕΧΟΜΑΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2517,7 +2437,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΝΗΣΥΧΩ -->
   <hns_sign gloss="ΑΝΗΣΥΧΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2553,7 +2472,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΝΗΦΟΡΟΣ -->
   <hns_sign gloss="ΑΝΗΦΟΡΟΣ">
       <hamnosys_manual>
             <hamflathand/>
@@ -2570,14 +2488,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΝΘΡΩΠΟΣ -->
   <hns_sign gloss="ΑΝΘΡΩΠΟΣ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΝΟΗΤΟΣ -->
   <hns_sign gloss="ΑΝΟΗΤΟΣ">
       <hamnosys_manual>
             <hampinchall/>
@@ -2598,7 +2514,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΝΟΙΓΩ -->
   <hns_sign gloss="ΑΝΟΙΓΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2621,7 +2536,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΝΟΙΞΗ -->
   <hns_sign gloss="ΑΝΟΙΞΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2635,7 +2549,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΝΟΙΧΤΟΜΥΑΛΟΣ -->
   <hns_sign gloss="ΑΝΟΙΧΤΟΜΥΑΛΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2655,7 +2568,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΝΤΑΛΛΑΣΩ -->
   <hns_sign gloss="ΑΝΤΑΛΛΑΣΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2703,7 +2615,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΝΤΙΓΡΑΦΟ -->
   <hns_sign gloss="ΑΝΤΙΓΡΑΦΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2754,14 +2665,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΝΤΙΚΕΙΜΕΝΟ -->
   <hns_sign gloss="ΑΝΤΙΚΕΙΜΕΝΟ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΝΤΙΡΡΗΣΗ -->
   <hns_sign gloss="ΑΝΤΙΡΡΗΣΗ">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -2783,7 +2692,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΝΤΡΑΣ -->
   <hns_sign gloss="ΑΝΤΡΑΣ">
       <hamnosys_manual>
             <hampinch12/>
@@ -2797,14 +2705,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΠΑΓΟΡΕΥΕΤΑΙ -->
   <hns_sign gloss="ΑΠΑΓΟΡΕΥΕΤΑΙ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΠΑΝΤΩ -->
   <hns_sign gloss="ΑΠΑΝΤΩ">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -2825,7 +2731,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΠΑΡΑΙΤΗΤΟΣ -->
   <hns_sign gloss="ΑΠΑΡΑΙΤΗΤΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2870,14 +2775,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΠΕΙΛΗ -->
   <hns_sign gloss="ΑΠΕΙΛΗ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΠΛΟΣ -->
   <hns_sign gloss="ΑΠΛΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2924,7 +2827,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΠΟΓΕΥΜΑ -->
   <hns_sign gloss="ΑΠΟΓΕΥΜΑ">
       <hamnosys_manual>
             <hamcee12/>
@@ -2955,7 +2857,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΠΟΓΟΗΤΕΥΩ -->
   <hns_sign gloss="ΑΠΟΓΟΗΤΕΥΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -2983,7 +2884,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΠΟΔΕΙΚΝΥΩ -->
   <hns_sign gloss="ΑΠΟΔΕΙΚΝΥΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -3018,7 +2918,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΠΟΘΗΚΗ -->
   <hns_sign gloss="ΑΠΟΘΗΚΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -3066,7 +2965,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΠΟΚΑΤΩ -->
   <hns_sign gloss="ΑΠΟΚΑΤΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -3111,7 +3009,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΠΟΜΑΚΡΥΝΩ -->
   <hns_sign gloss="ΑΠΟΜΑΚΡΥΝΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -3148,7 +3045,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΠΟΡΙΑ -->
   <hns_sign gloss="ΑΠΟΡΙΑ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -3170,7 +3066,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΠΟΣΚΕΥΕΣ -->
   <hns_sign gloss="ΑΠΟΣΚΕΥΕΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -3189,7 +3084,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΠΟΣΤΑΣΗ -->
   <hns_sign gloss="ΑΠΟΣΤΑΣΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -3229,7 +3123,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΠΟΤΕΛΕΣΜΑ -->
   <hns_sign gloss="ΑΠΟΤΕΛΕΣΜΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -3271,7 +3164,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΠΟΦΑΣΗ -->
   <hns_sign gloss="ΑΠΟΦΑΣΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -3295,7 +3187,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΠΟΦΕΥΓΩ -->
   <hns_sign gloss="ΑΠΟΦΕΥΓΩ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -3333,7 +3224,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΠΡΙΛΙΟΣ -->
   <hns_sign gloss="ΑΠΡΙΛΙΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -3367,7 +3257,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΡΓΟΤΕΡΑ -->
   <hns_sign gloss="ΑΡΓΟΤΕΡΑ">
       <hamnosys_manual>
             <hamflathand/>
@@ -3400,14 +3289,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΡΕΣΩ -->
   <hns_sign gloss="ΑΡΕΣΩ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΡΙΣΤΕΡΑ -->
   <hns_sign gloss="ΑΡΙΣΤΕΡΑ">
       <hamnosys_manual>
             <hamnondominant/>
@@ -3430,7 +3317,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΡΚΕΤΑ -->
   <hns_sign gloss="ΑΡΚΕΤΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -3469,7 +3355,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΡΠΑΖΩ -->
   <hns_sign gloss="ΑΡΠΑΖΩ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -3494,7 +3379,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΣΚΗΣΗ -->
   <hns_sign gloss="ΑΣΚΗΣΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -3516,7 +3400,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΣΠΡΟΣ -->
   <hns_sign gloss="ΑΣΠΡΟΣ">
       <hamnosys_manual>
             <hamcee12/>
@@ -3539,7 +3422,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΣΤΕΙΟΣ -->
   <hns_sign gloss="ΑΣΤΕΙΟΣ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -3566,7 +3448,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΣΤΕΡΙ -->
   <hns_sign gloss="ΑΣΤΕΡΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -3612,7 +3493,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΣΤΥΝΟΜΙΚΟΣ -->
   <hns_sign gloss="ΑΣΤΥΝΟΜΙΚΟΣ">
       <hamnosys_manual>
             <hampinch12open/>
@@ -3636,7 +3516,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΤΜΟΣ -->
   <hns_sign gloss="ΑΤΜΟΣ">
       <hamnosys_manual>
             <hamflathand/>
@@ -3676,7 +3555,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΤΥΧΗΜΑ -->
   <hns_sign gloss="ΑΤΥΧΗΜΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -3708,7 +3586,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΤΥΧΟΣ -->
   <hns_sign gloss="ΑΤΥΧΟΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -3737,7 +3614,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΥΓΟ -->
   <hns_sign gloss="ΑΥΓΟ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -3757,7 +3633,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΥΓΟΥΣΤΟΣ -->
   <hns_sign gloss="ΑΥΓΟΥΣΤΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -3793,7 +3668,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΥΛΗ -->
   <hns_sign gloss="ΑΥΛΗ">
       <hamnosys_manual>
             <hampinchall/>
@@ -3843,7 +3717,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΥΡΙΟ -->
   <hns_sign gloss="ΑΥΡΙΟ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -3866,7 +3739,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΥΣΤΗΡΟΣ -->
   <hns_sign gloss="ΑΥΣΤΗΡΟΣ">
       <hamnosys_manual>
             <hamfist/>
@@ -3886,7 +3758,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΥΤΙ -->
   <hns_sign gloss="ΑΥΤΙ">
       <hamnosys_manual>
             <hamceeopen/>
@@ -3907,7 +3778,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΥΤΟΚΙΝΗΤΟ -->
   <hns_sign gloss="ΑΥΤΟΚΙΝΗΤΟ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -3971,7 +3841,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΥΤΟΜΑΤΟΣ -->
   <hns_sign gloss="ΑΥΤΟΜΑΤΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4010,7 +3879,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΦΗΝΩ -->
   <hns_sign gloss="ΑΦΗΝΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4056,7 +3924,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΦΙΞΗ -->
   <hns_sign gloss="ΑΦΙΞΗ">
       <hamnosys_manual>
             <hamflathand/>
@@ -4082,7 +3949,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΦΟΥ -->
   <hns_sign gloss="ΑΦΟΥ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4117,7 +3983,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΑΧΛΑΔΙ -->
   <hns_sign gloss="ΑΧΛΑΔΙ">
       <hamnosys_manual>
             <hamfinger23/>
@@ -4139,7 +4004,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΑΖΩ -->
   <hns_sign gloss="ΒΑΖΩ">
       <hamnosys_manual>
             <hampinchall/>
@@ -4165,7 +4029,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΑΘΜΟΣ -->
   <hns_sign gloss="ΒΑΘΜΟΣ">
       <hamnosys_manual>
             <hamfinger23/>
@@ -4193,7 +4056,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΑΘΟΣ -->
   <hns_sign gloss="ΒΑΘΟΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -4211,7 +4073,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΑΛΙΤΣΑ -->
   <hns_sign gloss="ΒΑΛΙΤΣΑ">
       <hamnosys_manual>
             <hamfist/>
@@ -4228,7 +4089,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΑΡΚΑ -->
   <hns_sign gloss="ΒΑΡΚΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4247,7 +4107,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΑΡΟΣ -->
   <hns_sign gloss="ΒΑΡΟΣ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -4268,7 +4127,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΑΡΥΣ -->
   <hns_sign gloss="ΒΑΡΥΣ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -4292,7 +4150,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΕΛΟΝΑ -->
   <hns_sign gloss="ΒΕΛΟΝΑ">
       <hamnosys_manual>
             <hampinch12open/>
@@ -4317,7 +4174,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΕΝΖΙΝΗ -->
   <hns_sign gloss="ΒΕΝΖΙΝΗ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -4347,7 +4203,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΕΡΟΛΙΝΟ -->
   <hns_sign gloss="ΒΕΡΟΛΙΝΟ">
       <hamnosys_manual>
             <hamflathand/>
@@ -4381,7 +4236,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΗΧΩ -->
   <hns_sign gloss="ΒΗΧΩ">
       <hamnosys_manual>
             <hamflathand/>
@@ -4399,7 +4253,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΙΑ -->
   <hns_sign gloss="ΒΙΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4455,7 +4308,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΙΒΛΙΟ -->
   <hns_sign gloss="ΒΙΒΛΙΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4487,7 +4339,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΙΒΛΙΟΘΗΚΗ -->
   <hns_sign gloss="ΒΙΒΛΙΟΘΗΚΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4532,7 +4383,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΙΔΑ -->
   <hns_sign gloss="ΒΙΔΑ">
       <hamnosys_manual>
             <hampinch12open/>
@@ -4557,7 +4407,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΙΛΛΑ -->
   <hns_sign gloss="ΒΙΛΛΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4604,7 +4453,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΙΟΜΗΧΑΝΙΑ -->
   <hns_sign gloss="ΒΙΟΜΗΧΑΝΙΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4654,7 +4502,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΛΑΒΗ -->
   <hns_sign gloss="ΒΛΑΒΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4675,7 +4522,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΛΕΠΩ -->
   <hns_sign gloss="ΒΛΕΠΩ">
       <hamnosys_manual>
             <hamfinger23/>
@@ -4691,7 +4537,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΟΔΙ -->
   <hns_sign gloss="ΒΟΔΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4713,7 +4558,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΟΜΒΑ -->
   <hns_sign gloss="ΒΟΜΒΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4734,7 +4578,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΟΡΕΙΑ -->
   <hns_sign gloss="ΒΟΡΕΙΑ">
       <hamnosys_manual>
             <hamflathand/>
@@ -4760,7 +4603,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΟΥΝΟ -->
   <hns_sign gloss="ΒΟΥΝΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4805,7 +4647,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΟΥΡΤΣΑ -->
   <hns_sign gloss="ΒΟΥΡΤΣΑ">
       <hamnosys_manual>
             <hamfist/>
@@ -4826,7 +4667,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΟΥΤΥΡΟ -->
   <hns_sign gloss="ΒΟΥΤΥΡΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4881,7 +4721,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΡΑΔΙΑ -->
   <hns_sign gloss="ΒΡΑΔΙΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4927,7 +4766,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΡΙΣΚΩ -->
   <hns_sign gloss="ΒΡΙΣΚΩ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -4957,7 +4795,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΡΟΜΙΚΟΣ -->
   <hns_sign gloss="ΒΡΟΜΙΚΟΣ">
       <hamnosys_manual>
             <hampinch12open/>
@@ -4982,7 +4819,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΒΡΟΧΗ -->
   <hns_sign gloss="ΒΡΟΧΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5008,7 +4844,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΑΛΑ -->
   <hns_sign gloss="ΓΑΛΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5037,7 +4872,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΑΛΛΙΑ -->
   <hns_sign gloss="ΓΑΛΛΙΑ">
       <hamnosys_manual>
             <hampinch12open/>
@@ -5059,7 +4893,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΑΜΟΣ -->
   <hns_sign gloss="ΓΑΜΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5086,7 +4919,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΑΤΑ -->
   <hns_sign gloss="ΓΑΤΑ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -5127,7 +4959,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΕΙΤΟΝΑΣ -->
   <hns_sign gloss="ΓΕΙΤΟΝΑΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5160,7 +4991,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΕΙΤΟΝΙΑ -->
   <hns_sign gloss="ΓΕΙΤΟΝΙΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5186,7 +5016,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΕΛΩ -->
   <hns_sign gloss="ΓΕΛΩ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -5214,7 +5043,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΕΝΕΘΛΙΑ -->
   <hns_sign gloss="ΓΕΝΕΘΛΙΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5249,7 +5077,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΕΝΝΑ -->
   <hns_sign gloss="ΓΕΝΝΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5269,7 +5096,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΕΡΜΑΝΙΑ -->
   <hns_sign gloss="ΓΕΡΜΑΝΙΑ">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -5287,7 +5113,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΕΡΟΣ -->
   <hns_sign gloss="ΓΕΡΟΣ">
       <hamnosys_manual>
             <hamfist/>
@@ -5311,14 +5136,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΕΥΜΑ -->
   <hns_sign gloss="ΓΕΥΜΑ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΕΥΣΗ -->
   <hns_sign gloss="ΓΕΥΣΗ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -5356,7 +5179,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΕΦΥΡΑ -->
   <hns_sign gloss="ΓΕΦΥΡΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5382,7 +5204,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΕΩΡΓΟΣ -->
   <hns_sign gloss="ΓΕΩΡΓΟΣ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -5418,7 +5239,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΗ -->
   <hns_sign gloss="ΓΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5470,7 +5290,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΙΑΤΡΟΣ -->
   <hns_sign gloss="ΓΙΑΤΡΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5505,7 +5324,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΙΟΡΤΑΖΩ -->
   <hns_sign gloss="ΓΙΟΡΤΑΖΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -5539,7 +5357,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΙΟΣ -->
   <hns_sign gloss="ΓΙΟΣ">
       <hamnosys_manual>
             <hampinch12/>
@@ -5572,7 +5389,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΚΡΙ -->
   <hns_sign gloss="ΓΚΡΙ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -5587,14 +5403,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΛΥΚΟΣ -->
   <hns_sign gloss="ΓΛΥΚΟΣ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΛΩΣΣΑ -->
   <hns_sign gloss="ΓΛΩΣΣΑ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -5630,7 +5444,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΝΩΜΗ -->
   <hns_sign gloss="ΓΝΩΜΗ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -5668,7 +5481,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΝΩΡΙΖΩ -->
   <hns_sign gloss="ΓΝΩΡΙΖΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -5692,7 +5504,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΝΩΡΙΖΩ_ΚΑΠΟΙΟΝ -->
   <hns_sign gloss="ΓΝΩΡΙΖΩ_ΚΑΠΟΙΟΝ">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -5716,7 +5527,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΝΩΣΗ -->
   <hns_sign gloss="ΓΝΩΣΗ">
       <hamnosys_manual>
             <hamfist/>
@@ -5733,7 +5543,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΟΝΑΤΟ -->
   <hns_sign gloss="ΓΟΝΑΤΟ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -5766,7 +5575,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΟΝΕΑΣ -->
   <hns_sign gloss="ΓΟΝΕΑΣ">
       <hamnosys_manual>
             <hampinch12/>
@@ -5798,7 +5606,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΟΥΣΤΟ -->
   <hns_sign gloss="ΓΟΥΣΤΟ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -5830,7 +5637,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΡΑΜΜΑ -->
   <hns_sign gloss="ΓΡΑΜΜΑ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -5869,7 +5675,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΡΑΦΕΙΟ -->
   <hns_sign gloss="ΓΡΑΦΕΙΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5900,7 +5705,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΡΑΦΩ -->
   <hns_sign gloss="ΓΡΑΦΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5932,7 +5736,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΥΜΝΑΣΤΙΚΗ -->
   <hns_sign gloss="ΓΥΜΝΑΣΤΙΚΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5949,7 +5752,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΥΜΝΟΣ -->
   <hns_sign gloss="ΓΥΜΝΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5988,7 +5790,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΓΥΝΑΙΚΑ -->
   <hns_sign gloss="ΓΥΝΑΙΚΑ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -6002,7 +5803,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΑΝΕΙΖΩ -->
   <hns_sign gloss="ΔΑΝΕΙΖΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -6034,7 +5834,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΑΣΚΑΛΑ -->
   <hns_sign gloss="ΔΑΣΚΑΛΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6065,7 +5864,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΑΣΟΣ -->
   <hns_sign gloss="ΔΑΣΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6095,7 +5893,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΑΧΤΥΛΟ -->
   <hns_sign gloss="ΔΑΧΤΥΛΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6129,14 +5926,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΕΙΛΟΣ -->
   <hns_sign gloss="ΔΕΙΛΟΣ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΕΙΧΝΩ -->
   <hns_sign gloss="ΔΕΙΧΝΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6167,14 +5962,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΕΚΕΜΒΡΙΟΣ -->
   <hns_sign gloss="ΔΕΚΕΜΒΡΙΟΣ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΕΝΤΡΟ -->
   <hns_sign gloss="ΔΕΝΤΡΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6206,7 +5999,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΕΞΙΑ -->
   <hns_sign gloss="ΔΕΞΙΑ">
       <hamnosys_manual>
             <hamflathand/>
@@ -6231,7 +6023,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΕΡΜΑ -->
   <hns_sign gloss="ΔΕΡΜΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6261,14 +6052,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΕΣΠΟΙΝΙΣ -->
   <hns_sign gloss="ΔΕΣΠΟΙΝΙΣ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΕΥΤΕΡΑ -->
   <hns_sign gloss="ΔΕΥΤΕΡΑ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -6282,7 +6071,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΕΧΟΜΑΙ -->
   <hns_sign gloss="ΔΕΧΟΜΑΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6306,7 +6094,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΗΛΗΤΗΡΙΟ -->
   <hns_sign gloss="ΔΗΛΗΤΗΡΙΟ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -6358,7 +6145,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΗΛΩΝΩ -->
   <hns_sign gloss="ΔΗΛΩΝΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6407,7 +6193,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΗΜΑΡΧΕΙΟ -->
   <hns_sign gloss="ΔΗΜΑΡΧΕΙΟ">
       <hamnosys_manual>
             <hampinchall/>
@@ -6469,14 +6254,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΗΜΑΡΧΟΣ -->
   <hns_sign gloss="ΔΗΜΑΡΧΟΣ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΗΜΙΟΥΡΓΩ -->
   <hns_sign gloss="ΔΗΜΙΟΥΡΓΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -6558,7 +6341,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΗΜΟΚΡΑΤΙΑ -->
   <hns_sign gloss="ΔΗΜΟΚΡΑΤΙΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6582,14 +6364,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΗΜΟΣΙΟΣ -->
   <hns_sign gloss="ΔΗΜΟΣΙΟΣ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΑΒΑΖΩ -->
   <hns_sign gloss="ΔΙΑΒΑΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6603,7 +6383,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΑΘΕΣΗ -->
   <hns_sign gloss="ΔΙΑΘΕΣΗ">
       <hamnosys_manual>
             <hampinchall/>
@@ -6658,7 +6437,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΑΚΟΠΕΣ -->
   <hns_sign gloss="ΔΙΑΚΟΠΕΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6683,7 +6461,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΑΚΟΠΤΗΣ -->
   <hns_sign gloss="ΔΙΑΚΟΠΤΗΣ">
       <hamnosys_manual>
             <hamfist/>
@@ -6698,7 +6475,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΑΛΕΓΩ -->
   <hns_sign gloss="ΔΙΑΛΕΓΩ">
       <hamnosys_manual>
             <hamceeopen/>
@@ -6723,7 +6499,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΑΛΕΙΜΜΑ -->
   <hns_sign gloss="ΔΙΑΛΕΙΜΜΑ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -6743,7 +6518,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΑΜΑΡΤΥΡΟΜΑΙ -->
   <hns_sign gloss="ΔΙΑΜΑΡΤΥΡΟΜΑΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6781,7 +6555,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΑΣΗΜΟΣ -->
   <hns_sign gloss="ΔΙΑΣΗΜΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6847,7 +6620,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΑΣΚΕΔΑΖΩ -->
   <hns_sign gloss="ΔΙΑΣΚΕΔΑΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6876,7 +6648,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΑΣΤΑΥΡΩΣΗ -->
   <hns_sign gloss="ΔΙΑΣΤΑΥΡΩΣΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6917,7 +6688,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΑΤΑΖΩ -->
   <hns_sign gloss="ΔΙΑΤΑΖΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -6940,7 +6710,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΑΦΗΜΙΖΩ -->
   <hns_sign gloss="ΔΙΑΦΗΜΙΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6961,7 +6730,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΑΦΟΡΕΤΙΚΟΣ -->
   <hns_sign gloss="ΔΙΑΦΟΡΕΤΙΚΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6993,14 +6761,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΑΦΩΝΩ -->
   <hns_sign gloss="ΔΙΑΦΩΝΩ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΕΘΝΗΣ -->
   <hns_sign gloss="ΔΙΕΘΝΗΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -7028,7 +6794,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΕΥΘΥΝΣΗ -->
   <hns_sign gloss="ΔΙΕΥΘΥΝΣΗ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -7118,7 +6883,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΕΥΘΥΝΤΗΣ -->
   <hns_sign gloss="ΔΙΕΥΘΥΝΤΗΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -7133,7 +6897,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΗΓΟΥΜΑΙ -->
   <hns_sign gloss="ΔΙΗΓΟΥΜΑΙ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -7168,7 +6931,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΚΑΙΟΣ -->
   <hns_sign gloss="ΔΙΚΑΙΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -7207,7 +6969,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΚΑΙΩΜΑ -->
   <hns_sign gloss="ΔΙΚΑΙΩΜΑ">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -7240,7 +7001,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΚΑΣΤΗΡΙΟ -->
   <hns_sign gloss="ΔΙΚΑΣΤΗΡΙΟ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -7275,7 +7035,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΚΗΓΟΡΟΣ -->
   <hns_sign gloss="ΔΙΚΗΓΟΡΟΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -7311,7 +7070,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΚΟΣ_ΜΟΥ -->
   <hns_sign gloss="ΔΙΚΟΣ_ΜΟΥ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -7323,7 +7081,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΝΩ -->
   <hns_sign gloss="ΔΙΝΩ">
       <hamnosys_manual>
             <hampinchall/>
@@ -7343,7 +7100,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΠΛΑΣΙΟΣ -->
   <hns_sign gloss="ΔΙΠΛΑΣΙΟΣ">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -7393,7 +7149,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΣΤΑΖΩ -->
   <hns_sign gloss="ΔΙΣΤΑΖΩ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -7415,7 +7170,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΙΨΑΣΜΕΝΟΣ -->
   <hns_sign gloss="ΔΙΨΑΣΜΕΝΟΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -7443,7 +7197,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΟΝΤΙ -->
   <hns_sign gloss="ΔΟΝΤΙ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -7463,7 +7216,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΟΥΛΕΙΑ -->
   <hns_sign gloss="ΔΟΥΛΕΙΑ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -7494,7 +7246,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΡΟΜΟΣ -->
   <hns_sign gloss="ΔΡΟΜΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -7512,7 +7263,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΥΝΑΤΟΣ -->
   <hns_sign gloss="ΔΥΝΑΤΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -7538,7 +7288,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΥΣΤΥΧΩΣ -->
   <hns_sign gloss="ΔΥΣΤΥΧΩΣ">
       <hamnosys_manual>
             <hamfist/>
@@ -7558,7 +7307,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΥΤΙΚΑ -->
   <hns_sign gloss="ΔΥΤΙΚΑ">
       <hamnosys_manual>
             <hamnondominant/>
@@ -7580,7 +7328,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΩΜΑΤΙΟ -->
   <hns_sign gloss="ΔΩΜΑΤΙΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -7615,7 +7362,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΔΩΡΟ -->
   <hns_sign gloss="ΔΩΡΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -7643,7 +7389,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΒΔΟΜΑΔΑ -->
   <hns_sign gloss="ΕΒΔΟΜΑΔΑ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -7659,7 +7404,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΓΩ -->
   <hns_sign gloss="ΕΓΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -7671,7 +7415,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΔΑΦΟΣ -->
   <hns_sign gloss="ΕΔΑΦΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -7719,7 +7462,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΔΩ -->
   <hns_sign gloss="ΕΔΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -7743,7 +7485,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΘΝΙΚΟΣ -->
   <hns_sign gloss="ΕΘΝΙΚΟΣ">
       <hamnosys_manual>
             <hamfist/>
@@ -7775,7 +7516,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΙΔΗΣΗ -->
   <hns_sign gloss="ΕΙΔΗΣΗ">
       <hamnosys_manual>
             <hampinch12/>
@@ -7817,7 +7557,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΙΔΟΠΟΙΩ -->
   <hns_sign gloss="ΕΙΔΟΠΟΙΩ">
       <hamnosys_manual>
             <hamflathand/>
@@ -7831,7 +7570,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΙΔΟΣ -->
   <hns_sign gloss="ΕΙΔΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -7860,7 +7598,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΙΡΗΝΗ -->
   <hns_sign gloss="ΕΙΡΗΝΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -7884,7 +7621,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΙΣΙΤΗΡΙΟ -->
   <hns_sign gloss="ΕΙΣΙΤΗΡΙΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -7914,7 +7650,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΙΣΟΔΟΣ -->
   <hns_sign gloss="ΕΙΣΟΔΟΣ">
       <hamnosys_manual>
             <hamflathand/>
@@ -7926,7 +7661,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΚΚΛΗΣΙΑ -->
   <hns_sign gloss="ΕΚΚΛΗΣΙΑ">
       <hamnosys_manual>
             <hampinch12/>
@@ -7997,7 +7731,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΚΛΕΓΩ -->
   <hns_sign gloss="ΕΚΛΕΓΩ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -8022,7 +7755,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΚΤΙΜΩ -->
   <hns_sign gloss="ΕΚΤΙΜΩ">
       <hamnosys_manual>
             <hamflathand/>
@@ -8060,7 +7792,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΛΑΦΡΟΣ -->
   <hns_sign gloss="ΕΛΑΦΡΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8082,21 +7813,18 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΛΕΥΘΕΡΟΣ -->
   <hns_sign gloss="ΕΛΕΥΘΕΡΟΣ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΛΕΥΘΕΡΩΝΩ -->
   <hns_sign gloss="ΕΛΕΥΘΕΡΩΝΩ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΛΛΑΔΑ -->
   <hns_sign gloss="ΕΛΛΑΔΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8129,7 +7857,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΛΠΙΖΩ -->
   <hns_sign gloss="ΕΛΠΙΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8147,7 +7874,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΜΕΙΣ -->
   <hns_sign gloss="ΕΜΕΙΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -8175,7 +7901,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΜΠΙΣΤΕΥΟΜΑΙ -->
   <hns_sign gloss="ΕΜΠΙΣΤΕΥΟΜΑΙ">
       <hamnosys_manual>
             <hamflathand/>
@@ -8213,7 +7938,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΜΠΟΡΙΟ -->
   <hns_sign gloss="ΕΜΠΟΡΙΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8257,7 +7981,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΜΠΟΡΟΣ -->
   <hns_sign gloss="ΕΜΠΟΡΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8313,7 +8036,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΝΟΙΚΙΑΖΩ -->
   <hns_sign gloss="ΕΝΟΙΚΙΑΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8341,7 +8063,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΝΟΙΚΙΑΣΤΗΣ -->
   <hns_sign gloss="ΕΝΟΙΚΙΑΣΤΗΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -8387,7 +8108,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΝΟΧΛΩ -->
   <hns_sign gloss="ΕΝΟΧΛΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -8405,7 +8125,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΝΤΟΜΟ -->
   <hns_sign gloss="ΕΝΤΟΜΟ">
       <hamnosys_manual>
             <hampinch12open/>
@@ -8447,7 +8166,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΝΤΥΠΩΣΙΑΖΩ -->
   <hns_sign gloss="ΕΝΤΥΠΩΣΙΑΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8470,7 +8188,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΞΕΤΑΖΩ -->
   <hns_sign gloss="ΕΞΕΤΑΖΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -8511,7 +8228,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΞΗΓΩ -->
   <hns_sign gloss="ΕΞΗΓΩ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -8546,7 +8262,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΞΟΔΟ -->
   <hns_sign gloss="ΕΞΟΔΟ">
       <hamnosys_manual>
             <hampinchall/>
@@ -8593,7 +8308,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΞΟΔΟΣ -->
   <hns_sign gloss="ΕΞΟΔΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8632,7 +8346,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΞΥΠΝΟΣ -->
   <hns_sign gloss="ΕΞΥΠΝΟΣ">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -8653,7 +8366,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΞΩ -->
   <hns_sign gloss="ΕΞΩ">
       <hamnosys_manual>
             <hamflathand/>
@@ -8679,7 +8391,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΞΩΤΕΡΙΚΟ -->
   <hns_sign gloss="ΕΞΩΤΕΡΙΚΟ">
       <hamnosys_manual>
             <hamfist/>
@@ -8702,7 +8413,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΠΑΝΑΛΑΜΒΑΝΩ -->
   <hns_sign gloss="ΕΠΑΝΑΛΑΜΒΑΝΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -8757,7 +8467,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΠΑΝΩ -->
   <hns_sign gloss="ΕΠΑΝΩ">
       <hamnosys_manual>
             <hamflathand/>
@@ -8772,7 +8481,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΠΕΙΤΑ -->
   <hns_sign gloss="ΕΠΕΙΤΑ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -8799,7 +8507,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΠΙΒΑΤΗΣ -->
   <hns_sign gloss="ΕΠΙΒΑΤΗΣ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -8909,7 +8616,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΠΙΘΥΜΙΑ -->
   <hns_sign gloss="ΕΠΙΘΥΜΙΑ">
       <hamnosys_manual>
             <hamflathand/>
@@ -8932,7 +8638,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΠΙΠΛΟ -->
   <hns_sign gloss="ΕΠΙΠΛΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8948,7 +8653,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΠΙΣΗΜΑΙΝΩ -->
   <hns_sign gloss="ΕΠΙΣΗΜΑΙΝΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9003,7 +8707,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΠΙΣΗΣ -->
   <hns_sign gloss="ΕΠΙΣΗΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9044,7 +8747,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΠΙΣΚΕΠΤΗΣ -->
   <hns_sign gloss="ΕΠΙΣΚΕΠΤΗΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9135,7 +8837,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΠΙΣΚΕΥΑΖΩ -->
   <hns_sign gloss="ΕΠΙΣΚΕΥΑΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9166,7 +8867,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΠΙΣΤΗΜΗ -->
   <hns_sign gloss="ΕΠΙΣΤΗΜΗ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -9192,7 +8892,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΠΙΣΤΟΛΗ -->
   <hns_sign gloss="ΕΠΙΣΤΟΛΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9229,7 +8928,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΠΙΤΑΓΗ -->
   <hns_sign gloss="ΕΠΙΤΑΓΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9278,7 +8976,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΠΙΤΕΛΟΥΣ -->
   <hns_sign gloss="ΕΠΙΤΕΛΟΥΣ">
       <hamnosys_manual>
             <hampinch12/>
@@ -9301,7 +8998,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΠΙΤΗΔΕΣ -->
   <hns_sign gloss="ΕΠΙΤΗΔΕΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9359,7 +9055,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΠΙΤΥΧΙΑ -->
   <hns_sign gloss="ΕΠΙΤΥΧΙΑ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -9408,7 +9103,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΠΙΧΕΙΡΗΣΗ -->
   <hns_sign gloss="ΕΠΙΧΕΙΡΗΣΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9444,7 +9138,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΠΟΜΕΝΟΣ -->
   <hns_sign gloss="ΕΠΟΜΕΝΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9499,7 +9192,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΠΟΧΗ -->
   <hns_sign gloss="ΕΠΟΧΗ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -9543,7 +9235,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΠΩΝΥΜΟ -->
   <hns_sign gloss="ΕΠΩΝΥΜΟ">
       <hamnosys_manual>
             <hampinch12/>
@@ -9569,7 +9260,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΡΓΑΖΟΜΑΙ -->
   <hns_sign gloss="ΕΡΓΑΖΟΜΑΙ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -9599,7 +9289,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΡΓΑΛΕΙΟ -->
   <hns_sign gloss="ΕΡΓΑΛΕΙΟ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -9656,7 +9345,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΡΓΑΣΤΗΡΙΟ -->
   <hns_sign gloss="ΕΡΓΑΣΤΗΡΙΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9710,7 +9398,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΡΓΑΤΗΣ -->
   <hns_sign gloss="ΕΡΓΑΤΗΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9730,7 +9417,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΡΓΑΤΙΚΟΣ -->
   <hns_sign gloss="ΕΡΓΑΤΙΚΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9768,7 +9454,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΡΓΟΣΤΑΣΙΟ -->
   <hns_sign gloss="ΕΡΓΟΣΤΑΣΙΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9804,7 +9489,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΡΧΟΜΑΙ -->
   <hns_sign gloss="ΕΡΧΟΜΑΙ">
       <hamnosys_manual>
             <hampinch12/>
@@ -9827,7 +9511,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΡΩΤΗΣΗ -->
   <hns_sign gloss="ΕΡΩΤΗΣΗ">
       <hamnosys_manual>
             <hamflathand/>
@@ -9859,7 +9542,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΣΥ -->
   <hns_sign gloss="ΕΣΥ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -9875,7 +9557,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΤΟΣ -->
   <hns_sign gloss="ΕΤΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9930,7 +9611,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΥΓΕΝΕΙΑ -->
   <hns_sign gloss="ΕΥΓΕΝΕΙΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9975,7 +9655,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΥΚΟΛΟΣ -->
   <hns_sign gloss="ΕΥΚΟΛΟΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -10005,7 +9684,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΥΡΩΠΗ -->
   <hns_sign gloss="ΕΥΡΩΠΗ">
       <hamnosys_manual>
             <hamflathand/>
@@ -10021,7 +9699,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΥΤΥΧΙΣΜΕΝΟΣ -->
   <hns_sign gloss="ΕΥΤΥΧΙΣΜΕΝΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -10046,7 +9723,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΥΧΑΡΙΣΤΟΣ -->
   <hns_sign gloss="ΕΥΧΑΡΙΣΤΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -10074,7 +9750,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΥΧΑΡΙΣΤΩ -->
   <hns_sign gloss="ΕΥΧΑΡΙΣΤΩ">
       <hamnosys_manual>
             <hamflathand/>
@@ -10097,7 +9772,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΦΗΜΕΡΙΔΑ -->
   <hns_sign gloss="ΕΦΗΜΕΡΙΔΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -10133,7 +9807,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΧΘΡΟΣ -->
   <hns_sign gloss="ΕΧΘΡΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -10161,7 +9834,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΕΧΩ -->
   <hns_sign gloss="ΕΧΩ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -10182,7 +9854,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΖΑΚΕΤΑ -->
   <hns_sign gloss="ΖΑΚΕΤΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -10202,7 +9873,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΖΑΧΑΡΗ -->
   <hns_sign gloss="ΖΑΧΑΡΗ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -10249,7 +9919,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΖΑΧΑΡΟΠΛΑΣΤΕΙΟ -->
   <hns_sign gloss="ΖΑΧΑΡΟΠΛΑΣΤΕΙΟ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -10317,7 +9986,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΖΕΣΤΗ -->
   <hns_sign gloss="ΖΕΣΤΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -10348,7 +10016,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΖΕΥΓΑΡΙ -->
   <hns_sign gloss="ΖΕΥΓΑΡΙ">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -10408,14 +10075,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΖΗΤΩ -->
   <hns_sign gloss="ΖΗΤΩ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΖΥΓΙΖΩ -->
   <hns_sign gloss="ΖΥΓΙΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -10442,7 +10107,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΖΩ -->
   <hns_sign gloss="ΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -10460,7 +10124,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΖΩΓΡΑΦΙΑ -->
   <hns_sign gloss="ΖΩΓΡΑΦΙΑ">
       <hamnosys_manual>
             <hamcee12/>
@@ -10483,7 +10146,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΖΩΓΡΑΦΙΖΩ -->
   <hns_sign gloss="ΖΩΓΡΑΦΙΖΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -10513,7 +10175,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΖΩΓΡΑΦΟΣ -->
   <hns_sign gloss="ΖΩΓΡΑΦΟΣ">
       <hamnosys_manual>
             <hamflathand/>
@@ -10543,7 +10204,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΖΩΗ -->
   <hns_sign gloss="ΖΩΗ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -10575,7 +10235,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΖΩΝΗ -->
   <hns_sign gloss="ΖΩΝΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -10604,7 +10263,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΖΩΝΤΑΝΟΣ -->
   <hns_sign gloss="ΖΩΝΤΑΝΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -10622,7 +10280,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΖΩΟ -->
   <hns_sign gloss="ΖΩΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -10649,7 +10306,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΗΔΗ -->
   <hns_sign gloss="ΗΔΗ">
       <hamnosys_manual>
             <hamflathand/>
@@ -10699,7 +10355,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΗΘΟΠΟΙΟΣ -->
   <hns_sign gloss="ΗΘΟΠΟΙΟΣ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -10734,7 +10389,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΗΛΕΚΤΡΙΣΜΟΣ -->
   <hns_sign gloss="ΗΛΕΚΤΡΙΣΜΟΣ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -10767,7 +10421,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΗΛΙΚΙΑ -->
   <hns_sign gloss="ΗΛΙΚΙΑ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -10782,7 +10435,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΗΛΙΟΣ -->
   <hns_sign gloss="ΗΛΙΟΣ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -10803,7 +10455,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΗΜΕΡΑ -->
   <hns_sign gloss="ΗΜΕΡΑ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -10844,7 +10495,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΗΣΥΧΑΖΩ -->
   <hns_sign gloss="ΗΣΥΧΑΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -10866,7 +10516,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΗΧΟΣ -->
   <hns_sign gloss="ΗΧΟΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -10884,7 +10533,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΘΑΛΑΣΣΑ -->
   <hns_sign gloss="ΘΑΛΑΣΣΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -10899,7 +10547,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΘΑΝΑΤΟΣ -->
   <hns_sign gloss="ΘΑΝΑΤΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -10945,7 +10592,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΘΑΥΜΑΖΩ -->
   <hns_sign gloss="ΘΑΥΜΑΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -10969,7 +10615,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΘΕΑ -->
   <hns_sign gloss="ΘΕΑ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -11003,7 +10648,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΘΕΑΤΗΣ -->
   <hns_sign gloss="ΘΕΑΤΗΣ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -11035,7 +10679,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΘΕΑΤΡΟ -->
   <hns_sign gloss="ΘΕΑΤΡΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -11099,7 +10742,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΘΕΙΑ -->
   <hns_sign gloss="ΘΕΙΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -11141,7 +10783,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΘΕΙΟΣ -->
   <hns_sign gloss="ΘΕΙΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -11181,7 +10822,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΘΕΛΩ -->
   <hns_sign gloss="ΘΕΛΩ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -11213,7 +10853,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΘΕΜΑ -->
   <hns_sign gloss="ΘΕΜΑ">
       <hamnosys_manual>
             <hamfinger23/>
@@ -11228,7 +10867,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΘΕΟΣ -->
   <hns_sign gloss="ΘΕΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -11248,7 +10886,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΘΕΡΑΠΕΙΑ -->
   <hns_sign gloss="ΘΕΡΑΠΕΙΑ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -11263,7 +10900,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΘΟΡΥΒΟΣ -->
   <hns_sign gloss="ΘΟΡΥΒΟΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -11295,7 +10931,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΘΥΜΑ -->
   <hns_sign gloss="ΘΥΜΑ">
       <hamnosys_manual>
             <hamflathand/>
@@ -11323,7 +10958,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΘΥΜΑΜΑΙ -->
   <hns_sign gloss="ΘΥΜΑΜΑΙ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -11343,7 +10977,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΘΥΜΟΣ -->
   <hns_sign gloss="ΘΥΜΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -11374,7 +11007,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΙΑΝΟΥΑΡΙΟΣ -->
   <hns_sign gloss="ΙΑΝΟΥΑΡΙΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -11406,7 +11038,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΙΔΕΑ -->
   <hns_sign gloss="ΙΔΕΑ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -11429,7 +11060,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΙΔΙΟΚΤΗΤΗΣ -->
   <hns_sign gloss="ΙΔΙΟΚΤΗΤΗΣ">
       <hamnosys_manual>
             <hamfist/>
@@ -11457,7 +11087,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΙΔΙΟΣ -->
   <hns_sign gloss="ΙΔΙΟΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -11477,7 +11106,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΙΔΙΩΤΙΚΟΣ -->
   <hns_sign gloss="ΙΔΙΩΤΙΚΟΣ">
       <hamnosys_manual>
             <hamcee12/>
@@ -11518,7 +11146,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΙΔΡΩΝΩ -->
   <hns_sign gloss="ΙΔΡΩΝΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -11584,7 +11211,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΙΚΑΝΟΣ -->
   <hns_sign gloss="ΙΚΑΝΟΣ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -11630,7 +11256,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΙΟΥΛΙΟΣ -->
   <hns_sign gloss="ΙΟΥΛΙΟΣ">
       <hamnosys_manual>
             <hamflathand/>
@@ -11657,7 +11282,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΙΟΥΝΙΟΣ -->
   <hns_sign gloss="ΙΟΥΝΙΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -11683,7 +11307,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΙΣΤΟΡΙΑ -->
   <hns_sign gloss="ΙΣΤΟΡΙΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -11728,7 +11351,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΘΑΡΟΣ -->
   <hns_sign gloss="ΚΑΘΑΡΟΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -11762,7 +11384,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΘΕΝΑΣ -->
   <hns_sign gloss="ΚΑΘΕΝΑΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -11785,7 +11406,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΘΗΓΗΤΗΣ -->
   <hns_sign gloss="ΚΑΘΗΓΗΤΗΣ">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -11802,7 +11422,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΘΗΚΟΝ -->
   <hns_sign gloss="ΚΑΘΗΚΟΝ">
       <hamnosys_manual>
             <hamflathand/>
@@ -11834,7 +11453,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΘΗΜΕΡΙΝΟΣ -->
   <hns_sign gloss="ΚΑΘΗΜΕΡΙΝΟΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -11881,7 +11499,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΘΙΣΜΑ -->
   <hns_sign gloss="ΚΑΘΙΣΜΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -11905,7 +11522,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΘΟΜΑΙ -->
   <hns_sign gloss="ΚΑΘΟΜΑΙ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -11927,7 +11543,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΘΡΕΦΤΗΣ -->
   <hns_sign gloss="ΚΑΘΡΕΦΤΗΣ">
       <hamnosys_manual>
             <hamflathand/>
@@ -11943,7 +11558,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΘΥΣΤΕΡΩ -->
   <hns_sign gloss="ΚΑΘΥΣΤΕΡΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -11977,7 +11591,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΙΝΟΥΡΙΟΣ -->
   <hns_sign gloss="ΚΑΙΝΟΥΡΙΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -12035,7 +11648,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΙΡΟΣ -->
   <hns_sign gloss="ΚΑΙΡΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -12058,7 +11670,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΛΗΜΕΡΑ -->
   <hns_sign gloss="ΚΑΛΗΜΕΡΑ">
       <hamnosys_manual>
             <hamflathand/>
@@ -12079,7 +11690,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΛΗΝΥΧΤΑ -->
   <hns_sign gloss="ΚΑΛΗΝΥΧΤΑ">
       <hamnosys_manual>
             <hampinch12/>
@@ -12138,7 +11748,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΛΗΣΠΕΡΑ -->
   <hns_sign gloss="ΚΑΛΗΣΠΕΡΑ">
       <hamnosys_manual>
             <hampinch12/>
@@ -12181,7 +11790,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΛΛΙΤΕΧΝΗΣ -->
   <hns_sign gloss="ΚΑΛΛΙΤΕΧΝΗΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -12280,7 +11888,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΛΟΚΑΙΡΙ -->
   <hns_sign gloss="ΚΑΛΟΚΑΙΡΙ">
       <hamnosys_manual>
             <hamfist/>
@@ -12299,7 +11906,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΛΟΡΙΦΕΡ -->
   <hns_sign gloss="ΚΑΛΟΡΙΦΕΡ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -12338,7 +11944,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΛΟΣ -->
   <hns_sign gloss="ΚΑΛΟΣ">
       <hamnosys_manual>
             <hampinch12/>
@@ -12356,7 +11961,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΛΤΣΑ -->
   <hns_sign gloss="ΚΑΛΤΣΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -12377,7 +11981,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΝΑΠΕΣ -->
   <hns_sign gloss="ΚΑΝΑΠΕΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -12401,7 +12004,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΝΟΝΙΖΩ -->
   <hns_sign gloss="ΚΑΝΟΝΙΖΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -12464,7 +12066,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΝΟΝΙΚΟΣ -->
   <hns_sign gloss="ΚΑΝΟΝΙΚΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -12489,7 +12090,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΠΕΛΟ -->
   <hns_sign gloss="ΚΑΠΕΛΟ">
       <hamnosys_manual>
             <hamfist/>
@@ -12512,7 +12112,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΠΝΟΣ -->
   <hns_sign gloss="ΚΑΠΝΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -12556,7 +12155,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΠΟΤΕ -->
   <hns_sign gloss="ΚΑΠΟΤΕ">
       <hamnosys_manual>
             <hamflathand/>
@@ -12583,7 +12181,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΠΟΥ -->
   <hns_sign gloss="ΚΑΠΟΥ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -12602,7 +12199,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΠΟΥ-ΚΑΠΟΥ -->
   <hns_sign gloss="ΚΑΠΟΥ-ΚΑΠΟΥ">
       <hamnosys_manual>
             <hamflathand/>
@@ -12630,7 +12226,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΠΩΣ -->
   <hns_sign gloss="ΚΑΠΩΣ">
       <hamnosys_manual>
             <hamflathand/>
@@ -12646,7 +12241,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΡΒΟΥΝΟ -->
   <hns_sign gloss="ΚΑΡΒΟΥΝΟ">
       <hamnosys_manual>
             <hamfist/>
@@ -12691,7 +12285,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΡΔΙΑ -->
   <hns_sign gloss="ΚΑΡΔΙΑ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -12710,7 +12303,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΡΕΚΛΑ -->
   <hns_sign gloss="ΚΑΡΕΚΛΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -12725,7 +12317,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΡΦΙ -->
   <hns_sign gloss="ΚΑΡΦΙ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -12760,7 +12351,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΤΑΙΓΙΔΑ -->
   <hns_sign gloss="ΚΑΤΑΙΓΙΔΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -12813,7 +12403,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΤΑΛΑΒΑΙΝΩ -->
   <hns_sign gloss="ΚΑΤΑΛΑΒΑΙΝΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -12836,7 +12425,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΤΑΛΟΓΟΣ -->
   <hns_sign gloss="ΚΑΤΑΛΟΓΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -12875,7 +12463,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΤΑΣΤΑΣΗ -->
   <hns_sign gloss="ΚΑΤΑΣΤΑΣΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -12902,7 +12489,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΤΑΣΤΗΜΑ -->
   <hns_sign gloss="ΚΑΤΑΣΤΗΜΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -12947,7 +12533,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΤΑΣΤΡΕΦΩ -->
   <hns_sign gloss="ΚΑΤΑΣΤΡΕΦΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -12992,7 +12577,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΤΑΦΕΡΝΩ -->
   <hns_sign gloss="ΚΑΤΑΦΕΡΝΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -13044,7 +12628,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΤΕΙΛΗΜΜΕΝΟΣ -->
   <hns_sign gloss="ΚΑΤΕΙΛΗΜΜΕΝΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -13088,7 +12671,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΤΟΙΚΩ -->
   <hns_sign gloss="ΚΑΤΟΙΚΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -13121,7 +12703,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΑΥΤΟΣ -->
   <hns_sign gloss="ΚΑΥΤΟΣ">
       <hamnosys_manual>
             <hamflathand/>
@@ -13140,7 +12721,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΕΙΜΕΝΟ -->
   <hns_sign gloss="ΚΕΙΜΕΝΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -13183,7 +12763,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΕΡΔΙΖΩ -->
   <hns_sign gloss="ΚΕΡΔΙΖΩ">
       <hamnosys_manual>
             <hampinch12/>
@@ -13206,7 +12785,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΕΡΜΑ -->
   <hns_sign gloss="ΚΕΡΜΑ">
       <hamnosys_manual>
             <hampinch12/>
@@ -13236,7 +12814,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΕΦΑΛΙ -->
   <hns_sign gloss="ΚΕΦΑΛΙ">
       <hamnosys_manual>
             <hamflathand/>
@@ -13261,7 +12838,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΕΦΙ -->
   <hns_sign gloss="ΚΕΦΙ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -13306,7 +12882,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΗΠΟΣ -->
   <hns_sign gloss="ΚΗΠΟΣ">
       <hamnosys_manual>
             <hampinchall/>
@@ -13343,7 +12918,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΙΛΟ -->
   <hns_sign gloss="ΚΙΛΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -13369,7 +12943,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΙΝΔΥΝΟΣ -->
   <hns_sign gloss="ΚΙΝΔΥΝΟΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -13383,7 +12956,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΙΝΗΜΑΤΟΓΡΑΦΟΣ -->
   <hns_sign gloss="ΚΙΝΗΜΑΤΟΓΡΑΦΟΣ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -13406,7 +12978,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΙΝΗΤΟ_ΤΗΛΕΦΩΝΟ -->
   <hns_sign gloss="ΚΙΝΗΤΟ_ΤΗΛΕΦΩΝΟ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -13423,7 +12994,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΙΝΩ -->
   <hns_sign gloss="ΚΙΝΩ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -13462,7 +13032,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΙΤΡΙΝΟΣ -->
   <hns_sign gloss="ΚΙΤΡΙΝΟΣ">
       <hamnosys_manual>
             <hamflathand/>
@@ -13489,7 +13058,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΛΑΔΙ -->
   <hns_sign gloss="ΚΛΑΔΙ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -13522,7 +13090,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΛΑΙΩ -->
   <hns_sign gloss="ΚΛΑΙΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -13540,7 +13107,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΛΕΒΩ -->
   <hns_sign gloss="ΚΛΕΒΩ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -13582,7 +13148,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΛΕΙΔΙ -->
   <hns_sign gloss="ΚΛΕΙΔΙ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -13598,7 +13163,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΛΕΙΔΩΝΩ -->
   <hns_sign gloss="ΚΛΕΙΔΩΝΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -13626,7 +13190,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΛΕΙΝΩ -->
   <hns_sign gloss="ΚΛΕΙΝΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -13665,7 +13228,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΛΕΙΣΤΟΣ -->
   <hns_sign gloss="ΚΛΕΙΣΤΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -13706,7 +13268,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΛΟΤΣΩ -->
   <hns_sign gloss="ΚΛΟΤΣΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -13750,7 +13311,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΟΒΩ -->
   <hns_sign gloss="ΚΟΒΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -13791,7 +13351,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΟΙΝΟΣ -->
   <hns_sign gloss="ΚΟΙΝΟΣ">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -13832,7 +13391,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΟΙΝΟΤΗΤΑ -->
   <hns_sign gloss="ΚΟΙΝΟΤΗΤΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -13869,7 +13427,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΟΙΝΩΝΙΑ -->
   <hns_sign gloss="ΚΟΙΝΩΝΙΑ">
       <hamnosys_manual>
             <hamfinger23/>
@@ -13887,7 +13444,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΟΙΤΑΖΩ -->
   <hns_sign gloss="ΚΟΙΤΑΖΩ">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -13906,7 +13462,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΟΚΚΙΝΟΣ -->
   <hns_sign gloss="ΚΟΚΚΙΝΟΣ">
       <hamnosys_manual>
             <hamfist/>
@@ -13926,7 +13481,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΟΜΜΑΤΙ -->
   <hns_sign gloss="ΚΟΜΜΑΤΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -13971,7 +13525,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΟΜΨΟΣ -->
   <hns_sign gloss="ΚΟΜΨΟΣ">
       <hamnosys_manual>
             <hampinch12open/>
@@ -14013,7 +13566,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΟΝΣΕΡΒΑ -->
   <hns_sign gloss="ΚΟΝΣΕΡΒΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -14055,7 +13607,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΟΝΤΑ -->
   <hns_sign gloss="ΚΟΝΤΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -14075,7 +13626,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΟΝΤΟΣ -->
   <hns_sign gloss="ΚΟΝΤΟΣ">
       <hamnosys_manual>
             <hamflathand/>
@@ -14094,7 +13644,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΟΡΗ -->
   <hns_sign gloss="ΚΟΡΗ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -14123,7 +13672,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΟΡΙΤΣΙ -->
   <hns_sign gloss="ΚΟΡΙΤΣΙ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -14140,7 +13688,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΟΣΜΟΣ -->
   <hns_sign gloss="ΚΟΣΜΟΣ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -14221,7 +13768,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΟΤΑ -->
   <hns_sign gloss="ΚΟΤΑ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -14236,7 +13782,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΟΤΟΠΟΥΛΟ -->
   <hns_sign gloss="ΚΟΤΟΠΟΥΛΟ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -14266,7 +13811,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΟΥΔΟΥΝΙ -->
   <hns_sign gloss="ΚΟΥΔΟΥΝΙ">
       <hamnosys_manual>
             <hamfist/>
@@ -14283,7 +13827,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΟΥΖΙΝΑ -->
   <hns_sign gloss="ΚΟΥΖΙΝΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -14323,7 +13866,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΟΥΤΑΛΙ -->
   <hns_sign gloss="ΚΟΥΤΑΛΙ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -14349,7 +13891,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΟΥΤΙ -->
   <hns_sign gloss="ΚΟΥΤΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -14374,7 +13915,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΟΦΤΕΡΟΣ -->
   <hns_sign gloss="ΚΟΦΤΕΡΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -14430,7 +13970,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΡΑΤΩ -->
   <hns_sign gloss="ΚΡΑΤΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -14454,7 +13993,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΡΕΑΣ -->
   <hns_sign gloss="ΚΡΕΑΣ">
       <hamnosys_manual>
             <hamflathand/>
@@ -14469,7 +14007,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΡΕΒΑΤΙ -->
   <hns_sign gloss="ΚΡΕΒΑΤΙ">
       <hamnosys_manual>
             <hamflathand/>
@@ -14493,7 +14030,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΡΕΜΑ -->
   <hns_sign gloss="ΚΡΕΜΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -14534,7 +14070,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΡΕΜΩ -->
   <hns_sign gloss="ΚΡΕΜΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -14550,7 +14085,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΡΙΜΑ -->
   <hns_sign gloss="ΚΡΙΜΑ">
       <hamnosys_manual>
             <hampinchall/>
@@ -14569,7 +14103,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΤΙΡΙΟ -->
   <hns_sign gloss="ΚΤΙΡΙΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -14595,7 +14128,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΥΒΕΡΝΗΣΗ -->
   <hns_sign gloss="ΚΥΒΕΡΝΗΣΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -14614,7 +14146,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΥΚΛΟΣ -->
   <hns_sign gloss="ΚΥΚΛΟΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -14628,14 +14159,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΥΡΙΑ -->
   <hns_sign gloss="ΚΥΡΙΑ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΥΡΙΑΚΗ -->
   <hns_sign gloss="ΚΥΡΙΑΚΗ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -14650,7 +14179,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΚΥΡΙΟΣ -->
   <hns_sign gloss="ΚΥΡΙΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -14683,7 +14211,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΛΑΔΙ -->
   <hns_sign gloss="ΛΑΔΙ">
       <hamnosys_manual>
             <hamfist/>
@@ -14696,7 +14223,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΛΑΜΠΩ -->
   <hns_sign gloss="ΛΑΜΠΩ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -14711,7 +14237,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΛΑΟΣ -->
   <hns_sign gloss="ΛΑΟΣ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -14755,7 +14280,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΛΕΙΟΣ -->
   <hns_sign gloss="ΛΕΙΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -14793,7 +14317,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΛΕΚΑΝΗ -->
   <hns_sign gloss="ΛΕΚΑΝΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -14831,7 +14354,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΛΕΚΕΣ -->
   <hns_sign gloss="ΛΕΚΕΣ">
       <hamnosys_manual>
             <hamceeopen/>
@@ -14850,7 +14372,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΛΕΞΗ -->
   <hns_sign gloss="ΛΕΞΗ">
       <hamnosys_manual>
             <hamcee12/>
@@ -14878,7 +14399,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΛΕΞΙΚΟ -->
   <hns_sign gloss="ΛΕΞΙΚΟ">
       <hamnosys_manual>
             <hamcee12/>
@@ -14908,7 +14428,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΛΕΠΤΟΣ -->
   <hns_sign gloss="ΛΕΠΤΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -14941,7 +14460,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΛΕΩ -->
   <hns_sign gloss="ΛΕΩ">
       <hamnosys_manual>
             <hampinch12open/>
@@ -14956,7 +14474,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΛΕΩΦΟΡΕΙΟ -->
   <hns_sign gloss="ΛΕΩΦΟΡΕΙΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -15003,7 +14520,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΛΙΜΑΝΙ -->
   <hns_sign gloss="ΛΙΜΑΝΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -15038,7 +14554,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΛΙΜΝΗ -->
   <hns_sign gloss="ΛΙΜΝΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -15074,7 +14589,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΛΙΩΝΩ -->
   <hns_sign gloss="ΛΙΩΝΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -15100,7 +14614,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΛΟΓΙΚΟΣ -->
   <hns_sign gloss="ΛΟΓΙΚΟΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -15136,7 +14649,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΛΟΓΟΤΕΧΝΙΑ -->
   <hns_sign gloss="ΛΟΓΟΤΕΧΝΙΑ">
       <hamnosys_manual>
             <hampinch12open/>
@@ -15231,7 +14743,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΛΟΝΔΙΝΟ -->
   <hns_sign gloss="ΛΟΝΔΙΝΟ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -15245,7 +14756,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΛΟΥΛΟΥΔΙ -->
   <hns_sign gloss="ΛΟΥΛΟΥΔΙ">
       <hamnosys_manual>
             <hampinchall/>
@@ -15276,7 +14786,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΛΟΦΟΣ -->
   <hns_sign gloss="ΛΟΦΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -15340,7 +14849,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΛΥΓΙΖΩ -->
   <hns_sign gloss="ΛΥΓΙΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -15383,7 +14891,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΛΥΜΑΙΝΟΜΑΙ -->
   <hns_sign gloss="ΛΥΜΑΙΝΟΜΑΙ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -15426,7 +14933,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΛΥΠΑΜΑΙ -->
   <hns_sign gloss="ΛΥΠΑΜΑΙ">
       <hamnosys_manual>
             <hamfist/>
@@ -15441,7 +14947,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΑΓΕΙΡΕΥΩ -->
   <hns_sign gloss="ΜΑΓΕΙΡΕΥΩ">
       <hamnosys_manual>
             <hamfist/>
@@ -15458,7 +14963,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΑΖΕΥΩ -->
   <hns_sign gloss="ΜΑΖΕΥΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -15525,7 +15029,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΑΘΑΙΝΩ -->
   <hns_sign gloss="ΜΑΘΑΙΝΩ">
       <hamnosys_manual>
             <hamceeall/>
@@ -15547,7 +15050,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΑΘΗΜΑ -->
   <hns_sign gloss="ΜΑΘΗΜΑ">
       <hamnosys_manual>
             <hamflathand/>
@@ -15562,7 +15064,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΑΘΗΤΗΣ -->
   <hns_sign gloss="ΜΑΘΗΤΗΣ">
       <hamnosys_manual>
             <hamflathand/>
@@ -15590,7 +15091,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΑΙΟΣ -->
   <hns_sign gloss="ΜΑΙΟΣ">
       <hamnosys_manual>
             <hampinchall/>
@@ -15629,7 +15129,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΑΚΡΙΝΟΣ -->
   <hns_sign gloss="ΜΑΚΡΙΝΟΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -15652,7 +15151,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΑΛΑΚΟΣ -->
   <hns_sign gloss="ΜΑΛΑΚΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -15676,7 +15174,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΑΛΛΙΑ -->
   <hns_sign gloss="ΜΑΛΛΙΑ">
       <hamnosys_manual>
             <hampinch12open/>
@@ -15688,7 +15185,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΑΝΙΚΙ -->
   <hns_sign gloss="ΜΑΝΙΚΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -15733,7 +15229,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΑΡΤΙΟΣ -->
   <hns_sign gloss="ΜΑΡΤΙΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -15783,7 +15278,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΑΣΤΟΡΑΣ -->
   <hns_sign gloss="ΜΑΣΤΟΡΑΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -15875,7 +15369,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΑΤΙ -->
   <hns_sign gloss="ΜΑΤΙ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -15889,7 +15382,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΑΥΡΟΣ -->
   <hns_sign gloss="ΜΑΥΡΟΣ">
       <hamnosys_manual>
             <hamfist/>
@@ -15913,7 +15405,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΑΧΑΙΡΙ -->
   <hns_sign gloss="ΜΑΧΑΙΡΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -15948,7 +15439,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΑΧΗ -->
   <hns_sign gloss="ΜΑΧΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -15977,7 +15467,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΕΓΑΛΟΣ -->
   <hns_sign gloss="ΜΕΓΑΛΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -15994,7 +15483,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΕΓΑΛΩΝΩ -->
   <hns_sign gloss="ΜΕΓΑΛΩΝΩ">
       <hamnosys_manual>
             <hamflathand/>
@@ -16010,7 +15498,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΕΓΕΘΟΣ -->
   <hns_sign gloss="ΜΕΓΕΘΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -16029,7 +15516,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΕΘΑΥΡΙΟ -->
   <hns_sign gloss="ΜΕΘΑΥΡΙΟ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -16056,7 +15542,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΕΙΟΝΕΚΤΗΜΑ -->
   <hns_sign gloss="ΜΕΙΟΝΕΚΤΗΜΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -16092,7 +15577,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΕΛΛΟΝ -->
   <hns_sign gloss="ΜΕΛΛΟΝ">
       <hamnosys_manual>
             <hamflathand/>
@@ -16121,7 +15605,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΕΝΩ -->
   <hns_sign gloss="ΜΕΝΩ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -16140,7 +15623,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΕΣΑ -->
   <hns_sign gloss="ΜΕΣΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -16184,7 +15666,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΕΣΑΝΥΧΤΑ -->
   <hns_sign gloss="ΜΕΣΑΝΥΧΤΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -16224,7 +15705,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΕΣΗ -->
   <hns_sign gloss="ΜΕΣΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -16256,7 +15736,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΕΣΗΜΕΡΙ -->
   <hns_sign gloss="ΜΕΣΗΜΕΡΙ">
       <hamnosys_manual>
             <hamflathand/>
@@ -16273,7 +15752,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΕΤΡΟ -->
   <hns_sign gloss="ΜΕΤΡΟ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -16298,7 +15776,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΕΤΡΩ -->
   <hns_sign gloss="ΜΕΤΡΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -16351,7 +15828,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΗΚΟΣ -->
   <hns_sign gloss="ΜΗΚΟΣ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -16375,7 +15851,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΗΝΑΣ -->
   <hns_sign gloss="ΜΗΝΑΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -16421,7 +15896,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΗΤΕΡΑ -->
   <hns_sign gloss="ΜΗΤΕΡΑ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -16438,7 +15912,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΗΧΑΝΗ -->
   <hns_sign gloss="ΜΗΧΑΝΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -16468,7 +15941,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΗΧΑΝΙΚΟΣ -->
   <hns_sign gloss="ΜΗΧΑΝΙΚΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -16496,14 +15968,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΙΚΡΟΣ -->
   <hns_sign gloss="ΜΙΚΡΟΣ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΙΛΩ -->
   <hns_sign gloss="ΜΙΛΩ">
       <hamnosys_manual>
             <hampinch12open/>
@@ -16520,7 +15990,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΙΣΘΟΣ -->
   <hns_sign gloss="ΜΙΣΘΟΣ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -16568,7 +16037,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΙΣΟΣ -->
   <hns_sign gloss="ΜΙΣΟΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -16599,7 +16067,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΟΙΡΑΖΩ -->
   <hns_sign gloss="ΜΟΙΡΑΖΩ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -16646,7 +16113,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΟΛΙΣ -->
   <hns_sign gloss="ΜΟΛΙΣ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -16694,14 +16160,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΟΝΑΧΙΚΟΣ -->
   <hns_sign gloss="ΜΟΝΑΧΙΚΟΣ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΟΝΟΠΑΤΙ -->
   <hns_sign gloss="ΜΟΝΟΠΑΤΙ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -16748,14 +16212,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΟΝΟΣ -->
   <hns_sign gloss="ΜΟΝΟΣ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΟΥΣΕΙΟ -->
   <hns_sign gloss="ΜΟΥΣΕΙΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -16791,7 +16253,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΟΥΣΙΚΗ -->
   <hns_sign gloss="ΜΟΥΣΙΚΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -16820,7 +16281,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΠΑΝΙΟ -->
   <hns_sign gloss="ΜΠΑΝΙΟ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -16835,7 +16295,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΠΑΣΤΟΥΝΙ -->
   <hns_sign gloss="ΜΠΑΣΤΟΥΝΙ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -16878,7 +16337,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΠΕΡΔΕΥΟΜΑΙ -->
   <hns_sign gloss="ΜΠΕΡΔΕΥΟΜΑΙ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -16920,7 +16378,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΠΛΕ -->
   <hns_sign gloss="ΜΠΛΕ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -16935,7 +16392,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΠΛΟΥΖΑ -->
   <hns_sign gloss="ΜΠΛΟΥΖΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -16972,7 +16428,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΠΟΥΚΑΛΙ -->
   <hns_sign gloss="ΜΠΟΥΚΑΛΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -17018,7 +16473,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΠΡΟΣΤΑ -->
   <hns_sign gloss="ΜΠΡΟΣΤΑ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -17046,7 +16500,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΠΥΡΑ -->
   <hns_sign gloss="ΜΠΥΡΑ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -17072,7 +16525,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΥΡΙΖΩ -->
   <hns_sign gloss="ΜΥΡΙΖΩ">
       <hamnosys_manual>
             <hamfinger23/>
@@ -17102,7 +16554,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΜΥΤΗ -->
   <hns_sign gloss="ΜΥΤΗ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -17131,7 +16582,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΝΑΙ -->
   <hns_sign gloss="ΝΑΙ">
       <hamnosys_manual>
             <hamfist/>
@@ -17149,7 +16599,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΝΕΚΡΟΣ -->
   <hns_sign gloss="ΝΕΚΡΟΣ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -17194,7 +16643,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΝΕΡΟ -->
   <hns_sign gloss="ΝΕΡΟ">
       <hamnosys_manual>
             <hamfist/>
@@ -17217,7 +16665,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΝΗΣΙ -->
   <hns_sign gloss="ΝΗΣΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -17240,7 +16687,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΝΙΑΤΑ -->
   <hns_sign gloss="ΝΙΑΤΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -17267,7 +16713,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΝΟΕΜΒΡΙΟΣ -->
   <hns_sign gloss="ΝΟΕΜΒΡΙΟΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -17285,7 +16730,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΝΟΗΜΑ -->
   <hns_sign gloss="ΝΟΗΜΑ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -17306,7 +16750,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΝΟΜΙΖΩ -->
   <hns_sign gloss="ΝΟΜΙΖΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -17323,7 +16766,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΝΟΜΟΣ -->
   <hns_sign gloss="ΝΟΜΟΣ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -17354,7 +16796,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΝΟΣΟΚΟΜΑ -->
   <hns_sign gloss="ΝΟΣΟΚΟΜΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -17377,7 +16818,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΝΟΣΟΚΟΜΕΙΟ -->
   <hns_sign gloss="ΝΟΣΟΚΟΜΕΙΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -17440,7 +16880,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΝΟΣΤΙΜΟΣ -->
   <hns_sign gloss="ΝΟΣΤΙΜΟΣ">
       <hamnosys_manual>
             <hamflathand/>
@@ -17472,7 +16911,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΝΟΤΙΑ -->
   <hns_sign gloss="ΝΟΤΙΑ">
       <hamnosys_manual>
             <hamflathand/>
@@ -17487,7 +16925,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΝΤΟΜΑΤΑ -->
   <hns_sign gloss="ΝΤΟΜΑΤΑ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -17535,7 +16972,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΝΤΟΥΛΑΠΑ -->
   <hns_sign gloss="ΝΤΟΥΛΑΠΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -17557,7 +16993,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΝΥΣΤΑΖΩ -->
   <hns_sign gloss="ΝΥΣΤΑΖΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -17580,7 +17015,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΝΥΧΤΑ -->
   <hns_sign gloss="ΝΥΧΤΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -17649,7 +17083,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΞΑΦΝΙΑΖΩ -->
   <hns_sign gloss="ΞΑΦΝΙΑΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -17674,7 +17107,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΞΑΦΝΙΚΑ -->
   <hns_sign gloss="ΞΑΦΝΙΚΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -17698,7 +17130,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΞΕΝΟΣ -->
   <hns_sign gloss="ΞΕΝΟΣ">
       <hamnosys_manual>
             <hamfist/>
@@ -17726,7 +17157,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΞΕΧΝΩ -->
   <hns_sign gloss="ΞΕΧΝΩ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -17753,7 +17183,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΞΕΧΩΡΙΖΩ -->
   <hns_sign gloss="ΞΕΧΩΡΙΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -17776,7 +17205,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΞΙΝΟΣ -->
   <hns_sign gloss="ΞΙΝΟΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -17812,7 +17240,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΞΟΔΕΥΩ -->
   <hns_sign gloss="ΞΟΔΕΥΩ">
       <hamnosys_manual>
             <hampinch12/>
@@ -17845,7 +17272,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΟΔΗΓΙΑ -->
   <hns_sign gloss="ΟΔΗΓΙΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -17883,7 +17309,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΟΔΗΓΟΣ -->
   <hns_sign gloss="ΟΔΗΓΟΣ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -17907,7 +17332,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΟΔΗΓΩ -->
   <hns_sign gloss="ΟΔΗΓΩ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -17963,7 +17387,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΟΔΟΝΤΙΑΤΡΟΣ -->
   <hns_sign gloss="ΟΔΟΝΤΙΑΤΡΟΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -18006,7 +17429,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΟΙΚΟΓΕΝΕΙΑ -->
   <hns_sign gloss="ΟΙΚΟΓΕΝΕΙΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -18046,7 +17468,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΟΙΚΟΝΟΜΙΑ -->
   <hns_sign gloss="ΟΙΚΟΝΟΜΙΑ">
       <hamnosys_manual>
             <hampinch12/>
@@ -18099,7 +17520,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΟΙΝΟΠΝΕΥΜΑ -->
   <hns_sign gloss="ΟΙΝΟΠΝΕΥΜΑ">
       <hamnosys_manual>
             <hamfist/>
@@ -18114,7 +17534,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΟΛΟΚΛΗΡΟΣ -->
   <hns_sign gloss="ΟΛΟΚΛΗΡΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -18166,7 +17585,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΟΜΑΔΑ -->
   <hns_sign gloss="ΟΜΑΔΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -18211,7 +17629,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΟΜΙΧΛΗ -->
   <hns_sign gloss="ΟΜΙΧΛΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -18248,7 +17665,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΟΜΟΙΟΣ -->
   <hns_sign gloss="ΟΜΟΙΟΣ">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -18287,7 +17703,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΟΜΟΡΦΟΣ -->
   <hns_sign gloss="ΟΜΟΡΦΟΣ">
       <hamnosys_manual>
             <hamcee12/>
@@ -18318,7 +17733,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΟΜΠΡΕΛΑ -->
   <hns_sign gloss="ΟΜΠΡΕΛΑ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -18353,7 +17767,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΟΝΕΙΡΕΥΟΜΑΙ -->
   <hns_sign gloss="ΟΝΕΙΡΕΥΟΜΑΙ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -18376,7 +17789,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΟΝΟΜΑ -->
   <hns_sign gloss="ΟΝΟΜΑ">
       <hamnosys_manual>
             <hampinch12/>
@@ -18391,7 +17803,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΟΠΛΟ -->
   <hns_sign gloss="ΟΠΛΟ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -18405,7 +17816,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΟΡΓΑΝΩΝΩ -->
   <hns_sign gloss="ΟΡΓΑΝΩΝΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -18439,7 +17849,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΟΡΕΞΗ -->
   <hns_sign gloss="ΟΡΕΞΗ">
       <hamnosys_manual>
             <hampinchall/>
@@ -18476,7 +17885,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΟΡΟΦΟΣ -->
   <hns_sign gloss="ΟΡΟΦΟΣ">
       <hamnosys_manual>
             <hamflathand/>
@@ -18494,7 +17902,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΟΥΡΑΝΟΣ -->
   <hns_sign gloss="ΟΥΡΑΝΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -18522,7 +17929,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΟΦΕΙΛΩ -->
   <hns_sign gloss="ΟΦΕΙΛΩ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -18560,14 +17966,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΟΧΙ -->
   <hns_sign gloss="ΟΧΙ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΓΟΣ -->
   <hns_sign gloss="ΠΑΓΟΣ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -18607,7 +18011,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΓΩΤΟ -->
   <hns_sign gloss="ΠΑΓΩΤΟ">
       <hamnosys_manual>
             <hamfist/>
@@ -18627,14 +18030,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΙΔΙ -->
   <hns_sign gloss="ΠΑΙΔΙ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΙΖΩ -->
   <hns_sign gloss="ΠΑΙΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -18662,7 +18063,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΙΡΝΩ -->
   <hns_sign gloss="ΠΑΙΡΝΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -18702,7 +18102,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΙΧΝΙΔΙ -->
   <hns_sign gloss="ΠΑΙΧΝΙΔΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -18754,7 +18153,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΛΙ -->
   <hns_sign gloss="ΠΑΛΙ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -18800,7 +18198,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΛΤΟ -->
   <hns_sign gloss="ΠΑΛΤΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -18839,7 +18236,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΝΤΕΛΟΝΙ -->
   <hns_sign gloss="ΠΑΝΤΕΛΟΝΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -18864,7 +18260,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΝΤΟΥ -->
   <hns_sign gloss="ΠΑΝΤΟΥ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -18902,7 +18297,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΠΑΣ -->
   <hns_sign gloss="ΠΑΠΑΣ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -18926,7 +18320,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΡΑΔΕΧΟΜΑΙ -->
   <hns_sign gloss="ΠΑΡΑΔΕΧΟΜΑΙ">
       <hamnosys_manual>
             <hamfist/>
@@ -18948,7 +18341,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΡΑΘΥΡΟ -->
   <hns_sign gloss="ΠΑΡΑΘΥΡΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -18973,7 +18365,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΡΑΙΤΟΥΜΑΙ -->
   <hns_sign gloss="ΠΑΡΑΙΤΟΥΜΑΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -18997,7 +18388,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΡΑΚΟΛΟΥΘΩ -->
   <hns_sign gloss="ΠΑΡΑΚΟΛΟΥΘΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -19026,7 +18416,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΡΑΞΕΝΟΣ -->
   <hns_sign gloss="ΠΑΡΑΞΕΝΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -19064,7 +18453,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΡΑΠΟΝΟ -->
   <hns_sign gloss="ΠΑΡΑΠΟΝΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -19095,7 +18483,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΡΑΣΚΕΥΗ -->
   <hns_sign gloss="ΠΑΡΑΣΚΕΥΗ">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -19115,7 +18502,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΡΑΣΤΑΣΗ -->
   <hns_sign gloss="ΠΑΡΑΣΤΑΣΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -19136,7 +18522,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΡΕΛΘΟΝ -->
   <hns_sign gloss="ΠΑΡΕΛΘΟΝ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -19179,7 +18564,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΡΙΣΙ -->
   <hns_sign gloss="ΠΑΡΙΣΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -19207,7 +18591,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΤΑΤΑ -->
   <hns_sign gloss="ΠΑΤΑΤΑ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -19233,7 +18616,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΤΕΡΑΣ -->
   <hns_sign gloss="ΠΑΤΕΡΑΣ">
       <hamnosys_manual>
             <hampinchall/>
@@ -19258,7 +18640,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΑΤΩΜΑ -->
   <hns_sign gloss="ΠΑΤΩΜΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -19283,7 +18664,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΕΖΟΣ -->
   <hns_sign gloss="ΠΕΖΟΣ">
       <hamnosys_manual>
             <hamfinger23/>
@@ -19313,7 +18693,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΕΘΑΙΝΩ -->
   <hns_sign gloss="ΠΕΘΑΙΝΩ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -19356,7 +18735,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΕΙΝΩ -->
   <hns_sign gloss="ΠΕΙΝΩ">
       <hamnosys_manual>
             <hamflathand/>
@@ -19372,7 +18750,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΕΛΑΤΗΣ -->
   <hns_sign gloss="ΠΕΛΑΤΗΣ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -19439,7 +18816,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΕΜΠΤΗ -->
   <hns_sign gloss="ΠΕΜΠΤΗ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -19466,7 +18842,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΕΡΙΒΑΛΛΟΝ -->
   <hns_sign gloss="ΠΕΡΙΒΑΛΛΟΝ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -19491,7 +18866,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΕΡΙΓΡΑΦΩ -->
   <hns_sign gloss="ΠΕΡΙΓΡΑΦΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -19508,7 +18882,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΕΡΙΜΕΝΩ -->
   <hns_sign gloss="ΠΕΡΙΜΕΝΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -19536,7 +18909,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΕΡΙΟΔΙΚΟ -->
   <hns_sign gloss="ΠΕΡΙΟΔΙΚΟ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -19591,7 +18963,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΕΡΙΟΥΣΙΑ -->
   <hns_sign gloss="ΠΕΡΙΟΥΣΙΑ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -19627,7 +18998,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΕΡΙΟΧΗ -->
   <hns_sign gloss="ΠΕΡΙΟΧΗ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -19643,7 +19013,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΕΡΙΠΤΕΡΟ -->
   <hns_sign gloss="ΠΕΡΙΠΤΕΡΟ">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -19689,7 +19058,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΕΡΠΑΤΩ -->
   <hns_sign gloss="ΠΕΡΠΑΤΩ">
       <hamnosys_manual>
             <hamfinger23/>
@@ -19710,7 +19078,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΕΤΡΑ -->
   <hns_sign gloss="ΠΕΤΡΑ">
       <hamnosys_manual>
             <hamflathand/>
@@ -19754,7 +19121,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΕΤΡΕΛΑΙΟ -->
   <hns_sign gloss="ΠΕΤΡΕΛΑΙΟ">
       <hamnosys_manual>
             <hamfist/>
@@ -19786,7 +19152,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΕΤΣΕΤΑ -->
   <hns_sign gloss="ΠΕΤΣΕΤΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -19805,7 +19170,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΕΤΥΧΑΙΝΩ -->
   <hns_sign gloss="ΠΕΤΥΧΑΙΝΩ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -19844,7 +19208,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΕΤΩ -->
   <hns_sign gloss="ΠΕΤΩ">
       <hamnosys_manual>
             <hamfist/>
@@ -19870,7 +19233,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΗΓΑΙΝΩ -->
   <hns_sign gloss="ΠΗΓΑΙΝΩ">
       <hamnosys_manual>
             <hamflathand/>
@@ -19888,7 +19250,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΗΓΗ -->
   <hns_sign gloss="ΠΗΓΗ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -19919,7 +19280,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΗΔΩ -->
   <hns_sign gloss="ΠΗΔΩ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -19944,7 +19304,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΙΑΤΟ -->
   <hns_sign gloss="ΠΙΑΤΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -19963,7 +19322,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΙΘΑΝΟΣ -->
   <hns_sign gloss="ΠΙΘΑΝΟΣ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -20004,7 +19362,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΙΚΡΟΣ -->
   <hns_sign gloss="ΠΙΚΡΟΣ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -20029,7 +19386,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΙΡΟΥΝΙ -->
   <hns_sign gloss="ΠΙΡΟΥΝΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -20063,7 +19419,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΛΑΣΤΙΚΟ -->
   <hns_sign gloss="ΠΛΑΣΤΙΚΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -20078,7 +19433,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΛΑΤΕΙΑ -->
   <hns_sign gloss="ΠΛΑΤΕΙΑ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -20106,7 +19460,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΛΑΤΗ -->
   <hns_sign gloss="ΠΛΑΤΗ">
       <hamnosys_manual>
             <hamflathand/>
@@ -20132,7 +19485,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΛΕΚΩ -->
   <hns_sign gloss="ΠΛΕΚΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -20148,7 +19500,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΛΕΝΩ -->
   <hns_sign gloss="ΠΛΕΝΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -20182,7 +19533,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΛΗΓΗ -->
   <hns_sign gloss="ΠΛΗΓΗ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -20215,7 +19565,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΛΗΘΥΣΜΟΣ -->
   <hns_sign gloss="ΠΛΗΘΥΣΜΟΣ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -20250,7 +19599,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΛΗΡΟΦΟΡΩ -->
   <hns_sign gloss="ΠΛΗΡΟΦΟΡΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -20282,7 +19630,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΛΗΡΩΝΩ -->
   <hns_sign gloss="ΠΛΗΡΩΝΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -20325,7 +19672,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΛΟΙΟ -->
   <hns_sign gloss="ΠΛΟΙΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -20341,7 +19687,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΛΟΥΣΙΟΣ -->
   <hns_sign gloss="ΠΛΟΥΣΙΟΣ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -20356,7 +19701,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΟΔΗΛΑΤΟ -->
   <hns_sign gloss="ΠΟΔΗΛΑΤΟ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -20370,7 +19714,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΟΔΙ -->
   <hns_sign gloss="ΠΟΔΙ">
       <hamnosys_manual>
             <hamflathand/>
@@ -20387,7 +19730,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΟΙΟΣ -->
   <hns_sign gloss="ΠΟΙΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -20423,7 +19765,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΟΛΗ -->
   <hns_sign gloss="ΠΟΛΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -20467,7 +19808,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΟΛΙΤΗΣ -->
   <hns_sign gloss="ΠΟΛΙΤΗΣ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -20500,7 +19840,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΟΛΥΘΡΟΝΑ -->
   <hns_sign gloss="ΠΟΛΥΘΡΟΝΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -20521,7 +19860,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΟΝΩ -->
   <hns_sign gloss="ΠΟΝΩ">
       <hamnosys_manual>
             <hamfist/>
@@ -20537,7 +19875,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΟΡΤΑ -->
   <hns_sign gloss="ΠΟΡΤΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -20574,7 +19911,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΟΣΟΣ -->
   <hns_sign gloss="ΠΟΣΟΣ">
       <hamnosys_manual>
             <hamfist/>
@@ -20604,7 +19940,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΟΤΑΜΙ -->
   <hns_sign gloss="ΠΟΤΑΜΙ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -20676,7 +20011,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΟΤΕ -->
   <hns_sign gloss="ΠΟΤΕ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -20702,7 +20036,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΟΤΗΡΙ -->
   <hns_sign gloss="ΠΟΤΗΡΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -20732,7 +20065,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΟΤΙΖΩ -->
   <hns_sign gloss="ΠΟΤΙΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -20775,7 +20107,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΟΤΟ -->
   <hns_sign gloss="ΠΟΤΟ">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -20805,7 +20136,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΟΥΘΕΝΑ -->
   <hns_sign gloss="ΠΟΥΘΕΝΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -20837,7 +20167,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΟΥΚΑΜΙΣΟ -->
   <hns_sign gloss="ΠΟΥΚΑΜΙΣΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -20865,7 +20194,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΟΥΛΙ -->
   <hns_sign gloss="ΠΟΥΛΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -20891,7 +20219,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΟΥΛΩ -->
   <hns_sign gloss="ΠΟΥΛΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -20922,7 +20249,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΡΑΣΙΝΟΣ -->
   <hns_sign gloss="ΠΡΑΣΙΝΟΣ">
       <hamnosys_manual>
             <hampinch12open/>
@@ -20950,7 +20276,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΡΕΠΕΙ -->
   <hns_sign gloss="ΠΡΕΠΕΙ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -20991,7 +20316,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΡΟΒΛΗΜΑ -->
   <hns_sign gloss="ΠΡΟΒΛΗΜΑ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -21025,7 +20349,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΡΟΓΡΑΜΜΑ -->
   <hns_sign gloss="ΠΡΟΓΡΑΜΜΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -21069,7 +20392,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΡΟΔΙΔΩ -->
   <hns_sign gloss="ΠΡΟΔΙΔΩ">
       <hamnosys_manual>
             <hamfist/>
@@ -21092,7 +20414,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΡΟΕΔΡΟΣ -->
   <hns_sign gloss="ΠΡΟΕΔΡΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -21132,7 +20453,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΡΟΕΙΔΟΠΟΙΩ -->
   <hns_sign gloss="ΠΡΟΕΙΔΟΠΟΙΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -21169,7 +20489,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΡΟΘΥΜΟΣ -->
   <hns_sign gloss="ΠΡΟΘΥΜΟΣ">
       <hamnosys_manual>
             <hamflathand/>
@@ -21221,7 +20540,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΡΟΣΒΑΛΛΩ -->
   <hns_sign gloss="ΠΡΟΣΒΑΛΛΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -21241,7 +20559,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΡΟΣΕΧΩ -->
   <hns_sign gloss="ΠΡΟΣΕΧΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -21291,7 +20608,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΡΟΣΚΛΗΣΗ -->
   <hns_sign gloss="ΠΡΟΣΚΛΗΣΗ">
       <hamnosys_manual>
             <hamflathand/>
@@ -21351,7 +20667,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΡΟΣΟΧΗ -->
   <hns_sign gloss="ΠΡΟΣΟΧΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -21394,7 +20709,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΡΟΣΠΑΘΕΙΑ -->
   <hns_sign gloss="ΠΡΟΣΠΑΘΕΙΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -21436,7 +20750,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΡΟΣΤΑΤΕΥΩ -->
   <hns_sign gloss="ΠΡΟΣΤΑΤΕΥΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -21483,7 +20796,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΡΟΣΦΟΡΑ -->
   <hns_sign gloss="ΠΡΟΣΦΟΡΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -21527,7 +20839,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΡΟΣΩΡΙΝΟΣ -->
   <hns_sign gloss="ΠΡΟΣΩΡΙΝΟΣ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -21544,7 +20855,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΡΟΤΕΙΝΩ -->
   <hns_sign gloss="ΠΡΟΤΕΙΝΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -21570,7 +20880,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΡΟΪΟΝ -->
   <hns_sign gloss="ΠΡΟΪΟΝ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -21610,7 +20919,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΡΩΙ -->
   <hns_sign gloss="ΠΡΩΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -21641,7 +20949,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΡΩΤΑ -->
   <hns_sign gloss="ΠΡΩΤΑ">
       <hamnosys_manual>
             <hamfist/>
@@ -21654,14 +20961,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΡΩΤΕΥΟΥΣΑ -->
   <hns_sign gloss="ΠΡΩΤΕΥΟΥΣΑ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΠΩΣ -->
   <hns_sign gloss="ΠΩΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -21680,7 +20985,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΡΑΔΙΟΦΩΝΟ -->
   <hns_sign gloss="ΡΑΔΙΟΦΩΝΟ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -21707,7 +21011,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΡΕΥΜΑ -->
   <hns_sign gloss="ΡΕΥΜΑ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -21758,7 +21061,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΡΙΖΑ -->
   <hns_sign gloss="ΡΙΖΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -21779,7 +21081,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΡΙΧΝΩ -->
   <hns_sign gloss="ΡΙΧΝΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -21807,7 +21108,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΡΟΔΑ -->
   <hns_sign gloss="ΡΟΔΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -21869,7 +21169,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΡΟΥΧΙΣΜΟΣ -->
   <hns_sign gloss="ΡΟΥΧΙΣΜΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -21885,7 +21184,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΡΥΖΙ -->
   <hns_sign gloss="ΡΥΖΙ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -21914,7 +21212,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΑΒΒΑΤΟ -->
   <hns_sign gloss="ΣΑΒΒΑΤΟ">
       <hamnosys_manual>
             <hamfist/>
@@ -21928,7 +21225,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΑΚΙΔΙΟ -->
   <hns_sign gloss="ΣΑΚΙΔΙΟ">
       <hamnosys_manual>
             <hamfist/>
@@ -21969,7 +21265,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΑΛΑΤΑ -->
   <hns_sign gloss="ΣΑΛΑΤΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -21991,7 +21286,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΑΛΤΣΑ -->
   <hns_sign gloss="ΣΑΛΤΣΑ">
       <hamnosys_manual>
             <hamflathand/>
@@ -22009,7 +21303,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΑΠΟΥΝΙ -->
   <hns_sign gloss="ΣΑΠΟΥΝΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -22090,7 +21383,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΑΦΗΣ -->
   <hns_sign gloss="ΣΑΦΗΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -22106,7 +21398,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΒΗΝΩ -->
   <hns_sign gloss="ΣΒΗΝΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -22133,7 +21424,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΒΗΝΩ_ΦΩΤΑ -->
   <hns_sign gloss="ΣΒΗΝΩ_ΦΩΤΑ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -22151,7 +21441,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΕΙΡΑ -->
   <hns_sign gloss="ΣΕΙΡΑ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -22179,7 +21468,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΕΛΙΔΑ -->
   <hns_sign gloss="ΣΕΛΙΔΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -22223,7 +21511,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΕΠΤΕΜΒΡΙΟΣ -->
   <hns_sign gloss="ΣΕΠΤΕΜΒΡΙΟΣ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -22265,7 +21552,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΕΡΒΙΡΩ -->
   <hns_sign gloss="ΣΕΡΒΙΡΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -22291,7 +21577,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΗΜΑΝΤΙΚΟΣ -->
   <hns_sign gloss="ΣΗΜΑΝΤΙΚΟΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -22337,7 +21622,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΗΜΕΙΩΝΩ -->
   <hns_sign gloss="ΣΗΜΕΙΩΝΩ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -22425,7 +21709,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΗΜΕΡΑ -->
   <hns_sign gloss="ΣΗΜΕΡΑ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -22442,7 +21725,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΚΑΒΩ -->
   <hns_sign gloss="ΣΚΑΒΩ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -22476,7 +21758,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΚΑΛΑ -->
   <hns_sign gloss="ΣΚΑΛΑ">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -22498,7 +21779,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΚΕΠΗ -->
   <hns_sign gloss="ΣΚΕΠΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -22519,7 +21799,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΚΕΦΤΟΜΑΙ -->
   <hns_sign gloss="ΣΚΕΦΤΟΜΑΙ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -22543,7 +21822,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΚΗΝΗ -->
   <hns_sign gloss="ΣΚΗΝΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -22582,7 +21860,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΚΙΑ -->
   <hns_sign gloss="ΣΚΙΑ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -22622,7 +21899,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΚΛΗΡΟΣ -->
   <hns_sign gloss="ΣΚΛΗΡΟΣ">
       <hamnosys_manual>
             <hamfist/>
@@ -22656,7 +21932,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΚΟΝΗ -->
   <hns_sign gloss="ΣΚΟΝΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -22690,7 +21965,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΚΟΥΠΙΖΩ -->
   <hns_sign gloss="ΣΚΟΥΠΙΖΩ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -22725,7 +21999,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΚΟΥΡΟΣ -->
   <hns_sign gloss="ΣΚΟΥΡΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -22753,7 +22026,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΚΥΛΟΣ -->
   <hns_sign gloss="ΣΚΥΛΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -22779,7 +22051,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΟΜΠΑ -->
   <hns_sign gloss="ΣΟΜΠΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -22817,7 +22088,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΟΥΠΑ -->
   <hns_sign gloss="ΣΟΥΠΑ">
       <hamnosys_manual>
             <hamflathand/>
@@ -22839,7 +22109,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΠΟΡ -->
   <hns_sign gloss="ΣΠΟΡ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -22876,7 +22145,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΠΟΥΔΑΖΩ -->
   <hns_sign gloss="ΣΠΟΥΔΑΖΩ">
       <hamnosys_manual>
             <hamflathand/>
@@ -22916,7 +22184,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΠΡΩΧΝΩ -->
   <hns_sign gloss="ΣΠΡΩΧΝΩ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -22936,7 +22203,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΤΑΘΕΡΟΣ -->
   <hns_sign gloss="ΣΤΑΘΕΡΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -22954,7 +22220,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΤΑΦΥΛΙ -->
   <hns_sign gloss="ΣΤΑΦΥΛΙ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -22994,7 +22259,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΤΑΧΤΗ -->
   <hns_sign gloss="ΣΤΑΧΤΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -23057,7 +22321,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΤΕΓΝΟΣ -->
   <hns_sign gloss="ΣΤΕΓΝΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -23076,7 +22339,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΤΕΝΟΣ -->
   <hns_sign gloss="ΣΤΕΝΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -23107,7 +22369,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΤΗΘΟΣ -->
   <hns_sign gloss="ΣΤΗΘΟΣ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -23133,7 +22394,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΤΙΓΜΗ -->
   <hns_sign gloss="ΣΤΙΓΜΗ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -23176,7 +22436,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΤΡΑΒΟΣ -->
   <hns_sign gloss="ΣΤΡΑΒΟΣ">
       <hamnosys_manual>
             <hamflathand/>
@@ -23212,7 +22471,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΤΡΑΤΙΩΤΗΣ -->
   <hns_sign gloss="ΣΤΡΑΤΙΩΤΗΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -23243,7 +22501,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΤΡΑΤΟΣ -->
   <hns_sign gloss="ΣΤΡΑΤΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -23306,7 +22563,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΤΡΙΒΩ -->
   <hns_sign gloss="ΣΤΡΙΒΩ">
       <hamnosys_manual>
             <hamflathand/>
@@ -23335,7 +22591,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΤΡΟΓΓΥΛΟΣ -->
   <hns_sign gloss="ΣΤΡΟΓΓΥΛΟΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -23358,7 +22613,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΤΡΟΦΗ -->
   <hns_sign gloss="ΣΤΡΟΦΗ">
       <hamnosys_manual>
             <hamflathand/>
@@ -23388,7 +22642,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΥΓΓΕΝΗΣ -->
   <hns_sign gloss="ΣΥΓΓΕΝΗΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -23415,7 +22668,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΥΓΓΝΩΜΗ -->
   <hns_sign gloss="ΣΥΓΓΝΩΜΗ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -23438,7 +22690,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΥΓΧΡΟΝΩΣ -->
   <hns_sign gloss="ΣΥΓΧΡΟΝΩΣ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -23502,7 +22753,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΥΓΧΩΡΩ -->
   <hns_sign gloss="ΣΥΓΧΩΡΩ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -23543,7 +22793,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΥΖΗΤΗΣΗ -->
   <hns_sign gloss="ΣΥΖΗΤΗΣΗ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -23588,7 +22837,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΥΜΒΟΥΛΕΥΩ -->
   <hns_sign gloss="ΣΥΜΒΟΥΛΕΥΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -23635,7 +22883,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΥΜΦΩΝΙΑ -->
   <hns_sign gloss="ΣΥΜΦΩΝΙΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -23676,7 +22923,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΥΝΑΝΤΩ -->
   <hns_sign gloss="ΣΥΝΑΝΤΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -23732,7 +22978,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΥΝΕΝΝΟΟΥΜΑΙ -->
   <hns_sign gloss="ΣΥΝΕΝΝΟΟΥΜΑΙ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -23791,7 +23036,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΥΝΗΘΕΙΑ -->
   <hns_sign gloss="ΣΥΝΗΘΕΙΑ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -23822,7 +23066,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΥΝΟΡΕΥΩ -->
   <hns_sign gloss="ΣΥΝΟΡΕΥΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -23849,7 +23092,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΥΝΤΟΜΟΣ -->
   <hns_sign gloss="ΣΥΝΤΟΜΟΣ">
       <hamnosys_manual>
             <hamflathand/>
@@ -23879,7 +23121,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΥΝΤΡΟΦΙΑ -->
   <hns_sign gloss="ΣΥΝΤΡΟΦΙΑ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -23949,7 +23190,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΥΡΜΑ -->
   <hns_sign gloss="ΣΥΡΜΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -24003,7 +23243,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΥΧΝΑ -->
   <hns_sign gloss="ΣΥΧΝΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -24038,7 +23277,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΦΙΧΤΟΣ -->
   <hns_sign gloss="ΣΦΙΧΤΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -24069,7 +23307,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΧΕΔΙΟ -->
   <hns_sign gloss="ΣΧΕΔΙΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -24102,7 +23339,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΧΕΔΟΝ -->
   <hns_sign gloss="ΣΧΕΔΟΝ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -24115,7 +23351,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΧΕΣΗ -->
   <hns_sign gloss="ΣΧΕΣΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -24165,7 +23400,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΧΟΛΕΙΟ -->
   <hns_sign gloss="ΣΧΟΛΕΙΟ">
       <hamnosys_manual>
             <hamflathand/>
@@ -24195,7 +23429,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΩΖΩ -->
   <hns_sign gloss="ΣΩΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -24223,7 +23456,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΩΛΗΝΑΣ -->
   <hns_sign gloss="ΣΩΛΗΝΑΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -24245,7 +23477,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΩΜΑ -->
   <hns_sign gloss="ΣΩΜΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -24281,7 +23512,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΩΠΑΙΝΩ -->
   <hns_sign gloss="ΣΩΠΑΙΝΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -24298,7 +23528,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΩΡΟΣ -->
   <hns_sign gloss="ΣΩΡΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -24352,7 +23581,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΣΩΣΤΟΣ -->
   <hns_sign gloss="ΣΩΣΤΟΣ">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -24372,7 +23600,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΤΑΞΙ -->
   <hns_sign gloss="ΤΑΞΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -24414,7 +23641,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΤΕΛΕΙΩΝΩ -->
   <hns_sign gloss="ΤΕΛΕΙΩΝΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -24439,7 +23665,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΤΕΛΟΣ -->
   <hns_sign gloss="ΤΕΛΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -24469,7 +23694,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΤΕΤΑΡΤΗ -->
   <hns_sign gloss="ΤΕΤΑΡΤΗ">
       <hamnosys_manual>
             <hampinchall/>
@@ -24492,7 +23716,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΤΕΤΑΡΤΟ -->
   <hns_sign gloss="ΤΕΤΑΡΤΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -24563,7 +23786,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΤΗΛΕΦΩΝΩ -->
   <hns_sign gloss="ΤΗΛΕΦΩΝΩ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -24587,7 +23809,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΤΙ -->
   <hns_sign gloss="ΤΙ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -24611,7 +23832,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΤΟΠΟΣ -->
   <hns_sign gloss="ΤΟΠΟΣ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -24640,7 +23860,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΤΡΑΒΩ -->
   <hns_sign gloss="ΤΡΑΒΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -24678,7 +23897,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΤΡΕΝΟ -->
   <hns_sign gloss="ΤΡΕΝΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -24701,7 +23919,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΤΡΙΤΗ -->
   <hns_sign gloss="ΤΡΙΤΗ">
       <hamnosys_manual>
             <hamflathand/>
@@ -24717,7 +23934,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΤΡΟΧΟΣΠΙΤΟ -->
   <hns_sign gloss="ΤΡΟΧΟΣΠΙΤΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -24764,7 +23980,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΤΡΩΩ -->
   <hns_sign gloss="ΤΡΩΩ">
       <hamnosys_manual>
             <hampinchall/>
@@ -24781,7 +23996,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΤΣΑΝΤΑ -->
   <hns_sign gloss="ΤΣΑΝΤΑ">
       <hamnosys_manual>
             <hamfist/>
@@ -24808,7 +24022,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΤΣΑΤΣΑΡΑ -->
   <hns_sign gloss="ΤΣΑΤΣΑΡΑ">
       <hamnosys_manual>
             <hamfist/>
@@ -24829,7 +24042,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΤΣΙΓΚΟΥΝΗΣ -->
   <hns_sign gloss="ΤΣΙΓΚΟΥΝΗΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -24846,7 +24058,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΤΥΛΙΓΩ -->
   <hns_sign gloss="ΤΥΛΙΓΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -24931,7 +24142,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΤΥΡΙ -->
   <hns_sign gloss="ΤΥΡΙ">
       <hamnosys_manual>
             <hamflathand/>
@@ -24953,7 +24163,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΤΥΧΕΡΟΣ -->
   <hns_sign gloss="ΤΥΧΕΡΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -24989,7 +24198,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΤΥΧΗ -->
   <hns_sign gloss="ΤΥΧΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -25027,7 +24235,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΤΩΡΑ -->
   <hns_sign gloss="ΤΩΡΑ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -25041,7 +24248,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΥΓΕΙΑ -->
   <hns_sign gloss="ΥΓΕΙΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -25059,7 +24265,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΥΓΡΟ -->
   <hns_sign gloss="ΥΓΡΟ">
       <hamnosys_manual>
             <hamfist/>
@@ -25079,7 +24284,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΥΓΡΟΣ -->
   <hns_sign gloss="ΥΓΡΟΣ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -25109,7 +24313,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΥΛΙΚΟ -->
   <hns_sign gloss="ΥΛΙΚΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -25128,7 +24331,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΥΠΑΛΛΗΛΟΣ -->
   <hns_sign gloss="ΥΠΑΛΛΗΛΟΣ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -25154,7 +24356,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΥΠΕΡΑΣΠΙΖΩ -->
   <hns_sign gloss="ΥΠΕΡΑΣΠΙΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -25186,7 +24387,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΥΠΕΡΟΧΟΣ -->
   <hns_sign gloss="ΥΠΕΡΟΧΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -25212,7 +24412,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΥΠΕΥΘΥΝΟΣ -->
   <hns_sign gloss="ΥΠΕΥΘΥΝΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -25239,7 +24438,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΥΠΟΓΕΙΟ -->
   <hns_sign gloss="ΥΠΟΓΕΙΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -25268,7 +24466,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΥΠΟΔΕΧΟΜΑΙ -->
   <hns_sign gloss="ΥΠΟΔΕΧΟΜΑΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -25321,7 +24518,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΥΠΟΛΟΓΙΖΩ -->
   <hns_sign gloss="ΥΠΟΛΟΓΙΖΩ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -25365,7 +24561,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΥΠΟΜΟΝΗ -->
   <hns_sign gloss="ΥΠΟΜΟΝΗ">
       <hamnosys_manual>
             <hamfist/>
@@ -25388,7 +24583,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΥΠΟΠΤΟΣ -->
   <hns_sign gloss="ΥΠΟΠΤΟΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -25419,7 +24613,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΥΠΟΣΧΟΜΑΙ -->
   <hns_sign gloss="ΥΠΟΣΧΟΜΑΙ">
       <hamnosys_manual>
             <hampinch12/>
@@ -25438,7 +24631,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΥΠΟΥΡΓΟΣ -->
   <hns_sign gloss="ΥΠΟΥΡΓΟΣ">
       <hamnosys_manual>
             <hamcee12/>
@@ -25476,7 +24668,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΥΠΟΦΕΡΩ -->
   <hns_sign gloss="ΥΠΟΦΕΡΩ">
       <hamnosys_manual>
             <hamfist/>
@@ -25528,7 +24719,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΥΦΑΣΜΑ -->
   <hns_sign gloss="ΥΦΑΣΜΑ">
       <hamnosys_manual>
             <hamfist/>
@@ -25557,7 +24747,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΥΨΟΣ -->
   <hns_sign gloss="ΥΨΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -25592,14 +24781,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΑΓΗΤΟ -->
   <hns_sign gloss="ΦΑΓΗΤΟ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΑΝΑΡΙΑ_ΚΥΚΛΟΦΟΡΙΑΣ -->
   <hns_sign gloss="ΦΑΝΑΡΙΑ_ΚΥΚΛΟΦΟΡΙΑΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -25624,7 +24811,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΑΝΤΑΖΟΜΑΙ -->
   <hns_sign gloss="ΦΑΝΤΑΖΟΜΑΙ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -25650,7 +24836,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΑΡΔΥΣ -->
   <hns_sign gloss="ΦΑΡΔΥΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -25671,7 +24856,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΑΡΜΑΚΕΙΟ -->
   <hns_sign gloss="ΦΑΡΜΑΚΕΙΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -25738,7 +24922,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΑΡΜΑΚΟ -->
   <hns_sign gloss="ΦΑΡΜΑΚΟ">
       <hamnosys_manual>
             <hamparbegin/>
@@ -25773,7 +24956,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΑΣΑΡΙΑ -->
   <hns_sign gloss="ΦΑΣΑΡΙΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -25805,7 +24987,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΕΒΡΟΥΑΡΙΟΣ -->
   <hns_sign gloss="ΦΕΒΡΟΥΑΡΙΟΣ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -25832,7 +25013,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΕΓΓΑΡΙ -->
   <hns_sign gloss="ΦΕΓΓΑΡΙ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -25857,7 +25037,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΕΡΝΩ -->
   <hns_sign gloss="ΦΕΡΝΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -25905,7 +25084,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΘΙΝΟΠΩΡΟ -->
   <hns_sign gloss="ΦΘΙΝΟΠΩΡΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -25942,7 +25120,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΙΛΙ -->
   <hns_sign gloss="ΦΙΛΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -25977,7 +25154,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΙΛΟΞΕΝΩ -->
   <hns_sign gloss="ΦΙΛΟΞΕΝΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -26030,7 +25206,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΙΛΟΣ -->
   <hns_sign gloss="ΦΙΛΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -26046,7 +25221,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΟΒΑΜΑΙ -->
   <hns_sign gloss="ΦΟΒΑΜΑΙ">
       <hamnosys_manual>
             <hamfist/>
@@ -26067,14 +25241,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΟΒΟΣ -->
   <hns_sign gloss="ΦΟΒΟΣ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΟΙΤΗΤΗΣ -->
   <hns_sign gloss="ΦΟΙΤΗΤΗΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -26100,7 +25272,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΟΡΕΜΑ -->
   <hns_sign gloss="ΦΟΡΕΜΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -26129,7 +25300,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΟΡΤΗΓΟ -->
   <hns_sign gloss="ΦΟΡΤΗΓΟ">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -26190,7 +25360,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΟΥΣΤΑ -->
   <hns_sign gloss="ΦΟΥΣΤΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -26227,7 +25396,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΡΕΣΚΟΣ -->
   <hns_sign gloss="ΦΡΕΣΚΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -26249,7 +25417,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΡΟΝΤΙΖΩ -->
   <hns_sign gloss="ΦΡΟΝΤΙΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -26269,7 +25436,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΡΟΥΤΟ -->
   <hns_sign gloss="ΦΡΟΥΤΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -26320,7 +25486,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΤΗΝΟΣ -->
   <hns_sign gloss="ΦΤΗΝΟΣ">
       <hamnosys_manual>
             <hamflathand/>
@@ -26333,7 +25498,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΤΙΑΧΝΩ -->
   <hns_sign gloss="ΦΤΙΑΧΝΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -26362,7 +25526,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΤΩΧΟΣ -->
   <hns_sign gloss="ΦΤΩΧΟΣ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -26374,7 +25537,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΥΛΛΟ -->
   <hns_sign gloss="ΦΥΛΛΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -26399,7 +25561,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΥΣΗ -->
   <hns_sign gloss="ΦΥΣΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -26440,7 +25601,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΥΤΕΥΩ -->
   <hns_sign gloss="ΦΥΤΕΥΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -26489,7 +25649,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΥΤΟ -->
   <hns_sign gloss="ΦΥΤΟ">
       <hamnosys_manual>
             <hampinchall/>
@@ -26529,7 +25688,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΩΝΑΖΩ -->
   <hns_sign gloss="ΦΩΝΑΖΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -26555,7 +25713,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΩΝΗ -->
   <hns_sign gloss="ΦΩΝΗ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -26584,7 +25741,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΩΣ -->
   <hns_sign gloss="ΦΩΣ">
       <hamnosys_manual>
             <hamfist/>
@@ -26607,7 +25763,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΩΤΟΓΡΑΦΙΖΩ -->
   <hns_sign gloss="ΦΩΤΟΓΡΑΦΙΖΩ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -26646,7 +25801,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΦΩΤΟΓΡΑΦΙΚΗ_ΜΗΧΑΝΗ -->
   <hns_sign gloss="ΦΩΤΟΓΡΑΦΙΚΗ_ΜΗΧΑΝΗ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -26726,7 +25880,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΑΙΡΕΤΩ -->
   <hns_sign gloss="ΧΑΙΡΕΤΩ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -26780,7 +25933,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΑΛΙ -->
   <hns_sign gloss="ΧΑΛΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -26801,7 +25953,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΑΜΗΛΑ -->
   <hns_sign gloss="ΧΑΜΗΛΑ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -26823,7 +25974,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΑΜΟΓΕΛΟ -->
   <hns_sign gloss="ΧΑΜΟΓΕΛΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -26856,7 +26006,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΑΠΙ -->
   <hns_sign gloss="ΧΑΠΙ">
       <hamnosys_manual>
             <hampinch12/>
@@ -26875,7 +26024,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΑΡΑ -->
   <hns_sign gloss="ΧΑΡΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -26903,7 +26051,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΑΡΑΚΤΗΡΑΣ -->
   <hns_sign gloss="ΧΑΡΑΚΤΗΡΑΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -26949,7 +26096,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΑΡΙΖΩ -->
   <hns_sign gloss="ΧΑΡΙΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -26967,7 +26113,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΑΡΤΗΣ -->
   <hns_sign gloss="ΧΑΡΤΗΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -27019,7 +26164,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΑΡΤΙ -->
   <hns_sign gloss="ΧΑΡΤΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -27048,14 +26192,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΕΙΜΩΝΑΣ -->
   <hns_sign gloss="ΧΕΙΜΩΝΑΣ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΘΕΣ -->
   <hns_sign gloss="ΧΘΕΣ">
       <hamnosys_manual>
             <hamflathand/>
@@ -27076,7 +26218,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΙΛΙΟΜΕΤΡΟ -->
   <hns_sign gloss="ΧΙΛΙΟΜΕΤΡΟ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -27119,7 +26260,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΙΟΝΙΖΩ -->
   <hns_sign gloss="ΧΙΟΝΙΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -27190,7 +26330,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΙΟΥΜΟΡ -->
   <hns_sign gloss="ΧΙΟΥΜΟΡ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -27217,7 +26356,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΟΝΤΡΟΣ -->
   <hns_sign gloss="ΧΟΝΤΡΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -27236,7 +26374,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΟΡΕΥΩ -->
   <hns_sign gloss="ΧΟΡΕΥΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -27252,7 +26389,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΟΡΤΟ -->
   <hns_sign gloss="ΧΟΡΤΟ">
       <hamnosys_manual>
             <hamfist/>
@@ -27271,7 +26407,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΡΕΙΑΖΟΜΑΙ -->
   <hns_sign gloss="ΧΡΕΙΑΖΟΜΑΙ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -27304,7 +26439,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΡΕΟΣ -->
   <hns_sign gloss="ΧΡΕΟΣ">
       <hamnosys_manual>
             <hamcee12/>
@@ -27330,7 +26464,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΡΗΜΑ -->
   <hns_sign gloss="ΧΡΗΜΑ">
       <hamnosys_manual>
             <hampinch12/>
@@ -27346,7 +26479,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΡΗΣΙΜΟΠΟΙΩ -->
   <hns_sign gloss="ΧΡΗΣΙΜΟΠΟΙΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -27362,7 +26494,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΡΗΣΙΜΟΣ -->
   <hns_sign gloss="ΧΡΗΣΙΜΟΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -27400,21 +26531,18 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΡΙΣΤΟΥΓΕΝΝΑ -->
   <hns_sign gloss="ΧΡΙΣΤΟΥΓΕΝΝΑ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΡΟΝΟΣ -->
   <hns_sign gloss="ΧΡΟΝΟΣ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΡΩΜΑ -->
   <hns_sign gloss="ΧΡΩΜΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -27444,7 +26572,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΤΥΠΩ,_ΧΤΥΠΗΜΑ -->
   <hns_sign gloss="ΧΤΥΠΩ,_ΧΤΥΠΗΜΑ">
       <hamnosys_manual>
             <hamfist/>
@@ -27465,7 +26592,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΩΡΑ -->
   <hns_sign gloss="ΧΩΡΑ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -27491,7 +26617,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΩΡΑΦΙ -->
   <hns_sign gloss="ΧΩΡΑΦΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -27551,7 +26676,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΩΡΙΖΩ -->
   <hns_sign gloss="ΧΩΡΙΖΩ">
       <hamnosys_manual>
             <hamflathand/>
@@ -27584,7 +26708,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΩΡΙΟ -->
   <hns_sign gloss="ΧΩΡΙΟ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -27609,7 +26732,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΧΩΡΙΣ -->
   <hns_sign gloss="ΧΩΡΙΣ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -27636,7 +26758,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΨΑΧΝΩ -->
   <hns_sign gloss="ΨΑΧΝΩ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -27660,7 +26781,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΨΕΜΑ -->
   <hns_sign gloss="ΨΕΜΑ">
       <hamnosys_manual>
             <hamfinger2/>
@@ -27673,7 +26793,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΨΗΛΟΣ -->
   <hns_sign gloss="ΨΗΛΟΣ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -27693,7 +26812,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΨΗΦΙΖΩ -->
   <hns_sign gloss="ΨΗΦΙΖΩ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -27732,7 +26850,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΨΥΓΕΙΟ -->
   <hns_sign gloss="ΨΥΓΕΙΟ">
       <hamnosys_manual>
             <hamfist/>
@@ -27749,7 +26866,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΨΥΧΗ -->
   <hns_sign gloss="ΨΥΧΗ">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -27771,7 +26887,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΨΥΧΡΑ -->
   <hns_sign gloss="ΨΥΧΡΑ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -27800,7 +26915,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΨΩΜΙ -->
   <hns_sign gloss="ΨΩΜΙ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -27840,7 +26954,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΩΜΟΣ -->
   <hns_sign gloss="ΩΜΟΣ">
       <hamnosys_manual>
             <hampinchall/>
@@ -27900,14 +27013,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΩΡΑ -->
   <hns_sign gloss="ΩΡΑ">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ΩΡΑΙΟΣ -->
   <hns_sign gloss="ΩΡΑΙΟΣ">
       <hamnosys_manual>
             <hamfinger2345/>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <sigml_collection language="French_SL_LSF" count="381">
 
-  <!-- _NUM-QUARANTE -->
   <hns_sign gloss="_NUM-QUARANTE">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -19,7 +18,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- _NUM-QUATORZE -->
   <hns_sign gloss="_NUM-QUATORZE">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -33,7 +31,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- _NUM-QUATRE -->
   <hns_sign gloss="_NUM-QUATRE">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -46,7 +43,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- _NUM-QUATREVINGT -->
   <hns_sign gloss="_NUM-QUATREVINGT">
       <hamnosys_manual>
             <hamparbegin/>
@@ -78,7 +74,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- _NUM-QUATREVINGTDIX -->
   <hns_sign gloss="_NUM-QUATREVINGTDIX">
       <hamnosys_manual>
             <hamparbegin/>
@@ -109,7 +104,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- _NUM-QUINZE -->
   <hns_sign gloss="_NUM-QUINZE">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -123,7 +117,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- _NUM-SEIZE -->
   <hns_sign gloss="_NUM-SEIZE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -149,7 +142,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- _NUM-SEPT -->
   <hns_sign gloss="_NUM-SEPT">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -168,7 +160,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- _NUM-SIX -->
   <hns_sign gloss="_NUM-SIX">
       <hamnosys_manual>
             <hamparbegin/>
@@ -192,7 +183,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- _NUM-SOIXANTE -->
   <hns_sign gloss="_NUM-SOIXANTE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -222,7 +212,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- _NUM-SOIXANTEDIX -->
   <hns_sign gloss="_NUM-SOIXANTEDIX">
       <hamnosys_manual>
             <hamparbegin/>
@@ -252,7 +241,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- _NUM-TREIZE -->
   <hns_sign gloss="_NUM-TREIZE">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -266,7 +254,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- _NUM-TRENTE -->
   <hns_sign gloss="_NUM-TRENTE">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -282,7 +269,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- _NUM-TROIS -->
   <hns_sign gloss="_NUM-TROIS">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -295,7 +281,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- _NUM-UN -->
   <hns_sign gloss="_NUM-UN">
       <hamnosys_manual>
             <hamfist/>
@@ -308,7 +293,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- _NUM-VINGT -->
   <hns_sign gloss="_NUM-VINGT">
       <hamnosys_manual>
             <hamfinger2/>
@@ -322,7 +306,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- _NUM-ZERO -->
   <hns_sign gloss="_NUM-ZERO">
       <hamnosys_manual>
             <hamceeall/>
@@ -333,7 +316,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- A_DROITE -->
   <hns_sign gloss="A_DROITE">
       <hamnosys_manual>
             <hamflathand/>
@@ -346,7 +328,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- A_PIED -->
   <hns_sign gloss="A_PIED">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -381,7 +362,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ACCEPTER -->
   <hns_sign gloss="ACCEPTER">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -403,7 +383,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- AIGUILLE -->
   <hns_sign gloss="AIGUILLE">
       <hamnosys_manual>
             <hampinch12open/>
@@ -418,7 +397,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ALCOOL -->
   <hns_sign gloss="ALCOOL">
       <hamnosys_manual>
             <hamfinger2/>
@@ -433,7 +411,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- AME -->
   <hns_sign gloss="AME">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -459,7 +436,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- AMERE -->
   <hns_sign gloss="AMERE">
       <hamnosys_manual>
             <hamfinger2/>
@@ -490,7 +466,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- APRES -->
   <hns_sign gloss="APRES">
       <hamnosys_manual>
             <hamflathand/>
@@ -510,7 +485,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- APRES_MIDI  -->
   <hns_sign gloss="APRES_MIDI ">
       <hamnosys_manual>
             <hamflathand/>
@@ -533,7 +507,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- AU_DESSOUS -->
   <hns_sign gloss="AU_DESSOUS">
       <hamnosys_manual>
             <hamflathand/>
@@ -562,7 +535,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- AVOIR_SOIF -->
   <hns_sign gloss="AVOIR_SOIF">
       <hamnosys_manual>
             <hamceeopen/>
@@ -582,7 +554,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- BAS -->
   <hns_sign gloss="BAS">
       <hamnosys_manual>
             <hamfinger2/>
@@ -596,7 +567,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- BLESSURE -->
   <hns_sign gloss="BLESSURE">
       <hamnosys_manual>
             <hamflathand/>
@@ -610,7 +580,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- BRILLER -->
   <hns_sign gloss="BRILLER">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -639,7 +608,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- BUT -->
   <hns_sign gloss="BUT">
       <hamnosys_manual>
             <hamfinger2/>
@@ -678,7 +646,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- CONFORTABLE -->
   <hns_sign gloss="CONFORTABLE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -697,7 +664,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- CONNAISSANCE -->
   <hns_sign gloss="CONNAISSANCE">
       <hamnosys_manual>
             <hamflathand/>
@@ -722,7 +688,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- CONNAITRE_ -->
   <hns_sign gloss="CONNAITRE_">
       <hamnosys_manual>
             <hamflathand/>
@@ -744,7 +709,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- COPIE -->
   <hns_sign gloss="COPIE">
       <hamnosys_manual>
             <hamflathand/>
@@ -766,7 +730,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- COULEUR -->
   <hns_sign gloss="COULEUR">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -786,7 +749,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- COURANT -->
   <hns_sign gloss="COURANT">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -815,7 +777,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- CUISINE_+_LISTE -->
   <hns_sign gloss="CUISINE_+_LISTE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -890,7 +851,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- D_ACCORD_ -->
   <hns_sign gloss="D_ACCORD_">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -914,7 +874,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- DEROBER -->
   <hns_sign gloss="DEROBER">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -933,7 +892,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- DIVISER -->
   <hns_sign gloss="DIVISER">
       <hamnosys_manual>
             <hamflathand/>
@@ -961,7 +919,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- DOUBLE -->
   <hns_sign gloss="DOUBLE">
       <hamnosys_manual>
             <hamfinger2/>
@@ -976,7 +933,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ECHANGER -->
   <hns_sign gloss="ECHANGER">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -998,7 +954,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ECHELLE -->
   <hns_sign gloss="ECHELLE">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -1031,7 +986,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ECOLE -->
   <hns_sign gloss="ECOLE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1049,7 +1003,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ECOUTER -->
   <hns_sign gloss="ECOUTER">
       <hamnosys_manual>
             <hamceeall/>
@@ -1068,7 +1021,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ECRIRE -->
   <hns_sign gloss="ECRIRE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -1098,7 +1050,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- EGLISE -->
   <hns_sign gloss="EGLISE">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -1128,7 +1079,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ELECTION -->
   <hns_sign gloss="ELECTION">
       <hamnosys_manual>
             <hamparbegin/>
@@ -1158,7 +1108,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ELECTRIQUE -->
   <hns_sign gloss="ELECTRIQUE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1175,7 +1124,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ELEVE -->
   <hns_sign gloss="ELEVE">
       <hamnosys_manual>
             <hamfinger2/>
@@ -1195,7 +1143,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ENTIER -->
   <hns_sign gloss="ENTIER">
       <hamnosys_manual>
             <hamparbegin/>
@@ -1225,7 +1172,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ERREUR -->
   <hns_sign gloss="ERREUR">
       <hamnosys_manual>
             <hamfinger2/>
@@ -1245,7 +1191,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ETAGE -->
   <hns_sign gloss="ETAGE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -1275,7 +1220,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ETAGERE -->
   <hns_sign gloss="ETAGERE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1314,7 +1258,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ETAT -->
   <hns_sign gloss="ETAT">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1329,7 +1272,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ETAT_ -->
   <hns_sign gloss="ETAT_">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1353,7 +1295,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ETE_ -->
   <hns_sign gloss="ETE_">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -1376,7 +1317,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ETOILE -->
   <hns_sign gloss="ETOILE">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -1424,7 +1364,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ETRE_IMPRESSIONNE -->
   <hns_sign gloss="ETRE_IMPRESSIONNE">
       <hamnosys_manual>
             <hampinchall/>
@@ -1442,7 +1381,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ETROIT -->
   <hns_sign gloss="ETROIT">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1457,7 +1395,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ETUDIANT -->
   <hns_sign gloss="ETUDIANT">
       <hamnosys_manual>
             <hamflathand/>
@@ -1484,7 +1421,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ETUDIER -->
   <hns_sign gloss="ETUDIER">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -1508,7 +1444,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ETUI -->
   <hns_sign gloss="ETUI">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1549,7 +1484,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- EXETERA -->
   <hns_sign gloss="EXETERA">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1572,7 +1506,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- FAIRE_UN_PAS -->
   <hns_sign gloss="FAIRE_UN_PAS">
       <hamnosys_manual>
             <hamflathand/>
@@ -1592,14 +1525,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- FEUILLE -->
   <hns_sign gloss="FEUILLE">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- FILE -->
   <hns_sign gloss="FILE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1624,7 +1555,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- FIN -->
   <hns_sign gloss="FIN">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1643,7 +1573,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- FORCE -->
   <hns_sign gloss="FORCE">
       <hamnosys_manual>
             <hamfinger2/>
@@ -1665,7 +1594,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- FOURCHETTE -->
   <hns_sign gloss="FOURCHETTE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -1699,7 +1627,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- FRANCE_ -->
   <hns_sign gloss="FRANCE_">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -1713,7 +1640,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- FRAPPE -->
   <hns_sign gloss="FRAPPE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -1742,7 +1668,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- FRERE -->
   <hns_sign gloss="FRERE">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -1759,7 +1684,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- FROID -->
   <hns_sign gloss="FROID">
       <hamnosys_manual>
             <hampinchall/>
@@ -1779,7 +1703,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- FROMAGE -->
   <hns_sign gloss="FROMAGE">
       <hamnosys_manual>
             <hampinch12open/>
@@ -1793,7 +1716,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- FRONTIERES -->
   <hns_sign gloss="FRONTIERES">
       <hamnosys_manual>
             <hamparbegin/>
@@ -1830,7 +1752,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- FROUSSARD -->
   <hns_sign gloss="FROUSSARD">
       <hamnosys_manual>
             <hamfinger2/>
@@ -1865,7 +1786,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- FRUIT -->
   <hns_sign gloss="FRUIT">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -1881,7 +1801,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- FUMER -->
   <hns_sign gloss="FUMER">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -1900,7 +1819,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- FUSIL -->
   <hns_sign gloss="FUSIL">
       <hamnosys_manual>
             <hamfinger23/>
@@ -1922,7 +1840,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- FUTUR -->
   <hns_sign gloss="FUTUR">
       <hamnosys_manual>
             <hamflathand/>
@@ -1937,7 +1854,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- GENS -->
   <hns_sign gloss="GENS">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -1979,14 +1895,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- GRAIN DE RAISIN -->
   <hns_sign gloss="GRAIN DE RAISIN">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- GUERIR_ -->
   <hns_sign gloss="GUERIR_">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2013,7 +1927,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ICI -->
   <hns_sign gloss="ICI">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2031,7 +1944,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- IDEE -->
   <hns_sign gloss="IDEE">
       <hamnosys_manual>
             <hamfinger2/>
@@ -2045,7 +1957,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ILE -->
   <hns_sign gloss="ILE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -2077,7 +1988,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- INCONNU_ -->
   <hns_sign gloss="INCONNU_">
       <hamnosys_manual>
             <hamflathand/>
@@ -2098,7 +2008,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- JUSTE -->
   <hns_sign gloss="JUSTE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2113,7 +2022,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- KIOSQUE -->
   <hns_sign gloss="KIOSQUE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2176,7 +2084,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- LAC -->
   <hns_sign gloss="LAC">
       <hamnosys_manual>
             <hamfinger2/>
@@ -2204,7 +2111,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- LACHER -->
   <hns_sign gloss="LACHER">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2224,7 +2130,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- LAISSER -->
   <hns_sign gloss="LAISSER">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2248,7 +2153,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- LARGE -->
   <hns_sign gloss="LARGE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2261,7 +2165,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- LEGER -->
   <hns_sign gloss="LEGER">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2280,7 +2183,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- LETTRE -->
   <hns_sign gloss="LETTRE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -2315,7 +2217,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- LETTRE_alphabet -->
   <hns_sign gloss="LETTRE_alphabet">
       <hamnosys_manual>
             <hamparbegin/>
@@ -2343,7 +2244,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- LIT -->
   <hns_sign gloss="LIT">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2363,7 +2263,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- LITTERATURE -->
   <hns_sign gloss="LITTERATURE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -2400,7 +2299,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- LIVRE_ -->
   <hns_sign gloss="LIVRE_">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2416,7 +2314,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- MARCHE_+_SOLDAT -->
   <hns_sign gloss="MARCHE_+_SOLDAT">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -2460,7 +2357,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- METEO -->
   <hns_sign gloss="METEO">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2479,7 +2375,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- OBJECTION -->
   <hns_sign gloss="OBJECTION">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2508,7 +2403,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- OFFRIR -->
   <hns_sign gloss="OFFRIR">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2531,7 +2425,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- OU_+_ETRANGER -->
   <hns_sign gloss="OU_+_ETRANGER">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2577,7 +2470,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PAGE -->
   <hns_sign gloss="PAGE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -2607,7 +2499,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PAIN -->
   <hns_sign gloss="PAIN">
       <hamnosys_manual>
             <hamparbegin/>
@@ -2638,7 +2529,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PAIX -->
   <hns_sign gloss="PAIX">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2660,7 +2550,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PANTALON -->
   <hns_sign gloss="PANTALON">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2691,14 +2580,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PAPIER -->
   <hns_sign gloss="PAPIER">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PAQUET -->
   <hns_sign gloss="PAQUET">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2717,7 +2604,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PARAPLUIE -->
   <hns_sign gloss="PARAPLUIE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -2752,14 +2638,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PARDONNER -->
   <hns_sign gloss="PARDONNER">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PAREIL_+_PRECIS -->
   <hns_sign gloss="PAREIL_+_PRECIS">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2788,7 +2672,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PARENTS -->
   <hns_sign gloss="PARENTS">
       <hamnosys_manual>
             <hamfinger2/>
@@ -2816,7 +2699,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PARFOIS -->
   <hns_sign gloss="PARFOIS">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -2861,7 +2743,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PARIS_ -->
   <hns_sign gloss="PARIS_">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -2883,7 +2764,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PARLER -->
   <hns_sign gloss="PARLER">
       <hamnosys_manual>
             <hamfinger2/>
@@ -2902,7 +2782,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PARTAGER -->
   <hns_sign gloss="PARTAGER">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -2925,7 +2804,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PARTOUT -->
   <hns_sign gloss="PARTOUT">
       <hamnosys_manual>
             <hamflathand/>
@@ -2947,7 +2825,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PASSE -->
   <hns_sign gloss="PASSE">
       <hamnosys_manual>
             <hamflathand/>
@@ -2975,7 +2852,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PATIENCE -->
   <hns_sign gloss="PATIENCE">
       <hamnosys_manual>
             <hamfist/>
@@ -2993,7 +2869,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PATISSERIE -->
   <hns_sign gloss="PATISSERIE">
       <hamnosys_manual>
             <hamfist/>
@@ -3019,7 +2894,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PAUME -->
   <hns_sign gloss="PAUME">
       <hamnosys_manual>
             <hamflathand/>
@@ -3045,7 +2919,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PAUSE -->
   <hns_sign gloss="PAUSE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -3063,7 +2936,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PAUVRE -->
   <hns_sign gloss="PAUVRE">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -3091,7 +2963,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PAYER -->
   <hns_sign gloss="PAYER">
       <hamnosys_manual>
             <hamparbegin/>
@@ -3123,7 +2994,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PAYSAN -->
   <hns_sign gloss="PAYSAN">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -3151,7 +3021,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PEAU -->
   <hns_sign gloss="PEAU">
       <hamnosys_manual>
             <hamfinger2/>
@@ -3164,7 +3033,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PEIGNE -->
   <hns_sign gloss="PEIGNE">
       <hamnosys_manual>
             <hamfinger2/>
@@ -3182,7 +3050,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PEINDRE -->
   <hns_sign gloss="PEINDRE">
       <hamnosys_manual>
             <hamfinger23/>
@@ -3197,7 +3064,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PENDANT_QUE -->
   <hns_sign gloss="PENDANT_QUE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -3214,7 +3080,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PENSER -->
   <hns_sign gloss="PENSER">
       <hamnosys_manual>
             <hamfinger2/>
@@ -3230,7 +3095,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PENSER_A_QQCH -->
   <hns_sign gloss="PENSER_A_QQCH">
       <hamnosys_manual>
             <hamfinger2/>
@@ -3262,7 +3126,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PERDRE -->
   <hns_sign gloss="PERDRE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -3291,7 +3154,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PERE -->
   <hns_sign gloss="PERE">
       <hamnosys_manual>
             <hamfinger2/>
@@ -3313,7 +3175,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PERFORMANCE -->
   <hns_sign gloss="PERFORMANCE">
       <hamnosys_manual>
             <hamfinger23/>
@@ -3332,7 +3193,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PERSONNE_+_REUSSIR -->
   <hns_sign gloss="PERSONNE_+_REUSSIR">
       <hamnosys_manual>
             <hamfinger2/>
@@ -3381,7 +3241,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PERSONNE_+_TRAVAIL -->
   <hns_sign gloss="PERSONNE_+_TRAVAIL">
       <hamnosys_manual>
             <hamfinger2/>
@@ -3412,7 +3271,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PERSONNE_+_VISITE -->
   <hns_sign gloss="PERSONNE_+_VISITE">
       <hamnosys_manual>
             <hamfinger2/>
@@ -3462,7 +3320,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PERSONNE_+_VOYAGE -->
   <hns_sign gloss="PERSONNE_+_VOYAGE">
       <hamnosys_manual>
             <hamfinger2/>
@@ -3495,7 +3352,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PESER -->
   <hns_sign gloss="PESER">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -3519,7 +3375,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PETIT -->
   <hns_sign gloss="PETIT">
       <hamnosys_manual>
             <hamflathand/>
@@ -3542,7 +3397,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PETROLE -->
   <hns_sign gloss="PETROLE">
       <hamnosys_manual>
             <hampinch12/>
@@ -3565,7 +3419,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PEU -->
   <hns_sign gloss="PEU">
       <hamnosys_manual>
             <hamfinger2/>
@@ -3583,7 +3436,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PEUR -->
   <hns_sign gloss="PEUR">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -3598,7 +3450,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PHARMACIE -->
   <hns_sign gloss="PHARMACIE">
       <hamnosys_manual>
             <hamfinger23/>
@@ -3637,7 +3488,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PIECE_ -->
   <hns_sign gloss="PIECE_">
       <hamnosys_manual>
             <hampinch12open/>
@@ -3669,7 +3519,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PIED -->
   <hns_sign gloss="PIED">
       <hamnosys_manual>
             <hamparbegin/>
@@ -3705,7 +3554,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PIERRE -->
   <hns_sign gloss="PIERRE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -3746,7 +3594,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PIQUER -->
   <hns_sign gloss="PIQUER">
       <hamnosys_manual>
             <hamparbegin/>
@@ -3784,7 +3631,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PITIE -->
   <hns_sign gloss="PITIE">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -3798,7 +3644,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PLACE -->
   <hns_sign gloss="PLACE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -3822,7 +3667,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PLAINDRE -->
   <hns_sign gloss="PLAINDRE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -3853,7 +3697,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PLANTE -->
   <hns_sign gloss="PLANTE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -3893,7 +3736,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PLANTER -->
   <hns_sign gloss="PLANTER">
       <hamnosys_manual>
             <hamparbegin/>
@@ -3929,7 +3771,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PLASTIQUE -->
   <hns_sign gloss="PLASTIQUE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -3953,7 +3794,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PLEIN -->
   <hns_sign gloss="PLEIN">
       <hamnosys_manual>
             <hamparbegin/>
@@ -3982,7 +3822,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PLUIE -->
   <hns_sign gloss="PLUIE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4003,7 +3842,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- POELE -->
   <hns_sign gloss="POELE">
       <hamnosys_manual>
             <hamfinger2/>
@@ -4019,7 +3857,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- POIDS -->
   <hns_sign gloss="POIDS">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4039,7 +3876,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- POINTU -->
   <hns_sign gloss="POINTU">
       <hamnosys_manual>
             <hamparbegin/>
@@ -4079,7 +3915,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- POIRE -->
   <hns_sign gloss="POIRE">
       <hamnosys_manual>
             <hamflathand/>
@@ -4108,7 +3943,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- POISON -->
   <hns_sign gloss="POISON">
       <hamnosys_manual>
             <hampinch12open/>
@@ -4131,7 +3965,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- POISSON -->
   <hns_sign gloss="POISSON">
       <hamnosys_manual>
             <hamflathand/>
@@ -4145,7 +3978,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- POIVRE -->
   <hns_sign gloss="POIVRE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4173,7 +4005,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- POLI -->
   <hns_sign gloss="POLI">
       <hamnosys_manual>
             <hamfinger2/>
@@ -4200,7 +4031,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- POLICE -->
   <hns_sign gloss="POLICE">
       <hamnosys_manual>
             <hamfinger2/>
@@ -4228,7 +4058,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- POMME -->
   <hns_sign gloss="POMME">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -4253,7 +4082,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- POMME_DE_TERRE -->
   <hns_sign gloss="POMME_DE_TERRE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -4286,7 +4114,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PONT -->
   <hns_sign gloss="PONT">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4307,7 +4134,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PORT -->
   <hns_sign gloss="PORT">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -4326,7 +4152,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PORTER -->
   <hns_sign gloss="PORTER">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -4340,7 +4165,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- POULE -->
   <hns_sign gloss="POULE">
       <hamnosys_manual>
             <hamfinger2/>
@@ -4359,7 +4183,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- POURQUOI -->
   <hns_sign gloss="POURQUOI">
       <hamnosys_manual>
             <hamfinger2/>
@@ -4376,7 +4199,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- POUSSER -->
   <hns_sign gloss="POUSSER">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4391,7 +4213,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- POUSSIERE -->
   <hns_sign gloss="POUSSIERE">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -4411,7 +4232,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PREMIER -->
   <hns_sign gloss="PREMIER">
       <hamnosys_manual>
             <hamfist/>
@@ -4429,7 +4249,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PRENDRE -->
   <hns_sign gloss="PRENDRE">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -4448,7 +4267,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PRENDRE_UN_BAIN -->
   <hns_sign gloss="PRENDRE_UN_BAIN">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4481,7 +4299,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PRENOM -->
   <hns_sign gloss="PRENOM">
       <hamnosys_manual>
             <hamfinger23/>
@@ -4524,7 +4341,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PRES -->
   <hns_sign gloss="PRES">
       <hamnosys_manual>
             <hamflathand/>
@@ -4555,7 +4371,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PRESIDENT -->
   <hns_sign gloss="PRESIDENT">
       <hamnosys_manual>
             <hamfinger2/>
@@ -4571,7 +4386,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PRETER -->
   <hns_sign gloss="PRETER">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -4602,7 +4416,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PRETRE -->
   <hns_sign gloss="PRETRE">
       <hamnosys_manual>
             <hamceeall/>
@@ -4627,7 +4440,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PREVENIR -->
   <hns_sign gloss="PREVENIR">
       <hamnosys_manual>
             <hampinchall/>
@@ -4651,7 +4463,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PRIER -->
   <hns_sign gloss="PRIER">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4672,7 +4483,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PRINTEMPS_ -->
   <hns_sign gloss="PRINTEMPS_">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4703,7 +4513,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PRIVE -->
   <hns_sign gloss="PRIVE">
       <hamnosys_manual>
             <hamfist/>
@@ -4727,14 +4536,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PROBLEME -->
   <hns_sign gloss="PROBLEME">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PRODUIT -->
   <hns_sign gloss="PRODUIT">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4761,7 +4568,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PROFESSEUR -->
   <hns_sign gloss="PROFESSEUR">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -4788,7 +4594,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PROFITER -->
   <hns_sign gloss="PROFITER">
       <hamnosys_manual>
             <hamceeopen/>
@@ -4811,7 +4616,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PROFONDEUR -->
   <hns_sign gloss="PROFONDEUR">
       <hamnosys_manual>
             <hamparbegin/>
@@ -4842,7 +4646,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PROGRAMME -->
   <hns_sign gloss="PROGRAMME">
       <hamnosys_manual>
             <hamparbegin/>
@@ -4875,7 +4678,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PROIE_ -->
   <hns_sign gloss="PROIE_">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -4892,7 +4694,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PROMETTRE -->
   <hns_sign gloss="PROMETTRE">
       <hamnosys_manual>
             <hamflathand/>
@@ -4926,7 +4727,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PROPRE -->
   <hns_sign gloss="PROPRE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -4952,7 +4752,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PROPRIETAIRE -->
   <hns_sign gloss="PROPRIETAIRE">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -4972,7 +4771,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PROTEGER -->
   <hns_sign gloss="PROTEGER">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5000,7 +4798,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PROUVER -->
   <hns_sign gloss="PROUVER">
       <hamnosys_manual>
             <hamparbegin/>
@@ -5036,7 +4833,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- PUBLIQUE -->
   <hns_sign gloss="PUBLIQUE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5057,7 +4853,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- QUAND -->
   <hns_sign gloss="QUAND">
       <hamnosys_manual>
             <hamparbegin/>
@@ -5077,7 +4872,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- QUART_ -->
   <hns_sign gloss="QUART_">
       <hamnosys_manual>
             <hamfist/>
@@ -5096,7 +4890,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- QUELQUE_PART -->
   <hns_sign gloss="QUELQUE_PART">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -5111,14 +4904,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- QUESTION -->
   <hns_sign gloss="QUESTION">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- QUI -->
   <hns_sign gloss="QUI">
       <hamnosys_manual>
             <hamfinger2/>
@@ -5134,7 +4925,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- QUOI -->
   <hns_sign gloss="QUOI">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5153,7 +4943,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- RACINE -->
   <hns_sign gloss="RACINE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -5185,7 +4974,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- RACONTER -->
   <hns_sign gloss="RACONTER">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5212,7 +5000,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- RADIATEUR -->
   <hns_sign gloss="RADIATEUR">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5250,7 +5037,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- RAISON -->
   <hns_sign gloss="RAISON">
       <hamnosys_manual>
             <hamfinger23/>
@@ -5279,14 +5065,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- RAPPELER A -->
   <hns_sign gloss="RAPPELER A">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- RARE -->
   <hns_sign gloss="RARE">
       <hamnosys_manual>
             <hamfinger23/>
@@ -5307,7 +5091,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- REGARDER -->
   <hns_sign gloss="REGARDER">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -5325,7 +5108,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- REGION_ -->
   <hns_sign gloss="REGION_">
       <hamnosys_manual>
             <hamparbegin/>
@@ -5357,7 +5139,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- REGRETTER -->
   <hns_sign gloss="REGRETTER">
       <hamnosys_manual>
             <hamfist/>
@@ -5379,7 +5160,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- RELATION -->
   <hns_sign gloss="RELATION">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -5409,7 +5189,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- REMPLIR -->
   <hns_sign gloss="REMPLIR">
       <hamnosys_manual>
             <hamparbegin/>
@@ -5441,7 +5220,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- RENCONTRER -->
   <hns_sign gloss="RENCONTRER">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5469,7 +5247,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- REPARER -->
   <hns_sign gloss="REPARER">
       <hamnosys_manual>
             <hamfinger23/>
@@ -5499,7 +5276,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- REPONDRE_ -->
   <hns_sign gloss="REPONDRE_">
       <hamnosys_manual>
             <hamparbegin/>
@@ -5529,7 +5305,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- REPORTER -->
   <hns_sign gloss="REPORTER">
       <hamnosys_manual>
             <hampinchall/>
@@ -5548,7 +5323,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- RESPONSABLE -->
   <hns_sign gloss="RESPONSABLE">
       <hamnosys_manual>
             <hamflathand/>
@@ -5576,7 +5350,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- RESSENTIR -->
   <hns_sign gloss="RESSENTIR">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5601,7 +5374,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- RESTER -->
   <hns_sign gloss="RESTER">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5620,7 +5392,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- RESULTATS -->
   <hns_sign gloss="RESULTATS">
       <hamnosys_manual>
             <hampinch12open/>
@@ -5650,7 +5421,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- RETARD -->
   <hns_sign gloss="RETARD">
       <hamnosys_manual>
             <hamparbegin/>
@@ -5691,7 +5461,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- RETOURNER -->
   <hns_sign gloss="RETOURNER">
       <hamnosys_manual>
             <hamfinger23/>
@@ -5712,7 +5481,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- REVE -->
   <hns_sign gloss="REVE">
       <hamnosys_manual>
             <hamfinger23/>
@@ -5735,7 +5503,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- RICHE -->
   <hns_sign gloss="RICHE">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -5753,7 +5520,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- RIVIERE -->
   <hns_sign gloss="RIVIERE">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -5773,7 +5539,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- RIZ -->
   <hns_sign gloss="RIZ">
       <hamnosys_manual>
             <hamfinger23/>
@@ -5800,7 +5565,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ROBE -->
   <hns_sign gloss="ROBE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5823,7 +5587,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ROBUSTE -->
   <hns_sign gloss="ROBUSTE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5844,7 +5607,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ROND -->
   <hns_sign gloss="ROND">
       <hamnosys_manual>
             <hamparbegin/>
@@ -5882,7 +5644,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ROUGE -->
   <hns_sign gloss="ROUGE">
       <hamnosys_manual>
             <hamfinger2/>
@@ -5903,7 +5664,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- ROUTE_ -->
   <hns_sign gloss="ROUTE_">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -5920,7 +5680,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- RUBAN -->
   <hns_sign gloss="RUBAN">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5939,7 +5698,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- S_ASSEOIR -->
   <hns_sign gloss="S_ASSEOIR">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -5959,7 +5717,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- S_IL_VOUS_PLAIT_ -->
   <hns_sign gloss="S_IL_VOUS_PLAIT_">
       <hamnosys_manual>
             <hamflathand/>
@@ -5980,7 +5737,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SAC_ -->
   <hns_sign gloss="SAC_">
       <hamnosys_manual>
             <hamfist/>
@@ -5994,7 +5750,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SAC_A_DOS_ -->
   <hns_sign gloss="SAC_A_DOS_">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6022,7 +5777,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SAC_SUR_L_EPAULE_ -->
   <hns_sign gloss="SAC_SUR_L_EPAULE_">
       <hamnosys_manual>
             <hamfist/>
@@ -6049,7 +5803,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SAISON -->
   <hns_sign gloss="SAISON">
       <hamnosys_manual>
             <hamparbegin/>
@@ -6085,7 +5838,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SALADE -->
   <hns_sign gloss="SALADE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6102,7 +5854,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SALAIRE -->
   <hns_sign gloss="SALAIRE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -6140,7 +5891,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SALE -->
   <hns_sign gloss="SALE">
       <hamnosys_manual>
             <hamflathand/>
@@ -6163,7 +5913,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SALLE -->
   <hns_sign gloss="SALLE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6188,7 +5937,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SAMEDI  -->
   <hns_sign gloss="SAMEDI ">
       <hamnosys_manual>
             <hamfist/>
@@ -6203,7 +5951,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SANG -->
   <hns_sign gloss="SANG">
       <hamnosys_manual>
             <hamfinger2/>
@@ -6225,7 +5972,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SANS -->
   <hns_sign gloss="SANS">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6253,7 +5999,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SANTE -->
   <hns_sign gloss="SANTE">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -6276,7 +6021,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SAUCE -->
   <hns_sign gloss="SAUCE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -6311,7 +6055,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SAUVAGE -->
   <hns_sign gloss="SAUVAGE">
       <hamnosys_manual>
             <hamflathand/>
@@ -6344,7 +6087,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SAUVER -->
   <hns_sign gloss="SAUVER">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6367,7 +6109,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SAVOIR -->
   <hns_sign gloss="SAVOIR">
       <hamnosys_manual>
             <hamflathand/>
@@ -6389,7 +6130,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SAVON -->
   <hns_sign gloss="SAVON">
       <hamnosys_manual>
             <hamfist/>
@@ -6404,7 +6144,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SAVOUREUX -->
   <hns_sign gloss="SAVOUREUX">
       <hamnosys_manual>
             <hampinchall/>
@@ -6426,7 +6165,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SCEUR -->
   <hns_sign gloss="SCEUR">
       <hamnosys_manual>
             <hamfist/>
@@ -6442,7 +6180,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SCIENTIFIQUE -->
   <hns_sign gloss="SCIENTIFIQUE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6466,7 +6203,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SEC -->
   <hns_sign gloss="SEC">
       <hamnosys_manual>
             <hamfist/>
@@ -6487,7 +6223,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SEL -->
   <hns_sign gloss="SEL">
       <hamnosys_manual>
             <hampinch12open/>
@@ -6503,7 +6238,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SEMAINE_ -->
   <hns_sign gloss="SEMAINE_">
       <hamnosys_manual>
             <hamparbegin/>
@@ -6546,7 +6280,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SENTIR -->
   <hns_sign gloss="SENTIR">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -6566,7 +6299,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SERRURE -->
   <hns_sign gloss="SERRURE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -6594,7 +6326,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SERVIETTE -->
   <hns_sign gloss="SERVIETTE">
       <hamnosys_manual>
             <hamflathand/>
@@ -6640,7 +6371,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SERVIR -->
   <hns_sign gloss="SERVIR">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6692,7 +6422,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SEUL -->
   <hns_sign gloss="SEUL">
       <hamnosys_manual>
             <hamfist/>
@@ -6707,7 +6436,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SI -->
   <hns_sign gloss="SI">
       <hamnosys_manual>
             <hamfist/>
@@ -6725,7 +6453,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SIECLE -->
   <hns_sign gloss="SIECLE">
       <hamnosys_manual>
             <hamfist/>
@@ -6743,7 +6470,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SIGNAL -->
   <hns_sign gloss="SIGNAL">
       <hamnosys_manual>
             <hamparbegin/>
@@ -6777,7 +6503,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SIGNE -->
   <hns_sign gloss="SIGNE">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -6794,7 +6519,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SIGNIFICATION -->
   <hns_sign gloss="SIGNIFICATION">
       <hamnosys_manual>
             <hamfinger2/>
@@ -6812,7 +6536,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SILENCE -->
   <hns_sign gloss="SILENCE">
       <hamnosys_manual>
             <hamfinger2/>
@@ -6844,7 +6567,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SIMILAIRE -->
   <hns_sign gloss="SIMILAIRE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6863,7 +6585,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SIMPLE -->
   <hns_sign gloss="SIMPLE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -6885,7 +6606,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SOCIETE -->
   <hns_sign gloss="SOCIETE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -6922,7 +6642,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SOIR_ -->
   <hns_sign gloss="SOIR_">
       <hamnosys_manual>
             <hamparbegin/>
@@ -6947,7 +6666,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SOL -->
   <hns_sign gloss="SOL">
       <hamnosys_manual>
             <hamfinger2/>
@@ -6971,7 +6689,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SOLDAT -->
   <hns_sign gloss="SOLDAT">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -6999,7 +6716,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SOLEIL -->
   <hns_sign gloss="SOLEIL">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -7015,7 +6731,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SOMBRE -->
   <hns_sign gloss="SOMBRE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -7042,7 +6757,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SON -->
   <hns_sign gloss="SON">
       <hamnosys_manual>
             <hampinch12open/>
@@ -7061,7 +6775,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SONNETTE -->
   <hns_sign gloss="SONNETTE">
       <hamnosys_manual>
             <hamfist/>
@@ -7076,7 +6789,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SORTIE -->
   <hns_sign gloss="SORTIE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -7112,7 +6824,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SOUDAINEMENT -->
   <hns_sign gloss="SOUDAINEMENT">
       <hamnosys_manual>
             <hamparbegin/>
@@ -7151,7 +6862,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SOUFFRIR -->
   <hns_sign gloss="SOUFFRIR">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -7180,7 +6890,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SOUPE -->
   <hns_sign gloss="SOUPE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -7215,7 +6924,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SOURIRE -->
   <hns_sign gloss="SOURIRE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -7238,7 +6946,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SOUVENT_ -->
   <hns_sign gloss="SOUVENT_">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -7262,7 +6969,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SPECIAL -->
   <hns_sign gloss="SPECIAL">
       <hamnosys_manual>
             <hamparbegin/>
@@ -7312,7 +7018,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SPECTATEUR -->
   <hns_sign gloss="SPECTATEUR">
       <hamnosys_manual>
             <hamparbegin/>
@@ -7348,7 +7053,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SPORT_ -->
   <hns_sign gloss="SPORT_">
       <hamnosys_manual>
             <hamparbegin/>
@@ -7387,7 +7091,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- STEAK -->
   <hns_sign gloss="STEAK">
       <hamnosys_manual>
             <hamparbegin/>
@@ -7432,7 +7135,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- STRICT -->
   <hns_sign gloss="STRICT">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -7459,7 +7161,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- STUPIDE -->
   <hns_sign gloss="STUPIDE">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -7486,7 +7187,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SUCRE -->
   <hns_sign gloss="SUCRE">
       <hamnosys_manual>
             <hamfinger2/>
@@ -7521,7 +7221,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SUD -->
   <hns_sign gloss="SUD">
       <hamnosys_manual>
             <hamfist/>
@@ -7533,7 +7232,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SUER -->
   <hns_sign gloss="SUER">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -7573,7 +7271,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SUIVRE -->
   <hns_sign gloss="SUIVRE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -7598,7 +7295,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SUR_LE_DESSUS -->
   <hns_sign gloss="SUR_LE_DESSUS">
       <hamnosys_manual>
             <hamflathand/>
@@ -7630,7 +7326,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- SUSPECT -->
   <hns_sign gloss="SUSPECT">
       <hamnosys_manual>
             <hamfinger2/>
@@ -7658,7 +7353,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TAILLE -->
   <hns_sign gloss="TAILLE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -7713,7 +7407,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TANTE -->
   <hns_sign gloss="TANTE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -7731,7 +7424,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TAPER_A_LA_MACHINE -->
   <hns_sign gloss="TAPER_A_LA_MACHINE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -7755,7 +7447,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TAPIS -->
   <hns_sign gloss="TAPIS">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -7772,7 +7463,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TASSE -->
   <hns_sign gloss="TASSE">
       <hamnosys_manual>
             <hampinch12open/>
@@ -7797,7 +7487,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TAXI -->
   <hns_sign gloss="TAXI">
       <hamnosys_manual>
             <hamparbegin/>
@@ -7833,7 +7522,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TELEPHONE_PORTABLE_ -->
   <hns_sign gloss="TELEPHONE_PORTABLE_">
       <hamnosys_manual>
             <hampinch12/>
@@ -7852,7 +7540,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TELEPHONER_ -->
   <hns_sign gloss="TELEPHONER_">
       <hamnosys_manual>
             <hamfinger2/>
@@ -7876,7 +7563,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TEMPORAIRE -->
   <hns_sign gloss="TEMPORAIRE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -7894,7 +7580,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TEMPS -->
   <hns_sign gloss="TEMPS">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -7914,7 +7599,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TENTE -->
   <hns_sign gloss="TENTE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -7939,14 +7623,12 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TERRE -->
   <hns_sign gloss="TERRE">
       <hamnosys_manual>
             <None/>
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TEXTE -->
   <hns_sign gloss="TEXTE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -7985,7 +7667,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- THE_ -->
   <hns_sign gloss="THE_">
       <hamnosys_manual>
             <hamparbegin/>
@@ -8009,7 +7690,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- THEATRE -->
   <hns_sign gloss="THEATRE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8041,7 +7721,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- THEME -->
   <hns_sign gloss="THEME">
       <hamnosys_manual>
             <hamfinger2/>
@@ -8087,7 +7766,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TISSU -->
   <hns_sign gloss="TISSU">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -8107,7 +7785,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TOIT -->
   <hns_sign gloss="TOIT">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8132,7 +7809,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TOMATE -->
   <hns_sign gloss="TOMATE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -8176,7 +7852,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TOUCHER -->
   <hns_sign gloss="TOUCHER">
       <hamnosys_manual>
             <hamparbegin/>
@@ -8216,7 +7891,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TOUJOURS -->
   <hns_sign gloss="TOUJOURS">
       <hamnosys_manual>
             <hamfinger2/>
@@ -8229,7 +7903,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TOURNANT -->
   <hns_sign gloss="TOURNANT">
       <hamnosys_manual>
             <hamflathand/>
@@ -8252,7 +7925,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TOURNER -->
   <hns_sign gloss="TOURNER">
       <hamnosys_manual>
             <hamfinger2/>
@@ -8265,7 +7937,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TOUS_LES_JOURS_ -->
   <hns_sign gloss="TOUS_LES_JOURS_">
       <hamnosys_manual>
             <hamfist/>
@@ -8286,7 +7957,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TOUSSER -->
   <hns_sign gloss="TOUSSER">
       <hamnosys_manual>
             <hamfist/>
@@ -8302,7 +7972,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TOUT -->
   <hns_sign gloss="TOUT">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -8347,7 +8016,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TOUT_DROIT_ -->
   <hns_sign gloss="TOUT_DROIT_">
       <hamnosys_manual>
             <hamflathand/>
@@ -8365,7 +8033,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TRAIN_ -->
   <hns_sign gloss="TRAIN_">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -8380,7 +8047,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TRAVAIL -->
   <hns_sign gloss="TRAVAIL">
       <hamnosys_manual>
             <hamparbegin/>
@@ -8401,7 +8067,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TRES -->
   <hns_sign gloss="TRES">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8427,7 +8092,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TRICOTER -->
   <hns_sign gloss="TRICOTER">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8454,7 +8118,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TROUVER -->
   <hns_sign gloss="TROUVER">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8476,7 +8139,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- TUBE -->
   <hns_sign gloss="TUBE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8494,7 +8156,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- UNE_PERSONNE -->
   <hns_sign gloss="UNE_PERSONNE">
       <hamnosys_manual>
             <hamfinger2/>
@@ -8509,7 +8170,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- USINE_ -->
   <hns_sign gloss="USINE_">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8526,7 +8186,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- UTILE -->
   <hns_sign gloss="UTILE">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -8555,7 +8214,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- UTILISER -->
   <hns_sign gloss="UTILISER">
       <hamnosys_manual>
             <hamfinger23/>
@@ -8581,7 +8239,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VACANCES -->
   <hns_sign gloss="VACANCES">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8607,7 +8264,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VACHE -->
   <hns_sign gloss="VACHE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8628,7 +8284,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VAPEUR -->
   <hns_sign gloss="VAPEUR">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8646,7 +8301,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VELO  -->
   <hns_sign gloss="VELO ">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8666,7 +8320,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VENDRE -->
   <hns_sign gloss="VENDRE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8684,7 +8337,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VENDREDI  -->
   <hns_sign gloss="VENDREDI ">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -8699,7 +8351,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VENIR -->
   <hns_sign gloss="VENIR">
       <hamnosys_manual>
             <hamfinger2/>
@@ -8721,7 +8372,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VENT -->
   <hns_sign gloss="VENT">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -8746,7 +8396,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VERITE -->
   <hns_sign gloss="VERITE">
       <hamnosys_manual>
             <hamparbegin/>
@@ -8774,7 +8423,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VERRE -->
   <hns_sign gloss="VERRE">
       <hamnosys_manual>
             <hamceeall/>
@@ -8802,7 +8450,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VERT -->
   <hns_sign gloss="VERT">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -8823,7 +8470,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VESTE -->
   <hns_sign gloss="VESTE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8848,7 +8494,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VETEMENTS -->
   <hns_sign gloss="VETEMENTS">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8870,7 +8515,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VIANDE -->
   <hns_sign gloss="VIANDE">
       <hamnosys_manual>
             <hamsymmpar/>
@@ -8903,7 +8547,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VIDE -->
   <hns_sign gloss="VIDE">
       <hamnosys_manual>
             <hamfinger23/>
@@ -8930,7 +8573,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VIE -->
   <hns_sign gloss="VIE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8952,7 +8594,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VIEUX -->
   <hns_sign gloss="VIEUX">
       <hamnosys_manual>
             <hamfist/>
@@ -8969,7 +8610,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VILLA_ -->
   <hns_sign gloss="VILLA_">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -8993,7 +8633,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VILLAGE_ -->
   <hns_sign gloss="VILLAGE_">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9019,7 +8658,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VILLE_ -->
   <hns_sign gloss="VILLE_">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9042,7 +8680,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VIN -->
   <hns_sign gloss="VIN">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -9059,7 +8696,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VIOLENCE -->
   <hns_sign gloss="VIOLENCE">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9083,7 +8719,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VIS -->
   <hns_sign gloss="VIS">
       <hamnosys_manual>
             <hamparbegin/>
@@ -9111,7 +8746,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VISAGE -->
   <hns_sign gloss="VISAGE">
       <hamnosys_manual>
             <hamfinger2/>
@@ -9128,7 +8762,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VITE -->
   <hns_sign gloss="VITE">
       <hamnosys_manual>
             <hamflathand/>
@@ -9145,7 +8778,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VIVANT -->
   <hns_sign gloss="VIVANT">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9168,7 +8800,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VIVRE_ -->
   <hns_sign gloss="VIVRE_">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9191,7 +8822,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VOIR -->
   <hns_sign gloss="VOIR">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -9207,7 +8837,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VOISIN -->
   <hns_sign gloss="VOISIN">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -9238,7 +8867,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VOISINAGE -->
   <hns_sign gloss="VOISINAGE">
       <hamnosys_manual>
             <hamfinger2345/>
@@ -9251,7 +8879,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VOITURE_ -->
   <hns_sign gloss="VOITURE_">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9272,7 +8899,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VOIX -->
   <hns_sign gloss="VOIX">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -9295,7 +8921,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VOLANT -->
   <hns_sign gloss="VOLANT">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9315,7 +8940,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VOLER -->
   <hns_sign gloss="VOLER">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9334,7 +8958,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VOTER -->
   <hns_sign gloss="VOTER">
       <hamnosys_manual>
             <hamparbegin/>
@@ -9371,7 +8994,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VOULOIR -->
   <hns_sign gloss="VOULOIR">
       <hamnosys_manual>
             <hamsymmlr/>
@@ -9387,7 +9009,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VOUS_ -->
   <hns_sign gloss="VOUS_">
       <hamnosys_manual>
             <hamfinger2/>
@@ -9407,7 +9028,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VRAI  -->
   <hns_sign gloss="VRAI ">
       <hamnosys_manual>
             <hamfinger23spread/>
@@ -9428,7 +9048,6 @@
       </hamnosys_manual>
   </hns_sign>
 
-  <!-- VUE -->
   <hns_sign gloss="VUE">
       <hamnosys_manual>
             <hamfinger23spread/>
