@@ -100,7 +100,7 @@ STOPWORDS = {
     "en": {
         "a","an","the","and","or","but","if","then","than",
         "of","to","in","on","at","for","from","with","as","by","is","are","am",
-        "be","been","was","were","do","does","did","that","this","those","these",
+        "be","been","was","were","do","does","did","it","that","this","those","these",
     },
     "de": {
         "der","die","das","ein","eine","einem","einen","einer",

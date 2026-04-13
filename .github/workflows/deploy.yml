@@ -32,7 +32,7 @@ jobs:
                 git clean -fd
                 cd server
                 source /home/ubuntu/kozha-venv/bin/activate
-                pip install -r requirements.txt
+                pip install --no-cache-dir -r requirements.txt
                 sudo systemctl daemon-reload
                 sudo systemctl restart kozha.service
                 sudo systemctl --no-pager status kozha.service
