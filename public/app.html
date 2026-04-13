@@ -465,6 +465,68 @@
       accent-color: var(--accent);
     }
 
+    .char-count {
+      text-align: right;
+      font-size: 12px;
+      color: var(--ink-3);
+      margin-top: 4px;
+    }
+    .char-count.over { color: #c0392b; font-weight: 600; }
+
+    .token-list {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      min-height: 28px;
+    }
+    .token-chip {
+      background: var(--paper-2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-2);
+      transition: all 0.2s;
+    }
+    .token-chip.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+    .token-chip.done {
+      background: var(--green-light);
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    .playback-progress {
+      width: 100%;
+      height: 4px;
+      background: var(--paper-2);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .playback-progress-bar {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 2px;
+      width: 0%;
+      transition: width 0.3s;
+    }
+
+    .hamburger {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      font-size: 18px;
+      cursor: pointer;
+      color: var(--ink-2);
+      line-height: 1;
+    }
+
     @media (min-width: 1100px) {
       .app-shell {
         flex-direction: row;
@@ -473,12 +535,35 @@
 
     @media (max-width: 1099px) {
       .app-shell { flex-direction: column; padding: 16px; }
-      .sidebar { width: 100%; flex-direction: row; flex-wrap: wrap; gap: 4px; }
+      .sidebar {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 4px;
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.3s ease;
+      }
+      .sidebar.open { max-height: 500px; }
       .sidebar-section-label { display: none; }
       .sidebar-divider { display: none; }
       .render-panel { width: 100%; }
       .CWASAAvatar.av0 { width: 100%; height: auto; }
       .advanced-grid { grid-template-columns: 1fr; }
+      .hamburger { display: block; }
+      .btn, .btn-secondary, .btn-primary, .btn-translate, .sidebar-item {
+        min-height: 44px;
+      }
+      .avatar-controls { flex-wrap: wrap; gap: 8px; }
+      .nav-right { gap: 8px; }
+      .nav-link-sm { font-size: 12px; }
+      .app-nav { padding: 0 16px; }
+    }
+
+    @media (max-width: 600px) {
+      .render-panel .avatar-stage { overflow: hidden; }
+      .row { flex-direction: column; align-items: stretch; }
+      .row .grow { width: 100%; }
     }
   </style>
 </head>
@@ -492,6 +577,7 @@
     <div class="nav-right">
       <a href="contribute.html" class="nav-link-sm">Contribute</a>
       <a href="index.html" class="nav-link-sm">← Home</a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Menu">☰</button>
     </div>
   </nav>
 
@@ -543,7 +629,8 @@
         <div class="card">
           <div class="card-title"><span class="card-title-icon">✏️</span> Text Input</div>
           <label class="field-label">Enter your phrase</label>
-          <textarea id="textIn" placeholder="Type a phrase to translate into sign language…" rows="3"></textarea>
+          <textarea id="textIn" placeholder="Try something like: Hello, how are you?" rows="3" maxlength="500"></textarea>
+          <div class="char-count" id="charCount">0 / 500</div>
 
           <div class="row" style="margin-top: 12px; gap: 12px;">
             <div class="grow">
@@ -738,6 +825,10 @@
           <div class="CWASAAvatar av0"></div>
           <div class="CWASAGUI av0" style="display:none"></div>
         </div>
+        <div class="playback-progress" id="playbackProgress" style="display:none;">
+          <div class="playback-progress-bar" id="playbackProgressBar"></div>
+        </div>
+        <div class="token-list" id="tokenList"></div>
         <div class="avatar-controls">
           <span id="renderStatus" class="status-badge loading">Loading…</span>
           <div class="avatar-switcher">
@@ -786,8 +877,8 @@
     }
 
     CWASA.addHook('avatarready', function() {
-      renderStatus.textContent = 'Ready';
-      renderStatus.className = 'status-badge ready';
+      _avatarReady = true;
+      checkAllReady();
     }, 0);
   }
 
@@ -958,6 +1049,9 @@
         let added = 0;
         for (const s of signs){ const gloss = (s.getAttribute('gloss')||'').trim().toLowerCase(); if (!gloss) continue; glossToSign.set(gloss, s.outerHTML); added++; }
         refreshAllowedOutput(); log(`Loaded ${added} signs from ${url}`);
+        if (renderStatus.className.includes('loading')) {
+          renderStatus.textContent = 'Loading database (' + glossToSign.size + ' signs)…';
+        }
       }catch(e){ if (isAutoload){ log(`Optional DB missing: ${url}`); } else { log(`Failed to load ${url}: ${e}.`); } }
     }
 
@@ -1090,16 +1184,38 @@
       log('Loaded ' + langCode.toUpperCase() + ': ' + glossToSign.size + ' signs, ' + letterToSign.size + ' letters');
     }
 
+    const SIGN_LANG_NAMES = {
+      bsl: 'BSL', asl: 'ASL', dgs: 'DGS', lsf: 'LSF', lse: 'LSE',
+      pjm: 'PJM', gsl: 'GSL', rsl: 'RSL', algerian: 'Algerian SL',
+      bangla: 'Bangla SL', ngt: 'NGT', fsl: 'FSL', isl: 'ISL',
+      kurdish: 'Kurdish SL', vsl: 'VSL'
+    };
+
     document.getElementById('signLangSelect').addEventListener('change', async function() {
-      renderStatus.textContent = 'Loading…';
+      const lang = this.value;
+      const name = SIGN_LANG_NAMES[lang] || lang.toUpperCase();
+      renderStatus.textContent = 'Loading ' + name + ' database…';
       renderStatus.className = 'status-badge loading';
-      await switchSignLanguage(this.value);
-      renderStatus.textContent = 'Ready';
-      renderStatus.className = 'status-badge ready';
+      await switchSignLanguage(lang);
+      checkAllReady();
     });
+
+    let _avatarReady = false;
+    let _dbReady = false;
+    function checkAllReady() {
+      _dbReady = glossToSign.size > 0;
+      if (_avatarReady && _dbReady) {
+        renderStatus.textContent = 'Ready';
+        renderStatus.className = 'status-badge ready';
+      } else if (_dbReady) {
+        renderStatus.textContent = 'Loading avatar…';
+        renderStatus.className = 'status-badge loading';
+      }
+    }
 
     window.addEventListener('load', async () => {
       await switchSignLanguage('bsl');
+      checkAllReady();
     });
   </script>
 
@@ -1121,6 +1237,8 @@
       const pipeline = await getPipeline();
       const modelName = 'Xenova/opus-mt-' + src + '-' + tgt;
       log('Loading translation model: ' + modelName + '…');
+      renderStatus.textContent = 'Downloading translation model… This may take a moment on first use.';
+      renderStatus.className = 'status-badge loading';
       const translator = await pipeline('translation', modelName);
       translatorCache[key] = translator;
       return translator;
@@ -1144,11 +1262,11 @@
             const finalResult = await fromEn(enText);
             return (finalResult?.[0]?.translation_text || enText).trim();
           } catch (pivotErr) {
-            log('Pivot translation failed: ' + pivotErr.message);
+            log('Could not translate — showing original text');
             return text;
           }
         }
-        log('Translation model not available: ' + directErr.message);
+        log('Could not translate — showing original text');
         return text;
       }
     }
@@ -1248,7 +1366,7 @@
       if (mode === 'spacy') {
         try {
           const backend = await planWithSpaCyBackend(raw);
-          if (backend.error) { log('Backend error: ' + backend.error); throw new Error(backend.error); }
+          if (backend.error) { log('Backend unavailable — using local processing'); throw new Error(backend.error); }
           const backendTokens = String(backend.final||'').replace(/[.\n]/g,' ').split(/\s+/).filter(Boolean);
           const m = mapToAvailable(backendTokens, allowed, 0.82);
           const displayTokens = m.mapped.length ? m.mapped : backendTokens;
@@ -1256,7 +1374,7 @@
           if (planLog){ const lines = ['spacy-backend']; if (Object.keys(m.subs).length) lines.push('subs: '+JSON.stringify(m.subs)); if (m.fingerspelled?.length) lines.push('fingerspelled: '+m.fingerspelled.join(', ')); if (m.missing.length) lines.push('missing: '+m.missing.join(', ')); planLog.textContent = lines.join('\n'); }
           if (tokensOut) tokensOut.value = displayTokens.join(' ');
           window.__plannedTokens = displayTokens; return;
-        } catch (e) { log('Python backend error, falling back: ' + e); }
+        } catch (e) { log('Backend unavailable — using local processing'); }
       }
       if (!mapped?.length && eduNlpToggle.checked) {
         const eduTokens = processEducationalText(raw);
@@ -1273,7 +1391,7 @@
         if (normalizedOut) normalizedOut.value = norm.join(' ');
         if (planLog){ const lines = []; if (heur.length) lines.push('heuristic: '+heur.join(' ')); if (Object.keys(subs).length) lines.push('subs: '+JSON.stringify(subs)); if (mHeur.fingerspelled?.length) lines.push('fingerspelled: '+mHeur.fingerspelled.join(', ')); if (missing.length) lines.push('missing: '+missing.join(', ')); planLog.textContent = lines.length ? lines.join('\n') : 'planned'; }
       }
-      if (!mapped?.length) { log('No tokens mapped to available signs.'); return; }
+      if (!mapped?.length) { log('No matching signs — fingerspelling entire phrase'); return; }
       if (tokensOut) tokensOut.value = mapped.join(' ');
       window.__plannedTokens = mapped;
     }
@@ -1298,9 +1416,66 @@
     function playSigml(sigml){ try{ CWASA.playSiGMLText(sigml, 0); }catch(e){ log('CWASA play error: ' + e); } }
 
     const translateBtn = document.getElementById('translateBtn');
+    const tokenList = document.getElementById('tokenList');
+    const playbackProgress = document.getElementById('playbackProgress');
+    const playbackProgressBar = document.getElementById('playbackProgressBar');
+
+    function showTokenChips(tokens) {
+      tokenList.innerHTML = '';
+      tokens.forEach(t => {
+        const chip = document.createElement('span');
+        chip.className = 'token-chip';
+        chip.textContent = t;
+        chip.dataset.token = t;
+        tokenList.appendChild(chip);
+      });
+    }
+
+    function highlightToken(index, total) {
+      const chips = tokenList.querySelectorAll('.token-chip');
+      chips.forEach((chip, i) => {
+        if (i < index) chip.className = 'token-chip done';
+        else if (i === index) chip.className = 'token-chip active';
+        else chip.className = 'token-chip';
+      });
+      if (playbackProgress) {
+        playbackProgress.style.display = 'block';
+        playbackProgressBar.style.width = ((index + 1) / total * 100) + '%';
+      }
+    }
+
+    function clearPlaybackUI() {
+      if (playbackProgress) playbackProgress.style.display = 'none';
+      if (playbackProgressBar) playbackProgressBar.style.width = '0%';
+    }
+
+    let _playbackTimer = null;
+    function simulatePlayback(tokens) {
+      if (_playbackTimer) clearInterval(_playbackTimer);
+      const total = tokens.length;
+      let current = 0;
+      highlightToken(0, total);
+      _playbackTimer = setInterval(() => {
+        current++;
+        if (current >= total) {
+          clearInterval(_playbackTimer);
+          _playbackTimer = null;
+          const chips = tokenList.querySelectorAll('.token-chip');
+          chips.forEach(c => c.className = 'token-chip done');
+          if (playbackProgressBar) playbackProgressBar.style.width = '100%';
+          renderStatus.textContent = 'Ready';
+          renderStatus.className = 'status-badge ready';
+          return;
+        }
+        highlightToken(current, total);
+      }, 1200);
+    }
+
     translateBtn?.addEventListener('click', async () => {
       if (!window.CWASA) { renderStatus.textContent = 'Avatar not loaded.'; return; }
       translateBtn.disabled = true;
+      clearPlaybackUI();
+      tokenList.innerHTML = '';
       try {
         renderStatus.textContent = 'Translating…';
         renderStatus.className = 'status-badge loading';
@@ -1308,23 +1483,44 @@
         const translated = await translateIfNeeded(originalText, (msg) => { renderStatus.textContent = msg; });
         const translationExpected = getInputLang() !== getTargetLang();
         if (translationExpected && translated === originalText) {
-          log('⚠ Translation may have failed — proceeding with original text');
+          log('Could not translate — showing original text');
         }
         textIn.value = translated;
         await doPlan('spacy');
         const toks = window.__plannedTokens || [];
-        if (!toks.length) { renderStatus.textContent = 'No tokens planned.'; renderStatus.className = 'status-badge'; return; }
+        if (!toks.length) { renderStatus.textContent = 'No matching signs found.'; renderStatus.className = 'status-badge'; return; }
         const sigml = buildSigml(toks);
-        if (!sigml) { renderStatus.textContent = 'No matching signs.'; renderStatus.className = 'status-badge'; return; }
+        if (!sigml) {
+          const allFingerspelled = toks.every(t => !glossToSign.has(t));
+          if (allFingerspelled && letterToSign.size > 0) {
+            renderStatus.textContent = 'No matching signs — fingerspelling entire phrase';
+            renderStatus.className = 'status-badge loading';
+          } else {
+            renderStatus.textContent = 'No matching signs found.';
+            renderStatus.className = 'status-badge';
+            return;
+          }
+        }
+        showTokenChips(toks);
         renderStatus.textContent = 'Playing…';
         renderStatus.className = 'status-badge loading';
         playSigml(sigml);
-        setTimeout(() => { renderStatus.textContent = 'Ready'; renderStatus.className = 'status-badge ready'; }, 500);
-      } catch (e) { console.error(e); renderStatus.textContent = 'Translate error.'; renderStatus.className = 'status-badge'; }
+        simulatePlayback(toks);
+      } catch (e) {
+        console.error(e);
+        renderStatus.textContent = 'Could not translate — showing original text';
+        renderStatus.className = 'status-badge';
+      }
       finally { translateBtn.disabled = false; }
     });
 
-    stopBtn.addEventListener('click', () => { try{ CWASA.stop(0); renderStatus.textContent = 'Stopped'; renderStatus.className = 'status-badge'; }catch(_e){} });
+    stopBtn.addEventListener('click', () => {
+      try { CWASA.stop(0); } catch(_e) {}
+      if (_playbackTimer) { clearInterval(_playbackTimer); _playbackTimer = null; }
+      clearPlaybackUI();
+      renderStatus.textContent = 'Stopped';
+      renderStatus.className = 'status-badge';
+    });
   </script>
 
   <script>
@@ -1370,7 +1566,7 @@
           recordBtn.textContent = '■ Stop recording';
           recordBtn.classList.remove('btn-secondary'); recordBtn.classList.add('btn-primary');
           micStatus.textContent = 'Recording…'; micStatus.className = 'status-badge loading';
-        }catch(e){ micStatus.textContent = 'Mic error: ' + e; }
+        }catch(e){ micStatus.textContent = 'Could not access microphone'; }
       } else {
         mediaRecorder.stop(); mediaRecorder = null;
         recordBtn.textContent = '● Start recording';
@@ -1397,7 +1593,7 @@
         }
         textIn.value = translated;
         if (!micTranslationExpected || translated !== rawText) { micStatus.textContent = 'Done ✓'; micStatus.className = 'status-badge ready'; }
-      }catch(e){ micStatus.textContent = 'Error: ' + e; micStatus.className = 'status-badge'; }
+      }catch(e){ micStatus.textContent = 'Could not transcribe audio'; micStatus.className = 'status-badge'; }
     });
   </script>
 
@@ -1439,7 +1635,7 @@
         textIn.value = translated;
         await doPlan('spacy');
         videoStatus.textContent = 'Ready to render ✓'; videoStatus.className = 'status-badge ready';
-      }catch(e){ videoStatus.textContent = 'Error: ' + e; videoStatus.className = 'status-badge'; }
+      }catch(e){ videoStatus.textContent = 'Could not process video'; videoStatus.className = 'status-badge'; }
     });
   </script>
 
@@ -1456,6 +1652,21 @@
   <script>
     window.addEventListener('error', e => { log('JS error: ' + (e?.error?.message || e.message)); });
     window.addEventListener('unhandledrejection', e => { log('Promise rejection: ' + (e?.reason?.message || e.reason)); });
+  </script>
+
+  <script>
+    const charCount = document.getElementById('charCount');
+    textIn.addEventListener('input', () => {
+      const len = textIn.value.length;
+      charCount.textContent = len + ' / 500';
+      charCount.className = len > 500 ? 'char-count over' : 'char-count';
+    });
+
+    document.getElementById('hamburgerBtn').addEventListener('click', () => {
+      document.querySelector('.sidebar').classList.toggle('open');
+    });
+
+    window.addEventListener('load', () => { textIn.focus(); });
   </script>
 
 </body>
