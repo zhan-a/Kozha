@@ -1250,9 +1250,7 @@
         var translatedText = await heroTranslateIfNeeded(inputText, function(msg) { btn.textContent = msg; });
         var heroTranslationExpected = getHeroInputLang() !== (SIGN_LANG_GLOSS[getHeroSignLang()] || 'en');
         if (heroTranslationExpected && translatedText === inputText) {
-          btn.textContent = 'Translation failed — try again or enter text in ' + (SIGN_LANG_GLOSS[getHeroSignLang()] || 'en').toUpperCase();
-          setTimeout(function() { btn.textContent = 'Translate ▶'; btn.disabled = false; }, 3000);
-          return;
+          console.warn('Translation may have failed — proceeding with original text');
         }
 
         var planTokens = [];
@@ -1370,7 +1368,7 @@
             const micTransExpected = getHeroInputLang() !== (SIGN_LANG_GLOSS[getHeroSignLang()] || 'en');
             heroInput.value = text;
             micStatus.textContent = micTransExpected && text === rawText
-              ? 'Translation failed — try again or enter text in ' + (SIGN_LANG_GLOSS[getHeroSignLang()] || 'en').toUpperCase()
+              ? 'Translation may have failed — results may be inaccurate'
               : 'Transcribed! Hit Translate to see signs.';
             chips.forEach(x => x.classList.remove('active'));
             document.getElementById('chip-text').classList.add('active');
@@ -1426,7 +1424,7 @@
           const vidTransExpected = getHeroInputLang() !== (SIGN_LANG_GLOSS[getHeroSignLang()] || 'en');
           heroInput.value = text;
           videoStatus.textContent = vidTransExpected && text === rawText
-            ? 'Translation failed — try again or enter text in ' + (SIGN_LANG_GLOSS[getHeroSignLang()] || 'en').toUpperCase()
+            ? 'Translation may have failed — results may be inaccurate'
             : 'Transcribed! Hit Translate to see signs.';
 
           chips.forEach(x => x.classList.remove('active'));

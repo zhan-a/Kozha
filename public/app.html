@@ -1308,9 +1308,7 @@
         const translated = await translateIfNeeded(originalText, (msg) => { renderStatus.textContent = msg; });
         const translationExpected = getInputLang() !== getTargetLang();
         if (translationExpected && translated === originalText) {
-          renderStatus.textContent = 'Translation failed — try again or enter text in ' + getTargetLang().toUpperCase();
-          renderStatus.className = 'status-badge';
-          return;
+          log('⚠ Translation may have failed — proceeding with original text');
         }
         textIn.value = translated;
         await doPlan('spacy');
