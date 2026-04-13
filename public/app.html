@@ -361,6 +361,8 @@
     }
 
     .CWASAAvatar.av0 { width: 384px; height: 320px; }
+    .divCtrlPanel { display: none; }
+    .menuAv { display: none; }
 
     .avatar-controls {
       display: flex;
@@ -787,14 +789,41 @@
       CWASA.ready.then(() => {
         renderStatus.textContent = 'Ready';
         renderStatus.className = 'status-badge ready';
+        syncAvatarMenu();
       });
     } else {
       setTimeout(() => {
         renderStatus.textContent = 'Ready';
         renderStatus.className = 'status-badge ready';
+        syncAvatarMenu();
       }, 300);
     }
   }
+
+  function syncAvatarMenu() {
+    const cwaMenu = document.querySelector('.menuAv');
+    const ourSelect = document.getElementById('avatarSelect');
+    if (cwaMenu) {
+      ourSelect.innerHTML = '';
+      for (const opt of cwaMenu.options) {
+        const o = document.createElement('option');
+        o.value = opt.value;
+        o.textContent = opt.textContent;
+        if (opt.selected) o.selected = true;
+        ourSelect.appendChild(o);
+      }
+      cwaMenu.style.display = 'none';
+    }
+  }
+
+  document.getElementById('avatarSelect').addEventListener('change', function() {
+    const cwaMenu = document.querySelector('.menuAv');
+    if (cwaMenu) {
+      cwaMenu.value = this.value;
+      cwaMenu.dispatchEvent(new Event('change'));
+    }
+  });
+
   window.addEventListener('load', () => {
     setTimeout(() => {
       try { initCWASA(); } catch (e) {
@@ -802,14 +831,6 @@
         renderStatus.textContent = 'Avatar failed to load.';
       }
     }, 150);
-  });
-
-  document.getElementById('avatarSelect').addEventListener('change', function() {
-    try {
-      CWASA.setAvatar(0, this.value);
-    } catch(e) {
-      console.error('Avatar switch error:', e);
-    }
   });
   </script>
 
