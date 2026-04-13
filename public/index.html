@@ -1088,7 +1088,10 @@
 
     async function loadSigmlUrl(url) {
       try {
-        const res = await fetch(url);
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 15000);
+        const res = await fetch(url, { signal: controller.signal });
+        clearTimeout(timeout);
         if (!res.ok) return;
         const xmlText = await res.text();
         const doc = new DOMParser().parseFromString(xmlText, 'application/xml');
@@ -1106,7 +1109,10 @@
 
     async function loadAlphabetSigmlUrl(url) {
       try {
-        const res = await fetch(url);
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 15000);
+        const res = await fetch(url, { signal: controller.signal });
+        clearTimeout(timeout);
         if (!res.ok) return;
         const xmlText = await res.text();
         const doc = new DOMParser().parseFromString(xmlText, 'application/xml');
@@ -1122,7 +1128,10 @@
 
     async function loadConceptCsvUrl(url) {
       try {
-        const res = await fetch(url);
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 15000);
+        const res = await fetch(url, { signal: controller.signal });
+        clearTimeout(timeout);
         if (!res.ok) return;
         let txt = await res.text();
         if (txt.charCodeAt(0) === 0xFEFF) txt = txt.slice(1);
@@ -1204,8 +1213,13 @@
       statusDot.textContent = 'Loading…';
       statusDot.className = 'status-dot loading';
       await switchSignLanguage(this.value);
-      statusDot.textContent = 'Ready';
-      statusDot.className = 'status-dot ready';
+      if (glossToSign.size === 0) {
+        statusDot.textContent = 'No sign database available — fingerspelling only';
+        statusDot.className = 'status-dot loading';
+      } else {
+        statusDot.textContent = 'Ready (' + glossToSign.size + ' signs)';
+        statusDot.className = 'status-dot ready';
+      }
     });
 
     window.addEventListener('load', async function() {
@@ -1309,7 +1323,10 @@
       if (heroTranslatorCache[key]) return heroTranslatorCache[key];
       var pipeline = await heroGetPipeline();
       var modelName = 'Xenova/opus-mt-' + src + '-' + tgt;
-      var translator = await pipeline('translation', modelName);
+      var translator = await Promise.race([
+        pipeline('translation', modelName),
+        new Promise(function(_, reject) { setTimeout(function() { reject(new Error('Translation model loading timed out')); }, 60000); })
+      ]);
       heroTranslatorCache[key] = translator;
       return translator;
     }
@@ -1330,9 +1347,18 @@
             var fromEn = await heroLoadTranslator('en', tgtLang);
             var finalResult = await fromEn(enText);
             return (finalResult && finalResult[0] && finalResult[0].translation_text || enText).trim();
-          } catch (e) { console.warn('[index] Pivot translation failed:', e); return text; }
+          } catch (e) {
+            console.warn('[index] Pivot translation failed:', e);
+            var statusDot = document.getElementById('statusDot');
+            statusDot.textContent = 'Translation unavailable — using original text';
+            statusDot.className = 'status-dot loading';
+            return text;
+          }
         }
         console.warn('[index] Translation failed:', directErr);
+        var statusDot2 = document.getElementById('statusDot');
+        statusDot2.textContent = 'Translation unavailable — using original text';
+        statusDot2.className = 'status-dot loading';
         return text;
       }
     }
@@ -1347,7 +1373,6 @@
     }
 
     document.getElementById('heroTranslateBtn').addEventListener('click', async function() {
-      if (!cwasaReady) return;
       var btn = this;
       var inputText = document.getElementById('heroInput').value.trim();
       if (!inputText) return;
@@ -1364,11 +1389,15 @@
 
         var planTokens = [];
         try {
+          var apiController = new AbortController();
+          var apiTimeout = setTimeout(function() { apiController.abort(); }, 10000);
           var resp = await fetch('/api/plan', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text: translatedText, language: getHeroTargetLang(), sign_language: getHeroSignLang() })
+            body: JSON.stringify({ text: translatedText, language: getHeroTargetLang(), sign_language: getHeroSignLang() }),
+            signal: apiController.signal
           });
+          clearTimeout(apiTimeout);
           if (resp.ok) {
             var data = await resp.json();
             var finalText = String(data.final || '').replace(/[.\n]/g, ' ').trim();
@@ -1398,8 +1427,15 @@
           return;
         }
 
-        CWASA.playSiGMLText(sigml, 0);
-        btn.textContent = 'Playing…';
+        if (cwasaReady) {
+          CWASA.playSiGMLText(sigml, 0);
+          btn.textContent = 'Playing…';
+        } else {
+          var statusDot = document.getElementById('statusDot');
+          statusDot.textContent = 'Avatar unavailable — showing text output';
+          statusDot.className = 'status-dot loading';
+          btn.textContent = 'Planned: ' + mapped.join(', ');
+        }
         setTimeout(function() {
           btn.textContent = 'Translate ▶';
           btn.disabled = false;

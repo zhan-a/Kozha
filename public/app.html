@@ -1067,7 +1067,10 @@
 
     async function loadSigmlUrl(url, isAutoload = false){
       try{
-        const res = await fetch(url);
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 15000);
+        const res = await fetch(url, { signal: controller.signal });
+        clearTimeout(timeout);
         if (!res.ok){ if (isAutoload && res.status === 404){ log(`Optional DB missing: ${url}`); return; } throw new Error('HTTP ' + res.status); }
         const xmlText = await res.text();
         const doc = new DOMParser().parseFromString(xmlText, 'application/xml');
@@ -1089,7 +1092,10 @@
 
     async function loadAlphabetSigmlUrl(url, isAutoload = false){
       try{
-        const res = await fetch(url);
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 15000);
+        const res = await fetch(url, { signal: controller.signal });
+        clearTimeout(timeout);
         if (!res.ok){ if (isAutoload && res.status === 404){ log(`Optional alphabet DB missing: ${url}`); return; } throw new Error('HTTP ' + res.status); }
         const xmlText = await res.text();
         const doc = new DOMParser().parseFromString(xmlText, 'application/xml');
@@ -1113,7 +1119,10 @@
 
     async function loadConceptCsvUrl(url, isAutoload = false){
       try{
-        const res = await fetch(url);
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 15000);
+        const res = await fetch(url, { signal: controller.signal });
+        clearTimeout(timeout);
         if (!res.ok){ if (isAutoload && res.status === 404){ log(`Optional DB missing: ${url}`); return; } throw new Error('HTTP ' + res.status); }
         const txt = await res.text();
         const { header, rows } = parseTable(txt);
@@ -1207,7 +1216,17 @@
       }
 
       if (_switchId !== myId) return;
-      log('Loaded ' + langCode.toUpperCase() + ': ' + glossToSign.size + ' signs, ' + letterToSign.size + ' letters');
+      if (glossToSign.size === 0 && letterToSign.size === 0) {
+        log('No sign database available — fingerspelling only');
+        renderStatus.textContent = 'No sign database available — fingerspelling only';
+        renderStatus.className = 'status-badge';
+      } else if (glossToSign.size === 0) {
+        log('No signs loaded — fingerspelling only (' + letterToSign.size + ' letters)');
+        renderStatus.textContent = 'No sign database available — fingerspelling only';
+        renderStatus.className = 'status-badge';
+      } else {
+        log('Loaded ' + langCode.toUpperCase() + ': ' + glossToSign.size + ' signs, ' + letterToSign.size + ' letters');
+      }
     }
 
     const SIGN_LANG_NAMES = {
@@ -1265,7 +1284,10 @@
       log('Loading translation model: ' + modelName + '…');
       renderStatus.textContent = 'Downloading translation model… This may take a moment on first use.';
       renderStatus.className = 'status-badge loading';
-      const translator = await pipeline('translation', modelName);
+      const translator = await Promise.race([
+        pipeline('translation', modelName),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Translation model loading timed out')), 60000))
+      ]);
       translatorCache[key] = translator;
       return translator;
     }
@@ -1288,11 +1310,15 @@
             const finalResult = await fromEn(enText);
             return (finalResult?.[0]?.translation_text || enText).trim();
           } catch (pivotErr) {
-            log('Could not translate — showing original text');
+            log('Translation failed — continuing with original text');
+            renderStatus.textContent = 'Translation unavailable — using original text';
+            renderStatus.className = 'status-badge';
             return text;
           }
         }
-        log('Could not translate — showing original text');
+        log('Translation failed — continuing with original text');
+        renderStatus.textContent = 'Translation unavailable — using original text';
+        renderStatus.className = 'status-badge';
         return text;
       }
     }
@@ -1321,7 +1347,10 @@
 
     async function planWithSpaCyBackend(rawText) {
       try {
-        const resp = await fetch('/api/plan', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: rawText, language: getTargetLang(), sign_language: getSignLang() }) });
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 10000);
+        const resp = await fetch('/api/plan', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: rawText, language: getTargetLang(), sign_language: getSignLang() }), signal: controller.signal });
+        clearTimeout(timeout);
         if (!resp.ok) { const detail = await resp.text().catch(() => ''); throw new Error(`Backend HTTP ${resp.status} ${detail}`); }
         return await resp.json();
       } catch (e) { console.error("spaCy backend fetch failed:", e); throw e; }
@@ -1400,7 +1429,11 @@
           if (planLog){ const lines = ['spacy-backend']; if (Object.keys(m.subs).length) lines.push('subs: '+JSON.stringify(m.subs)); if (m.fingerspelled?.length) lines.push('fingerspelled: '+m.fingerspelled.join(', ')); if (m.missing.length) lines.push('missing: '+m.missing.join(', ')); planLog.textContent = lines.join('\n'); }
           if (tokensOut) tokensOut.value = displayTokens.join(' ');
           window.__plannedTokens = displayTokens; return;
-        } catch (e) { log('Backend unavailable — using local processing'); }
+        } catch (e) {
+          log('Backend unavailable — using simplified processing');
+          renderStatus.textContent = 'Backend unavailable — using simplified processing';
+          renderStatus.className = 'status-badge';
+        }
       }
       if (!mapped?.length && eduNlpToggle.checked) {
         const eduTokens = processEducationalText(raw);
@@ -1498,7 +1531,7 @@
     }
 
     translateBtn?.addEventListener('click', async () => {
-      if (!window.CWASA) { renderStatus.textContent = 'Avatar not loaded.'; return; }
+      const cwasaAvailable = !!window.CWASA;
       translateBtn.disabled = true;
       clearPlaybackUI();
       tokenList.innerHTML = '';
@@ -1509,13 +1542,21 @@
         const translated = await translateIfNeeded(originalText, (msg) => { renderStatus.textContent = msg; });
         const translationExpected = getInputLang() !== getTargetLang();
         if (translationExpected && translated === originalText) {
-          log('Could not translate — showing original text');
+          log('Translation failed — using original text');
+          renderStatus.textContent = 'Translation unavailable — using original text';
+          renderStatus.className = 'status-badge';
         }
         textIn.value = translated;
         await doPlan('spacy');
         const toks = window.__plannedTokens || [];
         if (!toks.length) { renderStatus.textContent = 'No matching signs found.'; renderStatus.className = 'status-badge'; return; }
         const sigml = buildSigml(toks);
+        showTokenChips(toks);
+        if (!cwasaAvailable) {
+          renderStatus.textContent = 'Avatar unavailable — showing text output';
+          renderStatus.className = 'status-badge';
+          return;
+        }
         if (!sigml) {
           const allFingerspelled = toks.every(t => !glossToSign.has(t));
           if (allFingerspelled && letterToSign.size > 0) {
@@ -1527,7 +1568,6 @@
             return;
           }
         }
-        showTokenChips(toks);
         renderStatus.textContent = 'Playing…';
         renderStatus.className = 'status-badge loading';
         playSigml(sigml);
