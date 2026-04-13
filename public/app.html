@@ -972,7 +972,7 @@
         const res = await fetch(url);
         if (!res.ok){ if (isAutoload && res.status === 404){ log(`Optional alphabet DB missing: ${url}`); return; } throw new Error('HTTP ' + res.status); }
         const xmlText = await res.text();
-        const doc = new DOMParser().parseFromString('<root>' + xmlText + '</root>', 'application/xml');
+        const doc = new DOMParser().parseFromString(xmlText, 'application/xml');
         const signs = Array.from(doc.querySelectorAll('hns_sign'));
         let added = 0;
         for (const s of signs){ const gloss = (s.getAttribute('gloss')||'').trim().toUpperCase(); if (!gloss || gloss.length !== 1 || gloss < 'A' || gloss > 'Z') continue; letterToSign.set(gloss, s.outerHTML); added++; }
