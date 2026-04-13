@@ -994,7 +994,6 @@
           added++;
         }
         rebuildBaseIndex();
-        console.log('[index] Loaded ' + added + ' signs from ' + url);
       } catch(e) { console.warn('[index] DB load error:', e); }
     }
 
@@ -1011,7 +1010,6 @@
             letterToSign.set(gloss, s.outerHTML);
           }
         }
-        console.log('[index] Loaded ' + letterToSign.size + ' alphabet letters');
       } catch(e) { console.warn('[index] Alphabet load error:', e); }
     }
 
@@ -1032,7 +1030,6 @@
           const gloss = (cols[gi]||'').trim().toLowerCase();
           if (concept && gloss) conceptToGloss.set(glossBase(concept), gloss);
         }
-        console.log('[index] Loaded ' + conceptToGloss.size + ' concepts');
       } catch(e) { console.warn('[index] Concept CSV error:', e); }
     }
 
@@ -1075,7 +1072,6 @@
       if (!db) return;
 
       if (!db.sigml.length && !db.csv && !db.alphabet) {
-        console.log('[index] ' + langCode.toUpperCase() + ': no sign data available yet');
         return;
       }
 
@@ -1090,7 +1086,6 @@
 
       if (_heroSwitchId !== myId) return;
       extractEmbeddedAlphabet();
-      console.log('[index] Switched to ' + langCode + ': ' + glossToSign.size + ' signs, ' + letterToSign.size + ' letters');
     }
 
     document.getElementById('heroSignLang').addEventListener('change', async function() {
@@ -1202,7 +1197,6 @@
       if (heroTranslatorCache[key]) return heroTranslatorCache[key];
       var pipe = window.transformers.pipeline;
       var modelName = 'Xenova/opus-mt-' + src + '-' + tgt;
-      console.log('[index] Loading translation model: ' + modelName);
       var translator = await pipe('translation', modelName);
       heroTranslatorCache[key] = translator;
       return translator;
@@ -1216,7 +1210,6 @@
         return (result && result[0] && result[0].translation_text || text).trim();
       } catch (directErr) {
         if (srcLang !== 'en' && tgtLang !== 'en') {
-          console.log('[index] Pivoting through English…');
           try {
             var toEn = await heroLoadTranslator(srcLang, 'en');
             var enResult = await toEn(text);

@@ -24,11 +24,28 @@ Speech → Text → NLP Processing → HamNoSys → SiGML → 3D Animation
 4. **SiGML Generation** — HamNoSys representations are serialized into [Signing Gesture Markup Language (SiGML)](http://vh.cmp.uea.ac.uk/index.php/SiGML), an XML-based format.
 5. **3D Avatar Rendering (CAWSA)** — SiGML is rendered as 3D sign language animation using the [CAWSA](http://vh.cmp.uea.ac.uk/index.php/CWA) avatar system.
 
+## Multilingual NLP
+
+The backend supports native NLP processing in 7 languages via dedicated spaCy models:
+
+| Language | spaCy Model |
+|---|---|
+| English | `en_core_web_sm` |
+| German | `de_core_news_sm` |
+| French | `fr_core_news_sm` |
+| Spanish | `es_core_news_sm` |
+| Polish | `pl_core_news_sm` |
+| Dutch | `nl_core_news_sm` |
+| Greek | `el_core_news_sm` |
+
+Languages without a dedicated spaCy model are handled via client-side translation (OPUS-MT) to the sign language's base language before NLP processing. Models are loaded on demand with an LRU cache (max 4 concurrent).
+
 ## Tech Stack
 
 | Layer | Technology |
 |---|---|
-| NLP | spaCy |
+| NLP | spaCy (7 language models) |
+| Translation | OPUS-MT (client-side, via Transformers.js) |
 | Sign notation | HamNoSys |
 | Markup | SiGML (XML) |
 | 3D rendering | CAWSA avatar |
@@ -46,11 +63,8 @@ cd kozha
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Install dependencies
+# Install dependencies (includes all spaCy language models)
 pip install -r server/requirements.txt
-
-# Download spaCy language model
-python -m spacy download en_core_web_sm
 ```
 
 ### Running Locally
@@ -91,11 +105,8 @@ kozha/
 
 **Known limitations:**
 - Vocabulary coverage is still expanding.
-- Currently optimized for BSL.
-
-**Planned improvements:**
-- Expanded sign vocabulary and grammar rules.
-- Support for additional sign languages.
+- BSL has the most complete sign database; other sign languages have varying coverage.
+- Languages without a dedicated spaCy model rely on client-side translation before NLP processing.
 
 ## Contributing
 
