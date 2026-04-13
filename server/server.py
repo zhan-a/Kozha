@@ -101,21 +101,24 @@ STOPWORDS = {
         "a","an","the","and","or","but","if","then","than",
         "of","to","in","on","at","for","from","with","as","by","is","are","am",
         "be","been","was","were","do","does","did","that","this","those","these",
-        "it","my","your","our"
     },
     "de": {
-        "der","die","das","ein","eine","einem","einen","einer","und","oder","aber",
-        "wenn","von","zu","in","an","auf","für","aus","mit","als","durch",
-        "ist","sind","bin","war","waren","dass","dies","jene","es","mein","dein",
-        "unser","nicht","noch","auch","nur","sehr","schon","über","unter","nach",
-        "bei","vor","zwischen","ob","weil","da","so","wie"
+        "der","die","das","ein","eine","einem","einen","einer",
+        "von","zu","in","an","auf","für","aus","als","durch",
+        "über","unter","nach","bei","zwischen",
+        "ist","sind","bin","war","waren",
+        "dass","ob","da",
+        "dies","jene","es",
+        "mein","dein","unser",
+        "sehr","nur","so","wie",
     },
     "fr": {
-        "le","la","les","un","une","des","et","ou","mais","si","de","du","au","aux",
-        "à","en","dans","sur","pour","par","avec","ce","cette","ces",
-        "est","sont","suis","été","être","fait","avoir","pas","ne","se",
-        "son","sa","ses","mon","ma","mes","ton","ta","tes","notre","votre","leur",
-        "que","qui","dont","où","très","plus","moins"
+        "le","la","les","un","une","des",
+        "de","du","au","aux","à","en","dans","sur","pour","par","avec",
+        "est","sont","suis","été","être","fait","avoir",
+        "que","qui","dont","où",
+        "ce","cette","ces",
+        "ne","se","si",
     },
     "es": {
         "el","la","los","las","un","una","unos","unas","y","o","pero","si",
@@ -125,18 +128,22 @@ STOPWORDS = {
         "mi","tu","su","nuestro","muy","más","menos","no","se","lo","le"
     },
     "pl": {
-        "i","a","ale","lub","czy","że","to","ten","ta","te","on","ona","ono",
+        "i","a","ale","lub","czy","że",
+        "to","ten","ta","te",
         "w","na","z","do","od","po","za","o","przy","nad","pod","przed",
-        "jest","są","był","była","było","być","nie","tak","już","też",
-        "się","go","mu","jej","ich","mój","twój","nasz","wasz","jego",
-        "jak","co","kto","gdzie","kiedy","bardzo","więcej","mniej"
+        "jest","są","był","była","było","być",
+        "się","go","mu",
+        "tak",
+        "bardzo","więcej","mniej","też",
     },
     "nl": {
-        "de","het","een","en","of","maar","als","van","in","op","aan","voor",
-        "met","door","uit","over","na","bij","tot","om","naar","tegen",
+        "de","het","een",
+        "en","als",
+        "van","in","op","aan","voor","door","uit","over","na",
+        "bij","tot","om","naar","tegen",
         "is","zijn","was","waren","wordt","werd","heeft","had","ben","bent",
-        "die","dat","dit","deze","er","niet","ook","nog","wel","al","zo",
-        "mijn","jouw","zijn","haar","ons","hun","zeer","meer","minder"
+        "die","dat",
+        "er","al","zo",
     },
     "el": {
         "ο","η","το","οι","τα","ένα","μια","και","ή","αλλά","αν",
@@ -156,7 +163,17 @@ TIME_WORDS = {
         "week","month","year",
         "monday","tuesday","wednesday","thursday","friday","saturday","sunday",
         "january","february","march","april","may","june","july",
-        "august","september","october","november","december"
+        "august","september","october","november","december",
+        "last","next","ago","previous","following",
+        "always","never","sometimes","often","usually",
+        "rarely","frequently","occasionally",
+        "recently","early","late",
+        "past","future","present",
+        "daily","weekly","monthly","yearly",
+        "already","still","yet",
+        "before","after",
+        "dawn","dusk","noon","midnight",
+        "weekend","midday",
     },
     "de": {
         "heute","gestern","morgen",
@@ -165,7 +182,14 @@ TIME_WORDS = {
         "woche","monat","jahr",
         "montag","dienstag","mittwoch","donnerstag","freitag","samstag","sonntag",
         "januar","februar","märz","april","mai","juni","juli",
-        "august","september","oktober","november","dezember"
+        "august","september","oktober","november","dezember",
+        "früher","damals","vorhin",
+        "immer","nie","niemals","manchmal","oft",
+        "übermorgen","vorgestern",
+        "mittag","mitternacht",
+        "morgens","abends","nachts",
+        "stunde","minute",
+        "frühling","sommer","herbst","winter",
     },
     "fr": {
         "aujourd'hui","hier","demain",
@@ -174,7 +198,13 @@ TIME_WORDS = {
         "semaine","mois","année","an",
         "lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche",
         "janvier","février","mars","avril","mai","juin","juillet",
-        "août","septembre","octobre","novembre","décembre"
+        "août","septembre","octobre","novembre","décembre",
+        "avant-hier","après-demain",
+        "midi","minuit",
+        "heure","minute","jour",
+        "week-end",
+        "toujours","souvent","parfois",
+        "déjà","tard","tôt",
     },
     "es": {
         "hoy","ayer","mañana",
@@ -192,7 +222,14 @@ TIME_WORDS = {
         "tydzień","miesiąc","rok",
         "poniedziałek","wtorek","środa","czwartek","piątek","sobota","niedziela",
         "styczeń","luty","marzec","kwiecień","maj","czerwiec","lipiec",
-        "sierpień","wrzesień","październik","listopad","grudzień"
+        "sierpień","wrzesień","październik","listopad","grudzień",
+        "przedwczoraj","pojutrze",
+        "południe","północ",
+        "dawno","zawsze","nigdy",
+        "często","codziennie",
+        "godzina","minuta",
+        "lato","zima","wiosna","jesień",
+        "już",
     },
     "nl": {
         "vandaag","gisteren","morgen",
@@ -201,7 +238,12 @@ TIME_WORDS = {
         "week","maand","jaar",
         "maandag","dinsdag","woensdag","donderdag","vrijdag","zaterdag","zondag",
         "januari","februari","maart","april","mei","juni","juli",
-        "augustus","september","oktober","november","december"
+        "augustus","september","oktober","november","december",
+        "vroeger","straks","toen","eerder","daarna",
+        "vanavond","vanmorgen","vanochtend","vanmiddag","vannacht",
+        "overmorgen","eergisteren",
+        "altijd","nooit","vaak","soms",
+        "vroeg","laat",
     },
     "el": {
         "σήμερα","χθες","αύριο",
@@ -217,28 +259,69 @@ TIME_WORDS["default"] = TIME_WORDS["en"]
 
 PRONOUNS = {
     "en": {
-        "keep": {"you","we","they","he","she","me","them","her","him","us"},
-        "normalize": {"i": "me"},
+        "keep": {"you","we","they","them","us","my","your","our","their","not"},
+        "normalize": {
+            "i": "me", "me": "me",
+            "he": "he", "him": "he", "she": "he", "it": "he",
+            "her": "he", "his": "his", "its": "his",
+            "n't": "not",
+        },
     },
     "de": {
-        "keep": {"du","wir","sie","er","mich","ihnen","ihr","ihm","uns","dich","euch"},
-        "normalize": {"ich": "ich"},
+        "keep": {"du","wir","ihr","uns"},
+        "normalize": {
+            "ich": "ich", "mich": "ich", "mir": "ich",
+            "er": "er", "ihn": "er", "ihm": "er",
+            "sie": "er",
+            "dich": "du", "dir": "du",
+            "euch": "ihr",
+            "ihnen": "ihnen",
+        },
     },
     "fr": {
-        "keep": {"tu","nous","vous","il","elle","ils","elles","moi","toi","lui","eux"},
-        "normalize": {"je": "moi"},
+        "keep": {"tu","nous","vous","moi","toi",
+                 "mon","ma","mes","ton","ta","tes","son","sa","ses",
+                 "notre","votre","leur","pas","très","plus","moins",
+                 "et","ou","mais"},
+        "normalize": {
+            "je": "moi",
+            "il": "il", "lui": "il",
+            "elle": "il",
+            "ils": "ils", "eux": "ils",
+            "elles": "ils",
+            "on": "nous",
+        },
     },
     "es": {
         "keep": {"tú","nosotros","ellos","ellas","él","ella","usted","ustedes","mí","ti"},
         "normalize": {"yo": "yo"},
     },
     "pl": {
-        "keep": {"ty","my","wy","oni","one","mnie","ciebie","nam","wam","im"},
-        "normalize": {"ja": "ja"},
+        "keep": {"ja","ty","my","wy","oni","one","on","ona",
+                 "mój","twój","nasz","wasz","jego","jej","ich"},
+        "normalize": {
+            "ja": "ja", "mnie": "ja", "mi": "ja", "mną": "ja",
+            "ciebie": "ty", "ci": "ty", "tobą": "ty",
+            "jemu": "on", "nim": "on",
+            "nią": "ona", "niej": "ona",
+            "nas": "my", "nami": "my", "nam": "my",
+            "was": "wy", "wami": "wy", "wam": "wy",
+            "im": "oni", "nich": "oni",
+        },
     },
     "nl": {
-        "keep": {"jij","je","wij","we","zij","ze","hij","mij","me","ons","hen","hem","haar","u"},
-        "normalize": {"ik": "ik"},
+        "keep": {"jij","wij","hij","ons","u",
+                 "mijn","jouw","dit","deze",
+                 "maar","of","ook","nog","wel","meer","minder","zeer"},
+        "normalize": {
+            "ik": "ik", "mij": "ik", "me": "ik",
+            "je": "jij", "jou": "jij",
+            "we": "wij",
+            "zij": "hij", "ze": "hij",
+            "hem": "hij", "haar": "hij",
+            "hen": "zij", "hun": "zij",
+            "niet": "niet",
+        },
     },
     "el": {
         "keep": {"εσύ","εμείς","εσείς","αυτός","αυτή","αυτοί","αυτές","εμένα","εσένα"},
@@ -246,6 +329,19 @@ PRONOUNS = {
     },
 }
 PRONOUNS["default"] = PRONOUNS["en"]
+
+QUESTION_WORDS = {
+    "en": {"what","where","when","who","why","how","which"},
+    "de": {"was","wo","wann","wer","warum","wie","welche","welcher","welches"},
+    "fr": {"quoi","où","quand","qui","pourquoi","comment","quel","quelle"},
+    "pl": {"co","kto","gdzie","kiedy","dlaczego","jak","który","która","które"},
+    "nl": {"wat","waar","wanneer","wie","waarom","hoe","welk","welke"},
+    "el": {"τι","πού","πότε","ποιος","γιατί","πώς","ποιο"},
+}
+QUESTION_WORDS["default"] = QUESTION_WORDS["en"]
+
+def get_question_words(lang: str) -> set:
+    return QUESTION_WORDS.get(lang, QUESTION_WORDS["default"])
 
 GRAMMAR_PROFILES = {
     "bsl":      {"verb_final": False, "time_first": True},
@@ -304,15 +400,19 @@ def get_abbreviation_spans(doc) -> Dict[int, tuple[int, list[str]]]:
         out[span.start] = (span.end, letters)
     return out
 
-def reorder_tokens(tokens_with_pos, sign_language: str, time_words: set) -> list:
+def reorder_tokens(tokens_with_pos, sign_language: str, time_words: set,
+                    question_words: set = None) -> list:
     grammar = get_grammar(sign_language)
     time_tokens = []
     verb_tokens = []
+    question_tokens = []
     other_tokens = []
 
     for text, pos in tokens_with_pos:
         if text in time_words:
             time_tokens.append(text)
+        elif question_words and text in question_words:
+            question_tokens.append(text)
         elif pos == "VERB" and grammar["verb_final"]:
             verb_tokens.append(text)
         else:
@@ -329,10 +429,13 @@ def reorder_tokens(tokens_with_pos, sign_language: str, time_words: set) -> list
     if grammar["verb_final"]:
         result.extend(verb_tokens)
 
+    result.extend(question_tokens)
+
     return result
 
 def process_sentence(doc_or_span, stopwords: set, time_words: set, pronouns: dict,
-                     sign_language: str, abbr_spans: Optional[Dict[int, tuple[int, list[str]]]] = None) -> str:
+                     sign_language: str, abbr_spans: Optional[Dict[int, tuple[int, list[str]]]] = None,
+                     question_words: set = None) -> str:
     tokens_with_pos = []
     pron_keep = pronouns.get("keep", set())
     pron_norm = pronouns.get("normalize", {})
@@ -368,9 +471,11 @@ def process_sentence(doc_or_span, stopwords: set, time_words: set, pronouns: dic
             candidate = pron_norm[text]
         elif text in pron_keep:
             candidate = text
+        elif question_words and text in question_words:
+            candidate = text
         elif pos == "VERB":
             candidate = token.lemma_.lower()
-        elif pos in {"NOUN","PROPN","ADJ","INTJ","NUM"} and text not in stopwords:
+        elif pos in {"NOUN","PROPN","ADJ","INTJ","NUM","ADV","DET"} and text not in stopwords:
             candidate = text
 
         if not candidate or candidate in stopwords:
@@ -380,7 +485,7 @@ def process_sentence(doc_or_span, stopwords: set, time_words: set, pronouns: dic
         tokens_with_pos.append((candidate, pos))
         j += 1
 
-    reordered = reorder_tokens(tokens_with_pos, sign_language, time_words)
+    reordered = reorder_tokens(tokens_with_pos, sign_language, time_words, question_words)
 
     seen = set()
     dedup = []
@@ -406,6 +511,7 @@ def process_text(text: str, language: str = "en", sign_language: str = "bsl") ->
     stopwords = get_stopwords(language)
     time_words = get_time_words(language)
     pronouns = get_pronouns(language)
+    question_words = get_question_words(language)
     doc = nlp(text)
 
     abbr_spans = {}
@@ -414,7 +520,7 @@ def process_text(text: str, language: str = "en", sign_language: str = "bsl") ->
 
     lines = []
     for sent in doc.sents:
-        line = process_sentence(sent, stopwords, time_words, pronouns, sign_language, abbr_spans)
+        line = process_sentence(sent, stopwords, time_words, pronouns, sign_language, abbr_spans, question_words)
         if line and line != ".":
             lines.append(line)
     result = "\n".join(lines)
