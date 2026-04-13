@@ -47,7 +47,7 @@ python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
-pip install -r requirements.txt
+pip install -r server/requirements.txt
 
 # Download spaCy language model
 python -m spacy download en_core_web_sm
@@ -57,7 +57,7 @@ python -m spacy download en_core_web_sm
 
 ```bash
 # Start the application
-python main.py
+uvicorn server.server:app --reload
 
 # The app will be available at http://localhost:8000
 ```
@@ -67,19 +67,25 @@ python main.py
 ```
 kozha/
 ├── .github/workflows/deploy.yml
-├── .vscode/settings.json
-├── backend/
-│   ├── abbreviations.json
+├── server/
+│   ├── server.py
+│   ├── requirements.txt
+│   └── abbreviations.json
+├── public/
+│   ├── index.html
+│   ├── app.html
+│   ├── contribute.html
+│   └── LICENSE
+├── data/
+│   ├── hamnosys_bsl_version1.sigml
 │   ├── hamnosys_bsl.csv
-│   ├── hamnosys_bsl_version1.sigml
-|   ├── requirements.txt
-│   └── server.py
-├── frontend/
-|   ├── data
-|   ├── hamnosys_bsl.csv
-│   ├── hamnosys_bsl_version1.sigml
-|   ├── requirements.txt
-│   └── server.py
+│   ├── bsl_alphabet_sigml.sigml
+│   ├── asl_alphabet_sigml.sigml
+│   ├── dgs_alphabet_sigml.sigml
+│   ├── lsf_alphabet_sigml.sigml
+│   ├── pjm_alphabet_sigml.sigml
+│   ├── ngt_alphabet_sigml.sigml
+│   └── ... (15 sign language databases)
 └── README.md
 ```
 

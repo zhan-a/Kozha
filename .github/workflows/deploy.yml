@@ -30,7 +30,7 @@ jobs:
                 git fetch --prune origin
                 git reset --hard origin/main
                 git clean -fd
-                cd backend
+                cd server
                 source /home/ubuntu/kozha-venv/bin/activate
                 pip install -r requirements.txt
                 sudo systemctl restart kozha.service

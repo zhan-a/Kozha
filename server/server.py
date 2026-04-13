@@ -16,8 +16,8 @@ class TextRequest(BaseModel):
 
 APP_ROOT = Path(__file__).resolve().parent
 REPO_ROOT = APP_ROOT.parent
-FRONTEND_DIR = REPO_ROOT / "frontend"
-DATA_DIR = FRONTEND_DIR / "data"
+PUBLIC_DIR = REPO_ROOT / "public"
+DATA_DIR = REPO_ROOT / "data"
 
 app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
 
@@ -170,6 +170,6 @@ if DATA_DIR.exists():
 
 @app.get("/", include_in_schema=False)
 def serve_index():
-    return FileResponse(FRONTEND_DIR / "index.html")
+    return FileResponse(PUBLIC_DIR / "index.html")
 
-app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
+app.mount("/", StaticFiles(directory=PUBLIC_DIR, html=True), name="public")
