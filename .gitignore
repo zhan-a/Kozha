@@ -1,2 +1,4 @@
 .claude/
 .vscode/
+proposals/
+launch.sh
