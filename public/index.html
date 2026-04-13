@@ -216,7 +216,6 @@
       padding-top: 40px;
       border-top: 1px solid var(--border);
     }
-    .stat-item {}
     .stat-num {
       font-family: 'Instrument Serif', serif;
       font-size: 32px;
@@ -1171,13 +1170,6 @@
       if (!blocks.length) return null;
       return '<?xml version="1.0" encoding="utf-8"?>\n<sigml>\n' + blocks.join('\n') + '\n</sigml>';
     }
-
-    var SIGN_LANG_BASE = {
-      bsl: 'en', asl: 'en', dgs: 'de', lsf: 'fr',
-      lse: 'es', pjm: 'pl', gsl: 'el', rsl: 'ru',
-      algerian: 'ar', bangla: 'bn', ngt: 'nl', fsl: 'tl',
-      isl: 'hi', kurdish: 'ku', vsl: 'vi'
-    };
 
     var SIGN_LANG_GLOSS = {
       bsl: 'en', asl: 'en', dgs: 'en', lsf: 'fr',
