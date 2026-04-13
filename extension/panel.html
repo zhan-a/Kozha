@@ -142,26 +142,53 @@
       return '<?xml version="1.0" encoding="utf-8"?>\n<sigml>\n' + blocks.join("\n") + "\n</sigml>";
     }
 
-    window.addEventListener("load", function() {
-      setTimeout(function() {
-        CWASA.init({
-          useClientConfig: false,
-          useCwaConfig: true,
-          avSettings: [{
-            width: 300,
-            height: 250,
-            avList: "avs",
-            initAv: "luna",
-            ambIdle: true,
-            allowFrameSteps: false,
-            allowSiGMLText: false,
-          }],
-        });
+    var cwasaAvailable = false;
 
-        CWASA.ready.then(function() {
-          window.parent.postMessage({ type: "cwasa_ready" }, "*");
+    window.addEventListener("load", function() {
+      if (typeof CWASA === "undefined") {
+        window.parent.postMessage({ type: "cwasa_failed" }, "*");
+        loadDatabase();
+        return;
+      }
+
+      setTimeout(function() {
+        try {
+          CWASA.init({
+            useClientConfig: false,
+            useCwaConfig: true,
+            avSettings: [{
+              width: 300,
+              height: 250,
+              avList: "avs",
+              initAv: "luna",
+              ambIdle: true,
+              allowFrameSteps: false,
+              allowSiGMLText: false,
+            }],
+          });
+
+          CWASA.ready.then(function() {
+            cwasaAvailable = true;
+            window.parent.postMessage({ type: "cwasa_ready" }, "*");
+            loadDatabase();
+
+            var canvas = document.querySelector("canvas");
+            if (canvas) {
+              canvas.addEventListener("webglcontextlost", function(e) {
+                e.preventDefault();
+                cwasaAvailable = false;
+                window.parent.postMessage({ type: "cwasa_failed" }, "*");
+              });
+              canvas.addEventListener("webglcontextrestored", function() {
+                cwasaAvailable = true;
+                window.parent.postMessage({ type: "cwasa_ready" }, "*");
+              });
+            }
+          });
+        } catch(err) {
+          window.parent.postMessage({ type: "cwasa_failed" }, "*");
           loadDatabase();
-        });
+        }
       }, 150);
     });
 
@@ -169,22 +196,28 @@
       if (!e.data || !e.data.type) return;
 
       if (e.data.type === "play_glosses") {
-        CWASA.stop(0);
-        if (e.data.glosses && e.data.glosses.length > 0) {
-          var sigml = buildSigml(e.data.glosses);
-          if (sigml) {
-            try { CWASA.playSiGMLText(sigml, 0); } catch(err) {}
+        if (cwasaAvailable) {
+          try { CWASA.stop(0); } catch(err) {}
+          if (e.data.glosses && e.data.glosses.length > 0) {
+            var sigml = buildSigml(e.data.glosses);
+            if (sigml) {
+              try { CWASA.playSiGMLText(sigml, 0); } catch(err) {}
+            }
           }
         }
       }
 
       if (e.data.type === "play_sigml") {
-        CWASA.stop(0);
-        try { CWASA.playSiGMLText(e.data.sigml, 0); } catch(err) {}
+        if (cwasaAvailable) {
+          try { CWASA.stop(0); } catch(err) {}
+          try { CWASA.playSiGMLText(e.data.sigml, 0); } catch(err) {}
+        }
       }
 
       if (e.data.type === "stop") {
-        try { CWASA.stop(0); } catch(err) {}
+        if (cwasaAvailable) {
+          try { CWASA.stop(0); } catch(err) {}
+        }
       }
     });
   </script>

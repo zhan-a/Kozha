@@ -1,12 +1,35 @@
 var API_BASE = "https://kozha-translate.com";
+var CACHE_TTL_MS = 24 * 60 * 60 * 1000;
+var FETCH_TIMEOUT_MS = 30000;
 
 function getCacheKey(videoId) {
   return "transcript_" + videoId;
 }
 
+function fetchWithTimeout(url, options) {
+  return new Promise(function(resolve, reject) {
+    var controller = new AbortController();
+    var timer = setTimeout(function() {
+      controller.abort();
+      reject(new Error("Request timed out"));
+    }, FETCH_TIMEOUT_MS);
+
+    options.signal = controller.signal;
+    fetch(url, options)
+      .then(function(r) {
+        clearTimeout(timer);
+        resolve(r);
+      })
+      .catch(function(err) {
+        clearTimeout(timer);
+        reject(err);
+      });
+  });
+}
+
 chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
   if (msg.type === "translate") {
-    fetch(API_BASE + "/api/translate", {
+    fetchWithTimeout(API_BASE + "/api/translate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text: msg.text, source_lang: msg.source_lang || "en" }),
@@ -23,8 +46,9 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 
     if (cacheKey) {
       chrome.storage.local.get(cacheKey, function(stored) {
-        if (stored[cacheKey]) {
-          sendResponse({ ok: true, data: stored[cacheKey] });
+        var cached = stored[cacheKey];
+        if (cached && cached.timestamp && (Date.now() - cached.timestamp) < CACHE_TTL_MS) {
+          sendResponse({ ok: true, data: cached.data });
         } else {
           doBatchTranslate(msg, cacheKey, sendResponse);
         }
@@ -34,10 +58,18 @@ chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
     }
     return true;
   }
+
+  if (msg.type === "cache_results") {
+    var key = getCacheKey(msg.video_id);
+    var toStore = {};
+    toStore[key] = { data: msg.data, timestamp: Date.now() };
+    chrome.storage.local.set(toStore);
+    return false;
+  }
 });
 
 function doBatchTranslate(msg, cacheKey, sendResponse) {
-  fetch(API_BASE + "/api/translate/batch", {
+  fetchWithTimeout(API_BASE + "/api/translate/batch", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -45,11 +77,14 @@ function doBatchTranslate(msg, cacheKey, sendResponse) {
       source_lang: msg.source_lang || "en",
     }),
   })
-    .then(function(r) { return r.json(); })
+    .then(function(r) {
+      if (!r.ok) throw new Error("Server error: " + r.status);
+      return r.json();
+    })
     .then(function(data) {
       if (cacheKey) {
         var toStore = {};
-        toStore[cacheKey] = data;
+        toStore[cacheKey] = { data: data, timestamp: Date.now() };
         chrome.storage.local.set(toStore);
       }
       sendResponse({ ok: true, data: data });

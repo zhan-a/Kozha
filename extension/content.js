@@ -4,10 +4,28 @@ let currentSegmentIndex = -1;
 let segments = [];
 let avatarReady = false;
 let dbReady = false;
+let cwasaFailed = false;
+let videoListeners = [];
+let isAutoCaption = false;
 
 function getVideoId() {
   var params = new URLSearchParams(window.location.search);
   return params.get("v");
+}
+
+function isLiveStream() {
+  var scripts = document.querySelectorAll("script");
+  for (var i = 0; i < scripts.length; i++) {
+    var text = scripts[i].textContent;
+    var match = text.match(/ytInitialPlayerResponse\s*=\s*(\{.+?\});/s);
+    if (!match) continue;
+    try {
+      var data = JSON.parse(match[1]);
+      var details = data?.videoDetails;
+      if (details && details.isLiveContent && details.isLive) return true;
+    } catch (e) {}
+  }
+  return false;
 }
 
 function extractCaptionTracks() {
@@ -29,6 +47,7 @@ function extractCaptionTracks() {
 function pickBestTrack(tracks) {
   var manual = tracks.filter(function(t) { return t.kind !== "asr"; });
   var auto = tracks.filter(function(t) { return t.kind === "asr"; });
+  isAutoCaption = manual.length === 0;
   var pool = manual.length > 0 ? manual : auto;
   var en = pool.find(function(t) { return t.languageCode === "en"; });
   return en || pool[0];
@@ -49,23 +68,55 @@ async function fetchTranscript(track) {
   });
 }
 
+var BATCH_SIZE = 50;
+
 async function translateSegments(segs, sourceLang) {
-  return new Promise(function(resolve, reject) {
-    chrome.runtime.sendMessage(
-      {
-        type: "translate_batch",
-        segments: segs.map(function(s) {
-          return { text: s.text, start: s.start, duration: s.duration };
-        }),
-        source_lang: sourceLang,
-        video_id: getVideoId(),
-      },
-      function(resp) {
-        if (resp && resp.ok) resolve(resp.data);
-        else reject(new Error(resp?.error || "Translation failed"));
-      }
-    );
-  });
+  var results = [];
+  var total = segs.length;
+
+  for (var i = 0; i < total; i += BATCH_SIZE) {
+    var chunk = segs.slice(i, i + BATCH_SIZE);
+    var chunkEnd = Math.min(i + BATCH_SIZE, total);
+    if (total > BATCH_SIZE) {
+      setStatus("Translating " + chunkEnd + "/" + total + " segments...");
+    }
+
+    var chunkResult = await new Promise(function(resolve, reject) {
+      chrome.runtime.sendMessage(
+        {
+          type: "translate_batch",
+          segments: chunk.map(function(s) {
+            return { text: s.text, start: s.start, duration: s.duration };
+          }),
+          source_lang: sourceLang,
+          video_id: total <= BATCH_SIZE ? getVideoId() : null,
+        },
+        function(resp) {
+          if (chrome.runtime.lastError) {
+            reject(new Error(chrome.runtime.lastError.message));
+            return;
+          }
+          if (resp && resp.ok) resolve(resp.data);
+          else reject(new Error(resp?.error || "Translation failed"));
+        }
+      );
+    });
+
+    results.push.apply(results, chunkResult.results);
+  }
+
+  if (total > BATCH_SIZE) {
+    var videoId = getVideoId();
+    if (videoId) {
+      chrome.runtime.sendMessage({
+        type: "cache_results",
+        video_id: videoId,
+        data: { results: results },
+      });
+    }
+  }
+
+  return { results: results };
 }
 
 function setStatus(text) {
@@ -156,6 +207,27 @@ function injectPanel() {
   makeDraggable(panel, header);
 }
 
+function clampToViewport(panel) {
+  var rect = panel.getBoundingClientRect();
+  var vw = window.innerWidth;
+  var vh = window.innerHeight;
+  var left = rect.left;
+  var top = rect.top;
+  var changed = false;
+
+  if (left < 0) { left = 0; changed = true; }
+  if (top < 0) { top = 0; changed = true; }
+  if (left + rect.width > vw) { left = vw - rect.width; changed = true; }
+  if (top + rect.height > vh) { top = vh - rect.height; changed = true; }
+
+  if (changed) {
+    panel.style.left = left + "px";
+    panel.style.top = top + "px";
+    panel.style.right = "auto";
+    panel.style.bottom = "auto";
+  }
+}
+
 function makeDraggable(panel, handle) {
   var dragging = false;
   var offsetX, offsetY;
@@ -170,10 +242,19 @@ function makeDraggable(panel, handle) {
 
   document.addEventListener("mousemove", function(e) {
     if (!dragging) return;
+    var vw = window.innerWidth;
+    var vh = window.innerHeight;
+    var rect = panel.getBoundingClientRect();
+    var newLeft = e.clientX - offsetX;
+    var newTop = e.clientY - offsetY;
+
+    newLeft = Math.max(0, Math.min(newLeft, vw - rect.width));
+    newTop = Math.max(0, Math.min(newTop, vh - rect.height));
+
     panel.style.right = "auto";
     panel.style.bottom = "auto";
-    panel.style.left = e.clientX - offsetX + "px";
-    panel.style.top = e.clientY - offsetY + "px";
+    panel.style.left = newLeft + "px";
+    panel.style.top = newTop + "px";
   });
 
   document.addEventListener("mouseup", function() {
@@ -199,6 +280,10 @@ function findSegmentIndex(time) {
 }
 
 function sendToAvatar(glosses) {
+  if (cwasaFailed) {
+    showTextGlosses(glosses);
+    return;
+  }
   if (panelIframe && panelIframe.contentWindow) {
     panelIframe.contentWindow.postMessage(
       { type: "play_glosses", glosses: glosses },
@@ -207,17 +292,34 @@ function sendToAvatar(glosses) {
   }
 }
 
+function showTextGlosses(glosses) {
+  var el = document.getElementById("kozha-gloss-text");
+  if (el) el.textContent = glosses.join(" ");
+}
+
 function stopAvatar() {
   if (panelIframe && panelIframe.contentWindow) {
     panelIframe.contentWindow.postMessage({ type: "stop" }, "*");
   }
 }
 
+function addVideoListener(video, event, handler) {
+  video.addEventListener(event, handler);
+  videoListeners.push({ video: video, event: event, handler: handler });
+}
+
+function removeVideoListeners() {
+  videoListeners.forEach(function(entry) {
+    entry.video.removeEventListener(entry.event, entry.handler);
+  });
+  videoListeners = [];
+}
+
 function startVideoSync() {
   var video = document.querySelector("video");
   if (!video) return;
 
-  video.addEventListener("timeupdate", function() {
+  addVideoListener(video, "timeupdate", function() {
     var time = video.currentTime;
     var idx = findSegmentIndex(time);
     if (idx === currentSegmentIndex) return;
@@ -235,26 +337,50 @@ function startVideoSync() {
     if (cached) sendToAvatar(cached.glosses);
   });
 
-  video.addEventListener("pause", function() {
+  addVideoListener(video, "pause", function() {
     stopAvatar();
   });
 
-  video.addEventListener("seeking", function() {
+  addVideoListener(video, "seeking", function() {
     currentSegmentIndex = -1;
     stopAvatar();
   });
 
-  video.addEventListener("play", function() {
+  addVideoListener(video, "play", function() {
     currentSegmentIndex = -1;
   });
+}
+
+function detectTextDirection(langCode) {
+  var rtlLangs = ["ar", "he", "fa", "ur", "yi", "ps", "sd"];
+  return rtlLangs.indexOf(langCode) >= 0 ? "rtl" : "ltr";
 }
 
 window.addEventListener("message", function(e) {
   if (!e.data || !e.data.type) return;
   if (e.data.type === "cwasa_ready") avatarReady = true;
+  if (e.data.type === "cwasa_failed") {
+    cwasaFailed = true;
+    var frame = document.getElementById("kozha-avatar-frame");
+    if (frame) frame.style.display = "none";
+    var body = document.getElementById("kozha-panel-body");
+    if (body) {
+      var glossDiv = document.createElement("div");
+      glossDiv.id = "kozha-gloss-text";
+      body.insertBefore(glossDiv, body.firstChild);
+    }
+    setStatus("Text-only mode");
+  }
   if (e.data.type === "db_ready") {
     dbReady = true;
-    setStatus("Ready");
+    setStatus(isAutoCaption ? "Ready (auto-generated captions)" : "Ready");
+  }
+});
+
+window.addEventListener("resize", function() {
+  var panel = document.getElementById("kozha-panel");
+  if (panel && panel.style.display !== "none") {
+    clampToViewport(panel);
   }
 });
 
@@ -264,11 +390,19 @@ async function init() {
 
   avatarReady = false;
   dbReady = false;
+  cwasaFailed = false;
   currentSegmentIndex = -1;
   translationCache = {};
   segments = [];
+  isAutoCaption = false;
 
   injectPanel();
+
+  if (isLiveStream()) {
+    setStatus("Live streams not supported");
+    setSubtitle("Live streams are not supported");
+    return;
+  }
 
   var tracks = extractCaptionTracks();
 
@@ -279,7 +413,11 @@ async function init() {
   }
 
   var track = pickBestTrack(tracks);
-  setStatus("Fetching captions...");
+  var dir = detectTextDirection(track.languageCode);
+  var subtitleEl = document.getElementById("kozha-subtitle");
+  if (subtitleEl) subtitleEl.dir = dir;
+
+  setStatus(isAutoCaption ? "Fetching captions (auto-generated)..." : "Fetching captions...");
 
   try {
     segments = await fetchTranscript(track);
@@ -295,20 +433,25 @@ async function init() {
     result.results.forEach(function(r, i) {
       translationCache[i] = r;
     });
-    setStatus(dbReady ? "Ready" : "Loading signs...");
+    setStatus(dbReady
+      ? (isAutoCaption ? "Ready (auto-generated captions)" : "Ready")
+      : "Loading signs...");
   } catch (e) {
-    setStatus("Translation error");
+    setStatus("Translation error: " + e.message);
   }
 
   startVideoSync();
 }
 
 function cleanup() {
+  removeVideoListeners();
   currentSegmentIndex = -1;
   translationCache = {};
   segments = [];
   avatarReady = false;
   dbReady = false;
+  cwasaFailed = false;
+  isAutoCaption = false;
   var panel = document.getElementById("kozha-panel");
   if (panel) panel.remove();
   var toggle = document.getElementById("kozha-toggle");

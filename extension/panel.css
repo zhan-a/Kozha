@@ -107,3 +107,20 @@
 #kozha-toggle:hover {
   background: #e8843e;
 }
+
+#kozha-gloss-text {
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #e8843e;
+  background: #000;
+  min-height: 60px;
+  text-align: center;
+  line-height: 1.6;
+  word-spacing: 4px;
+}
+
+#kozha-subtitle[dir="rtl"] {
+  text-align: right;
+  direction: rtl;
+}
