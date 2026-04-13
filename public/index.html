@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script defer src="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/allcsa.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script defer src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.6/dist/ffmpeg.min.js" crossorigin="anonymous"></script>
+  <meta name="theme-color" content="#f5f1eb" />
   <style>
     :root {
       --ink: #1a1612;
@@ -628,18 +628,75 @@
     .delay-4 { animation-delay: 0.4s; opacity: 0; }
     .delay-5 { animation-delay: 0.5s; opacity: 0; }
 
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      margin-right: -8px;
+    }
+    .nav-hamburger svg { display: block; }
+
     @media (max-width: 900px) {
-      nav { padding: 0 24px; }
-      .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; gap: 40px; }
-      .hero-demo-card { display: none; }
-      .section { padding: 64px 24px; }
+      nav { padding: 0 20px; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: rgba(245,241,235,0.97);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        padding: 16px 20px;
+        gap: 0;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li a {
+        display: block;
+        padding: 12px 0;
+        font-size: 16px;
+      }
+      .nav-hamburger { display: block; }
+      .nav-cta { gap: 8px; }
+      .nav-cta .btn-ghost { display: none; }
+      .btn-primary { padding: 8px 16px; font-size: 13px; }
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 100px 20px 48px;
+        gap: 32px;
+      }
+      .hero-demo-card { padding: 20px; }
+      .hero h1 { font-size: clamp(36px, 8vw, 48px); }
+      .hero-sub { font-size: 16px; }
+      .hero-stat { gap: 20px; flex-wrap: wrap; }
+      .demo-chip { padding: 8px 16px; font-size: 13px; }
+      .demo-translate-btn { padding: 8px 16px; font-size: 13px; }
+      .demo-avatar-area { height: 220px; }
+      #heroAvatar { width: 100%; max-width: 364px; height: 200px; }
+      .demo-record-btn, .demo-process-btn { padding: 14px 20px; font-size: 15px; }
+      .section { padding: 64px 20px; }
       .features-grid { grid-template-columns: 1fr; }
       .steps-grid { grid-template-columns: 1fr; }
-      .contribute-banner { flex-direction: column; padding: 40px 32px; }
-      footer { padding: 32px 24px; }
-      .footer-inner { flex-direction: column; gap: 24px; text-align: center; }
-      .how-section { padding: 64px 24px; }
+      .contribute-banner { flex-direction: column; padding: 36px 24px; text-align: center; }
+      .contribute-text p { max-width: none; }
+      footer { padding: 32px 20px; }
+      .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+      .how-section { padding: 64px 20px; }
+      .step-item { padding: 32px 24px; }
+    }
+
+    @media (max-width: 400px) {
+      .hero { padding: 90px 16px 40px; }
+      .hero-demo-card { padding: 16px; }
+      .demo-lang-row { flex-direction: column; gap: 10px; }
+      .section { padding: 48px 16px; }
+      .how-section { padding: 48px 16px; }
+      .contribute-banner { padding: 28px 20px; }
+      footer { padding: 24px 16px; }
     }
   </style>
 </head>
@@ -655,6 +712,9 @@
     <div class="nav-cta">
       <a href="contribute.html" class="btn-ghost">Volunteer</a>
       <a href="app.html" class="btn-primary">Open Translator →</a>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
     </div>
   </nav>
 
@@ -752,10 +812,10 @@
             <option value="asl">ASL (American)</option>
             <option value="dgs">DGS (German)</option>
             <option value="lsf">LSF (French)</option>
-            <option value="lse">LSE (Spanish)</option>
+            <option value="lse">LSE (Spanish) — coming soon</option>
             <option value="pjm">PJM (Polish)</option>
             <option value="gsl">GSL (Greek)</option>
-            <option value="rsl">RSL (Russian)</option>
+            <option value="rsl">RSL (Russian) — coming soon</option>
             <option value="algerian">Algerian SL</option>
             <option value="bangla">Bangla SL</option>
             <option value="ngt">NGT (Dutch)</option>
@@ -879,6 +939,15 @@
   </footer>
 
   <script>
+    document.getElementById('navHamburger').addEventListener('click', function() {
+      document.querySelector('.nav-links').classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        document.querySelector('.nav-links').classList.remove('open');
+      });
+    });
+
     const chips = document.querySelectorAll('.demo-chip');
     chips.forEach(c => {
       c.addEventListener('click', () => {
@@ -1391,6 +1460,15 @@
 
       async function ensureFFmpeg() {
         if (!window.__ffmpeg) {
+          if (typeof FFmpeg === 'undefined') {
+            await new Promise(function(resolve, reject) {
+              var s = document.createElement('script');
+              s.src = 'https://unpkg.com/@ffmpeg/ffmpeg@0.12.6/dist/ffmpeg.min.js';
+              s.onload = resolve;
+              s.onerror = reject;
+              document.head.appendChild(s);
+            });
+          }
           const { createFFmpeg, fetchFile } = FFmpeg;
           const ffmpeg = createFFmpeg({ log: false });
           await ffmpeg.load();
