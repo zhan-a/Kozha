@@ -1676,8 +1676,6 @@
   	</hamnosys_manual>
   </hns_sign>
 
-  <!DOCTYPE sigml SYSTEM "http://www.visicast.cmp.uea.ac.uk/sigml/sigml.dtd">
-  <sigml>
   <hamgestural_sign gloss="car1">
     <sign_manual>
       <sign_manual both_hands="true" outofphase="true" ud_symm="true">

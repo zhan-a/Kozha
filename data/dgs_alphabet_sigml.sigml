@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sigml>
 <hns_sign gloss="A">
     <hamnosys_manual>
             <hamfist/>
@@ -258,3 +260,4 @@
             <hampalmd/>
     </hamnosys_manual>
 </hns_sign>
+</sigml>

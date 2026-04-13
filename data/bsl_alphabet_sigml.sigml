@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <sigml>
 
-	<hns_sign gloss="A">
+<hns_sign gloss="A">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="V"/>
 		</hamnosys_nonmanual>
@@ -40,12 +41,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="B">
+<hns_sign gloss="B">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="bi:"/>
 		</hamnosys_nonmanual>
@@ -69,12 +65,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="C">
+<hns_sign gloss="C">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="si:"/>
 		</hamnosys_nonmanual>
@@ -89,12 +80,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="D">
+<hns_sign gloss="D">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="di:"/>
 		</hamnosys_nonmanual>
@@ -128,12 +114,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="E">
+<hns_sign gloss="E">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="i:"/>
 		</hamnosys_nonmanual>
@@ -167,12 +148,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="F">
+<hns_sign gloss="F">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="ef"/>
 		</hamnosys_nonmanual>
@@ -217,12 +193,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="G">
+<hns_sign gloss="G">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="d_Zi:"/>
 		</hamnosys_nonmanual>
@@ -255,12 +226,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="H">
+<hns_sign gloss="H">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="e_It_S"/>
 		</hamnosys_nonmanual>
@@ -286,12 +252,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="I">
+<hns_sign gloss="I">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="a_I"/>
 		</hamnosys_nonmanual>
@@ -305,12 +266,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="J">
+<hns_sign gloss="J">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="d_Z@i:"/>
 		</hamnosys_nonmanual>
@@ -355,12 +311,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="K">
+<hns_sign gloss="K">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="ke_I"/>
 		</hamnosys_nonmanual>
@@ -394,12 +345,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="L">
+<hns_sign gloss="L">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="el"/>
 		</hamnosys_nonmanual>
@@ -432,12 +378,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="M">
+<hns_sign gloss="M">
 		<hamnosys_nonmanual>
 		</hamnosys_nonmanual>
 		<hamnosys_manual>
@@ -475,12 +416,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="N">
+<hns_sign gloss="N">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="en"/>
 		</hamnosys_nonmanual>
@@ -516,12 +452,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="O">
+<hns_sign gloss="O">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="u"/>
 		</hamnosys_nonmanual>
@@ -558,12 +489,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="P">
+<hns_sign gloss="P">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="PE:"/>
 		</hamnosys_nonmanual>
@@ -597,12 +523,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="Q">
+<hns_sign gloss="Q">
 		<hamnosys_nonmanual>
 			<hnm_mouthgesture tag="L05"/>
 		</hamnosys_nonmanual>
@@ -635,12 +556,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="R">
+<hns_sign gloss="R">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="AR"/>
 		</hamnosys_nonmanual>
@@ -679,12 +595,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="S">
+<hns_sign gloss="S">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="es"/>
 		</hamnosys_nonmanual>
@@ -723,12 +634,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="T">
+<hns_sign gloss="T">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="ti:"/>
 		</hamnosys_nonmanual>
@@ -763,12 +669,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="U">
+<hns_sign gloss="U">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="ju"/>
 		</hamnosys_nonmanual>
@@ -805,12 +706,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="V">
+<hns_sign gloss="V">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="vi:"/>
 		</hamnosys_nonmanual>
@@ -850,12 +746,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="W">
+<hns_sign gloss="W">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="dubVlu"/>
 		</hamnosys_nonmanual>
@@ -900,12 +791,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="X">
+<hns_sign gloss="X">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="es"/>
 		</hamnosys_nonmanual>
@@ -929,12 +815,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="Y">
+<hns_sign gloss="Y">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="wa_I"/>
 		</hamnosys_nonmanual>
@@ -971,12 +852,7 @@
 		</hamnosys_manual>
 	</hns_sign>
 
-</sigml>
-
-
-<sigml>
-
-	<hns_sign gloss="Z">
+<hns_sign gloss="Z">
 		<hamnosys_nonmanual>
 			<hnm_mouthpicture picture="zed"/>
 		</hamnosys_nonmanual>
@@ -1014,5 +890,3 @@
 	</hns_sign>
 
 </sigml>
-
-
