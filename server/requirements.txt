@@ -1,11 +1,11 @@
 fastapi
 uvicorn[standard]
-spacy
-en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
-de-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/de_core_news_sm-3.7.1/de_core_news_sm-3.7.1-py3-none-any.whl
-fr-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/fr_core_news_sm-3.7.1/fr_core_news_sm-3.7.1-py3-none-any.whl
-es-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/es_core_news_sm-3.7.1/es_core_news_sm-3.7.1-py3-none-any.whl
-pl-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/pl_core_news_sm-3.7.1/pl_core_news_sm-3.7.1-py3-none-any.whl
-nl-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/nl_core_news_sm-3.7.1/nl_core_news_sm-3.7.1-py3-none-any.whl
-el-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/el_core_news_sm-3.7.1/el_core_news_sm-3.7.1-py3-none-any.whl
+spacy>=3.8.0
+en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0.tar.gz
+de-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/de_core_news_sm-3.8.0/de_core_news_sm-3.8.0.tar.gz
+fr-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/fr_core_news_sm-3.8.0/fr_core_news_sm-3.8.0.tar.gz
+es-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/es_core_news_sm-3.8.0/es_core_news_sm-3.8.0.tar.gz
+pl-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/pl_core_news_sm-3.8.0/pl_core_news_sm-3.8.0.tar.gz
+nl-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/nl_core_news_sm-3.8.0/nl_core_news_sm-3.8.0.tar.gz
+el-core-news-sm @ https://github.com/explosion/spacy-models/releases/download/el_core_news_sm-3.8.0/el_core_news_sm-3.8.0.tar.gz
 gunicorn
