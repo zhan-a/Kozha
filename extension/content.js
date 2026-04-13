@@ -11,6 +11,9 @@ let currentSignLang = "bsl";
 let currentCaptionLang = "";
 let playbackSpeed = 1.0;
 let settingsOpen = false;
+let theaterObservers = [];
+let trackedDocListeners = [];
+let isWindowTranslating = false;
 
 var SIGN_LANG_LABELS = {
   bsl: "BSL", asl: "ASL", dgs: "DGS (German)", lsf: "LSF (French)",
@@ -19,9 +22,21 @@ var SIGN_LANG_LABELS = {
   isl: "Indian SL", kurdish: "Kurdish SL", vsl: "Vietnamese SL",
 };
 
+var SEGMENT_THRESHOLD = 200;
+var WINDOW_SIZE = 100;
+
 function getVideoId() {
   var params = new URLSearchParams(window.location.search);
   return params.get("v");
+}
+
+function isWatchPage() {
+  try {
+    var url = new URL(location.href);
+    return url.pathname === "/watch" && url.searchParams.has("v");
+  } catch (e) {
+    return false;
+  }
 }
 
 function isLiveStream() {
@@ -81,7 +96,7 @@ async function fetchTranscript(track) {
 
 var BATCH_SIZE = 50;
 
-async function translateSegments(segs, sourceLang) {
+async function translateSegments(segs, sourceLang, videoId) {
   var results = [];
   var total = segs.length;
 
@@ -100,7 +115,7 @@ async function translateSegments(segs, sourceLang) {
             return { text: s.text, start: s.start, duration: s.duration };
           }),
           source_lang: sourceLang,
-          video_id: total <= BATCH_SIZE ? getVideoId() : null,
+          video_id: videoId,
         },
         function(resp) {
           if (chrome.runtime.lastError) {
@@ -116,18 +131,58 @@ async function translateSegments(segs, sourceLang) {
     results.push.apply(results, chunkResult.results);
   }
 
-  if (total > BATCH_SIZE) {
-    var videoId = getVideoId();
-    if (videoId) {
-      chrome.runtime.sendMessage({
-        type: "cache_results",
-        video_id: videoId,
-        data: { results: results },
-      });
+  return { results: results };
+}
+
+async function translateSlice(startIdx, endIdx, sourceLang) {
+  var slice = segments.slice(startIdx, endIdx);
+  if (slice.length === 0) return;
+  var result = await translateSegments(slice, sourceLang, null);
+  result.results.forEach(function(r, i) {
+    translationCache[startIdx + i] = r;
+  });
+}
+
+function evictOutsideWindow(centerIdx) {
+  var lo = Math.max(0, centerIdx - WINDOW_SIZE);
+  var hi = Math.min(segments.length, centerIdx + WINDOW_SIZE);
+  var keys = Object.keys(translationCache);
+  for (var k = 0; k < keys.length; k++) {
+    var idx = parseInt(keys[k]);
+    if (idx < lo || idx >= hi) delete translationCache[idx];
+  }
+}
+
+async function ensureWindowTranslated(centerIdx) {
+  if (isWindowTranslating || centerIdx < 0) return;
+  var halfWin = Math.floor(WINDOW_SIZE / 2);
+  var lo = Math.max(0, centerIdx - halfWin);
+  var hi = Math.min(segments.length, centerIdx + halfWin);
+
+  var needStart = -1;
+  var needEnd = -1;
+  for (var i = lo; i < hi; i++) {
+    if (!translationCache[i]) {
+      if (needStart === -1) needStart = i;
+      needEnd = i + 1;
     }
   }
+  if (needStart === -1) return;
 
-  return { results: results };
+  isWindowTranslating = true;
+  try {
+    await translateSlice(needStart, needEnd, currentCaptionLang);
+    evictOutsideWindow(centerIdx);
+  } catch (e) {
+    setStatus("Translation error");
+  } finally {
+    isWindowTranslating = false;
+  }
+}
+
+function isOfflineError(msg) {
+  return msg === "Request timed out" || msg === "Failed to fetch" ||
+    msg.indexOf("NetworkError") >= 0 || msg.indexOf("network") >= 0;
 }
 
 function setStatus(text) {
@@ -336,6 +391,18 @@ function clampToViewport(panel) {
   }
 }
 
+function addDocListener(target, event, handler) {
+  target.addEventListener(event, handler);
+  trackedDocListeners.push({ target: target, event: event, handler: handler });
+}
+
+function removeDocListeners() {
+  trackedDocListeners.forEach(function(entry) {
+    entry.target.removeEventListener(entry.event, entry.handler);
+  });
+  trackedDocListeners = [];
+}
+
 function makeDraggable(panel, handle) {
   var dragging = false;
   var offsetX, offsetY;
@@ -348,7 +415,7 @@ function makeDraggable(panel, handle) {
     e.preventDefault();
   });
 
-  document.addEventListener("mousemove", function(e) {
+  addDocListener(document, "mousemove", function(e) {
     if (!dragging) return;
     var vw = window.innerWidth;
     var vh = window.innerHeight;
@@ -365,7 +432,7 @@ function makeDraggable(panel, handle) {
     panel.style.top = newTop + "px";
   });
 
-  document.addEventListener("mouseup", function() {
+  addDocListener(document, "mouseup", function() {
     dragging = false;
   });
 }
@@ -426,6 +493,7 @@ function removeVideoListeners() {
 function startVideoSync() {
   var video = document.querySelector("video");
   if (!video) return;
+  var useWindow = segments.length > SEGMENT_THRESHOLD;
 
   addVideoListener(video, "timeupdate", function() {
     var time = video.currentTime;
@@ -444,6 +512,8 @@ function startVideoSync() {
 
     var cached = translationCache[idx];
     if (cached) sendToAvatar(cached.glosses);
+
+    if (useWindow) ensureWindowTranslated(idx);
   });
 
   addVideoListener(video, "pause", function() {
@@ -474,21 +544,19 @@ function repositionPanel() {
 function observeTheaterAndFullscreen() {
   var ytApp = document.querySelector("ytd-app");
   if (ytApp) {
-    new MutationObserver(repositionPanel).observe(ytApp, {
-      attributes: true,
-      attributeFilter: ["class", "masthead-hidden"],
-    });
+    var obs1 = new MutationObserver(repositionPanel);
+    obs1.observe(ytApp, { attributes: true, attributeFilter: ["class", "masthead-hidden"] });
+    theaterObservers.push(obs1);
   }
 
   var player = document.getElementById("movie_player");
   if (player) {
-    new MutationObserver(repositionPanel).observe(player, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
+    var obs2 = new MutationObserver(repositionPanel);
+    obs2.observe(player, { attributes: true, attributeFilter: ["class"] });
+    theaterObservers.push(obs2);
   }
 
-  document.addEventListener("fullscreenchange", function() {
+  addDocListener(document, "fullscreenchange", function() {
     var panel = document.getElementById("kozha-panel");
     var toggle = document.getElementById("kozha-toggle");
     if (document.fullscreenElement) {
@@ -526,8 +594,7 @@ window.addEventListener("message", function(e) {
 window.addEventListener("resize", repositionPanel);
 
 async function init() {
-  var videoId = getVideoId();
-  if (!videoId) return;
+  if (!isWatchPage()) return;
 
   avatarReady = false;
   dbReady = false;
@@ -538,6 +605,7 @@ async function init() {
   isAutoCaption = false;
   currentCaptionLang = "";
   settingsOpen = false;
+  isWindowTranslating = false;
 
   injectPanel();
   observeTheaterAndFullscreen();
@@ -575,15 +643,38 @@ async function init() {
   setStatus("Translating...");
 
   try {
-    var result = await translateSegments(segments, track.languageCode);
-    result.results.forEach(function(r, i) {
-      translationCache[i] = r;
-    });
+    if (segments.length > SEGMENT_THRESHOLD) {
+      var initialEnd = Math.min(WINDOW_SIZE, segments.length);
+      await translateSlice(0, initialEnd, track.languageCode);
+    } else {
+      var videoId = segments.length <= BATCH_SIZE ? getVideoId() : null;
+      var result = await translateSegments(segments, track.languageCode, videoId);
+      result.results.forEach(function(r, i) {
+        translationCache[i] = r;
+      });
+      if (segments.length > BATCH_SIZE) {
+        var vid = getVideoId();
+        if (vid) {
+          chrome.runtime.sendMessage({
+            type: "cache_results",
+            video_id: vid,
+            data: { results: result.results },
+          });
+        }
+      }
+    }
     setStatus(dbReady
       ? (isAutoCaption ? "Ready (auto captions)" : "Ready")
       : "Loading signs...");
   } catch (e) {
-    setStatus("Translation error: " + e.message);
+    if (isOfflineError(e.message)) {
+      setStatus("Cannot reach server");
+      setSubtitle("Check your internet connection and try again");
+    } else {
+      setStatus("Translation failed");
+      setSubtitle(e.message);
+    }
+    return;
   }
 
   startVideoSync();
@@ -591,6 +682,9 @@ async function init() {
 
 function cleanup() {
   removeVideoListeners();
+  removeDocListeners();
+  theaterObservers.forEach(function(obs) { obs.disconnect(); });
+  theaterObservers = [];
   currentSegmentIndex = -1;
   translationCache = {};
   segments = [];
@@ -600,6 +694,7 @@ function cleanup() {
   isAutoCaption = false;
   currentCaptionLang = "";
   settingsOpen = false;
+  isWindowTranslating = false;
   var panel = document.getElementById("kozha-panel");
   if (panel) panel.remove();
   var toggle = document.getElementById("kozha-toggle");
@@ -612,7 +707,7 @@ var navObserver = new MutationObserver(function() {
   if (location.href !== lastUrl) {
     lastUrl = location.href;
     cleanup();
-    if (location.href.includes("youtube.com/watch")) {
+    if (isWatchPage()) {
       setTimeout(init, 500);
     }
   }
@@ -623,7 +718,7 @@ document.addEventListener("yt-navigate-finish", function() {
   if (location.href !== lastUrl) {
     lastUrl = location.href;
     cleanup();
-    if (location.href.includes("youtube.com/watch")) {
+    if (isWatchPage()) {
       setTimeout(init, 500);
     }
   }

@@ -89,5 +89,11 @@ function doBatchTranslate(msg, cacheKey, sendResponse) {
       }
       sendResponse({ ok: true, data: data });
     })
-    .catch(function(err) { sendResponse({ ok: false, error: err.message }); });
+    .catch(function(err) {
+      var msg = err.message;
+      if (msg === "Failed to fetch" || msg.indexOf("NetworkError") >= 0) {
+        msg = "Failed to fetch";
+      }
+      sendResponse({ ok: false, error: msg });
+    });
 }
