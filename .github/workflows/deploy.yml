@@ -33,8 +33,6 @@ jobs:
                 cd server
                 source /home/ubuntu/kozha-venv/bin/activate
                 pip install -r requirements.txt
-                sudo sed -i s|/Kozha/backend|/Kozha/server|g /etc/systemd/system/kozha.service
-                sudo sed -i s|/Kozha/frontend|/Kozha/public|g /etc/systemd/system/kozha.service
                 sudo systemctl daemon-reload
                 sudo systemctl restart kozha.service
                 sudo systemctl --no-pager status kozha.service
