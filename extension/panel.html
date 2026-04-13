@@ -19,8 +19,131 @@
   <script src="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/allcsa.js"
           crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
-    window.addEventListener("load", function () {
-      setTimeout(function () {
+    var glossToSign = new Map();
+    var letterToSign = new Map();
+    var conceptToGloss = new Map();
+    var dbLoaded = false;
+
+    function glossBase(s) {
+      return s.toLowerCase().replace(/\(.*?\)/g, "").replace(/#\d+/g, "")
+        .replace(/\d+[a-z]?$/g, "").trim();
+    }
+
+    function loadSigmlXml(xmlText) {
+      var doc = new DOMParser().parseFromString(xmlText, "application/xml");
+      var signs = Array.from(doc.querySelectorAll("hns_sign"));
+      for (var i = 0; i < signs.length; i++) {
+        var s = signs[i];
+        var gloss = (s.getAttribute("gloss") || "").trim().toLowerCase();
+        if (!gloss) continue;
+        glossToSign.set(gloss, s.outerHTML);
+        var base = glossBase(gloss);
+        if (base && base !== gloss) glossToSign.set(base, s.outerHTML);
+      }
+    }
+
+    function loadAlphabetXml(xmlText) {
+      var doc = new DOMParser().parseFromString(xmlText, "application/xml");
+      var signs = Array.from(doc.querySelectorAll("hns_sign"));
+      for (var i = 0; i < signs.length; i++) {
+        var s = signs[i];
+        var gloss = (s.getAttribute("gloss") || "").trim();
+        if (gloss.length === 1 && /[A-Z]/.test(gloss)) {
+          letterToSign.set(gloss, s.outerHTML);
+        }
+      }
+    }
+
+    function parseTable(txt) {
+      var lines = txt.split("\n").filter(function(l) { return l.trim(); });
+      if (!lines.length) return { header: [], rows: [] };
+      var sep = lines[0].indexOf("\t") >= 0 ? "\t" : ",";
+      var header = lines[0].split(sep).map(function(h) { return h.trim().toLowerCase(); });
+      var rows = [];
+      for (var i = 1; i < lines.length; i++) {
+        var cols = lines[i].split(sep);
+        var row = {};
+        for (var j = 0; j < header.length; j++) {
+          row[header[j]] = (cols[j] || "").trim();
+        }
+        rows.push(row);
+      }
+      return { header: header, rows: rows };
+    }
+
+    function loadConceptCsv(txt) {
+      var parsed = parseTable(txt);
+      for (var i = 0; i < parsed.rows.length; i++) {
+        var r = parsed.rows[i];
+        var concept = String(r.concept || "").toLowerCase().trim();
+        var gloss = String(r.gloss || "").toLowerCase().trim();
+        if (concept && gloss) {
+          conceptToGloss.set(glossBase(concept), gloss);
+        }
+      }
+    }
+
+    var API_BASE = "https://kozha-translate.com";
+
+    function loadDatabase() {
+      var sigmlUrl = API_BASE + "/data/hamnosys_bsl_version1.sigml";
+      var csvUrl = API_BASE + "/data/hamnosys_bsl.csv";
+      var alphaUrl = API_BASE + "/data/bsl_alphabet_sigml.sigml";
+
+      Promise.all([
+        fetch(sigmlUrl).then(function(r) { return r.text(); }),
+        fetch(csvUrl).then(function(r) { return r.text(); }),
+        fetch(alphaUrl).then(function(r) { return r.text(); })
+      ]).then(function(results) {
+        loadSigmlXml(results[0]);
+        loadConceptCsv(results[1]);
+        loadAlphabetXml(results[2]);
+        dbLoaded = true;
+        window.parent.postMessage({ type: "db_ready" }, "*");
+      }).catch(function() {
+        dbLoaded = true;
+        window.parent.postMessage({ type: "db_ready" }, "*");
+      });
+    }
+
+    function resolveGloss(token) {
+      var t = token.toLowerCase().trim();
+      if (t === ".") return null;
+      if (glossToSign.has(t)) return glossToSign.get(t);
+      var base = glossBase(t);
+      if (glossToSign.has(base)) return glossToSign.get(base);
+      var mapped = conceptToGloss.get(base);
+      if (mapped && glossToSign.has(mapped)) return glossToSign.get(mapped);
+      return null;
+    }
+
+    function fingerspellWord(word) {
+      var blocks = [];
+      var upper = word.toUpperCase();
+      for (var i = 0; i < upper.length; i++) {
+        var ch = upper[i];
+        if (letterToSign.has(ch)) blocks.push(letterToSign.get(ch));
+      }
+      return blocks;
+    }
+
+    function buildSigml(glosses) {
+      var blocks = [];
+      for (var i = 0; i < glosses.length; i++) {
+        var resolved = resolveGloss(glosses[i]);
+        if (resolved) {
+          blocks.push(resolved);
+        } else if (letterToSign.size > 0) {
+          var spelled = fingerspellWord(glosses[i]);
+          if (spelled.length > 0) blocks.push.apply(blocks, spelled);
+        }
+      }
+      if (!blocks.length) return null;
+      return '<?xml version="1.0" encoding="utf-8"?>\n<sigml>\n' + blocks.join("\n") + "\n</sigml>";
+    }
+
+    window.addEventListener("load", function() {
+      setTimeout(function() {
         CWASA.init({
           useClientConfig: false,
           useCwaConfig: true,
@@ -35,22 +158,33 @@
           }],
         });
 
-        CWASA.ready.then(function () {
+        CWASA.ready.then(function() {
           window.parent.postMessage({ type: "cwasa_ready" }, "*");
+          loadDatabase();
         });
       }, 150);
     });
 
-    window.addEventListener("message", function (e) {
-      if (e.data && e.data.type === "play_glosses") {
+    window.addEventListener("message", function(e) {
+      if (!e.data || !e.data.type) return;
+
+      if (e.data.type === "play_glosses") {
         CWASA.stop(0);
         if (e.data.glosses && e.data.glosses.length > 0) {
-          CWASA.playSiGMLText(e.data.sigml, 0);
+          var sigml = buildSigml(e.data.glosses);
+          if (sigml) {
+            try { CWASA.playSiGMLText(sigml, 0); } catch(err) {}
+          }
         }
       }
-      if (e.data && e.data.type === "play_sigml") {
+
+      if (e.data.type === "play_sigml") {
         CWASA.stop(0);
-        CWASA.playSiGMLText(e.data.sigml, 0);
+        try { CWASA.playSiGMLText(e.data.sigml, 0); } catch(err) {}
+      }
+
+      if (e.data.type === "stop") {
+        try { CWASA.stop(0); } catch(err) {}
       }
     });
   </script>

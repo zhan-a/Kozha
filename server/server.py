@@ -24,6 +24,13 @@ DATA_DIR = REPO_ROOT / "data"
 
 app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type"],
+)
+
 def load_abbreviations(filepath: Path) -> Dict[str, str]:
     if not filepath.exists():
         print(f"[WARN] Abbreviation file not found: {filepath}")
