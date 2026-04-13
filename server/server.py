@@ -5,6 +5,8 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from pathlib import Path
 from typing import Dict, Optional
+from collections import OrderedDict
+from threading import Lock
 import json
 import re
 import spacy
@@ -13,6 +15,8 @@ import math
 
 class TextRequest(BaseModel):
     text: str
+    language: str = "en"
+    sign_language: str = "bsl"
 
 APP_ROOT = Path(__file__).resolve().parent
 REPO_ROOT = APP_ROOT.parent
@@ -30,30 +34,243 @@ def load_abbreviations(filepath: Path) -> Dict[str, str]:
         return {k.strip().lower(): v.strip().lower() for k, v in raw.items()}
 
 ABBREVIATIONS: Dict[str, str] = load_abbreviations(APP_ROOT / "abbreviations.json")
+ABBREV_VALUES = {v for v in ABBREVIATIONS.values()}
 
-CUSTOM_STOPWORDS = {
-    "a","an","the","and","or","but","if","then","than",
-    "of","to","in","on","at","for","from","with","as","by","is","are","am",
-    "be","been","was","were","do","does","did","that","this","those","these",
-    "it","my","your","our"
+MODEL_MAP = {
+    "en": "en_core_web_sm",
+    "de": "de_core_news_sm",
+    "fr": "fr_core_news_sm",
+    "es": "es_core_news_sm",
+    "pl": "pl_core_news_sm",
+    "nl": "nl_core_news_sm",
+    "el": "el_core_news_sm",
 }
-ABBREV_VALUES = {v for v in ABBREVIATIONS.values() if v not in CUSTOM_STOPWORDS}
+
+LANG_MODELS: OrderedDict[str, spacy.Language] = OrderedDict()
+_model_lock = Lock()
+MAX_MODELS = 4
+
+LANG_MODELS["en"] = spacy.load("en_core_web_sm")
+
+def get_nlp(lang: str) -> spacy.Language:
+    with _model_lock:
+        if lang in LANG_MODELS:
+            LANG_MODELS.move_to_end(lang)
+            return LANG_MODELS[lang]
+
+    model_name = MODEL_MAP.get(lang)
+    if not model_name:
+        with _model_lock:
+            return LANG_MODELS["en"]
+
+    try:
+        nlp = spacy.load(model_name)
+    except OSError:
+        print(f"[WARN] spaCy model '{model_name}' not installed, falling back to English")
+        with _model_lock:
+            return LANG_MODELS["en"]
+
+    with _model_lock:
+        LANG_MODELS[lang] = nlp
+        LANG_MODELS.move_to_end(lang)
+        while len(LANG_MODELS) > MAX_MODELS:
+            oldest = next(iter(LANG_MODELS))
+            if oldest == "en":
+                keys = list(LANG_MODELS.keys())
+                if len(keys) > 1:
+                    del LANG_MODELS[keys[1]]
+                else:
+                    break
+            else:
+                del LANG_MODELS[oldest]
+        return nlp
+
+STOPWORDS = {
+    "en": {
+        "a","an","the","and","or","but","if","then","than",
+        "of","to","in","on","at","for","from","with","as","by","is","are","am",
+        "be","been","was","were","do","does","did","that","this","those","these",
+        "it","my","your","our"
+    },
+    "de": {
+        "der","die","das","ein","eine","einem","einen","einer","und","oder","aber",
+        "wenn","von","zu","in","an","auf","für","aus","mit","als","durch",
+        "ist","sind","bin","war","waren","dass","dies","jene","es","mein","dein",
+        "unser","nicht","noch","auch","nur","sehr","schon","über","unter","nach",
+        "bei","vor","zwischen","ob","weil","da","so","wie"
+    },
+    "fr": {
+        "le","la","les","un","une","des","et","ou","mais","si","de","du","au","aux",
+        "à","en","dans","sur","pour","par","avec","ce","cette","ces",
+        "est","sont","suis","été","être","fait","avoir","pas","ne","se",
+        "son","sa","ses","mon","ma","mes","ton","ta","tes","notre","votre","leur",
+        "que","qui","dont","où","très","plus","moins"
+    },
+    "es": {
+        "el","la","los","las","un","una","unos","unas","y","o","pero","si",
+        "de","del","al","en","por","para","con","sin","sobre","entre",
+        "es","son","soy","está","estar","ser","fue","ha","hay",
+        "este","esta","estos","estas","ese","esa","esos","esas",
+        "mi","tu","su","nuestro","muy","más","menos","no","se","lo","le"
+    },
+    "pl": {
+        "i","a","ale","lub","czy","że","to","ten","ta","te","on","ona","ono",
+        "w","na","z","do","od","po","za","o","przy","nad","pod","przed",
+        "jest","są","był","była","było","być","nie","tak","już","też",
+        "się","go","mu","jej","ich","mój","twój","nasz","wasz","jego",
+        "jak","co","kto","gdzie","kiedy","bardzo","więcej","mniej"
+    },
+    "nl": {
+        "de","het","een","en","of","maar","als","van","in","op","aan","voor",
+        "met","door","uit","over","na","bij","tot","om","naar","tegen",
+        "is","zijn","was","waren","wordt","werd","heeft","had","ben","bent",
+        "die","dat","dit","deze","er","niet","ook","nog","wel","al","zo",
+        "mijn","jouw","zijn","haar","ons","hun","zeer","meer","minder"
+    },
+    "el": {
+        "ο","η","το","οι","τα","ένα","μια","και","ή","αλλά","αν",
+        "από","σε","με","για","στο","στη","στον","στην","του","της","των",
+        "είναι","ήταν","έχει","είχε","δεν","μην","θα","να","πολύ",
+        "αυτός","αυτή","αυτό","εγώ","εσύ","εμείς","εσείς","αυτοί",
+        "μου","σου","μας","σας","τους","πιο","πως","που","ότι","όταν"
+    },
+}
+STOPWORDS["default"] = STOPWORDS["en"]
 
 TIME_WORDS = {
-    "today","yesterday","tomorrow",
-    "morning","afternoon","evening","night","tonight",
-    "now","later","soon",
-    "week","month","year",
-    "monday","tuesday","wednesday","thursday","friday","saturday","sunday",
-    "january","february","march","april","may","june","july",
-    "august","september","october","november","december"
+    "en": {
+        "today","yesterday","tomorrow",
+        "morning","afternoon","evening","night","tonight",
+        "now","later","soon",
+        "week","month","year",
+        "monday","tuesday","wednesday","thursday","friday","saturday","sunday",
+        "january","february","march","april","may","june","july",
+        "august","september","october","november","december"
+    },
+    "de": {
+        "heute","gestern","morgen",
+        "vormittag","nachmittag","abend","nacht",
+        "jetzt","später","bald",
+        "woche","monat","jahr",
+        "montag","dienstag","mittwoch","donnerstag","freitag","samstag","sonntag",
+        "januar","februar","märz","april","mai","juni","juli",
+        "august","september","oktober","november","dezember"
+    },
+    "fr": {
+        "aujourd'hui","hier","demain",
+        "matin","après-midi","soir","nuit",
+        "maintenant","plus tard","bientôt",
+        "semaine","mois","année","an",
+        "lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche",
+        "janvier","février","mars","avril","mai","juin","juillet",
+        "août","septembre","octobre","novembre","décembre"
+    },
+    "es": {
+        "hoy","ayer","mañana",
+        "mañana","tarde","noche",
+        "ahora","luego","pronto",
+        "semana","mes","año",
+        "lunes","martes","miércoles","jueves","viernes","sábado","domingo",
+        "enero","febrero","marzo","abril","mayo","junio","julio",
+        "agosto","septiembre","octubre","noviembre","diciembre"
+    },
+    "pl": {
+        "dzisiaj","wczoraj","jutro",
+        "rano","popołudnie","wieczór","noc",
+        "teraz","później","wkrótce",
+        "tydzień","miesiąc","rok",
+        "poniedziałek","wtorek","środa","czwartek","piątek","sobota","niedziela",
+        "styczeń","luty","marzec","kwiecień","maj","czerwiec","lipiec",
+        "sierpień","wrzesień","październik","listopad","grudzień"
+    },
+    "nl": {
+        "vandaag","gisteren","morgen",
+        "ochtend","middag","avond","nacht",
+        "nu","later","binnenkort",
+        "week","maand","jaar",
+        "maandag","dinsdag","woensdag","donderdag","vrijdag","zaterdag","zondag",
+        "januari","februari","maart","april","mei","juni","juli",
+        "augustus","september","oktober","november","december"
+    },
+    "el": {
+        "σήμερα","χθες","αύριο",
+        "πρωί","απόγευμα","βράδυ","νύχτα",
+        "τώρα","αργότερα","σύντομα",
+        "εβδομάδα","μήνας","χρόνος",
+        "δευτέρα","τρίτη","τετάρτη","πέμπτη","παρασκευή","σάββατο","κυριακή",
+        "ιανουάριος","φεβρουάριος","μάρτιος","απρίλιος","μάιος","ιούνιος","ιούλιος",
+        "αύγουστος","σεπτέμβριος","οκτώβριος","νοέμβριος","δεκέμβριος"
+    },
 }
+TIME_WORDS["default"] = TIME_WORDS["en"]
 
-nlp = spacy.load("en_core_web_sm")
+PRONOUNS = {
+    "en": {
+        "keep": {"you","we","they","he","she","me","them","her","him","us"},
+        "normalize": {"i": "me"},
+    },
+    "de": {
+        "keep": {"du","wir","sie","er","mich","ihnen","ihr","ihm","uns","dich","euch"},
+        "normalize": {"ich": "ich"},
+    },
+    "fr": {
+        "keep": {"tu","nous","vous","il","elle","ils","elles","moi","toi","lui","eux"},
+        "normalize": {"je": "moi"},
+    },
+    "es": {
+        "keep": {"tú","nosotros","ellos","ellas","él","ella","usted","ustedes","mí","ti"},
+        "normalize": {"yo": "yo"},
+    },
+    "pl": {
+        "keep": {"ty","my","wy","oni","one","mnie","ciebie","nam","wam","im"},
+        "normalize": {"ja": "ja"},
+    },
+    "nl": {
+        "keep": {"jij","je","wij","we","zij","ze","hij","mij","me","ons","hen","hem","haar","u"},
+        "normalize": {"ik": "ik"},
+    },
+    "el": {
+        "keep": {"εσύ","εμείς","εσείς","αυτός","αυτή","αυτοί","αυτές","εμένα","εσένα"},
+        "normalize": {"εγώ": "εγώ"},
+    },
+}
+PRONOUNS["default"] = PRONOUNS["en"]
 
-ABBREV_MATCHER = PhraseMatcher(nlp.vocab, attr="LOWER")
+GRAMMAR_PROFILES = {
+    "bsl":      {"verb_final": False, "time_first": True},
+    "asl":      {"verb_final": False, "time_first": True},
+    "dgs":      {"verb_final": True,  "time_first": True},
+    "lsf":      {"verb_final": True,  "time_first": True},
+    "lse":      {"verb_final": False, "time_first": True},
+    "pjm":      {"verb_final": False, "time_first": True},
+    "gsl":      {"verb_final": False, "time_first": True},
+    "ngt":      {"verb_final": True,  "time_first": True},
+    "rsl":      {"verb_final": True,  "time_first": True},
+    "algerian": {"verb_final": False, "time_first": True},
+    "bangla":   {"verb_final": False, "time_first": True},
+    "fsl":      {"verb_final": False, "time_first": True},
+    "isl":      {"verb_final": False, "time_first": True},
+    "kurdish":  {"verb_final": False, "time_first": True},
+    "vsl":      {"verb_final": False, "time_first": True},
+}
+DEFAULT_GRAMMAR = {"verb_final": False, "time_first": True}
+
+def get_stopwords(lang: str) -> set:
+    return STOPWORDS.get(lang, STOPWORDS["default"])
+
+def get_time_words(lang: str) -> set:
+    return TIME_WORDS.get(lang, TIME_WORDS["default"])
+
+def get_pronouns(lang: str) -> dict:
+    return PRONOUNS.get(lang, PRONOUNS["default"])
+
+def get_grammar(sign_language: str) -> dict:
+    return GRAMMAR_PROFILES.get(sign_language, DEFAULT_GRAMMAR)
+
+en_nlp = LANG_MODELS["en"]
+ABBREV_MATCHER = PhraseMatcher(en_nlp.vocab, attr="LOWER")
 if ABBREVIATIONS:
-    ABBREV_MATCHER.add("ABBREV_PHRASE", [nlp.make_doc(k) for k in ABBREVIATIONS.keys()])
+    ABBREV_MATCHER.add("ABBREV_PHRASE", [en_nlp.make_doc(k) for k in ABBREVIATIONS.keys()])
 
 def _norm_phrase(s: str) -> str:
     return re.sub(r"\s+", " ", (s or "").strip().lower())
@@ -76,9 +293,38 @@ def get_abbreviation_spans(doc) -> Dict[int, tuple[int, list[str]]]:
         out[span.start] = (span.end, letters)
     return out
 
-def process_sentence(doc_or_span, stopwords: set, abbr_spans: Optional[Dict[int, tuple[int, list[str]]]] = None) -> str:
+def reorder_tokens(tokens_with_pos, sign_language: str, time_words: set) -> list:
+    grammar = get_grammar(sign_language)
     time_tokens = []
-    main_tokens = []
+    verb_tokens = []
+    other_tokens = []
+
+    for text, pos in tokens_with_pos:
+        if text in time_words:
+            time_tokens.append(text)
+        elif pos == "VERB" and grammar["verb_final"]:
+            verb_tokens.append(text)
+        else:
+            other_tokens.append(text)
+
+    result = []
+    if grammar["time_first"]:
+        result.extend(time_tokens)
+    else:
+        other_tokens = time_tokens + other_tokens
+
+    result.extend(other_tokens)
+
+    if grammar["verb_final"]:
+        result.extend(verb_tokens)
+
+    return result
+
+def process_sentence(doc_or_span, stopwords: set, time_words: set, pronouns: dict,
+                     sign_language: str, abbr_spans: Optional[Dict[int, tuple[int, list[str]]]] = None) -> str:
+    tokens_with_pos = []
+    pron_keep = pronouns.get("keep", set())
+    pron_norm = pronouns.get("normalize", {})
 
     tokens = list(doc_or_span)
     j = 0
@@ -91,71 +337,74 @@ def process_sentence(doc_or_span, stopwords: set, abbr_spans: Optional[Dict[int,
             if start_i in abbr_spans:
                 end_i, letters = abbr_spans[start_i]
                 for ch in letters:
-                    main_tokens.append((ch, False))
+                    tokens_with_pos.append((ch, "ABBR"))
                 j += 1
                 while j < len(tokens) and tokens[j].i < end_i:
                     j += 1
                 continue
 
-        candidate = None
-        do_dedupe = True
-
         if text in ABBREV_VALUES:
             letters = [c.lower() for c in text if c.isalnum()]
             for ch in letters:
-                main_tokens.append((ch, False))
+                tokens_with_pos.append((ch, "ABBR"))
             j += 1
             continue
 
-        if text in {"you","we","they","he","she","me","them","her","him","us"}:
+        candidate = None
+        pos = token.pos_
+
+        if text in pron_norm:
+            candidate = pron_norm[text]
+        elif text in pron_keep:
             candidate = text
-        elif text == "i":
-            candidate = "me"
-        elif token.pos_ == "VERB":
+        elif pos == "VERB":
             candidate = token.lemma_.lower()
-        elif token.pos_ in {"NOUN","PROPN","ADJ","INTJ"} and text not in stopwords:
+        elif pos in {"NOUN","PROPN","ADJ","INTJ","NUM"} and text not in stopwords:
             candidate = text
 
         if not candidate or candidate in stopwords:
             j += 1
             continue
 
-        if candidate in TIME_WORDS:
-            time_tokens.append((candidate, do_dedupe))
-        else:
-            main_tokens.append((candidate, do_dedupe))
-
+        tokens_with_pos.append((candidate, pos))
         j += 1
 
-    combined = time_tokens + main_tokens
+    reordered = reorder_tokens(tokens_with_pos, sign_language, time_words)
+
     seen = set()
     dedup = []
-    for t, dedupe_flag in combined:
-        if dedupe_flag and t in seen:
+    for t in reordered:
+        if t in seen:
             continue
-        if dedupe_flag:
-            seen.add(t)
+        seen.add(t)
         dedup.append(t)
 
     return " ".join(dedup + ["."])
 
-def process_text(text: str) -> str:
+def process_text(text: str, language: str = "en", sign_language: str = "bsl") -> str:
+    nlp = get_nlp(language)
+    stopwords = get_stopwords(language)
+    time_words = get_time_words(language)
+    pronouns = get_pronouns(language)
     doc = nlp(text)
-    abbr_spans = get_abbreviation_spans(doc)
+
+    abbr_spans = {}
+    if language == "en":
+        abbr_spans = get_abbreviation_spans(doc)
 
     lines = []
     for sent in doc.sents:
-        line = process_sentence(sent, CUSTOM_STOPWORDS, abbr_spans)
+        line = process_sentence(sent, stopwords, time_words, pronouns, sign_language, abbr_spans)
         if line:
             lines.append(line)
     return "\n".join(lines)
 
-def plan_from_text(text: str, language_hint: Optional[str] = None) -> Dict[str, object]:
+def plan_from_text(text: str, language: str = "en", sign_language: str = "bsl") -> Dict[str, object]:
     text = (text or "").strip()
     if not text:
         return {"error": "Empty text."}
-    rewritten = process_text(text)
-    return {"allowed": [], "raw": text, "final": rewritten}
+    rewritten = process_text(text, language, sign_language)
+    return {"allowed": [], "raw": text, "final": rewritten, "language": language, "sign_language": sign_language}
 
 @app.get("/api/health")
 def health():
@@ -163,7 +412,7 @@ def health():
 
 @app.post("/api/plan")
 def api_plan(req: TextRequest):
-    return plan_from_text(req.text)
+    return plan_from_text(req.text, req.language, req.sign_language)
 
 if DATA_DIR.exists():
     app.mount("/data", StaticFiles(directory=DATA_DIR), name="data")

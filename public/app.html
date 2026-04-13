@@ -948,7 +948,7 @@
     const conceptToGloss = new Map();
 
     function glossBase(gloss) {
-      return String(gloss).toLowerCase().replace(/\(.*?\)/g,'').replace(/#\d+$/g,'').replace(/[^a-z0-9]+/g,' ').trim();
+      return String(gloss).toLowerCase().replace(/\(.*?\)/g,'').replace(/#\d+$/g,'').replace(/\d+[a-z]?\^?$/g,'').replace(/^_num-/g,'').replace(/_\(.*?\)/g,'').replace(/[^a-z0-9\u00C0-\u024F\u0370-\u03FF\u0400-\u04FF\u0100-\u017F]+/g,' ').trim();
     }
 
     function rebuildBaseIndex() {
@@ -1037,18 +1037,27 @@
       isl: 'hi', kurdish: 'ku', vsl: 'vi'
     };
 
+    const SIGN_LANG_GLOSS = {
+      bsl: 'en', asl: 'en', dgs: 'en', lsf: 'fr',
+      lse: 'es', pjm: 'pl', gsl: 'en', rsl: 'ru',
+      algerian: null, bangla: 'en', ngt: 'nl', fsl: null,
+      isl: 'en', kurdish: 'ku', vsl: 'en'
+    };
+
+    const BACKEND_LANGS = new Set(['en','de','fr','es','pl','nl','el']);
+
     const SIGN_LANG_DB = {
       bsl:      { sigml: ['/data/hamnosys_bsl_version1.sigml'], csv: '/data/hamnosys_bsl.csv', alphabet: '/data/bsl_alphabet_sigml.sigml' },
       asl:      { sigml: ['/data/hamnosys_bsl_version1.sigml'], csv: '/data/hamnosys_bsl.csv', alphabet: '/data/asl_alphabet_sigml.sigml' },
-      dgs:      { sigml: ['/data/German_SL_DGS.sigml'], csv: null, alphabet: '/data/dgs_alphabet_sigml.sigml' },
-      lsf:      { sigml: ['/data/French_SL_LSF.sigml'], csv: null, alphabet: '/data/lsf_alphabet_sigml.sigml' },
+      dgs:      { sigml: ['/data/German_SL_DGS.sigml'], csv: '/data/hamnosys_dgs.csv', alphabet: '/data/dgs_alphabet_sigml.sigml' },
+      lsf:      { sigml: ['/data/French_SL_LSF.sigml'], csv: '/data/hamnosys_lsf.csv', alphabet: '/data/lsf_alphabet_sigml.sigml' },
       lse:      { sigml: [], csv: null, alphabet: null },
-      pjm:      { sigml: ['/data/Polish_SL_PJM.sigml'], csv: null, alphabet: '/data/pjm_alphabet_sigml.sigml' },
-      gsl:      { sigml: ['/data/Greek_SL_GSL.sigml'], csv: null, alphabet: null },
+      pjm:      { sigml: ['/data/Polish_SL_PJM.sigml'], csv: '/data/hamnosys_pjm.csv', alphabet: '/data/pjm_alphabet_sigml.sigml' },
+      gsl:      { sigml: ['/data/Greek_SL_GSL.sigml'], csv: '/data/hamnosys_gsl.csv', alphabet: null },
       rsl:      { sigml: [], csv: null, alphabet: null },
       algerian: { sigml: ['/data/Algerian_SL.sigml'], csv: null, alphabet: null },
       bangla:   { sigml: ['/data/Bangla_SL.sigml'], csv: null, alphabet: null },
-      ngt:      { sigml: ['/data/Dutch_SL_NGT.sigml'], csv: null, alphabet: '/data/ngt_alphabet_sigml.sigml' },
+      ngt:      { sigml: ['/data/Dutch_SL_NGT.sigml'], csv: '/data/hamnosys_ngt.csv', alphabet: '/data/ngt_alphabet_sigml.sigml' },
       fsl:      { sigml: ['/data/Filipino_SL.sigml'], csv: null, alphabet: null },
       isl:      { sigml: ['/data/Indian_SL.sigml'], csv: null, alphabet: null },
       kurdish:  { sigml: ['/data/Kurdish_SL.sigml'], csv: null, alphabet: null },
@@ -1141,11 +1150,12 @@
 
     function getInputLang() { return document.getElementById('langHint').value; }
     function getSignLang() { return document.getElementById('signLangSelect').value; }
-    function getTargetLang() { return SIGN_LANG_BASE[getSignLang()] || 'en'; }
+    function getTargetLang() { return SIGN_LANG_GLOSS[getSignLang()] || 'en'; }
 
     async function translateIfNeeded(text, statusFn) {
       const src = getInputLang();
-      const tgt = getTargetLang();
+      const glossLang = SIGN_LANG_GLOSS[getSignLang()];
+      const tgt = glossLang || 'en';
       if (src === tgt) return text;
       if (statusFn) statusFn('Translating ' + src.toUpperCase() + ' → ' + tgt.toUpperCase() + '…');
       const translated = await translateText(text, src, tgt);
@@ -1162,7 +1172,7 @@
 
     async function planWithSpaCyBackend(rawText) {
       try {
-        const resp = await fetch('/api/plan', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: rawText }) });
+        const resp = await fetch('/api/plan', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: rawText, language: getTargetLang(), sign_language: getSignLang() }) });
         if (!resp.ok) { const detail = await resp.text().catch(() => ''); throw new Error(`Backend HTTP ${resp.status} ${detail}`); }
         return await resp.json();
       } catch (e) { console.error("spaCy backend fetch failed:", e); throw e; }
