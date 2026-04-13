@@ -22,7 +22,7 @@ Speech → Text → NLP Processing → HamNoSys → SiGML → 3D Animation
 2. **NLP Processing (spaCy)** — The text is parsed, tokenized, and mapped to sign-language-compatible grammatical structures.
 3. **HamNoSys Encoding** — Parsed tokens are converted into [Hamburg Notation System (HamNoSys)](https://www.sign-lang.uni-hamburg.de/dgs-korpus/files/inhalt_pdf/HamNoSys_2018.pdf), a phonetic transcription system for sign languages.
 4. **SiGML Generation** — HamNoSys representations are serialized into [Signing Gesture Markup Language (SiGML)](http://vh.cmp.uea.ac.uk/index.php/SiGML), an XML-based format.
-5. **3D Avatar Rendering (CAWSA)** — SiGML is rendered as 3D sign language animation using the [CAWSA](http://vh.cmp.uea.ac.uk/index.php/CWA) avatar system.
+5. **3D Avatar Rendering (CWASA)** — SiGML is rendered as 3D sign language animation using the [CWASA](http://vh.cmp.uea.ac.uk/index.php/CWA) avatar system.
 
 ## Multilingual NLP
 
@@ -48,7 +48,7 @@ Languages without a dedicated spaCy model are handled via client-side translatio
 | Translation | OPUS-MT (client-side, via Transformers.js) |
 | Sign notation | HamNoSys |
 | Markup | SiGML (XML) |
-| 3D rendering | CAWSA avatar |
+| 3D rendering | CWASA avatar |
 
 ## Getting Started
 
