@@ -76,11 +76,34 @@ uvicorn server.server:app --reload
 # The app will be available at http://localhost:8000
 ```
 
+## Chrome Extension
+
+The `extension/` directory contains a Chrome extension that adds real-time sign language translation to YouTube videos.
+
+**What it does:** Extracts captions from any YouTube video, translates them into sign language glosses via the Kozha backend, and renders a 3D signing avatar in an overlay panel.
+
+**Install:** Open `chrome://extensions`, enable Developer Mode, click "Load unpacked", and select the `extension/` folder.
+
+**How it works:** The content script extracts YouTube's caption track, sends segments to `kozha-translate.com/api/translate/batch` for NLP processing, then the panel iframe loads the CWASA avatar and plays SiGML animations mapped from the returned glosses. Playback syncs with the video timeline.
+
+**Limitations:**
+- BSL sign database only (other sign languages have alphabet-only coverage)
+- Requires the kozha-translate.com backend to be running
+- Video must have captions (auto-generated or manual)
+- CWASA avatar requires WebGL support
+
 ## Project Structure
 
 ```
 kozha/
 ├── .github/workflows/deploy.yml
+├── extension/
+│   ├── manifest.json
+│   ├── content.js
+│   ├── background.js
+│   ├── panel.html
+│   ├── panel.css
+│   └── icons/
 ├── server/
 │   ├── server.py
 │   ├── requirements.txt
