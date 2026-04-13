@@ -1245,6 +1245,12 @@
 
       try {
         var translatedText = await heroTranslateIfNeeded(inputText, function(msg) { btn.textContent = msg; });
+        var heroTranslationExpected = getHeroInputLang() !== (SIGN_LANG_GLOSS[getHeroSignLang()] || 'en');
+        if (heroTranslationExpected && translatedText === inputText) {
+          btn.textContent = 'Translation failed — try again or enter text in ' + (SIGN_LANG_GLOSS[getHeroSignLang()] || 'en').toUpperCase();
+          setTimeout(function() { btn.textContent = 'Translate ▶'; btn.disabled = false; }, 3000);
+          return;
+        }
 
         var planTokens = [];
         try {
@@ -1359,8 +1365,11 @@
             const result = await asr(blob, getAsrOptions());
             const rawText = (result?.text || '').trim();
             const text = await heroTranslateIfNeeded(rawText, (msg) => { micStatus.textContent = msg; });
+            const micTransExpected = getHeroInputLang() !== (SIGN_LANG_GLOSS[getHeroSignLang()] || 'en');
             heroInput.value = text;
-            micStatus.textContent = 'Transcribed! Hit Translate to see signs.';
+            micStatus.textContent = micTransExpected && text === rawText
+              ? 'Translation failed — try again or enter text in ' + (SIGN_LANG_GLOSS[getHeroSignLang()] || 'en').toUpperCase()
+              : 'Transcribed! Hit Translate to see signs.';
             chips.forEach(x => x.classList.remove('active'));
             document.getElementById('chip-text').classList.add('active');
             document.querySelectorAll('.demo-tab-panel').forEach(p => p.classList.remove('active'));
@@ -1412,8 +1421,11 @@
           const result = await asr(wavBlob, getAsrOptions());
           const rawText = (result?.text || '').trim();
           const text = await heroTranslateIfNeeded(rawText, (msg) => { videoStatus.textContent = msg; });
+          const vidTransExpected = getHeroInputLang() !== (SIGN_LANG_GLOSS[getHeroSignLang()] || 'en');
           heroInput.value = text;
-          videoStatus.textContent = 'Transcribed! Hit Translate to see signs.';
+          videoStatus.textContent = vidTransExpected && text === rawText
+            ? 'Translation failed — try again or enter text in ' + (SIGN_LANG_GLOSS[getHeroSignLang()] || 'en').toUpperCase()
+            : 'Transcribed! Hit Translate to see signs.';
 
           chips.forEach(x => x.classList.remove('active'));
           document.getElementById('chip-text').classList.add('active');
