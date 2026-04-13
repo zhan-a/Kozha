@@ -1190,8 +1190,8 @@
       for (const t of tokens){
         if (allowedGlosses.includes(t)) { mapped.push(t); continue; }
         const tBase = glossBase(t);
-        if (conceptToGloss.has(tBase)) { const g = conceptToGloss.get(tBase); mapped.push(g); if (t !== g) subs[t] = g; continue; }
-        if (baseToGloss.has(tBase)) { const g = baseToGloss.get(tBase); mapped.push(g); if (t !== g) subs[t] = g; continue; }
+        if (conceptToGloss.has(tBase)) { const g = conceptToGloss.get(tBase); if (glossToSign.has(g)) { mapped.push(g); if (t !== g) subs[t] = g; continue; } }
+        if (baseToGloss.has(tBase)) { const g = baseToGloss.get(tBase); if (glossToSign.has(g)) { mapped.push(g); if (t !== g) subs[t] = g; continue; } }
         if (baseToGlossLocal.has(tBase)) { const g = baseToGlossLocal.get(tBase); mapped.push(g); if (t !== tBase) subs[t] = g; continue; }
         let bestBase = null, bestScore = 0;
         for (const b of baseToGlossLocal.keys()){ const s = similarity(tBase, b); if (s > bestScore) { bestScore = s; bestBase = b; } }
