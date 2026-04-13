@@ -1059,6 +1059,8 @@
     }
 
     var _heroSwitchId = 0;
+    var FALLBACK_ALPHABET = '/data/bsl_alphabet_sigml.sigml';
+
     async function switchSignLanguage(langCode) {
       var myId = ++_heroSwitchId;
       glossToSign.clear();
@@ -1068,10 +1070,6 @@
 
       var db = SIGN_LANG_DB[langCode];
       if (!db) return;
-
-      if (!db.sigml.length && !db.csv && !db.alphabet) {
-        return;
-      }
 
       for (var i = 0; i < db.sigml.length; i++) {
         if (_heroSwitchId !== myId) return;
@@ -1084,6 +1082,12 @@
 
       if (_heroSwitchId !== myId) return;
       extractEmbeddedAlphabet();
+
+      if (letterToSign.size < 26) {
+        await loadAlphabetSigmlUrl(FALLBACK_ALPHABET);
+      }
+
+      if (_heroSwitchId !== myId) return;
     }
 
     document.getElementById('heroSignLang').addEventListener('change', async function() {

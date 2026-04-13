@@ -1064,6 +1064,8 @@
     }
 
     let _switchId = 0;
+    const FALLBACK_ALPHABET = '/data/bsl_alphabet_sigml.sigml';
+
     async function switchSignLanguage(langCode) {
       const myId = ++_switchId;
       glossToSign.clear();
@@ -1074,11 +1076,6 @@
 
       const db = SIGN_LANG_DB[langCode];
       if (!db) { log('No database for: ' + langCode); return; }
-
-      if (!db.sigml.length && !db.csv && !db.alphabet) {
-        log(langCode.toUpperCase() + ': no sign data available yet — fingerspelling only.');
-        return;
-      }
 
       for (const url of db.sigml) {
         if (_switchId !== myId) return;
@@ -1091,6 +1088,12 @@
 
       if (_switchId !== myId) return;
       extractEmbeddedAlphabet();
+
+      if (letterToSign.size < 26) {
+        await loadAlphabetSigmlUrl(FALLBACK_ALPHABET, true);
+      }
+
+      if (_switchId !== myId) return;
       log('Loaded ' + langCode.toUpperCase() + ': ' + glossToSign.size + ' signs, ' + letterToSign.size + ' letters');
     }
 
