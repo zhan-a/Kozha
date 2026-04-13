@@ -19,8 +19,8 @@
 
   <link rel="stylesheet" href="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script defer src="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/allcsa.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script defer src="https://unpkg.com/compromise@14.12.0/builds/compromise.min.js" crossorigin="anonymous"></script>
-  <script defer src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.6/dist/ffmpeg.min.js" crossorigin="anonymous"></script>
+  <link rel="preload" href="/data/hamnosys_bsl_version1.sigml" as="fetch" crossorigin>
+  <link rel="preload" href="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/cwasa.css" as="style" crossorigin="anonymous">
 
   <style>
     :root {
@@ -1024,7 +1024,20 @@
       return 'Present';
     }
 
-    function processEducationalText(text){
+    async function ensureCompromise(){
+      if (typeof window.nlp === 'undefined') {
+        await new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          s.src = 'https://unpkg.com/compromise@14.12.0/builds/compromise.min.js';
+          s.onload = resolve;
+          s.onerror = reject;
+          document.head.appendChild(s);
+        });
+      }
+    }
+
+    async function processEducationalText(text){
+      await ensureCompromise();
       const doc = window.nlp(text);
       const tokens = [];
       const pronouns = doc.match('#Pronoun').out('array').map(s=>s.toLowerCase());
@@ -1436,7 +1449,7 @@
         }
       }
       if (!mapped?.length && eduNlpToggle.checked) {
-        const eduTokens = processEducationalText(raw);
+        const eduTokens = await processEducationalText(raw);
         const mEdu = mapToAvailable(eduTokens, allowed, 0.82);
         mapped = mEdu.mapped; subs = mEdu.subs; missing = mEdu.missing;
         if (normalizedOut) normalizedOut.value = eduTokens.join(' ');
@@ -1669,7 +1682,18 @@
     const videoStatus = document.getElementById('videoStatus');
 
     async function ensureFFmpeg(){
-      if (!window.__ffmpeg){ const { createFFmpeg, fetchFile } = FFmpeg; const ffmpeg = createFFmpeg({ log: false }); await ffmpeg.load(); window.__ffmpeg = { ffmpeg, fetchFile }; }
+      if (!window.__ffmpeg){
+        if (typeof FFmpeg === 'undefined') {
+          await new Promise(function(resolve, reject) {
+            var s = document.createElement('script');
+            s.src = 'https://unpkg.com/@ffmpeg/ffmpeg@0.12.6/dist/ffmpeg.min.js';
+            s.onload = resolve;
+            s.onerror = reject;
+            document.head.appendChild(s);
+          });
+        }
+        const { createFFmpeg, fetchFile } = FFmpeg; const ffmpeg = createFFmpeg({ log: false }); await ffmpeg.load(); window.__ffmpeg = { ffmpeg, fetchFile };
+      }
       return window.__ffmpeg;
     }
 
