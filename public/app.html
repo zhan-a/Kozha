@@ -18,7 +18,7 @@
     :root {
       --ink: #1a1612;
       --ink-2: #3d3630;
-      --ink-3: #7a6f65;
+      --ink-3: #685d54;
       --paper: #f5f1eb;
       --paper-2: #ede8e0;
       --paper-3: #e4ddd3;
@@ -565,11 +565,29 @@
       .row { flex-direction: column; align-items: stretch; }
       .row .grow { width: 100%; }
     }
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 16px;
+      background: var(--accent);
+      color: white;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      z-index: 200;
+      text-decoration: none;
+    }
+    .skip-link:focus {
+      top: 8px;
+    }
   </style>
 </head>
 <body>
 
-  <nav class="app-nav">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <nav class="app-nav" aria-label="Main navigation">
     <div style="display:flex; align-items:center; gap:12px;">
       <a href="index.html" class="nav-logo">Bridg<span>n</span></a>
       <span class="nav-badge">Translator</span>
@@ -583,7 +601,7 @@
 
   <div class="app-shell">
 
-    <aside class="sidebar">
+    <aside class="sidebar" aria-label="Sidebar navigation">
       <div class="sidebar-section-label">Input</div>
 
       <button class="sidebar-item active" data-panel="translate" onclick="switchPanel('translate', this)">
@@ -623,7 +641,7 @@
       </button>
     </aside>
 
-    <div class="content-area">
+    <div class="content-area" id="main-content" role="main">
 
       <div class="content-panel active" id="panel-translate">
         <div class="card">
@@ -635,7 +653,7 @@
           <div class="row" style="margin-top: 12px; gap: 12px;">
             <div class="grow">
               <label class="field-label" style="margin-bottom:6px;">Input language</label>
-              <select id="langHint">
+              <select id="langHint" aria-label="Input language">
                 <optgroup label="Common">
                   <option value="en" selected>English</option>
                   <option value="es">Spanish</option>
@@ -686,7 +704,7 @@
             </div>
             <div class="grow">
               <label class="field-label" style="margin-bottom:6px;">Sign language</label>
-              <select id="signLangSelect">
+              <select id="signLangSelect" aria-label="Sign language">
                 <option value="bsl" selected>BSL (British)</option>
                 <option value="asl">ASL (American)</option>
                 <option value="dgs">DGS (German)</option>
@@ -706,7 +724,7 @@
             </div>
           </div>
 
-          <button id="translateBtn" class="btn-translate" style="margin-top: 16px;">
+          <button id="translateBtn" class="btn-translate" style="margin-top: 16px;" aria-label="Translate to sign language">
             🤟 Translate to Sign
           </button>
         </div>
@@ -718,7 +736,7 @@
           <div class="row" style="margin-bottom:12px;">
             <button id="recordBtn" class="btn btn-secondary">● Start recording</button>
             <button id="transcribeBtn" class="btn btn-primary">Transcribe</button>
-            <span id="micStatus" class="status-badge">Idle</span>
+            <span id="micStatus" class="status-badge" role="status" aria-live="polite">Idle</span>
           </div>
           <label class="field-label">Transcription</label>
           <textarea id="transcription" placeholder="Transcription will appear here…"></textarea>
@@ -732,7 +750,7 @@
           <input type="file" id="videoFile" accept="video/*" style="margin-bottom:12px;" />
           <div class="row">
             <button id="videoToSignBtn" class="btn btn-primary">Process Video → Sign</button>
-            <span id="videoStatus" class="status-badge">No file selected</span>
+            <span id="videoStatus" class="status-badge" role="status" aria-live="polite">No file selected</span>
           </div>
         </div>
       </div>
@@ -794,7 +812,7 @@
           <div class="card-title"><span class="card-title-icon">📋</span> Planner Diagnostics</div>
 
           <label class="field-label">Planner log</label>
-          <div id="planLog" class="log-area" style="margin-bottom:14px;"></div>
+          <div id="planLog" class="log-area" style="margin-bottom:14px;" aria-live="polite" role="log"></div>
 
           <div class="advanced-grid">
             <div>
@@ -821,7 +839,7 @@
 
     <div class="render-panel">
       <div class="avatar-wrapper">
-        <div class="avatar-stage">
+        <div class="avatar-stage" tabindex="0" aria-label="Sign language avatar animation">
           <div class="CWASAAvatar av0"></div>
           <div class="CWASAGUI av0" style="display:none"></div>
         </div>
@@ -830,7 +848,7 @@
         </div>
         <div class="token-list" id="tokenList"></div>
         <div class="avatar-controls">
-          <span id="renderStatus" class="status-badge loading">Loading…</span>
+          <span id="renderStatus" class="status-badge loading" role="status" aria-live="polite">Loading…</span>
           <div class="avatar-switcher">
             <label for="avatarSelect">Avatar</label>
             <select id="avatarSelect">
@@ -840,7 +858,7 @@
               <option value="francoise">Francoise</option>
             </select>
           </div>
-          <button id="stopBtn" class="btn btn-secondary">⏹ Stop</button>
+          <button id="stopBtn" class="btn btn-secondary" aria-label="Stop animation">⏹ Stop</button>
         </div>
       </div>
     </div>

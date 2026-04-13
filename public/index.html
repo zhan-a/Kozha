@@ -14,7 +14,7 @@
     :root {
       --ink: #1a1612;
       --ink-2: #3d3630;
-      --ink-3: #7a6f65;
+      --ink-3: #685d54;
       --paper: #f5f1eb;
       --paper-2: #ede8e0;
       --paper-3: #e4ddd3;
@@ -547,7 +547,7 @@
     .step-body {
       font-size: 14px;
       line-height: 1.7;
-      color: rgba(245,241,235,0.5);
+      color: rgba(245,241,235,0.65);
     }
 
     .contribute-banner {
@@ -689,6 +689,23 @@
       .step-item { padding: 32px 24px; }
     }
 
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 16px;
+      background: var(--accent);
+      color: white;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      z-index: 200;
+      text-decoration: none;
+    }
+    .skip-link:focus {
+      top: 8px;
+    }
+
     @media (max-width: 400px) {
       .hero { padding: 90px 16px 40px; }
       .hero-demo-card { padding: 16px; }
@@ -701,8 +718,10 @@
   </style>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <div class="SToCA"></div>
-  <nav>
+  <nav aria-label="Main navigation">
     <a href="index.html" class="nav-logo">Bridg<span>n</span></a>
     <ul class="nav-links">
       <li><a href="#features">Features</a></li>
@@ -718,6 +737,7 @@
     </div>
   </nav>
 
+  <main id="main-content">
   <section class="hero">
     <div>
       <div class="hero-eyebrow fade-up delay-1">Open-source research project</div>
@@ -747,16 +767,16 @@
 
     <div class="hero-demo-card fade-up delay-3">
       <div class="demo-controls">
-        <div class="demo-chip active" data-tab="text" id="chip-text">✏️ Text</div>
-        <div class="demo-chip" data-tab="voice" id="chip-mic">🎙 Voice</div>
-        <div class="demo-chip" data-tab="video" id="chip-video">🎬 Video</div>
-        <button class="demo-translate-btn" id="heroTranslateBtn" disabled>Translate ▶</button>
+        <button class="demo-chip active" data-tab="text" id="chip-text">✏️ Text</button>
+        <button class="demo-chip" data-tab="voice" id="chip-mic">🎙 Voice</button>
+        <button class="demo-chip" data-tab="video" id="chip-video">🎬 Video</button>
+        <button class="demo-translate-btn" id="heroTranslateBtn" disabled aria-label="Translate to sign language">Translate ▶</button>
       </div>
 
       <div class="demo-lang-row">
         <div style="flex:1;">
           <div class="demo-lang-label">Input language</div>
-          <select class="demo-lang-select" id="heroLangHint">
+          <select class="demo-lang-select" id="heroLangHint" aria-label="Input language">
             <optgroup label="Common">
               <option value="en" selected>English</option>
               <option value="es">Spanish</option>
@@ -807,7 +827,7 @@
         </div>
         <div style="flex:1;">
           <div class="demo-lang-label">Sign language</div>
-          <select class="demo-lang-select" id="heroSignLang">
+          <select class="demo-lang-select" id="heroSignLang" aria-label="Sign language">
             <option value="bsl" selected>BSL (British)</option>
             <option value="asl">ASL (American)</option>
             <option value="dgs">DGS (German)</option>
@@ -835,15 +855,15 @@
 
       <div class="demo-tab-panel" id="tab-voice">
         <button class="demo-record-btn" id="heroRecordBtn">● Start recording</button>
-        <div class="demo-status" id="heroMicStatus">Speech recognition runs locally in your browser.</div>
+        <div class="demo-status" id="heroMicStatus" role="status" aria-live="polite">Speech recognition runs locally in your browser.</div>
       </div>
 
       <div class="demo-tab-panel" id="tab-video">
         <input type="file" accept="video/*" class="demo-file-input" id="heroVideoFile" />
         <button class="demo-process-btn" id="heroVideoBtn">Process video</button>
-        <div class="demo-status" id="heroVideoStatus">Upload a video to extract and transcribe audio.</div>
+        <div class="demo-status" id="heroVideoStatus" role="status" aria-live="polite">Upload a video to extract and transcribe audio.</div>
       </div>
-      <div class="demo-avatar-area" id="avatarContainer">
+      <div class="demo-avatar-area" id="avatarContainer" tabindex="0" aria-label="Sign language avatar animation">
         <div class="avatar-loading" id="avatarLoading">
           <div class="spinner"></div>
           <span>Loading avatar…</span>
@@ -853,7 +873,7 @@
 
 
       <div class="demo-status-bar">
-        <span class="status-dot loading" id="statusDot">Connecting…</span>
+        <span class="status-dot loading" id="statusDot" role="status" aria-live="polite">Connecting…</span>
         <a href="app.html" style="color: var(--accent); font-weight:600; font-size:12px; text-decoration:none;">Open full app →</a>
       </div>
     </div>
@@ -925,6 +945,7 @@
       </div>
     </div>
   </section>
+  </main>
   <footer>
     <div class="footer-inner">
       <div class="footer-logo">Bridg<span>n</span></div>
