@@ -1000,7 +1000,7 @@
         const res = await fetch(url);
         if (!res.ok) return;
         const xmlText = await res.text();
-        const doc = new DOMParser().parseFromString('<root>' + xmlText + '</root>', 'application/xml');
+        const doc = new DOMParser().parseFromString(xmlText, 'application/xml');
         const signs = Array.from(doc.querySelectorAll('hns_sign'));
         for (const s of signs) {
           const gloss = (s.getAttribute('gloss')||'').trim().toUpperCase();
