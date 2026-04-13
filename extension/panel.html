@@ -49,9 +49,8 @@
       isl: "Indian SL", kurdish: "Kurdish SL", vsl: "Vietnamese SL",
     };
 
-    function glossBase(s) {
-      return s.toLowerCase().replace(/\(.*?\)/g, "").replace(/#\d+/g, "")
-        .replace(/\d+[a-z]?$/g, "").trim();
+    function glossBase(gloss) {
+      return String(gloss).toLowerCase().replace(/\(.*?\)/g,'').replace(/#\d+$/g,'').replace(/\d+[a-z]?\^?$/g,'').replace(/^_num-/g,'').replace(/_\(.*?\)/g,'').replace(/[^a-z0-9\u00C0-\u024F\u0370-\u03FF\u0400-\u04FF\u0100-\u017F]+/g,' ').trim();
     }
 
     function loadSigmlXml(xmlText) {
