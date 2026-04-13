@@ -744,6 +744,7 @@
       <div class="avatar-wrapper">
         <div class="avatar-stage">
           <div class="CWASAAvatar av0"></div>
+          <div class="CWASAGUI av0" style="display:none"></div>
         </div>
         <div class="avatar-controls">
           <span id="renderStatus" class="status-badge loading">Loading…</span>
@@ -785,42 +786,42 @@
         allowSiGMLText: false,
       }]
     });
+
     if (CWASA.ready && typeof CWASA.ready.then === 'function') {
       CWASA.ready.then(() => {
-        renderStatus.textContent = 'Ready';
-        renderStatus.className = 'status-badge ready';
         syncAvatarMenu();
       });
-    } else {
-      setTimeout(() => {
-        renderStatus.textContent = 'Ready';
-        renderStatus.className = 'status-badge ready';
-        syncAvatarMenu();
-      }, 300);
     }
+
+    CWASA.addHook('avatarready', function() {
+      renderStatus.textContent = 'Ready';
+      renderStatus.className = 'status-badge ready';
+    }, 0);
   }
 
   function syncAvatarMenu() {
-    const cwaMenu = document.querySelector('.menuAv');
+    const cwaMenu = document.querySelector('.menuAv.av0');
     const ourSelect = document.getElementById('avatarSelect');
     if (cwaMenu) {
       ourSelect.innerHTML = '';
       for (const opt of cwaMenu.options) {
         const o = document.createElement('option');
         o.value = opt.value;
-        o.textContent = opt.textContent;
+        o.textContent = opt.textContent.trim();
+        o.textContent = o.textContent.charAt(0).toUpperCase() + o.textContent.slice(1);
         if (opt.selected) o.selected = true;
         ourSelect.appendChild(o);
       }
-      cwaMenu.style.display = 'none';
     }
   }
 
   document.getElementById('avatarSelect').addEventListener('change', function() {
-    const cwaMenu = document.querySelector('.menuAv');
+    const cwaMenu = document.querySelector('.menuAv.av0');
     if (cwaMenu) {
       cwaMenu.value = this.value;
       cwaMenu.dispatchEvent(new Event('change'));
+      renderStatus.textContent = 'Loading…';
+      renderStatus.className = 'status-badge loading';
     }
   });
 
