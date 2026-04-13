@@ -669,13 +669,6 @@
           <label class="field-label" style="margin-top:12px;">Or upload CSV / TSV file</label>
           <input id="conceptFile" type="file" accept=".csv,.tsv,text/csv,text/tab-separated-values" />
 
-          <div style="margin-top:16px; padding-top:14px; border-top:1px solid var(--border);">
-            <label class="field-label">API key (optional)</label>
-            <div class="row">
-              <input id="openaiKey" type="text" placeholder="sk-…" class="grow" />
-              <button id="saveKeyBtn" class="btn btn-secondary">Save locally</button>
-            </div>
-          </div>
         </div>
 
         <div class="card">
@@ -1225,21 +1218,6 @@
 
     function currentAllowed(){ return Array.from(glossToSign.keys()).sort(); }
 
-    async function planWithOpenAI(rawText, allowed){
-      const key = localStorage.getItem('openai_key');
-      if (!key) return null;
-      const system = "You rewrite user sentences into ASL-friendly word order as tokens. Use ONLY words from the allowed vocabulary provided. Return ONLY the final token sequence as a single space-separated line.";
-      const user = `ALLOWED:\n${allowed.join(', ')}\n\nTEXT:\n${rawText}\n\nFORMAT:\nspace-separated tokens, lowercase`;
-      try{
-        const resp = await fetch('https://api.openai.com/v1/chat/completions',{ method:'POST', headers:{ 'Authorization': `Bearer ${key}`, 'Content-Type':'application/json' }, body: JSON.stringify({ model:'gpt-4o-mini', temperature:0.1, messages:[{role:'system',content:system},{role:'user',content:user}] }) });
-        if (!resp.ok) throw new Error('OpenAI HTTP ' + resp.status);
-        const data = await resp.json();
-        let content = data?.choices?.[0]?.message?.content?.trim() || '';
-        const toks = content.split(/\s+/).filter(w => allowed.includes(w));
-        return toks.length ? toks : null;
-      }catch(e){ log('OpenAI planner error: ' + e); return null; }
-    }
-
     async function doPlan(mode) {
       const raw0 = textIn.value.trim();
       if (!raw0) { log('Empty text.'); return; }
@@ -1279,17 +1257,6 @@
           if (tokensOut) tokensOut.value = displayTokens.join(' ');
           window.__plannedTokens = displayTokens; return;
         } catch (e) { log('Python backend error, falling back: ' + e); }
-      }
-      else if (mode === 'openai') {
-        try {
-          const openTokens = await planWithOpenAI(raw, allowed);
-          if (openTokens?.length) {
-            const m = mapToAvailable(openTokens, allowed, 0.82);
-            mapped = m.mapped; subs = m.subs; missing = m.missing;
-            if (normalizedOut) normalizedOut.value = openTokens.join(' ');
-            if (planLog){ const lines = ['openai-backend']; if (Object.keys(subs).length) lines.push('subs: '+JSON.stringify(subs)); if (m.fingerspelled?.length) lines.push('fingerspelled: '+m.fingerspelled.join(', ')); if (missing.length) lines.push('missing: '+missing.join(', ')); planLog.textContent = lines.join('\n'); }
-          }
-        } catch (e) { log('OpenAI error, falling back: ' + e); }
       }
       if (!mapped?.length && eduNlpToggle.checked) {
         const eduTokens = processEducationalText(raw);
@@ -1477,13 +1444,6 @@
         videoStatus.textContent = 'Ready to render ✓'; videoStatus.className = 'status-badge ready';
       }catch(e){ videoStatus.textContent = 'Error: ' + e; videoStatus.className = 'status-badge'; }
     });
-  </script>
-
-  <script>
-    const openaiKey = document.getElementById('openaiKey');
-    const saveKeyBtn = document.getElementById('saveKeyBtn');
-    if (openaiKey) openaiKey.value = localStorage.getItem('openai_key') || '';
-    saveKeyBtn?.addEventListener('click', () => { const v = openaiKey.value.trim(); if (v){ localStorage.setItem('openai_key', v); log('Saved OpenAI key locally.'); } else { localStorage.removeItem('openai_key'); log('Cleared OpenAI key.'); } });
   </script>
 
   <script>
