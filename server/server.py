@@ -50,7 +50,12 @@ LANG_MODELS: OrderedDict[str, spacy.Language] = OrderedDict()
 _model_lock = Lock()
 MAX_MODELS = 4
 
-LANG_MODELS["en"] = spacy.load("en_core_web_sm")
+try:
+    LANG_MODELS["en"] = spacy.load("en_core_web_sm", disable=["ner"])
+except OSError:
+    print("[ERROR] English spaCy model 'en_core_web_sm' not installed. Run: python -m spacy download en_core_web_sm")
+    LANG_MODELS["en"] = spacy.blank("en")
+    LANG_MODELS["en"].add_pipe("sentencizer")
 
 def get_nlp(lang: str) -> spacy.Language:
     with _model_lock:
@@ -64,7 +69,7 @@ def get_nlp(lang: str) -> spacy.Language:
             return LANG_MODELS["en"]
 
     try:
-        nlp = spacy.load(model_name)
+        nlp = spacy.load(model_name, disable=["ner"])
     except OSError:
         print(f"[WARN] spaCy model '{model_name}' not installed, falling back to English")
         with _model_lock:
@@ -381,7 +386,16 @@ def process_sentence(doc_or_span, stopwords: set, time_words: set, pronouns: dic
 
     return " ".join(dedup + ["."])
 
+MAX_INPUT_LENGTH = 10000
+
 def process_text(text: str, language: str = "en", sign_language: str = "bsl") -> str:
+    text = (text or "").strip()
+    if not text:
+        return ""
+    truncated = False
+    if len(text) > MAX_INPUT_LENGTH:
+        text = text[:MAX_INPUT_LENGTH]
+        truncated = True
     nlp = get_nlp(language)
     stopwords = get_stopwords(language)
     time_words = get_time_words(language)
@@ -395,9 +409,12 @@ def process_text(text: str, language: str = "en", sign_language: str = "bsl") ->
     lines = []
     for sent in doc.sents:
         line = process_sentence(sent, stopwords, time_words, pronouns, sign_language, abbr_spans)
-        if line:
+        if line and line != ".":
             lines.append(line)
-    return "\n".join(lines)
+    result = "\n".join(lines)
+    if truncated:
+        result = "[truncated] " + result
+    return result
 
 def plan_from_text(text: str, language: str = "en", sign_language: str = "bsl") -> Dict[str, object]:
     text = (text or "").strip()

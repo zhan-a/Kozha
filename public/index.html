@@ -981,7 +981,7 @@
 
     async function loadSigmlUrl(url) {
       try {
-        const res = await fetch(url, { cache: 'no-store' });
+        const res = await fetch(url);
         if (!res.ok) return;
         const xmlText = await res.text();
         const doc = new DOMParser().parseFromString(xmlText, 'application/xml');
@@ -1000,7 +1000,7 @@
 
     async function loadAlphabetSigmlUrl(url) {
       try {
-        const res = await fetch(url, { cache: 'no-store' });
+        const res = await fetch(url);
         if (!res.ok) return;
         const xmlText = await res.text();
         const doc = new DOMParser().parseFromString('<root>' + xmlText + '</root>', 'application/xml');
@@ -1017,7 +1017,7 @@
 
     async function loadConceptCsvUrl(url) {
       try {
-        const res = await fetch(url, { cache: 'no-store' });
+        const res = await fetch(url);
         if (!res.ok) return;
         let txt = await res.text();
         if (txt.charCodeAt(0) === 0xFEFF) txt = txt.slice(1);
@@ -1063,7 +1063,9 @@
       }
     }
 
+    var _heroSwitchId = 0;
     async function switchSignLanguage(langCode) {
+      var myId = ++_heroSwitchId;
       glossToSign.clear();
       letterToSign.clear();
       baseToGloss.clear();
@@ -1072,12 +1074,21 @@
       var db = SIGN_LANG_DB[langCode];
       if (!db) return;
 
+      if (!db.sigml.length && !db.csv && !db.alphabet) {
+        console.log('[index] ' + langCode.toUpperCase() + ': no sign data available yet');
+        return;
+      }
+
       for (var i = 0; i < db.sigml.length; i++) {
+        if (_heroSwitchId !== myId) return;
         await loadSigmlUrl(db.sigml[i]);
       }
+      if (_heroSwitchId !== myId) return;
       if (db.csv) await loadConceptCsvUrl(db.csv);
+      if (_heroSwitchId !== myId) return;
       if (db.alphabet) await loadAlphabetSigmlUrl(db.alphabet);
 
+      if (_heroSwitchId !== myId) return;
       extractEmbeddedAlphabet();
       console.log('[index] Switched to ' + langCode + ': ' + glossToSign.size + ' signs, ' + letterToSign.size + ' letters');
     }

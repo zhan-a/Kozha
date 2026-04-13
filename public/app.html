@@ -870,7 +870,7 @@
 
     async function loadAbbrevFromUrl(url){
       try{
-        const res = await fetch(url, { cache: 'no-store' });
+        const res = await fetch(url);
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const obj = await res.json();
         let n = 0;
@@ -958,7 +958,7 @@
 
     async function loadSigmlUrl(url, isAutoload = false){
       try{
-        const res = await fetch(url, { cache: 'no-store' });
+        const res = await fetch(url);
         if (!res.ok){ if (isAutoload && res.status === 404){ log(`Optional DB missing: ${url}`); return; } throw new Error('HTTP ' + res.status); }
         const xmlText = await res.text();
         const doc = new DOMParser().parseFromString(xmlText, 'application/xml');
@@ -977,7 +977,7 @@
 
     async function loadAlphabetSigmlUrl(url, isAutoload = false){
       try{
-        const res = await fetch(url, { cache: 'no-store' });
+        const res = await fetch(url);
         if (!res.ok){ if (isAutoload && res.status === 404){ log(`Optional alphabet DB missing: ${url}`); return; } throw new Error('HTTP ' + res.status); }
         const xmlText = await res.text();
         const doc = new DOMParser().parseFromString('<root>' + xmlText + '</root>', 'application/xml');
@@ -1001,7 +1001,7 @@
 
     async function loadConceptCsvUrl(url, isAutoload = false){
       try{
-        const res = await fetch(url, { cache: 'no-store' });
+        const res = await fetch(url);
         if (!res.ok){ if (isAutoload && res.status === 404){ log(`Optional DB missing: ${url}`); return; } throw new Error('HTTP ' + res.status); }
         const txt = await res.text();
         const { header, rows } = parseTable(txt);
@@ -1073,7 +1073,9 @@
       }
     }
 
+    let _switchId = 0;
     async function switchSignLanguage(langCode) {
+      const myId = ++_switchId;
       glossToSign.clear();
       letterToSign.clear();
       baseToGloss.clear();
@@ -1083,12 +1085,21 @@
       const db = SIGN_LANG_DB[langCode];
       if (!db) { log('No database for: ' + langCode); return; }
 
+      if (!db.sigml.length && !db.csv && !db.alphabet) {
+        log(langCode.toUpperCase() + ': no sign data available yet — fingerspelling only.');
+        return;
+      }
+
       for (const url of db.sigml) {
+        if (_switchId !== myId) return;
         await loadSigmlUrl(url, true);
       }
+      if (_switchId !== myId) return;
       if (db.csv) await loadConceptCsvUrl(db.csv, true);
+      if (_switchId !== myId) return;
       if (db.alphabet) await loadAlphabetSigmlUrl(db.alphabet, true);
 
+      if (_switchId !== myId) return;
       extractEmbeddedAlphabet();
       log('Loaded ' + langCode.toUpperCase() + ': ' + glossToSign.size + ' signs, ' + letterToSign.size + ' letters');
     }
