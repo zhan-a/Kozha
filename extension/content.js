@@ -7,6 +7,17 @@ let dbReady = false;
 let cwasaFailed = false;
 let videoListeners = [];
 let isAutoCaption = false;
+let currentSignLang = "bsl";
+let currentCaptionLang = "";
+let playbackSpeed = 1.0;
+let settingsOpen = false;
+
+var SIGN_LANG_LABELS = {
+  bsl: "BSL", asl: "ASL", dgs: "DGS (German)", lsf: "LSF (French)",
+  pjm: "PJM (Polish)", gsl: "GSL (Greek)", ngt: "NGT (Dutch)",
+  algerian: "Algerian SL", bangla: "Bangla SL", fsl: "Filipino SL",
+  isl: "Indian SL", kurdish: "Kurdish SL", vsl: "Vietnamese SL",
+};
 
 function getVideoId() {
   var params = new URLSearchParams(window.location.search);
@@ -78,7 +89,7 @@ async function translateSegments(segs, sourceLang) {
     var chunk = segs.slice(i, i + BATCH_SIZE);
     var chunkEnd = Math.min(i + BATCH_SIZE, total);
     if (total > BATCH_SIZE) {
-      setStatus("Translating " + chunkEnd + "/" + total + " segments...");
+      setStatus("Translating " + chunkEnd + "/" + total + "...");
     }
 
     var chunkResult = await new Promise(function(resolve, reject) {
@@ -120,8 +131,22 @@ async function translateSegments(segs, sourceLang) {
 }
 
 function setStatus(text) {
-  var el = document.getElementById("kozha-status");
+  var el = document.getElementById("kozha-status-text");
   if (el) el.textContent = text;
+  updateSegmentCounter();
+}
+
+function updateSegmentCounter() {
+  var el = document.getElementById("kozha-status-lang");
+  if (!el) return;
+  var parts = [];
+  if (currentCaptionLang) parts.push(currentCaptionLang.toUpperCase());
+  if (segments.length > 0 && currentSegmentIndex >= 0) {
+    parts.push((currentSegmentIndex + 1) + "/" + segments.length);
+  } else if (segments.length > 0) {
+    parts.push(segments.length + " segs");
+  }
+  el.textContent = parts.join(" \u00B7 ");
 }
 
 function setSubtitle(text) {
@@ -145,6 +170,19 @@ function injectPanel() {
   var controls = document.createElement("span");
   controls.id = "kozha-controls";
 
+  var settingsBtn = document.createElement("button");
+  settingsBtn.id = "kozha-settings-btn";
+  settingsBtn.innerHTML = "&#9881;";
+  settingsBtn.addEventListener("click", function(e) {
+    e.stopPropagation();
+    settingsOpen = !settingsOpen;
+    var drawer = document.getElementById("kozha-settings-drawer");
+    if (drawer) {
+      drawer.classList.toggle("open", settingsOpen);
+    }
+    settingsBtn.classList.toggle("active", settingsOpen);
+  });
+
   var minBtn = document.createElement("button");
   minBtn.className = "kozha-ctrl-btn";
   minBtn.textContent = "\u2013";
@@ -164,6 +202,7 @@ function injectPanel() {
     if (toggle) toggle.style.display = "block";
   });
 
+  controls.appendChild(settingsBtn);
   controls.appendChild(minBtn);
   controls.appendChild(closeBtn);
   header.appendChild(title);
@@ -171,6 +210,65 @@ function injectPanel() {
 
   var body = document.createElement("div");
   body.id = "kozha-panel-body";
+
+  var settingsDrawer = document.createElement("div");
+  settingsDrawer.id = "kozha-settings-drawer";
+
+  var langRow = document.createElement("div");
+  langRow.className = "kozha-setting-row";
+  var langLabel = document.createElement("span");
+  langLabel.className = "kozha-setting-label";
+  langLabel.textContent = "Sign lang";
+  var langSelect = document.createElement("select");
+  langSelect.id = "kozha-lang-select";
+  Object.keys(SIGN_LANG_LABELS).forEach(function(key) {
+    var opt = document.createElement("option");
+    opt.value = key;
+    opt.textContent = SIGN_LANG_LABELS[key];
+    if (key === currentSignLang) opt.selected = true;
+    langSelect.appendChild(opt);
+  });
+  langSelect.addEventListener("change", function() {
+    currentSignLang = langSelect.value;
+    if (panelIframe && panelIframe.contentWindow) {
+      panelIframe.contentWindow.postMessage({ type: "switch_language", lang: currentSignLang }, "*");
+    }
+  });
+  langRow.appendChild(langLabel);
+  langRow.appendChild(langSelect);
+
+  var speedRow = document.createElement("div");
+  speedRow.className = "kozha-setting-row";
+  var speedLabel = document.createElement("span");
+  speedLabel.className = "kozha-setting-label";
+  speedLabel.textContent = "Speed";
+  var speedSelect = document.createElement("select");
+  speedSelect.id = "kozha-speed-select";
+  [
+    { value: "0.5", label: "0.5x" },
+    { value: "0.75", label: "0.75x" },
+    { value: "1", label: "1x" },
+    { value: "1.25", label: "1.25x" },
+    { value: "1.5", label: "1.5x" },
+    { value: "2", label: "2x" },
+  ].forEach(function(item) {
+    var opt = document.createElement("option");
+    opt.value = item.value;
+    opt.textContent = item.label;
+    if (parseFloat(item.value) === playbackSpeed) opt.selected = true;
+    speedSelect.appendChild(opt);
+  });
+  speedSelect.addEventListener("change", function() {
+    playbackSpeed = parseFloat(speedSelect.value);
+    if (panelIframe && panelIframe.contentWindow) {
+      panelIframe.contentWindow.postMessage({ type: "set_speed", speed: playbackSpeed }, "*");
+    }
+  });
+  speedRow.appendChild(speedLabel);
+  speedRow.appendChild(speedSelect);
+
+  settingsDrawer.appendChild(langRow);
+  settingsDrawer.appendChild(speedRow);
 
   var iframe = document.createElement("iframe");
   iframe.id = "kozha-avatar-frame";
@@ -184,8 +282,18 @@ function injectPanel() {
 
   var status = document.createElement("div");
   status.id = "kozha-status";
-  status.textContent = "Initializing";
 
+  var statusText = document.createElement("span");
+  statusText.id = "kozha-status-text";
+  statusText.textContent = "Initializing";
+
+  var statusLang = document.createElement("span");
+  statusLang.id = "kozha-status-lang";
+
+  status.appendChild(statusText);
+  status.appendChild(statusLang);
+
+  body.appendChild(settingsDrawer);
   body.appendChild(iframe);
   body.appendChild(subtitle);
   body.appendChild(status);
@@ -324,6 +432,7 @@ function startVideoSync() {
     var idx = findSegmentIndex(time);
     if (idx === currentSegmentIndex) return;
     currentSegmentIndex = idx;
+    updateSegmentCounter();
 
     if (idx < 0) {
       setSubtitle("");
@@ -356,6 +465,43 @@ function detectTextDirection(langCode) {
   return rtlLangs.indexOf(langCode) >= 0 ? "rtl" : "ltr";
 }
 
+function repositionPanel() {
+  var panel = document.getElementById("kozha-panel");
+  if (!panel || panel.style.display === "none") return;
+  clampToViewport(panel);
+}
+
+function observeTheaterAndFullscreen() {
+  var ytApp = document.querySelector("ytd-app");
+  if (ytApp) {
+    new MutationObserver(repositionPanel).observe(ytApp, {
+      attributes: true,
+      attributeFilter: ["class", "masthead-hidden"],
+    });
+  }
+
+  var player = document.getElementById("movie_player");
+  if (player) {
+    new MutationObserver(repositionPanel).observe(player, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+  }
+
+  document.addEventListener("fullscreenchange", function() {
+    var panel = document.getElementById("kozha-panel");
+    var toggle = document.getElementById("kozha-toggle");
+    if (document.fullscreenElement) {
+      if (panel) document.fullscreenElement.appendChild(panel);
+      if (toggle) document.fullscreenElement.appendChild(toggle);
+    } else {
+      if (panel) document.body.appendChild(panel);
+      if (toggle) document.body.appendChild(toggle);
+    }
+    setTimeout(repositionPanel, 100);
+  });
+}
+
 window.addEventListener("message", function(e) {
   if (!e.data || !e.data.type) return;
   if (e.data.type === "cwasa_ready") avatarReady = true;
@@ -373,16 +519,11 @@ window.addEventListener("message", function(e) {
   }
   if (e.data.type === "db_ready") {
     dbReady = true;
-    setStatus(isAutoCaption ? "Ready (auto-generated captions)" : "Ready");
+    setStatus(isAutoCaption ? "Ready (auto captions)" : "Ready");
   }
 });
 
-window.addEventListener("resize", function() {
-  var panel = document.getElementById("kozha-panel");
-  if (panel && panel.style.display !== "none") {
-    clampToViewport(panel);
-  }
-});
+window.addEventListener("resize", repositionPanel);
 
 async function init() {
   var videoId = getVideoId();
@@ -395,8 +536,11 @@ async function init() {
   translationCache = {};
   segments = [];
   isAutoCaption = false;
+  currentCaptionLang = "";
+  settingsOpen = false;
 
   injectPanel();
+  observeTheaterAndFullscreen();
 
   if (isLiveStream()) {
     setStatus("Live streams not supported");
@@ -413,11 +557,12 @@ async function init() {
   }
 
   var track = pickBestTrack(tracks);
+  currentCaptionLang = track.languageCode;
   var dir = detectTextDirection(track.languageCode);
   var subtitleEl = document.getElementById("kozha-subtitle");
   if (subtitleEl) subtitleEl.dir = dir;
 
-  setStatus(isAutoCaption ? "Fetching captions (auto-generated)..." : "Fetching captions...");
+  setStatus(isAutoCaption ? "Fetching captions (auto)..." : "Fetching captions...");
 
   try {
     segments = await fetchTranscript(track);
@@ -426,6 +571,7 @@ async function init() {
     return;
   }
 
+  updateSegmentCounter();
   setStatus("Translating...");
 
   try {
@@ -434,7 +580,7 @@ async function init() {
       translationCache[i] = r;
     });
     setStatus(dbReady
-      ? (isAutoCaption ? "Ready (auto-generated captions)" : "Ready")
+      ? (isAutoCaption ? "Ready (auto captions)" : "Ready")
       : "Loading signs...");
   } catch (e) {
     setStatus("Translation error: " + e.message);
@@ -452,6 +598,8 @@ function cleanup() {
   dbReady = false;
   cwasaFailed = false;
   isAutoCaption = false;
+  currentCaptionLang = "";
+  settingsOpen = false;
   var panel = document.getElementById("kozha-panel");
   if (panel) panel.remove();
   var toggle = document.getElementById("kozha-toggle");

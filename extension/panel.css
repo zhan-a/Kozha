@@ -11,8 +11,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 6px 10px;
-  background: #2a2420;
-  border-radius: 12px 12px 0 0;
+  background: #1a1a1a;
+  border-radius: 10px 10px 0 0;
   cursor: grab;
   user-select: none;
 }
@@ -22,7 +22,7 @@
 }
 
 #kozha-title {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: #e8843e;
   letter-spacing: 0.5px;
@@ -30,7 +30,8 @@
 
 #kozha-controls {
   display: flex;
-  gap: 4px;
+  gap: 2px;
+  align-items: center;
 }
 
 .kozha-ctrl-btn {
@@ -39,7 +40,7 @@
   border: none;
   border-radius: 4px;
   background: transparent;
-  color: #7a6f65;
+  color: #717171;
   font-size: 15px;
   line-height: 1;
   cursor: pointer;
@@ -50,41 +51,132 @@
 
 .kozha-ctrl-btn:hover {
   background: rgba(255, 255, 255, 0.1);
-  color: #f5f1eb;
+  color: #e0e0e0;
+}
+
+#kozha-settings-btn {
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: #717171;
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#kozha-settings-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e0e0e0;
+}
+
+#kozha-settings-btn.active {
+  color: #e8843e;
 }
 
 #kozha-panel-body {
   display: flex;
   flex-direction: column;
-  width: 320px;
-  background: #1a1612;
-  border-radius: 0 0 12px 12px;
+  width: 280px;
+  background: rgba(15, 15, 15, 0.95);
+  border-radius: 0 0 10px 10px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: none;
+}
+
+#kozha-settings-drawer {
+  display: none;
+  padding: 8px 10px;
+  background: #1a1a1a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+#kozha-settings-drawer.open {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.kozha-setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.kozha-setting-label {
+  font-size: 11px;
+  color: #999;
+  white-space: nowrap;
+}
+
+#kozha-lang-select {
+  flex: 1;
+  min-width: 0;
+  padding: 3px 4px;
+  font-size: 11px;
+  background: #0f0f0f;
+  color: #e0e0e0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+}
+
+#kozha-lang-select:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+#kozha-speed-select {
+  padding: 3px 4px;
+  font-size: 11px;
+  background: #0f0f0f;
+  color: #e0e0e0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+}
+
+#kozha-speed-select:hover {
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 #kozha-avatar-frame {
   width: 100%;
-  height: 260px;
+  height: 220px;
   border: none;
   background: #000;
 }
 
 #kozha-subtitle {
-  padding: 8px 12px;
-  font-size: 13px;
-  color: #f5f1eb;
-  background: #2a2420;
-  min-height: 36px;
+  padding: 6px 10px;
+  font-size: 12px;
+  color: #e0e0e0;
+  background: rgba(26, 26, 26, 0.9);
+  min-height: 32px;
   line-height: 1.4;
 }
 
 #kozha-status {
-  padding: 4px 12px 6px;
-  font-size: 11px;
-  color: #7a6f65;
-  background: #1a1612;
-  border-radius: 0 0 12px 12px;
+  padding: 4px 10px 5px;
+  font-size: 10px;
+  color: #666;
+  background: rgba(15, 15, 15, 0.95);
+  border-radius: 0 0 10px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#kozha-status-lang {
+  color: #555;
 }
 
 #kozha-toggle {
@@ -92,14 +184,14 @@
   bottom: 80px;
   right: 16px;
   z-index: 2147483646;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   border: none;
   background: #c96a2e;
   color: #fff;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
@@ -109,12 +201,12 @@
 }
 
 #kozha-gloss-text {
-  padding: 12px;
-  font-size: 16px;
+  padding: 10px;
+  font-size: 15px;
   font-weight: 600;
   color: #e8843e;
   background: #000;
-  min-height: 60px;
+  min-height: 50px;
   text-align: center;
   line-height: 1.6;
   word-spacing: 4px;
