@@ -1338,6 +1338,7 @@
         if (translationExpected && translated === originalText) {
           renderStatus.textContent = 'Translation failed — try again or enter text in ' + getTargetLang().toUpperCase();
           renderStatus.className = 'status-badge';
+          return;
         }
         textIn.value = translated;
         await doPlan('spacy');
@@ -1463,11 +1464,12 @@
         if (vidTranslationExpected && translated === rawText) {
           videoStatus.textContent = 'Translation failed — try again or enter text in ' + getTargetLang().toUpperCase();
           videoStatus.className = 'status-badge';
+          return;
         }
-        videoStatus.textContent = vidTranslationExpected && translated === rawText ? 'Planning (untranslated)…' : 'Planning…';
+        videoStatus.textContent = 'Planning…';
         textIn.value = translated;
         await doPlan('spacy');
-        if (!vidTranslationExpected || translated !== rawText) { videoStatus.textContent = 'Ready to render ✓'; videoStatus.className = 'status-badge ready'; }
+        videoStatus.textContent = 'Ready to render ✓'; videoStatus.className = 'status-badge ready';
       }catch(e){ videoStatus.textContent = 'Error: ' + e; videoStatus.className = 'status-badge'; }
     });
   </script>
