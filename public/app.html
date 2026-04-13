@@ -369,6 +369,26 @@
       width: 100%;
     }
 
+    .avatar-switcher {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .avatar-switcher label {
+      font-size: 13px;
+      color: var(--ink-3);
+      font-weight: 500;
+    }
+    .avatar-switcher select {
+      font-size: 13px;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: white;
+      color: var(--ink);
+      cursor: pointer;
+    }
+
     .input-tabs {
       display: flex;
       gap: 4px;
@@ -725,6 +745,15 @@
         </div>
         <div class="avatar-controls">
           <span id="renderStatus" class="status-badge loading">Loading…</span>
+          <div class="avatar-switcher">
+            <label for="avatarSelect">Avatar</label>
+            <select id="avatarSelect">
+              <option value="luna">Luna</option>
+              <option value="marc">Marc</option>
+              <option value="anna">Anna</option>
+              <option value="francoise">Francoise</option>
+            </select>
+          </div>
           <button id="stopBtn" class="btn btn-secondary">⏹ Stop</button>
         </div>
       </div>
@@ -773,6 +802,14 @@
         renderStatus.textContent = 'Avatar failed to load.';
       }
     }, 150);
+  });
+
+  document.getElementById('avatarSelect').addEventListener('change', function() {
+    try {
+      CWASA.setAvatar(0, this.value);
+    } catch(e) {
+      console.error('Avatar switch error:', e);
+    }
   });
   </script>
 
