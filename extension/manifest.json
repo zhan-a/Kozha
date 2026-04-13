@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Kozha — Sign Language for YouTube",
+  "version": "0.1.0",
+  "description": "Real-time sign language translation for YouTube videos",
+  "permissions": ["activeTab", "storage"],
+  "host_permissions": [
+    "https://kozha-translate.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://www.youtube.com/watch*"],
+      "js": ["content.js"],
+      "css": ["panel.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["panel.html"],
+      "matches": ["https://www.youtube.com/*"]
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

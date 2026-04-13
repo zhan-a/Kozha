@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/cwasa.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: transparent; overflow: hidden; }
+    .CWASAAvatar.av0 { width: 100%; height: 100%; }
+    .divCtrlPanel { display: none; }
+    .menuAv { display: none; }
+  </style>
+</head>
+<body>
+  <div class="CWASAAvatar av0"></div>
+  <div class="CWASAGUI av0" style="display:none"></div>
+
+  <script src="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/allcsa.js"
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    window.addEventListener("load", function () {
+      setTimeout(function () {
+        CWASA.init({
+          useClientConfig: false,
+          useCwaConfig: true,
+          avSettings: [{
+            width: 300,
+            height: 250,
+            avList: "avs",
+            initAv: "luna",
+            ambIdle: true,
+            allowFrameSteps: false,
+            allowSiGMLText: false,
+          }],
+        });
+
+        CWASA.ready.then(function () {
+          window.parent.postMessage({ type: "cwasa_ready" }, "*");
+        });
+      }, 150);
+    });
+
+    window.addEventListener("message", function (e) {
+      if (e.data && e.data.type === "play_glosses") {
+        CWASA.stop(0);
+        if (e.data.glosses && e.data.glosses.length > 0) {
+          CWASA.playSiGMLText(e.data.sigml, 0);
+        }
+      }
+      if (e.data && e.data.type === "play_sigml") {
+        CWASA.stop(0);
+        CWASA.playSiGMLText(e.data.sigml, 0);
+      }
+    });
+  </script>
+</body>
+</html>

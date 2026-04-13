@@ -2,9 +2,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 from collections import OrderedDict
 from threading import Lock
 import json
@@ -422,9 +422,44 @@ def plan_from_text(text: str, language: str = "en", sign_language: str = "bsl") 
     rewritten = process_text(text, language, sign_language)
     return {"allowed": [], "raw": text, "final": rewritten, "language": language, "sign_language": sign_language}
 
+class TranslateRequest(BaseModel):
+    text: str
+    source_lang: str = "en"
+
+class TranslateSegment(BaseModel):
+    text: str
+    start: float
+    duration: float
+
+class BatchTranslateRequest(BaseModel):
+    segments: List[TranslateSegment]
+    source_lang: str = "en"
+
+def text_to_glosses(text: str, source_lang: str = "en") -> list:
+    result = process_text(text, language=source_lang)
+    if not result:
+        return []
+    tokens = []
+    for line in result.split("\n"):
+        tokens.extend(line.split())
+    return tokens
+
 @app.get("/api/health")
 def health():
     return {"ok": True}
+
+@app.post("/api/translate")
+def api_translate(req: TranslateRequest):
+    glosses = text_to_glosses(req.text, req.source_lang)
+    return {"glosses": glosses, "raw": req.text}
+
+@app.post("/api/translate/batch")
+def api_translate_batch(req: BatchTranslateRequest):
+    results = []
+    for seg in req.segments:
+        glosses = text_to_glosses(seg.text, req.source_lang)
+        results.append({"glosses": glosses, "start": seg.start, "duration": seg.duration})
+    return {"results": results}
 
 @app.post("/api/plan")
 def api_plan(req: TextRequest):
