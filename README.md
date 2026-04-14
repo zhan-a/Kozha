@@ -78,19 +78,23 @@ uvicorn server.server:app --reload
 
 ## Chrome Extension
 
-The `extension/` directory contains a Chrome extension that adds real-time sign language translation to YouTube videos.
+The `extension/` directory contains a Chrome extension that translates text into sign language on any webpage.
 
-**What it does:** Extracts captions from any YouTube video, translates them into sign language glosses via the Kozha backend, and renders a 3D signing avatar in an overlay panel.
+**Three modes:**
+
+1. **Popup** — Click the extension icon (or `Ctrl+Shift+K` / `Cmd+Shift+K`) to open a standalone translator. Type text, pick input and sign languages, and click Sign.
+2. **Context menu** — Select text on any webpage, right-click, and choose "Sign this text". A floating panel appears with the 3D avatar signing the selection.
+3. **YouTube** — Automatically injects on YouTube watch pages. Extracts captions, translates them, and syncs sign playback with the video timeline. Supports windowed translation for long videos (>200 segments).
 
 **Install:** Open `chrome://extensions`, enable Developer Mode, click "Load unpacked", and select the `extension/` folder.
 
-**How it works:** The content script extracts YouTube's caption track, sends segments to `kozha-translate.com/api/translate/batch` for NLP processing, then the panel iframe loads the CWASA avatar and plays SiGML animations mapped from the returned glosses. Playback syncs with the video timeline.
+**Keyboard shortcut:** `Ctrl+Shift+K` (Mac: `Cmd+Shift+K`) opens the popup.
 
 **Limitations:**
-- BSL sign database only (other sign languages have alphabet-only coverage)
+- BSL has the most complete sign database; other sign languages have varying coverage
 - Requires the kozha-translate.com backend to be running
-- Video must have captions (auto-generated or manual)
-- CWASA avatar requires WebGL support
+- YouTube mode requires captions (auto-generated or manual)
+- CWASA avatar requires WebGL (falls back to text-only gloss display)
 
 ## Project Structure
 
@@ -99,10 +103,12 @@ kozha/
 ├── .github/workflows/deploy.yml
 ├── extension/
 │   ├── manifest.json
-│   ├── content.js
 │   ├── background.js
-│   ├── panel.html
-│   ├── panel.css
+│   ├── popup.html / popup.js / popup.css
+│   ├── panel.html / panel.css
+│   ├── content-shared.js
+│   ├── content-youtube.js
+│   ├── content-universal.js
 │   └── icons/
 ├── server/
 │   ├── server.py
