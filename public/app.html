@@ -1166,7 +1166,7 @@
   <script>
     const SIGN_LANG_GLOSS = {
       bsl: 'en', asl: 'en', dgs: 'en', lsf: 'fr',
-      lse: 'es', pjm: 'pl', gsl: 'en', rsl: 'ru',
+      lse: 'es', pjm: 'pl', gsl: 'el', rsl: 'ru',
       algerian: null, bangla: 'en', ngt: 'nl', fsl: null,
       isl: 'en', kurdish: 'ku', vsl: 'en'
     };
@@ -1366,7 +1366,7 @@
 
     function currentAllowed(){ return Array.from(glossToSign.keys()).sort(); }
 
-    async function doPlan(mode) {
+    async function doPlan(mode, wasTranslated) {
       const raw0 = textIn.value.trim();
       if (!raw0) { log('Empty text.'); return; }
       const allowed = currentAllowed();
@@ -1374,6 +1374,7 @@
       const { text: raw, count: abCount } = replaceAbbreviationsBrowser(raw0);
       if (abbrevCountOut) abbrevCountOut.value = String(abCount);
       if (timeframeOut) timeframeOut.value = timeframeGuess(raw);
+      const fuzzyCutoff = wasTranslated ? 1.0 : 0.82;
       let mapped = null, subs = {}, missing = [];
       const rawTokens = raw.split(/\s+/).map(s => s.toLowerCase()).filter(Boolean);
       if (rawTokens.length && rawTokens.every(t => allowed.includes(t))) {
@@ -1398,7 +1399,7 @@
           const backend = await planWithSpaCyBackend(raw);
           if (backend.error) { log('Backend unavailable — using local processing'); throw new Error(backend.error); }
           const backendTokens = String(backend.final||'').replace(/[.\n]/g,' ').split(/\s+/).filter(Boolean);
-          const m = mapToAvailable(backendTokens, allowed, 0.82);
+          const m = mapToAvailable(backendTokens, allowed, fuzzyCutoff);
           const displayTokens = m.mapped.length ? m.mapped : backendTokens;
           if (normalizedOut) normalizedOut.value = backendTokens.join(' ');
           if (planLog){ const lines = ['spacy-backend']; if (Object.keys(m.subs).length) lines.push('subs: '+JSON.stringify(m.subs)); if (m.fingerspelled?.length) lines.push('fingerspelled: '+m.fingerspelled.join(', ')); if (m.missing.length) lines.push('missing: '+m.missing.join(', ')); planLog.textContent = lines.join('\n'); }
@@ -1412,7 +1413,7 @@
       }
       if (!mapped?.length && eduNlpToggle.checked) {
         const eduTokens = await processEducationalText(raw);
-        const mEdu = mapToAvailable(eduTokens, allowed, 0.82);
+        const mEdu = mapToAvailable(eduTokens, allowed, fuzzyCutoff);
         mapped = mEdu.mapped; subs = mEdu.subs; missing = mEdu.missing;
         if (normalizedOut) normalizedOut.value = eduTokens.join(' ');
         if (planLog){ const lines = ['edu-nlp']; if (Object.keys(subs).length) lines.push('subs: '+JSON.stringify(subs)); if (mEdu.fingerspelled?.length) lines.push('fingerspelled: '+mEdu.fingerspelled.join(', ')); if (missing.length) lines.push('missing: '+missing.join(', ')); planLog.textContent = lines.join('\n'); }
@@ -1420,7 +1421,7 @@
       if (!mapped?.length) {
         const norm = normalizeText(raw);
         const heur = heuristicPlan(norm);
-        const mHeur = mapToAvailable(heur, allowed, 0.82);
+        const mHeur = mapToAvailable(heur, allowed, fuzzyCutoff);
         mapped = mHeur.mapped; subs = mHeur.subs; missing = mHeur.missing;
         if (normalizedOut) normalizedOut.value = norm.join(' ');
         if (planLog){ const lines = []; if (heur.length) lines.push('heuristic: '+heur.join(' ')); if (Object.keys(subs).length) lines.push('subs: '+JSON.stringify(subs)); if (mHeur.fingerspelled?.length) lines.push('fingerspelled: '+mHeur.fingerspelled.join(', ')); if (missing.length) lines.push('missing: '+missing.join(', ')); planLog.textContent = lines.length ? lines.join('\n') : 'planned'; }
@@ -1522,7 +1523,7 @@
           renderStatus.className = 'status-badge';
         }
         textIn.value = translated;
-        await doPlan('spacy');
+        await doPlan('spacy', translationExpected);
         const toks = window.__plannedTokens || [];
         if (!toks.length) { renderStatus.textContent = 'No matching signs found.'; renderStatus.className = 'status-badge'; return; }
         const sigml = buildSigml(toks);
@@ -1685,7 +1686,7 @@
         }
         videoStatus.textContent = 'Planning…';
         textIn.value = translated;
-        await doPlan('spacy');
+        await doPlan('spacy', vidTranslationExpected);
         videoStatus.textContent = 'Ready to render ✓'; videoStatus.className = 'status-badge ready';
       }catch(e){ videoStatus.textContent = 'Could not process video'; videoStatus.className = 'status-badge'; }
     });
