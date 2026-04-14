@@ -150,15 +150,11 @@ If you're unsure where to start, check the open issues or reach out to the maint
 
 ## Credits
 
-- [CWASA](https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/) — 3D signing avatar engine by the Virtual Humans Group, University of East Anglia
-- [DictaSign](https://www.sign-lang.uni-hamburg.de/dicta-sign/portal/) — BSL sign language database and HamNoSys mappings, University of Hamburg
-- [HamNoSys](https://www.sign-lang.uni-hamburg.de/dgs-korpus/files/inhalt_pdf/HamNoSys_2018.pdf) — Hamburg Notation System for sign language transcription
-- [spaCy](https://spacy.io) — NLP pipeline and language models by Explosion
-- [Argos Translate](https://github.com/argosopentech/argos-translate) — open-source machine translation
-- [Xenova/transformers.js](https://github.com/xenova/transformers.js) — in-browser ML inference (used for Whisper ASR)
-- [OpenAI Whisper](https://github.com/openai/whisper) — speech recognition models (via transformers.js)
-- [FastAPI](https://fastapi.tiangolo.com) — Python web framework
-- [compromise](https://github.com/spencermountain/compromise) — client-side NLP (educational mode)
+This project uses data and tools from the following sources. Those marked with * have license terms that require attribution.
+
+- **[CWASA](https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/)** * — 3D signing avatar engine by the [Virtual Humans Group](https://vhg.cmp.uea.ac.uk/), University of East Anglia. Used under [CC BY-ND](https://vh.cmp.uea.ac.uk/index.php/CWASA_Conditions_of_Use).
+- **[DictaSign Corpus](https://www.sign-lang.uni-hamburg.de/dicta-sign/portal/)** * — Sign language database with HamNoSys transcriptions by the [Institute of German Sign Language](https://www.sign-lang.uni-hamburg.de/), Universitat Hamburg. Used under [CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/).
+- **[HamNoSys](https://www.sign-lang.uni-hamburg.de/dgs-korpus/files/inhalt_pdf/HamNoSys_2018.pdf)** * — Hamburg Notation System for sign language phonetic transcription, Universitat Hamburg. Used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
 ## Team
 
