@@ -157,10 +157,15 @@ If you're unsure where to start, check the open issues or reach out to the maint
 - **[HamNoSys](https://www.sign-lang.uni-hamburg.de/dgs-korpus/files/inhalt_pdf/HamNoSys_2018.pdf)** — Hamburg Notation System for sign language transcription by the [Institute of German Sign Language](https://www.sign-lang.uni-hamburg.de/), Universitat Hamburg ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/))
 
 ### Sign Language Databases
-- **BSL, DGS, LSF, GSL** — [DictaSign Corpus](https://www.sign-lang.uni-hamburg.de/dicta-sign/portal/), Universitat Hamburg. DictaSign was an EU FP7-funded project (2009–2012) with partners including LIMSI-CNRS (France) and Aristotle University of Thessaloniki (Greece) ([CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/))
-- **PJM** (Polish) — derived from DictaSign-adjacent Hamburg corpus work
-- **NGT** (Dutch) — derived from DictaSign-adjacent Hamburg corpus work
-- **Algerian, Bangla, Indian, Kurdish, Vietnamese, Filipino SL** — compiled from publicly available SiGML research datasets using the JASigning/CWASA pipeline format
+- **BSL** — [DictaSign Corpus](https://www.sign-lang.uni-hamburg.de/dicta-sign/portal/), Universitat Hamburg ([CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/))
+- **DGS, PJM, GSL, LSF** — [SignAvatars](https://github.com/ZhengdiYu/SignAvatars) by Zhengdi Yu et al., which credits [DGS Lexicon](https://www.sign-lang.uni-hamburg.de/) (Universitat Hamburg), [PJM Dictionary](https://slownikpjm.uw.edu.pl/) (University of Warsaw), and [DictaSign](https://www.sign-lang.uni-hamburg.de/dicta-sign/portal/) (GSL/LSF)
+- **NGT** (Dutch) — [SignLanguageSynthesis](https://github.com/LykeEsselink/SignLanguageSynthesis) by Lyke Esselink
+- **Algerian SL** — [algerianSignLanguage-avatar](https://github.com/linuxscout/algerianSignLanguage-avatar) by Taha Zerrouki
+- **Bangla SL** — [bdsl-3d-animation](https://gitlab.com/devarifkhan/bdsl-3d-animation) by Devr Arif Khan
+- **Indian SL** — [Text-to-Sign-Language](https://github.com/human-divanshu/Text-to-Sign-Language) by Divanshu, [text_to_isl](https://github.com/shoebham/text_to_isl) by Shoebham
+- **Kurdish SL** — [KurdishSignLanguage](https://github.com/KurdishBLARK/KurdishSignLanguage) by KurdishBLARK
+- **Vietnamese SL** — [VSL](https://github.com/raianrido/VSL) by Raian Rido
+- **Filipino SL** — [syntheticfsl](https://github.com/jennieablog/syntheticfsl) and [signtyper](https://github.com/jennieablog/signtyper) by Jennie Ablog
 
 ## Team
 
