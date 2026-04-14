@@ -2,6 +2,28 @@ var API_BASE = "https://kozha-translate.com";
 var CACHE_TTL_MS = 24 * 60 * 60 * 1000;
 var FETCH_TIMEOUT_MS = 30000;
 
+chrome.runtime.onInstalled.addListener(function() {
+  chrome.contextMenus.create({
+    id: "kozha-sign-selection",
+    title: "Sign this text",
+    contexts: ["selection"]
+  });
+});
+
+chrome.contextMenus.onClicked.addListener(function(info, tab) {
+  if (info.menuItemId === "kozha-sign-selection" && info.selectionText) {
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      files: ["content-universal.js"]
+    }).then(function() {
+      chrome.tabs.sendMessage(tab.id, {
+        type: "sign_selection",
+        text: info.selectionText
+      });
+    });
+  }
+});
+
 function getCacheKey(videoId) {
   return "transcript_" + videoId;
 }

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=400" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div id="popup-header">
+    <span id="popup-title">Kozha</span>
+  </div>
+
+  <div id="popup-body">
+    <textarea id="popup-input" rows="4" placeholder="Type or paste text to sign..."></textarea>
+
+    <div id="popup-selects">
+      <div class="select-group">
+        <label for="popup-input-lang">Input</label>
+        <select id="popup-input-lang">
+          <option value="en" selected>English</option>
+          <option value="fr">French</option>
+          <option value="de">German</option>
+          <option value="es">Spanish</option>
+          <option value="pt">Portuguese</option>
+          <option value="it">Italian</option>
+          <option value="nl">Dutch</option>
+          <option value="pl">Polish</option>
+          <option value="ru">Russian</option>
+          <option value="zh">Chinese</option>
+          <option value="ja">Japanese</option>
+          <option value="ko">Korean</option>
+          <option value="ar">Arabic</option>
+          <option value="hi">Hindi</option>
+          <option value="tr">Turkish</option>
+          <option value="vi">Vietnamese</option>
+        </select>
+      </div>
+      <div class="select-group">
+        <label for="popup-sign-lang">Sign</label>
+        <select id="popup-sign-lang">
+          <option value="bsl" selected>BSL</option>
+          <option value="asl">ASL</option>
+          <option value="dgs">DGS (German)</option>
+          <option value="lsf">LSF (French)</option>
+          <option value="pjm">PJM (Polish)</option>
+          <option value="gsl">GSL (Greek)</option>
+          <option value="ngt">NGT (Dutch)</option>
+          <option value="algerian">Algerian SL</option>
+          <option value="bangla">Bangla SL</option>
+          <option value="fsl">Filipino SL</option>
+          <option value="isl">Indian SL</option>
+          <option value="kurdish">Kurdish SL</option>
+          <option value="vsl">Vietnamese SL</option>
+        </select>
+      </div>
+    </div>
+
+    <button id="popup-sign-btn">Sign</button>
+
+    <div id="popup-avatar-wrap">
+      <iframe id="popup-avatar-frame" src="panel.html"></iframe>
+    </div>
+
+    <div id="popup-status">Ready</div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
