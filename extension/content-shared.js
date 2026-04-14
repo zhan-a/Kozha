@@ -8,6 +8,7 @@ if (!window.Kozha) {
     playbackSpeed: 1.0,
     _settingsOpen: false,
     _trackedDocListeners: [],
+    _storageLoaded: false,
 
     SIGN_LANG_LABELS: {
       bsl: "BSL", asl: "ASL", dgs: "DGS (German)", lsf: "LSF (French)",
@@ -191,6 +192,7 @@ if (!window.Kozha) {
       });
       langSelect.addEventListener("change", function() {
         Kozha.currentSignLang = langSelect.value;
+        chrome.storage.local.set({ kozha_sign_lang: langSelect.value });
         if (Kozha.panelIframe && Kozha.panelIframe.contentWindow) {
           Kozha.panelIframe.contentWindow.postMessage(
             { type: "switch_language", lang: Kozha.currentSignLang }, "*"
@@ -323,5 +325,12 @@ if (!window.Kozha) {
 
   window.addEventListener("resize", function() {
     Kozha.repositionPanel();
+  });
+
+  chrome.storage.local.get("kozha_sign_lang", function(stored) {
+    if (stored.kozha_sign_lang) {
+      Kozha.currentSignLang = stored.kozha_sign_lang;
+    }
+    Kozha._storageLoaded = true;
   });
 }

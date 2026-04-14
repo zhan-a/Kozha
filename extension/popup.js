@@ -10,9 +10,9 @@ var statusEl = document.getElementById("popup-status");
 var avatarReady = false;
 var dbReady = false;
 
-chrome.storage.local.get(["popup_input_lang", "popup_sign_lang"], function(stored) {
+chrome.storage.local.get(["popup_input_lang", "kozha_sign_lang"], function(stored) {
   if (stored.popup_input_lang) inputLangEl.value = stored.popup_input_lang;
-  if (stored.popup_sign_lang) signLangEl.value = stored.popup_sign_lang;
+  if (stored.kozha_sign_lang) signLangEl.value = stored.kozha_sign_lang;
 });
 
 inputLangEl.addEventListener("change", function() {
@@ -20,7 +20,7 @@ inputLangEl.addEventListener("change", function() {
 });
 
 signLangEl.addEventListener("change", function() {
-  chrome.storage.local.set({ popup_sign_lang: signLangEl.value });
+  chrome.storage.local.set({ kozha_sign_lang: signLangEl.value });
   dbReady = false;
   statusEl.textContent = "Loading sign language...";
   avatarFrame.contentWindow.postMessage({
