@@ -38,14 +38,14 @@ The backend supports native NLP processing in 7 languages via dedicated spaCy mo
 | Dutch | `nl_core_news_sm` |
 | Greek | `el_core_news_sm` |
 
-Languages without a dedicated spaCy model are handled via client-side translation (OPUS-MT) to the sign language's base language before NLP processing. Models are loaded on demand with an LRU cache (max 4 concurrent).
+Languages without a dedicated spaCy model are handled via server-side translation (Argos Translate) to the sign language's base language before NLP processing. Models are loaded on demand with an LRU cache (max 4 concurrent).
 
 ## Tech Stack
 
 | Layer | Technology |
 |---|---|
 | NLP | spaCy (7 language models) |
-| Translation | OPUS-MT (client-side, via Transformers.js) |
+| Translation | Argos Translate (server-side) |
 | Sign notation | HamNoSys |
 | Markup | SiGML (XML) |
 | 3D rendering | CWASA avatar |
@@ -147,6 +147,18 @@ Contributions are welcome. To get started:
 4. Open a pull request describing what you changed and why.
 
 If you're unsure where to start, check the open issues or reach out to the maintainers.
+
+## Credits
+
+- [CWASA](https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/) — 3D signing avatar engine by the Virtual Humans Group, University of East Anglia
+- [DictaSign](https://www.sign-lang.uni-hamburg.de/dicta-sign/portal/) — BSL sign language database and HamNoSys mappings, University of Hamburg
+- [HamNoSys](https://www.sign-lang.uni-hamburg.de/dgs-korpus/files/inhalt_pdf/HamNoSys_2018.pdf) — Hamburg Notation System for sign language transcription
+- [spaCy](https://spacy.io) — NLP pipeline and language models by Explosion
+- [Argos Translate](https://github.com/argosopentech/argos-translate) — open-source machine translation
+- [Xenova/transformers.js](https://github.com/xenova/transformers.js) — in-browser ML inference (used for Whisper ASR)
+- [OpenAI Whisper](https://github.com/openai/whisper) — speech recognition models (via transformers.js)
+- [FastAPI](https://fastapi.tiangolo.com) — Python web framework
+- [compromise](https://github.com/spencermountain/compromise) — client-side NLP (educational mode)
 
 ## Team
 
