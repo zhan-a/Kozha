@@ -150,11 +150,17 @@ If you're unsure where to start, check the open issues or reach out to the maint
 
 ## Credits
 
-This project uses data and tools from the following sources. Those marked with * have license terms that require attribution.
+### Avatar & Rendering
+- **[CWASA](https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/)** — 3D signing avatar engine by the [Virtual Humans Group](https://vhg.cmp.uea.ac.uk/), University of East Anglia ([CC BY-ND](https://vh.cmp.uea.ac.uk/index.php/CWASA_Conditions_of_Use))
 
-- **[CWASA](https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/)** * — 3D signing avatar engine by the [Virtual Humans Group](https://vhg.cmp.uea.ac.uk/), University of East Anglia. Used under [CC BY-ND](https://vh.cmp.uea.ac.uk/index.php/CWASA_Conditions_of_Use).
-- **[DictaSign Corpus](https://www.sign-lang.uni-hamburg.de/dicta-sign/portal/)** * — Sign language database with HamNoSys transcriptions by the [Institute of German Sign Language](https://www.sign-lang.uni-hamburg.de/), Universitat Hamburg. Used under [CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/).
-- **[HamNoSys](https://www.sign-lang.uni-hamburg.de/dgs-korpus/files/inhalt_pdf/HamNoSys_2018.pdf)** * — Hamburg Notation System for sign language phonetic transcription, Universitat Hamburg. Used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+### Notation System
+- **[HamNoSys](https://www.sign-lang.uni-hamburg.de/dgs-korpus/files/inhalt_pdf/HamNoSys_2018.pdf)** — Hamburg Notation System for sign language transcription by the [Institute of German Sign Language](https://www.sign-lang.uni-hamburg.de/), Universitat Hamburg ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/))
+
+### Sign Language Databases
+- **BSL, DGS, LSF, GSL** — [DictaSign Corpus](https://www.sign-lang.uni-hamburg.de/dicta-sign/portal/), Universitat Hamburg. DictaSign was an EU FP7-funded project (2009–2012) with partners including LIMSI-CNRS (France) and Aristotle University of Thessaloniki (Greece) ([CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/))
+- **PJM** (Polish) — derived from DictaSign-adjacent Hamburg corpus work
+- **NGT** (Dutch) — derived from DictaSign-adjacent Hamburg corpus work
+- **Algerian, Bangla, Indian, Kurdish, Vietnamese, Filipino SL** — compiled from publicly available SiGML research datasets using the JASigning/CWASA pipeline format
 
 ## Team
 
