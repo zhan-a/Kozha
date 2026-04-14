@@ -17,10 +17,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script defer src="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/allcsa.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script defer src="/cwa/allcsa.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <link rel="preload" href="/data/hamnosys_bsl_version1.sigml" as="fetch" crossorigin>
-  <link rel="preload" href="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/cwasa.css" as="style" crossorigin="anonymous">
+  <link rel="preload" href="/cwa/cwasa.css" as="style" crossorigin="anonymous">
 
   <style>
     :root {
@@ -1284,8 +1284,22 @@
     let _pipeline = null;
     async function getPipeline() {
       if (_pipeline) return _pipeline;
-      const mod = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2');
-      _pipeline = mod.pipeline;
+      try {
+        const mod = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2');
+        _pipeline = mod.pipeline;
+      } catch (e) {
+        log('ESM import failed (' + e.message + '), trying script tag fallback…');
+        await new Promise((resolve, reject) => {
+          const s = document.createElement('script');
+          s.src = 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2/dist/transformers.min.js';
+          s.onload = resolve;
+          s.onerror = reject;
+          document.head.appendChild(s);
+        });
+        const g = window.__webpack_exports__ || window;
+        _pipeline = g.pipeline || g.__webpack_exports__pipeline;
+        if (!_pipeline) throw new Error('Could not load transformers.js');
+      }
       return _pipeline;
     }
 
