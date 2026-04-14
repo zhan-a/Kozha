@@ -9,8 +9,37 @@ from collections import OrderedDict
 from threading import Lock
 import json
 import re
+import logging
 import spacy
 from spacy.matcher import PhraseMatcher
+
+logger = logging.getLogger(__name__)
+
+_argos_ready = False
+def _ensure_argos():
+    global _argos_ready
+    if _argos_ready:
+        return
+    try:
+        from argostranslate import package
+        package.update_package_index()
+        available = package.get_available_packages()
+        installed_codes = {(p.from_code, p.to_code) for p in package.get_installed_packages()}
+        langs = ["en", "fr", "de", "es", "pl", "nl", "el", "ru", "ar"]
+        for src in langs:
+            for tgt in langs:
+                if src == tgt:
+                    continue
+                if (src, tgt) in installed_codes:
+                    continue
+                pkg = next((p for p in available if p.from_code == src and p.to_code == tgt), None)
+                if pkg:
+                    logger.info("Installing argos translation package: %s → %s", src, tgt)
+                    pkg.install()
+        _argos_ready = True
+    except Exception as e:
+        logger.warning("Could not initialize argostranslate: %s", e)
+        _argos_ready = True
 
 class TextRequest(BaseModel):
     text: str
@@ -540,6 +569,11 @@ def plan_from_text(text: str, language: str = "en", sign_language: str = "bsl") 
     rewritten = process_text(text, language, sign_language)
     return {"allowed": [], "raw": text, "final": rewritten, "language": language, "sign_language": sign_language}
 
+class TranslateTextRequest(BaseModel):
+    text: str
+    source_lang: str
+    target_lang: str
+
 class TranslateRequest(BaseModel):
     text: str
     source_lang: str = "en"
@@ -565,6 +599,20 @@ def text_to_glosses(text: str, source_lang: str = "en") -> list:
 @app.get("/api/health")
 def health():
     return {"ok": True}
+
+@app.post("/api/translate-text")
+def api_translate_text(req: TranslateTextRequest):
+    text = (req.text or "").strip()
+    if not text or req.source_lang == req.target_lang:
+        return {"translated": text}
+    try:
+        _ensure_argos()
+        from argostranslate import translate
+        result = translate.translate(text, req.source_lang, req.target_lang)
+        return {"translated": result}
+    except Exception as e:
+        logger.error("Translation error: %s", e)
+        return {"translated": text, "error": str(e)}
 
 @app.post("/api/translate")
 def api_translate(req: TranslateRequest):
