@@ -1,6 +1,20 @@
 var MAX_SELECTION_LENGTH = 10000;
 var _kozhaSigningAbort = null;
 
+function detectLanguage(element) {
+  if (element) {
+    var el = element;
+    while (el && el !== document) {
+      var lang = el.getAttribute && el.getAttribute("lang");
+      if (lang) return lang.split("-")[0].toLowerCase();
+      el = el.parentElement;
+    }
+  }
+  var pageLang = document.documentElement.getAttribute("lang");
+  if (pageLang) return pageLang.split("-")[0].toLowerCase();
+  return null;
+}
+
 var _readerState = {
   active: false,
   paused: false,
@@ -62,16 +76,18 @@ function updatePauseButton() {
   if (btn) btn.textContent = _readerState.paused ? "Resume" : "Pause";
 }
 
-function signSegmentAndWait(text) {
+function signSegmentAndWait(text, element) {
   return new Promise(function(resolve) {
     if (_kozhaSigningAbort) _kozhaSigningAbort.aborted = true;
     var session = { aborted: false };
     _kozhaSigningAbort = session;
 
+    var lang = detectLanguage(element) || "en";
+
     Kozha.stopAvatar();
 
     chrome.runtime.sendMessage(
-      { type: "translate", text: text, source_lang: "en" },
+      { type: "translate", text: text, source_lang: lang },
       function(resp) {
         if (session.aborted || _readerState.stopRequested) { resolve(); return; }
 
@@ -137,7 +153,7 @@ async function readPage() {
     Kozha.setSubtitle(displayText);
     Kozha.setStatus("Signing " + (i + 1) + "/" + total);
 
-    await signSegmentAndWait(segments[i].text);
+    await signSegmentAndWait(segments[i].text, segments[i].element);
 
     if (_readerState.stopRequested) break;
 
@@ -192,7 +208,7 @@ function stopPageReader() {
   Kozha.setSubtitle("");
 }
 
-function signText(text) {
+function signText(text, sourceLang) {
   if (!text || !text.trim()) {
     Kozha.injectPanel();
     Kozha.showPanel();
@@ -211,6 +227,8 @@ function signText(text) {
   var session = { aborted: false };
   _kozhaSigningAbort = session;
 
+  var lang = sourceLang || detectLanguage(window.getSelection().anchorNode) || "en";
+
   Kozha.stopAvatar();
   Kozha.injectPanel();
   Kozha.showPanel();
@@ -218,7 +236,7 @@ function signText(text) {
   Kozha.setStatus("Translating...");
 
   chrome.runtime.sendMessage(
-    { type: "translate", text: text, source_lang: "en" },
+    { type: "translate", text: text, source_lang: lang },
     function(resp) {
       if (session.aborted) return;
 

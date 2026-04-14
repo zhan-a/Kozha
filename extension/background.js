@@ -25,6 +25,9 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
         type: "sign_selection",
         text: info.selectionText
       });
+    }).catch(function() {
+      chrome.storage.local.set({ kozha_pending_text: info.selectionText });
+      chrome.action.openPopup();
     });
   }
 });

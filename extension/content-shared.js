@@ -170,6 +170,7 @@ if (!window.Kozha) {
       closeBtn.textContent = "\u00D7";
       closeBtn.addEventListener("click", function(e) {
         e.stopPropagation();
+        Kozha.stopAvatar();
         panel.style.display = "none";
         var toggle = document.getElementById("kozha-toggle");
         if (toggle) toggle.style.display = "block";
@@ -253,6 +254,11 @@ if (!window.Kozha) {
       iframe.id = "kozha-avatar-frame";
       iframe.src = chrome.runtime.getURL("panel.html");
       iframe.allow = "autoplay";
+      iframe.addEventListener("load", function() {
+        if (iframe.contentWindow) {
+          iframe.contentWindow.postMessage({ type: "init_cwasa" }, "*");
+        }
+      });
       Kozha.panelIframe = iframe;
 
       var subtitle = document.createElement("div");

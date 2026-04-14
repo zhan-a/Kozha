@@ -16,8 +16,6 @@
   <div class="CWASAAvatar av0"></div>
   <div class="CWASAGUI av0" style="display:none"></div>
 
-  <script src="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/allcsa.js"
-          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
     var glossToSign = new Map();
     var letterToSign = new Map();
@@ -25,6 +23,32 @@
     var dbLoaded = false;
     var currentLang = "bsl";
     var playbackSpeed = 1.0;
+    var cwasaLoading = false;
+    var cwasaScriptLoaded = false;
+    var pendingAction = null;
+
+    function loadCwasaScript(callback) {
+      if (cwasaScriptLoaded) { callback(); return; }
+      if (cwasaLoading) { pendingAction = callback; return; }
+      cwasaLoading = true;
+      var s = document.createElement("script");
+      s.src = "https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/allcsa.js";
+      s.crossOrigin = "anonymous";
+      s.referrerPolicy = "no-referrer";
+      s.onload = function() {
+        cwasaScriptLoaded = true;
+        cwasaLoading = false;
+        callback();
+        if (pendingAction) { pendingAction(); pendingAction = null; }
+      };
+      s.onerror = function() {
+        cwasaLoading = false;
+        window.parent.postMessage({ type: "cwasa_failed" }, "*");
+        loadDatabase();
+        if (pendingAction) { pendingAction(); pendingAction = null; }
+      };
+      document.head.appendChild(s);
+    }
 
     var SIGN_LANG_DB = {
       bsl:      { sigml: ['/data/hamnosys_bsl_version1.sigml'], csv: '/data/hamnosys_bsl.csv', alphabet: '/data/bsl_alphabet_sigml.sigml' },
@@ -231,58 +255,66 @@
       playSignQueue();
     }
 
-    window.addEventListener("load", function() {
-      if (typeof CWASA === "undefined") {
-        window.parent.postMessage({ type: "cwasa_failed" }, "*");
-        loadDatabase();
-        return;
-      }
-
-      setTimeout(function() {
-        try {
-          CWASA.init({
-            useClientConfig: false,
-            useCwaConfig: true,
-            avSettings: [{
-              width: 260,
-              height: 220,
-              avList: "avs",
-              initAv: "luna",
-              ambIdle: true,
-              allowFrameSteps: false,
-              allowSiGMLText: false,
-            }],
-          });
-
-          CWASA.ready.then(function() {
-            cwasaAvailable = true;
-            window.parent.postMessage({ type: "cwasa_ready" }, "*");
-            loadDatabase();
-
-            var canvas = document.querySelector("canvas");
-            if (canvas) {
-              canvas.addEventListener("webglcontextlost", function(e) {
-                e.preventDefault();
-                cwasaAvailable = false;
-                window.parent.postMessage({ type: "cwasa_failed" }, "*");
-              });
-              canvas.addEventListener("webglcontextrestored", function() {
-                cwasaAvailable = true;
-                window.parent.postMessage({ type: "cwasa_ready" }, "*");
-              });
-            }
-          });
-        } catch(err) {
+    function initCwasa() {
+      loadCwasaScript(function() {
+        if (typeof CWASA === "undefined") {
           window.parent.postMessage({ type: "cwasa_failed" }, "*");
           loadDatabase();
+          return;
         }
-      }, 150);
-    });
+
+        setTimeout(function() {
+          try {
+            CWASA.init({
+              useClientConfig: false,
+              useCwaConfig: true,
+              avSettings: [{
+                width: 260,
+                height: 220,
+                avList: "avs",
+                initAv: "luna",
+                ambIdle: true,
+                allowFrameSteps: false,
+                allowSiGMLText: false,
+              }],
+            });
+
+            CWASA.ready.then(function() {
+              cwasaAvailable = true;
+              window.parent.postMessage({ type: "cwasa_ready" }, "*");
+              loadDatabase();
+
+              var canvas = document.querySelector("canvas");
+              if (canvas) {
+                canvas.addEventListener("webglcontextlost", function(e) {
+                  e.preventDefault();
+                  cwasaAvailable = false;
+                  window.parent.postMessage({ type: "cwasa_failed" }, "*");
+                });
+                canvas.addEventListener("webglcontextrestored", function() {
+                  cwasaAvailable = true;
+                  window.parent.postMessage({ type: "cwasa_ready" }, "*");
+                });
+              }
+            });
+          } catch(err) {
+            window.parent.postMessage({ type: "cwasa_failed" }, "*");
+            loadDatabase();
+          }
+        }, 150);
+      });
+    }
+
+    var cwasaInitStarted = false;
 
     window.addEventListener("message", function(e) {
       if (!e.data || !e.data.type) return;
 
       if (e.data.type === "play_glosses") {
+        if (!cwasaInitStarted) {
+          cwasaInitStarted = true;
+          initCwasa();
+        }
         if (cwasaAvailable) {
           try { CWASA.stop(0); } catch(err) {}
           signQueue = [];
@@ -309,8 +341,19 @@
       }
 
       if (e.data.type === "switch_language") {
+        if (!cwasaInitStarted) {
+          cwasaInitStarted = true;
+          initCwasa();
+        }
         currentLang = e.data.lang;
         loadDatabase(e.data.lang);
+      }
+
+      if (e.data.type === "init_cwasa") {
+        if (!cwasaInitStarted) {
+          cwasaInitStarted = true;
+          initCwasa();
+        }
       }
 
       if (e.data.type === "set_speed") {

@@ -9,10 +9,21 @@ var statusEl = document.getElementById("popup-status");
 
 var avatarReady = false;
 var dbReady = false;
+var cwasaFailed = false;
 
-chrome.storage.local.get(["popup_input_lang", "kozha_sign_lang"], function(stored) {
+chrome.storage.local.get(["popup_input_lang", "kozha_sign_lang", "kozha_last_input", "kozha_pending_text"], function(stored) {
   if (stored.popup_input_lang) inputLangEl.value = stored.popup_input_lang;
   if (stored.kozha_sign_lang) signLangEl.value = stored.kozha_sign_lang;
+  if (stored.kozha_pending_text) {
+    inputEl.value = stored.kozha_pending_text;
+    chrome.storage.local.remove("kozha_pending_text");
+  } else if (stored.kozha_last_input) {
+    inputEl.value = stored.kozha_last_input;
+  }
+});
+
+inputEl.addEventListener("input", function() {
+  chrome.storage.local.set({ kozha_last_input: inputEl.value });
 });
 
 inputLangEl.addEventListener("change", function() {
@@ -39,7 +50,16 @@ window.addEventListener("message", function(e) {
 
   if (e.data.type === "cwasa_failed") {
     avatarReady = false;
-    statusEl.textContent = "Avatar unavailable — text mode";
+    cwasaFailed = true;
+    avatarFrame.style.display = "none";
+    var glossArea = document.getElementById("popup-gloss-text");
+    if (!glossArea) {
+      glossArea = document.createElement("div");
+      glossArea.id = "popup-gloss-text";
+      glossArea.style.cssText = "padding:10px;font-size:15px;font-weight:600;color:#e8843e;background:#000;min-height:50px;text-align:center;line-height:1.6;word-spacing:4px;border-radius:6px;";
+      avatarFrame.parentNode.appendChild(glossArea);
+    }
+    statusEl.textContent = "Text mode";
   }
 
   if (e.data.type === "db_ready") {
@@ -63,7 +83,10 @@ signBtn.addEventListener("click", function() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text: finalText })
     })
-      .then(function(r) { return r.json(); })
+      .then(function(r) {
+        if (!r.ok) throw new Error("Server error: " + r.status);
+        return r.json();
+      })
       .then(function(data) {
         var glosses = data.glosses || data.plan || [];
         if (glosses.length === 0) {
@@ -71,15 +94,26 @@ signBtn.addEventListener("click", function() {
           signBtn.disabled = false;
           return;
         }
-        avatarFrame.contentWindow.postMessage({
-          type: "play_glosses",
-          glosses: glosses
-        }, "*");
-        statusEl.textContent = "Signing...";
+        if (cwasaFailed) {
+          var glossArea = document.getElementById("popup-gloss-text");
+          if (glossArea) glossArea.textContent = glosses.join(" ");
+          statusEl.textContent = "Text mode";
+        } else {
+          avatarFrame.contentWindow.postMessage({
+            type: "play_glosses",
+            glosses: glosses
+          }, "*");
+          statusEl.textContent = "Signing...";
+        }
         signBtn.disabled = false;
       })
       .catch(function(err) {
-        statusEl.textContent = "Error: " + err.message;
+        var msg = err.message;
+        if (msg === "Failed to fetch" || msg.indexOf("NetworkError") >= 0) {
+          statusEl.textContent = "Cannot reach server — check connection";
+        } else {
+          statusEl.textContent = "Error: " + msg;
+        }
         signBtn.disabled = false;
       });
   }
@@ -92,10 +126,20 @@ signBtn.addEventListener("click", function() {
       text: text,
       source_lang: inputLang
     }, function(resp) {
+      if (chrome.runtime.lastError) {
+        statusEl.textContent = "Cannot reach server — check connection";
+        signBtn.disabled = false;
+        return;
+      }
       if (resp && resp.ok && resp.data && resp.data.translated) {
         sendToPlan(resp.data.translated);
       } else {
-        statusEl.textContent = "Translation failed";
+        var errMsg = (resp && resp.error) || "Translation failed";
+        if (errMsg === "Failed to fetch" || errMsg === "Request timed out") {
+          statusEl.textContent = "Cannot reach server — check connection";
+        } else {
+          statusEl.textContent = "Translation failed";
+        }
         signBtn.disabled = false;
       }
     });
