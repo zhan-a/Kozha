@@ -12,9 +12,14 @@ chrome.runtime.onInstalled.addListener(function() {
 
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
   if (info.menuItemId === "kozha-sign-selection" && info.selectionText) {
-    chrome.scripting.executeScript({
+    chrome.scripting.insertCSS({
       target: { tabId: tab.id },
-      files: ["content-universal.js"]
+      files: ["panel.css"]
+    }).then(function() {
+      return chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        files: ["content-shared.js", "content-universal.js"]
+      });
     }).then(function() {
       chrome.tabs.sendMessage(tab.id, {
         type: "sign_selection",

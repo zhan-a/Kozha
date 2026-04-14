@@ -1,26 +1,11 @@
-let panelIframe = null;
 let translationCache = {};
 let currentSegmentIndex = -1;
 let segments = [];
-let avatarReady = false;
-let dbReady = false;
-let cwasaFailed = false;
 let videoListeners = [];
 let isAutoCaption = false;
-let currentSignLang = "bsl";
 let currentCaptionLang = "";
-let playbackSpeed = 1.0;
-let settingsOpen = false;
 let theaterObservers = [];
-let trackedDocListeners = [];
 let isWindowTranslating = false;
-
-var SIGN_LANG_LABELS = {
-  bsl: "BSL", asl: "ASL", dgs: "DGS (German)", lsf: "LSF (French)",
-  pjm: "PJM (Polish)", gsl: "GSL (Greek)", ngt: "NGT (Dutch)",
-  algerian: "Algerian SL", bangla: "Bangla SL", fsl: "Filipino SL",
-  isl: "Indian SL", kurdish: "Kurdish SL", vsl: "Vietnamese SL",
-};
 
 var SEGMENT_THRESHOLD = 200;
 var WINDOW_SIZE = 100;
@@ -186,14 +171,11 @@ function isOfflineError(msg) {
 }
 
 function setStatus(text) {
-  var el = document.getElementById("kozha-status-text");
-  if (el) el.textContent = text;
+  Kozha.setStatus(text);
   updateSegmentCounter();
 }
 
 function updateSegmentCounter() {
-  var el = document.getElementById("kozha-status-lang");
-  if (!el) return;
   var parts = [];
   if (currentCaptionLang) parts.push(currentCaptionLang.toUpperCase());
   if (segments.length > 0 && currentSegmentIndex >= 0) {
@@ -201,240 +183,7 @@ function updateSegmentCounter() {
   } else if (segments.length > 0) {
     parts.push(segments.length + " segs");
   }
-  el.textContent = parts.join(" \u00B7 ");
-}
-
-function setSubtitle(text) {
-  var el = document.getElementById("kozha-subtitle");
-  if (el) el.textContent = text;
-}
-
-function injectPanel() {
-  if (document.getElementById("kozha-panel")) return;
-
-  var panel = document.createElement("div");
-  panel.id = "kozha-panel";
-
-  var header = document.createElement("div");
-  header.id = "kozha-header";
-
-  var title = document.createElement("span");
-  title.id = "kozha-title";
-  title.textContent = "Kozha";
-
-  var controls = document.createElement("span");
-  controls.id = "kozha-controls";
-
-  var settingsBtn = document.createElement("button");
-  settingsBtn.id = "kozha-settings-btn";
-  settingsBtn.innerHTML = "&#9881;";
-  settingsBtn.addEventListener("click", function(e) {
-    e.stopPropagation();
-    settingsOpen = !settingsOpen;
-    var drawer = document.getElementById("kozha-settings-drawer");
-    if (drawer) {
-      drawer.classList.toggle("open", settingsOpen);
-    }
-    settingsBtn.classList.toggle("active", settingsOpen);
-  });
-
-  var minBtn = document.createElement("button");
-  minBtn.className = "kozha-ctrl-btn";
-  minBtn.textContent = "\u2013";
-  minBtn.addEventListener("click", function(e) {
-    e.stopPropagation();
-    var body = document.getElementById("kozha-panel-body");
-    body.style.display = body.style.display === "none" ? "flex" : "none";
-  });
-
-  var closeBtn = document.createElement("button");
-  closeBtn.className = "kozha-ctrl-btn";
-  closeBtn.textContent = "\u00D7";
-  closeBtn.addEventListener("click", function(e) {
-    e.stopPropagation();
-    panel.style.display = "none";
-    var toggle = document.getElementById("kozha-toggle");
-    if (toggle) toggle.style.display = "block";
-  });
-
-  controls.appendChild(settingsBtn);
-  controls.appendChild(minBtn);
-  controls.appendChild(closeBtn);
-  header.appendChild(title);
-  header.appendChild(controls);
-
-  var body = document.createElement("div");
-  body.id = "kozha-panel-body";
-
-  var settingsDrawer = document.createElement("div");
-  settingsDrawer.id = "kozha-settings-drawer";
-
-  var langRow = document.createElement("div");
-  langRow.className = "kozha-setting-row";
-  var langLabel = document.createElement("span");
-  langLabel.className = "kozha-setting-label";
-  langLabel.textContent = "Sign lang";
-  var langSelect = document.createElement("select");
-  langSelect.id = "kozha-lang-select";
-  Object.keys(SIGN_LANG_LABELS).forEach(function(key) {
-    var opt = document.createElement("option");
-    opt.value = key;
-    opt.textContent = SIGN_LANG_LABELS[key];
-    if (key === currentSignLang) opt.selected = true;
-    langSelect.appendChild(opt);
-  });
-  langSelect.addEventListener("change", function() {
-    currentSignLang = langSelect.value;
-    if (panelIframe && panelIframe.contentWindow) {
-      panelIframe.contentWindow.postMessage({ type: "switch_language", lang: currentSignLang }, "*");
-    }
-  });
-  langRow.appendChild(langLabel);
-  langRow.appendChild(langSelect);
-
-  var speedRow = document.createElement("div");
-  speedRow.className = "kozha-setting-row";
-  var speedLabel = document.createElement("span");
-  speedLabel.className = "kozha-setting-label";
-  speedLabel.textContent = "Speed";
-  var speedSelect = document.createElement("select");
-  speedSelect.id = "kozha-speed-select";
-  [
-    { value: "0.5", label: "0.5x" },
-    { value: "0.75", label: "0.75x" },
-    { value: "1", label: "1x" },
-    { value: "1.25", label: "1.25x" },
-    { value: "1.5", label: "1.5x" },
-    { value: "2", label: "2x" },
-  ].forEach(function(item) {
-    var opt = document.createElement("option");
-    opt.value = item.value;
-    opt.textContent = item.label;
-    if (parseFloat(item.value) === playbackSpeed) opt.selected = true;
-    speedSelect.appendChild(opt);
-  });
-  speedSelect.addEventListener("change", function() {
-    playbackSpeed = parseFloat(speedSelect.value);
-    if (panelIframe && panelIframe.contentWindow) {
-      panelIframe.contentWindow.postMessage({ type: "set_speed", speed: playbackSpeed }, "*");
-    }
-  });
-  speedRow.appendChild(speedLabel);
-  speedRow.appendChild(speedSelect);
-
-  settingsDrawer.appendChild(langRow);
-  settingsDrawer.appendChild(speedRow);
-
-  var iframe = document.createElement("iframe");
-  iframe.id = "kozha-avatar-frame";
-  iframe.src = chrome.runtime.getURL("panel.html");
-  iframe.allow = "autoplay";
-  panelIframe = iframe;
-
-  var subtitle = document.createElement("div");
-  subtitle.id = "kozha-subtitle";
-  subtitle.textContent = "Loading captions...";
-
-  var status = document.createElement("div");
-  status.id = "kozha-status";
-
-  var statusText = document.createElement("span");
-  statusText.id = "kozha-status-text";
-  statusText.textContent = "Initializing";
-
-  var statusLang = document.createElement("span");
-  statusLang.id = "kozha-status-lang";
-
-  status.appendChild(statusText);
-  status.appendChild(statusLang);
-
-  body.appendChild(settingsDrawer);
-  body.appendChild(iframe);
-  body.appendChild(subtitle);
-  body.appendChild(status);
-  panel.appendChild(header);
-  panel.appendChild(body);
-
-  var toggle = document.createElement("button");
-  toggle.id = "kozha-toggle";
-  toggle.textContent = "K";
-  toggle.style.display = "none";
-  toggle.addEventListener("click", function() {
-    panel.style.display = "block";
-    toggle.style.display = "none";
-  });
-
-  document.body.appendChild(panel);
-  document.body.appendChild(toggle);
-
-  makeDraggable(panel, header);
-}
-
-function clampToViewport(panel) {
-  var rect = panel.getBoundingClientRect();
-  var vw = window.innerWidth;
-  var vh = window.innerHeight;
-  var left = rect.left;
-  var top = rect.top;
-  var changed = false;
-
-  if (left < 0) { left = 0; changed = true; }
-  if (top < 0) { top = 0; changed = true; }
-  if (left + rect.width > vw) { left = vw - rect.width; changed = true; }
-  if (top + rect.height > vh) { top = vh - rect.height; changed = true; }
-
-  if (changed) {
-    panel.style.left = left + "px";
-    panel.style.top = top + "px";
-    panel.style.right = "auto";
-    panel.style.bottom = "auto";
-  }
-}
-
-function addDocListener(target, event, handler) {
-  target.addEventListener(event, handler);
-  trackedDocListeners.push({ target: target, event: event, handler: handler });
-}
-
-function removeDocListeners() {
-  trackedDocListeners.forEach(function(entry) {
-    entry.target.removeEventListener(entry.event, entry.handler);
-  });
-  trackedDocListeners = [];
-}
-
-function makeDraggable(panel, handle) {
-  var dragging = false;
-  var offsetX, offsetY;
-
-  handle.addEventListener("mousedown", function(e) {
-    if (e.button !== 0) return;
-    dragging = true;
-    offsetX = e.clientX - panel.getBoundingClientRect().left;
-    offsetY = e.clientY - panel.getBoundingClientRect().top;
-    e.preventDefault();
-  });
-
-  addDocListener(document, "mousemove", function(e) {
-    if (!dragging) return;
-    var vw = window.innerWidth;
-    var vh = window.innerHeight;
-    var rect = panel.getBoundingClientRect();
-    var newLeft = e.clientX - offsetX;
-    var newTop = e.clientY - offsetY;
-
-    newLeft = Math.max(0, Math.min(newLeft, vw - rect.width));
-    newTop = Math.max(0, Math.min(newTop, vh - rect.height));
-
-    panel.style.right = "auto";
-    panel.style.bottom = "auto";
-    panel.style.left = newLeft + "px";
-    panel.style.top = newTop + "px";
-  });
-
-  addDocListener(document, "mouseup", function() {
-    dragging = false;
-  });
+  Kozha.setStatusLang(parts.join(" \u00B7 "));
 }
 
 function findSegmentIndex(time) {
@@ -452,30 +201,6 @@ function findSegmentIndex(time) {
     }
   }
   return -1;
-}
-
-function sendToAvatar(glosses) {
-  if (cwasaFailed) {
-    showTextGlosses(glosses);
-    return;
-  }
-  if (panelIframe && panelIframe.contentWindow) {
-    panelIframe.contentWindow.postMessage(
-      { type: "play_glosses", glosses: glosses },
-      "*"
-    );
-  }
-}
-
-function showTextGlosses(glosses) {
-  var el = document.getElementById("kozha-gloss-text");
-  if (el) el.textContent = glosses.join(" ");
-}
-
-function stopAvatar() {
-  if (panelIframe && panelIframe.contentWindow) {
-    panelIframe.contentWindow.postMessage({ type: "stop" }, "*");
-  }
 }
 
 function addVideoListener(video, event, handler) {
@@ -503,26 +228,26 @@ function startVideoSync() {
     updateSegmentCounter();
 
     if (idx < 0) {
-      setSubtitle("");
+      Kozha.setSubtitle("");
       return;
     }
 
     var seg = segments[idx];
-    setSubtitle(seg.text);
+    Kozha.setSubtitle(seg.text);
 
     var cached = translationCache[idx];
-    if (cached) sendToAvatar(cached.glosses);
+    if (cached) Kozha.sendToAvatar(cached.glosses);
 
     if (useWindow) ensureWindowTranslated(idx);
   });
 
   addVideoListener(video, "pause", function() {
-    stopAvatar();
+    Kozha.stopAvatar();
   });
 
   addVideoListener(video, "seeking", function() {
     currentSegmentIndex = -1;
-    stopAvatar();
+    Kozha.stopAvatar();
   });
 
   addVideoListener(video, "play", function() {
@@ -535,28 +260,22 @@ function detectTextDirection(langCode) {
   return rtlLangs.indexOf(langCode) >= 0 ? "rtl" : "ltr";
 }
 
-function repositionPanel() {
-  var panel = document.getElementById("kozha-panel");
-  if (!panel || panel.style.display === "none") return;
-  clampToViewport(panel);
-}
-
 function observeTheaterAndFullscreen() {
   var ytApp = document.querySelector("ytd-app");
   if (ytApp) {
-    var obs1 = new MutationObserver(repositionPanel);
+    var obs1 = new MutationObserver(Kozha.repositionPanel);
     obs1.observe(ytApp, { attributes: true, attributeFilter: ["class", "masthead-hidden"] });
     theaterObservers.push(obs1);
   }
 
   var player = document.getElementById("movie_player");
   if (player) {
-    var obs2 = new MutationObserver(repositionPanel);
+    var obs2 = new MutationObserver(Kozha.repositionPanel);
     obs2.observe(player, { attributes: true, attributeFilter: ["class"] });
     theaterObservers.push(obs2);
   }
 
-  addDocListener(document, "fullscreenchange", function() {
+  Kozha.addDocListener(document, "fullscreenchange", function() {
     var panel = document.getElementById("kozha-panel");
     var toggle = document.getElementById("kozha-toggle");
     if (document.fullscreenElement) {
@@ -566,53 +285,41 @@ function observeTheaterAndFullscreen() {
       if (panel) document.body.appendChild(panel);
       if (toggle) document.body.appendChild(toggle);
     }
-    setTimeout(repositionPanel, 100);
+    setTimeout(Kozha.repositionPanel, 100);
   });
 }
 
 window.addEventListener("message", function(e) {
   if (!e.data || !e.data.type) return;
-  if (e.data.type === "cwasa_ready") avatarReady = true;
-  if (e.data.type === "cwasa_failed") {
-    cwasaFailed = true;
-    var frame = document.getElementById("kozha-avatar-frame");
-    if (frame) frame.style.display = "none";
-    var body = document.getElementById("kozha-panel-body");
-    if (body) {
-      var glossDiv = document.createElement("div");
-      glossDiv.id = "kozha-gloss-text";
-      body.insertBefore(glossDiv, body.firstChild);
-    }
-    setStatus("Text-only mode");
-  }
+  if (e.data.type === "cwasa_failed") setStatus("Text-only mode");
   if (e.data.type === "db_ready") {
-    dbReady = true;
     setStatus(isAutoCaption ? "Ready (auto captions)" : "Ready");
   }
 });
 
-window.addEventListener("resize", repositionPanel);
-
 async function init() {
   if (!isWatchPage()) return;
 
-  avatarReady = false;
-  dbReady = false;
-  cwasaFailed = false;
   currentSegmentIndex = -1;
   translationCache = {};
   segments = [];
   isAutoCaption = false;
   currentCaptionLang = "";
-  settingsOpen = false;
   isWindowTranslating = false;
 
-  injectPanel();
+  Kozha.avatarReady = false;
+  Kozha.dbReady = false;
+  Kozha.cwasaFailed = false;
+  Kozha._settingsOpen = false;
+
+  Kozha.injectPanel();
+  Kozha.setSubtitle("Loading captions...");
+  setStatus("Initializing");
   observeTheaterAndFullscreen();
 
   if (isLiveStream()) {
     setStatus("Live streams not supported");
-    setSubtitle("Live streams are not supported");
+    Kozha.setSubtitle("Live streams are not supported");
     return;
   }
 
@@ -620,7 +327,7 @@ async function init() {
 
   if (!tracks || tracks.length === 0) {
     setStatus("No captions available");
-    setSubtitle("This video has no captions");
+    Kozha.setSubtitle("This video has no captions");
     return;
   }
 
@@ -663,16 +370,16 @@ async function init() {
         }
       }
     }
-    setStatus(dbReady
+    setStatus(Kozha.dbReady
       ? (isAutoCaption ? "Ready (auto captions)" : "Ready")
       : "Loading signs...");
   } catch (e) {
     if (isOfflineError(e.message)) {
       setStatus("Cannot reach server");
-      setSubtitle("Check your internet connection and try again");
+      Kozha.setSubtitle("Check your internet connection and try again");
     } else {
       setStatus("Translation failed");
-      setSubtitle(e.message);
+      Kozha.setSubtitle(e.message);
     }
     return;
   }
@@ -682,24 +389,20 @@ async function init() {
 
 function cleanup() {
   removeVideoListeners();
-  removeDocListeners();
+  Kozha.removeDocListeners();
   theaterObservers.forEach(function(obs) { obs.disconnect(); });
   theaterObservers = [];
   currentSegmentIndex = -1;
   translationCache = {};
   segments = [];
-  avatarReady = false;
-  dbReady = false;
-  cwasaFailed = false;
   isAutoCaption = false;
   currentCaptionLang = "";
-  settingsOpen = false;
   isWindowTranslating = false;
-  var panel = document.getElementById("kozha-panel");
-  if (panel) panel.remove();
-  var toggle = document.getElementById("kozha-toggle");
-  if (toggle) toggle.remove();
-  panelIframe = null;
+  Kozha.avatarReady = false;
+  Kozha.dbReady = false;
+  Kozha.cwasaFailed = false;
+  Kozha._settingsOpen = false;
+  Kozha.removePanel();
 }
 
 var lastUrl = location.href;
