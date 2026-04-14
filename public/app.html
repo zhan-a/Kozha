@@ -655,8 +655,8 @@
         <div class="card">
           <div class="card-title"><span class="card-title-icon">✏️</span> Text Input</div>
           <label class="field-label">Enter your phrase</label>
-          <textarea id="textIn" placeholder="Try something like: Hello, how are you?" rows="3" maxlength="500"></textarea>
-          <div class="char-count" id="charCount">0 / 500</div>
+          <textarea id="textIn" placeholder="Try something like: Hello, how are you?" rows="3" maxlength="10000"></textarea>
+          <div class="char-count" id="charCount">0 / 10000</div>
 
           <div class="row" style="margin-top: 12px; gap: 12px;">
             <div class="grow">
@@ -1762,8 +1762,8 @@
     const charCount = document.getElementById('charCount');
     textIn.addEventListener('input', () => {
       const len = textIn.value.length;
-      charCount.textContent = len + ' / 500';
-      charCount.className = len > 500 ? 'char-count over' : 'char-count';
+      charCount.textContent = len + ' / 10000';
+      charCount.className = len > 10000 ? 'char-count over' : 'char-count';
     });
 
     document.getElementById('hamburgerBtn').addEventListener('click', () => {
