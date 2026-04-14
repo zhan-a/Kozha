@@ -134,6 +134,17 @@ if (!window.Kozha) {
       var controls = document.createElement("span");
       controls.id = "kozha-controls";
 
+      var readBtn = document.createElement("button");
+      readBtn.id = "kozha-read-btn";
+      readBtn.textContent = "\u25B6";
+      readBtn.title = "Read page";
+      readBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        if (typeof startPageReader === "function") {
+          startPageReader();
+        }
+      });
+
       var settingsBtn = document.createElement("button");
       settingsBtn.id = "kozha-settings-btn";
       settingsBtn.innerHTML = "&#9881;";
@@ -164,6 +175,7 @@ if (!window.Kozha) {
         if (toggle) toggle.style.display = "block";
       });
 
+      controls.appendChild(readBtn);
       controls.appendChild(settingsBtn);
       controls.appendChild(minBtn);
       controls.appendChild(closeBtn);
@@ -258,7 +270,39 @@ if (!window.Kozha) {
       status.appendChild(statusText);
       status.appendChild(statusLang);
 
+      var readerControls = document.createElement("div");
+      readerControls.id = "kozha-reader-controls";
+
+      var pauseBtn = document.createElement("button");
+      pauseBtn.className = "kozha-reader-btn";
+      pauseBtn.id = "kozha-reader-pause";
+      pauseBtn.textContent = "Pause";
+      pauseBtn.addEventListener("click", function() {
+        if (typeof togglePageReaderPause === "function") togglePageReaderPause();
+      });
+
+      var skipBtn = document.createElement("button");
+      skipBtn.className = "kozha-reader-btn";
+      skipBtn.id = "kozha-reader-skip";
+      skipBtn.textContent = "Skip \u25B6\u25B6";
+      skipBtn.addEventListener("click", function() {
+        if (typeof skipPageReaderSegment === "function") skipPageReaderSegment();
+      });
+
+      var stopBtn = document.createElement("button");
+      stopBtn.className = "kozha-reader-btn stop";
+      stopBtn.id = "kozha-reader-stop";
+      stopBtn.textContent = "Stop";
+      stopBtn.addEventListener("click", function() {
+        if (typeof stopPageReader === "function") stopPageReader();
+      });
+
+      readerControls.appendChild(pauseBtn);
+      readerControls.appendChild(skipBtn);
+      readerControls.appendChild(stopBtn);
+
       body.appendChild(settingsDrawer);
+      body.appendChild(readerControls);
       body.appendChild(iframe);
       body.appendChild(subtitle);
       body.appendChild(status);

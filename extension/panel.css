@@ -226,3 +226,67 @@
   text-align: right;
   direction: rtl;
 }
+
+.kozha-reading-highlight {
+  background: rgba(201, 106, 46, 0.1) !important;
+  outline: 2px solid rgba(201, 106, 46, 0.3) !important;
+  border-radius: 4px !important;
+  transition: background 0.2s, outline 0.2s;
+}
+
+#kozha-read-btn {
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: #717171;
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#kozha-read-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e0e0e0;
+}
+
+#kozha-read-btn.active {
+  color: #e8843e;
+}
+
+#kozha-reader-controls {
+  display: none;
+  padding: 4px 10px;
+  background: #1a1a1a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  gap: 4px;
+  align-items: center;
+}
+
+#kozha-reader-controls.open {
+  display: flex;
+}
+
+.kozha-reader-btn {
+  padding: 3px 8px;
+  font-size: 11px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #ccc;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.kozha-reader-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.kozha-reader-btn.stop {
+  color: #e8843e;
+  border-color: rgba(232, 132, 62, 0.3);
+}
