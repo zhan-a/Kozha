@@ -1,0 +1,24 @@
+# Code-owner reviewers required for deploy workflow approval.
+# The "production" GitHub environment in repo Settings → Environments
+# must list these owners as required reviewers; without that the
+# manual deploy gate cannot enforce ownership.
+
+# Default owner for everything.
+*               @mironovb
+
+# chat2hamnosys subsystem.
+/backend/chat2hamnosys/    @mironovb
+/docs/chat2hamnosys/       @mironovb
+
+# Deployment-critical files. Only owners on this list can approve a
+# production push; CI workflow + Dockerfile + deploy configs all live
+# here so a typo in any of them lands at our doorstep.
+/Dockerfile                @mironovb
+/docker-compose.yml        @mironovb
+/.dockerignore             @mironovb
+/.env.example              @mironovb
+/fly.toml                  @mironovb
+/railway.toml              @mironovb
+/deploy/                   @mironovb
+/.github/workflows/        @mironovb
+/scripts/                  @mironovb

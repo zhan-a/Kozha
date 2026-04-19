@@ -1,0 +1,89 @@
+# fly.io deployment manifest for the Kozha + chat2hamnosys backend.
+#
+# One-time setup:
+#   fly launch --no-deploy --copy-config
+#   fly secrets set OPENAI_API_KEY=sk-...
+#   fly secrets set CHAT2HAMNOSYS_SIGNER_ID_SALT=$(openssl rand -hex 32)
+#   fly volumes create kozha_data --region <region> --size 10
+#
+# Deploy:
+#   fly deploy --build-arg BUILD_SHA=$(git rev-parse --short HEAD)
+
+app = "kozha"                          # rename per environment
+primary_region = "iad"                 # closest to majority of authors
+kill_signal = "SIGINT"
+kill_timeout = "30s"
+
+[build]
+  dockerfile = "Dockerfile"
+  [build.args]
+    # Overridden on the command line: `fly deploy --build-arg BUILD_SHA=...`
+    BUILD_SHA = "fly"
+
+[env]
+  # Non-secret defaults baked into every release. Secrets stay in
+  # `fly secrets`; this block must never carry an API key.
+  CHAT2HAMNOSYS_DATA_DIR              = "/app/data"
+  CHAT2HAMNOSYS_LOG_DIR               = "/app/logs"
+  CHAT2HAMNOSYS_SESSION_DB            = "/app/data/chat2hamnosys/sessions.sqlite3"
+  CHAT2HAMNOSYS_SIGN_DB               = "/app/data/authored_signs.sqlite3"
+  CHAT2HAMNOSYS_TOKEN_DB              = "/app/data/chat2hamnosys/session_tokens.sqlite3"
+  CHAT2HAMNOSYS_REVIEWER_DB           = "/app/data/chat2hamnosys/reviewers.sqlite3"
+  CHAT2HAMNOSYS_EXPORT_AUDIT          = "/app/data/chat2hamnosys/export_audit.jsonl"
+  CHAT2HAMNOSYS_LOG_LEVEL             = "INFO"
+  CHAT2HAMNOSYS_LOG_CONTENT           = "false"
+  CHAT2HAMNOSYS_LOG_SINK              = "file"
+  CHAT2HAMNOSYS_LOG_RETENTION_DAYS    = "30"
+  CHAT2HAMNOSYS_RATE_LIMIT            = "30/minute"
+  CHAT2HAMNOSYS_RATE_LIMIT_PER_MIN    = "30"
+  CHAT2HAMNOSYS_SESSION_BUDGET_USD    = "2.0"
+  CHAT2HAMNOSYS_DAILY_BUDGET_USD      = "200.0"
+  CHAT2HAMNOSYS_PER_IP_DAILY_CAP_USD  = "10.0"
+  CHAT2HAMNOSYS_GLOBAL_DAILY_CAP_USD  = "200.0"
+  CHAT2HAMNOSYS_REVIEW_MIN_APPROVALS  = "2"
+  CHAT2HAMNOSYS_REVIEW_REQUIRE_NATIVE = "true"
+  CHAT2HAMNOSYS_REVIEW_ALLOW_SINGLE   = "false"
+  CHAT2HAMNOSYS_PII_POLICY            = "hashed"
+  CHAT2HAMNOSYS_ENABLE_INJECTION_CLASSIFIER = "1"
+  CHAT2HAMNOSYS_ENABLE_OUTPUT_MODERATION    = "1"
+
+# Persistent storage for sign DBs, preview cache, and rotated logs.
+# Single-region single-volume — fly will not auto-replicate. For HA,
+# mount a second volume in another region and run a write-aware proxy.
+[mounts]
+  source      = "kozha_data"
+  destination = "/app/data"
+
+# Logs are also written to the volume (see CHAT2HAMNOSYS_LOG_DIR), but
+# the mount-point lives under /app/data so a single volume covers both.
+# If you prefer a separate log volume, add a second [[mounts]] block.
+
+[http_service]
+  internal_port       = 8000
+  force_https         = true
+  auto_stop_machines  = false   # never stop — sessions are stateful
+  auto_start_machines = true
+  min_machines_running = 1
+  processes           = ["app"]
+
+  [[http_service.checks]]
+    grace_period   = "20s"
+    interval       = "30s"
+    method         = "GET"
+    timeout        = "5s"
+    path           = "/api/chat2hamnosys/health"
+    protocol       = "http"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory_mb = 1024
+
+# Single process for now — sessions are stored in sqlite, so multi-VM
+# horizontal scale needs an external sqlite (litefs) or a switch to
+# postgres. Tracked in the runbook §"Scaling out".
+[processes]
+  app = "uvicorn server.server:app --host 0.0.0.0 --port 8000 --proxy-headers --forwarded-allow-ips=*"
+
+[deploy]
+  strategy = "rolling"          # zero-downtime; in-flight sessions complete on the old VM
+  release_command = ""          # no migrations today; sqlite schema is created on first write

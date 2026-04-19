@@ -1,0 +1,19 @@
+# Prometheus scrape config used by the docker-compose `obs` profile.
+# Mounted read-only at /etc/prometheus/prometheus.yml.
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    deployment: local
+
+scrape_configs:
+  - job_name: chat2hamnosys
+    metrics_path: /api/chat2hamnosys/metrics
+    scheme: http
+    static_configs:
+      - targets:
+          - backend:8000
+        labels:
+          service: chat2hamnosys
+          env: local

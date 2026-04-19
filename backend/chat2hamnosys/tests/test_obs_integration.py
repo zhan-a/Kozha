@@ -128,11 +128,22 @@ def obs_client(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
         _metrics.reset_registry()
 
 
-def test_health_returns_ok(obs_client) -> None:
+def test_health_returns_ok(obs_client, monkeypatch) -> None:
     client, _ = obs_client
+    monkeypatch.delenv("BUILD_SHA", raising=False)
     r = client.get("/health")
     assert r.status_code == 200
     assert r.json() == {"status": "ok"}
+
+
+def test_health_surfaces_build_sha(obs_client, monkeypatch) -> None:
+    client, _ = obs_client
+    monkeypatch.setenv("BUILD_SHA", "abc1234")
+    r = client.get("/health")
+    assert r.status_code == 200
+    body = r.json()
+    assert body["status"] == "ok"
+    assert body["build_sha"] == "abc1234"
 
 
 def test_ready_reports_per_dependency(obs_client, monkeypatch) -> None:

@@ -1,0 +1,64 @@
+# Keep the build context small — anything not needed inside the image
+# stays on the host. Docker BuildKit copies this entire context into the
+# daemon up-front, so trimming here directly speeds up builds.
+
+.git
+.github
+.gitignore
+.gitattributes
+.gitleaks.toml
+.pre-commit-config.yaml
+.DS_Store
+**/.DS_Store
+**/__pycache__
+**/.pytest_cache
+**/*.pyc
+**/*.pyo
+**/.mypy_cache
+**/.ruff_cache
+
+# Local prompt-runner artefacts (gitignored already, defense in depth).
+prompts/
+logs/
+run_*.sh
+
+# Local secrets / env overrides — must never enter the image.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# IDE noise.
+.idea/
+.vscode/
+
+# Documentation isn't needed at runtime.
+docs/
+
+# Editor scratch.
+*.swp
+Thumbs.db
+
+# Tests aren't shipped — runtime image stays focused on serving.
+backend/chat2hamnosys/tests/
+backend/chat2hamnosys/eval/baselines/
+backend/chat2hamnosys/eval/__pycache__/
+
+# Heavy mutable state generated at runtime. The image bakes empty
+# directories; mount volumes for these paths in production.
+data/chat2hamnosys/
+data/authored_signs.sqlite3*
+data/preview_cache/
+
+# Docker artefacts (so a recursive build doesn't pull itself in).
+Dockerfile.*
+docker-compose*.yml
+.dockerignore
+
+# Backups, dumps, throwaway scripts.
+*.bak
+*.dump
+*.sqlite3-journal
+*.sqlite3-wal
+*.sqlite3-shm

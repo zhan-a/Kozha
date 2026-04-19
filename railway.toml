@@ -1,0 +1,49 @@
+# Railway deployment manifest. See docs/chat2hamnosys/19-deployment.md
+# for the one-command flow.
+#
+# Persistent storage on Railway is provided via a separately-attached
+# Volume (Service → Settings → Volume). Mount it at /app/data so the
+# defaults below match the docker-compose layout.
+
+[build]
+  builder = "DOCKERFILE"
+  dockerfilePath = "Dockerfile"
+
+[build.args]
+  # Railway exposes the deploy commit as RAILWAY_GIT_COMMIT_SHA; we map
+  # it into the BUILD_SHA build arg so /health surfaces the correct id.
+  BUILD_SHA = "${RAILWAY_GIT_COMMIT_SHA}"
+
+[deploy]
+  startCommand     = "uvicorn server.server:app --host 0.0.0.0 --port 8000 --proxy-headers --forwarded-allow-ips=*"
+  healthcheckPath  = "/api/chat2hamnosys/health"
+  healthcheckTimeout = 10
+  restartPolicyType  = "ALWAYS"
+  numReplicas        = 1                # sqlite — keep at 1 until external store
+
+# Service-level env. Secrets (OPENAI_API_KEY, CHAT2HAMNOSYS_SIGNER_ID_SALT,
+# CHAT2HAMNOSYS_ALERT_WEBHOOK_URL) live in the Railway dashboard, not
+# this file.
+[deploy.env]
+  CHAT2HAMNOSYS_DATA_DIR              = "/app/data"
+  CHAT2HAMNOSYS_LOG_DIR               = "/app/logs"
+  CHAT2HAMNOSYS_SESSION_DB            = "/app/data/chat2hamnosys/sessions.sqlite3"
+  CHAT2HAMNOSYS_SIGN_DB               = "/app/data/authored_signs.sqlite3"
+  CHAT2HAMNOSYS_TOKEN_DB              = "/app/data/chat2hamnosys/session_tokens.sqlite3"
+  CHAT2HAMNOSYS_REVIEWER_DB           = "/app/data/chat2hamnosys/reviewers.sqlite3"
+  CHAT2HAMNOSYS_EXPORT_AUDIT          = "/app/data/chat2hamnosys/export_audit.jsonl"
+  CHAT2HAMNOSYS_LOG_LEVEL             = "INFO"
+  CHAT2HAMNOSYS_LOG_CONTENT           = "false"
+  CHAT2HAMNOSYS_LOG_SINK              = "stdout"     # railway aggregates stdout per-service
+  CHAT2HAMNOSYS_RATE_LIMIT            = "30/minute"
+  CHAT2HAMNOSYS_RATE_LIMIT_PER_MIN    = "30"
+  CHAT2HAMNOSYS_SESSION_BUDGET_USD    = "2.0"
+  CHAT2HAMNOSYS_DAILY_BUDGET_USD      = "200.0"
+  CHAT2HAMNOSYS_PER_IP_DAILY_CAP_USD  = "10.0"
+  CHAT2HAMNOSYS_GLOBAL_DAILY_CAP_USD  = "200.0"
+  CHAT2HAMNOSYS_REVIEW_MIN_APPROVALS  = "2"
+  CHAT2HAMNOSYS_REVIEW_REQUIRE_NATIVE = "true"
+  CHAT2HAMNOSYS_REVIEW_ALLOW_SINGLE   = "false"
+  CHAT2HAMNOSYS_PII_POLICY            = "hashed"
+  CHAT2HAMNOSYS_ENABLE_INJECTION_CLASSIFIER = "1"
+  CHAT2HAMNOSYS_ENABLE_OUTPUT_MODERATION    = "1"

@@ -167,7 +167,11 @@ def get_admin_cost(
     summary="Liveness probe — 200 while the app process is up",
 )
 def get_health() -> JSONResponse:
-    return JSONResponse({"status": "ok"})
+    body: dict[str, str] = {"status": "ok"}
+    sha = os.environ.get("BUILD_SHA", "").strip()
+    if sha:
+        body["build_sha"] = sha
+    return JSONResponse(body)
 
 
 @router.get(

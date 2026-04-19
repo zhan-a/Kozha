@@ -1,0 +1,192 @@
+name: chat2hamnosys CI
+
+on:
+  pull_request:
+    paths:
+      - "backend/chat2hamnosys/**"
+      - "server/**"
+      - "Dockerfile"
+      - ".dockerignore"
+      - "docker-compose.yml"
+      - ".github/workflows/chat2hamnosys.yml"
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+concurrency:
+  group: chat2hamnosys-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # -----------------------------------------------------------------------
+  # Lint, typecheck, unit tests, eval smoke — runs on every PR.
+  # -----------------------------------------------------------------------
+  pr-checks:
+    name: PR — lint / typecheck / tests / eval-smoke
+    if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: backend/chat2hamnosys/requirements.txt
+
+      - name: Install backend deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/chat2hamnosys/requirements.txt
+          pip install ruff mypy pip-audit
+
+      # ----- Lint (Python) ------------------------------------------------
+      - name: ruff (lint)
+        run: ruff check backend/chat2hamnosys
+
+      - name: ruff (format check)
+        run: ruff format --check backend/chat2hamnosys
+
+      # ----- Typecheck ----------------------------------------------------
+      - name: mypy
+        run: |
+          # Non-blocking until typing surface stabilizes; remove
+          # `continue-on-error` once mypy is clean across the package.
+          mypy backend/chat2hamnosys --ignore-missing-imports || true
+
+      # ----- Frontend lint (only if package.json appears) -----------------
+      - uses: actions/setup-node@v4
+        if: ${{ hashFiles('package.json') != '' }}
+        with:
+          node-version: "20"
+      - name: prettier (frontend)
+        if: ${{ hashFiles('package.json') != '' }}
+        run: |
+          npm ci
+          npx prettier --check "**/*.{js,ts,tsx,html,css,md}"
+
+      # ----- Unit tests --------------------------------------------------
+      - name: pytest (unit)
+        working-directory: backend/chat2hamnosys
+        env:
+          # No API key in CI — tests use the deterministic stub.
+          OPENAI_API_KEY: ""
+          PYTHONPATH: "."
+        run: |
+          pytest tests -q \
+            --ignore=tests/playwright \
+            --maxfail=10 \
+            --durations=20
+
+      # ----- Eval smoke (10-fixture subset) -------------------------------
+      - name: eval smoke (10 fixtures, deterministic stub)
+        working-directory: backend/chat2hamnosys
+        env:
+          PYTHONPATH: "."
+        run: |
+          # The smoke subcommand pins F1 against baselines/current.json
+          # using the deterministic stub client (no OPENAI_API_KEY needed).
+          python -m eval smoke --suite golden_signs --stub
+
+      # ----- Dependency audit --------------------------------------------
+      - name: pip-audit (CRITICAL/HIGH only)
+        run: |
+          pip-audit \
+            --requirement backend/chat2hamnosys/requirements.txt \
+            --strict \
+            --vulnerability-service osv
+
+      # ----- Secret scan -------------------------------------------------
+      - name: gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        with:
+          config-path: .gitleaks.toml
+        env:
+          GITLEAKS_NOTIFY_USER_LIST: ""
+
+  # -----------------------------------------------------------------------
+  # Build + push Docker image, run full eval — only on push to main.
+  # -----------------------------------------------------------------------
+  build-and-publish:
+    name: main — build / push / full-eval
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Compute short SHA
+        id: meta
+        run: echo "sha=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build + push image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          build-args: |
+            BUILD_SHA=${{ steps.meta.outputs.sha }}
+          tags: |
+            ghcr.io/${{ github.repository }}:sha-${{ steps.meta.outputs.sha }}
+            ghcr.io/${{ github.repository }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Verify image size (<500 MB)
+        run: |
+          docker pull ghcr.io/${{ github.repository }}:sha-${{ steps.meta.outputs.sha }}
+          BYTES=$(docker image inspect ghcr.io/${{ github.repository }}:sha-${{ steps.meta.outputs.sha }} --format '{{ .Size }}')
+          MB=$(( BYTES / 1024 / 1024 ))
+          echo "Image size: ${MB} MB"
+          test "${MB}" -lt 500 || { echo "::error::image is ${MB} MB — over the 500 MB budget"; exit 1; }
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: backend/chat2hamnosys/requirements.txt
+
+      - name: Install backend deps for full eval
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/chat2hamnosys/requirements.txt
+
+      - name: Full eval suite (deterministic stub — no API spend)
+        id: full_eval
+        working-directory: backend/chat2hamnosys
+        env:
+          PYTHONPATH: "."
+        run: |
+          mkdir -p eval_results/main-${{ steps.meta.outputs.sha }}
+          python -m eval run \
+            --suite golden_signs \
+            --stub \
+            --out eval_results/main-${{ steps.meta.outputs.sha }}/result.json \
+            | tee eval_results/main-${{ steps.meta.outputs.sha }}/run.log
+
+      - name: Publish eval as a GitHub check
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-result-${{ steps.meta.outputs.sha }}
+          path: backend/chat2hamnosys/eval_results/main-${{ steps.meta.outputs.sha }}
+          retention-days: 90

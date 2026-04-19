@@ -1,0 +1,123 @@
+# Kozha + chat2hamnosys local stack.
+#
+#   docker compose up                 -> backend on :8000 + named volumes
+#   docker compose --profile obs up   -> backend + Prometheus on :9090
+#
+# All secrets live in `.env` (gitignored). See `.env.example` for the
+# full set of variables.
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Surface the current commit through GET /health for deployment
+        # verification. CI overrides this with the merge SHA; local dev
+        # falls back to "dev" if the var isn't set.
+        BUILD_SHA: "${BUILD_SHA:-dev}"
+    image: kozha:local
+    container_name: kozha-backend
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      # Container-internal paths — these override the .env so volumes
+      # land on the in-image mount points regardless of host layout.
+      CHAT2HAMNOSYS_DATA_DIR: /app/data
+      CHAT2HAMNOSYS_LOG_DIR: /app/logs
+      CHAT2HAMNOSYS_SESSION_DB: /app/data/chat2hamnosys/sessions.sqlite3
+      CHAT2HAMNOSYS_SIGN_DB: /app/data/authored_signs.sqlite3
+      CHAT2HAMNOSYS_TOKEN_DB: /app/data/chat2hamnosys/session_tokens.sqlite3
+      CHAT2HAMNOSYS_REVIEWER_DB: /app/data/chat2hamnosys/reviewers.sqlite3
+      CHAT2HAMNOSYS_EXPORT_AUDIT: /app/data/chat2hamnosys/export_audit.jsonl
+    ports:
+      # Only the backend is exposed to the host. The renderer / prometheus
+      # services stay inside the internal network.
+      - "${KOZHA_HTTP_PORT:-8000}:8000"
+    volumes:
+      - authored_signs:/app/data/authored_signs
+      - preview_cache:/app/data/preview_cache
+      - sqlite_data:/app/data/chat2hamnosys
+      - app_logs:/app/logs
+    networks:
+      - kozha-internal
+      - kozha-public
+    healthcheck:
+      # Re-stating here so `docker compose ps` reflects health even when
+      # an operator overrides the image's HEALTHCHECK in a derived image.
+      test: ["CMD", "curl", "--fail", "--silent", "http://127.0.0.1:8000/api/chat2hamnosys/health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 3
+
+  # Optional renderer process. Today the avatar pipeline runs in the
+  # browser via CWASA (see docs/chat2hamnosys/00-repo-audit.md §3); when
+  # an operator wires up a server-side renderer (e.g. headless JASigning
+  # via xvfb), uncomment this block and point CHAT2HAMNOSYS_RENDERER_URL
+  # at http://renderer:9000 in `.env`.
+  #
+  # renderer:
+  #   image: kozha-renderer:local
+  #   build:
+  #     context: ./renderer
+  #     dockerfile: Dockerfile
+  #   container_name: kozha-renderer
+  #   restart: unless-stopped
+  #   networks:
+  #     - kozha-internal
+  #   volumes:
+  #     - preview_cache:/cache
+  #   healthcheck:
+  #     test: ["CMD", "curl", "--fail", "--silent", "http://127.0.0.1:9000/health"]
+  #     interval: 30s
+  #     timeout: 5s
+  #     retries: 3
+
+  # Prometheus scrape sidecar — opt-in via `--profile obs`. The backend
+  # exposes /api/chat2hamnosys/metrics in Prometheus 0.0.4 text format
+  # (see backend/chat2hamnosys/api/admin.py).
+  prometheus:
+    image: prom/prometheus:v2.54.1
+    container_name: kozha-prometheus
+    profiles:
+      - obs
+    restart: unless-stopped
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.retention.time=30d
+      - --web.enable-lifecycle
+    ports:
+      - "${PROMETHEUS_HTTP_PORT:-9090}:9090"
+    volumes:
+      - ./infra/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    networks:
+      - kozha-internal
+      - kozha-public
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  authored_signs:
+    driver: local
+  preview_cache:
+    driver: local
+  sqlite_data:
+    driver: local
+  app_logs:
+    driver: local
+  prometheus_data:
+    driver: local
+
+networks:
+  # Internal-only — services on this network reach each other by name
+  # but are not exposed to the host. The renderer/prometheus pair stays
+  # here in production; only `backend` joins `kozha-public`.
+  kozha-internal:
+    driver: bridge
+    internal: false  # set to `true` once outbound LLM is fronted by an egress proxy
+  kozha-public:
+    driver: bridge

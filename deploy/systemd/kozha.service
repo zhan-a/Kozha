@@ -1,0 +1,74 @@
+# /etc/systemd/system/kozha.service
+#
+# Self-hosted Ubuntu 24.04 service unit for Kozha + chat2hamnosys.
+# Pairs with deploy/nginx/kozha.conf and deploy/systemd/kozha.env.
+#
+# Install:
+#   sudo cp deploy/systemd/kozha.service /etc/systemd/system/kozha.service
+#   sudo cp deploy/systemd/kozha.env     /etc/kozha.env       # then `chmod 600`
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now kozha.service
+#
+# Logs: `journalctl -u kozha.service -f`
+# Reload after config edit: `sudo systemctl restart kozha.service`
+
+[Unit]
+Description=Kozha + chat2hamnosys backend
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=exec
+User=kozha
+Group=kozha
+WorkingDirectory=/opt/kozha
+
+# Python venv created by the install script (see 19-deployment.md
+# §"Self-hosted VM"). The chat2hamnosys flat-import shim in server.py
+# still works because PYTHONPATH defaults to the repo root.
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONDONTWRITEBYTECODE=1
+EnvironmentFile=/etc/kozha.env
+
+# Bind to localhost only — nginx terminates TLS and proxies to us.
+ExecStart=/opt/kozha/venv/bin/uvicorn server.server:app \
+    --host 127.0.0.1 \
+    --port 8000 \
+    --proxy-headers \
+    --forwarded-allow-ips '127.0.0.1'
+
+# Graceful: SIGTERM → drain in-flight requests, then exit. SIGKILL only
+# fires if drain exceeds TimeoutStopSec.
+KillSignal=SIGTERM
+TimeoutStopSec=30
+
+Restart=on-failure
+RestartSec=5
+StartLimitBurst=10
+StartLimitIntervalSec=120
+
+# --- Hardening (defense-in-depth; matches systemd-analyze recs) -------
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+LockPersonality=true
+RestrictRealtime=true
+RestrictNamespaces=true
+SystemCallArchitectures=native
+MemoryDenyWriteExecute=true
+
+# Persistent state lives under /var/lib/kozha (data/) and /var/log/kozha
+# (logs). Both are bind-pointed by EnvironmentFile so the service writes
+# only into directories declared here.
+ReadWritePaths=/var/lib/kozha /var/log/kozha /opt/kozha/data
+StateDirectory=kozha
+LogsDirectory=kozha
+
+[Install]
+WantedBy=multi-user.target

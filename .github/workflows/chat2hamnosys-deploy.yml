@@ -1,0 +1,123 @@
+name: chat2hamnosys Deploy
+
+# Manual-only. Triggers a deploy of an already-built image (built by
+# `chat2hamnosys.yml` on push to main) to a chosen environment. The
+# `production` environment in repo Settings → Environments must require
+# a CODEOWNER reviewer before the job runs — that is where the human
+# approval gate lives. Without that environment configuration, this
+# workflow will queue forever waiting for approval.
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Target environment"
+        required: true
+        type: choice
+        default: staging
+        options:
+          - staging
+          - production
+      image_sha:
+        description: "Short SHA of the image to deploy (must already be in ghcr.io)"
+        required: true
+        type: string
+      reason:
+        description: "Why are you deploying? (recorded in the deploy log)"
+        required: true
+        type: string
+
+concurrency:
+  # One deploy per environment at a time; never two prod deploys racing.
+  group: chat2hamnosys-deploy-${{ inputs.environment }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy ${{ inputs.image_sha }} to ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    # The required CODEOWNER approval is enforced by the GitHub
+    # environment's protection rules. Configure:
+    #   Settings → Environments → production → Required reviewers
+    # and list the CODEOWNERS who can approve.
+    environment:
+      name: ${{ inputs.environment }}
+      url: https://${{ inputs.environment == 'production' && 'kozha.example' || 'kozha-staging.fly.dev' }}/api/chat2hamnosys/health
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Confirm image exists in registry
+        run: |
+          docker pull ghcr.io/${{ github.repository }}:sha-${{ inputs.image_sha }}
+          echo "Image confirmed: ghcr.io/${{ github.repository }}:sha-${{ inputs.image_sha }}"
+        env:
+          DOCKER_CONFIG: ${{ runner.temp }}/docker
+
+      - name: Log deploy intent
+        run: |
+          {
+            echo "Environment: ${{ inputs.environment }}"
+            echo "Image SHA:   ${{ inputs.image_sha }}"
+            echo "Actor:       ${{ github.actor }}"
+            echo "Reason:      ${{ inputs.reason }}"
+            echo "Timestamp:   $(date -u +%FT%TZ)"
+          } | tee -a "$GITHUB_STEP_SUMMARY"
+
+      # The actual deploy step is provider-specific. Pick one based on
+      # the chosen target and configure the matching secret(s) in repo
+      # Settings → Secrets → Actions:
+      #
+      #   - FLY_API_TOKEN          (for fly deploy)
+      #   - RAILWAY_TOKEN          (for railway up)
+      #   - SSH_KEY + SSH_HOST     (for self-hosted VM)
+      #
+      # Only one of the three blocks below should be uncommented per
+      # repo. They're mutually exclusive on the same host.
+
+      # --- fly.io --------------------------------------------------------
+      - name: Deploy to fly
+        if: ${{ vars.DEPLOY_TARGET == 'fly' }}
+        uses: superfly/flyctl-actions/setup-flyctl@v1
+      - name: fly deploy
+        if: ${{ vars.DEPLOY_TARGET == 'fly' }}
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        run: |
+          fly deploy \
+            --app "kozha${{ inputs.environment == 'staging' && '-staging' || '' }}" \
+            --image "ghcr.io/${{ github.repository }}:sha-${{ inputs.image_sha }}" \
+            --strategy rolling
+
+      # --- self-hosted VM ------------------------------------------------
+      - name: Deploy to VM (ssh)
+        if: ${{ vars.DEPLOY_TARGET == 'vm' }}
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          SSH_HOST: ${{ secrets.DEPLOY_SSH_HOST }}
+          SSH_USER: ${{ secrets.DEPLOY_SSH_USER }}
+        run: |
+          mkdir -p ~/.ssh && echo "$SSH_KEY" > ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
+          ssh "$SSH_USER@$SSH_HOST" \
+            "sudo /opt/kozha/scripts/deploy_image.sh ghcr.io/${{ github.repository }}:sha-${{ inputs.image_sha }}"
+
+      - name: Smoke check /health
+        env:
+          BASE: ${{ inputs.environment == 'production' && 'https://kozha.example' || 'https://kozha-staging.fly.dev' }}
+        run: |
+          for i in 1 2 3 4 5; do
+            sleep 10
+            if curl --fail --silent "$BASE/api/chat2hamnosys/health" \
+                 | tee /tmp/health.json \
+                 | grep -q "${{ inputs.image_sha }}"; then
+              echo "Deployed image is live (BUILD_SHA matches)."
+              exit 0
+            fi
+            echo "Waiting for new image to roll out... ($i/5)"
+          done
+          echo "::error::deployed BUILD_SHA did not match ${{ inputs.image_sha }}"
+          cat /tmp/health.json || true
+          exit 1
