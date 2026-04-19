@@ -1,0 +1,48 @@
+# gitleaks configuration for Kozha / chat2hamnosys.
+#
+# Scope: we want to hard-block accidental commits of OpenAI API keys and
+# other high-value secrets. We inherit gitleaks' default ruleset via
+# `useDefault = true`, and layer a minimal allowlist + one extra rule
+# for tight OpenAI-key matching (the upstream rule is permissive; we
+# want to catch the canonical `sk-`, `sk-proj-`, and legacy `sk-live-`
+# shapes explicitly).
+#
+# Tie-in: `.pre-commit-config.yaml` runs gitleaks on every staged diff;
+# the `gitleaks-check` CI job runs it again on the full history so a
+# commit that bypassed the local hook still fails the PR.
+
+title = "Kozha chat2hamnosys gitleaks config"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id  = "openai-api-key"
+description = "OpenAI API key (strict)"
+# Matches `sk-…` of at least 40 alphanumeric+dash+underscore characters,
+# including the `sk-proj-…` project-scoped form.
+regex = '''(?i)\b(sk-(?:proj-|live-|test-)?[A-Za-z0-9_-]{40,})\b'''
+tags = ["secret", "openai"]
+
+[[rules]]
+id  = "anthropic-api-key"
+description = "Anthropic API key"
+regex = '''(?i)\b(sk-ant-(?:api|sid)-[A-Za-z0-9_-]{80,})\b'''
+tags = ["secret", "anthropic"]
+
+[allowlist]
+description = "Known-safe files and false positives"
+paths = [
+  '''\.gitleaks\.toml$''',
+  '''docs/chat2hamnosys/17-security\.md$''',
+  '''docs/chat2hamnosys/17-injection-surface\.md$''',
+  # The example key shape in docs/ may include `sk-...TRUNCATED` style
+  # placeholders. Keep this tight — we still want real keys elsewhere
+  # in docs/ to fail.
+]
+regexes = [
+  # Obvious documentation placeholders, not real keys.
+  '''sk-XXXX+''',
+  '''sk-REDACTED''',
+  '''sk-example-\w+''',
+]

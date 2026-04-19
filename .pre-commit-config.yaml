@@ -1,0 +1,30 @@
+# Pre-commit hooks for Kozha / chat2hamnosys.
+#
+# Install once per clone:
+#     pip install pre-commit
+#     pre-commit install
+#
+# Hooks:
+#   * gitleaks           — blocks accidental commits of API keys / secrets
+#                           (OpenAI `sk-…`, Anthropic `sk-ant-…`, plus the
+#                           upstream default ruleset). Config lives in
+#                           `.gitleaks.toml`.
+#   * end-of-file-fixer  — ensures files end with a single newline.
+#   * trailing-whitespace — strips trailing whitespace on text files.
+#
+# The CI job `.github/workflows/security.yml:gitleaks` re-runs the
+# secret scan on the full history, so a developer who skipped the local
+# hook still fails the PR check.
+
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.4
+    hooks:
+      - id: gitleaks
+        args: ["--config", ".gitleaks.toml"]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace

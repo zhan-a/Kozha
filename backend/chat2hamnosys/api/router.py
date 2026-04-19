@@ -89,6 +89,10 @@ from .dependencies import (
     get_token_store,
 )
 from .errors import ApiError, InvalidTransition, SessionForbidden, SessionNotFound
+from .security import (
+    sanitize_user_input,
+    screen_user_description,
+)
 from .models import (
     AcceptResponse,
     AnswerRequest,
@@ -325,8 +329,16 @@ def create_session(
     session_store: SessionStore = Depends(get_session_store),
     token_store: TokenStore = Depends(get_token_store),
 ) -> CreateSessionResponse:
+    from security import hash_signer_id
+    from .security import get_security_config
+
     body = body or CreateSessionRequest()
-    signer_id = (body.signer_id or "anonymous").strip() or "anonymous"
+    raw_signer = (body.signer_id or "anonymous").strip() or "anonymous"
+    cfg = get_security_config()
+    if cfg.pii_policy == "hashed" and raw_signer != "anonymous":
+        signer_id = hash_signer_id(raw_signer, salt=cfg.signer_id_salt)
+    else:
+        signer_id = raw_signer
     session = start_session(
         signer_id=signer_id,
         display_name=body.display_name,
@@ -393,11 +405,13 @@ def post_describe(
         x_session_token=x_session_token,
         token_store=token_store,
     )
+    prose = sanitize_user_input(body.prose, field_name="prose")
+    screen_user_description(prose, request=request, field_name="prose")
     if body.gloss:
-        session = session.with_draft(gloss=body.gloss)
+        session = session.with_draft(gloss=sanitize_user_input(body.gloss, field_name="gloss", max_len=200))
     session = on_description(
         session,
-        body.prose,
+        prose,
         parse_fn=parse_fn,
         question_fn=question_fn,
     )
@@ -440,9 +454,14 @@ def post_answer(
     if not answer_text:
         raise ApiError("answer must be a non-empty string or integer",
                        status_code=422, code="validation_error")
+    # Sanitize but do not injection-screen — answers are short, often
+    # single-word (e.g. "up", "flat") and the screen's false-positive
+    # cost outweighs the detection yield on those inputs.
+    answer_text = sanitize_user_input(answer_text, field_name="answer", max_len=500)
+    question_id = sanitize_user_input(body.question_id, field_name="question_id", max_len=128)
     session = on_clarification_answer(
         session,
-        body.question_id,
+        question_id,
         answer_text,
         apply_fn=apply_fn,
         question_fn=question_fn,
@@ -572,10 +591,17 @@ def post_correct(
         x_session_token=x_session_token,
         token_store=token_store,
     )
+    raw_text = sanitize_user_input(body.raw_text, field_name="raw_text")
+    screen_user_description(raw_text, request=request, field_name="raw_text")
+    target_region = (
+        sanitize_user_input(body.target_region, field_name="target_region", max_len=64)
+        if body.target_region
+        else None
+    )
     correction = Correction(
-        raw_text=body.raw_text,
+        raw_text=raw_text,
         target_time_ms=body.target_time_ms,
-        target_region=body.target_region,
+        target_region=target_region,
     )
     session = on_correction(session, correction)
     plan = interpret_correction(session, correction)

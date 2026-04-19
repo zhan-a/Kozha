@@ -1,0 +1,80 @@
+name: Security
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: security-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gitleaks:
+    name: Secret scan (gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        with:
+          config-path: .gitleaks.toml
+        env:
+          # gitleaks-action writes a SARIF file; no network token needed.
+          GITLEAKS_NOTIFY_USER_LIST: ""
+
+  pip-audit:
+    name: Python dependency audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install pip-audit
+        run: pip install pip-audit
+      - name: Audit backend requirements
+        # Fail on CRITICAL and HIGH severities. We keep MEDIUM / LOW
+        # as informational so the CI job stays green on advisories we
+        # can triage within the documented upgrade policy window.
+        run: |
+          pip-audit \
+            --requirement backend/chat2hamnosys/requirements.txt \
+            --disable-pip \
+            --strict \
+            --vulnerability-service osv \
+            || (echo "::error::pip-audit found vulnerabilities" && exit 1)
+
+  npm-audit:
+    name: npm dependency audit
+    runs-on: ubuntu-latest
+    # The repo has no package.json today; this job is a scaffold so a
+    # future frontend build step is automatically covered. It no-ops
+    # cleanly until a package.json appears.
+    if: ${{ hashFiles('package.json') != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: npm audit (high+ critical)
+        run: npm audit --audit-level=high
+
+  tests:
+    name: Security tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install deps
+        run: |
+          pip install -r backend/chat2hamnosys/requirements.txt
+      - name: Run security test suite
+        working-directory: backend/chat2hamnosys
+        run: |
+          pytest tests/test_security_sanitize.py tests/test_security_injection.py tests/test_security_rate_limit.py tests/test_security_pii.py tests/test_security_gitleaks.py -v

@@ -30,6 +30,10 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ValidationError
 
 from llm import BudgetExceeded, LLMConfigError
+from obs import events as _evs
+from obs import metrics as _metrics
+from obs.logger import emit_event
+from security import CostCapExceeded, DailyBudgetExceeded
 from session.orchestrator import InvalidTransitionError
 
 
@@ -142,7 +146,55 @@ async def handle_budget_exceeded(request: Request, exc: BudgetExceeded) -> JSONR
         "would_add": getattr(exc, "would_add", None),
         "cap": getattr(exc, "cap", None),
     }
+    emit_event(
+        _evs.SECURITY_BUDGET_EXCEEDED,
+        scope="session",
+        spent=details["spent"],
+        would_add=details["would_add"],
+        cap=details["cap"],
+    )
     return _response(429, "budget_exceeded", str(exc), details)
+
+
+async def handle_cost_cap_exceeded(request: Request, exc: CostCapExceeded) -> JSONResponse:
+    details = {
+        "scope": getattr(exc, "scope", None),
+        "key": getattr(exc, "key", None),
+        "spent": getattr(exc, "spent", None),
+        "would_add": getattr(exc, "would_add", None),
+        "cap": getattr(exc, "cap", None),
+    }
+    emit_event(
+        _evs.SECURITY_BUDGET_EXCEEDED,
+        scope=details["scope"] or "per-ip",
+        key=details["key"],
+        spent=details["spent"],
+        cap=details["cap"],
+    )
+    return _response(429, "cost_cap_exceeded", str(exc), details)
+
+
+async def handle_daily_budget_exceeded(
+    request: Request, exc: DailyBudgetExceeded
+) -> JSONResponse:
+    details = {
+        "spent": getattr(exc, "spent", None),
+        "would_add": getattr(exc, "would_add", None),
+        "cap": getattr(exc, "cap", None),
+    }
+    emit_event(
+        _evs.SECURITY_BUDGET_EXCEEDED,
+        scope="global_daily",
+        spent=details["spent"],
+        would_add=details["would_add"],
+        cap=details["cap"],
+    )
+    return _response(
+        429,
+        "daily_budget_exceeded",
+        "Daily budget reached, please try again tomorrow.",
+        details,
+    )
 
 
 async def handle_invalid_transition(
@@ -186,6 +238,12 @@ async def handle_uncaught(request: Request, exc: Exception) -> JSONResponse:
 
 def rate_limit_handler(request: Request, exc: Exception) -> JSONResponse:
     detail = getattr(exc, "detail", None) or "rate limit exceeded"
+    client_host = getattr(getattr(request, "client", None), "host", "") or "unknown"
+    emit_event(
+        _evs.SECURITY_RATE_LIMITED,
+        client_ip=client_host,
+        path=str(getattr(request, "url", "")),
+    )
     return _response(429, "rate_limited", str(detail))
 
 
@@ -196,6 +254,8 @@ def register_error_handlers(app: Any) -> None:
     app.add_exception_handler(ApiError, handle_api_error)
     app.add_exception_handler(LLMConfigError, handle_llm_config_error)
     app.add_exception_handler(BudgetExceeded, handle_budget_exceeded)
+    app.add_exception_handler(CostCapExceeded, handle_cost_cap_exceeded)
+    app.add_exception_handler(DailyBudgetExceeded, handle_daily_budget_exceeded)
     app.add_exception_handler(InvalidTransitionError, handle_invalid_transition)
     app.add_exception_handler(ValidationError, handle_validation_error)
     app.add_exception_handler(RequestValidationError, handle_request_validation_error)
