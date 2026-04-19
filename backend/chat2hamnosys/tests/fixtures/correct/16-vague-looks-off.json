@@ -1,0 +1,34 @@
+{
+  "id": "16-vague-looks-off",
+  "notes": "Truly vague correction; interpreter must ask for specifics.",
+  "current_params": {
+    "handshape_dominant": "5",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "down",
+    "location": "chest",
+    "contact": null,
+    "movement": [],
+    "non_manual": null
+  },
+  "current_hamnosys": "",
+  "original_prose": "Spread-5 at the chest.",
+  "correction": {
+    "raw_text": "it looks off",
+    "target_time_ms": null,
+    "target_region": null
+  },
+  "recorded_response": {
+    "intent": "vague",
+    "explanation": "The correction is too general to act on without more detail.",
+    "needs_user_confirmation": true,
+    "follow_up_question": "What specifically looks off — the handshape, the location, the movement, or a non-manual feature?",
+    "field_changes": []
+  },
+  "expect_llm_called": true,
+  "expected_intent": "vague",
+  "expected_paths": [],
+  "expected_needs_confirmation": true,
+  "expected_follow_up_present": true,
+  "expected_updated_slots": {}
+}

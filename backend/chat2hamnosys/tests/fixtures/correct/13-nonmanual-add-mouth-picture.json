@@ -1,0 +1,50 @@
+{
+  "id": "13-nonmanual-add-mouth-picture",
+  "notes": "Adds a SAMPA-ish mouth picture to a sign.",
+  "current_params": {
+    "handshape_dominant": "5",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "down",
+    "location": "chest",
+    "contact": null,
+    "movement": [
+      {
+        "path": "straight",
+        "size_mod": null,
+        "speed_mod": null,
+        "repeat": null
+      }
+    ],
+    "non_manual": null
+  },
+  "current_hamnosys": "",
+  "original_prose": "Spread-5 hand at the chest moving outward.",
+  "correction": {
+    "raw_text": "add a quiet 'pah' mouth shape during the movement",
+    "target_time_ms": null,
+    "target_region": "mouth"
+  },
+  "recorded_response": {
+    "intent": "apply_diff",
+    "explanation": "Adding the mouth picture 'pah' during the movement.",
+    "needs_user_confirmation": false,
+    "follow_up_question": null,
+    "field_changes": [
+      {
+        "path": "non_manual.mouth_picture",
+        "old_value": null,
+        "new_value": "pah",
+        "confidence": 0.9
+      }
+    ]
+  },
+  "expect_llm_called": true,
+  "expected_intent": "apply_diff",
+  "expected_paths": [
+    "non_manual.mouth_picture"
+  ],
+  "expected_needs_confirmation": false,
+  "expected_follow_up_present": false,
+  "expected_updated_slots": {}
+}

@@ -1,0 +1,45 @@
+{
+  "id": "07-location-change-region-click",
+  "notes": "Click-on-mouth disambiguates a vague 'face' correction.",
+  "current_params": {
+    "handshape_dominant": "O",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "down",
+    "location": "cheek",
+    "contact": null,
+    "movement": [],
+    "non_manual": null
+  },
+  "current_hamnosys": "",
+  "original_prose": "An O hand at the cheek.",
+  "correction": {
+    "raw_text": "no, more towards the mouth",
+    "target_time_ms": null,
+    "target_region": "mouth"
+  },
+  "recorded_response": {
+    "intent": "apply_diff",
+    "explanation": "Moving the location from cheek to mouth/lips based on the clicked region.",
+    "needs_user_confirmation": false,
+    "follow_up_question": null,
+    "field_changes": [
+      {
+        "path": "location",
+        "old_value": "cheek",
+        "new_value": "mouth / lips",
+        "confidence": 0.88
+      }
+    ]
+  },
+  "expect_llm_called": true,
+  "expected_intent": "apply_diff",
+  "expected_paths": [
+    "location"
+  ],
+  "expected_needs_confirmation": false,
+  "expected_follow_up_present": false,
+  "expected_updated_slots": {
+    "location": "mouth / lips"
+  }
+}

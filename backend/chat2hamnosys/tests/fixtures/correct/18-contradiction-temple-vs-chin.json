@@ -1,0 +1,34 @@
+{
+  "id": "18-contradiction-temple-vs-chin",
+  "notes": "Correction contradicts the original prose; surface both options.",
+  "current_params": {
+    "handshape_dominant": "index",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "down",
+    "location": "temple",
+    "contact": null,
+    "movement": [],
+    "non_manual": null
+  },
+  "current_hamnosys": "",
+  "original_prose": "An index finger at the right temple.",
+  "correction": {
+    "raw_text": "no, this should be at the chin, not the temple",
+    "target_time_ms": null,
+    "target_region": null
+  },
+  "recorded_response": {
+    "intent": "contradiction",
+    "explanation": "Original description said 'at the right temple' but you're now asking for the chin.",
+    "needs_user_confirmation": true,
+    "follow_up_question": "You originally described the location as 'temple' but now want 'chin' — which is right?",
+    "field_changes": []
+  },
+  "expect_llm_called": true,
+  "expected_intent": "contradiction",
+  "expected_paths": [],
+  "expected_needs_confirmation": true,
+  "expected_follow_up_present": true,
+  "expected_updated_slots": {}
+}

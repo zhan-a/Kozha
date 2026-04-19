@@ -1,0 +1,45 @@
+{
+  "id": "14-two-handed-to-one-handed",
+  "notes": "Drop the non-dominant handshape to convert to one-handed.",
+  "current_params": {
+    "handshape_dominant": "fist",
+    "handshape_nondominant": "flat",
+    "orientation_extended_finger": "up",
+    "orientation_palm": "down",
+    "location": "chest",
+    "contact": null,
+    "movement": [],
+    "non_manual": null
+  },
+  "current_hamnosys": "",
+  "original_prose": "Both hands at the chest — dominant fist on top of the non-dominant flat hand.",
+  "correction": {
+    "raw_text": "this should be one-handed, drop the helper hand",
+    "target_time_ms": null,
+    "target_region": null
+  },
+  "recorded_response": {
+    "intent": "apply_diff",
+    "explanation": "Removing the non-dominant handshape so the sign becomes one-handed.",
+    "needs_user_confirmation": false,
+    "follow_up_question": null,
+    "field_changes": [
+      {
+        "path": "handshape_nondominant",
+        "old_value": "flat",
+        "new_value": null,
+        "confidence": 0.95
+      }
+    ]
+  },
+  "expect_llm_called": true,
+  "expected_intent": "apply_diff",
+  "expected_paths": [
+    "handshape_nondominant"
+  ],
+  "expected_needs_confirmation": false,
+  "expected_follow_up_present": false,
+  "expected_updated_slots": {
+    "handshape_nondominant": null
+  }
+}

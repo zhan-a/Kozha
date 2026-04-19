@@ -1,0 +1,52 @@
+{
+  "id": "04-handshape-swap-index-to-v",
+  "notes": "Region-clicked correction; LLM uses region to pin down which slot.",
+  "current_params": {
+    "handshape_dominant": "index",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "down",
+    "location": "chin",
+    "contact": null,
+    "movement": [
+      {
+        "path": "down",
+        "size_mod": null,
+        "speed_mod": null,
+        "repeat": null
+      }
+    ],
+    "non_manual": null
+  },
+  "current_hamnosys": "",
+  "original_prose": "Index finger at the chin moving down.",
+  "correction": {
+    "raw_text": "use two fingers, not one",
+    "target_time_ms": null,
+    "target_region": "hand"
+  },
+  "recorded_response": {
+    "intent": "apply_diff",
+    "explanation": "Replacing the index handshape with a V (index + middle extended).",
+    "needs_user_confirmation": false,
+    "follow_up_question": null,
+    "field_changes": [
+      {
+        "path": "handshape_dominant",
+        "old_value": "index",
+        "new_value": "V",
+        "confidence": 0.93
+      }
+    ]
+  },
+  "expect_llm_called": true,
+  "expected_intent": "apply_diff",
+  "expected_paths": [
+    "handshape_dominant"
+  ],
+  "expected_needs_confirmation": false,
+  "expected_follow_up_present": false,
+  "expected_updated_slots": {
+    "handshape_dominant": "V"
+  }
+}

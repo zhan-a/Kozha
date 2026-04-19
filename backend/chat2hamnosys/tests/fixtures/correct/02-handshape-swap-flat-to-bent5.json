@@ -1,0 +1,45 @@
+{
+  "id": "02-handshape-swap-flat-to-bent5",
+  "notes": "Handshape swap inferred from a freer phrasing.",
+  "current_params": {
+    "handshape_dominant": "flat",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "down",
+    "location": "chest",
+    "contact": null,
+    "movement": [],
+    "non_manual": null
+  },
+  "current_hamnosys": "",
+  "original_prose": "A flat hand at the chest moving outward.",
+  "correction": {
+    "raw_text": "actually, fingers should be bent at the knuckles — make it bent-5",
+    "target_time_ms": null,
+    "target_region": "hand"
+  },
+  "recorded_response": {
+    "intent": "apply_diff",
+    "explanation": "Switching the handshape from flat to bent-5; chest location stays.",
+    "needs_user_confirmation": false,
+    "follow_up_question": null,
+    "field_changes": [
+      {
+        "path": "handshape_dominant",
+        "old_value": "flat",
+        "new_value": "bent-5",
+        "confidence": 0.92
+      }
+    ]
+  },
+  "expect_llm_called": true,
+  "expected_intent": "apply_diff",
+  "expected_paths": [
+    "handshape_dominant"
+  ],
+  "expected_needs_confirmation": false,
+  "expected_follow_up_present": false,
+  "expected_updated_slots": {
+    "handshape_dominant": "bent-5"
+  }
+}

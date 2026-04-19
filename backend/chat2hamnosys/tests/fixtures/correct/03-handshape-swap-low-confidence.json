@@ -1,0 +1,45 @@
+{
+  "id": "03-handshape-swap-low-confidence",
+  "notes": "Interpreter applies the diff but flags it for confirmation.",
+  "current_params": {
+    "handshape_dominant": "5",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "down",
+    "location": "forehead",
+    "contact": null,
+    "movement": [],
+    "non_manual": null
+  },
+  "current_hamnosys": "",
+  "original_prose": "A spread five at the forehead.",
+  "correction": {
+    "raw_text": "it should be more claw-like — fingers bent",
+    "target_time_ms": null,
+    "target_region": null
+  },
+  "recorded_response": {
+    "intent": "apply_diff",
+    "explanation": "Changing the handshape from spread-5 to bent-5 (claw). Confirm before regenerating.",
+    "needs_user_confirmation": true,
+    "follow_up_question": null,
+    "field_changes": [
+      {
+        "path": "handshape_dominant",
+        "old_value": "5",
+        "new_value": "bent-5",
+        "confidence": 0.55
+      }
+    ]
+  },
+  "expect_llm_called": true,
+  "expected_intent": "apply_diff",
+  "expected_paths": [
+    "handshape_dominant"
+  ],
+  "expected_needs_confirmation": true,
+  "expected_follow_up_present": false,
+  "expected_updated_slots": {
+    "handshape_dominant": "bent-5"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "06-location-change-chest-to-neutral",
+  "notes": "Body-anchored to neutral-space location swap.",
+  "current_params": {
+    "handshape_dominant": "flat",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "down",
+    "location": "chest",
+    "contact": null,
+    "movement": [],
+    "non_manual": null
+  },
+  "current_hamnosys": "",
+  "original_prose": "Flat hand at the chest.",
+  "correction": {
+    "raw_text": "the hand should be in front of the body, not touching the chest",
+    "target_time_ms": null,
+    "target_region": null
+  },
+  "recorded_response": {
+    "intent": "apply_diff",
+    "explanation": "Moving the location from chest to neutral space.",
+    "needs_user_confirmation": false,
+    "follow_up_question": null,
+    "field_changes": [
+      {
+        "path": "location",
+        "old_value": "chest",
+        "new_value": "neutral space",
+        "confidence": 0.93
+      }
+    ]
+  },
+  "expect_llm_called": true,
+  "expected_intent": "apply_diff",
+  "expected_paths": [
+    "location"
+  ],
+  "expected_needs_confirmation": false,
+  "expected_follow_up_present": false,
+  "expected_updated_slots": {
+    "location": "neutral space"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "id": "19-contradiction-handshape",
+  "notes": "Correction contradicts the prose's handshape claim.",
+  "current_params": {
+    "handshape_dominant": "fist",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "down",
+    "location": "chest",
+    "contact": null,
+    "movement": [],
+    "non_manual": null
+  },
+  "current_hamnosys": "",
+  "original_prose": "A closed fist on the chest.",
+  "correction": {
+    "raw_text": "actually it should be an open hand, not a fist",
+    "target_time_ms": null,
+    "target_region": "hand"
+  },
+  "recorded_response": {
+    "intent": "contradiction",
+    "explanation": "Original prose specified 'closed fist' but the correction asks for an open hand.",
+    "needs_user_confirmation": true,
+    "follow_up_question": "You originally said 'closed fist' but now want an open hand — which should I keep?",
+    "field_changes": []
+  },
+  "expect_llm_called": true,
+  "expected_intent": "contradiction",
+  "expected_paths": [],
+  "expected_needs_confirmation": true,
+  "expected_follow_up_present": true,
+  "expected_updated_slots": {}
+}

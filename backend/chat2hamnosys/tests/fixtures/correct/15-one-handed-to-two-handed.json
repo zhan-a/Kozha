@@ -1,0 +1,52 @@
+{
+  "id": "15-one-handed-to-two-handed",
+  "notes": "Add a non-dominant handshape to convert to two-handed.",
+  "current_params": {
+    "handshape_dominant": "fist",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "down",
+    "location": "chest",
+    "contact": null,
+    "movement": [
+      {
+        "path": "down",
+        "size_mod": null,
+        "speed_mod": null,
+        "repeat": null
+      }
+    ],
+    "non_manual": null
+  },
+  "current_hamnosys": "",
+  "original_prose": "Closed fist at the chest moving down.",
+  "correction": {
+    "raw_text": "this is symmetric — both hands do the same thing, mirrored",
+    "target_time_ms": null,
+    "target_region": null
+  },
+  "recorded_response": {
+    "intent": "apply_diff",
+    "explanation": "Mirroring the dominant handshape on the non-dominant hand for a symmetric two-handed sign.",
+    "needs_user_confirmation": false,
+    "follow_up_question": null,
+    "field_changes": [
+      {
+        "path": "handshape_nondominant",
+        "old_value": null,
+        "new_value": "fist",
+        "confidence": 0.9
+      }
+    ]
+  },
+  "expect_llm_called": true,
+  "expected_intent": "apply_diff",
+  "expected_paths": [
+    "handshape_nondominant"
+  ],
+  "expected_needs_confirmation": false,
+  "expected_follow_up_present": false,
+  "expected_updated_slots": {
+    "handshape_nondominant": "fist"
+  }
+}

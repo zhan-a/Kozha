@@ -1,0 +1,43 @@
+{
+  "id": "12-nonmanual-add-raised-eyebrows",
+  "notes": "Add a non-manual feature (eyebrows) to a sign without one.",
+  "current_params": {
+    "handshape_dominant": "index",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "down",
+    "location": "chin",
+    "contact": null,
+    "movement": [],
+    "non_manual": null
+  },
+  "current_hamnosys": "",
+  "original_prose": "An index finger at the chin.",
+  "correction": {
+    "raw_text": "raise the eyebrows on this — it's a yes/no question",
+    "target_time_ms": null,
+    "target_region": "face"
+  },
+  "recorded_response": {
+    "intent": "apply_diff",
+    "explanation": "Adding raised eyebrows for the yes/no marker.",
+    "needs_user_confirmation": false,
+    "follow_up_question": null,
+    "field_changes": [
+      {
+        "path": "non_manual.eyebrows",
+        "old_value": null,
+        "new_value": "raised",
+        "confidence": 0.95
+      }
+    ]
+  },
+  "expect_llm_called": true,
+  "expected_intent": "apply_diff",
+  "expected_paths": [
+    "non_manual.eyebrows"
+  ],
+  "expected_needs_confirmation": false,
+  "expected_follow_up_present": false,
+  "expected_updated_slots": {}
+}

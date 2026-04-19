@@ -1,0 +1,45 @@
+{
+  "id": "05-location-change-chin-to-temple",
+  "notes": "Pure location swap with timestamp; minimal diff.",
+  "current_params": {
+    "handshape_dominant": "index",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "down",
+    "location": "chin",
+    "contact": null,
+    "movement": [],
+    "non_manual": null
+  },
+  "current_hamnosys": "",
+  "original_prose": "An index finger at the chin.",
+  "correction": {
+    "raw_text": "location is too low; move it up to the temple",
+    "target_time_ms": 1500,
+    "target_region": "head"
+  },
+  "recorded_response": {
+    "intent": "apply_diff",
+    "explanation": "Moving the location from chin to temple. Handshape and orientation are unchanged.",
+    "needs_user_confirmation": false,
+    "follow_up_question": null,
+    "field_changes": [
+      {
+        "path": "location",
+        "old_value": "chin",
+        "new_value": "temple",
+        "confidence": 0.97
+      }
+    ]
+  },
+  "expect_llm_called": true,
+  "expected_intent": "apply_diff",
+  "expected_paths": [
+    "location"
+  ],
+  "expected_needs_confirmation": false,
+  "expected_follow_up_present": false,
+  "expected_updated_slots": {
+    "location": "temple"
+  }
+}

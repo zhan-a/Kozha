@@ -1,0 +1,34 @@
+{
+  "id": "20-restart-whole-sign-wrong",
+  "notes": "Deterministic restart phrase; LLM short-circuited.",
+  "current_params": {
+    "handshape_dominant": "fist",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "down",
+    "location": "chest",
+    "contact": null,
+    "movement": [],
+    "non_manual": null
+  },
+  "current_hamnosys": "",
+  "original_prose": "Closed fist at the chest.",
+  "correction": {
+    "raw_text": "the whole sign is wrong, let me start over",
+    "target_time_ms": null,
+    "target_region": null
+  },
+  "recorded_response": {
+    "intent": "restart",
+    "explanation": "(unused — deterministic restart fast path)",
+    "needs_user_confirmation": true,
+    "follow_up_question": null,
+    "field_changes": []
+  },
+  "expect_llm_called": false,
+  "expected_intent": "restart",
+  "expected_paths": [],
+  "expected_needs_confirmation": true,
+  "expected_follow_up_present": false,
+  "expected_updated_slots": {}
+}

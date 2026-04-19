@@ -1,0 +1,50 @@
+{
+  "id": "08-movement-flip-up-to-down",
+  "notes": "Flip the movement path direction.",
+  "current_params": {
+    "handshape_dominant": "flat",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "down",
+    "location": "chest",
+    "contact": null,
+    "movement": [
+      {
+        "path": "up",
+        "size_mod": null,
+        "speed_mod": null,
+        "repeat": null
+      }
+    ],
+    "non_manual": null
+  },
+  "current_hamnosys": "",
+  "original_prose": "Flat hand at the chest moving upward.",
+  "correction": {
+    "raw_text": "the movement is going the wrong way — should be downward, not upward",
+    "target_time_ms": null,
+    "target_region": null
+  },
+  "recorded_response": {
+    "intent": "apply_diff",
+    "explanation": "Flipping the movement direction from up to down.",
+    "needs_user_confirmation": false,
+    "follow_up_question": null,
+    "field_changes": [
+      {
+        "path": "movement[0].path",
+        "old_value": "up",
+        "new_value": "down",
+        "confidence": 0.95
+      }
+    ]
+  },
+  "expect_llm_called": true,
+  "expected_intent": "apply_diff",
+  "expected_paths": [
+    "movement[0].path"
+  ],
+  "expected_needs_confirmation": false,
+  "expected_follow_up_present": false,
+  "expected_updated_slots": {}
+}

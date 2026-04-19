@@ -1,0 +1,50 @@
+{
+  "id": "10-movement-repeat-once-to-twice",
+  "notes": "Bump the repetition count.",
+  "current_params": {
+    "handshape_dominant": "flat",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "down",
+    "location": "chest",
+    "contact": null,
+    "movement": [
+      {
+        "path": "straight",
+        "size_mod": null,
+        "speed_mod": null,
+        "repeat": "once"
+      }
+    ],
+    "non_manual": null
+  },
+  "current_hamnosys": "",
+  "original_prose": "Flat hand at the chest moving once.",
+  "correction": {
+    "raw_text": "the movement should repeat twice, not once",
+    "target_time_ms": null,
+    "target_region": null
+  },
+  "recorded_response": {
+    "intent": "apply_diff",
+    "explanation": "Changing the repetition from once to twice; everything else stays.",
+    "needs_user_confirmation": false,
+    "follow_up_question": null,
+    "field_changes": [
+      {
+        "path": "movement[0].repeat",
+        "old_value": "once",
+        "new_value": "twice",
+        "confidence": 0.97
+      }
+    ]
+  },
+  "expect_llm_called": true,
+  "expected_intent": "apply_diff",
+  "expected_paths": [
+    "movement[0].repeat"
+  ],
+  "expected_needs_confirmation": false,
+  "expected_follow_up_present": false,
+  "expected_updated_slots": {}
+}

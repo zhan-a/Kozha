@@ -1,0 +1,50 @@
+{
+  "id": "09-movement-flip-out-to-in",
+  "notes": "Flip a circular movement direction.",
+  "current_params": {
+    "handshape_dominant": "index",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "down",
+    "location": "forehead",
+    "contact": null,
+    "movement": [
+      {
+        "path": "circular",
+        "size_mod": "small",
+        "speed_mod": null,
+        "repeat": null
+      }
+    ],
+    "non_manual": null
+  },
+  "current_hamnosys": "",
+  "original_prose": "Index finger at the forehead, small circle clockwise outward.",
+  "correction": {
+    "raw_text": "the circle should go the other direction, inward",
+    "target_time_ms": null,
+    "target_region": null
+  },
+  "recorded_response": {
+    "intent": "apply_diff",
+    "explanation": "Flipping the circle direction from outward to inward.",
+    "needs_user_confirmation": true,
+    "follow_up_question": null,
+    "field_changes": [
+      {
+        "path": "movement[0].path",
+        "old_value": "circular",
+        "new_value": "circular inward",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "expect_llm_called": true,
+  "expected_intent": "apply_diff",
+  "expected_paths": [
+    "movement[0].path"
+  ],
+  "expected_needs_confirmation": true,
+  "expected_follow_up_present": false,
+  "expected_updated_slots": {}
+}
