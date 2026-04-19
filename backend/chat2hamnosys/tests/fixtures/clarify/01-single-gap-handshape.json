@@ -1,0 +1,46 @@
+{
+  "id": "01-single-gap-handshape",
+  "notes": "One gap, one question produced by the LLM path. Recorded response rewrites the template phrasing with prose-grounded text.",
+  "is_deaf_native": null,
+  "parse_result": {
+    "parameters": {
+      "handshape_dominant": null,
+      "handshape_nondominant": null,
+      "orientation_extended_finger": "up",
+      "orientation_palm": "away from signer",
+      "location": "temple",
+      "contact": null,
+      "movement": [],
+      "non_manual": null
+    },
+    "gaps": [
+      {
+        "field": "handshape_dominant",
+        "reason": "description says 'claw-like' — could be bent-5 or bent-V",
+        "suggested_question": "Is the claw all five fingers (bent-5) or just index and middle (bent-V)?"
+      }
+    ],
+    "raw_response": ""
+  },
+  "prior_turns": [
+    {"role": "author", "text": "The hand is held at the temple with a claw-like shape, palm facing away, moving away in a small arc."}
+  ],
+  "recorded_response": {
+    "questions": [
+      {
+        "field": "handshape_dominant",
+        "text": "You described a claw-like shape at the temple. Is it a full bent-5 (all five fingers bent at the knuckles) or a bent-V (just index and middle)?",
+        "options": [
+          {"label": "Bent-5 / claw (all five fingers bent)", "value": "bent-5"},
+          {"label": "Bent-V (index and middle only)", "value": "bent-V"},
+          {"label": "Spread five (fingers straight)", "value": "5"}
+        ],
+        "allow_freeform": true,
+        "rationale": "Handshape narrowed to two candidates by the 'claw-like' cue; ask with a tight 3-way multiple choice."
+      }
+    ]
+  },
+  "expected_fields": ["handshape_dominant"],
+  "expected_count": 1,
+  "expect_fallback": false
+}

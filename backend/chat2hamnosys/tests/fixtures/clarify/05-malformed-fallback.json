@@ -1,0 +1,37 @@
+{
+  "id": "05-malformed-fallback",
+  "notes": "LLM returns a blob that is not valid JSON — generate_questions falls back to per-field templates. expect_fallback=true tells the test to compare the output against template_for() rather than against a recorded response.",
+  "is_deaf_native": null,
+  "parse_result": {
+    "parameters": {
+      "handshape_dominant": null,
+      "handshape_nondominant": null,
+      "orientation_extended_finger": null,
+      "orientation_palm": null,
+      "location": "neutral space",
+      "contact": null,
+      "movement": [],
+      "non_manual": null
+    },
+    "gaps": [
+      {
+        "field": "handshape_dominant",
+        "reason": "unspecified",
+        "suggested_question": "Which handshape?"
+      },
+      {
+        "field": "orientation_palm",
+        "reason": "unspecified",
+        "suggested_question": "Palm direction?"
+      }
+    ],
+    "raw_response": ""
+  },
+  "prior_turns": [
+    {"role": "author", "text": "A sign in neutral space."}
+  ],
+  "recorded_response_raw": "I'm sorry, I cannot answer that request. Here is a helpful tip instead...",
+  "expected_fields": ["handshape_dominant", "orientation_palm"],
+  "expected_count": 2,
+  "expect_fallback": true
+}

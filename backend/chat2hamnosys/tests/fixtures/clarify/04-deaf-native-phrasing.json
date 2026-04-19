@@ -1,0 +1,64 @@
+{
+  "id": "04-deaf-native-phrasing",
+  "notes": "is_deaf_native=true; LLM returns terser direct-terminology phrasing rather than hand-holding English.",
+  "is_deaf_native": true,
+  "parse_result": {
+    "parameters": {
+      "handshape_dominant": null,
+      "handshape_nondominant": null,
+      "orientation_extended_finger": null,
+      "orientation_palm": null,
+      "location": "chin",
+      "contact": null,
+      "movement": [],
+      "non_manual": null
+    },
+    "gaps": [
+      {
+        "field": "handshape_dominant",
+        "reason": "unspecified",
+        "suggested_question": "Which handshape?"
+      },
+      {
+        "field": "orientation_palm",
+        "reason": "unspecified",
+        "suggested_question": "Palm direction?"
+      }
+    ],
+    "raw_response": ""
+  },
+  "prior_turns": [
+    {"role": "author", "text": "A sign at the chin."}
+  ],
+  "recorded_response": {
+    "questions": [
+      {
+        "field": "handshape_dominant",
+        "text": "Handshape at the chin — A, B, 5, bent-5?",
+        "options": [
+          {"label": "A (fist)", "value": "fist"},
+          {"label": "B (flat)", "value": "flat"},
+          {"label": "5", "value": "5"},
+          {"label": "bent-5", "value": "bent-5"}
+        ],
+        "allow_freeform": true,
+        "rationale": "Deaf-native: direct handshape notation."
+      },
+      {
+        "field": "orientation_palm",
+        "text": "Palm direction?",
+        "options": [
+          {"label": "Down", "value": "down"},
+          {"label": "Up", "value": "up"},
+          {"label": "Toward signer", "value": "toward signer"},
+          {"label": "Away", "value": "away from signer"}
+        ],
+        "allow_freeform": true,
+        "rationale": "Deaf-native: terse."
+      }
+    ]
+  },
+  "expected_fields": ["handshape_dominant", "orientation_palm"],
+  "expected_count": 2,
+  "expect_fallback": false
+}

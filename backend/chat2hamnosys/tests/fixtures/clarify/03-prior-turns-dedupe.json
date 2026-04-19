@@ -1,0 +1,71 @@
+{
+  "id": "03-prior-turns-dedupe",
+  "notes": "Three input gaps; prior assistant turn already asked about handshape. Only palm and location should be asked about this turn.",
+  "is_deaf_native": null,
+  "parse_result": {
+    "parameters": {
+      "handshape_dominant": null,
+      "handshape_nondominant": null,
+      "orientation_extended_finger": "up",
+      "orientation_palm": null,
+      "location": null,
+      "contact": null,
+      "movement": [],
+      "non_manual": null
+    },
+    "gaps": [
+      {
+        "field": "handshape_dominant",
+        "reason": "not resolved yet",
+        "suggested_question": "Which handshape?"
+      },
+      {
+        "field": "orientation_palm",
+        "reason": "not mentioned",
+        "suggested_question": "Which way does the palm face?"
+      },
+      {
+        "field": "location",
+        "reason": "not mentioned",
+        "suggested_question": "Where on the body?"
+      }
+    ],
+    "raw_response": ""
+  },
+  "prior_turns": [
+    {"role": "author", "text": "A sign with the fingers pointing up."},
+    {"role": "assistant", "text": "Which handshape is used? A closed fist, a flat palm, or something else?"},
+    {"role": "author", "text": "I'm still thinking about that."}
+  ],
+  "recorded_response": {
+    "questions": [
+      {
+        "field": "orientation_palm",
+        "text": "Which way does the palm face — toward you, away from you, down, or up?",
+        "options": [
+          {"label": "Toward signer", "value": "toward signer"},
+          {"label": "Away from signer", "value": "away from signer"},
+          {"label": "Down", "value": "down"},
+          {"label": "Up", "value": "up"}
+        ],
+        "allow_freeform": true,
+        "rationale": "Palm direction is discrete."
+      },
+      {
+        "field": "location",
+        "text": "Where on the body is the sign made — at the temple, chin, chest, or in neutral space?",
+        "options": [
+          {"label": "Temple", "value": "temple"},
+          {"label": "Chin", "value": "chin"},
+          {"label": "Chest", "value": "chest"},
+          {"label": "Neutral space", "value": "neutral space"}
+        ],
+        "allow_freeform": true,
+        "rationale": "Common location anchors."
+      }
+    ]
+  },
+  "expected_fields": ["orientation_palm", "location"],
+  "expected_count": 2,
+  "expect_fallback": false
+}

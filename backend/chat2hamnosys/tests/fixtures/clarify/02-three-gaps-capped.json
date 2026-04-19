@@ -1,0 +1,86 @@
+{
+  "id": "02-three-gaps-capped",
+  "notes": "Four input gaps, but MAX_QUESTIONS_PER_TURN caps at 3. The fourth gap (contact) is trimmed before the LLM sees it.",
+  "is_deaf_native": null,
+  "parse_result": {
+    "parameters": {
+      "handshape_dominant": null,
+      "handshape_nondominant": null,
+      "orientation_extended_finger": null,
+      "orientation_palm": null,
+      "location": "chest",
+      "contact": null,
+      "movement": [],
+      "non_manual": null
+    },
+    "gaps": [
+      {
+        "field": "handshape_dominant",
+        "reason": "not mentioned",
+        "suggested_question": "Which handshape?"
+      },
+      {
+        "field": "orientation_palm",
+        "reason": "not mentioned",
+        "suggested_question": "Which way does the palm face?"
+      },
+      {
+        "field": "orientation_extended_finger",
+        "reason": "not mentioned",
+        "suggested_question": "Which direction do the fingertips point?"
+      },
+      {
+        "field": "contact",
+        "reason": "not mentioned",
+        "suggested_question": "Does the hand touch the chest?"
+      }
+    ],
+    "raw_response": ""
+  },
+  "prior_turns": [
+    {"role": "author", "text": "A sign at the chest — the rest I'm not sure about."}
+  ],
+  "recorded_response": {
+    "questions": [
+      {
+        "field": "handshape_dominant",
+        "text": "Which handshape is used at the chest — a closed fist, flat palm, spread five, or bent-five?",
+        "options": [
+          {"label": "Closed fist (A / S)", "value": "fist"},
+          {"label": "Flat palm (B / flat)", "value": "flat"},
+          {"label": "Spread five (5)", "value": "5"},
+          {"label": "Bent-5 / claw", "value": "bent-5"}
+        ],
+        "allow_freeform": true,
+        "rationale": "Handshape is the most discriminating slot — always ask first when gapped."
+      },
+      {
+        "field": "orientation_palm",
+        "text": "Which way does the palm face at the chest — toward your body, away from you, down, or up?",
+        "options": [
+          {"label": "Toward signer", "value": "toward signer"},
+          {"label": "Away from signer", "value": "away from signer"},
+          {"label": "Down", "value": "down"},
+          {"label": "Up", "value": "up"}
+        ],
+        "allow_freeform": true,
+        "rationale": "Palm direction follows handshape in the HamNoSys ordering."
+      },
+      {
+        "field": "orientation_extended_finger",
+        "text": "Which direction do the fingertips point?",
+        "options": [
+          {"label": "Up", "value": "up"},
+          {"label": "Down", "value": "down"},
+          {"label": "Forward (away from signer)", "value": "forward"},
+          {"label": "Toward signer", "value": "toward signer"}
+        ],
+        "allow_freeform": true,
+        "rationale": "Completes the orientation pair."
+      }
+    ]
+  },
+  "expected_fields": ["handshape_dominant", "orientation_palm", "orientation_extended_finger"],
+  "expected_count": 3,
+  "expect_fallback": false
+}
