@@ -29,10 +29,12 @@ jobs:
                 cd /home/ubuntu/Kozha
                 git fetch --prune origin
                 git reset --hard origin/main
-                git clean -fd
+                git clean -fd -e ./data/
                 cd server
                 source /home/ubuntu/kozha-venv/bin/activate
                 pip install --no-cache-dir -r requirements.txt
+                [ -f ../backend/chat2hamnosys/requirements.txt ] || { echo "Missing backend requirements at ../backend/chat2hamnosys/requirements.txt"; exit 1; }
+                pip install --no-cache-dir -r ../backend/chat2hamnosys/requirements.txt
                 sudo systemctl daemon-reload
                 sudo systemctl restart kozha.service
                 sudo systemctl --no-pager status kozha.service
