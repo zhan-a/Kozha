@@ -1,0 +1,84 @@
+{
+  "fixture_version": 1,
+  "name": "electron",
+  "summary": "STEM term: round-O handshape orbiting in neutral space. Demo example referenced in 20-demo-script.md.",
+  "session": {
+    "id": "00000000-0000-4000-a000-000000000e01",
+    "sign_language": "bsl",
+    "created_at": "2026-04-19T12:00:00+00:00",
+    "accepted_at": "2026-04-19T12:01:42+00:00",
+    "session_token": "demo-token-electron"
+  },
+  "events": [
+    {
+      "type": "described",
+      "event_id": "11111111-0000-4000-a000-000000000001",
+      "timestamp": "2026-04-19T12:00:05+00:00",
+      "prose": "ELECTRON is signed with a small round-O handshape, palm down, in neutral signing space. The hand makes a small circle to suggest orbiting motion.",
+      "gaps_found": 1
+    },
+    {
+      "type": "clarification_asked",
+      "event_id": "11111111-0000-4000-a000-000000000002",
+      "timestamp": "2026-04-19T12:00:12+00:00",
+      "questions": [
+        {
+          "field": "movement.size_mod",
+          "prompt": "How small is the circular movement?",
+          "kind": "multiple_choice",
+          "options": [
+            {"label": "Fingertip-sized (very small)", "value": "very_small"},
+            {"label": "Palm-sized (small)", "value": "small"},
+            {"label": "Larger (normal)", "value": "normal"}
+          ],
+          "freeform_allowed": false
+        }
+      ]
+    },
+    {
+      "type": "clarification_answered",
+      "event_id": "11111111-0000-4000-a000-000000000003",
+      "timestamp": "2026-04-19T12:00:18+00:00",
+      "question_field": "movement.size_mod",
+      "answer": "very_small",
+      "resolved_value": "\uE0C5"
+    },
+    {
+      "type": "generated",
+      "event_id": "11111111-0000-4000-a000-000000000004",
+      "timestamp": "2026-04-19T12:00:31+00:00",
+      "success": true,
+      "hamnosys": "\uE013\uE020\uE03A\uE051\uE079\uE093\uE0C5",
+      "sigml": "<sigml><hns_sign gloss=\"ELECTRON\"><hamnosys_manual><hamnosysstring>\uE013\uE020\uE03A\uE051\uE079\uE093\uE0C5</hamnosysstring></hamnosys_manual></hns_sign></sigml>",
+      "confidence": 0.86,
+      "used_llm_fallback": true,
+      "errors": []
+    },
+    {
+      "type": "accepted",
+      "event_id": "11111111-0000-4000-a000-000000000005",
+      "timestamp": "2026-04-19T12:01:42+00:00",
+      "sign_entry_id": "22222222-0000-4000-a000-000000000e01",
+      "status": "draft"
+    }
+  ],
+  "expected_sign_entry": {
+    "id": "22222222-0000-4000-a000-000000000e01",
+    "gloss": "ELECTRON",
+    "sign_language": "bsl",
+    "domain": "physics",
+    "hamnosys": "\uE013\uE020\uE03A\uE051\uE079\uE093\uE0C5",
+    "parameters": {
+      "handshape_dominant": "\uE013",
+      "orientation_extended_finger": "\uE020",
+      "orientation_palm": "\uE03A",
+      "location": "\uE051",
+      "movement": [
+        {"path": "\uE093", "size_mod": "\uE0C5"}
+      ]
+    },
+    "description_prose": "ELECTRON is signed with a small round-O handshape, palm down, in neutral signing space. The hand makes a small circle to suggest orbiting motion.",
+    "status": "draft",
+    "author": {"signer_id": "demo-signer", "is_deaf_native": false, "display_name": "Demo (hearing)"}
+  }
+}

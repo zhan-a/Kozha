@@ -1,0 +1,133 @@
+{
+  "fixture_version": 1,
+  "name": "catalyst",
+  "summary": "STEM term: two-handed flat brushing past, suggesting one substance accelerating another. Demonstrates the correction loop.",
+  "session": {
+    "id": "00000000-0000-4000-a000-000000000c02",
+    "sign_language": "bsl",
+    "created_at": "2026-04-19T12:05:00+00:00",
+    "accepted_at": "2026-04-19T12:08:11+00:00",
+    "session_token": "demo-token-catalyst"
+  },
+  "events": [
+    {
+      "type": "described",
+      "event_id": "11111111-0000-4000-a000-000000000101",
+      "timestamp": "2026-04-19T12:05:04+00:00",
+      "prose": "CATALYST is two-handed. The non-dominant flat hand stays still in front of the body. The dominant flat hand brushes past the back of the non-dominant hand, moving forward and quickly accelerating away.",
+      "gaps_found": 2
+    },
+    {
+      "type": "clarification_asked",
+      "event_id": "11111111-0000-4000-a000-000000000102",
+      "timestamp": "2026-04-19T12:05:14+00:00",
+      "questions": [
+        {
+          "field": "contact",
+          "prompt": "Does the dominant hand touch the non-dominant hand, brush past it, or come close without contact?",
+          "kind": "multiple_choice",
+          "options": [
+            {"label": "Touch", "value": "touch"},
+            {"label": "Brush past", "value": "brush"},
+            {"label": "Close, no contact", "value": "close"}
+          ],
+          "freeform_allowed": false
+        },
+        {
+          "field": "movement.speed_mod",
+          "prompt": "Is the acceleration immediate, gradual, or held?",
+          "kind": "multiple_choice",
+          "options": [
+            {"label": "Immediate (fast)", "value": "fast"},
+            {"label": "Gradual (normal)", "value": "normal"},
+            {"label": "Tense / held", "value": "tense"}
+          ],
+          "freeform_allowed": false
+        }
+      ]
+    },
+    {
+      "type": "clarification_answered",
+      "event_id": "11111111-0000-4000-a000-000000000103",
+      "timestamp": "2026-04-19T12:05:32+00:00",
+      "question_field": "contact",
+      "answer": "brush",
+      "resolved_value": "\uE0F1"
+    },
+    {
+      "type": "clarification_answered",
+      "event_id": "11111111-0000-4000-a000-000000000104",
+      "timestamp": "2026-04-19T12:05:38+00:00",
+      "question_field": "movement.speed_mod",
+      "answer": "fast",
+      "resolved_value": "\uE0CB"
+    },
+    {
+      "type": "generated",
+      "event_id": "11111111-0000-4000-a000-000000000105",
+      "timestamp": "2026-04-19T12:05:55+00:00",
+      "success": true,
+      "hamnosys": "\uE001\uE001\uE020\uE03E\uE04D\uE051\uE0F1\uE089\uE0CB",
+      "sigml": "<sigml><hns_sign gloss=\"CATALYST\"><hamnosys_manual><hamnosysstring>\uE001\uE001\uE020\uE03E\uE04D\uE051\uE0F1\uE089\uE0CB</hamnosysstring></hamnosys_manual></hns_sign></sigml>",
+      "confidence": 0.79,
+      "used_llm_fallback": true,
+      "errors": []
+    },
+    {
+      "type": "correction_requested",
+      "event_id": "11111111-0000-4000-a000-000000000106",
+      "timestamp": "2026-04-19T12:06:42+00:00",
+      "raw_text": "the dominant hand should be at chest height, not below",
+      "target_time_ms": 1200,
+      "target_region": "torso"
+    },
+    {
+      "type": "correction_applied",
+      "event_id": "11111111-0000-4000-a000-000000000107",
+      "timestamp": "2026-04-19T12:06:49+00:00",
+      "summary": "raised the start location from neutral space to chest",
+      "field_changes": [
+        {"field": "location", "from": "\uE051", "to": "\uE05A"}
+      ]
+    },
+    {
+      "type": "generated",
+      "event_id": "11111111-0000-4000-a000-000000000108",
+      "timestamp": "2026-04-19T12:07:05+00:00",
+      "success": true,
+      "hamnosys": "\uE001\uE001\uE020\uE03E\uE04D\uE05A\uE0F1\uE089\uE0CB",
+      "sigml": "<sigml><hns_sign gloss=\"CATALYST\"><hamnosys_manual><hamnosysstring>\uE001\uE001\uE020\uE03E\uE04D\uE05A\uE0F1\uE089\uE0CB</hamnosysstring></hamnosys_manual></hns_sign></sigml>",
+      "confidence": 0.83,
+      "used_llm_fallback": false,
+      "errors": []
+    },
+    {
+      "type": "accepted",
+      "event_id": "11111111-0000-4000-a000-000000000109",
+      "timestamp": "2026-04-19T12:08:11+00:00",
+      "sign_entry_id": "22222222-0000-4000-a000-000000000c02",
+      "status": "draft"
+    }
+  ],
+  "expected_sign_entry": {
+    "id": "22222222-0000-4000-a000-000000000c02",
+    "gloss": "CATALYST",
+    "sign_language": "bsl",
+    "domain": "chemistry",
+    "hamnosys": "\uE001\uE001\uE020\uE03E\uE04D\uE05A\uE0F1\uE089\uE0CB",
+    "parameters": {
+      "handshape_dominant": "\uE001",
+      "handshape_nondominant": "\uE001",
+      "orientation_extended_finger": "\uE020",
+      "orientation_palm": "\uE03E",
+      "location": "\uE05A",
+      "contact": "\uE0F1",
+      "movement": [
+        {"path": "\uE089", "speed_mod": "\uE0CB"}
+      ]
+    },
+    "description_prose": "CATALYST is two-handed. The non-dominant flat hand stays still in front of the body. The dominant flat hand brushes past the back of the non-dominant hand, moving forward and quickly accelerating away.",
+    "status": "draft",
+    "author": {"signer_id": "demo-signer", "is_deaf_native": false, "display_name": "Demo (hearing)"}
+  }
+}

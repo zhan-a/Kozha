@@ -1,0 +1,58 @@
+{
+  "fixture_version": 1,
+  "name": "photon",
+  "summary": "STEM term: index finger trajectory with a small zigzag, suggesting a particle's wave nature. No clarifications needed — happy-path generation.",
+  "session": {
+    "id": "00000000-0000-4000-a000-000000000p03",
+    "sign_language": "bsl",
+    "created_at": "2026-04-19T12:10:00+00:00",
+    "accepted_at": "2026-04-19T12:10:48+00:00",
+    "session_token": "demo-token-photon"
+  },
+  "events": [
+    {
+      "type": "described",
+      "event_id": "11111111-0000-4000-a000-000000000201",
+      "timestamp": "2026-04-19T12:10:04+00:00",
+      "prose": "PHOTON is signed with the index finger of the dominant hand pointing forward, palm sideways. The hand moves forward in a small wavy line away from the chest, traveling about a hand-length.",
+      "gaps_found": 0
+    },
+    {
+      "type": "generated",
+      "event_id": "11111111-0000-4000-a000-000000000202",
+      "timestamp": "2026-04-19T12:10:21+00:00",
+      "success": true,
+      "hamnosys": "\uE002\uE020\uE03B\uE05A\uE0A1\uE0C5",
+      "sigml": "<sigml><hns_sign gloss=\"PHOTON\"><hamnosys_manual><hamnosysstring>\uE002\uE020\uE03B\uE05A\uE0A1\uE0C5</hamnosysstring></hamnosys_manual></hns_sign></sigml>",
+      "confidence": 0.91,
+      "used_llm_fallback": false,
+      "errors": []
+    },
+    {
+      "type": "accepted",
+      "event_id": "11111111-0000-4000-a000-000000000203",
+      "timestamp": "2026-04-19T12:10:48+00:00",
+      "sign_entry_id": "22222222-0000-4000-a000-000000000p03",
+      "status": "draft"
+    }
+  ],
+  "expected_sign_entry": {
+    "id": "22222222-0000-4000-a000-000000000p03",
+    "gloss": "PHOTON",
+    "sign_language": "bsl",
+    "domain": "physics",
+    "hamnosys": "\uE002\uE020\uE03B\uE05A\uE0A1\uE0C5",
+    "parameters": {
+      "handshape_dominant": "\uE002",
+      "orientation_extended_finger": "\uE020",
+      "orientation_palm": "\uE03B",
+      "location": "\uE05A",
+      "movement": [
+        {"path": "\uE0A1", "size_mod": "\uE0C5"}
+      ]
+    },
+    "description_prose": "PHOTON is signed with the index finger of the dominant hand pointing forward, palm sideways. The hand moves forward in a small wavy line away from the chest, traveling about a hand-length.",
+    "status": "draft",
+    "author": {"signer_id": "demo-signer", "is_deaf_native": false, "display_name": "Demo (hearing)"}
+  }
+}

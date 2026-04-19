@@ -1,0 +1,84 @@
+{
+  "fixture_version": 1,
+  "name": "integral",
+  "summary": "Math term: tracing the integral S-curve in space. Shows the most complex movement composition (S-curve path with size and speed modifiers).",
+  "session": {
+    "id": "00000000-0000-4000-a000-000000000i05",
+    "sign_language": "asl",
+    "created_at": "2026-04-19T12:20:00+00:00",
+    "accepted_at": "2026-04-19T12:21:55+00:00",
+    "session_token": "demo-token-integral"
+  },
+  "events": [
+    {
+      "type": "described",
+      "event_id": "11111111-0000-4000-a000-000000000401",
+      "timestamp": "2026-04-19T12:20:04+00:00",
+      "prose": "INTEGRAL: dominant hand uses an index finger handshape, palm facing left, fingertip pointing up. Starting at upper-right, the finger traces the integral symbol — a long S-curve — slowly down and to the lower-left.",
+      "gaps_found": 1
+    },
+    {
+      "type": "clarification_asked",
+      "event_id": "11111111-0000-4000-a000-000000000402",
+      "timestamp": "2026-04-19T12:20:15+00:00",
+      "questions": [
+        {
+          "field": "movement.size_mod",
+          "prompt": "How tall is the S-curve?",
+          "kind": "multiple_choice",
+          "options": [
+            {"label": "Hand-length (small)", "value": "small"},
+            {"label": "Forearm-length (normal)", "value": "normal"},
+            {"label": "Full reach (large)", "value": "large"}
+          ],
+          "freeform_allowed": false
+        }
+      ]
+    },
+    {
+      "type": "clarification_answered",
+      "event_id": "11111111-0000-4000-a000-000000000403",
+      "timestamp": "2026-04-19T12:20:24+00:00",
+      "question_field": "movement.size_mod",
+      "answer": "normal",
+      "resolved_value": "\uE0C7"
+    },
+    {
+      "type": "generated",
+      "event_id": "11111111-0000-4000-a000-000000000404",
+      "timestamp": "2026-04-19T12:20:51+00:00",
+      "success": true,
+      "hamnosys": "\uE002\uE020\uE03B\uE049\uE05A\uE0A6\uE0C7\uE0CA",
+      "sigml": "<sigml><hns_sign gloss=\"INTEGRAL\"><hamnosys_manual><hamnosysstring>\uE002\uE020\uE03B\uE049\uE05A\uE0A6\uE0C7\uE0CA</hamnosysstring></hamnosys_manual></hns_sign></sigml>",
+      "confidence": 0.81,
+      "used_llm_fallback": true,
+      "errors": []
+    },
+    {
+      "type": "accepted",
+      "event_id": "11111111-0000-4000-a000-000000000405",
+      "timestamp": "2026-04-19T12:21:55+00:00",
+      "sign_entry_id": "22222222-0000-4000-a000-000000000i05",
+      "status": "draft"
+    }
+  ],
+  "expected_sign_entry": {
+    "id": "22222222-0000-4000-a000-000000000i05",
+    "gloss": "INTEGRAL",
+    "sign_language": "asl",
+    "domain": "mathematics",
+    "hamnosys": "\uE002\uE020\uE03B\uE049\uE05A\uE0A6\uE0C7\uE0CA",
+    "parameters": {
+      "handshape_dominant": "\uE002",
+      "orientation_extended_finger": "\uE049",
+      "orientation_palm": "\uE03B",
+      "location": "\uE05A",
+      "movement": [
+        {"path": "\uE0A6", "size_mod": "\uE0C7", "speed_mod": "\uE0CA"}
+      ]
+    },
+    "description_prose": "INTEGRAL: dominant hand uses an index finger handshape, palm facing left, fingertip pointing up. Starting at upper-right, the finger traces the integral symbol — a long S-curve — slowly down and to the lower-left.",
+    "status": "draft",
+    "author": {"signer_id": "demo-signer", "is_deaf_native": false, "display_name": "Demo (hearing)"}
+  }
+}

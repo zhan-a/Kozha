@@ -1,0 +1,71 @@
+{
+  "fixture_version": 1,
+  "name": "derivative",
+  "summary": "Math term: D-handshape tracing the slope of a tangent line. Demonstrates a validator-feedback retry on the first generation pass.",
+  "session": {
+    "id": "00000000-0000-4000-a000-000000000d04",
+    "sign_language": "asl",
+    "created_at": "2026-04-19T12:15:00+00:00",
+    "accepted_at": "2026-04-19T12:16:33+00:00",
+    "session_token": "demo-token-derivative"
+  },
+  "events": [
+    {
+      "type": "described",
+      "event_id": "11111111-0000-4000-a000-000000000301",
+      "timestamp": "2026-04-19T12:15:03+00:00",
+      "prose": "DERIVATIVE in ASL: dominant hand makes a D-handshape, palm forward, in front of the chest. The hand traces a downward slope going from upper-left to lower-right, like the tangent line at a point on a curve.",
+      "gaps_found": 0
+    },
+    {
+      "type": "generated",
+      "event_id": "11111111-0000-4000-a000-000000000302",
+      "timestamp": "2026-04-19T12:15:21+00:00",
+      "success": false,
+      "hamnosys": null,
+      "sigml": null,
+      "confidence": 0.0,
+      "used_llm_fallback": true,
+      "errors": [
+        "validator: movement segment 1 has size_mod before path codepoint (expected order: path → size_mod → speed_mod)"
+      ]
+    },
+    {
+      "type": "generated",
+      "event_id": "11111111-0000-4000-a000-000000000303",
+      "timestamp": "2026-04-19T12:15:38+00:00",
+      "success": true,
+      "hamnosys": "\uE004\uE020\uE03A\uE05A\uE082\uE0C5",
+      "sigml": "<sigml><hns_sign gloss=\"DERIVATIVE\"><hamnosys_manual><hamnosysstring>\uE004\uE020\uE03A\uE05A\uE082\uE0C5</hamnosysstring></hamnosys_manual></hns_sign></sigml>",
+      "confidence": 0.84,
+      "used_llm_fallback": true,
+      "errors": []
+    },
+    {
+      "type": "accepted",
+      "event_id": "11111111-0000-4000-a000-000000000304",
+      "timestamp": "2026-04-19T12:16:33+00:00",
+      "sign_entry_id": "22222222-0000-4000-a000-000000000d04",
+      "status": "draft"
+    }
+  ],
+  "expected_sign_entry": {
+    "id": "22222222-0000-4000-a000-000000000d04",
+    "gloss": "DERIVATIVE",
+    "sign_language": "asl",
+    "domain": "mathematics",
+    "hamnosys": "\uE004\uE020\uE03A\uE05A\uE082\uE0C5",
+    "parameters": {
+      "handshape_dominant": "\uE004",
+      "orientation_extended_finger": "\uE020",
+      "orientation_palm": "\uE03A",
+      "location": "\uE05A",
+      "movement": [
+        {"path": "\uE082", "size_mod": "\uE0C5"}
+      ]
+    },
+    "description_prose": "DERIVATIVE in ASL: dominant hand makes a D-handshape, palm forward, in front of the chest. The hand traces a downward slope going from upper-left to lower-right, like the tangent line at a point on a curve.",
+    "status": "draft",
+    "author": {"signer_id": "demo-signer", "is_deaf_native": false, "display_name": "Demo (hearing)"}
+  }
+}
