@@ -20,6 +20,10 @@ logs/
 .claude/
 .anthropic/
 
+# chat2hamnosys runtime SQLite stores (created on first use)
+data/chat2hamnosys/
+data/authored_signs.sqlite3*
+
 # env + secrets (should already be gitignored, here for safety)
 .env
 .env.local

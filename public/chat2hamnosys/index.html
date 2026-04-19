@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>Kozha — Sign Authoring</title>
+  <meta name="description" content="Authoring tool for Deaf signers and SL linguists to draft new HamNoSys sign entries via guided conversation." />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/chat2hamnosys/styles.css" />
+  <link rel="stylesheet" href="/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script defer src="/cwa/allcsa.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+  <a class="skip-link" href="#chat-input">Skip to chat input</a>
+
+  <header class="topbar" role="banner">
+    <a class="brand" href="/">Kozha<span class="brand-tag">authoring</span></a>
+
+    <nav class="topbar-controls" aria-label="Display options">
+      <button id="hcToggle" type="button" class="ctl" aria-pressed="false">
+        <span aria-hidden="true">◐</span>
+        <span class="ctl-label">High contrast</span>
+      </button>
+      <div class="ctl-group" role="group" aria-label="Font size">
+        <button id="fontDown" type="button" class="ctl" aria-label="Decrease font size">A−</button>
+        <button id="fontUp" type="button" class="ctl" aria-label="Increase font size">A+</button>
+      </div>
+      <a class="ctl ctl-link" href="/app.html">← Translator</a>
+    </nav>
+  </header>
+
+  <div id="statusBanner" class="status-banner" role="status" aria-live="polite" hidden>
+    <span class="spinner" aria-hidden="true"></span>
+    <span class="status-text">Working…</span>
+  </div>
+
+  <nav class="mobile-tabs" aria-label="Panel switcher">
+    <button class="tab is-active" data-tab="chat" aria-selected="true">Chat</button>
+    <button class="tab" data-tab="preview" aria-selected="false">Preview</button>
+    <button class="tab" data-tab="inspect" aria-selected="false">Parameters</button>
+  </nav>
+
+  <main class="layout" id="main">
+    <!-- LEFT: chat panel -->
+    <section class="panel panel-chat" data-panel="chat" aria-labelledby="chatHead">
+      <header class="panel-head">
+        <h1 id="chatHead">Authoring conversation</h1>
+        <p class="panel-sub" id="sessionMeta">No session yet</p>
+      </header>
+
+      <div id="chatLog" class="chat-log" role="log" aria-live="polite" aria-relevant="additions" aria-atomic="false">
+      </div>
+
+      <form id="chatForm" class="chat-form" aria-label="Send a message">
+        <div class="chat-form-gloss" id="glossWrap">
+          <label for="glossInput" class="chat-form-label">Sign name (gloss)</label>
+          <input
+            id="glossInput"
+            name="gloss"
+            type="text"
+            placeholder="e.g. SORRY"
+            autocomplete="off"
+            aria-describedby="glossHint"
+            required
+          />
+          <p id="glossHint" class="chat-hint">Short uppercase token. Used as the lookup key for the finalized sign entry.</p>
+        </div>
+
+        <label for="chatInput" id="chatInputLabel" class="chat-form-label">
+          Describe the sign
+        </label>
+        <textarea
+          id="chatInput"
+          name="message"
+          rows="3"
+          placeholder="It's signed near the temple, flat hand, moves down to the chest…"
+          aria-describedby="chatHint"
+          required
+        ></textarea>
+        <div class="chat-form-row">
+          <p id="chatHint" class="chat-hint">
+            Plain English. Mention handshape, location, palm orientation, and movement.
+          </p>
+          <div class="chat-form-actions">
+            <button type="button" id="rejectBtn" class="btn btn-ghost" hidden>Reject</button>
+            <button type="button" id="acceptBtn" class="btn btn-primary" hidden>Accept</button>
+            <button type="submit" id="sendBtn" class="btn btn-primary">Send</button>
+          </div>
+        </div>
+        <p id="correctionContext" class="correction-context" hidden></p>
+      </form>
+    </section>
+
+    <!-- RIGHT TOP: avatar preview -->
+    <section class="panel panel-preview" data-panel="preview" aria-labelledby="previewHead">
+      <header class="panel-head">
+        <h2 id="previewHead">Avatar preview</h2>
+        <p class="panel-sub">
+          Click on the avatar to flag a body region. Use the timeline to flag a moment.
+        </p>
+      </header>
+
+      <div class="preview-stage">
+        <div id="previewMount" class="preview-mount" aria-busy="false">
+          <video
+            id="previewVideo"
+            playsinline
+            preload="metadata"
+            aria-label="Sign language avatar preview"
+            hidden
+          ></video>
+
+          <div id="cwasaMount" class="cwasa-mount" aria-label="CWASA avatar fallback" hidden>
+            <div class="CWASAAvatar av0"></div>
+            <div class="CWASAGUI av0" style="display:none"></div>
+          </div>
+
+          <div id="previewPlaceholder" class="preview-placeholder">
+            <p>Send a description to generate a preview.</p>
+          </div>
+
+          <!-- Body-region overlay. Coarse hit zones over the avatar. -->
+          <div
+            id="regionOverlay"
+            class="region-overlay"
+            role="group"
+            aria-label="Body regions — click to target a correction"
+            hidden
+          >
+            <button type="button" class="region" data-region="head" aria-label="Head"></button>
+            <button type="button" class="region" data-region="face" aria-label="Face"></button>
+            <button type="button" class="region" data-region="torso" aria-label="Torso"></button>
+            <button type="button" class="region" data-region="arm-dom" aria-label="Dominant arm"></button>
+            <button type="button" class="region" data-region="arm-nondom" aria-label="Non-dominant arm"></button>
+            <button type="button" class="region" data-region="hand-dom" aria-label="Dominant hand"></button>
+            <button type="button" class="region" data-region="hand-nondom" aria-label="Non-dominant hand"></button>
+          </div>
+        </div>
+
+        <div class="preview-captions" aria-label="Avatar captions">
+          <p class="caption-gloss" id="captionGloss"></p>
+          <p class="caption-prose" id="captionProse"></p>
+          <button
+            type="button"
+            class="btn btn-ghost btn-tiny"
+            disabled
+            title="Sign-language video of this caption — coming soon"
+            aria-label="View caption in sign language (coming soon)"
+          >
+            View in sign language
+          </button>
+        </div>
+
+        <div class="preview-controls" role="group" aria-label="Playback controls">
+          <button id="playBtn" type="button" class="btn" aria-label="Play or pause" disabled>▶ Play</button>
+          <button id="loopBtn" type="button" class="btn" aria-pressed="false" aria-label="Toggle loop" disabled>↻ Loop</button>
+
+          <label class="timeline-wrap" for="timeline">
+            <span class="visually-hidden">Timeline</span>
+            <input
+              id="timeline"
+              type="range"
+              min="0"
+              max="0"
+              step="1"
+              value="0"
+              aria-valuetext="0 milliseconds"
+              disabled
+            />
+          </label>
+          <output id="timelineLabel" class="timeline-label" for="timeline" aria-live="off">0 ms</output>
+
+          <button id="flagMomentBtn" type="button" class="btn btn-ghost" disabled>
+            Flag this moment
+          </button>
+        </div>
+
+        <p id="selectionHint" class="selection-hint" hidden></p>
+      </div>
+    </section>
+
+    <!-- RIGHT BOTTOM: parameters inspector -->
+    <section class="panel panel-inspect" data-panel="inspect" aria-labelledby="inspectHead">
+      <header class="panel-head">
+        <h2 id="inspectHead">Sign parameters</h2>
+        <button
+          id="inspectToggle"
+          type="button"
+          class="btn btn-ghost btn-tiny"
+          aria-expanded="true"
+          aria-controls="inspectorBody"
+        >Collapse</button>
+      </header>
+
+      <div id="inspectorBody" class="inspector-body">
+        <p class="inspector-empty" id="inspectorEmpty">No parameters yet.</p>
+        <ul class="inspector-list" id="inspectorList" hidden></ul>
+
+        <div class="inspector-legend" aria-hidden="true">
+          <span class="badge confirmed">confirmed</span>
+          <span class="badge inferred">inferred</span>
+          <span class="badge gap">gap</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="srAnnounce" class="visually-hidden" role="status" aria-live="polite"></div>
+
+  <template id="tplMessage">
+    <article class="msg" data-role="">
+      <header class="msg-head">
+        <span class="msg-author"></span>
+        <time class="msg-time"></time>
+      </header>
+      <div class="msg-body"></div>
+      <div class="msg-actions" hidden></div>
+    </article>
+  </template>
+
+  <template id="tplOption">
+    <button type="button" class="msg-opt"></button>
+  </template>
+
+  <template id="tplInspectorRow">
+    <li class="ip-row">
+      <button class="ip-row-btn" type="button">
+        <span class="ip-name"></span>
+        <span class="ip-value"></span>
+        <span class="ip-badge badge"></span>
+      </button>
+      <p class="ip-reason" hidden></p>
+    </li>
+  </template>
+
+  <script src="/chat2hamnosys/app.js" defer></script>
+</body>
+</html>
