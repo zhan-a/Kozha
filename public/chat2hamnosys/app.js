@@ -26,16 +26,12 @@
     ['non_manual.facial_expression','Facial expression'],
   ];
 
-  // Body-region click → suggested correction-target field path.
-  const REGION_TO_FIELD = {
-    'head':         'non_manual.head_movement',
-    'face':         'non_manual.facial_expression',
-    'torso':        'location',
-    'hand-dom':     'handshape_dominant',
-    'hand-nondom':  'handshape_nondominant',
-    'arm-dom':      'movement[0].path',
-    'arm-nondom':   'orientation_palm',
-  };
+  // Whether ``?debug=1`` is set in the URL — toggles the visible
+  // calibration overlay on the region SVG.
+  const DEBUG_MODE = (() => {
+    try { return new URLSearchParams(window.location.search).get('debug') === '1'; }
+    catch (_e) { return false; }
+  })();
 
   // Friendly progress text per SSE event type.
   const PROGRESS_TEXT = {
@@ -57,8 +53,12 @@
     sessionToken: null,
     envelope: null,
     eventSource: null,
-    selectedRegion: null,        // {regionId, fieldPath}
-    selectedTimeMs: null,        // captured timeline ms
+    // Most recent click/keyboard-picked region. ``regionId`` is the
+    // machine name sent as ``target_region`` (e.g. ``hand-dom``);
+    // ``coords`` are the normalized click point in the avatar's SVG
+    // viewBox for future-use telemetry.
+    selectedRegion: null,        // {regionId, coords: [x, y]} | null
+    selectedTimeMs: null,        // captured playback ms | null
     isLooping: false,
     cwasaInited: false,
     activeMobileTab: 'chat',
@@ -89,6 +89,13 @@
     cwasaMount:      $('cwasaMount'),
     previewPh:       $('previewPlaceholder'),
     regionOverlay:   $('regionOverlay'),
+    regionPopover:   $('regionPopover'),
+    regionPopoverLabel: $('regionPopoverLabel'),
+    regionPopoverInput: $('regionPopoverInput'),
+    regionPopoverSubmit: $('regionPopoverSubmit'),
+    regionPopoverClose:  $('regionPopoverClose'),
+    regionSelect:    $('regionSelect'),
+    regionSelectSpecify: $('regionSelectSpecify'),
     captionGloss:    $('captionGloss'),
     captionProse:    $('captionProse'),
     playBtn:         $('playBtn'),
@@ -466,8 +473,11 @@
       switchMobileTab('chat');
       return;
     }
-    // Otherwise prime a correction targeting this field.
-    state.selectedRegion = { regionId: field, fieldPath: field };
+    // Otherwise prime a correction targeting this slot. Inspector-row
+    // targeting sends the dotted slot path directly — the interpreter
+    // accepts either a body-region name or a slot path and treats both
+    // as a targeting hint.
+    state.selectedRegion = { regionId: field, coords: null };
     renderCorrectionContext();
     dom.chatInput.focus();
     switchMobileTab('chat');
@@ -525,6 +535,10 @@
     dom.loopBtn.disabled = !enabled;
     dom.flagBtn.disabled = !enabled;
     dom.timeline.disabled = !enabled || !!timelineDisabled;
+    if (dom.regionSelect) dom.regionSelect.disabled = !enabled;
+    if (dom.regionSelectSpecify) {
+      dom.regionSelectSpecify.disabled = !enabled || !dom.regionSelect.value;
+    }
   }
 
   function onVideoLoaded() {
@@ -612,15 +626,231 @@
     announce(ms != null ? `Flagged moment at ${ms} milliseconds.` : 'Flagged moment.');
   }
 
-  function onRegionClick(ev) {
-    const target = ev.target.closest('button.region');
-    if (!target) return;
-    const id = target.dataset.region;
-    state.selectedRegion = { regionId: id, fieldPath: REGION_TO_FIELD[id] || null };
+  // -----------------------------------------------------------------------
+  // Body-region overlay — polygons, click capture, pulse, popover
+  // -----------------------------------------------------------------------
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+
+  function regionsApi() {
+    return window.C2H_REGIONS || null;
+  }
+
+  function buildRegionOverlay() {
+    const api = regionsApi();
+    if (!api || !dom.regionOverlay) return;
+    dom.regionOverlay.innerHTML = '';
+    dom.regionOverlay.setAttribute('viewBox', `0 0 ${api.VIEWBOX.width} ${api.VIEWBOX.height}`);
+    if (DEBUG_MODE) dom.regionOverlay.classList.add('debug-regions');
+
+    for (const region of api.REGIONS) {
+      const poly = document.createElementNS(SVG_NS, 'polygon');
+      poly.setAttribute('class', 'region');
+      poly.setAttribute('data-region', region.id);
+      poly.setAttribute('points', api.polygonAttr(region.points));
+      poly.setAttribute('tabindex', '0');
+      poly.setAttribute('role', 'button');
+      poly.setAttribute('aria-label', `${region.label} — click to target a correction`);
+      dom.regionOverlay.appendChild(poly);
+
+      if (DEBUG_MODE) {
+        const xs = region.points.map((p) => p[0]);
+        const ys = region.points.map((p) => p[1]);
+        const cx = xs.reduce((a, b) => a + b, 0) / xs.length;
+        const cy = ys.reduce((a, b) => a + b, 0) / ys.length;
+        const label = document.createElementNS(SVG_NS, 'text');
+        label.setAttribute('class', 'region-label');
+        label.setAttribute('x', String(cx));
+        label.setAttribute('y', String(cy));
+        label.textContent = region.id;
+        dom.regionOverlay.appendChild(label);
+      }
+    }
+  }
+
+  function buildRegionSelect() {
+    const api = regionsApi();
+    if (!api || !dom.regionSelect) return;
+    dom.regionSelect.innerHTML = '';
+    const blank = document.createElement('option');
+    blank.value = '';
+    blank.textContent = '—';
+    dom.regionSelect.appendChild(blank);
+    for (const region of api.REGIONS) {
+      const opt = document.createElement('option');
+      opt.value = region.id;
+      opt.textContent = region.label;
+      dom.regionSelect.appendChild(opt);
+    }
+  }
+
+  function currentPlaybackMs() {
+    // Video path: use currentTime. CWASA path: no reliable seek API is
+    // exposed, so fall back to whatever the timeline slider holds (0
+    // for the default pose). Either way the intent is to capture the
+    // moment the user flagged.
+    if (!dom.previewVideo.hidden) {
+      return Math.round((dom.previewVideo.currentTime || 0) * 1000);
+    }
+    const fromSlider = parseInt(dom.timeline.value, 10);
+    return Number.isFinite(fromSlider) ? fromSlider : 0;
+  }
+
+  function pointInOverlayViewBox(ev) {
+    const api = regionsApi();
+    if (!api) return null;
+    const rect = dom.regionOverlay.getBoundingClientRect();
+    if (!rect.width || !rect.height) return null;
+    const x = ((ev.clientX - rect.left) / rect.width) * api.VIEWBOX.width;
+    const y = ((ev.clientY - rect.top) / rect.height) * api.VIEWBOX.height;
+    return [Math.round(x * 100) / 100, Math.round(y * 100) / 100];
+  }
+
+  function regionCentroid(regionId) {
+    const api = regionsApi();
+    if (!api) return [50, 60];
+    const region = api.REGION_BY_ID[regionId];
+    if (!region) return [50, 60];
+    const xs = region.points.map((p) => p[0]);
+    const ys = region.points.map((p) => p[1]);
+    return [
+      xs.reduce((a, b) => a + b, 0) / xs.length,
+      ys.reduce((a, b) => a + b, 0) / ys.length,
+    ];
+  }
+
+  function pulseRegion(regionId) {
+    const poly = dom.regionOverlay.querySelector(`.region[data-region="${regionId}"]`);
+    if (!poly) return;
+    poly.classList.remove('is-pulsing');
+    // Force reflow so the animation replays on repeat clicks.
+    void poly.getBoundingClientRect();
+    poly.classList.add('is-pulsing');
+    setTimeout(() => poly.classList.remove('is-pulsing'), 250);
+  }
+
+  function openPopoverAtRegion(regionId, pageX, pageY) {
+    const api = regionsApi();
+    const region = api ? api.REGION_BY_ID[regionId] : null;
+    if (!region) return;
+    dom.regionPopoverLabel.textContent = region.label;
+    dom.regionPopover.hidden = false;
+
+    // Compute anchor in page coords. If the caller didn't give one
+    // (keyboard path), use the polygon centroid projected onto the
+    // overlay's screen rect.
+    const rect = dom.regionOverlay.getBoundingClientRect();
+    let x = pageX;
+    let y = pageY;
+    if (x == null || y == null) {
+      const [cx, cy] = regionCentroid(regionId);
+      x = rect.left + (cx / api.VIEWBOX.width) * rect.width;
+      y = rect.top + (cy / api.VIEWBOX.height) * rect.height;
+    }
+
+    // Position relative to the preview mount (which is the popover's
+    // offsetParent via ``position: relative`` on .preview-mount).
+    const mount = dom.previewMount.getBoundingClientRect();
+    const popoverW = 240;
+    const popoverH = 140;
+    let left = x - mount.left + 8;
+    let top  = y - mount.top + 8;
+    // Clamp inside the mount so the popover doesn't spill off-frame.
+    left = Math.max(4, Math.min(left, mount.width - popoverW - 4));
+    top  = Math.max(4, Math.min(top,  mount.height - popoverH - 4));
+    dom.regionPopover.style.left = `${left}px`;
+    dom.regionPopover.style.top  = `${top}px`;
+
+    dom.regionPopoverInput.value = '';
+    // Defer focus so the click that opened the popover doesn't
+    // immediately trigger the outside-click close handler.
+    setTimeout(() => dom.regionPopoverInput.focus(), 0);
+  }
+
+  function closePopover() {
+    dom.regionPopover.hidden = true;
+    dom.regionPopoverInput.value = '';
+  }
+
+  function selectRegion(regionId, opts) {
+    const api = regionsApi();
+    if (!api || !api.REGION_BY_ID[regionId]) return;
+    const evt = (opts && opts.event) || null;
+    const coords = evt
+      ? (pointInOverlayViewBox(evt) || regionCentroid(regionId))
+      : regionCentroid(regionId);
+    state.selectedRegion = { regionId, coords };
+    state.selectedTimeMs = currentPlaybackMs();
+    pulseRegion(regionId);
     renderCorrectionContext();
-    dom.chatInput.focus();
-    switchMobileTab('chat');
-    announce(`Selected region: ${target.getAttribute('aria-label')}.`);
+    if (dom.regionSelect) dom.regionSelect.value = regionId;
+    announce(`Selected region: ${api.REGION_BY_ID[regionId].label} at ${state.selectedTimeMs} milliseconds.`);
+    const pageX = evt ? evt.clientX : null;
+    const pageY = evt ? evt.clientY : null;
+    openPopoverAtRegion(regionId, pageX, pageY);
+  }
+
+  function onRegionClick(ev) {
+    const target = ev.target.closest('.region[data-region]');
+    if (!target) return;
+    const id = target.getAttribute('data-region');
+    if (!id) return;
+    ev.preventDefault();
+    selectRegion(id, { event: ev });
+  }
+
+  function onRegionKeyDown(ev) {
+    if (ev.key !== 'Enter' && ev.key !== ' ') return;
+    const target = ev.target.closest('.region[data-region]');
+    if (!target) return;
+    ev.preventDefault();
+    const id = target.getAttribute('data-region');
+    if (!id) return;
+    selectRegion(id, { event: null });
+  }
+
+  function onRegionSelectChange() {
+    const id = dom.regionSelect.value;
+    dom.regionSelectSpecify.disabled = !id;
+    if (!id) {
+      state.selectedRegion = null;
+      renderCorrectionContext();
+      closePopover();
+      return;
+    }
+    selectRegion(id, { event: null });
+  }
+
+  function onRegionSelectSpecify() {
+    const id = dom.regionSelect && dom.regionSelect.value;
+    if (!id) return;
+    selectRegion(id, { event: null });
+  }
+
+  async function onPopoverSubmit() {
+    const text = (dom.regionPopoverInput.value || '').trim();
+    if (!text) {
+      dom.regionPopoverInput.focus();
+      return;
+    }
+    closePopover();
+    await sendCorrection(text);
+  }
+
+  function onPopoverKeyDown(ev) {
+    if (ev.key === 'Enter') {
+      ev.preventDefault();
+      onPopoverSubmit();
+    } else if (ev.key === 'Escape') {
+      ev.preventDefault();
+      closePopover();
+    }
+  }
+
+  function onDocumentClickForPopover(ev) {
+    if (dom.regionPopover.hidden) return;
+    if (dom.regionPopover.contains(ev.target)) return;
+    if (dom.regionOverlay && dom.regionOverlay.contains(ev.target)) return;
+    closePopover();
   }
 
   function renderCorrectionContext() {
@@ -632,7 +862,7 @@
       return;
     }
     const parts = [];
-    if (state.selectedRegion) parts.push(`region: ${state.selectedRegion.fieldPath || state.selectedRegion.regionId}`);
+    if (state.selectedRegion) parts.push(`region: ${state.selectedRegion.regionId}`);
     if (state.selectedTimeMs != null) parts.push(`@ ${state.selectedTimeMs} ms`);
     dom.correctionCtx.hidden = false;
     dom.correctionCtx.innerHTML = '';
@@ -646,6 +876,8 @@
     clear.addEventListener('click', () => {
       state.selectedRegion = null;
       state.selectedTimeMs = null;
+      if (dom.regionSelect) dom.regionSelect.value = '';
+      if (dom.regionSelectSpecify) dom.regionSelectSpecify.disabled = true;
       renderCorrectionContext();
     });
     dom.correctionCtx.append(span, clear);
@@ -712,13 +944,15 @@
       dom.chatInput.value = '';
       const body = { raw_text: text };
       if (state.selectedTimeMs != null) body.target_time_ms = state.selectedTimeMs;
-      if (state.selectedRegion && state.selectedRegion.fieldPath) {
-        body.target_region = state.selectedRegion.fieldPath;
+      if (state.selectedRegion && state.selectedRegion.regionId) {
+        body.target_region = state.selectedRegion.regionId;
       }
       const env = await api('POST', `/sessions/${state.sessionId}/correct`, body);
       // Clear the targeting context once submitted.
       state.selectedRegion = null;
       state.selectedTimeMs = null;
+      if (dom.regionSelect) dom.regionSelect.value = '';
+      if (dom.regionSelectSpecify) dom.regionSelectSpecify.disabled = true;
       applyEnvelope(env);
       clearStatus();
     } catch (err) {
@@ -871,7 +1105,19 @@
     dom.timeline.addEventListener('input', onTimelineInput);
     dom.previewVideo.addEventListener('timeupdate', onVideoTimeUpdate);
     dom.flagBtn.addEventListener('click', onFlagMomentClick);
+
+    // Region overlay + keyboard dropdown + popover.
+    buildRegionOverlay();
+    buildRegionSelect();
     dom.regionOverlay.addEventListener('click', onRegionClick);
+    dom.regionOverlay.addEventListener('keydown', onRegionKeyDown);
+    dom.regionSelect.addEventListener('change', onRegionSelectChange);
+    dom.regionSelectSpecify.addEventListener('click', onRegionSelectSpecify);
+    dom.regionPopoverSubmit.addEventListener('click', onPopoverSubmit);
+    dom.regionPopoverClose.addEventListener('click', closePopover);
+    dom.regionPopoverInput.addEventListener('keydown', onPopoverKeyDown);
+    document.addEventListener('mousedown', onDocumentClickForPopover);
+
     setupTopbar();
     setupTabs();
     setupInspectorToggle();
@@ -901,5 +1147,9 @@
     api,
     applyEnvelope,
     refreshSession,
+    selectRegion,
+    sendCorrection,
+    openPopoverAtRegion,
+    closePopover,
   };
 })();

@@ -405,36 +405,134 @@ body.hc .badge { border: 1px solid currentColor; }
 .preview-placeholder-text { color: var(--ink-3); font-size: 13px; }
 
 .region-overlay {
-  position: absolute; inset: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
-  grid-template-areas:
-    ".         head      head      ."
-    ".         face      face      ."
-    "armnondom torso     torso     armdom"
-    "handnondom torso    torso     handdom";
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
+  overflow: visible;
 }
 .region-overlay .region {
-  appearance: none;
-  background: transparent;
-  border: 1px dashed transparent;
+  fill: rgba(201, 106, 46, 0);
+  stroke: rgba(201, 106, 46, 0);
+  stroke-width: 0.5;
   cursor: pointer;
-  pointer-events: auto;
+  pointer-events: fill;
+  transition: fill 0.12s ease-out, stroke 0.12s ease-out;
+  outline: none;
 }
 .region-overlay .region:hover,
 .region-overlay .region:focus-visible {
-  background: rgba(201, 106, 46, 0.15);
-  border-color: var(--accent);
+  fill: rgba(201, 106, 46, 0.18);
+  stroke: var(--accent);
 }
-.region[data-region="head"]        { grid-area: head; }
-.region[data-region="face"]        { grid-area: face; }
-.region[data-region="torso"]       { grid-area: torso; }
-.region[data-region="arm-dom"]     { grid-area: armdom; }
-.region[data-region="arm-nondom"]  { grid-area: armnondom; }
-.region[data-region="hand-dom"]    { grid-area: handdom; }
-.region[data-region="hand-nondom"] { grid-area: handnondom; }
+
+/* Brief pulse on click — 200ms "yes I heard you" feedback. */
+.region-overlay .region.is-pulsing {
+  animation: regionPulse 0.2s ease-out;
+}
+@keyframes regionPulse {
+  0%   { fill: rgba(201, 106, 46, 0.55); stroke: var(--accent); }
+  100% { fill: rgba(201, 106, 46, 0);    stroke: rgba(201, 106, 46, 0); }
+}
+
+/* Debug calibration overlay — ``?debug=1``. Draws each polygon with
+   a visible outline and a per-region tint so you can see where the
+   hit zones sit relative to the live avatar. */
+.region-overlay.debug-regions .region {
+  fill: rgba(31, 100, 197, 0.12);
+  stroke: var(--focus);
+  stroke-width: 0.35;
+}
+.region-overlay.debug-regions .region-label {
+  font-size: 3px;
+  fill: var(--focus);
+  pointer-events: none;
+  text-anchor: middle;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* Correction popover anchored to the last click. */
+.region-popover {
+  position: absolute;
+  z-index: 20;
+  min-width: 220px;
+  max-width: 280px;
+  padding: 10px 12px 12px;
+  background: var(--paper);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 6px 18px rgba(26, 22, 18, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.region-popover-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.region-popover-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.region-popover-close {
+  appearance: none;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--ink-3);
+  padding: 0 4px;
+}
+.region-popover-close:hover { color: var(--ink); }
+.region-popover-label {
+  font-size: 12px;
+  color: var(--ink-3);
+}
+.region-popover input {
+  font: inherit;
+  font-size: 13px;
+  padding: 6px 8px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  color: var(--ink);
+}
+.region-popover-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+/* Keyboard region picker — mirrors the click-target list. */
+.region-select-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.region-select-label {
+  font-size: 12px;
+  color: var(--ink-3);
+  font-weight: 500;
+}
+.region-select {
+  font: inherit;
+  font-size: 13px;
+  padding: 6px 8px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  color: var(--ink);
+  min-width: 160px;
+}
+.region-select:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .preview-captions {
   display: flex;

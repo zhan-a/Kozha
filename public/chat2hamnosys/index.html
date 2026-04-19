@@ -125,21 +125,53 @@
             <p>Send a description to generate a preview.</p>
           </div>
 
-          <!-- Body-region overlay. Coarse hit zones over the avatar. -->
-          <div
+          <!-- Body-region SVG overlay. Polygons are calibrated to a
+               front-facing standing pose; stretched via
+               preserveAspectRatio="none" to fit the preview frame. The
+               overlay is rendered from window.C2H_REGIONS by app.js at
+               boot so the region list stays single-sourced. -->
+          <svg
             id="regionOverlay"
             class="region-overlay"
+            viewBox="0 0 100 120"
+            preserveAspectRatio="none"
             role="group"
             aria-label="Body regions — click to target a correction"
             hidden
+          ></svg>
+
+          <!-- Correction popover — anchored to the last click. Hidden
+               until a region is picked (by click or keyboard). -->
+          <div
+            id="regionPopover"
+            class="region-popover"
+            role="dialog"
+            aria-label="Correction for selected region"
+            hidden
           >
-            <button type="button" class="region" data-region="head" aria-label="Head"></button>
-            <button type="button" class="region" data-region="face" aria-label="Face"></button>
-            <button type="button" class="region" data-region="torso" aria-label="Torso"></button>
-            <button type="button" class="region" data-region="arm-dom" aria-label="Dominant arm"></button>
-            <button type="button" class="region" data-region="arm-nondom" aria-label="Non-dominant arm"></button>
-            <button type="button" class="region" data-region="hand-dom" aria-label="Dominant hand"></button>
-            <button type="button" class="region" data-region="hand-nondom" aria-label="Non-dominant hand"></button>
+            <header class="region-popover-head">
+              <span id="regionPopoverLabel" class="region-popover-title"></span>
+              <button
+                type="button"
+                id="regionPopoverClose"
+                class="region-popover-close"
+                aria-label="Close popover"
+              >×</button>
+            </header>
+            <label for="regionPopoverInput" class="region-popover-label">
+              What should change here?
+            </label>
+            <input
+              id="regionPopoverInput"
+              type="text"
+              autocomplete="off"
+              placeholder="e.g. make it a flat-O"
+            />
+            <div class="region-popover-actions">
+              <button type="button" id="regionPopoverSubmit" class="btn btn-primary btn-tiny">
+                Submit correction
+              </button>
+            </div>
           </div>
         </div>
 
@@ -178,6 +210,21 @@
 
           <button id="flagMomentBtn" type="button" class="btn btn-ghost" disabled>
             Flag this moment
+          </button>
+        </div>
+
+        <div class="region-select-row" role="group" aria-label="Keyboard region picker">
+          <label for="regionSelect" class="region-select-label">Select region</label>
+          <select id="regionSelect" class="region-select" disabled>
+            <option value="">—</option>
+          </select>
+          <button
+            type="button"
+            id="regionSelectSpecify"
+            class="btn btn-ghost btn-tiny"
+            disabled
+          >
+            Specify correction
           </button>
         </div>
 
@@ -239,6 +286,7 @@
     </li>
   </template>
 
+  <script src="/chat2hamnosys/avatar/region_map.js" defer></script>
   <script src="/chat2hamnosys/app.js" defer></script>
 </body>
 </html>
