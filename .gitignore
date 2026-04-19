@@ -1,1 +1,33 @@
+# chat2hamnosys prompts runner artifacts
+# add these entries to your repo root .gitignore
+
+# the prompts themselves (kept locally, not committed)
+prompts/
+
+# runner scripts
+run_chat2hamnosys.sh
+run_*.sh
+
+# run logs
+logs/
+*.log
+
+# claude-code local state
+.claude/
+.anthropic/
+
+# env + secrets (should already be gitignored, here for safety)
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
 __pycache__/
+*.pyc
