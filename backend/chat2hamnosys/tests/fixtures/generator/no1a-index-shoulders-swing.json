@@ -1,0 +1,25 @@
+{
+  "id": "no1a-index-shoulders-swing",
+  "category": "basic_one_handed",
+  "gloss": "NO1A^",
+  "source": "DGS-Korpus",
+  "notes": "Index finger swinging at shoulder — lexicalised NO.",
+  "parameters": {
+    "handshape_dominant": "index",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "down_left",
+    "location": "shoulders",
+    "contact": null,
+    "movement": [
+      {
+        "path": "swinging"
+      }
+    ],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E002 E020 E03D E051 E0A6",
+  "produced_hamnosys_hex": "E002 E020 E03D E051 E0A6",
+  "deterministic_match": true,
+  "validation_ok": true
+}

@@ -1,0 +1,21 @@
+{
+  "id": "luxury3-three-eyes-touch",
+  "category": "basic_one_handed",
+  "gloss": "LUXURY3^",
+  "source": "DGS-Korpus",
+  "notes": "Three-spread hand touching the eyes.",
+  "parameters": {
+    "handshape_dominant": "three_spread",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "left",
+    "orientation_palm": "left",
+    "location": "eyes",
+    "contact": "touch",
+    "movement": [],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E004 E026 E03E E044 E0D1",
+  "produced_hamnosys_hex": "E004 E026 E03E E044 E0D1",
+  "deterministic_match": true,
+  "validation_ok": true
+}

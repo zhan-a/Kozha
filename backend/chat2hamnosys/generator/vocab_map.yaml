@@ -1,0 +1,397 @@
+# chat2hamnosys vocabulary map.
+#
+# Plain-English phonological terms → HamNoSys 4.0 codepoints. The file is
+# authoritative: if a term is absent here the deterministic composer yields
+# no output and the generator routes that slot to the LLM fallback.
+#
+# Each entry's value is either a single hex codepoint string ("E001") or a
+# list of hex strings emitted in order (e.g. handshape base + modifier).
+# Entries whose value is `null` encode a deliberate no-op: the term is
+# legal input but contributes no codepoint (e.g. repeat: "once" emits
+# nothing because a single production is the HamNoSys default).
+#
+# Input normalization: the composer lower-cases and replaces both "-" and
+# " " with "_" before lookup, so "bent-5", "bent 5", and "bent_5" all
+# hit the same key.
+#
+# Sources:
+# - HamNoSys 4.0 symbol table: Schulder & Hanke (2022), "hamnosys" CTAN
+#   package v1.0.3 — https://ctan.org/pkg/hamnosys — maintained by the
+#   Hamburg notation authors; mirrors the upstream HamNoSys 4.0 font used
+#   by DGS-Korpus and the SiGML toolchain
+#   (sign-lang.uni-hamburg.de/hamnosys/).
+# - ASL-LEX 2.0 handshape inventory — https://asl-lex.org/visualization.html
+#   (Caselli et al. 2021) — source for the 40-odd ASL/BSL named handshapes
+#   reflected below.
+
+# ---------------------------------------------------------------------------
+# Handshapes — base shapes and compound (base + modifier) combos.
+# Single-codepoint values cover the 12 HamNoSys bases; compound lists cover
+# named handshapes that HamNoSys encodes as base + thumb_mod + finger_mod.
+# ---------------------------------------------------------------------------
+handshape:
+  # -- HamNoSys bases and direct ASL-LEX synonyms --
+  fist: [E000]
+  a: [E000]
+  s: [E000]
+  flat: [E001]
+  flat_hand: [E001]
+  b: [E001]
+  index: [E002]
+  one: [E002]
+  "1": [E002]
+  g: [E002]
+  d: [E002]
+  v: [E003]
+  "2": [E003]
+  two: [E003]
+  three_spread: [E004]
+  spread_v: [E004]
+  five: [E005]
+  "5": [E005]
+  open_5: [E005]
+  open_hand: [E005]
+  four: [E005]
+  pinch_12: [E006]
+  baby_o: [E006]
+  f: [E006]
+  pinch_all: [E007]
+  o: [E007]
+  pinch_12_open: [E008]
+  cee_12: [E009]
+  cee_all: [E00A]
+  c: [E00A]
+  cee_open: [E00B]
+  open_o: [E00B]
+  # -- Compound (base + modifier) named shapes --
+  bent_5: [E005, E011]
+  claw: [E005, E011]
+  bent_v: [E003, E011]
+  bent_1: [E002, E011]
+  bent_index: [E002, E011]
+  hooked_1: [E002, E012]
+  hooked_v: [E003, E012]
+  flat_o: [E007, E010]
+  flat_5: [E005, E010]
+  # -- Letter-style extras found in BSL/ASL phonology --
+  y: [E005, E00E]        # approximated: spread + thumb-open (pinky+thumb-style)
+  l: [E002, E00E]        # index with thumb out
+  w: [E004, E010]        # spread-3 straightened
+  i: [E000, E00C]        # fist with thumb-out (pinky pose proxy)
+
+# ---------------------------------------------------------------------------
+# Standalone handshape modifiers. These are *also* exposed so the composer
+# can splice modifiers onto a base whose YAML entry is just the base.
+# ---------------------------------------------------------------------------
+thumb_mod:
+  out: E00C
+  across: E00D
+  open: E00E
+
+finger_mod:
+  straight: E010
+  bent: E011
+  hooked: E012
+  double_bent: E013
+  double_hooked: E014
+
+# ---------------------------------------------------------------------------
+# Extended-finger direction. HamNoSys uses 18 symbols covering the 8 compass
+# points (u, ur, r, dr, d, dl, l, ul), 6 in/out variants (il, i, ir, ol, o,
+# or), and 4 diagonal depth directions (ui, di, do, uo). Plain-English terms
+# map to the closest symbol.
+# ---------------------------------------------------------------------------
+orientation_ext_finger:
+  up: E020
+  up_right: E021
+  right: E022
+  down_right: E023
+  down: E024
+  down_left: E025
+  left: E026
+  up_left: E027
+  out_left: E028
+  out: E029
+  forward: E029
+  away_from_signer: E029
+  out_right: E02A
+  in_left: E02B
+  "in": E02C
+  toward_signer: E02C
+  in_right: E02D
+  up_in: E02E
+  down_in: E02F
+  down_out: E030
+  up_out: E031
+  ipsilateral: E022       # for right-dominant; composer notes limitation
+  contralateral: E026     # for right-dominant
+
+# ---------------------------------------------------------------------------
+# Palm direction. 8 compass points (u, ur, r, dr, d, dl, l, ul). Body-
+# relative terms map to common world-frame defaults for a right-dominant
+# signer; the generator logs these choices and offers an LLM fallback when
+# the caller's request is ambiguous for their language/handedness.
+# ---------------------------------------------------------------------------
+orientation_palm:
+  up: E038
+  up_right: E039
+  right: E03A
+  down_right: E03B
+  down: E03C
+  down_left: E03D
+  left: E03E
+  up_left: E03F
+  # Body-relative approximations for right-dominant neutral pose:
+  toward_signer: E03E     # palm faces the signer's body (≈ left for RH-dom)
+  away_from_signer: E03A  # palm faces outward (≈ right for RH-dom)
+  ipsilateral: E03A
+  contralateral: E03E
+
+# ---------------------------------------------------------------------------
+# Locations — head / torso / neutral space / arm / hand zones / fingers.
+# Keyed on a plain-English body-part name; compound ASL-LEX locations
+# (e.g. "ipsilateral_shoulder") collapse to the same codepoint as the
+# generic body part since HamNoSys has no side modifier on the location
+# itself — the combiner (hamlrat/hamlrbeside) carries that information.
+# ---------------------------------------------------------------------------
+location:
+  # Head & face
+  head: E040
+  head_top: E041
+  top_of_head: E041
+  forehead: E042
+  eyebrows: E043
+  eye: E044
+  eyes: E044
+  nose: E045
+  nostrils: E046
+  ear: E047
+  earlobe: E048
+  cheek: E049
+  temple: E049            # temple ≈ cheek-high lateral face zone
+  lips: E04A
+  mouth: E04A
+  tongue: E04B
+  teeth: E04C
+  chin: E04D
+  under_chin: E04E
+  neck: E04F
+  throat: E04F
+  # Torso
+  shoulder_top: E050
+  shoulders: E051
+  shoulder: E051
+  ipsilateral_shoulder: E051
+  contralateral_shoulder: E051
+  chest: E052
+  sternum: E052
+  stomach: E053
+  belly: E053
+  waist: E053
+  below_stomach: E054
+  # Neutral space
+  neutral_space: E05F
+  neutral: E05F
+  in_front_of_body: E05F
+  space: E05F
+  # Arm
+  upper_arm: E060
+  elbow: E061
+  elbow_inside: E062
+  lower_arm: E063
+  forearm: E063
+  wrist_back: E064
+  wrist_pulse: E065
+  wrist: E064
+  # Hand zones (as touch targets on the non-dominant hand)
+  thumb_ball: E066
+  palm: E067
+  back_of_hand: E068
+  hand_back: E068
+  thumb_side: E069
+  pinky_side: E06A
+  # Fingers & finger parts
+  thumb: E070
+  index_finger: E071
+  middle_finger: E072
+  ring_finger: E073
+  pinky: E074
+  fingertip: E075
+  fingernail: E076
+  finger_pad: E077
+  finger_mid_joint: E078
+  finger_base: E079
+  finger_side: E07A
+
+# ---------------------------------------------------------------------------
+# Contact operators — short codepoints inserted between the location block
+# and the movement block when the sign starts with or produces contact.
+# ---------------------------------------------------------------------------
+contact:
+  close: E0D0
+  close_to: E0D0
+  touch: E0D1
+  tap: E0D1              # tap = touch + repeat (composer handles the repeat)
+  contact: E0D1
+  interlock: E0D2
+  cross: E0D3
+  arm_extended: E0D4
+  behind: E0D5
+  brushing: E0D6
+  brush: E0D6
+  graze: E0D6
+
+# ---------------------------------------------------------------------------
+# Movement path. Straight-line, circular, arc, wavy, elliptical, and
+# action-style movements. Path values are single-axis or compound
+# (e.g. "up_out"); the composer accepts both.
+# ---------------------------------------------------------------------------
+movement_path:
+  # -- straight-line movements (18 directions) --
+  straight_up: E080
+  up: E080
+  straight_up_right: E081
+  up_right: E081
+  straight_right: E082
+  right: E082
+  straight_down_right: E083
+  down_right: E083
+  straight_down: E084
+  down: E084
+  straight_down_left: E085
+  down_left: E085
+  straight_left: E086
+  left: E086
+  straight_up_left: E087
+  up_left: E087
+  straight_out_left: E088
+  out_left: E088
+  straight_out: E089
+  out: E089
+  forward: E089
+  straight_out_right: E08A
+  out_right: E08A
+  straight_in_left: E08B
+  in_left: E08B
+  straight_in: E08C
+  "in": E08C
+  toward_signer: E08C
+  straight_in_right: E08D
+  in_right: E08D
+  straight_up_in: E08E
+  up_in: E08E
+  straight_down_in: E08F
+  down_in: E08F
+  straight_down_out: E090
+  down_out: E090
+  straight_up_out: E091
+  up_out: E091
+  # -- circle plane indicators (18 directions) --
+  circle_out: E092
+  circular_out: E092
+  circle_in: E093
+  circular_in: E093
+  circular: E093         # default circle plane (toward signer)
+  circle: E093
+  circle_down: E094
+  circle_up: E095
+  circle_left: E096
+  circle_right: E097
+  circle_up_left: E098
+  circle_down_right: E099
+  circle_up_right: E09A
+  circle_down_left: E09B
+  circle_out_left: E09C
+  circle_in_right: E09D
+  circle_out_right: E09E
+  circle_in_left: E09F
+  circle_up_in: E0A0
+  circle_down_out: E0A1
+  circle_up_out: E0A2
+  circle_down_in: E0A3
+  # -- action-style movements --
+  fingerplay: E0A4
+  wiggling_fingers: E0A4
+  wiggle: E0A4
+  finger_play: E0A4
+  nodding: E0A5
+  swinging: E0A6
+  swing: E0A6
+  twisting: E0A7
+  twist: E0A7
+  stir_cw: E0A8
+  stirring_cw: E0A8
+  stir_ccw: E0A9
+  stirring_ccw: E0A9
+  stirring: E0A8
+  replace: E0AA
+  no_motion: E0AF
+  stationary: E0AF
+  # -- arcs --
+  arc_left: E0B9
+  arc_up: E0BA
+  arc_right: E0BB
+  arc_down: E0BC
+  arc: E0BA              # default arc is up (fingertip-traces-rainbow)
+  # -- wavy / zigzag --
+  wavy: E0BD
+  zigzag: E0BE
+  # -- ellipses --
+  ellipse_horizontal: E0C0
+  ellipse_up_right: E0C1
+  ellipse_vertical: E0C2
+  ellipse_up_left: E0C3
+
+# ---------------------------------------------------------------------------
+# Size modifiers, speed modifiers, timing.
+# Value = null means a legal but no-op term (e.g. "normal" speed emits
+# nothing because HamNoSys has no explicit "neutral" marker).
+# ---------------------------------------------------------------------------
+size_mod:
+  increasing: E0C4
+  decreasing: E0C5
+  small: E0C6
+  large: E0C7
+  big: E0C7
+  normal: null
+  medium: null
+  default: null
+
+speed_mod:
+  fast: E0C8
+  quick: E0C8
+  slow: E0C9
+  tense: E0CA
+  tensely: E0CA
+  relaxed: null
+  normal: null
+
+timing:
+  rest: E0CB
+  halt: E0CC
+  hold: E0CC
+  pause: E0CC
+
+# ---------------------------------------------------------------------------
+# Repetition markers.
+# "once" emits nothing (a HamNoSys sign produces once by default).
+# "twice" maps to hamrepeatfromstart (one repeat = two productions).
+# "three-plus" uses the "several" variant.
+# ---------------------------------------------------------------------------
+repeat:
+  once: null
+  default: null
+  from_start: E0D8
+  twice: E0D8
+  double: E0D8
+  from_start_several: E0D9
+  "three_plus_times": E0D9
+  three_times: E0D9
+  several: E0D9
+  continue: E0DA
+  continuous: E0DA
+  continued: E0DA
+  continue_several: E0DB
+  reverse: E0DC
+  alternating: E0DD
+  alternate: E0DD

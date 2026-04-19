@@ -1,0 +1,25 @@
+{
+  "id": "claw-forehead-down",
+  "category": "compound_handshape",
+  "gloss": "invented:CLAW-FOREHEAD",
+  "source": "authored",
+  "notes": "Claw at forehead, stroking downward — authored for coverage.",
+  "parameters": {
+    "handshape_dominant": "bent_5",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "down",
+    "orientation_palm": "left",
+    "location": "forehead",
+    "contact": "touch",
+    "movement": [
+      {
+        "path": "down"
+      }
+    ],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E005 E011 E024 E03E E042 E0D1 E084",
+  "produced_hamnosys_hex": "E005 E011 E024 E03E E042 E0D1 E084",
+  "deterministic_match": true,
+  "validation_ok": true
+}

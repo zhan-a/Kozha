@@ -1,0 +1,26 @@
+{
+  "id": "circulation-flat-chest-circle-repeat",
+  "category": "with_modifier",
+  "gloss": "CIRCULATION1B^",
+  "source": "DGS-Korpus",
+  "notes": "Flat hand circling over the chest — CIRCULATION.",
+  "parameters": {
+    "handshape_dominant": "flat",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "in_left",
+    "orientation_palm": "right",
+    "location": "chest",
+    "contact": "close",
+    "movement": [
+      {
+        "path": "circle_in",
+        "repeat": "twice"
+      }
+    ],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E001 E02B E03A E052 E0D0 E093 E0D8",
+  "produced_hamnosys_hex": "E001 E02B E03A E052 E0D0 E093 E0D8",
+  "deterministic_match": true,
+  "validation_ok": true
+}

@@ -1,0 +1,25 @@
+{
+  "id": "depression3-claw-chest-down",
+  "category": "compound_handshape",
+  "gloss": "DEPRESSION3^",
+  "source": "DGS-Korpus",
+  "notes": "Claw (bent-5) at chest, sliding down.",
+  "parameters": {
+    "handshape_dominant": "claw",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "left",
+    "orientation_palm": "left",
+    "location": "chest",
+    "contact": "touch",
+    "movement": [
+      {
+        "path": "down"
+      }
+    ],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E005 E011 E026 E03E E052 E0D1 E084",
+  "produced_hamnosys_hex": "E005 E011 E026 E03E E052 E0D1 E084",
+  "deterministic_match": true,
+  "validation_ok": true
+}

@@ -1,0 +1,25 @@
+{
+  "id": "curious-pinchall-nose-twist",
+  "category": "action_movement",
+  "gloss": "CURIOUS2^",
+  "source": "DGS-Korpus (approx)",
+  "notes": "Same phonology as BROWN47 — twin sign.",
+  "parameters": {
+    "handshape_dominant": "pinch_all",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up_left",
+    "orientation_palm": "down_left",
+    "location": "nose",
+    "contact": "touch",
+    "movement": [
+      {
+        "path": "twisting"
+      }
+    ],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E007 E027 E03D E045 E0D1 E0A7",
+  "produced_hamnosys_hex": "E007 E027 E03D E045 E0D1 E0A7",
+  "deterministic_match": true,
+  "validation_ok": true
+}

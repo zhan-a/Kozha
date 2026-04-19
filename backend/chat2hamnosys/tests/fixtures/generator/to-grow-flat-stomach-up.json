@@ -1,0 +1,25 @@
+{
+  "id": "to-grow-flat-stomach-up",
+  "category": "basic_one_handed",
+  "gloss": "TO-GROW2A^",
+  "source": "DGS-Korpus",
+  "notes": "Flat hand rising up from the stomach.",
+  "parameters": {
+    "handshape_dominant": "flat",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "out_left",
+    "orientation_palm": "down",
+    "location": "stomach",
+    "contact": null,
+    "movement": [
+      {
+        "path": "up"
+      }
+    ],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E001 E028 E03C E053 E080",
+  "produced_hamnosys_hex": "E001 E028 E03C E053 E080",
+  "deterministic_match": true,
+  "validation_ok": true
+}

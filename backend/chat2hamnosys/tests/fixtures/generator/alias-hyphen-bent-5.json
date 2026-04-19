@@ -1,0 +1,21 @@
+{
+  "id": "alias-hyphen-bent-5",
+  "category": "aliases",
+  "gloss": "invented:HYPHEN-BENT-5",
+  "source": "authored",
+  "notes": "Tests hyphenated term normalization.",
+  "parameters": {
+    "handshape_dominant": "bent-5",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "down",
+    "orientation_palm": "down",
+    "location": "eyes",
+    "contact": null,
+    "movement": [],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E005 E011 E024 E03C E044",
+  "produced_hamnosys_hex": "E005 E011 E024 E03C E044",
+  "deterministic_match": true,
+  "validation_ok": true
+}

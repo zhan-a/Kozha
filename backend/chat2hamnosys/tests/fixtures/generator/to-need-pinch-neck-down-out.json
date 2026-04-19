@@ -1,0 +1,25 @@
+{
+  "id": "to-need-pinch-neck-down-out",
+  "category": "with_contact",
+  "gloss": "TO-NEED2^",
+  "source": "DGS-Korpus",
+  "notes": "Open pinch at neck, moving down-and-out.",
+  "parameters": {
+    "handshape_dominant": "pinch_12_open",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up_left",
+    "orientation_palm": "left",
+    "location": "neck",
+    "contact": "touch",
+    "movement": [
+      {
+        "path": "down_out"
+      }
+    ],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E008 E027 E03E E04F E0D1 E090",
+  "produced_hamnosys_hex": "E008 E027 E03E E04F E0D1 E090",
+  "deterministic_match": true,
+  "validation_ok": true
+}

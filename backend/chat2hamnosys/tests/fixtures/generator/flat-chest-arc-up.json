@@ -1,0 +1,25 @@
+{
+  "id": "flat-chest-arc-up",
+  "category": "circular_movement",
+  "gloss": "invented:ARC-UP-CHEST",
+  "source": "authored",
+  "notes": "Authored: flat hand tracing an upward arc (palm away).",
+  "parameters": {
+    "handshape_dominant": "flat",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "away_from_signer",
+    "location": "chest",
+    "contact": null,
+    "movement": [
+      {
+        "path": "arc"
+      }
+    ],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E001 E020 E03A E052 E0BA",
+  "produced_hamnosys_hex": "E001 E020 E03A E052 E0BA",
+  "deterministic_match": true,
+  "validation_ok": true
+}

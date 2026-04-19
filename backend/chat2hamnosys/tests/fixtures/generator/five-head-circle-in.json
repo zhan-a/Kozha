@@ -1,0 +1,25 @@
+{
+  "id": "five-head-circle-in",
+  "category": "circular_movement",
+  "gloss": "invented:CIRCLE-HEAD-IN",
+  "source": "authored",
+  "notes": "Authored five-hand circle-in at head.",
+  "parameters": {
+    "handshape_dominant": "five",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "down",
+    "location": "head",
+    "contact": null,
+    "movement": [
+      {
+        "path": "circle_in"
+      }
+    ],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E005 E020 E03C E040 E093",
+  "produced_hamnosys_hex": "E005 E020 E03C E040 E093",
+  "deterministic_match": true,
+  "validation_ok": true
+}

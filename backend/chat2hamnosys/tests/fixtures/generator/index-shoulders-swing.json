@@ -1,0 +1,25 @@
+{
+  "id": "index-shoulders-swing",
+  "category": "action_movement",
+  "gloss": "invented:SWING-INDEX",
+  "source": "authored",
+  "notes": "Authored swinging-index for coverage.",
+  "parameters": {
+    "handshape_dominant": "index",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "down",
+    "location": "shoulders",
+    "contact": null,
+    "movement": [
+      {
+        "path": "swinging"
+      }
+    ],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E002 E020 E03C E051 E0A6",
+  "produced_hamnosys_hex": "E002 E020 E03C E051 E0A6",
+  "deterministic_match": true,
+  "validation_ok": true
+}

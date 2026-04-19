@@ -1,0 +1,21 @@
+{
+  "id": "alias-b-forward-right-chest",
+  "category": "aliases",
+  "gloss": "invented:ALIAS-B",
+  "source": "authored",
+  "notes": "Tests 'B' → flat (E001), 'forward' → out (E029) aliases.",
+  "parameters": {
+    "handshape_dominant": "B",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "forward",
+    "orientation_palm": "right",
+    "location": "chest",
+    "contact": null,
+    "movement": [],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E001 E029 E03A E052",
+  "produced_hamnosys_hex": "E001 E029 E03A E052",
+  "deterministic_match": true,
+  "validation_ok": true
+}

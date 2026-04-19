@@ -1,0 +1,21 @@
+{
+  "id": "alias-case-FLAT",
+  "category": "aliases",
+  "gloss": "invented:CASE-FLAT",
+  "source": "authored",
+  "notes": "Tests case-insensitive vocab lookup.",
+  "parameters": {
+    "handshape_dominant": "FLAT",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "UP",
+    "orientation_palm": "Down",
+    "location": "Chest",
+    "contact": null,
+    "movement": [],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E001 E020 E03C E052",
+  "produced_hamnosys_hex": "E001 E020 E03C E052",
+  "deterministic_match": true,
+  "validation_ok": true
+}

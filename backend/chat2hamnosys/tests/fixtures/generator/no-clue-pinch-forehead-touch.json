@@ -1,0 +1,21 @@
+{
+  "id": "no-clue-pinch-forehead-touch",
+  "category": "basic_one_handed",
+  "gloss": "NO-CLUE1^",
+  "source": "DGS-Korpus",
+  "notes": "Open-pinch handshape touching forehead.",
+  "parameters": {
+    "handshape_dominant": "pinch_12_open",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up_left",
+    "orientation_palm": "down",
+    "location": "forehead",
+    "contact": "touch",
+    "movement": [],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E008 E027 E03C E042 E0D1",
+  "produced_hamnosys_hex": "E008 E027 E03C E042 E0D1",
+  "deterministic_match": true,
+  "validation_ok": true
+}

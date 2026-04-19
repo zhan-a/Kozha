@@ -1,0 +1,25 @@
+{
+  "id": "to-bear-fist-chest-down",
+  "category": "with_contact",
+  "gloss": "TO-BEAR1B^",
+  "source": "DGS-Korpus",
+  "notes": "Fist touching chest, moving downward.",
+  "parameters": {
+    "handshape_dominant": "fist",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up_left",
+    "orientation_palm": "down",
+    "location": "chest",
+    "contact": "touch",
+    "movement": [
+      {
+        "path": "down"
+      }
+    ],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E000 E027 E03C E052 E0D1 E084",
+  "produced_hamnosys_hex": "E000 E027 E03C E052 E0D1 E084",
+  "deterministic_match": true,
+  "validation_ok": true
+}

@@ -1,0 +1,25 @@
+{
+  "id": "question-pinch-chin-out",
+  "category": "with_contact",
+  "gloss": "QUESTION1^",
+  "source": "DGS-Korpus",
+  "notes": "Open-pinch at chin, moving outward.",
+  "parameters": {
+    "handshape_dominant": "pinch_12_open",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up_left",
+    "orientation_palm": "left",
+    "location": "chin",
+    "contact": "touch",
+    "movement": [
+      {
+        "path": "out"
+      }
+    ],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E008 E027 E03E E04D E0D1 E089",
+  "produced_hamnosys_hex": "E008 E027 E03E E04D E0D1 E089",
+  "deterministic_match": true,
+  "validation_ok": true
+}

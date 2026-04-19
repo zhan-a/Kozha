@@ -1,0 +1,25 @@
+{
+  "id": "year3a-index-shoulders-circle",
+  "category": "basic_one_handed",
+  "gloss": "YEAR3A^",
+  "source": "DGS-Korpus",
+  "notes": "Index finger tracing an outward circle at shoulder level.",
+  "parameters": {
+    "handshape_dominant": "index",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "up",
+    "location": "shoulders",
+    "contact": null,
+    "movement": [
+      {
+        "path": "circle_out"
+      }
+    ],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E002 E020 E038 E051 E092",
+  "produced_hamnosys_hex": "E002 E020 E038 E051 E092",
+  "deterministic_match": true,
+  "validation_ok": true
+}

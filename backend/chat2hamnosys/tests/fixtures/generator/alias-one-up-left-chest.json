@@ -1,0 +1,21 @@
+{
+  "id": "alias-one-up-left-chest",
+  "category": "aliases",
+  "gloss": "invented:ALIAS-ONE",
+  "source": "authored",
+  "notes": "Tests '1' → index (E002) alias.",
+  "parameters": {
+    "handshape_dominant": "1",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "left",
+    "location": "chest",
+    "contact": null,
+    "movement": [],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E002 E020 E03E E052",
+  "produced_hamnosys_hex": "E002 E020 E03E E052",
+  "deterministic_match": true,
+  "validation_ok": true
+}

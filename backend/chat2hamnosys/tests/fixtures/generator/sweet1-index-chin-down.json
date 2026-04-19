@@ -1,0 +1,25 @@
+{
+  "id": "sweet1-index-chin-down",
+  "category": "with_contact",
+  "gloss": "SWEET1^",
+  "source": "DGS-Korpus",
+  "notes": "Index chin-stroke — many DGS phonotactic twins.",
+  "parameters": {
+    "handshape_dominant": "index",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "left",
+    "location": "chin",
+    "contact": "touch",
+    "movement": [
+      {
+        "path": "down"
+      }
+    ],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E002 E020 E03E E04D E0D1 E084",
+  "produced_hamnosys_hex": "E002 E020 E03E E04D E0D1 E084",
+  "deterministic_match": true,
+  "validation_ok": true
+}

@@ -1,0 +1,26 @@
+{
+  "id": "slow-flat-neutral-down",
+  "category": "with_modifier",
+  "gloss": "invented:SLOW-FLAT",
+  "source": "authored",
+  "notes": "Authored: flat hand descending slowly in neutral space.",
+  "parameters": {
+    "handshape_dominant": "flat",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "down",
+    "location": "neutral_space",
+    "contact": null,
+    "movement": [
+      {
+        "path": "down",
+        "speed_mod": "slow"
+      }
+    ],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E001 E020 E03C E05F E084 E0C9",
+  "produced_hamnosys_hex": "E001 E020 E03C E05F E084 E0C9",
+  "deterministic_match": true,
+  "validation_ok": true
+}

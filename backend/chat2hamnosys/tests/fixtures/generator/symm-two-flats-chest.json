@@ -1,0 +1,21 @@
+{
+  "id": "symm-two-flats-chest",
+  "category": "two_handed",
+  "gloss": "invented:SYMM-FLATS",
+  "source": "authored",
+  "notes": "Symmetric two flats at chest, palms toward body, touching — hamsymmpar prefix.",
+  "parameters": {
+    "handshape_dominant": "flat",
+    "handshape_nondominant": "flat",
+    "orientation_extended_finger": "up",
+    "orientation_palm": "toward_signer",
+    "location": "chest",
+    "contact": "touch",
+    "movement": [],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E0E8 E001 E020 E03E E052 E0D1",
+  "produced_hamnosys_hex": "E0E8 E001 E020 E03E E052 E0D1",
+  "deterministic_match": true,
+  "validation_ok": true
+}

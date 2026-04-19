@@ -1,0 +1,21 @@
+{
+  "id": "bent-v-eyes-touch",
+  "category": "compound_handshape",
+  "gloss": "invented:BENT-V-EYES",
+  "source": "authored",
+  "notes": "Bent-V near eyes — authored for coverage of E003+E011.",
+  "parameters": {
+    "handshape_dominant": "bent_v",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "down",
+    "orientation_palm": "down",
+    "location": "eyes",
+    "contact": "touch",
+    "movement": [],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E003 E011 E024 E03C E044 E0D1",
+  "produced_hamnosys_hex": "E003 E011 E024 E03C E044 E0D1",
+  "deterministic_match": true,
+  "validation_ok": true
+}

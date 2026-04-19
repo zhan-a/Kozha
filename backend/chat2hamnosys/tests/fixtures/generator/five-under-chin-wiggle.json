@@ -1,0 +1,25 @@
+{
+  "id": "five-under-chin-wiggle",
+  "category": "action_movement",
+  "gloss": "invented:WIGGLE-BEARD",
+  "source": "authored",
+  "notes": "Open-5 below chin, palm toward signer (left for RH), fingers wiggling — beard gesture.",
+  "parameters": {
+    "handshape_dominant": "five",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "down",
+    "orientation_palm": "toward_signer",
+    "location": "under_chin",
+    "contact": null,
+    "movement": [
+      {
+        "path": "fingerplay"
+      }
+    ],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E005 E024 E03E E04E E0A4",
+  "produced_hamnosys_hex": "E005 E024 E03E E04E E0A4",
+  "deterministic_match": true,
+  "validation_ok": true
+}

@@ -1,0 +1,27 @@
+{
+  "id": "breathing-five-chest-out-small-repeat",
+  "category": "with_modifier",
+  "gloss": "BREATHING1^",
+  "source": "DGS-Korpus",
+  "notes": "Five shape expanding slightly outward from chest, repeating.",
+  "parameters": {
+    "handshape_dominant": "five",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up_left",
+    "orientation_palm": "left",
+    "location": "chest",
+    "contact": "close",
+    "movement": [
+      {
+        "path": "out",
+        "size_mod": "small",
+        "repeat": "twice"
+      }
+    ],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E005 E027 E03E E052 E0D0 E089 E0C6 E0D8",
+  "produced_hamnosys_hex": "E005 E027 E03E E052 E0D0 E089 E0C6 E0D8",
+  "deterministic_match": true,
+  "validation_ok": true
+}

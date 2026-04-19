@@ -1,0 +1,21 @@
+{
+  "id": "urine-pinch-stomach-touch",
+  "category": "basic_one_handed",
+  "gloss": "URINE1^",
+  "source": "DGS-Korpus",
+  "notes": "Open-pinch touching stomach.",
+  "parameters": {
+    "handshape_dominant": "pinch_12_open",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "down_left",
+    "orientation_palm": "down",
+    "location": "stomach",
+    "contact": "touch",
+    "movement": [],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E008 E025 E03C E053 E0D1",
+  "produced_hamnosys_hex": "E008 E025 E03C E053 E0D1",
+  "deterministic_match": true,
+  "validation_ok": true
+}

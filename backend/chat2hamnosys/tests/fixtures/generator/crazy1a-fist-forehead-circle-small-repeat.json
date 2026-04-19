@@ -1,0 +1,27 @@
+{
+  "id": "crazy1a-fist-forehead-circle-small-repeat",
+  "category": "with_modifier",
+  "gloss": "CRAZY1A^",
+  "source": "DGS-Korpus",
+  "notes": "Fist near forehead, small inward circle, repeated.",
+  "parameters": {
+    "handshape_dominant": "fist",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up_left",
+    "orientation_palm": "down",
+    "location": "forehead",
+    "contact": "close",
+    "movement": [
+      {
+        "path": "circle_in",
+        "size_mod": "small",
+        "repeat": "twice"
+      }
+    ],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E000 E027 E03C E042 E0D0 E093 E0C6 E0D8",
+  "produced_hamnosys_hex": "E000 E027 E03C E042 E0D0 E093 E0C6 E0D8",
+  "deterministic_match": true,
+  "validation_ok": true
+}

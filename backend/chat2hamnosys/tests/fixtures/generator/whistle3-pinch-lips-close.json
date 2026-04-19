@@ -1,0 +1,21 @@
+{
+  "id": "whistle3-pinch-lips-close",
+  "category": "with_contact",
+  "gloss": "WHISTLE3^",
+  "source": "DGS-Korpus",
+  "notes": "Open pinch approaching lips — whistle.",
+  "parameters": {
+    "handshape_dominant": "pinch_12_open",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up_left",
+    "orientation_palm": "up_left",
+    "location": "lips",
+    "contact": "close",
+    "movement": [],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E008 E027 E03F E04A E0D0",
+  "produced_hamnosys_hex": "E008 E027 E03F E04A E0D0",
+  "deterministic_match": true,
+  "validation_ok": true
+}

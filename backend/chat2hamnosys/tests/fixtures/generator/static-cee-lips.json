@@ -1,0 +1,21 @@
+{
+  "id": "static-cee-lips",
+  "category": "no_movement",
+  "gloss": "invented:STATIC-C-LIPS",
+  "source": "authored",
+  "notes": "Static C near lips.",
+  "parameters": {
+    "handshape_dominant": "cee_all",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "left",
+    "location": "lips",
+    "contact": null,
+    "movement": [],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E00A E020 E03E E04A",
+  "produced_hamnosys_hex": "E00A E020 E03E E04A",
+  "deterministic_match": true,
+  "validation_ok": true
+}

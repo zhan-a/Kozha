@@ -1,0 +1,25 @@
+{
+  "id": "aachen3-fist-shoulders-right",
+  "category": "basic_one_handed",
+  "gloss": "AACHEN3^",
+  "source": "DGS-Korpus",
+  "notes": "Closed fist at shoulder height, moving to the right.",
+  "parameters": {
+    "handshape_dominant": "fist",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up",
+    "orientation_palm": "down",
+    "location": "shoulders",
+    "contact": null,
+    "movement": [
+      {
+        "path": "right"
+      }
+    ],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E000 E020 E03C E051 E082",
+  "produced_hamnosys_hex": "E000 E020 E03C E051 E082",
+  "deterministic_match": true,
+  "validation_ok": true
+}

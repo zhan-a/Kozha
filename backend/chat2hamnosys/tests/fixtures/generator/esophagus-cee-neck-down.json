@@ -1,0 +1,25 @@
+{
+  "id": "esophagus-cee-neck-down",
+  "category": "with_contact",
+  "gloss": "ESOPHAGUS-OR-TRACHEA1A^",
+  "source": "DGS-Korpus",
+  "notes": "C-handshape at the neck, sliding down.",
+  "parameters": {
+    "handshape_dominant": "cee_12",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "in_left",
+    "orientation_palm": "down_right",
+    "location": "neck",
+    "contact": "touch",
+    "movement": [
+      {
+        "path": "down"
+      }
+    ],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E009 E02B E03B E04F E0D1 E084",
+  "produced_hamnosys_hex": "E009 E02B E03B E04F E0D1 E084",
+  "deterministic_match": true,
+  "validation_ok": true
+}

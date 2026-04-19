@@ -1,0 +1,25 @@
+{
+  "id": "dirty3c-five-under-chin-fingerplay",
+  "category": "compound_handshape",
+  "gloss": "DIRTY3C^",
+  "source": "DGS-Korpus",
+  "notes": "Open-5 under chin, wiggling fingers — iconic for DIRTY.",
+  "parameters": {
+    "handshape_dominant": "five",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "left",
+    "orientation_palm": "down",
+    "location": "under_chin",
+    "contact": "touch",
+    "movement": [
+      {
+        "path": "fingerplay"
+      }
+    ],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E005 E026 E03C E04E E0D1 E0A4",
+  "produced_hamnosys_hex": "E005 E026 E03C E04E E0D1 E0A4",
+  "deterministic_match": true,
+  "validation_ok": true
+}

@@ -1,0 +1,26 @@
+{
+  "id": "hard4-cee-lips-out-fast",
+  "category": "with_modifier",
+  "gloss": "HARD4^",
+  "source": "DGS-Korpus",
+  "notes": "C handshape near lips, fast outward motion.",
+  "parameters": {
+    "handshape_dominant": "cee_12",
+    "handshape_nondominant": null,
+    "orientation_extended_finger": "up_left",
+    "orientation_palm": "up_left",
+    "location": "lips",
+    "contact": "close",
+    "movement": [
+      {
+        "path": "out",
+        "speed_mod": "fast"
+      }
+    ],
+    "non_manual": null
+  },
+  "expected_hamnosys_hex": "E009 E027 E03F E04A E0D0 E089 E0C8",
+  "produced_hamnosys_hex": "E009 E027 E03F E04A E0D0 E089 E0C8",
+  "deterministic_match": true,
+  "validation_ok": true
+}
