@@ -1,0 +1,36 @@
+{
+  "id": "19-nonmanual-yn-question",
+  "category": "non_manuals",
+  "prose": "WANT with yes/no-question marking: the signer holds a bent-5 handshape in neutral space, palm up, fingertips toward the signer, while raising their eyebrows and tilting the head slightly forward. The hand pulls inward toward the body once.",
+  "expected_populated": [
+    "handshape_dominant",
+    "orientation_extended_finger",
+    "orientation_palm",
+    "location",
+    "movement",
+    "non_manual"
+  ],
+  "expected_gap_fields": [],
+  "recorded_response": {
+    "parameters": {
+      "handshape_dominant": "bent-5",
+      "handshape_nondominant": null,
+      "orientation_extended_finger": "toward signer",
+      "orientation_palm": "up",
+      "location": "neutral space",
+      "contact": null,
+      "movement": [
+        {"path": "straight", "size_mod": null, "speed_mod": null, "repeat": "once"}
+      ],
+      "non_manual": {
+        "mouth_picture": null,
+        "eye_gaze": null,
+        "head_movement": "forward tilt",
+        "eyebrows": "raised",
+        "facial_expression": null
+      }
+    },
+    "gaps": []
+  },
+  "notes": "Non-manuals explicit (eyebrows raised, head tilt forward); manual slots complete."
+}

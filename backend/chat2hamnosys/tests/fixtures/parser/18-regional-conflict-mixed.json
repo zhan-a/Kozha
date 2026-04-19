@@ -1,0 +1,38 @@
+{
+  "id": "18-regional-conflict-mixed",
+  "category": "regional_variant",
+  "prose": "SCHOOL: in BSL the two flat hands clap once at the chest; in the DGS version the flat hand taps the contralateral palm twice. Use the DGS form. Palms face down for the contact.",
+  "expected_populated": [
+    "handshape_dominant",
+    "handshape_nondominant",
+    "orientation_palm",
+    "location",
+    "contact",
+    "movement"
+  ],
+  "expected_gap_fields": [
+    "orientation_extended_finger"
+  ],
+  "recorded_response": {
+    "parameters": {
+      "handshape_dominant": "flat",
+      "handshape_nondominant": "flat",
+      "orientation_extended_finger": null,
+      "orientation_palm": "down",
+      "location": "palm",
+      "contact": "tapping",
+      "movement": [
+        {"path": "tapping", "size_mod": null, "speed_mod": null, "repeat": "twice"}
+      ],
+      "non_manual": null
+    },
+    "gaps": [
+      {
+        "field": "orientation_extended_finger",
+        "reason": "description resolves to the DGS form but does not specify the fingertip direction; the DGS dictionary shows a small rotation during the tap that affects finger direction",
+        "suggested_question": "During the tap, do the dominant-hand fingertips point forward, or contralaterally across the non-dominant palm?"
+      }
+    ]
+  },
+  "notes": "Prose disambiguates between variants — parser should silently commit to DGS form, not flag it as ambiguous."
+}

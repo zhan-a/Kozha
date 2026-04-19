@@ -1,0 +1,29 @@
+{
+  "id": "05-well-specified-understand",
+  "category": "well_specified",
+  "prose": "UNDERSTAND: index finger handshape at the temple, fingertip pointing up, palm toward the signer. The finger flicks outward once, opening from a bent position to a straight index.",
+  "expected_populated": [
+    "handshape_dominant",
+    "orientation_extended_finger",
+    "orientation_palm",
+    "location",
+    "movement"
+  ],
+  "expected_gap_fields": [],
+  "recorded_response": {
+    "parameters": {
+      "handshape_dominant": "index",
+      "handshape_nondominant": null,
+      "orientation_extended_finger": "up",
+      "orientation_palm": "toward signer",
+      "location": "temple",
+      "contact": null,
+      "movement": [
+        {"path": "opening", "size_mod": null, "speed_mod": null, "repeat": "once"}
+      ],
+      "non_manual": null
+    },
+    "gaps": []
+  },
+  "notes": "Handshape-change movement ('flicks outward ... opening')."
+}

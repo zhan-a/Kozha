@@ -1,0 +1,44 @@
+{
+  "id": "22-nonmanual-mouth-pah",
+  "category": "non_manuals",
+  "prose": "FINALLY: both S-hands in neutral space, palms facing down, then both hands flick open to spread-5 handshapes while the signer mouths 'pah'. Palms end facing up. The movement happens once, with the head tilted slightly back.",
+  "expected_populated": [
+    "handshape_dominant",
+    "handshape_nondominant",
+    "orientation_palm",
+    "location",
+    "movement",
+    "non_manual"
+  ],
+  "expected_gap_fields": [
+    "orientation_extended_finger"
+  ],
+  "recorded_response": {
+    "parameters": {
+      "handshape_dominant": "S",
+      "handshape_nondominant": "S",
+      "orientation_extended_finger": null,
+      "orientation_palm": "down",
+      "location": "neutral space",
+      "contact": null,
+      "movement": [
+        {"path": "opening", "size_mod": null, "speed_mod": null, "repeat": "once"}
+      ],
+      "non_manual": {
+        "mouth_picture": "pah",
+        "eye_gaze": null,
+        "head_movement": "tilt back",
+        "eyebrows": null,
+        "facial_expression": null
+      }
+    },
+    "gaps": [
+      {
+        "field": "orientation_extended_finger",
+        "reason": "before the flick the S-hands have no extended fingers; after the flick the spread-5 fingers could point up, forward, or up-forward — not specified",
+        "suggested_question": "After the hands flick open, do the fingertips point up, forward, or up-forward?"
+      }
+    ]
+  },
+  "notes": "Non-manual mouth pattern 'pah' is a BSL/DGS grammatical marker."
+}

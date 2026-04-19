@@ -1,0 +1,46 @@
+{
+  "id": "17-regional-computer-unknown",
+  "category": "regional_variant",
+  "prose": "COMPUTER: the hand moves in a small circle at the temple. Use whichever is the standard variant.",
+  "expected_populated": [
+    "location",
+    "movement"
+  ],
+  "expected_gap_fields": [
+    "handshape_dominant",
+    "orientation_extended_finger",
+    "orientation_palm"
+  ],
+  "recorded_response": {
+    "parameters": {
+      "handshape_dominant": null,
+      "handshape_nondominant": null,
+      "orientation_extended_finger": null,
+      "orientation_palm": null,
+      "location": "temple",
+      "contact": null,
+      "movement": [
+        {"path": "circular", "size_mod": "small", "speed_mod": null, "repeat": null}
+      ],
+      "non_manual": null
+    },
+    "gaps": [
+      {
+        "field": "handshape_dominant",
+        "reason": "'the standard variant' is underspecified — modern BSL uses a C-hand (for older mainframe) vs. a modified-index for newer 'computer mouse' variants; no single canonical form",
+        "suggested_question": "Which handshape is in use — C-hand (older form) or an index point (newer, mouse-derived form)?"
+      },
+      {
+        "field": "orientation_extended_finger",
+        "reason": "follows from the unresolved handshape — the finger direction depends on which handshape",
+        "suggested_question": "Once the handshape is confirmed, do the fingertips point forward, up, or toward the signer?"
+      },
+      {
+        "field": "orientation_palm",
+        "reason": "not described",
+        "suggested_question": "Which way does the palm face — down, toward the signer, or away?"
+      }
+    ]
+  },
+  "notes": "Vague 'standard variant' hint should trigger a handshape gap with variant awareness in the reason."
+}

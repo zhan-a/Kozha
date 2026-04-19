@@ -1,0 +1,34 @@
+{
+  "id": "06-one-missing-love",
+  "category": "one_missing",
+  "prose": "LOVE is signed at the chest with two fists crossed over the heart. Both hands are fists. The fingertips point inward toward the body.",
+  "expected_populated": [
+    "handshape_dominant",
+    "handshape_nondominant",
+    "orientation_extended_finger",
+    "location"
+  ],
+  "expected_gap_fields": [
+    "orientation_palm"
+  ],
+  "recorded_response": {
+    "parameters": {
+      "handshape_dominant": "fist",
+      "handshape_nondominant": "fist",
+      "orientation_extended_finger": "toward signer",
+      "orientation_palm": null,
+      "location": "chest",
+      "contact": null,
+      "movement": [],
+      "non_manual": null
+    },
+    "gaps": [
+      {
+        "field": "orientation_palm",
+        "reason": "description does not specify which way the palms face when the fists are crossed",
+        "suggested_question": "Do the palms face the signer's chest, face the ceiling, or face each other?"
+      }
+    ]
+  },
+  "notes": "Palm orientation genuinely under-specified."
+}

@@ -1,0 +1,43 @@
+{
+  "id": "08-one-missing-house-location",
+  "category": "one_missing",
+  "prose": "HOUSE uses both flat hands, fingertips touching to form the shape of a peaked roof, then the hands move apart and down to trace the walls. Palms face each other for the roof, then palms face down for the walls.",
+  "expected_populated": [
+    "handshape_dominant",
+    "handshape_nondominant",
+    "orientation_palm",
+    "contact",
+    "movement"
+  ],
+  "expected_gap_fields": [
+    "location",
+    "orientation_extended_finger"
+  ],
+  "recorded_response": {
+    "parameters": {
+      "handshape_dominant": "flat",
+      "handshape_nondominant": "flat",
+      "orientation_extended_finger": null,
+      "orientation_palm": "ipsilateral",
+      "location": null,
+      "contact": "fingertips touching",
+      "movement": [
+        {"path": "straight", "size_mod": null, "speed_mod": null, "repeat": null}
+      ],
+      "non_manual": null
+    },
+    "gaps": [
+      {
+        "field": "location",
+        "reason": "the prose never anchors the sign to a body location — the hands appear to be in neutral space but it is not stated explicitly",
+        "suggested_question": "Is HOUSE performed in neutral space in front of the chest, or anchored to a specific body location?"
+      },
+      {
+        "field": "orientation_extended_finger",
+        "reason": "description mentions only a peaked roof shape, not where the fingertips point (up-forward would be typical but is not said)",
+        "suggested_question": "During the roof shape, do the fingertips point up, up-forward, or toward each other?"
+      }
+    ]
+  },
+  "notes": "Two mandatory slots silent; palm direction described only for first phase."
+}

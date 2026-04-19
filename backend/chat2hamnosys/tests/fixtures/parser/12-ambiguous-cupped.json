@@ -1,0 +1,33 @@
+{
+  "id": "12-ambiguous-cupped",
+  "category": "ambiguous_handshape",
+  "prose": "Make a cupped hand at the chin, palm facing up, fingertips pointing toward the signer. No movement.",
+  "expected_populated": [
+    "orientation_extended_finger",
+    "orientation_palm",
+    "location"
+  ],
+  "expected_gap_fields": [
+    "handshape_dominant"
+  ],
+  "recorded_response": {
+    "parameters": {
+      "handshape_dominant": null,
+      "handshape_nondominant": null,
+      "orientation_extended_finger": "toward signer",
+      "orientation_palm": "up",
+      "location": "chin",
+      "contact": null,
+      "movement": [],
+      "non_manual": null
+    },
+    "gaps": [
+      {
+        "field": "handshape_dominant",
+        "reason": "'cupped hand' could be a C-hand (wider curve, fingers together) or a flat-O (tighter, fingertips-to-thumb-tip) or a bent-5 (curled but fingers apart)",
+        "suggested_question": "Is the cup shape a C-hand (fingers together forming a C), a flat-O (fingertips touching thumb), or a bent-5 (claw)?"
+      }
+    ]
+  },
+  "notes": "Three-way ambiguity on handshape."
+}

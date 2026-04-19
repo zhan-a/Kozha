@@ -1,0 +1,30 @@
+{
+  "id": "16-regional-hundred-northern",
+  "category": "regional_variant",
+  "prose": "For HUNDRED, use the Northern BSL form: an index handshape at the contralateral shoulder, palm facing forward, fingertip pointing up. Tap once.",
+  "expected_populated": [
+    "handshape_dominant",
+    "orientation_extended_finger",
+    "orientation_palm",
+    "location",
+    "contact",
+    "movement"
+  ],
+  "expected_gap_fields": [],
+  "recorded_response": {
+    "parameters": {
+      "handshape_dominant": "index",
+      "handshape_nondominant": null,
+      "orientation_extended_finger": "up",
+      "orientation_palm": "away from signer",
+      "location": "contralateral shoulder",
+      "contact": "tapping",
+      "movement": [
+        {"path": "tapping", "size_mod": null, "speed_mod": null, "repeat": "once"}
+      ],
+      "non_manual": null
+    },
+    "gaps": []
+  },
+  "notes": "Regional tag is explicit AND the form is fully described — the prompt's rule 5 says don't over-flag. No gap needed."
+}

@@ -1,0 +1,30 @@
+{
+  "id": "02-well-specified-eat",
+  "category": "well_specified",
+  "prose": "To sign EAT, the dominant hand takes a flat-O handshape at the mouth, fingertips pointing toward the signer, palm facing down, tapping the lips twice.",
+  "expected_populated": [
+    "handshape_dominant",
+    "orientation_extended_finger",
+    "orientation_palm",
+    "location",
+    "contact",
+    "movement"
+  ],
+  "expected_gap_fields": [],
+  "recorded_response": {
+    "parameters": {
+      "handshape_dominant": "flat-O",
+      "handshape_nondominant": null,
+      "orientation_extended_finger": "toward signer",
+      "orientation_palm": "down",
+      "location": "mouth / lips",
+      "contact": "tapping",
+      "movement": [
+        {"path": "tapping", "size_mod": null, "speed_mod": null, "repeat": "twice"}
+      ],
+      "non_manual": null
+    },
+    "gaps": []
+  },
+  "notes": "Contact is explicit ('tapping the lips'). Movement repeat is explicit ('twice')."
+}

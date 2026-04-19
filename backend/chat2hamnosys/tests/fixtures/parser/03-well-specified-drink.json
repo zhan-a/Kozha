@@ -1,0 +1,29 @@
+{
+  "id": "03-well-specified-drink",
+  "category": "well_specified",
+  "prose": "DRINK: the dominant hand takes a C-hand, fingertips pointing up, palm facing the signer, positioned at the mouth. The hand arcs upward toward the mouth once, as if lifting a cup.",
+  "expected_populated": [
+    "handshape_dominant",
+    "orientation_extended_finger",
+    "orientation_palm",
+    "location",
+    "movement"
+  ],
+  "expected_gap_fields": [],
+  "recorded_response": {
+    "parameters": {
+      "handshape_dominant": "C",
+      "handshape_nondominant": null,
+      "orientation_extended_finger": "up",
+      "orientation_palm": "toward signer",
+      "location": "mouth / lips",
+      "contact": null,
+      "movement": [
+        {"path": "arc", "size_mod": null, "speed_mod": null, "repeat": "once"}
+      ],
+      "non_manual": null
+    },
+    "gaps": []
+  },
+  "notes": "All four mandatory slots explicit; movement arc well described."
+}

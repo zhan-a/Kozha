@@ -1,0 +1,36 @@
+{
+  "id": "11-ambiguous-claw",
+  "category": "ambiguous_handshape",
+  "prose": "The sign uses a claw-like grasping hand in front of the chest, palm facing down, fingertips pointing forward. The hand closes and then opens once.",
+  "expected_populated": [
+    "orientation_extended_finger",
+    "orientation_palm",
+    "location",
+    "movement"
+  ],
+  "expected_gap_fields": [
+    "handshape_dominant"
+  ],
+  "recorded_response": {
+    "parameters": {
+      "handshape_dominant": null,
+      "handshape_nondominant": null,
+      "orientation_extended_finger": "forward",
+      "orientation_palm": "down",
+      "location": "chest",
+      "contact": null,
+      "movement": [
+        {"path": "closing", "size_mod": null, "speed_mod": null, "repeat": "once"}
+      ],
+      "non_manual": null
+    },
+    "gaps": [
+      {
+        "field": "handshape_dominant",
+        "reason": "'claw-like' maps to either bent-5 (all five fingers bent) or bent-V (only index and middle bent); the two are phonologically distinct",
+        "suggested_question": "Are all five fingers bent (bent-5), or only the index and middle (bent-V)?"
+      }
+    ]
+  },
+  "notes": "Classic bent-5 vs bent-V ambiguity."
+}

@@ -1,0 +1,29 @@
+{
+  "id": "04-well-specified-thank-you",
+  "category": "well_specified",
+  "prose": "THANK-YOU starts at the chin with a flat hand, palm facing the signer, fingertips pointing up. The hand moves forward and downward away from the body in a straight line, ending in neutral space.",
+  "expected_populated": [
+    "handshape_dominant",
+    "orientation_extended_finger",
+    "orientation_palm",
+    "location",
+    "movement"
+  ],
+  "expected_gap_fields": [],
+  "recorded_response": {
+    "parameters": {
+      "handshape_dominant": "flat",
+      "handshape_nondominant": null,
+      "orientation_extended_finger": "up",
+      "orientation_palm": "toward signer",
+      "location": "chin",
+      "contact": null,
+      "movement": [
+        {"path": "straight", "size_mod": null, "speed_mod": null, "repeat": "once"}
+      ],
+      "non_manual": null
+    },
+    "gaps": []
+  },
+  "notes": "BSL THANK-YOU — classic chin-to-neutral-space trajectory."
+}

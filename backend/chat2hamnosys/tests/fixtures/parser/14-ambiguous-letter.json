@@ -1,0 +1,37 @@
+{
+  "id": "14-ambiguous-letter",
+  "category": "ambiguous_handshape",
+  "prose": "Use an A-shaped hand at the forehead, palm facing the signer, thumb pointing up. The hand taps the forehead twice.",
+  "expected_populated": [
+    "orientation_extended_finger",
+    "orientation_palm",
+    "location",
+    "contact",
+    "movement"
+  ],
+  "expected_gap_fields": [
+    "handshape_dominant"
+  ],
+  "recorded_response": {
+    "parameters": {
+      "handshape_dominant": null,
+      "handshape_nondominant": null,
+      "orientation_extended_finger": "up",
+      "orientation_palm": "toward signer",
+      "location": "forehead",
+      "contact": "tapping",
+      "movement": [
+        {"path": "tapping", "size_mod": null, "speed_mod": null, "repeat": "twice"}
+      ],
+      "non_manual": null
+    },
+    "gaps": [
+      {
+        "field": "handshape_dominant",
+        "reason": "'A-shaped hand' is ambiguous between the ASL 'A' (closed fist, thumb alongside) and the BSL/DGS 'A' (flat hand, thumb extended) — the latter is the 'flathand with extended thumb' compound in HamNoSys",
+        "suggested_question": "Which A do you mean — the closed-fist A (thumb alongside the closed fingers) or the flat-hand A (fingers flat, thumb extended up)?"
+      }
+    ]
+  },
+  "notes": "Cross-language letter ambiguity."
+}

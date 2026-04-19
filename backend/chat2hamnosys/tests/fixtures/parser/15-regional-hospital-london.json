@@ -1,0 +1,37 @@
+{
+  "id": "15-regional-hospital-london",
+  "category": "regional_variant",
+  "prose": "HOSPITAL — the London variant. Index finger traces a cross on the opposite upper arm. Palm faces the signer during the tracing.",
+  "expected_populated": [
+    "handshape_dominant",
+    "orientation_palm",
+    "location",
+    "contact",
+    "movement"
+  ],
+  "expected_gap_fields": [
+    "orientation_extended_finger"
+  ],
+  "recorded_response": {
+    "parameters": {
+      "handshape_dominant": "index",
+      "handshape_nondominant": null,
+      "orientation_extended_finger": null,
+      "orientation_palm": "toward signer",
+      "location": "upper arm",
+      "contact": "tracing",
+      "movement": [
+        {"path": "straight", "size_mod": null, "speed_mod": null, "repeat": null}
+      ],
+      "non_manual": null
+    },
+    "gaps": [
+      {
+        "field": "orientation_extended_finger",
+        "reason": "description says 'traces a cross' but does not anchor the starting finger direction; London-variant vs. Midlands/North variants differ in whether the finger starts pointing contralaterally or up",
+        "suggested_question": "At the start of the cross, does the index fingertip point toward the non-dominant side (contralateral) or up the arm?"
+      }
+    ]
+  },
+  "notes": "Regional tag mentioned; parser should flag variant sensitivity."
+}

@@ -1,0 +1,36 @@
+{
+  "id": "24-register-casual",
+  "category": "register",
+  "prose": "ok so basically you just kinda flick your wrist near your ear, like, whatever hand is comfy, palm facing out-ish, fingers pointing up. just once.",
+  "expected_populated": [
+    "orientation_extended_finger",
+    "orientation_palm",
+    "location",
+    "movement"
+  ],
+  "expected_gap_fields": [
+    "handshape_dominant"
+  ],
+  "recorded_response": {
+    "parameters": {
+      "handshape_dominant": null,
+      "handshape_nondominant": null,
+      "orientation_extended_finger": "up",
+      "orientation_palm": "away from signer",
+      "location": "ear",
+      "contact": null,
+      "movement": [
+        {"path": "nodding", "size_mod": null, "speed_mod": null, "repeat": "once"}
+      ],
+      "non_manual": null
+    },
+    "gaps": [
+      {
+        "field": "handshape_dominant",
+        "reason": "'whatever hand is comfy' does not name a handshape — the signer may be describing a common 'wave'-like gesture but no specific base handshape is given",
+        "suggested_question": "What handshape is in use — flat (B), spread-5, or something else?"
+      }
+    ]
+  },
+  "notes": "Casual register with filler words; parser must extract structure despite hedging."
+}

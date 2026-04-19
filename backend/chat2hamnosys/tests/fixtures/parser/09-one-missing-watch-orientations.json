@@ -1,0 +1,41 @@
+{
+  "id": "09-one-missing-watch-orientations",
+  "category": "one_missing",
+  "prose": "WATCH is signed with a V-handshape at the eye. The hand moves forward from the eye outward.",
+  "expected_populated": [
+    "handshape_dominant",
+    "location",
+    "movement"
+  ],
+  "expected_gap_fields": [
+    "orientation_extended_finger",
+    "orientation_palm"
+  ],
+  "recorded_response": {
+    "parameters": {
+      "handshape_dominant": "V",
+      "handshape_nondominant": null,
+      "orientation_extended_finger": null,
+      "orientation_palm": null,
+      "location": "eye",
+      "contact": null,
+      "movement": [
+        {"path": "straight", "size_mod": null, "speed_mod": null, "repeat": "once"}
+      ],
+      "non_manual": null
+    },
+    "gaps": [
+      {
+        "field": "orientation_extended_finger",
+        "reason": "the description does not specify where the V's fingertips point",
+        "suggested_question": "Do the V fingertips point forward (toward what is being watched) or toward the signer's own eye?"
+      },
+      {
+        "field": "orientation_palm",
+        "reason": "palm direction is not stated",
+        "suggested_question": "Does the palm face the signer (toward the eye) or face away from the signer?"
+      }
+    ]
+  },
+  "notes": "Handshape + location + movement explicit, both orientations absent."
+}

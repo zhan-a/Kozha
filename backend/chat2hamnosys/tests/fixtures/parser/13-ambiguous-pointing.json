@@ -1,0 +1,36 @@
+{
+  "id": "13-ambiguous-pointing",
+  "category": "ambiguous_handshape",
+  "prose": "The signer points forward with an open pointing hand near the shoulder, palm down, fingertip forward. Short jab forward, once.",
+  "expected_populated": [
+    "orientation_extended_finger",
+    "orientation_palm",
+    "location",
+    "movement"
+  ],
+  "expected_gap_fields": [
+    "handshape_dominant"
+  ],
+  "recorded_response": {
+    "parameters": {
+      "handshape_dominant": null,
+      "handshape_nondominant": null,
+      "orientation_extended_finger": "forward",
+      "orientation_palm": "down",
+      "location": "ipsilateral shoulder",
+      "contact": null,
+      "movement": [
+        {"path": "straight", "size_mod": "small", "speed_mod": "fast", "repeat": "once"}
+      ],
+      "non_manual": null
+    },
+    "gaps": [
+      {
+        "field": "handshape_dominant",
+        "reason": "'open pointing hand' is ambiguous between an index (G / 1 handshape) and a flat hand used deictically; the two have different HamNoSys base codepoints",
+        "suggested_question": "Is it a single index-finger point (index / G-hand) or a whole flat hand used to point (B-hand)?"
+      }
+    ]
+  },
+  "notes": "'Short jab' grounds speed_mod=fast, size_mod=small."
+}

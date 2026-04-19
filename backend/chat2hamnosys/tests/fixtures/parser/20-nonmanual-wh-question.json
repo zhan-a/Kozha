@@ -1,0 +1,36 @@
+{
+  "id": "20-nonmanual-wh-question",
+  "category": "non_manuals",
+  "prose": "WHO: index finger at the chin, fingertip pointing up, palm facing the signer, wiggling the finger while the eyebrows are furrowed.",
+  "expected_populated": [
+    "handshape_dominant",
+    "orientation_extended_finger",
+    "orientation_palm",
+    "location",
+    "movement",
+    "non_manual"
+  ],
+  "expected_gap_fields": [],
+  "recorded_response": {
+    "parameters": {
+      "handshape_dominant": "index",
+      "handshape_nondominant": null,
+      "orientation_extended_finger": "up",
+      "orientation_palm": "toward signer",
+      "location": "chin",
+      "contact": null,
+      "movement": [
+        {"path": "wiggling fingers", "size_mod": null, "speed_mod": null, "repeat": "continuous"}
+      ],
+      "non_manual": {
+        "mouth_picture": null,
+        "eye_gaze": null,
+        "head_movement": null,
+        "eyebrows": "furrowed",
+        "facial_expression": null
+      }
+    },
+    "gaps": []
+  },
+  "notes": "Furrowed brow marks wh-question; finger-wiggling movement."
+}

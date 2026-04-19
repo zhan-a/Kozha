@@ -1,0 +1,29 @@
+{
+  "id": "23-register-formal",
+  "category": "register",
+  "prose": "The sign under discussion is articulated with the dominant hand assuming a five-finger spread configuration, the extended fingertips oriented along a superior vector, the palmar surface directed contralaterally. Location is established at the ipsilateral side of the forehead. The articulator executes a lateral reciprocating motion of moderate amplitude, performed biphasically.",
+  "expected_populated": [
+    "handshape_dominant",
+    "orientation_extended_finger",
+    "orientation_palm",
+    "location",
+    "movement"
+  ],
+  "expected_gap_fields": [],
+  "recorded_response": {
+    "parameters": {
+      "handshape_dominant": "5",
+      "handshape_nondominant": null,
+      "orientation_extended_finger": "up",
+      "orientation_palm": "contralateral",
+      "location": "forehead",
+      "contact": null,
+      "movement": [
+        {"path": "zigzag / wavy", "size_mod": "normal", "speed_mod": null, "repeat": "twice"}
+      ],
+      "non_manual": null
+    },
+    "gaps": []
+  },
+  "notes": "Anatomical / phonetics-style register. 'Superior vector' → up, 'contralaterally' → contralateral, 'biphasically' → twice, 'lateral reciprocating motion' → zigzag-wavy."
+}

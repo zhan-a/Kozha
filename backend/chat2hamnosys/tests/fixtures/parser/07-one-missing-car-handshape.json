@@ -1,0 +1,36 @@
+{
+  "id": "07-one-missing-car-handshape",
+  "category": "one_missing",
+  "prose": "CAR (driving) is shown by both hands in neutral space, palms facing each other, fingertips pointing forward. The hands alternate up and down as if gripping and steering a steering wheel.",
+  "expected_populated": [
+    "orientation_extended_finger",
+    "orientation_palm",
+    "location",
+    "movement"
+  ],
+  "expected_gap_fields": [
+    "handshape_dominant"
+  ],
+  "recorded_response": {
+    "parameters": {
+      "handshape_dominant": null,
+      "handshape_nondominant": null,
+      "orientation_extended_finger": "forward",
+      "orientation_palm": "ipsilateral",
+      "location": "neutral space",
+      "contact": null,
+      "movement": [
+        {"path": "straight", "size_mod": null, "speed_mod": null, "repeat": "alternating"}
+      ],
+      "non_manual": null
+    },
+    "gaps": [
+      {
+        "field": "handshape_dominant",
+        "reason": "the prose mentions 'gripping' but never names a specific handshape",
+        "suggested_question": "Is the handshape a fist (closed S-hand) or a C-hand suggesting the wheel is held loosely?"
+      }
+    ]
+  },
+  "notes": "Palms face each other → 'ipsilateral' from dominant's perspective. Handshape absent for both hands but rule 4 says only dominant is mandatory; non-dominant reuses dominant when silent, so only handshape_dominant is flagged."
+}
