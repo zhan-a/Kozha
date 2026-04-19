@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SiGML DTD for HamNoSys notation signs.
+
+  Models the subset of the UEA Virtual Humans Group SiGML schema
+  (vh.cmp.uea.ac.uk) that the CWASA renderer vendored at
+  public/cwa/allcsa.js consumes. Covers the <sigml> / <hns_sign> /
+  <hamnosys_manual> / <hamnosys_nonmanual> tree and the HamNoSys 4.0
+  manual-tag vocabulary (209 elements, derived from the symbol table
+  at backend/chat2hamnosys/hamnosys/symbols.py).
+
+  Deliberately excluded: the <hamgestural_sign> / sign_manual /
+  handconfig family — those are a separate encoding used by a few
+  corpus files (Bangla_SL, Filipino_SL) and are not produced by the
+  chat2hamnosys authoring loop. Adding them would widen the DTD
+  without changing validation guarantees for our outputs.
+-->
+
+<!-- Root -->
+<!ELEMENT sigml (hns_sign)+>
+
+<!-- HamNoSys notation sign -->
+<!ELEMENT hns_sign (hamnosys_nonmanual?, hamnosys_manual)>
+<!ATTLIST hns_sign
+    gloss CDATA #REQUIRED>
+
+<!-- Non-manual block: zero or more face/body/head markers -->
+<!ELEMENT hamnosys_nonmanual (
+    hnm_mouthing | hnm_mouthpicture | hnm_mouthgesture |
+    hnm_shoulder | hnm_body | hnm_head | hnm_eyegaze |
+    hnm_facialexpr | hnm_eyebrows | hnm_eyelids | hnm_nose
+)*>
+
+<!ELEMENT hnm_mouthing EMPTY>
+<!ATTLIST hnm_mouthing picture CDATA #IMPLIED>
+
+<!ELEMENT hnm_mouthpicture EMPTY>
+<!ATTLIST hnm_mouthpicture picture CDATA #REQUIRED>
+
+<!ELEMENT hnm_mouthgesture EMPTY>
+<!ATTLIST hnm_mouthgesture tag CDATA #REQUIRED>
+
+<!ELEMENT hnm_shoulder EMPTY>
+<!ATTLIST hnm_shoulder tag CDATA #REQUIRED>
+
+<!ELEMENT hnm_body EMPTY>
+<!ATTLIST hnm_body tag CDATA #REQUIRED>
+
+<!ELEMENT hnm_head EMPTY>
+<!ATTLIST hnm_head tag CDATA #REQUIRED>
+
+<!ELEMENT hnm_eyegaze EMPTY>
+<!ATTLIST hnm_eyegaze tag CDATA #REQUIRED>
+
+<!ELEMENT hnm_facialexpr EMPTY>
+<!ATTLIST hnm_facialexpr tag CDATA #REQUIRED>
+
+<!ELEMENT hnm_eyebrows EMPTY>
+<!ATTLIST hnm_eyebrows tag CDATA #REQUIRED>
+
+<!ELEMENT hnm_eyelids EMPTY>
+<!ATTLIST hnm_eyelids tag CDATA #REQUIRED>
+
+<!ELEMENT hnm_nose EMPTY>
+<!ATTLIST hnm_nose tag CDATA #REQUIRED>
+
+<!-- Manual block: one or more HamNoSys 4.0 symbols -->
+<!ELEMENT hamnosys_manual (
+    hamaltbegin | hamaltend | hamalternatingmotion | hamarcd | hamarcl |
+    hamarcr | hamarcu | hamarmextended | hambehind | hambelowstomach |
+    hambetween | hambrushing | hamcee12 | hamceeall | hamceeopen |
+    hamcheek | hamchest | hamchin | hamcircled | hamcircledi |
+    hamcircledl | hamcircledo | hamcircledr | hamcirclei | hamcircleil |
+    hamcircleir | hamcirclel | hamcircleo | hamcircleol | hamcircleor |
+    hamcircler | hamcircleu | hamcircleui | hamcircleul | hamcircleuo |
+    hamcircleur | hamclockd | hamclockdl | hamclockdr | hamclockfull |
+    hamclockl | hamclockr | hamclocku | hamclockul | hamclockur |
+    hamclose | hamcomma | hamcorefref | hamcoreftag | hamcross |
+    hamdecreasing | hamdoublebent | hamdoublehooked | hamear | hamearlobe |
+    hamelbow | hamelbowinside | hamellipseh | hamellipseul | hamellipseur |
+    hamellipsev | hametc | hamexclaim | hamextfingerd | hamextfingerdi |
+    hamextfingerdl | hamextfingerdo | hamextfingerdr | hamextfingeri | hamextfingeril |
+    hamextfingerir | hamextfingerl | hamextfingero | hamextfingerol | hamextfingeror |
+    hamextfingerr | hamextfingeru | hamextfingerui | hamextfingerul | hamextfingeruo |
+    hamextfingerur | hameyebrows | hameyes | hamfast | hamfinger2 |
+    hamfinger23 | hamfinger2345 | hamfinger23spread | hamfingerbase | hamfingerbendmod |
+    hamfingerhookmod | hamfingermidjoint | hamfingernail | hamfingerpad | hamfingerplay |
+    hamfingerside | hamfingerstraightmod | hamfingertip | hamfist | hamflathand |
+    hamforehead | hamfullstop | hamfusionbegin | hamfusionend | hamhalt |
+    hamhandback | hamhead | hamheadtop | hamincreasing | hamindexfinger |
+    haminterlock | hamlargemod | hamlips | hamlowerarm | hamlrat |
+    hamlrbeside | hammetaalt | hammiddlefinger | hammime | hammoveX |
+    hammovecross | hammoved | hammovedi | hammovedl | hammovedo |
+    hammovedr | hammovei | hammoveil | hammoveir | hammovel |
+    hammoveo | hammoveol | hammoveor | hammover | hammoveu |
+    hammoveui | hammoveul | hammoveuo | hammoveur | hamneck |
+    hamneutralspace | hamnodding | hamnomotion | hamnondominant | hamnonipsi |
+    hamnose | hamnostrils | hamorirelative | hampalm | hampalmd |
+    hampalmdl | hampalmdr | hampalml | hampalmr | hampalmu |
+    hampalmul | hampalmur | hamparbegin | hamparend | hampinch12 |
+    hampinch12open | hampinchall | hampinky | hampinkyside | hamplus |
+    hamquery | hamrepeatcontinue | hamrepeatcontinueseveral | hamrepeatfromstart | hamrepeatfromstartseveral |
+    hamrepeatreverse | hamreplace | hamrest | hamringfinger | hamseqbegin |
+    hamseqend | hamshoulders | hamshouldertop | hamslow | hamsmallmod |
+    hamspace | hamstirccw | hamstircw | hamstomach | hamswinging |
+    hamsymmlr | hamsymmpar | hamteeth | hamtense | hamthumb |
+    hamthumbacrossmod | hamthumbball | hamthumbopenmod | hamthumboutmod | hamthumbside |
+    hamtongue | hamtouch | hamtwisting | hamunderchin | hamupperarm |
+    hamversion40 | hamwavy | hamwristback | hamwristpulse | hamwristtoback |
+    hamwristtopinky | hamwristtopulse | hamwristtothumb | hamzigzag
+)+>
+
+<!-- HamNoSys symbol elements (all empty, no attributes) -->
+<!ELEMENT hamaltbegin EMPTY>
+<!ELEMENT hamaltend EMPTY>
+<!ELEMENT hamalternatingmotion EMPTY>
+<!ELEMENT hamarcd EMPTY>
+<!ELEMENT hamarcl EMPTY>
+<!ELEMENT hamarcr EMPTY>
+<!ELEMENT hamarcu EMPTY>
+<!ELEMENT hamarmextended EMPTY>
+<!ELEMENT hambehind EMPTY>
+<!ELEMENT hambelowstomach EMPTY>
+<!ELEMENT hambetween EMPTY>
+<!ELEMENT hambrushing EMPTY>
+<!ELEMENT hamcee12 EMPTY>
+<!ELEMENT hamceeall EMPTY>
+<!ELEMENT hamceeopen EMPTY>
+<!ELEMENT hamcheek EMPTY>
+<!ELEMENT hamchest EMPTY>
+<!ELEMENT hamchin EMPTY>
+<!ELEMENT hamcircled EMPTY>
+<!ELEMENT hamcircledi EMPTY>
+<!ELEMENT hamcircledl EMPTY>
+<!ELEMENT hamcircledo EMPTY>
+<!ELEMENT hamcircledr EMPTY>
+<!ELEMENT hamcirclei EMPTY>
+<!ELEMENT hamcircleil EMPTY>
+<!ELEMENT hamcircleir EMPTY>
+<!ELEMENT hamcirclel EMPTY>
+<!ELEMENT hamcircleo EMPTY>
+<!ELEMENT hamcircleol EMPTY>
+<!ELEMENT hamcircleor EMPTY>
+<!ELEMENT hamcircler EMPTY>
+<!ELEMENT hamcircleu EMPTY>
+<!ELEMENT hamcircleui EMPTY>
+<!ELEMENT hamcircleul EMPTY>
+<!ELEMENT hamcircleuo EMPTY>
+<!ELEMENT hamcircleur EMPTY>
+<!ELEMENT hamclockd EMPTY>
+<!ELEMENT hamclockdl EMPTY>
+<!ELEMENT hamclockdr EMPTY>
+<!ELEMENT hamclockfull EMPTY>
+<!ELEMENT hamclockl EMPTY>
+<!ELEMENT hamclockr EMPTY>
+<!ELEMENT hamclocku EMPTY>
+<!ELEMENT hamclockul EMPTY>
+<!ELEMENT hamclockur EMPTY>
+<!ELEMENT hamclose EMPTY>
+<!ELEMENT hamcomma EMPTY>
+<!ELEMENT hamcorefref EMPTY>
+<!ELEMENT hamcoreftag EMPTY>
+<!ELEMENT hamcross EMPTY>
+<!ELEMENT hamdecreasing EMPTY>
+<!ELEMENT hamdoublebent EMPTY>
+<!ELEMENT hamdoublehooked EMPTY>
+<!ELEMENT hamear EMPTY>
+<!ELEMENT hamearlobe EMPTY>
+<!ELEMENT hamelbow EMPTY>
+<!ELEMENT hamelbowinside EMPTY>
+<!ELEMENT hamellipseh EMPTY>
+<!ELEMENT hamellipseul EMPTY>
+<!ELEMENT hamellipseur EMPTY>
+<!ELEMENT hamellipsev EMPTY>
+<!ELEMENT hametc EMPTY>
+<!ELEMENT hamexclaim EMPTY>
+<!ELEMENT hamextfingerd EMPTY>
+<!ELEMENT hamextfingerdi EMPTY>
+<!ELEMENT hamextfingerdl EMPTY>
+<!ELEMENT hamextfingerdo EMPTY>
+<!ELEMENT hamextfingerdr EMPTY>
+<!ELEMENT hamextfingeri EMPTY>
+<!ELEMENT hamextfingeril EMPTY>
+<!ELEMENT hamextfingerir EMPTY>
+<!ELEMENT hamextfingerl EMPTY>
+<!ELEMENT hamextfingero EMPTY>
+<!ELEMENT hamextfingerol EMPTY>
+<!ELEMENT hamextfingeror EMPTY>
+<!ELEMENT hamextfingerr EMPTY>
+<!ELEMENT hamextfingeru EMPTY>
+<!ELEMENT hamextfingerui EMPTY>
+<!ELEMENT hamextfingerul EMPTY>
+<!ELEMENT hamextfingeruo EMPTY>
+<!ELEMENT hamextfingerur EMPTY>
+<!ELEMENT hameyebrows EMPTY>
+<!ELEMENT hameyes EMPTY>
+<!ELEMENT hamfast EMPTY>
+<!ELEMENT hamfinger2 EMPTY>
+<!ELEMENT hamfinger23 EMPTY>
+<!ELEMENT hamfinger2345 EMPTY>
+<!ELEMENT hamfinger23spread EMPTY>
+<!ELEMENT hamfingerbase EMPTY>
+<!ELEMENT hamfingerbendmod EMPTY>
+<!ELEMENT hamfingerhookmod EMPTY>
+<!ELEMENT hamfingermidjoint EMPTY>
+<!ELEMENT hamfingernail EMPTY>
+<!ELEMENT hamfingerpad EMPTY>
+<!ELEMENT hamfingerplay EMPTY>
+<!ELEMENT hamfingerside EMPTY>
+<!ELEMENT hamfingerstraightmod EMPTY>
+<!ELEMENT hamfingertip EMPTY>
+<!ELEMENT hamfist EMPTY>
+<!ELEMENT hamflathand EMPTY>
+<!ELEMENT hamforehead EMPTY>
+<!ELEMENT hamfullstop EMPTY>
+<!ELEMENT hamfusionbegin EMPTY>
+<!ELEMENT hamfusionend EMPTY>
+<!ELEMENT hamhalt EMPTY>
+<!ELEMENT hamhandback EMPTY>
+<!ELEMENT hamhead EMPTY>
+<!ELEMENT hamheadtop EMPTY>
+<!ELEMENT hamincreasing EMPTY>
+<!ELEMENT hamindexfinger EMPTY>
+<!ELEMENT haminterlock EMPTY>
+<!ELEMENT hamlargemod EMPTY>
+<!ELEMENT hamlips EMPTY>
+<!ELEMENT hamlowerarm EMPTY>
+<!ELEMENT hamlrat EMPTY>
+<!ELEMENT hamlrbeside EMPTY>
+<!ELEMENT hammetaalt EMPTY>
+<!ELEMENT hammiddlefinger EMPTY>
+<!ELEMENT hammime EMPTY>
+<!ELEMENT hammoveX EMPTY>
+<!ELEMENT hammovecross EMPTY>
+<!ELEMENT hammoved EMPTY>
+<!ELEMENT hammovedi EMPTY>
+<!ELEMENT hammovedl EMPTY>
+<!ELEMENT hammovedo EMPTY>
+<!ELEMENT hammovedr EMPTY>
+<!ELEMENT hammovei EMPTY>
+<!ELEMENT hammoveil EMPTY>
+<!ELEMENT hammoveir EMPTY>
+<!ELEMENT hammovel EMPTY>
+<!ELEMENT hammoveo EMPTY>
+<!ELEMENT hammoveol EMPTY>
+<!ELEMENT hammoveor EMPTY>
+<!ELEMENT hammover EMPTY>
+<!ELEMENT hammoveu EMPTY>
+<!ELEMENT hammoveui EMPTY>
+<!ELEMENT hammoveul EMPTY>
+<!ELEMENT hammoveuo EMPTY>
+<!ELEMENT hammoveur EMPTY>
+<!ELEMENT hamneck EMPTY>
+<!ELEMENT hamneutralspace EMPTY>
+<!ELEMENT hamnodding EMPTY>
+<!ELEMENT hamnomotion EMPTY>
+<!ELEMENT hamnondominant EMPTY>
+<!ELEMENT hamnonipsi EMPTY>
+<!ELEMENT hamnose EMPTY>
+<!ELEMENT hamnostrils EMPTY>
+<!ELEMENT hamorirelative EMPTY>
+<!ELEMENT hampalm EMPTY>
+<!ELEMENT hampalmd EMPTY>
+<!ELEMENT hampalmdl EMPTY>
+<!ELEMENT hampalmdr EMPTY>
+<!ELEMENT hampalml EMPTY>
+<!ELEMENT hampalmr EMPTY>
+<!ELEMENT hampalmu EMPTY>
+<!ELEMENT hampalmul EMPTY>
+<!ELEMENT hampalmur EMPTY>
+<!ELEMENT hamparbegin EMPTY>
+<!ELEMENT hamparend EMPTY>
+<!ELEMENT hampinch12 EMPTY>
+<!ELEMENT hampinch12open EMPTY>
+<!ELEMENT hampinchall EMPTY>
+<!ELEMENT hampinky EMPTY>
+<!ELEMENT hampinkyside EMPTY>
+<!ELEMENT hamplus EMPTY>
+<!ELEMENT hamquery EMPTY>
+<!ELEMENT hamrepeatcontinue EMPTY>
+<!ELEMENT hamrepeatcontinueseveral EMPTY>
+<!ELEMENT hamrepeatfromstart EMPTY>
+<!ELEMENT hamrepeatfromstartseveral EMPTY>
+<!ELEMENT hamrepeatreverse EMPTY>
+<!ELEMENT hamreplace EMPTY>
+<!ELEMENT hamrest EMPTY>
+<!ELEMENT hamringfinger EMPTY>
+<!ELEMENT hamseqbegin EMPTY>
+<!ELEMENT hamseqend EMPTY>
+<!ELEMENT hamshoulders EMPTY>
+<!ELEMENT hamshouldertop EMPTY>
+<!ELEMENT hamslow EMPTY>
+<!ELEMENT hamsmallmod EMPTY>
+<!ELEMENT hamspace EMPTY>
+<!ELEMENT hamstirccw EMPTY>
+<!ELEMENT hamstircw EMPTY>
+<!ELEMENT hamstomach EMPTY>
+<!ELEMENT hamswinging EMPTY>
+<!ELEMENT hamsymmlr EMPTY>
+<!ELEMENT hamsymmpar EMPTY>
+<!ELEMENT hamteeth EMPTY>
+<!ELEMENT hamtense EMPTY>
+<!ELEMENT hamthumb EMPTY>
+<!ELEMENT hamthumbacrossmod EMPTY>
+<!ELEMENT hamthumbball EMPTY>
+<!ELEMENT hamthumbopenmod EMPTY>
+<!ELEMENT hamthumboutmod EMPTY>
+<!ELEMENT hamthumbside EMPTY>
+<!ELEMENT hamtongue EMPTY>
+<!ELEMENT hamtouch EMPTY>
+<!ELEMENT hamtwisting EMPTY>
+<!ELEMENT hamunderchin EMPTY>
+<!ELEMENT hamupperarm EMPTY>
+<!ELEMENT hamversion40 EMPTY>
+<!ELEMENT hamwavy EMPTY>
+<!ELEMENT hamwristback EMPTY>
+<!ELEMENT hamwristpulse EMPTY>
+<!ELEMENT hamwristtoback EMPTY>
+<!ELEMENT hamwristtopinky EMPTY>
+<!ELEMENT hamwristtopulse EMPTY>
+<!ELEMENT hamwristtothumb EMPTY>
+<!ELEMENT hamzigzag EMPTY>
