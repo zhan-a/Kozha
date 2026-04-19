@@ -29,10 +29,7 @@ jobs:
                 cd /home/ubuntu/Kozha
                 git fetch --prune origin
                 git reset --hard origin/main
-                git clean -fd \
-                  -e data/authored_signs.sqlite3 \
-                  -e data/authored_signs/ \
-                  -e data/hamnosys_*_authored.sigml
+                git clean -fd -e data/
                 cd server
                 source /home/ubuntu/kozha-venv/bin/activate
                 pip install --no-cache-dir -r requirements.txt
