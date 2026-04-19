@@ -1,9 +1,17 @@
+import sys
+from pathlib import Path
+
+# chat2hamnosys uses flat imports (``from session import ...``); make its
+# package directory importable before anything inside it is referenced.
+_CHAT2HAMNOSYS_ROOT = Path(__file__).resolve().parent.parent / "backend" / "chat2hamnosys"
+if str(_CHAT2HAMNOSYS_ROOT) not in sys.path:
+    sys.path.insert(0, str(_CHAT2HAMNOSYS_ROOT))
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
-from pathlib import Path
 from typing import Dict, List, Optional
 from collections import OrderedDict
 from threading import Lock
@@ -630,6 +638,13 @@ def api_translate_batch(req: BatchTranslateRequest):
 @app.post("/api/plan")
 def api_plan(req: TextRequest):
     return plan_from_text(req.text, req.language, req.sign_language)
+
+try:
+    from api import create_app as _create_chat2hamnosys_app
+    _chat2hamnosys_sub_app = _create_chat2hamnosys_app()
+    app.mount("/api/chat2hamnosys", _chat2hamnosys_sub_app)
+except Exception as _c2h_mount_err:
+    logger.warning("chat2hamnosys API not mounted: %s", _c2h_mount_err)
 
 if DATA_DIR.exists():
     app.mount("/data", StaticFiles(directory=DATA_DIR), name="data")
