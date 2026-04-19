@@ -1,0 +1,65 @@
+{
+  "recorded_at": "",
+  "commit": "",
+  "model": "placeholder",
+  "suite": "golden_signs",
+  "notes": "Placeholder baseline — replaced on first real run via `python -m eval run --suite golden_signs --smoke --update-baseline`. Until then the regression guard sees a 0.0 floor and cannot fail; the zero is intentional, not a recorded bad run.",
+  "metrics": {
+    "parser": {
+      "n": 0,
+      "field_correct": {},
+      "field_total": {},
+      "field_accuracy": {},
+      "gap_tp": 0,
+      "gap_fp": 0,
+      "gap_fn": 0,
+      "gap_precision": 0.0,
+      "gap_recall": 0.0,
+      "gap_f1": 0.0,
+      "populated_precision": 0.0,
+      "populated_recall": 0.0,
+      "populated_f1": 0.0
+    },
+    "generator": {
+      "n": 0,
+      "exact_matches": 0,
+      "exact_match_rate": 0.0,
+      "valid_outputs": 0,
+      "validity_rate": 0.0,
+      "symbol_tp": 0,
+      "symbol_fp": 0,
+      "symbol_fn": 0,
+      "symbol_precision": 0.0,
+      "symbol_recall": 0.0,
+      "symbol_f1": 0.0
+    },
+    "end_to_end": {
+      "n": 0,
+      "exact_matches": 0,
+      "exact_match_rate": 0.0,
+      "valid_outputs": 0,
+      "validity_rate": 0.0,
+      "symbol_tp": 0,
+      "symbol_fp": 0,
+      "symbol_fn": 0,
+      "symbol_precision": 0.0,
+      "symbol_recall": 0.0,
+      "symbol_f1": 0.0,
+      "total_clarification_turns": 0,
+      "mean_clarification_turns": 0.0,
+      "total_questions_asked": 0,
+      "mean_questions_asked": 0.0
+    },
+    "cost": {
+      "n": 0,
+      "total_tokens": 0,
+      "total_prompt_tokens": 0,
+      "total_completion_tokens": 0,
+      "total_cost_usd": 0.0,
+      "mean_cost_per_sign": 0.0,
+      "total_llm_calls": 0,
+      "p95_latency_ms": 0,
+      "mean_latency_ms": 0
+    }
+  }
+}
