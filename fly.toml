@@ -36,10 +36,16 @@ kill_timeout = "30s"
   CHAT2HAMNOSYS_LOG_RETENTION_DAYS    = "30"
   CHAT2HAMNOSYS_RATE_LIMIT            = "30/minute"
   CHAT2HAMNOSYS_RATE_LIMIT_PER_MIN    = "30"
-  CHAT2HAMNOSYS_SESSION_BUDGET_USD    = "2.0"
-  CHAT2HAMNOSYS_DAILY_BUDGET_USD      = "200.0"
-  CHAT2HAMNOSYS_PER_IP_DAILY_CAP_USD  = "10.0"
-  CHAT2HAMNOSYS_GLOBAL_DAILY_CAP_USD  = "200.0"
+  CHAT2HAMNOSYS_SESSION_BUDGET_USD    = "1.0"
+  # Daily OpenAI spend ceilings for the public contribution flow.
+  # $20/day while the pipeline is in early public rollout on
+  # kozha-translate.com; raise after observing real usage patterns.
+  CHAT2HAMNOSYS_DAILY_BUDGET_USD      = "20.0"
+  CHAT2HAMNOSYS_PER_IP_DAILY_CAP_USD  = "5.0"
+  CHAT2HAMNOSYS_GLOBAL_DAILY_CAP_USD  = "20.0"
+  # Gate session creation on registered contributors (name + contact
+  # + captcha). Off by default in tests; must be "1" in production.
+  CHAT2HAMNOSYS_REQUIRE_CONTRIBUTOR   = "1"
   CHAT2HAMNOSYS_REVIEW_MIN_APPROVALS  = "2"
   CHAT2HAMNOSYS_REVIEW_REQUIRE_NATIVE = "true"
   CHAT2HAMNOSYS_REVIEW_ALLOW_SINGLE   = "false"

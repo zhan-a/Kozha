@@ -1,0 +1,193 @@
+"""Tests for the contributor on-ramp (captcha + registration).
+
+The captcha is stateless — the signed challenge carries the SHA-256 of
+the expected answer — so these tests don't need a session/token store.
+They just round-trip the challenge through the two endpoints.
+"""
+
+from __future__ import annotations
+
+import hashlib
+import json
+from pathlib import Path
+
+import pytest
+from fastapi.testclient import TestClient
+
+
+# ---------------------------------------------------------------------------
+# Fixtures
+# ---------------------------------------------------------------------------
+
+
+def _answer_for(challenge: str) -> str:
+    """Extract the expected answer from the signed challenge.
+
+    Only safe inside tests — real clients re-derive it from the
+    human-readable ``question`` field.
+    """
+    import base64
+
+    raw_b64 = challenge.split(".", 1)[0]
+    padded = raw_b64 + "=" * (-len(raw_b64) % 4)
+    payload = json.loads(base64.urlsafe_b64decode(padded.encode()))
+    ans_hash = payload["ans_sha256"]
+    # Brute-force 2..18 since the captcha is single-digit addition.
+    for candidate in range(2, 19):
+        if hashlib.sha256(str(candidate).encode()).hexdigest() == ans_hash:
+            return str(candidate)
+    raise AssertionError("could not recover captcha answer for test")
+
+
+@pytest.fixture
+def client(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> TestClient:
+    monkeypatch.setenv("CHAT2HAMNOSYS_DATA_DIR", str(tmp_path / "data"))
+    monkeypatch.setenv("CHAT2HAMNOSYS_CAPTCHA_SECRET", "test-captcha-secret")
+    monkeypatch.setenv("CHAT2HAMNOSYS_CONTRIBUTOR_SECRET", "test-contrib-secret")
+
+    from api.dependencies import reset_stores
+
+    reset_stores()
+
+    from api import create_app
+
+    app = create_app()
+    return TestClient(app)
+
+
+# ---------------------------------------------------------------------------
+# Captcha
+# ---------------------------------------------------------------------------
+
+
+def test_captcha_issues_a_signed_challenge(client: TestClient) -> None:
+    resp = client.get("/contribute/captcha")
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["question"].startswith("What is ")
+    assert "+" in body["question"]
+    # challenge is <b64_json>.<b64_sig>
+    assert body["challenge"].count(".") == 1
+    assert body["expires_in"] > 0
+
+
+# ---------------------------------------------------------------------------
+# Registration
+# ---------------------------------------------------------------------------
+
+
+def test_register_happy_path(client: TestClient) -> None:
+    captcha = client.get("/contribute/captcha").json()
+    answer = _answer_for(captcha["challenge"])
+
+    resp = client.post(
+        "/contribute/register",
+        json={
+            "name": "Anna Novak",
+            "contact": "anna@example.com",
+            "captcha_challenge": captcha["challenge"],
+            "captcha_answer": answer,
+            "website": "",
+        },
+    )
+    assert resp.status_code == 201, resp.text
+    body = resp.json()
+    assert body["contributor_id"]
+    assert body["contributor_token"].count(".") == 1
+    assert body["expires_at"] > 0
+
+
+def test_register_rejects_wrong_captcha_answer(client: TestClient) -> None:
+    captcha = client.get("/contribute/captcha").json()
+    resp = client.post(
+        "/contribute/register",
+        json={
+            "name": "Wrong Answer",
+            "contact": "x@y.com",
+            "captcha_challenge": captcha["challenge"],
+            "captcha_answer": "999",  # definitely not the sum of two digits
+            "website": "",
+        },
+    )
+    assert resp.status_code == 400
+    assert resp.json()["error"]["code"] == "captcha_failed"
+
+
+def test_register_rejects_honeypot_fill(client: TestClient) -> None:
+    captcha = client.get("/contribute/captcha").json()
+    answer = _answer_for(captcha["challenge"])
+    resp = client.post(
+        "/contribute/register",
+        json={
+            "name": "Spambot 3000",
+            "contact": "bot@example.com",
+            "captcha_challenge": captcha["challenge"],
+            "captcha_answer": answer,
+            "website": "http://spam.example",  # honeypot tripped
+        },
+    )
+    assert resp.status_code == 400
+    assert resp.json()["error"]["code"] == "captcha_failed"
+
+
+def test_register_rejects_invalid_contact(client: TestClient) -> None:
+    captcha = client.get("/contribute/captcha").json()
+    answer = _answer_for(captcha["challenge"])
+    resp = client.post(
+        "/contribute/register",
+        json={
+            "name": "Anna",
+            "contact": "not-an-email-or-phone",
+            "captcha_challenge": captcha["challenge"],
+            "captcha_answer": answer,
+            "website": "",
+        },
+    )
+    assert resp.status_code == 400
+    assert resp.json()["error"]["code"] == "invalid_contributor_input"
+
+
+# ---------------------------------------------------------------------------
+# Session gate
+# ---------------------------------------------------------------------------
+
+
+def test_session_gate_blocks_without_token(
+    client: TestClient, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setenv("CHAT2HAMNOSYS_REQUIRE_CONTRIBUTOR", "1")
+    # Reset the enabled flag read (it's env-driven, so no singleton reset).
+    resp = client.post("/sessions", json={})
+    assert resp.status_code == 401
+    assert resp.json()["error"]["code"] == "contributor_required"
+
+
+def test_session_gate_accepts_valid_token(
+    client: TestClient, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setenv("CHAT2HAMNOSYS_REQUIRE_CONTRIBUTOR", "1")
+    captcha = client.get("/contribute/captcha").json()
+    answer = _answer_for(captcha["challenge"])
+    reg = client.post(
+        "/contribute/register",
+        json={
+            "name": "Anna Novak",
+            "contact": "anna@example.com",
+            "captcha_challenge": captcha["challenge"],
+            "captcha_answer": answer,
+            "website": "",
+        },
+    ).json()
+
+    resp = client.post(
+        "/sessions",
+        json={"sign_language": "bsl"},
+        headers={"X-Contributor-Token": reg["contributor_token"]},
+    )
+    assert resp.status_code == 201, resp.text
+
+
+def test_session_gate_off_by_default(client: TestClient) -> None:
+    # No CHAT2HAMNOSYS_REQUIRE_CONTRIBUTOR set → anonymous sessions still work.
+    resp = client.post("/sessions", json={})
+    assert resp.status_code == 201, resp.text

@@ -117,11 +117,47 @@
   };
 
   // -----------------------------------------------------------------------
+  // Contributor gate — the server rejects POST /sessions without a
+  // valid X-Contributor-Token when CHAT2HAMNOSYS_REQUIRE_CONTRIBUTOR=1.
+  // The token is minted by contribute.html on registration and stashed
+  // in localStorage under ``bridgn.contributor_token``.
+  // -----------------------------------------------------------------------
+  const CONTRIBUTOR_TOKEN_KEY = 'bridgn.contributor_token';
+  const CONTRIBUTOR_EXP_KEY   = 'bridgn.contributor_expires_at';
+
+  function readContributorToken() {
+    try {
+      const token = localStorage.getItem(CONTRIBUTOR_TOKEN_KEY) || '';
+      const exp   = parseInt(localStorage.getItem(CONTRIBUTOR_EXP_KEY) || '0', 10);
+      if (!token) return '';
+      if (exp && exp < Math.floor(Date.now() / 1000)) return '';
+      return token;
+    } catch (_e) { return ''; }
+  }
+
+  function clearContributorToken() {
+    try {
+      localStorage.removeItem(CONTRIBUTOR_TOKEN_KEY);
+      localStorage.removeItem(CONTRIBUTOR_EXP_KEY);
+    } catch (_e) { /* ignore */ }
+  }
+
+  function redirectToContribute(reason) {
+    const target = '/contribute.html';
+    // Avoid infinite loops when already bouncing.
+    if (window.location.pathname !== target) {
+      window.location.href = target + (reason ? ('#' + encodeURIComponent(reason)) : '');
+    }
+  }
+
+  // -----------------------------------------------------------------------
   // API
   // -----------------------------------------------------------------------
   async function api(method, path, body) {
     const headers = { 'Content-Type': 'application/json' };
     if (state.sessionToken) headers['X-Session-Token'] = state.sessionToken;
+    const contribToken = readContributorToken();
+    if (contribToken) headers['X-Contributor-Token'] = contribToken;
     const opts = { method, headers };
     if (body !== undefined) opts.body = JSON.stringify(body);
     const res = await fetch(API_BASE + path, opts);
@@ -131,6 +167,10 @@
     if (!res.ok) {
       const code = (payload && payload.error && payload.error.code) || `http_${res.status}`;
       const msg  = (payload && payload.error && payload.error.message) || res.statusText;
+      if (code === 'contributor_required') {
+        clearContributorToken();
+        redirectToContribute('register_required');
+      }
       const err = new Error(msg);
       err.code = code;
       err.status = res.status;

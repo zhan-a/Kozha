@@ -15,9 +15,18 @@ host" to "service is up and `/health` returns 200".
 - A populated `.env` (see [`.env.example`](../../.env.example) and the
   full manifest in [`19-env-vars.md`](19-env-vars.md)).
 - A real `OPENAI_API_KEY` (the readiness probe degrades to 503 without
-  it).
+  it). The contribution flow on `kozha-translate.com/contribute.html`
+  makes real OpenAI calls at project expense — the daily caps in
+  `fly.toml` (`$20/day` global, `$5/day per-IP`) bound the spend.
 - A per-deployment `CHAT2HAMNOSYS_SIGNER_ID_SALT` — generate with
   `openssl rand -hex 32`. The default triggers a startup warning.
+- A per-deployment `CHAT2HAMNOSYS_CAPTCHA_SECRET` — generate with
+  `openssl rand -hex 32`. Rotating invalidates in-flight captchas
+  (users refresh the page); rotate whenever you'd rotate the signer
+  salt.
+- `CHAT2HAMNOSYS_REQUIRE_CONTRIBUTOR=1` in the env (already set in
+  `fly.toml`). Toggling it off re-opens the authoring API to
+  unregistered users and is **not** recommended for public deploys.
 - A backup target. Run `scripts/backup.sh` once before first traffic to
   prove the procedure works (see
   [`19-runbook.md` → Backup](19-runbook.md#backup-and-restore)).
@@ -75,6 +84,7 @@ fly volumes create kozha_data --region iad --size 10
 fly secrets set \
     OPENAI_API_KEY="sk-..." \
     CHAT2HAMNOSYS_SIGNER_ID_SALT="$(openssl rand -hex 32)" \
+    CHAT2HAMNOSYS_CAPTCHA_SECRET="$(openssl rand -hex 32)" \
     CHAT2HAMNOSYS_ALERT_WEBHOOK_URL="https://hooks.slack.com/services/..."
 
 # Deploy

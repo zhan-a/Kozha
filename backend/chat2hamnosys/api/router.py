@@ -88,6 +88,7 @@ from .dependencies import (
     get_to_sigml_fn,
     get_token_store,
 )
+from .contributors import require_contributor
 from .errors import ApiError, InvalidTransition, SessionForbidden, SessionNotFound
 from .security import (
     sanitize_user_input,
@@ -328,17 +329,24 @@ def create_session(
     body: Optional[CreateSessionRequest] = None,
     session_store: SessionStore = Depends(get_session_store),
     token_store: TokenStore = Depends(get_token_store),
+    contributor_id: Optional[str] = Depends(require_contributor),
 ) -> CreateSessionResponse:
     from security import hash_signer_id
     from .security import get_security_config
 
     body = body or CreateSessionRequest()
-    raw_signer = (body.signer_id or "anonymous").strip() or "anonymous"
-    cfg = get_security_config()
-    if cfg.pii_policy == "hashed" and raw_signer != "anonymous":
-        signer_id = hash_signer_id(raw_signer, salt=cfg.signer_id_salt)
+    if contributor_id:
+        # Authenticated contributor — use their registry id as the
+        # signer_id and skip the legacy hashing step (the id is already
+        # an opaque uuid4, not PII).
+        signer_id = contributor_id
     else:
-        signer_id = raw_signer
+        raw_signer = (body.signer_id or "anonymous").strip() or "anonymous"
+        cfg = get_security_config()
+        if cfg.pii_policy == "hashed" and raw_signer != "anonymous":
+            signer_id = hash_signer_id(raw_signer, salt=cfg.signer_id_salt)
+        else:
+            signer_id = raw_signer
     session = start_session(
         signer_id=signer_id,
         display_name=body.display_name,
