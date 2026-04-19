@@ -38,6 +38,7 @@ from typing import Any
 from pydantic import ValidationError
 
 from llm import ChatResult, LLMClient
+from prompts import PromptMetadata, load_prompt
 
 from .models import (
     ALLOWED_GAP_FIELDS,
@@ -170,129 +171,47 @@ def _list_vocab(title: str, items: tuple[str, ...]) -> str:
     return f"### {title}\n- " + "\n- ".join(items)
 
 
-def _build_system_prompt() -> str:
-    """Compose the system prompt sent on every parser call.
+PROMPT_ID: str = "parse_description"
 
-    Includes the :class:`PartialSignParameters` JSON schema verbatim and
-    the four reference-vocabulary tables. Kept as a single string (not a
-    template) because the prompt is stable across requests — invalidating
-    it invalidates every recorded fixture.
-    """
+
+def _prompt_context() -> dict[str, Any]:
+    """Assemble the Jinja2 render context used for the parser prompt."""
     schema = PartialSignParameters.model_json_schema()
-    schema_block = json.dumps(schema, indent=2)
-    gap_fields_block = "\n- ".join(ALLOWED_GAP_FIELDS)
-
-    return f"""You are a sign-language phonology parser. You are given a natural-language description of a single sign (in English) and you extract structured phonological parameters from it.
-
-## What to produce
-
-Return a JSON object with exactly two top-level fields:
-
-1. ``parameters`` — a populated (possibly partial) ``PartialSignParameters`` object. Its JSON schema is shown below for reference.
-2. ``gaps`` — a list of ``Gap`` objects flagging slots you could not fill with confidence.
-
-### PartialSignParameters schema
-
-```json
-{schema_block}
-```
-
-Every slot is optional. When the description does not unambiguously specify a slot, leave the slot ``null`` (or omit from ``movement`` / ``non_manual`` entirely) **and** add a corresponding entry to ``gaps``.
-
-## Gap object
-
-Each ``Gap`` has three fields:
-
-- ``field`` — the slot name, using one of these exact values (dot-paths for nested slots):
-- {gap_fields_block}
-- ``reason`` — a short English clause explaining why the slot was left empty (e.g. "description says 'claw-like' which could be bent-5 or bent-V").
-- ``suggested_question`` — a single follow-up question the author could answer to disambiguate (e.g. "Is the handshape bent-5 (all five fingers bent at the knuckles) or bent-V (only index and middle)?").
-
-## Hard rules
-
-1. **NEVER invent HamNoSys codepoints.** Do not emit characters in the Unicode Private Use Area (U+E000..U+F8FF). Use only plain-English phrases.
-2. When multiple plausible interpretations exist, leave the slot ``null`` and open a gap — do not guess.
-3. When the description flags a regional variant ("the London variant", "Northern British"), capture that *in the gap's reason* and flag the affected slot(s). Do not silently pick a variant.
-4. Populate ``non_manual`` only if the description mentions face / head / body features. If no non-manual is mentioned, leave ``non_manual: null`` — do not emit an empty ``non_manual`` object and do not open gaps for non-manuals.
-5. If a slot is explicitly described, populate it. Do not flag an over-specified sign as "ambiguous" just because a HamNoSys specialist might phrase it differently.
-6. Keep field values short — 1–3 tokens where possible (e.g. ``location: "temple"``, not ``location: "near the right temple"``).
-
-## Mandatory vs. optional slots
-
-These four **mandatory** slots must have either a value or a gap entry — never both empty. If the prose does not specify one, leave it ``null`` and open a corresponding gap:
-
-- ``handshape_dominant``
-- ``orientation_extended_finger``
-- ``orientation_palm``
-- ``location``
-
-These slots are **optional** — populate them only if the prose mentions them, no gap needed when silent:
-
-- ``handshape_nondominant`` — only for two-handed signs
-- ``contact`` — only when contact / touching / tapping is mentioned
-- ``movement`` — empty list when no movement is described
-- ``non_manual`` — ``null`` when no face / head / body features are described
-
-## Vocabulary reference
-
-Use these plain-English terms when possible. Listed terms are examples, not an exhaustive enumeration — prefer a listed term over a synonym.
-
-{_vocab_table("Handshapes", HANDSHAPE_VOCAB)}
-
-{_vocab_table("Locations", LOCATION_VOCAB)}
-
-{_vocab_table("Extended-finger direction", ORIENTATION_EXT_FINGER_VOCAB)}
-
-{_vocab_table("Palm direction", ORIENTATION_PALM_VOCAB)}
-
-{_vocab_table("Movement paths & actions", MOVEMENT_VOCAB)}
-
-{_list_vocab("Size modifiers", SIZE_VOCAB)}
-
-{_list_vocab("Speed modifiers", SPEED_VOCAB)}
-
-{_list_vocab("Repeat modifiers", REPEAT_VOCAB)}
-
-{_vocab_table("Non-manuals", NON_MANUAL_VOCAB)}
-
-## Worked example
-
-Input: "Bent-5 handshape near the temple, palm facing the signer, small circular motion repeated twice, eyebrows raised."
-
-Output:
-```json
-{{
-  "parameters": {{
-    "handshape_dominant": "bent-5",
-    "handshape_nondominant": null,
-    "orientation_extended_finger": null,
-    "orientation_palm": "toward signer",
-    "location": "temple",
-    "contact": null,
-    "movement": [
-      {{"path": "circular", "size_mod": "small", "speed_mod": null, "repeat": "twice"}}
-    ],
-    "non_manual": {{
-      "mouth_picture": null,
-      "eye_gaze": null,
-      "head_movement": null,
-      "eyebrows": "raised",
-      "facial_expression": null
-    }}
-  }},
-  "gaps": [
-    {{
-      "field": "orientation_extended_finger",
-      "reason": "description does not specify where the fingertips point",
-      "suggested_question": "Which direction do the fingertips point — up, forward, or toward the signer?"
-    }}
-  ]
-}}
-```
-"""
+    return {
+        "schema_block": json.dumps(schema, indent=2),
+        "gap_fields_block": "\n- ".join(ALLOWED_GAP_FIELDS),
+        "handshape_table": _vocab_table("Handshapes", HANDSHAPE_VOCAB),
+        "location_table": _vocab_table("Locations", LOCATION_VOCAB),
+        "ext_finger_table": _vocab_table(
+            "Extended-finger direction", ORIENTATION_EXT_FINGER_VOCAB
+        ),
+        "palm_table": _vocab_table("Palm direction", ORIENTATION_PALM_VOCAB),
+        "movement_table": _vocab_table(
+            "Movement paths & actions", MOVEMENT_VOCAB
+        ),
+        "size_list": _list_vocab("Size modifiers", SIZE_VOCAB),
+        "speed_list": _list_vocab("Speed modifiers", SPEED_VOCAB),
+        "repeat_list": _list_vocab("Repeat modifiers", REPEAT_VOCAB),
+        "non_manual_table": _vocab_table("Non-manuals", NON_MANUAL_VOCAB),
+    }
 
 
-SYSTEM_PROMPT: str = _build_system_prompt()
+def _render_system_prompt() -> tuple[str, PromptMetadata]:
+    """Render the parser system prompt and return it with its metadata.
+
+    The metadata carries the prompt id, version, and content hash so the
+    caller can forward them to the LLM client for telemetry.
+    """
+    pt = load_prompt(PROMPT_ID)
+    return pt.render(**_prompt_context()), pt.metadata
+
+
+# ``SYSTEM_PROMPT`` is kept as a module-level constant so tests and
+# callers that imported it pre-refactor continue to work. The value is
+# rendered once at import time from ``prompts/parse_description_v1.md.j2``.
+SYSTEM_PROMPT: str
+_PROMPT_METADATA: PromptMetadata
+SYSTEM_PROMPT, _PROMPT_METADATA = _render_system_prompt()
 
 
 # ---------------------------------------------------------------------------
@@ -450,6 +369,7 @@ def parse_description(
         temperature=temperature,
         max_tokens=max_tokens,
         request_id=req_id,
+        prompt_metadata=_PROMPT_METADATA,
     )
     return _build_parse_result(chat_result.content)
 

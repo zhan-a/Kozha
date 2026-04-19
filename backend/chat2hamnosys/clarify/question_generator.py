@@ -45,6 +45,7 @@ from llm.budget import BudgetExceeded
 
 from models import ClarificationTurn
 from parser import ALLOWED_GAP_FIELDS, Gap, ParseResult
+from prompts import PromptMetadata, load_prompt
 
 from .models import Question
 from .templates import TEMPLATES, template_for
@@ -136,55 +137,28 @@ def _render_templates_block() -> str:
     return "\n".join(lines)
 
 
-def _build_system_prompt() -> str:
-    """Compose the system prompt used on every generator call.
-
-    Kept as a single stable string so recorded test fixtures remain
-    valid across minor refactors — invalidating the prompt invalidates
-    every recording.
-    """
-    templates_block = _render_templates_block()
-    allowed_fields_list = "\n- ".join(f"`{f}`" for f in ALLOWED_GAP_FIELDS)
-
-    return f"""You are a sign-language authoring assistant. A previous parser step read a natural-language description of a sign and flagged slots it could not fill (``gaps``). Your job is to ask the author focused follow-up questions so the structured phonological parameters can be completed.
-
-## Input
-
-A JSON object with these keys:
-
-- ``prose`` — the author's original description, verbatim (may be empty if not yet provided).
-- ``gaps`` — a list of ``{{field, reason, suggested_question}}`` records the parser flagged. Ask one question per listed gap; ignore fields not in this list.
-- ``is_deaf_native`` — ``true`` / ``false`` / ``null``. When ``true``, adjust phrasing: less hand-holding, more direct phonological terminology (e.g. "palm direction?" instead of "which way does the palm face?").
-- ``template_hints`` — optional starting-point phrasings you may adapt.
-
-## Output
-
-Return a JSON object ``{{"questions": [...]}}`` where each question has:
-
-- ``field`` — the slot name, drawn from this exact list:
-- {allowed_fields_list}
-- ``text`` — the actual question to ask, plain English, 1–2 sentences.
-- ``options`` — a list of 2–5 ``{{label, value}}`` objects when the slot has a small closed vocabulary; ``null`` when genuinely open-ended. ``label`` is shown to the user; ``value`` is the canonical phrase the downstream code will record.
-- ``allow_freeform`` — ``true`` when the user may type a freeform answer outside the options; ``false`` only when the options truly exhaust the space (rare).
-- ``rationale`` — one clause for the debug UI explaining why this question was chosen; **not** shown to the user.
-
-## Hard rules
-
-1. Ask **at most three** questions per turn — mobile UX degrades past that. If more than three gaps are given, pick the three highest-impact ones (handshape > location > orientation > movement > contact > non-manual).
-2. One question per distinct ``field``. Never ask two questions about the same slot.
-3. **Prefer multiple-choice.** Offer 2–5 concrete options whenever the slot has a small closed vocabulary (handshape, palm direction, eyebrows, movement shape). Use pure freeform only for slots with unbounded vocabularies (unusual locations, specific mouthings).
-4. **Ground in the prose.** If the author mentioned "near the temple", say "You mentioned the temple — does the hand touch it or hover nearby?" instead of a generic "Where is the sign made?". If ``prose`` is empty, use the generic template phrasing.
-5. Only emit ``field`` values from the allowed list above. Silently drop gap records whose ``field`` is not one of these.
-6. Plain English by default. A signer with no phonology training should understand every question. When ``is_deaf_native=true``, you may use direct terminology; when ``false`` or ``null``, prefer the longer hand-holding form.
-7. ``allow_freeform`` defaults to ``true``. The small-vocabulary slots (palm direction, eyebrows) may set it ``false``; everything else should allow a freeform escape hatch.
-
-## Template library (starting points — you may rewrite)
-
-{templates_block}
-"""
+PROMPT_ID: str = "generate_clarification"
 
 
-SYSTEM_PROMPT: str = _build_system_prompt()
+def _prompt_context() -> dict[str, Any]:
+    """Assemble the Jinja2 render context used for the clarifier prompt."""
+    return {
+        "templates_block": _render_templates_block(),
+        "allowed_fields_list": "\n- ".join(f"`{f}`" for f in ALLOWED_GAP_FIELDS),
+    }
+
+
+def _render_system_prompt() -> tuple[str, PromptMetadata]:
+    pt = load_prompt(PROMPT_ID)
+    return pt.render(**_prompt_context()), pt.metadata
+
+
+# ``SYSTEM_PROMPT`` is kept for call sites and tests that imported it
+# pre-refactor. The text is rendered from
+# ``prompts/generate_clarification_v1.md.j2`` once at import time.
+SYSTEM_PROMPT: str
+_PROMPT_METADATA: PromptMetadata
+SYSTEM_PROMPT, _PROMPT_METADATA = _render_system_prompt()
 
 
 # ---------------------------------------------------------------------------
@@ -329,6 +303,7 @@ def generate_questions(
             temperature=temperature,
             max_tokens=max_tokens,
             request_id=req_id,
+            prompt_metadata=_PROMPT_METADATA,
         )
     except BudgetExceeded:
         raise

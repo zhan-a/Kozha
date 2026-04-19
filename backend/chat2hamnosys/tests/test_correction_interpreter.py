@@ -89,6 +89,7 @@ class FakeLLMClient:
         max_tokens: int = 1000,
         *,
         request_id: str,
+        prompt_metadata: Any = None,
     ) -> ChatResult:
         self.calls.append(
             {
@@ -98,6 +99,7 @@ class FakeLLMClient:
                 "temperature": temperature,
                 "max_tokens": max_tokens,
                 "request_id": request_id,
+                "prompt_metadata": prompt_metadata,
             }
         )
         return ChatResult(

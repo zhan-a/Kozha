@@ -63,6 +63,7 @@ class FakeLLMClient:
         max_tokens: int = 500,
         *,
         request_id: str,
+        prompt_metadata: Any = None,
     ) -> ChatResult:
         self.calls.append(
             {
@@ -70,6 +71,7 @@ class FakeLLMClient:
                 "response_format": response_format,
                 "temperature": temperature,
                 "request_id": request_id,
+                "prompt_metadata": prompt_metadata,
             }
         )
         if not self._queue:

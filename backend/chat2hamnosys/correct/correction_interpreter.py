@@ -74,6 +74,7 @@ from parser import (
     PartialNonManualFeatures,
     PartialSignParameters,
 )
+from prompts import PromptMetadata, load_prompt
 from rendering.hamnosys_to_sigml import to_sigml
 from rendering.preview import PreviewResult, PreviewStatus, render_preview
 from session.orchestrator import (
@@ -196,128 +197,32 @@ _RESTART_PATTERNS: tuple[re.Pattern[str], ...] = (
 # ---------------------------------------------------------------------------
 
 
-def _build_system_prompt() -> str:
-    """Compose the stable system prompt sent on every interpreter call."""
+PROMPT_ID: str = "interpret_correction"
+
+
+def _prompt_context() -> dict[str, Any]:
+    """Assemble the Jinja2 render context for the interpreter prompt."""
     allowed_scalars = ", ".join(sorted(_SCALAR_SLOTS))
     allowed_nm = ", ".join(
         f"non_manual.{leaf}" for leaf in sorted(_NON_MANUAL_LEAVES)
     )
     intents = ", ".join(f'"{i.value}"' for i in CorrectionIntent)
-
-    return f"""You interpret a sign-language author's correction to a rendered avatar and produce a MINIMAL diff against the current phonological parameters.
-
-## Input
-
-A JSON object with these keys:
-
-- ``parameters`` — the current :class:`PartialSignParameters` as JSON. Slots hold plain-English phrases (e.g. ``"fist"``, ``"temple"``), NOT HamNoSys codepoints.
-- ``hamnosys`` — the currently rendered HamNoSys string (for context; do NOT edit it directly).
-- ``original_prose`` — the author's original description, verbatim. Use this to detect contradictions.
-- ``correction`` — an object ``{{raw_text, target_time_ms, target_region}}`` describing the correction. ``target_time_ms`` and ``target_region`` may be null.
-
-## Output
-
-Return a JSON object with these fields:
-
-- ``intent`` — one of {intents}. See classification rules below.
-- ``explanation`` — 1–2 plain-English sentences describing what will change, shown to the user before applying. When no change applies, explain what you need from the user.
-- ``needs_user_confirmation`` — boolean. ``true`` when your best interpretation has low confidence, when multiple plausible interpretations exist, or when the intent is not ``apply_diff``.
-- ``follow_up_question`` — string or null. Required (non-null) when intent is ``elaborate``, ``contradiction``, or ``vague``.
-- ``field_changes`` — list of ``{{path, old_value, new_value, confidence}}`` objects. One per slot you are changing. Empty list for all intents other than ``apply_diff``.
-
-## Intent classification rules
-
-1. **``apply_diff``** — the correction names a specific phonological change (handshape, location, orientation, movement path, movement repetition, contact, non-manual feature). Populate ``field_changes`` with a MINIMAL diff: only fields the user actually addressed. Leave everything else alone.
-
-2. **``restart``** — the user says the whole sign is wrong and wants to start over ("start over", "start from scratch", "the whole thing is wrong"). Set ``field_changes: []``. Set ``follow_up_question`` null — the caller will route to the prose prompt.
-
-3. **``elaborate``** — the correction refers to a feature that is not currently encoded in ``parameters`` (most common: facial expression / eyebrows / mouth shape when ``non_manual`` is null or the specific sub-slot is null). Set ``follow_up_question`` asking the user to describe the needed feature more concretely (e.g. "Which specific non-manual? The eyebrows, the mouth, or the gaze?").
-
-4. **``contradiction``** — the correction contradicts the original prose (e.g. prose said "at the temple" but the correction says "it should be at the chin, not the temple"). Set ``follow_up_question`` surfacing both options: "You originally said X but now want Y — which is right?"
-
-5. **``vague``** — the correction is too ambiguous to act on ("it looks off", "something's wrong", "not quite right"). DO NOT guess. Set ``follow_up_question`` asking the user to point at what is wrong (which slot, or which moment in the timeline).
-
-## Rules for field_changes
-
-- ``path`` must be one of:
-    - a scalar slot: {allowed_scalars}
-    - a movement subfield: ``movement[i].path``, ``movement[i].size_mod``, ``movement[i].speed_mod``, ``movement[i].repeat`` (0-based ``i``)
-    - a non-manual slot: {allowed_nm}
-- ``old_value`` must match the current value in ``parameters`` (or null / empty-string if the slot is currently unset).
-- ``new_value`` is the plain-English replacement. Keep it 1–3 tokens — same vocabulary the parser stage uses (e.g. ``"bent-5"``, ``"temple"``, ``"toward signer"``, ``"twice"``).
-- ``confidence`` is 0..1. If the correction is clear, use 0.9+; if it could mean two things, use 0.6 or lower and set ``needs_user_confirmation`` true.
-- **Emit the smallest possible diff.** If the user says "palm should face up", change only ``orientation_palm``. If they say "the movement should repeat twice", change only ``movement[0].repeat``. Never bundle unrelated edits.
-- If the user scrubbed to a timestamp or clicked a body region, let that *disambiguate* which slot to edit; it is not itself a reason to edit multiple slots.
-
-## Worked examples
-
-Correction: "the handshape is wrong; it should be a flat-O, not a fisted hand"
-Output:
-```json
-{{
-  "intent": "apply_diff",
-  "explanation": "Changing the dominant handshape from fist to flat-O; all other slots stay the same.",
-  "needs_user_confirmation": false,
-  "follow_up_question": null,
-  "field_changes": [
-    {{"path": "handshape_dominant", "old_value": "fist", "new_value": "flat-O", "confidence": 0.95}}
-  ]
-}}
-```
-
-Correction: "the movement should repeat twice, not once"
-Output:
-```json
-{{
-  "intent": "apply_diff",
-  "explanation": "Changing the movement's repetition from once to twice.",
-  "needs_user_confirmation": false,
-  "follow_up_question": null,
-  "field_changes": [
-    {{"path": "movement[0].repeat", "old_value": "once", "new_value": "twice", "confidence": 0.95}}
-  ]
-}}
-```
-
-Correction: "the facial expression should be happier"   (and ``non_manual`` is null)
-Output:
-```json
-{{
-  "intent": "elaborate",
-  "explanation": "No facial features are currently encoded; need more detail before I can add one.",
-  "needs_user_confirmation": true,
-  "follow_up_question": "Which specific non-manual would express 'happier' — raised eyebrows, an open mouth, or something else?",
-  "field_changes": []
-}}
-```
-
-Correction: "the whole sign is wrong, let me start over"
-Output:
-```json
-{{
-  "intent": "restart",
-  "explanation": "Discarding the current sign; you can re-describe it from scratch.",
-  "needs_user_confirmation": true,
-  "follow_up_question": null,
-  "field_changes": []
-}}
-```
-
-Correction: "it looks off"
-Output:
-```json
-{{
-  "intent": "vague",
-  "explanation": "I need a more specific correction to act on.",
-  "needs_user_confirmation": true,
-  "follow_up_question": "What specifically looks off — the handshape, the location, the movement, or a non-manual feature?",
-  "field_changes": []
-}}
-```
-"""
+    return {
+        "allowed_scalars": allowed_scalars,
+        "allowed_nm": allowed_nm,
+        "intents": intents,
+    }
 
 
-SYSTEM_PROMPT: str = _build_system_prompt()
+def _render_system_prompt() -> tuple[str, PromptMetadata]:
+    """Render the interpreter system prompt with its :class:`PromptMetadata`."""
+    pt = load_prompt(PROMPT_ID)
+    return pt.render(**_prompt_context()), pt.metadata
+
+
+SYSTEM_PROMPT: str
+_PROMPT_METADATA: PromptMetadata
+SYSTEM_PROMPT, _PROMPT_METADATA = _render_system_prompt()
 
 
 # ---------------------------------------------------------------------------
@@ -476,6 +381,7 @@ def interpret_correction(
             temperature=temperature,
             max_tokens=max_tokens,
             request_id=req_id,
+            prompt_metadata=_PROMPT_METADATA,
         )
     except BudgetExceeded:
         raise

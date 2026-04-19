@@ -47,6 +47,7 @@ from hamnosys.symbols import symbols_in_classes
 from llm import ChatResult, LLMClient, LLMError
 from llm.budget import BudgetExceeded
 from parser.models import PartialMovementSegment, PartialSignParameters
+from prompts import PromptMetadata, load_prompt
 
 from .vocab import VOCAB, VocabEntry, normalize_term
 
@@ -347,13 +348,12 @@ _FALLBACK_SCHEMA: dict[str, Any] = {
 }
 
 
-_SYSTEM_PROMPT_SLOT = (
-    "You are a HamNoSys 4.0 phonology expert. Given a plain-English term for "
-    "a single phonological slot of a sign, pick the closest HamNoSys codepoint "
-    "from the allowed list. Return exactly one codepoint — never invent "
-    "codepoints not in the list, and never pick one whose symbol class does "
-    "not match the requested slot."
-)
+PROMPT_ID_SLOT: str = "generate_hamnosys_fallback"
+PROMPT_ID_REPAIR: str = "generate_hamnosys_repair"
+
+_SLOT_PROMPT = load_prompt(PROMPT_ID_SLOT)
+_SYSTEM_PROMPT_SLOT: str = _SLOT_PROMPT.render()
+_SLOT_METADATA: PromptMetadata = _SLOT_PROMPT.metadata
 
 
 def _allowed_codepoints(vocab_slot: str) -> list[dict[str, str]]:
@@ -421,6 +421,7 @@ def _llm_resolve_slot(
             temperature=0.0,
             max_tokens=200,
             request_id=f"{request_id}:fallback:{piece.field_name}",
+            prompt_metadata=_SLOT_METADATA,
         )
     except BudgetExceeded:
         raise
@@ -499,14 +500,9 @@ _REPAIR_SCHEMA: dict[str, Any] = {
 }
 
 
-_SYSTEM_PROMPT_REPAIR = (
-    "You repair HamNoSys 4.0 strings that failed grammar validation. "
-    "Produce the smallest edit that fixes the reported errors. Return a "
-    "space-separated list of 4-digit uppercase hex codepoints; each must "
-    "be a known HamNoSys 4.0 symbol (U+E000..U+E0FF or the ASCII brackets "
-    "U+007B / U+007D). Preserve the input's phonological intent — do not "
-    "invent location or movement semantics that were not already present."
-)
+_REPAIR_PROMPT = load_prompt(PROMPT_ID_REPAIR)
+_SYSTEM_PROMPT_REPAIR: str = _REPAIR_PROMPT.render()
+_REPAIR_METADATA: PromptMetadata = _REPAIR_PROMPT.metadata
 
 
 def _decode_hex_string(hex_str: str) -> str:
@@ -560,6 +556,7 @@ def _llm_repair(
             temperature=0.0,
             max_tokens=400,
             request_id=f"{request_id}:repair:{attempt}",
+            prompt_metadata=_REPAIR_METADATA,
         )
     except BudgetExceeded:
         raise

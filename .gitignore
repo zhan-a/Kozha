@@ -1,8 +1,12 @@
 # chat2hamnosys prompts runner artifacts
 # add these entries to your repo root .gitignore
 
-# the prompts themselves (kept locally, not committed)
+# local prompt scratch dirs (kept out of the repo root); the versioned
+# chat2hamnosys prompt library under backend/chat2hamnosys/prompts/ is
+# committed — un-ignore it explicitly and ignore only its run artifacts.
 prompts/
+!backend/chat2hamnosys/prompts/
+backend/chat2hamnosys/prompts/eval_results/
 
 # runner scripts
 run_chat2hamnosys.sh

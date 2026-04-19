@@ -170,6 +170,23 @@ def _is_retryable(exc: Exception) -> bool:
     )
 
 
+def _prompt_fields(prompt_metadata: Any) -> dict[str, Any]:
+    """Extract telemetry fields from a ``PromptMetadata`` (or equivalent).
+
+    Accepts a duck-typed object exposing ``id`` / ``version`` / ``hash``
+    attributes — typically a :class:`prompts.PromptMetadata`. Returning
+    ``{}`` when nothing is provided keeps call sites that don't use the
+    versioned library free of noise.
+    """
+    if prompt_metadata is None:
+        return {}
+    return {
+        "prompt_id": getattr(prompt_metadata, "id", None),
+        "prompt_version": getattr(prompt_metadata, "version", None),
+        "prompt_hash": getattr(prompt_metadata, "hash", None),
+    }
+
+
 # ---------------------------------------------------------------------------
 # Client
 # ---------------------------------------------------------------------------
@@ -252,6 +269,7 @@ class LLMClient:
         max_tokens: int = 2000,
         *,
         request_id: str,
+        prompt_metadata: Any = None,
     ) -> ChatResult:
         if not request_id:
             raise LLMConfigError("request_id is required and must be non-empty")
@@ -270,6 +288,7 @@ class LLMClient:
             kwargs=kwargs,
             request_id=request_id,
             temperature=temperature,
+            prompt_metadata=prompt_metadata,
         )
 
         result = self._build_result(
@@ -280,6 +299,7 @@ class LLMClient:
             fallback_used=fallback_used,
         )
 
+        prompt_fields = _prompt_fields(prompt_metadata)
         self.budget.record(result.cost_usd)
         self.telemetry.log_call(
             request_id=request_id,
@@ -293,6 +313,7 @@ class LLMClient:
             fallback_used=fallback_used,
             prompt_content=messages if self.telemetry.log_content else None,
             completion_content=result.content if self.telemetry.log_content else None,
+            **prompt_fields,
         )
         return result
 
@@ -305,6 +326,7 @@ class LLMClient:
         max_tokens: int = 2000,
         *,
         request_id: str,
+        prompt_metadata: Any = None,
     ) -> AsyncIterator[str]:
         """Yield content-delta strings as they arrive.
 
@@ -333,6 +355,7 @@ class LLMClient:
         kwargs["model"] = self.model
 
         start = time.perf_counter()
+        prompt_fields = _prompt_fields(prompt_metadata)
         try:
             stream = await self._async_client.chat.completions.create(**kwargs)
         except Exception as exc:
@@ -346,6 +369,7 @@ class LLMClient:
                 temperature=temperature,
                 success=False,
                 error_class=type(exc).__name__,
+                **prompt_fields,
             )
             raise
 
@@ -400,6 +424,7 @@ class LLMClient:
             completion_content=self.last_stream_result.content
             if self.telemetry.log_content
             else None,
+            **prompt_fields,
         )
 
     # -- internals ---------------------------------------------------------
@@ -434,6 +459,7 @@ class LLMClient:
         kwargs: dict[str, Any],
         request_id: str,
         temperature: float,
+        prompt_metadata: Any = None,
     ) -> tuple[Any, str, int, bool]:
         last_exc: Exception | None = None
 
@@ -447,7 +473,9 @@ class LLMClient:
                 return response, self.model, latency_ms, False
             except Exception as exc:
                 if not _is_retryable(exc):
-                    self._log_failure(request_id, self.model, temperature, exc)
+                    self._log_failure(
+                        request_id, self.model, temperature, exc, prompt_metadata
+                    )
                     raise
                 last_exc = exc
                 if attempt < self.max_retries - 1:
@@ -462,11 +490,19 @@ class LLMClient:
                 latency_ms = int((time.perf_counter() - start) * 1000)
                 return response, self.fallback_model, latency_ms, True
             except Exception as exc:
-                self._log_failure(request_id, self.fallback_model, temperature, exc)
+                self._log_failure(
+                    request_id,
+                    self.fallback_model,
+                    temperature,
+                    exc,
+                    prompt_metadata,
+                )
                 raise
 
         assert last_exc is not None
-        self._log_failure(request_id, self.model, temperature, last_exc)
+        self._log_failure(
+            request_id, self.model, temperature, last_exc, prompt_metadata
+        )
         raise last_exc
 
     def _build_result(
@@ -513,6 +549,7 @@ class LLMClient:
         model: str,
         temperature: float,
         exc: Exception,
+        prompt_metadata: Any = None,
     ) -> None:
         self.telemetry.log_call(
             request_id=request_id,
@@ -524,4 +561,5 @@ class LLMClient:
             temperature=temperature,
             success=False,
             error_class=type(exc).__name__,
+            **_prompt_fields(prompt_metadata),
         )

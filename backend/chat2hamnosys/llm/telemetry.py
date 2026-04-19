@@ -56,8 +56,17 @@ class TelemetryLogger:
         fallback_used: bool = False,
         prompt_content: Any = None,
         completion_content: Any = None,
+        prompt_id: str | None = None,
+        prompt_version: str | None = None,
+        prompt_hash: str | None = None,
     ) -> Path:
-        """Append one record. Returns the file path it was written to."""
+        """Append one record. Returns the file path it was written to.
+
+        ``prompt_id`` / ``prompt_version`` / ``prompt_hash`` identify
+        which versioned template from ``chat2hamnosys.prompts`` produced
+        the system message. They are recorded on every call so rolled
+        back prompt changes can be diffed against telemetry.
+        """
         record: dict[str, Any] = {
             "ts": datetime.now(timezone.utc).isoformat(),
             "request_id": request_id,
@@ -70,6 +79,9 @@ class TelemetryLogger:
             "success": success,
             "error_class": error_class,
             "fallback_used": fallback_used,
+            "prompt_id": prompt_id,
+            "prompt_version": prompt_version,
+            "prompt_hash": prompt_hash,
         }
         if self.log_content:
             record["prompt"] = prompt_content
