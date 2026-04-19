@@ -28,6 +28,8 @@ from slowapi import Limiter
 from slowapi.middleware import SlowAPIMiddleware
 from slowapi.util import get_remote_address
 
+from review.router import router as review_router
+
 from .errors import register_error_handlers
 from .router import _default_rate_limit, router
 
@@ -101,6 +103,10 @@ def create_app(
 
     # --- Routes -------------------------------------------------------
     app.include_router(router, prefix=api_prefix)
+    # Review workflow endpoints — mounted under ``/review`` so the
+    # public URL becomes ``/api/chat2hamnosys/review/...`` once the
+    # parent server mounts this sub-app at ``/api/chat2hamnosys``.
+    app.include_router(review_router, prefix=f"{api_prefix}/review")
 
     return app
 

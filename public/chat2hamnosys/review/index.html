@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>Kozha — Reviewer Console</title>
+  <meta name="description" content="Deaf reviewer console: queue of pending signs, action buttons, and the export gate to the Kozha library." />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/chat2hamnosys/styles.css" />
+  <link rel="stylesheet" href="/chat2hamnosys/review/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#queueRoot">Skip to review queue</a>
+
+  <header class="topbar" role="banner">
+    <a class="brand" href="/chat2hamnosys/">Kozha<span class="brand-tag">reviewer</span></a>
+
+    <nav class="topbar-controls" aria-label="Reviewer session">
+      <span id="reviewerBadge" class="reviewer-badge" hidden></span>
+      <span id="fatigueMeter" class="fatigue-meter" aria-live="polite" hidden>0/25 reviewed this session</span>
+      <button id="signOutBtn" type="button" class="ctl" hidden>Sign out</button>
+      <a class="ctl ctl-link" href="/chat2hamnosys/">← Authoring</a>
+    </nav>
+  </header>
+
+  <div id="statusBanner" class="status-banner" role="status" aria-live="polite" hidden>
+    <span class="spinner" aria-hidden="true"></span>
+    <span class="status-text">Working…</span>
+  </div>
+
+  <!-- Token gate: visible until the reviewer signs in. -->
+  <section id="signinGate" class="signin-gate" aria-labelledby="signinHead">
+    <div class="signin-card">
+      <h1 id="signinHead" class="signin-title">Reviewer sign-in</h1>
+      <p class="signin-sub">
+        Paste the bearer token your administrator issued. Tokens are stored
+        only in this browser's <code>localStorage</code> — closing the tab
+        keeps you signed in until you press <em>Sign out</em>.
+      </p>
+      <form id="signinForm" class="signin-form">
+        <label for="tokenInput" class="signin-label">Bearer token</label>
+        <input
+          id="tokenInput"
+          type="password"
+          autocomplete="current-password"
+          placeholder="paste token here"
+          required
+        />
+        <button type="submit" class="btn btn-primary">Sign in</button>
+        <p id="signinError" class="signin-error" hidden></p>
+      </form>
+    </div>
+  </section>
+
+  <main id="reviewLayout" class="review-layout" hidden>
+    <!-- LEFT: Queue list -->
+    <section id="queueRoot" class="panel review-queue-panel" aria-labelledby="queueHead">
+      <header class="panel-head">
+        <h1 id="queueHead">Review queue</h1>
+        <div class="queue-filters">
+          <label class="queue-filter">
+            Sign language
+            <select id="filterLang">
+              <option value="">All</option>
+              <option value="bsl">BSL</option>
+              <option value="asl">ASL</option>
+              <option value="dgs">DGS</option>
+            </select>
+          </label>
+          <label class="queue-filter">
+            Region
+            <input id="filterRegion" type="text" placeholder="e.g. BSL-London" />
+          </label>
+          <label class="queue-filter queue-filter-check">
+            <input id="filterQuarantine" type="checkbox" />
+            Include quarantined
+          </label>
+          <button id="refreshBtn" type="button" class="btn btn-ghost btn-tiny">Refresh</button>
+        </div>
+      </header>
+
+      <p id="queueEmpty" class="queue-empty" hidden>The queue is empty.</p>
+      <ul id="queueList" class="queue-list" aria-live="polite"></ul>
+    </section>
+
+    <!-- RIGHT: Sign detail + action buttons -->
+    <section class="panel review-detail-panel" aria-labelledby="detailHead">
+      <header class="panel-head">
+        <h2 id="detailHead">Sign detail</h2>
+        <p id="detailSub" class="panel-sub">Pick a sign from the queue.</p>
+      </header>
+
+      <div id="detailEmpty" class="detail-empty">
+        <p>Select a sign on the left to inspect it.</p>
+      </div>
+
+      <article id="detailBody" class="detail-body" hidden>
+        <header class="detail-header">
+          <h3 id="detailGloss" class="detail-gloss"></h3>
+          <span id="detailStatus" class="status-pill"></span>
+        </header>
+
+        <dl class="detail-meta">
+          <div class="meta-row">
+            <dt>Sign language</dt><dd id="detailLang"></dd>
+          </div>
+          <div class="meta-row">
+            <dt>Regional variant</dt><dd id="detailRegion"></dd>
+          </div>
+          <div class="meta-row">
+            <dt>Domain</dt><dd id="detailDomain"></dd>
+          </div>
+          <div class="meta-row">
+            <dt>Approvals</dt>
+            <dd id="detailApprovals">
+              <strong id="approvalsPresent">0</strong>
+              <span> of <strong id="approvalsRequired">2</strong> required</span>
+            </dd>
+          </div>
+        </dl>
+
+        <section class="detail-section">
+          <h4>Description</h4>
+          <p id="detailProse" class="detail-prose"></p>
+        </section>
+
+        <section class="detail-section">
+          <h4>HamNoSys</h4>
+          <pre id="detailHns" class="detail-hns"></pre>
+        </section>
+
+        <section class="detail-section">
+          <h4>Reviewer history</h4>
+          <ol id="detailHistory" class="detail-history"></ol>
+        </section>
+
+        <section class="detail-section action-bar">
+          <h4 class="visually-hidden">Actions</h4>
+          <div class="action-row">
+            <button id="actApprove"  type="button" class="btn btn-primary"  data-act="approve">Approve</button>
+            <button id="actReject"   type="button" class="btn btn-warn"     data-act="reject">Reject</button>
+            <button id="actRevise"   type="button" class="btn"               data-act="revise">Request revision</button>
+            <button id="actFlag"     type="button" class="btn btn-warn"     data-act="flag">Flag (quarantine)</button>
+            <button id="actClear"    type="button" class="btn btn-ghost"    data-act="clear" hidden>
+              Clear quarantine
+            </button>
+            <button id="actExport"   type="button" class="btn btn-primary" data-act="export" hidden>
+              Export to library
+            </button>
+          </div>
+          <p id="actionError" class="action-error" role="alert" hidden></p>
+        </section>
+      </article>
+    </section>
+  </main>
+
+  <!-- Action prompt dialog (replaces window.prompt for accessibility). -->
+  <dialog id="actionDialog" class="action-dialog" aria-labelledby="actionDialogTitle">
+    <form method="dialog" id="actionDialogForm">
+      <h3 id="actionDialogTitle" class="action-dialog-title"></h3>
+      <p id="actionDialogSub" class="action-dialog-sub" hidden></p>
+
+      <label id="actionDialogCommentLbl" class="action-dialog-label" for="actionDialogComment">
+        Comment
+      </label>
+      <textarea
+        id="actionDialogComment"
+        rows="4"
+        placeholder="Required."
+      ></textarea>
+
+      <fieldset id="actionDialogCategoryWrap" class="action-dialog-fieldset" hidden>
+        <legend>Category</legend>
+        <label><input type="radio" name="rejectCategory" value="inaccurate" checked /> Inaccurate</label>
+        <label><input type="radio" name="rejectCategory" value="culturally_inappropriate" /> Culturally inappropriate</label>
+        <label><input type="radio" name="rejectCategory" value="regional_mismatch" /> Regional mismatch</label>
+        <label><input type="radio" name="rejectCategory" value="poor_quality" /> Poor quality</label>
+        <label><input type="radio" name="rejectCategory" value="other" /> Other</label>
+      </fieldset>
+
+      <fieldset id="actionDialogClearWrap" class="action-dialog-fieldset" hidden>
+        <legend>Send back to</legend>
+        <label><input type="radio" name="clearTarget" value="pending_review" checked /> Pending review</label>
+        <label><input type="radio" name="clearTarget" value="draft" /> Draft</label>
+        <label><input type="radio" name="clearTarget" value="rejected" /> Rejected (uphold flag)</label>
+      </fieldset>
+
+      <label id="actionDialogJustifyLbl" class="action-dialog-label" for="actionDialogJustify" hidden>
+        Justification (non-native override)
+      </label>
+      <textarea id="actionDialogJustify" rows="2" hidden></textarea>
+
+      <label id="actionDialogAllowNonNativeLbl" class="action-dialog-checkbox" hidden>
+        <input id="actionDialogAllowNonNative" type="checkbox" />
+        Approve as a non-native reviewer (requires justification)
+      </label>
+
+      <div class="action-dialog-row">
+        <button id="actionDialogCancel" type="button" class="btn btn-ghost">Cancel</button>
+        <button id="actionDialogSubmit" type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="srAnnounce" class="visually-hidden" role="status" aria-live="polite"></div>
+
+  <template id="tplQueueItem">
+    <li class="queue-item">
+      <button class="queue-item-btn" type="button">
+        <div class="qi-line">
+          <span class="qi-gloss"></span>
+          <span class="status-pill"></span>
+        </div>
+        <div class="qi-meta">
+          <span class="qi-lang"></span>
+          <span class="qi-region"></span>
+          <span class="qi-time"></span>
+        </div>
+        <div class="qi-stats">
+          <span class="qi-approvals"></span>
+          <span class="qi-reviews"></span>
+        </div>
+      </button>
+    </li>
+  </template>
+
+  <template id="tplHistoryItem">
+    <li class="history-item">
+      <header class="history-head">
+        <span class="history-verdict"></span>
+        <time class="history-time"></time>
+      </header>
+      <p class="history-comment"></p>
+      <p class="history-meta"></p>
+    </li>
+  </template>
+
+  <script src="/chat2hamnosys/review/review.js" defer></script>
+</body>
+</html>

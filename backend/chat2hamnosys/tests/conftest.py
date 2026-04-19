@@ -19,6 +19,7 @@ from models import (
     SignEntry,
     SignParameters,
 )
+from review.policy import ReviewPolicy
 from storage import JSONFileSignStore, SignStore, SQLiteSignStore
 
 
@@ -63,6 +64,19 @@ def valid_entry_factory() -> Callable[..., SignEntry]:
 @pytest.fixture
 def valid_entry(valid_entry_factory: Callable[..., SignEntry]) -> SignEntry:
     return valid_entry_factory()
+
+
+@pytest.fixture
+def permissive_review_policy() -> ReviewPolicy:
+    """A policy that disables the export-gate approval check.
+
+    Storage-layer tests exercise XML serialization, idempotency, and
+    file-per-language separation — none of which care about the
+    Deaf-reviewer approval count. Pass this policy to
+    ``export_to_kozha_library`` so the defense-in-depth gate doesn't
+    short-circuit the test before the code under test runs.
+    """
+    return ReviewPolicy(min_approvals=0, require_native_deaf=False)
 
 
 @pytest.fixture(params=["json", "sqlite"])

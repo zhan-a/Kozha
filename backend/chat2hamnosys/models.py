@@ -32,8 +32,26 @@ from hamnosys import SYMBOLS, SymClass, classify, normalize, validate
 
 
 SignLanguage = Literal["bsl", "asl", "dgs"]
-SignStatus = Literal["draft", "pending_review", "validated", "rejected"]
-ReviewVerdict = Literal["approved", "changes_requested", "rejected"]
+SignStatus = Literal[
+    "draft",
+    "pending_review",
+    "validated",
+    "rejected",
+    "quarantined",
+]
+ReviewVerdict = Literal[
+    "approved",
+    "changes_requested",
+    "rejected",
+    "flagged",
+]
+RejectionCategory = Literal[
+    "inaccurate",
+    "culturally_inappropriate",
+    "regional_mismatch",
+    "poor_quality",
+    "other",
+]
 
 
 def _utcnow() -> datetime:
@@ -85,7 +103,16 @@ class ClarificationTurn(BaseModel):
 
 
 class ReviewRecord(BaseModel):
-    """A single reviewer's verdict on a sign entry."""
+    """A single reviewer's verdict on a sign entry.
+
+    The append-only nature of ``SignEntry.reviewers`` means every action a
+    reviewer takes — approve, reject, request revision, or flag — is
+    preserved. The Deaf governance board can audit who said what and when.
+
+    ``allow_non_native`` records the explicit override flag a non-native
+    reviewer must supply when approving (with justification in ``comment``);
+    it is ``None`` for native reviewers and never silently true.
+    """
 
     model_config = ConfigDict(extra="forbid")
 
@@ -93,6 +120,12 @@ class ReviewRecord(BaseModel):
     is_deaf_native: bool | None = None
     verdict: ReviewVerdict
     notes: str = ""
+    comment: str = ""
+    category: RejectionCategory | None = None
+    regional_background: str | None = None
+    signs: list[str] = Field(default_factory=list)
+    allow_non_native: bool | None = None
+    fields_to_revise: list[str] = Field(default_factory=list)
     reviewed_at: datetime = Field(default_factory=_utcnow)
 
 

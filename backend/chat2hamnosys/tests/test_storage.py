@@ -20,6 +20,7 @@ from uuid import uuid4
 import pytest
 
 from models import SignEntry
+from review.policy import ReviewPolicy
 from storage import (
     DEFAULT_KOZHA_DATA_DIR,
     ExportNotAllowedError,
@@ -123,11 +124,13 @@ def test_export_refuses_non_validated_status(
 
 
 def test_export_validated_writes_canonical_sigml(
-    store: SignStore, valid_entry: SignEntry
+    store: SignStore,
+    valid_entry: SignEntry,
+    permissive_review_policy: ReviewPolicy,
 ) -> None:
     valid_entry.status = "validated"
     store.put(valid_entry)
-    store.export_to_kozha_library(valid_entry.id)
+    store.export_to_kozha_library(valid_entry.id, policy=permissive_review_policy)
 
     target = store.kozha_data_dir / "hamnosys_bsl_authored.sigml"
     assert target.exists()
@@ -158,14 +161,16 @@ def test_export_validated_writes_canonical_sigml(
 
 
 def test_export_emits_mouth_picture_when_present(
-    store: SignStore, valid_entry: SignEntry
+    store: SignStore,
+    valid_entry: SignEntry,
+    permissive_review_policy: ReviewPolicy,
 ) -> None:
     from models import NonManualFeatures
 
     valid_entry.parameters.non_manual = NonManualFeatures(mouth_picture="V")
     valid_entry.status = "validated"
     store.put(valid_entry)
-    store.export_to_kozha_library(valid_entry.id)
+    store.export_to_kozha_library(valid_entry.id, policy=permissive_review_policy)
 
     root = _read_sigml(store.kozha_data_dir / "hamnosys_bsl_authored.sigml")
     mouth = root.find(".//hnm_mouthpicture")
@@ -174,14 +179,16 @@ def test_export_emits_mouth_picture_when_present(
 
 
 def test_export_is_idempotent_no_duplicates(
-    store: SignStore, valid_entry: SignEntry
+    store: SignStore,
+    valid_entry: SignEntry,
+    permissive_review_policy: ReviewPolicy,
 ) -> None:
     valid_entry.status = "validated"
     store.put(valid_entry)
-    store.export_to_kozha_library(valid_entry.id)
+    store.export_to_kozha_library(valid_entry.id, policy=permissive_review_policy)
     first = (store.kozha_data_dir / "hamnosys_bsl_authored.sigml").read_text()
-    store.export_to_kozha_library(valid_entry.id)
-    store.export_to_kozha_library(valid_entry.id)
+    store.export_to_kozha_library(valid_entry.id, policy=permissive_review_policy)
+    store.export_to_kozha_library(valid_entry.id, policy=permissive_review_policy)
     second = (store.kozha_data_dir / "hamnosys_bsl_authored.sigml").read_text()
     assert first == second
     root = _read_sigml(store.kozha_data_dir / "hamnosys_bsl_authored.sigml")
@@ -189,43 +196,49 @@ def test_export_is_idempotent_no_duplicates(
 
 
 def test_export_replaces_same_gloss_in_place(
-    store: SignStore, valid_entry_factory: Callable[..., SignEntry]
+    store: SignStore,
+    valid_entry_factory: Callable[..., SignEntry],
+    permissive_review_policy: ReviewPolicy,
 ) -> None:
     a = valid_entry_factory(gloss="ABROAD", status="validated")
     b = valid_entry_factory(gloss="ABROAD", status="validated")  # different uuid, same gloss
     assert a.id != b.id
     store.put(a)
     store.put(b)
-    store.export_to_kozha_library(a.id)
-    store.export_to_kozha_library(b.id)
+    store.export_to_kozha_library(a.id, policy=permissive_review_policy)
+    store.export_to_kozha_library(b.id, policy=permissive_review_policy)
     root = _read_sigml(store.kozha_data_dir / "hamnosys_bsl_authored.sigml")
     glosses = [c.get("gloss") for c in root]
     assert glosses == ["abroad"]
 
 
 def test_export_appends_distinct_glosses(
-    store: SignStore, valid_entry_factory: Callable[..., SignEntry]
+    store: SignStore,
+    valid_entry_factory: Callable[..., SignEntry],
+    permissive_review_policy: ReviewPolicy,
 ) -> None:
     a = valid_entry_factory(gloss="ABROAD", status="validated")
     b = valid_entry_factory(gloss="ELECTRON", status="validated")
     store.put(a)
     store.put(b)
-    store.export_to_kozha_library(a.id)
-    store.export_to_kozha_library(b.id)
+    store.export_to_kozha_library(a.id, policy=permissive_review_policy)
+    store.export_to_kozha_library(b.id, policy=permissive_review_policy)
     root = _read_sigml(store.kozha_data_dir / "hamnosys_bsl_authored.sigml")
     glosses = sorted(c.get("gloss") for c in root)
     assert glosses == ["abroad", "electron"]
 
 
 def test_export_separates_files_per_language(
-    store: SignStore, valid_entry_factory: Callable[..., SignEntry]
+    store: SignStore,
+    valid_entry_factory: Callable[..., SignEntry],
+    permissive_review_policy: ReviewPolicy,
 ) -> None:
     bsl = valid_entry_factory(gloss="ABROAD", sign_language="bsl", status="validated")
     asl = valid_entry_factory(gloss="ABROAD", sign_language="asl", status="validated")
     store.put(bsl)
     store.put(asl)
-    store.export_to_kozha_library(bsl.id)
-    store.export_to_kozha_library(asl.id)
+    store.export_to_kozha_library(bsl.id, policy=permissive_review_policy)
+    store.export_to_kozha_library(asl.id, policy=permissive_review_policy)
     assert (store.kozha_data_dir / "hamnosys_bsl_authored.sigml").exists()
     assert (store.kozha_data_dir / "hamnosys_asl_authored.sigml").exists()
 
@@ -236,7 +249,9 @@ def test_export_missing_sign_raises(store: SignStore) -> None:
 
 
 def test_export_rejects_corrupt_existing_file(
-    store: SignStore, valid_entry: SignEntry
+    store: SignStore,
+    valid_entry: SignEntry,
+    permissive_review_policy: ReviewPolicy,
 ) -> None:
     store.kozha_data_dir.mkdir(parents=True, exist_ok=True)
     (store.kozha_data_dir / "hamnosys_bsl_authored.sigml").write_text(
@@ -245,7 +260,7 @@ def test_export_rejects_corrupt_existing_file(
     valid_entry.status = "validated"
     store.put(valid_entry)
     with pytest.raises(StorageError, match="malformed"):
-        store.export_to_kozha_library(valid_entry.id)
+        store.export_to_kozha_library(valid_entry.id, policy=permissive_review_policy)
 
 
 # ---------------------------------------------------------------------------

@@ -62,6 +62,32 @@ class ExportNotAllowedError(StorageError):
         self.status = status
 
 
+class InsufficientApprovalsError(StorageError):
+    """Export refused because the entry has too few qualifying approvals.
+
+    Defense-in-depth: even if the status field has been mutated to
+    ``"validated"``, the export gate independently re-counts the
+    qualifying approvals on ``SignEntry.reviewers`` and refuses if the
+    count is below the policy threshold. A bug, a manual DB poke, or a
+    compromised admin account cannot exfiltrate an unblessed sign.
+    """
+
+    def __init__(
+        self,
+        sign_id: UUID,
+        *,
+        present: int,
+        required: int,
+    ) -> None:
+        super().__init__(
+            f"sign id {sign_id} has {present} qualifying approval(s); "
+            f"the export gate requires at least {required}"
+        )
+        self.sign_id = sign_id
+        self.present = present
+        self.required = required
+
+
 # ---------------------------------------------------------------------------
 # Default paths
 # ---------------------------------------------------------------------------
@@ -223,28 +249,78 @@ class SignStore(ABC):
 
     # -- Export ------------------------------------------------------------
 
-    def export_to_kozha_library(self, sign_id: UUID) -> None:
+    def export_to_kozha_library(
+        self,
+        sign_id: UUID,
+        *,
+        policy: "Optional[ReviewPolicy]" = None,  # type: ignore[name-defined]  # noqa: F821
+        audit_log: "Optional[ExportAuditLog]" = None,  # type: ignore[name-defined]  # noqa: F821
+    ) -> None:
         """Write a validated entry into Kozha's authored SiGML library.
 
-        Refuses any entry whose ``status`` is not ``"validated"`` —
-        :class:`ExportNotAllowedError` is raised. Idempotent: re-exporting
-        the same entry replaces its ``<hns_sign>`` in place rather than
-        appending a duplicate.
+        Two independent gates run before writing:
+
+        1. ``status`` must be ``"validated"`` — raises
+           :class:`ExportNotAllowedError`.
+        2. Defense-in-depth: the count of qualifying approvals on
+           ``entry.reviewers`` must meet the policy threshold. Raises
+           :class:`InsufficientApprovalsError` if not. This catches the
+           case where the status was hand-edited or a bug bypassed the
+           reviewer service.
+
+        ``policy`` defaults to :meth:`ReviewPolicy.from_env`; an explicit
+        value lets tests pin the threshold without env juggling. When
+        ``audit_log`` is provided, a row is appended on every successful
+        write — see :class:`backend.chat2hamnosys.review.storage.ExportAuditLog`.
+
+        Idempotent: re-exporting the same entry replaces its
+        ``<hns_sign>`` in place rather than appending a duplicate. Each
+        successful re-export still appends one audit row, because the
+        attestation that *this* publication happened *now* is itself the
+        audit fact we want recorded.
 
         Target file: ``<kozha_data_dir>/hamnosys_<lang>_authored.sigml``.
         Per the audit (docs/chat2hamnosys/00-repo-audit.md §9e), authored
         entries go in a separate per-language file so the upstream
         DictaSign-licensed corpora are never mutated.
         """
+        # Local import to keep the storage module importable without the
+        # review package present (e.g., during reviewer-store-only tests
+        # of older flows).
+        from review.actions import (
+            qualifying_approval_count,
+            qualifying_approval_ids,
+        )
+        from review.policy import ReviewPolicy
+
+        effective_policy = policy if policy is not None else ReviewPolicy.from_env()
+
         entry = self.get(sign_id)
         if entry.status != "validated":
             raise ExportNotAllowedError(sign_id, entry.status)
+
+        present = qualifying_approval_count(entry, effective_policy)
+        required = effective_policy.effective_min_approvals()
+        if present < required:
+            raise InsufficientApprovalsError(
+                sign_id, present=present, required=required
+            )
 
         target = self.kozha_data_dir / f"hamnosys_{entry.sign_language}_authored.sigml"
         root = _read_or_init_sigml(target)
         new_sign = _build_hns_sign_element(entry)
         _replace_or_append_sign(root, new_sign)
         _atomic_write_text(target, _serialize_sigml(root))
+
+        if audit_log is not None:
+            audit_log.append(
+                sign_id=entry.id,
+                reviewer_ids=qualifying_approval_ids(entry, effective_policy),
+                hamnosys=entry.hamnosys,
+                sigml=entry.sigml,
+                sign_language=entry.sign_language,
+                gloss=entry.gloss,
+            )
 
 
 # ---------------------------------------------------------------------------
