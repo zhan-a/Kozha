@@ -123,9 +123,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Compute short SHA
+      - name: Compute build metadata
         id: meta
-        run: echo "sha=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+        run: |
+          echo "sha=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+          echo "image=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_OUTPUT"
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -146,15 +148,15 @@ jobs:
           build-args: |
             BUILD_SHA=${{ steps.meta.outputs.sha }}
           tags: |
-            ghcr.io/${{ github.repository }}:sha-${{ steps.meta.outputs.sha }}
-            ghcr.io/${{ github.repository }}:latest
+            ${{ steps.meta.outputs.image }}:sha-${{ steps.meta.outputs.sha }}
+            ${{ steps.meta.outputs.image }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
       - name: Verify image size (<500 MB)
         run: |
-          docker pull ghcr.io/${{ github.repository }}:sha-${{ steps.meta.outputs.sha }}
-          BYTES=$(docker image inspect ghcr.io/${{ github.repository }}:sha-${{ steps.meta.outputs.sha }} --format '{{ .Size }}')
+          docker pull ${{ steps.meta.outputs.image }}:sha-${{ steps.meta.outputs.sha }}
+          BYTES=$(docker image inspect ${{ steps.meta.outputs.image }}:sha-${{ steps.meta.outputs.sha }} --format '{{ .Size }}')
           MB=$(( BYTES / 1024 / 1024 ))
           echo "Image size: ${MB} MB"
           test "${MB}" -lt 500 || { echo "::error::image is ${MB} MB — over the 500 MB budget"; exit 1; }

@@ -49,10 +49,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Compute image name (lowercase)
+        id: meta
+        run: echo "image=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_OUTPUT"
+
       - name: Confirm image exists in registry
         run: |
-          docker pull ghcr.io/${{ github.repository }}:sha-${{ inputs.image_sha }}
-          echo "Image confirmed: ghcr.io/${{ github.repository }}:sha-${{ inputs.image_sha }}"
+          docker pull ${{ steps.meta.outputs.image }}:sha-${{ inputs.image_sha }}
+          echo "Image confirmed: ${{ steps.meta.outputs.image }}:sha-${{ inputs.image_sha }}"
         env:
           DOCKER_CONFIG: ${{ runner.temp }}/docker
 
@@ -88,7 +92,7 @@ jobs:
         run: |
           fly deploy \
             --app "kozha${{ inputs.environment == 'staging' && '-staging' || '' }}" \
-            --image "ghcr.io/${{ github.repository }}:sha-${{ inputs.image_sha }}" \
+            --image "${{ steps.meta.outputs.image }}:sha-${{ inputs.image_sha }}" \
             --strategy rolling
 
       # --- self-hosted VM ------------------------------------------------
@@ -102,7 +106,7 @@ jobs:
           mkdir -p ~/.ssh && echo "$SSH_KEY" > ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
           ssh "$SSH_USER@$SSH_HOST" \
-            "sudo /opt/kozha/scripts/deploy_image.sh ghcr.io/${{ github.repository }}:sha-${{ inputs.image_sha }}"
+            "sudo /opt/kozha/scripts/deploy_image.sh ${{ steps.meta.outputs.image }}:sha-${{ inputs.image_sha }}"
 
       - name: Smoke check /health
         env:
