@@ -68,6 +68,28 @@ RUN pip install --no-cache-dir \
  && pip install --no-cache-dir \
         "https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0.tar.gz"
 
+# Trim venv bloat before copying to the runtime stage. The pip/setuptools/
+# wheel trio is install-time tooling — the runtime image never needs it,
+# and together they're ~15 MB. __pycache__ dirs get recreated by pip even
+# with PYTHONDONTWRITEBYTECODE set (pip disables it during install).
+# Stripping .so files sheds debug symbols from numpy/lxml/spacy's
+# compiled extensions. Bundled tests/ dirs inside site-packages are
+# another safe-to-drop chunk (numpy alone ships ~10 MB of them).
+RUN find /opt/venv -depth \( \
+          -type d -name '__pycache__' -o \
+          -type d -name 'tests' \
+      \) -exec rm -rf {} + \
+ && find /opt/venv -type f \( -name '*.pyc' -o -name '*.pyo' \) -delete \
+ && { find /opt/venv -type f -name '*.so' -exec strip --strip-unneeded {} + 2>/dev/null || true; } \
+ && rm -rf \
+      /opt/venv/lib/python*/site-packages/pip \
+      /opt/venv/lib/python*/site-packages/pip-*.dist-info \
+      /opt/venv/lib/python*/site-packages/setuptools \
+      /opt/venv/lib/python*/site-packages/setuptools-*.dist-info \
+      /opt/venv/lib/python*/site-packages/wheel \
+      /opt/venv/lib/python*/site-packages/wheel-*.dist-info \
+      /opt/venv/lib/python*/site-packages/_distutils_hack
+
 # ---------------------------------------------------------------------------
 # Stage 2 — runtime
 # ---------------------------------------------------------------------------
