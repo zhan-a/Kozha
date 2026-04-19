@@ -44,13 +44,16 @@ from __future__ import annotations
 import logging
 import uuid
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Callable, Optional
 
 from clarify import Question, apply_answer, generate_questions
 from generator import GenerateResult, VOCAB, generate
 from generator.params_to_hamnosys import _compose_pieces
 from models import ClarificationTurn
+from obs import events as _evs
+from obs import metrics as _metrics
+from obs.logger import emit_event
 from parser import Gap, ParseResult, PartialSignParameters, parse_description
 from rendering.hamnosys_to_sigml import to_sigml
 from rendering.preview import PreviewResult, PreviewStatus, render_preview
@@ -156,7 +159,17 @@ def start_session(
         author_is_deaf_native=is_deaf_native,
         author_display_name=display_name,
     )
-    return AuthoringSession(draft=draft)
+    session = AuthoringSession(draft=draft)
+    emit_event(
+        _evs.SESSION_CREATED,
+        session_id=str(session.id),
+        sign_language=sign_language,
+        gloss=gloss,
+        is_deaf_native=is_deaf_native,
+    )
+    _metrics.sessions_started_total.inc()
+    _metrics.active_sessions.inc()
+    return session
 
 
 # ---------------------------------------------------------------------------
@@ -223,6 +236,12 @@ def _generate_and_ask(
     if not questions:
         # No parser gaps or clarifier returned nothing — move to GENERATING.
         return session.with_state(SessionState.GENERATING)
+    for q in questions:
+        emit_event(
+            _evs.CLARIFY_QUESTION_ASKED,
+            session_id=str(session.id),
+            field=q.field,
+        )
     assistant_turn = _assistant_turn(questions)
     session = session.append_event(ClarificationAskedEvent(questions=questions))
     session = session.with_draft(
@@ -265,6 +284,19 @@ def on_description(
     prose = prose.strip()
     # Run the parser (effectful — the parse_fn may call an LLM).
     parse_result = parse_fn(prose)
+
+    emit_event(
+        _evs.PARSE_DESCRIPTION_COMPLETED,
+        session_id=str(session.id),
+        gaps_found=len(parse_result.gaps),
+        prose_length=len(prose),
+    )
+    if parse_result.gaps:
+        emit_event(
+            _evs.PARSE_DESCRIPTION_GAPS_FOUND,
+            session_id=str(session.id),
+            gaps=[g.field for g in parse_result.gaps],
+        )
 
     # Record what the author said. The clarifier tail uses this to
     # ground the next batch of questions.
@@ -326,6 +358,13 @@ def on_clarification_answer(
 
     new_params = apply_fn(session.draft.parameters_partial, question, answer)
     resolved_value = _resolve_field_from_partial(new_params, question_field)
+
+    emit_event(
+        _evs.CLARIFY_ANSWER_RECEIVED,
+        session_id=str(session.id),
+        field=question_field,
+        resolved_value=resolved_value,
+    )
 
     remaining_pending = [
         q for q in session.draft.pending_questions if q.field != question_field
@@ -419,9 +458,19 @@ def run_generation(
     if session.draft.parameters_partial is None:
         raise RuntimeError("run_generation requires a populated parameters_partial")
 
+    emit_event(
+        _evs.GENERATE_HAMNOSYS_ATTEMPTED,
+        session_id=str(session.id),
+    )
     gen_result = generate_fn(session.draft.parameters_partial)
 
     if not gen_result.hamnosys:
+        emit_event(
+            _evs.GENERATE_HAMNOSYS_GAVE_UP,
+            session_id=str(session.id),
+            errors=list(gen_result.errors)[:5],
+            used_llm_fallback=gen_result.used_llm_fallback,
+        )
         session = session.append_event(
             GeneratedEvent(
                 success=False,
@@ -437,6 +486,16 @@ def run_generation(
         )
         return session  # stays in GENERATING / APPLYING_CORRECTION
 
+    emit_event(
+        _evs.GENERATE_HAMNOSYS_VALIDATED,
+        session_id=str(session.id),
+        confidence=gen_result.confidence,
+        used_llm_fallback=gen_result.used_llm_fallback,
+    )
+    _metrics.validator_failures_before_success.observe(
+        value=float(len(gen_result.errors))
+    )
+
     hamnosys = gen_result.hamnosys
     gloss = session.draft.gloss or "SIGN"
     # SiGML conversion — use the populated non-manual features for the
@@ -450,11 +509,47 @@ def run_generation(
 
     preview: PreviewResult | None = None
     if render_fn is not None:
+        emit_event(
+            _evs.RENDER_PREVIEW_STARTED,
+            session_id=str(session.id),
+            gloss=gloss,
+        )
         try:
             preview = render_fn(sigml, gloss=gloss)
         except Exception as exc:
             logger.warning("render_preview raised %s; continuing without video", exc)
+            emit_event(
+                _evs.RENDER_PREVIEW_FAILED,
+                session_id=str(session.id),
+                error_class=type(exc).__name__,
+            )
             preview = None
+        else:
+            status_val = preview.status.value if preview else "unknown"
+            if preview and preview.status == PreviewStatus.OK:
+                emit_event(
+                    _evs.RENDER_PREVIEW_SUCCEEDED,
+                    session_id=str(session.id),
+                    video_path=str(preview.video_path) if preview.video_path else None,
+                )
+            elif preview and preview.status == PreviewStatus.CACHED:
+                emit_event(
+                    _evs.RENDER_CACHE_HIT,
+                    session_id=str(session.id),
+                    video_path=str(preview.video_path) if preview.video_path else None,
+                )
+                emit_event(
+                    _evs.RENDER_PREVIEW_SUCCEEDED,
+                    session_id=str(session.id),
+                    cached=True,
+                )
+            else:
+                emit_event(
+                    _evs.RENDER_PREVIEW_FAILED,
+                    session_id=str(session.id),
+                    status=status_val,
+                    message=preview.message if preview else "no preview",
+                )
 
     slot_codepoints = _slot_codepoints_from_partial(session.draft.parameters_partial)
 
@@ -501,6 +596,13 @@ def on_correction(
     if not correction.raw_text or not correction.raw_text.strip():
         raise ValueError("correction.raw_text must be a non-empty string")
 
+    emit_event(
+        _evs.CORRECT_SUBMITTED,
+        session_id=str(session.id),
+        target_region=correction.target_region,
+        target_time_ms=correction.target_time_ms,
+    )
+    _metrics.corrections_submitted_total.inc()
     session = session.append_event(
         CorrectionRequestedEvent(
             raw_text=correction.raw_text.strip(),
@@ -531,6 +633,12 @@ def apply_correction_diff(
     _require_state(
         session, "apply_correction_diff", (SessionState.APPLYING_CORRECTION,)
     )
+    emit_event(
+        _evs.CORRECT_APPLIED,
+        session_id=str(session.id),
+        summary=summary,
+        field_changes_count=len(field_changes),
+    )
     session = session.append_event(
         CorrectionAppliedEvent(summary=summary, field_changes=list(field_changes))
     )
@@ -548,6 +656,21 @@ def on_accept(
     _require_state(session, "on_accept", (SessionState.RENDERED,))
     entry = session.draft.to_sign_entry()
     store.put(entry)
+    emit_event(
+        _evs.SESSION_ACCEPTED,
+        session_id=str(session.id),
+        sign_entry_id=str(entry.id),
+        entry_status=str(entry.status),
+        corrections_count=session.draft.corrections_count,
+    )
+    _metrics.sessions_accepted_total.inc()
+    _metrics.active_sessions.dec()
+    _metrics.session_duration_seconds.observe(
+        value=(datetime.now(timezone.utc) - session.created_at).total_seconds()
+    )
+    _metrics.corrections_per_session.observe(
+        value=float(session.draft.corrections_count)
+    )
     session = session.append_event(
         AcceptedEvent(sign_entry_id=entry.id, status=entry.status)
     )
@@ -569,6 +692,16 @@ def on_reject(
             session.state,
             tuple(s for s in SessionState if s not in TERMINAL_STATES),
         )
+    emit_event(
+        _evs.SESSION_REJECTED,
+        session_id=str(session.id),
+        reason=reason or "",
+    )
+    _metrics.sessions_abandoned_total.inc()
+    _metrics.active_sessions.dec()
+    _metrics.session_duration_seconds.observe(
+        value=(datetime.now(timezone.utc) - session.created_at).total_seconds()
+    )
     session = session.append_event(RejectedEvent(reason=reason or ""))
     return session.with_state(SessionState.ABANDONED)
 
@@ -586,6 +719,16 @@ def check_timeout(
     """
     if not session.is_stale(now=now, timeout=timeout):
         return session
+    emit_event(
+        _evs.SESSION_ABANDONED,
+        session_id=str(session.id),
+        reason="inactivity timeout",
+    )
+    _metrics.sessions_abandoned_total.inc()
+    _metrics.active_sessions.dec()
+    _metrics.session_duration_seconds.observe(
+        value=(datetime.now(timezone.utc) - session.created_at).total_seconds()
+    )
     session = session.append_event(AbandonedEvent(reason="inactivity timeout"))
     return session.with_state(SessionState.ABANDONED)
 

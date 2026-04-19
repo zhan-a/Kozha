@@ -29,6 +29,9 @@ from fastapi import APIRouter, Depends, Header, Query
 
 from api.errors import ApiError
 from models import SignEntry, SignStatus
+from obs import events as _evs
+from obs import metrics as _metrics
+from obs.logger import emit_event
 from storage import (
     ExportNotAllowedError,
     InsufficientApprovalsError,
@@ -384,19 +387,49 @@ def post_export(
     policy: ReviewPolicy = Depends(get_review_policy),
     audit: ExportAuditLog = Depends(get_audit_log),
 ) -> dict[str, Any]:
+    emit_event(
+        _evs.EXPORT_ATTEMPTED,
+        sign_id=str(sign_id),
+        reviewer_id=str(reviewer.id),
+    )
     try:
         store.export_to_kozha_library(sign_id, policy=policy, audit_log=audit)
     except SignNotFoundError as exc:
+        emit_event(
+            _evs.EXPORT_BLOCKED,
+            sign_id=str(sign_id),
+            reason="sign_not_found",
+        )
+        _metrics.exports_blocked_total.inc("sign_not_found")
         raise ApiError(str(exc), status_code=404, code="sign_not_found")
     except ExportNotAllowedError as exc:
+        emit_event(
+            _evs.EXPORT_BLOCKED,
+            sign_id=str(sign_id),
+            reason="export_not_allowed",
+        )
+        _metrics.exports_blocked_total.inc("export_not_allowed")
         raise ApiError(
             str(exc), status_code=409, code="export_not_allowed"
         )
     except InsufficientApprovalsError as exc:
+        emit_event(
+            _evs.EXPORT_BLOCKED,
+            sign_id=str(sign_id),
+            reason="insufficient_approvals",
+        )
+        _metrics.exports_blocked_total.inc("insufficient_approvals")
         raise ApiError(
             str(exc), status_code=409, code="insufficient_approvals",
         )
     entry = store.get(sign_id)
+    emit_event(
+        _evs.EXPORT_SUCCEEDED,
+        sign_id=str(sign_id),
+        sign_language=entry.sign_language,
+        gloss=entry.gloss,
+    )
+    _metrics.exports_succeeded_total.inc()
     return {
         "exported": True,
         "sign_id": str(sign_id),

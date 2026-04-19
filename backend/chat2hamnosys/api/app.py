@@ -30,6 +30,7 @@ from slowapi.util import get_remote_address
 
 from review.router import router as review_router
 
+from .admin import router as admin_router
 from .errors import register_error_handlers
 from .router import _default_rate_limit, router
 
@@ -107,6 +108,10 @@ def create_app(
     # public URL becomes ``/api/chat2hamnosys/review/...`` once the
     # parent server mounts this sub-app at ``/api/chat2hamnosys``.
     app.include_router(review_router, prefix=f"{api_prefix}/review")
+    # Observability surface: /metrics, /admin/*, /health at the same
+    # mount prefix so the parent server exposes them at
+    # ``/api/chat2hamnosys/metrics`` and ``/api/chat2hamnosys/health``.
+    app.include_router(admin_router, prefix=api_prefix)
 
     return app
 

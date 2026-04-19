@@ -33,6 +33,9 @@ from models import (
     SignEntry,
     SignStatus,
 )
+from obs import events as _evs
+from obs import metrics as _metrics
+from obs.logger import emit_event
 from storage import SignStore
 
 from .models import Reviewer
@@ -98,6 +101,15 @@ def _push_to_pending(entry: SignEntry) -> SignEntry:
     if entry.status == "draft":
         entry.status = "pending_review"
     return entry
+
+
+def _update_queue_depth(store: SignStore) -> None:
+    """Refresh the ``pending_reviews_queue_depth`` gauge after a transition."""
+    try:
+        depth = sum(1 for e in store.list() if e.status == "pending_review")
+    except Exception:
+        return
+    _metrics.pending_reviews_queue_depth.set(value=float(depth))
 
 
 def _competent_or_raise(
@@ -271,6 +283,16 @@ def approve(
         entry.status = "pending_review"
 
     store.put(entry)
+    emit_event(
+        _evs.REVIEW_APPROVED,
+        sign_id=str(entry.id),
+        reviewer_id=str(reviewer.id),
+        status=str(entry.status),
+        qualifying_approvals=qualifying_approval_count(entry, policy),
+        threshold=threshold,
+    )
+    _metrics.reviews_approved_total.inc()
+    _update_queue_depth(store)
     return entry
 
 
@@ -308,6 +330,14 @@ def reject(
     entry.reviewers = list(entry.reviewers) + [record]
     entry.status = "rejected"
     store.put(entry)
+    emit_event(
+        _evs.REVIEW_REJECTED,
+        sign_id=str(entry.id),
+        reviewer_id=str(reviewer.id),
+        category=str(category),
+    )
+    _metrics.reviews_rejected_total.inc()
+    _update_queue_depth(store)
     return entry
 
 
@@ -349,6 +379,13 @@ def request_revision(
     entry.reviewers = list(entry.reviewers) + [record]
     entry.status = "draft"
     store.put(entry)
+    emit_event(
+        _evs.REVIEW_REVISION_REQUESTED,
+        sign_id=str(entry.id),
+        reviewer_id=str(reviewer.id),
+        fields_to_revise=list(fields_to_revise),
+    )
+    _update_queue_depth(store)
     return entry
 
 
@@ -382,6 +419,13 @@ def flag(
     entry.reviewers = list(entry.reviewers) + [record]
     entry.status = "quarantined"
     store.put(entry)
+    emit_event(
+        _evs.REVIEW_FLAGGED,
+        sign_id=str(entry.id),
+        reviewer_id=str(reviewer.id),
+        reason=reason.strip()[:200],
+    )
+    _update_queue_depth(store)
     return entry
 
 

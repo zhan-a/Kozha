@@ -61,6 +61,10 @@ except ImportError as _exc:  # pragma: no cover - openai is a hard dependency
         "`pip install openai`."
     ) from _exc
 
+from obs import events as _evs
+from obs import metrics as _metrics
+from obs.logger import emit_event
+
 from .budget import BudgetExceeded, BudgetGuard
 from .pricing import compute_cost
 from .telemetry import TelemetryLogger
@@ -281,15 +285,37 @@ class LLMClient:
             max_output_tokens=max_tokens,
         )
 
+        emit_event(
+            _evs.LLM_CALL_STARTED,
+            request_id=request_id,
+            model=self.model,
+            temperature=temperature,
+            approx_input_tokens=approx_input,
+            max_output_tokens=max_tokens,
+        )
+
         kwargs = self._build_kwargs(
             messages, tools, response_format, temperature, max_tokens
         )
-        response, model_used, latency_ms, fallback_used = self._invoke_with_retry(
-            kwargs=kwargs,
-            request_id=request_id,
-            temperature=temperature,
-            prompt_metadata=prompt_metadata,
-        )
+        try:
+            response, model_used, latency_ms, fallback_used = (
+                self._invoke_with_retry(
+                    kwargs=kwargs,
+                    request_id=request_id,
+                    temperature=temperature,
+                    prompt_metadata=prompt_metadata,
+                )
+            )
+        except Exception as exc:
+            emit_event(
+                _evs.LLM_CALL_FAILED,
+                request_id=request_id,
+                model=self.model,
+                error_class=type(exc).__name__,
+                temperature=temperature,
+            )
+            _metrics.llm_calls_total.inc(self.model, "failure")
+            raise
 
         result = self._build_result(
             response=response,
@@ -314,6 +340,31 @@ class LLMClient:
             prompt_content=messages if self.telemetry.log_content else None,
             completion_content=result.content if self.telemetry.log_content else None,
             **prompt_fields,
+        )
+        _metrics.llm_calls_total.inc(result.model_used, "success")
+        _metrics.llm_call_latency_ms.observe(
+            result.model_used, value=float(result.latency_ms)
+        )
+        _metrics.llm_call_cost_usd.observe(value=float(result.cost_usd))
+        _metrics.daily_cost_usd.observe(value=float(result.cost_usd))
+        if fallback_used:
+            emit_event(
+                _evs.LLM_CALL_FALLBACK_USED,
+                request_id=request_id,
+                model=result.model_used,
+                primary_model=self.model,
+                latency_ms=result.latency_ms,
+                cost_usd=result.cost_usd,
+            )
+        emit_event(
+            _evs.LLM_CALL_SUCCEEDED,
+            request_id=request_id,
+            model=result.model_used,
+            latency_ms=result.latency_ms,
+            cost_usd=result.cost_usd,
+            input_tokens=result.input_tokens,
+            output_tokens=result.output_tokens,
+            fallback_used=fallback_used,
         )
         return result
 
@@ -479,6 +530,13 @@ class LLMClient:
                     raise
                 last_exc = exc
                 if attempt < self.max_retries - 1:
+                    emit_event(
+                        _evs.LLM_CALL_RETRIED,
+                        request_id=request_id,
+                        model=self.model,
+                        attempt=attempt + 1,
+                        error_class=type(exc).__name__,
+                    )
                     time.sleep(self._backoff(attempt))
 
         if isinstance(last_exc, RateLimitError):
