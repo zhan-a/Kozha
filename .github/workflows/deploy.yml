@@ -29,10 +29,11 @@ jobs:
                 cd /home/ubuntu/Kozha
                 git fetch --prune origin
                 git reset --hard origin/main
-                git clean -fd -e data/
+                git clean -fd -e ./data/
                 cd server
                 source /home/ubuntu/kozha-venv/bin/activate
                 pip install --no-cache-dir -r requirements.txt
+                test -f ../backend/chat2hamnosys/requirements.txt
                 pip install --no-cache-dir -r ../backend/chat2hamnosys/requirements.txt
                 sudo systemctl daemon-reload
                 sudo systemctl restart kozha.service
