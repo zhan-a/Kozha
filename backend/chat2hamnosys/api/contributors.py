@@ -100,6 +100,19 @@ def require_contributor_enabled() -> bool:
     return os.environ.get("CHAT2HAMNOSYS_REQUIRE_CONTRIBUTOR", "0") == "1"
 
 
+def _captcha_disabled() -> bool:
+    """Is the captcha challenge bypassed?
+
+    Used during pre-launch deployments where
+    ``CHAT2HAMNOSYS_CAPTCHA_SECRET`` hasn't been provisioned yet. The
+    honeypot field is still enforced, so naïve bots are still rejected
+    — but sophisticated scrapers slip through until the captcha is
+    back on. See README → "Pre-launch setup" for the re-enable
+    procedure.
+    """
+    return os.environ.get("CHAT2HAMNOSYS_CAPTCHA_DISABLED", "0") == "1"
+
+
 # ---------------------------------------------------------------------------
 # Errors
 # ---------------------------------------------------------------------------
@@ -302,19 +315,26 @@ class CaptchaOut(BaseModel):
     question: str
     challenge: str
     expires_in: int = Field(description="Seconds until the challenge expires")
+    disabled: bool = Field(
+        default=False,
+        description=(
+            "Pre-launch flag — when true, the frontend skips the captcha UI "
+            "and the register endpoint accepts any challenge/answer pair."
+        ),
+    )
 
 
 class RegisterIn(BaseModel):
     name: str = Field(..., min_length=1, max_length=NAME_MAX_LEN)
     contact: str = Field(..., min_length=3, max_length=CONTACT_MAX_LEN)
-    captcha_challenge: str = Field(..., min_length=1, max_length=4096)
-    captcha_answer: str = Field(..., min_length=1, max_length=ANSWER_MAX_LEN)
+    captcha_challenge: str = Field(default="", max_length=4096)
+    captcha_answer: str = Field(default="", max_length=ANSWER_MAX_LEN)
     # Honeypot — real users' browsers leave this empty. Bots that fill
     # every field trip it. The CSS on the frontend hides the input so a
     # human never sees it.
     website: str = Field(default="", max_length=200)
 
-    @field_validator("name", "contact", "captcha_answer")
+    @field_validator("name", "contact")
     @classmethod
     def _strip_non_empty(cls, v: str) -> str:
         s = v.strip()
@@ -339,6 +359,15 @@ router = APIRouter(tags=["chat2hamnosys-contribute"], prefix="/contribute")
 
 @router.get("/captcha", response_model=CaptchaOut, summary="Issue a new captcha")
 def get_captcha() -> CaptchaOut:
+    if _captcha_disabled():
+        # Sentinel payload — the frontend hides the captcha UI, and the
+        # matching register endpoint accepts any answer.
+        return CaptchaOut(
+            question="Captcha disabled (pre-launch setup).",
+            challenge="disabled",
+            expires_in=0,
+            disabled=True,
+        )
     question, challenge = new_captcha()
     return CaptchaOut(
         question=question,
@@ -362,13 +391,16 @@ def _looks_like_contact(value: str) -> bool:
     summary="Register a contributor and receive a session-creation token",
 )
 def register(body: RegisterIn, request: Request) -> RegisterOut:
-    # Honeypot — any value means a bot filled the hidden field.
+    # Honeypot — any value means a bot filled the hidden field. This is
+    # the *only* spam defence when the captcha is disabled, so it always
+    # runs (even in pre-launch mode).
     if body.website.strip():
         logger.info("contributor register: honeypot tripped")
         raise CaptchaFailed("Captcha failed")
 
-    if not verify_captcha(body.captcha_challenge, body.captcha_answer):
-        raise CaptchaFailed("Captcha failed")
+    if not _captcha_disabled():
+        if not verify_captcha(body.captcha_challenge, body.captcha_answer):
+            raise CaptchaFailed("Captcha failed")
 
     name = body.name.strip()
     contact = body.contact.strip()

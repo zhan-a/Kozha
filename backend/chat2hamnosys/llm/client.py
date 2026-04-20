@@ -40,6 +40,7 @@ bool, and ``error_class`` if any. Prompt and completion content are
 
 from __future__ import annotations
 
+import contextvars
 import json
 import os
 import random
@@ -81,6 +82,44 @@ class LLMError(Exception):
 
 class LLMConfigError(LLMError):
     """Raised when the client is misconfigured (missing key, bad arg, etc.)."""
+
+
+# ---------------------------------------------------------------------------
+# Request-scoped OpenAI API key
+# ---------------------------------------------------------------------------
+#
+# The API layer can set a per-request key via ``set_request_openai_api_key``
+# — typically from an ``X-OpenAI-Api-Key`` header. :class:`LLMClient`
+# then uses it in preference to the ``OPENAI_API_KEY`` env var, so
+# contributors can provide a personal key on the website when the
+# project's own secret hasn't been provisioned yet. An explicit
+# ``api_key=`` argument still wins over both — that path is used by
+# tests and by the parser/generator fixture recorders.
+# ---------------------------------------------------------------------------
+
+
+_REQUEST_OPENAI_API_KEY: contextvars.ContextVar[str] = contextvars.ContextVar(
+    "chat2hamnosys_request_openai_api_key", default=""
+)
+
+
+def set_request_openai_api_key(key: str) -> "contextvars.Token[str]":
+    """Set the per-request OpenAI key. Return a token for :func:`reset`."""
+    return _REQUEST_OPENAI_API_KEY.set(key or "")
+
+
+def reset_request_openai_api_key(token: "contextvars.Token[str]") -> None:
+    _REQUEST_OPENAI_API_KEY.reset(token)
+
+
+def _resolve_api_key(explicit: str | None) -> str:
+    """Pick the OpenAI key to use: explicit > request contextvar > env."""
+    if explicit is not None:
+        return explicit
+    byo = _REQUEST_OPENAI_API_KEY.get("")
+    if byo:
+        return byo
+    return os.environ.get("OPENAI_API_KEY", "")
 
 
 # ---------------------------------------------------------------------------
@@ -240,7 +279,7 @@ class LLMClient:
         max_retries: int = 3,
         base_backoff: float = 1.0,
     ) -> None:
-        resolved = api_key if api_key is not None else os.environ.get("OPENAI_API_KEY")
+        resolved = _resolve_api_key(api_key)
         if not resolved:
             raise LLMConfigError(
                 "no OpenAI API key: pass api_key= or set the OPENAI_API_KEY env var"

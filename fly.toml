@@ -46,6 +46,13 @@ kill_timeout = "30s"
   # Gate session creation on registered contributors (name + contact
   # + captcha). Off by default in tests; must be "1" in production.
   CHAT2HAMNOSYS_REQUIRE_CONTRIBUTOR   = "1"
+  # PRE-LAUNCH ONLY — bypasses the math-captcha verification on
+  # /contribute/register because CHAT2HAMNOSYS_CAPTCHA_SECRET has not
+  # been provisioned as a fly secret yet. The honeypot field still
+  # runs. To re-enable the captcha:
+  #   fly secrets set CHAT2HAMNOSYS_CAPTCHA_SECRET=$(openssl rand -hex 32)
+  #   # then delete this line (or set it to "0") and: fly deploy
+  CHAT2HAMNOSYS_CAPTCHA_DISABLED      = "1"
   CHAT2HAMNOSYS_REVIEW_MIN_APPROVALS  = "2"
   CHAT2HAMNOSYS_REVIEW_REQUIRE_NATIVE = "true"
   CHAT2HAMNOSYS_REVIEW_ALLOW_SINGLE   = "false"

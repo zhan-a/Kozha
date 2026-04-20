@@ -27,7 +27,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from slowapi import Limiter
 from slowapi.middleware import SlowAPIMiddleware
 from slowapi.util import get_remote_address
+from starlette.middleware.base import BaseHTTPMiddleware
 
+from llm.client import reset_request_openai_api_key, set_request_openai_api_key
 from review.router import router as review_router
 
 from .admin import router as admin_router
@@ -37,6 +39,27 @@ from .router import _default_rate_limit, router
 
 
 CORS_ENV_VAR = "CHAT2HAMNOSYS_CORS_ORIGINS"
+
+
+class _ByoOpenAIKeyMiddleware(BaseHTTPMiddleware):
+    """Thread the ``X-OpenAI-Api-Key`` header into an async-local contextvar.
+
+    Pre-launch scaffolding: until the project's ``OPENAI_API_KEY`` secret
+    is provisioned on the host, contributors can paste a personal key
+    on ``/contribute.html``. The browser sends it as a header on every
+    authoring call; this middleware parks it in a contextvar that
+    :class:`llm.client.LLMClient` consults before falling back to the
+    env var. Each request runs in its own asyncio task, so there is no
+    cross-request leakage. The key is never logged.
+    """
+
+    async def dispatch(self, request, call_next):
+        key = request.headers.get("x-openai-api-key", "")
+        token = set_request_openai_api_key(key)
+        try:
+            return await call_next(request)
+        finally:
+            reset_request_openai_api_key(token)
 
 
 def _parse_origins(raw: Optional[str]) -> list[str]:
@@ -85,8 +108,14 @@ def create_app(
         allow_origins=origins,
         allow_credentials=allow_credentials,
         allow_methods=["GET", "POST", "OPTIONS"],
-        allow_headers=["Content-Type", "X-Session-Token", "X-Contributor-Token"],
+        allow_headers=[
+            "Content-Type",
+            "X-Session-Token",
+            "X-Contributor-Token",
+            "X-OpenAI-Api-Key",
+        ],
     )
+    app.add_middleware(_ByoOpenAIKeyMiddleware)
 
     # --- Rate limiting ------------------------------------------------
     # Build a fresh :class:`Limiter` per app so the limit string is

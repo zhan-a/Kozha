@@ -137,6 +137,63 @@ kozha/
 - BSL has the most complete sign database; other sign languages have varying coverage.
 - Languages without a dedicated spaCy model rely on client-side translation before NLP processing.
 
+## Pre-launch setup (chat2hamnosys)
+
+Until the deployed Fly host has the OpenAI and captcha secrets
+provisioned, two temporary measures keep the live
+[kozha-translate.com/contribute.html](https://kozha-translate.com/contribute.html)
+flow usable.
+
+### 1. Provide your own OpenAI key from the browser
+
+The contribute page now has an optional **"Your OpenAI API key"** field.
+Paste an `sk-…` key there; the browser stores it in `localStorage`
+(`bridgn.openai_api_key`) and sends it as the `X-OpenAI-Api-Key`
+header on every authoring call. The backend's `LLMClient` consults
+this header before falling back to the `OPENAI_API_KEY` env var, so
+contributions work before the project key is set.
+
+Precedence, highest to lowest:
+
+1. Explicit `api_key=` argument (used by tests and fixture recorders).
+2. Per-request header from the browser (this pre-launch path).
+3. `OPENAI_API_KEY` environment variable / Fly secret (the long-term
+   path — once set, contributors can leave the field blank and the
+   project picks up the bill).
+
+To **stop** using a personal key, clear the field on contribute.html
+(or `localStorage.removeItem('bridgn.openai_api_key')` from the
+browser console). Keys are never logged server-side and are scoped
+to a single request.
+
+Once the project secret is provisioned and you want the field gone
+entirely, delete the `<!-- BYO OpenAI key … -->` block in
+`public/contribute.html` and the corresponding `readBYOOpenAIKey()`
+call in `public/chat2hamnosys/app.js`.
+
+### 2. Captcha is temporarily off
+
+`fly.toml` sets `CHAT2HAMNOSYS_CAPTCHA_DISABLED = "1"` because
+`CHAT2HAMNOSYS_CAPTCHA_SECRET` has not been provisioned yet. In this
+state the registration form hides the math challenge and the backend
+accepts any `captcha_challenge`/`captcha_answer` pair. The honeypot
+field stays active — it is the only spam defence while the captcha
+is off, so watch new registrations until the captcha is back on.
+
+**To re-enable the captcha:**
+
+```bash
+fly secrets set CHAT2HAMNOSYS_CAPTCHA_SECRET="$(openssl rand -hex 32)"
+# Then in fly.toml remove (or flip to "0") the
+# CHAT2HAMNOSYS_CAPTCHA_DISABLED line and redeploy:
+fly deploy
+```
+
+The frontend auto-reveals the challenge row on the next page load —
+no further code changes needed.
+
+---
+
 ## Contributing
 
 Contributions are welcome. To get started:

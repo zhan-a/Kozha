@@ -198,6 +198,31 @@
     .captcha-refresh:hover { background: var(--paper-2); color: var(--ink); }
     .captcha-refresh svg { width: 16px; height: 16px; }
 
+    /* BYO OpenAI key — pre-launch scaffolding. */
+    .key-row { position: relative; }
+    .key-row input[type="password"] {
+      width: 100%; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 14px; letter-spacing: 0.02em;
+      background: var(--paper); color: var(--ink);
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: 12px 14px; padding-right: 72px; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .key-row input[type="password"]:focus {
+      outline: none; border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(201,106,46,0.15);
+    }
+    .key-toggle {
+      position: absolute; right: 8px; top: 8px;
+      background: transparent; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 4px 10px;
+      font-size: 12px; font-weight: 500; color: var(--ink-3);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .key-toggle:hover { background: var(--paper-2); color: var(--ink); }
+    .key-row .hint a { color: var(--accent); }
+    .key-panel { display: none; }
+    .key-panel.is-visible { display: block; }
+
     .submit-btn {
       width: 100%; font-family: 'DM Sans', sans-serif;
       font-size: 15px; font-weight: 600; color: white;
@@ -403,15 +428,32 @@
             <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
           </div>
 
-          <div class="form-row">
+          <div class="form-row" id="captchaWrap">
             <label for="captchaAnswer">Quick check</label>
             <div class="captcha-row">
               <div class="captcha-prompt is-loading" id="captchaPrompt">Loading a math problem…</div>
-              <input type="text" id="captchaAnswer" name="captchaAnswer" required maxlength="16" autocomplete="off" inputmode="numeric" placeholder="Answer" />
+              <input type="text" id="captchaAnswer" name="captchaAnswer" maxlength="16" autocomplete="off" inputmode="numeric" placeholder="Answer" />
               <button type="button" class="captcha-refresh" id="captchaRefresh" title="Get a new question" aria-label="Get a new question">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg>
               </button>
             </div>
+          </div>
+
+          <!-- BYO OpenAI key — optional, pre-launch only. The backend
+               prefers this over the project's ``OPENAI_API_KEY`` when
+               both are set, so contributors can use a personal key
+               while the project secret is still being provisioned. -->
+          <div class="form-row key-panel" id="keyPanel">
+            <label for="openaiKey">Your OpenAI API key <span style="font-weight:400;color:var(--ink-3);">· optional</span></label>
+            <div class="key-row">
+              <input type="password" id="openaiKey" name="openaiKey" maxlength="256" autocomplete="off" spellcheck="false" placeholder="sk-…" />
+              <button type="button" class="key-toggle" id="keyToggle" aria-label="Show key">Show</button>
+            </div>
+            <span class="hint">
+              Stored only in your browser (<code>localStorage</code>) and sent as a header on each call.
+              Leave blank to use the project key once it's provisioned.
+              <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener">Get a key →</a>
+            </span>
           </div>
 
           <button type="submit" class="submit-btn" id="submitBtn">
@@ -476,8 +518,13 @@
       var TOKEN_KEY = 'bridgn.contributor_token';
       var TOKEN_EXP_KEY = 'bridgn.contributor_expires_at';
       var PROFILE_KEY = 'bridgn.contributor_profile';
+      // Personal OpenAI key — present only while the project secret is
+      // still being provisioned. The authoring app reads the same key
+      // and sends it on every backend call.
+      var OPENAI_KEY_STORAGE = 'bridgn.openai_api_key';
 
       var captchaPrompt = document.getElementById('captchaPrompt');
+      var captchaWrap = document.getElementById('captchaWrap');
       var captchaInput = document.getElementById('captchaAnswer');
       var captchaRefresh = document.getElementById('captchaRefresh');
       var form = document.getElementById('registerForm');
@@ -486,8 +533,34 @@
       var nameInput = document.getElementById('name');
       var contactInput = document.getElementById('contact');
       var hpInput = document.getElementById('website');
+      var keyPanel = document.getElementById('keyPanel');
+      var keyInput = document.getElementById('openaiKey');
+      var keyToggle = document.getElementById('keyToggle');
 
       var currentChallenge = null;
+      var captchaDisabled = false;
+
+      // Pre-fill BYO key from storage so returning contributors don't retype it.
+      try {
+        var storedKey = localStorage.getItem(OPENAI_KEY_STORAGE) || '';
+        if (storedKey) keyInput.value = storedKey;
+      } catch (_e) { /* ignore */ }
+
+      keyToggle.addEventListener('click', function () {
+        if (keyInput.type === 'password') {
+          keyInput.type = 'text';
+          keyToggle.textContent = 'Hide';
+        } else {
+          keyInput.type = 'password';
+          keyToggle.textContent = 'Show';
+        }
+      });
+
+      // Show the BYO-key panel unconditionally; it's optional when the
+      // project key is configured and required when it isn't. Keeping
+      // it visible lets contributors swap to a personal key whenever
+      // they want — removing it after launch is a one-line edit.
+      keyPanel.classList.add('is-visible');
 
       // If the user already registered recently, skip straight into the authoring UI.
       try {
@@ -520,8 +593,18 @@
           })
           .then(function (data) {
             currentChallenge = data.challenge;
-            captchaPrompt.textContent = data.question;
-            captchaPrompt.classList.remove('is-loading');
+            if (data.disabled) {
+              // Pre-launch mode — hide the whole row; the backend will
+              // accept any answer. We still send ``challenge: "disabled"``
+              // on submit so the payload shape stays stable.
+              captchaDisabled = true;
+              captchaWrap.style.display = 'none';
+            } else {
+              captchaDisabled = false;
+              captchaWrap.style.display = '';
+              captchaPrompt.textContent = data.question;
+              captchaPrompt.classList.remove('is-loading');
+            }
           })
           .catch(function () {
             captchaPrompt.textContent = 'Could not load — click refresh.';
@@ -538,10 +621,22 @@
         var name = nameInput.value.trim();
         var contact = contactInput.value.trim();
         var answer = captchaInput.value.trim();
+        var byoKey = (keyInput.value || '').trim();
         if (!name) { showMessage('Please enter your name.', 'error'); nameInput.focus(); return; }
         if (!contact) { showMessage('Please add an email or phone.', 'error'); contactInput.focus(); return; }
-        if (!answer) { showMessage('Please answer the math question.', 'error'); captchaInput.focus(); return; }
-        if (!currentChallenge) { showMessage('Captcha still loading — try the refresh button.', 'error'); return; }
+        if (!captchaDisabled) {
+          if (!answer) { showMessage('Please answer the math question.', 'error'); captchaInput.focus(); return; }
+          if (!currentChallenge) { showMessage('Captcha still loading — try the refresh button.', 'error'); return; }
+        }
+
+        // Stash the BYO key (or clear it if the field was blanked) so
+        // the authoring app picks it up on the next request. Do this
+        // before the network call; registration failure shouldn't make
+        // the user re-enter the key.
+        try {
+          if (byoKey) localStorage.setItem(OPENAI_KEY_STORAGE, byoKey);
+          else localStorage.removeItem(OPENAI_KEY_STORAGE);
+        } catch (_e) { /* ignore */ }
 
         submitBtn.disabled = true;
         submitBtn.classList.add('is-loading');
@@ -552,7 +647,7 @@
           body: JSON.stringify({
             name: name,
             contact: contact,
-            captcha_challenge: currentChallenge,
+            captcha_challenge: currentChallenge || 'disabled',
             captcha_answer: answer,
             website: hpInput.value || ''
           })

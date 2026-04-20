@@ -124,6 +124,10 @@
   // -----------------------------------------------------------------------
   const CONTRIBUTOR_TOKEN_KEY = 'bridgn.contributor_token';
   const CONTRIBUTOR_EXP_KEY   = 'bridgn.contributor_expires_at';
+  // Personal OpenAI key, set on contribute.html while the project's
+  // OPENAI_API_KEY secret is still being provisioned. Passed through
+  // to the backend as ``X-OpenAI-Api-Key`` on every call.
+  const OPENAI_KEY_STORAGE    = 'bridgn.openai_api_key';
 
   function readContributorToken() {
     try {
@@ -133,6 +137,11 @@
       if (exp && exp < Math.floor(Date.now() / 1000)) return '';
       return token;
     } catch (_e) { return ''; }
+  }
+
+  function readBYOOpenAIKey() {
+    try { return (localStorage.getItem(OPENAI_KEY_STORAGE) || '').trim(); }
+    catch (_e) { return ''; }
   }
 
   function clearContributorToken() {
@@ -158,6 +167,8 @@
     if (state.sessionToken) headers['X-Session-Token'] = state.sessionToken;
     const contribToken = readContributorToken();
     if (contribToken) headers['X-Contributor-Token'] = contribToken;
+    const byoKey = readBYOOpenAIKey();
+    if (byoKey) headers['X-OpenAI-Api-Key'] = byoKey;
     const opts = { method, headers };
     if (body !== undefined) opts.body = JSON.stringify(body);
     const res = await fetch(API_BASE + path, opts);
