@@ -56,7 +56,7 @@
     get INPUT_PLACEHOLDER_ANSWER()     { return tr('contribute.chat.input_placeholder_answer', 'Type your answer…'); },
     get INPUT_PLACEHOLDER_CORRECTION() { return tr('contribute.chat.input_placeholder_correction', 'Type a correction…'); },
     get INPUT_PLACEHOLDER_GENERATING() { return tr('contribute.chat.input_placeholder_generating', 'Generating sign…'); },
-    get CORRECTION_HINT()              { return tr('contribute.chat.correction_hint', 'Click on the avatar to target a specific moment or body part (optional).'); },
+    get CORRECTION_HINT()              { return tr('contribute.chat.correction_hint', 'Just describe what should change. Clicking a body region is optional.'); },
     get REPLY_USER_QUESTION()          { return tr('contribute.chat.reply_user_question', "I can only ask about this sign. If you'd like to learn HamNoSys, see the docs link below."); },
     get GENERATING_MSG()               { return tr('contribute.chat.generating_msg', 'Enough information to draft the sign. Preparing preview.'); },
     get READY_MSG()                    { return tr('contribute.chat.ready_msg', 'Draft is ready. Review the preview below and either submit or describe a correction.'); },

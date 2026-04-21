@@ -6,12 +6,13 @@
  * - Renders the CWASA signing-avatar canvas inside a 16:9 stage with a
  *   light-gray backdrop (Kipp et al. 2011 avatar UX: dark backdrops
  *   reduce legibility for many Deaf users).
- * - Control bar: Play/Pause button, Loop checkbox, timeline scrubber
- *   with current/total time labels, three playback-speed buttons.
+ * - Control bar: Play/Pause button, Loop checkbox, three playback-speed
+ *   buttons. No timeline scrubber — CWASA exposes no seek API, so a
+ *   draggable cursor would advertise control we can't honor.
  * - Body-region SVG overlay — hovering a region softens its outline;
- *   clicking captures region + current time, focuses the chat input
- *   in correction mode, and posts a dismissible pill showing the
- *   captured target.
+ *   clicking captures the region (plus the best-effort current time)
+ *   and hands it to the chat module as a pill. Targeting is optional:
+ *   corrections may also be submitted as free text with no region.
  * - Generation progress is handled *inside* the pane — a muted pulse
  *   on the backdrop during GENERATING/RENDERING, never a spinner or
  *   percentage. Status strip underneath narrates in plain text.
@@ -21,11 +22,9 @@
  *   enabled.
  * - Cache signal: if we're asked to render a SiGML string we've
  *   already seen this session, show "From cache" for 1.5s.
- * - Accessibility: keyboard controls (space play/pause, arrows
- *   scrub ±100ms, shift+arrows ±1s), aria-live status strip, the
- *   scrubber carries role="slider" + min/max/valuenow/valuetext,
- *   captions show the gloss and description so Deaf reviewers can
- *   cross-check contributor intent.
+ * - Accessibility: keyboard play/pause (space), aria-live status
+ *   strip, captions show the gloss and description so Deaf reviewers
+ *   can cross-check contributor intent.
  * - Layout stability: the pane never moves once mounted — an empty
  *   state shows a neutral avatar so the notation panel below keeps
  *   its y-position across generation.
@@ -41,8 +40,6 @@
 
   // ---------- constants ----------
 
-  var SCRUB_SMALL_STEP_MS = 100;
-  var SCRUB_LARGE_STEP_MS = 1000;
   var DEFAULT_DURATION_MS = 1400;
   var CACHE_BADGE_MS = 1500;
   var CWASA_WAIT_MS = 6000; // if CWASA never arrives, assume the bundle failed
@@ -96,9 +93,6 @@
     controls:        null, // resolved in init()
     playBtn:         document.getElementById('avatarPlayBtn'),
     loopInput:       document.getElementById('avatarLoopInput'),
-    scrubber:        document.getElementById('avatarScrubber'),
-    scrubberTicks:   document.getElementById('avatarScrubberTicks'),
-    time:            document.getElementById('avatarTime'),
     speedBtns:       null, // resolved in init()
     captions:        document.getElementById('avatarCaptions'),
     captionGloss:    document.getElementById('avatarCaptionGloss'),
@@ -125,16 +119,13 @@
     // once. If a second render request lands for a string we've seen
     // already, we flash "From cache" next to the status.
     playedSigml:         Object.create(null),
-    // Virtual playback cursor. CWASA does not expose a seek API in its
-    // public surface, so the scrubber is driven by `avatarframe` hook
-    // updates during playback and by arrow-key / pointer drags when
-    // paused. The captured value is what we forward into /correct's
-    // target_time_ms.
+    // Virtual playback cursor, driven by `avatarframe` hook updates
+    // during playback. Without a seek API there is no user-facing
+    // scrubber; we still track a best-effort current time so a region
+    // click can forward an approximate target_time_ms to /correct.
     currentTimeMs:       0,
     durationMs:          DEFAULT_DURATION_MS,
     playing:             false,
-    scrubbing:           false,
-    scrubberWasPlaying:  false,
     // Observed frame/sign data from CWASA hooks — we use the animidle
     // edge to flip playing → false (and to schedule loop restarts).
     hookAttached:        false,
@@ -262,14 +253,10 @@
       var fps = 30;
       var ms = Math.round((info.f / fps) * 1000);
       if (ms > state.durationMs - 40) {
-        // We're approaching the tail of the estimated window — stretch
-        // it so the scrubber has room to reach the end cleanly.
         state.durationMs = ms + 200;
         applyDurationChange();
       }
-      if (!state.scrubbing) {
-        setCurrentTime(ms, { fromHook: true });
-      }
+      setCurrentTime(ms, { fromHook: true });
     }, 0);
 
     window.CWASA.addHook('animactive', function () {
@@ -320,7 +307,6 @@
 
     var interactive = state.cwasaReady && !failed;
     els.playBtn.disabled = !interactive;
-    els.scrubber.disabled = !interactive;
   }
 
   function applyPlayButtonState() {
@@ -367,81 +353,19 @@
     }, CACHE_BADGE_MS);
   }
 
-  // ---------- scrubber + duration ----------
+  // ---------- time tracking ----------
 
   function formatSeconds(ms) {
     var s = Math.max(0, ms) / 1000;
     return s.toFixed(2);
   }
 
-  function setCurrentTime(ms, opts) {
-    opts = opts || {};
+  function setCurrentTime(ms, _opts) {
     var clamped = Math.max(0, Math.min(ms, state.durationMs));
     state.currentTimeMs = clamped;
-    els.scrubber.value = String(clamped);
-    els.scrubber.setAttribute('aria-valuenow', String(clamped));
-    els.scrubber.setAttribute('aria-valuetext',
-      formatSeconds(clamped) + ' seconds of ' +
-      formatSeconds(state.durationMs) + ' seconds');
-    els.time.textContent = formatSeconds(clamped) + ' / ' +
-                           formatSeconds(state.durationMs) + ' s';
   }
 
-  function applyDurationChange() {
-    els.scrubber.max = String(state.durationMs);
-    els.scrubber.setAttribute('aria-valuemax', String(state.durationMs));
-    renderScrubberTicks();
-    setCurrentTime(state.currentTimeMs); // re-render time label
-  }
-
-  function renderScrubberTicks() {
-    // Native range tick marks via <datalist>. 100ms granularity, kept
-    // light — we only emit integer deciseconds.
-    while (els.scrubberTicks.firstChild) {
-      els.scrubberTicks.removeChild(els.scrubberTicks.firstChild);
-    }
-    var step = SCRUB_SMALL_STEP_MS;
-    for (var t = 0; t <= state.durationMs; t += step) {
-      var opt = document.createElement('option');
-      opt.value = String(t);
-      els.scrubberTicks.appendChild(opt);
-    }
-  }
-
-  function onScrubberInput(ev) {
-    var ms = parseInt(ev.target.value, 10);
-    if (!isFinite(ms)) return;
-    setCurrentTime(ms);
-  }
-
-  function onScrubberPointerDown() {
-    state.scrubbing = true;
-    state.scrubberWasPlaying = state.playing;
-    if (state.playing) doPause();
-  }
-
-  function onScrubberPointerUp() {
-    state.scrubbing = false;
-    // We don't attempt to seek CWASA — the captured time is forwarded
-    // into the next correction. If the user was playing before they
-    // grabbed the handle, we don't auto-resume (the typical flow is:
-    // scrub → click a region → describe a correction).
-    state.scrubberWasPlaying = false;
-  }
-
-  function onScrubberKey(ev) {
-    if (els.scrubber.disabled) return;
-    var delta = 0;
-    if (ev.key === 'ArrowLeft' || ev.key === 'ArrowDown') {
-      delta = ev.shiftKey ? -SCRUB_LARGE_STEP_MS : -SCRUB_SMALL_STEP_MS;
-    } else if (ev.key === 'ArrowRight' || ev.key === 'ArrowUp') {
-      delta = ev.shiftKey ? SCRUB_LARGE_STEP_MS : SCRUB_SMALL_STEP_MS;
-    } else {
-      return;
-    }
-    ev.preventDefault();
-    setCurrentTime(state.currentTimeMs + delta);
-  }
+  function applyDurationChange() { /* scrubber removed — duration drifts silently */ }
 
   // ---------- play / pause / loop / speed ----------
 
@@ -499,8 +423,7 @@
     // CWASA's built-in hidden GUI carries a speed slider we can drive
     // via DOM. 0 is neutral; each ±1 step is a doubling/halving. We map
     // 0.5→−1, 1→0, 2→+1. If the slider isn't present (older CWASA,
-    // GUI removed), we silently skip — the scrubber still reflects
-    // wall-clock time from avatarframe either way.
+    // GUI removed), we silently skip.
     var logStep = Math.round(Math.log(rate) / Math.log(2));
     var slider = document.querySelector('.CWASAGUI.av0 .spdBase, .CWASAGUI.av0 input[type="range"]');
     if (slider) {
@@ -536,8 +459,8 @@
 
     if (!changed) return;
 
-    // Always reset the scrubber to 0 on new SiGML so the user isn't
-    // silently forwarded into the tail of the previous clip.
+    // Reset the internal cursor on new SiGML so a subsequent region
+    // click doesn't forward a target_time_ms from the previous clip.
     setCurrentTime(0);
 
     // Reset estimated duration — we'll refine upward from avatarframe.
@@ -616,8 +539,7 @@
     // Only steal keys when the pane contains focus — so typing in the
     // chat textarea still spaces-in-text as expected.
     if (!els.panel.contains(document.activeElement)) return;
-    if (ev.target && ev.target.tagName === 'INPUT' &&
-        ev.target.type !== 'range' && ev.target.type !== 'checkbox') return;
+    if (ev.target && ev.target.tagName === 'INPUT' && ev.target.type !== 'checkbox') return;
     if (ev.target && ev.target.tagName === 'TEXTAREA') return;
 
     if (ev.key === ' ' || ev.key === 'Spacebar') {
@@ -625,7 +547,6 @@
       ev.preventDefault();
       togglePlay();
     }
-    // ArrowLeft/Right on the scrubber are handled by onScrubberKey.
   }
 
   // ---------- subscriber ----------
@@ -700,10 +621,6 @@
     els.loopInput.addEventListener('change', function () {
       if (!els.loopInput.checked) state.loopPending = false;
     });
-    els.scrubber.addEventListener('input', onScrubberInput);
-    els.scrubber.addEventListener('pointerdown', onScrubberPointerDown);
-    els.scrubber.addEventListener('pointerup', onScrubberPointerUp);
-    els.scrubber.addEventListener('keydown', onScrubberKey);
     for (var i = 0; i < els.speedBtns.length; i++) {
       els.speedBtns[i].addEventListener('click', onSpeedClick);
     }

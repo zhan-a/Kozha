@@ -122,7 +122,7 @@
       "input_placeholder_answer": "Type your answer…",
       "input_placeholder_correction": "Type a correction…",
       "input_placeholder_generating": "Generating sign…",
-      "correction_hint": "Click on the avatar to target a specific moment or body part (optional).",
+      "correction_hint": "Just describe what should change. Clicking a body region is optional.",
       "target_pill_clear_aria": "Clear correction target",
       "target_pill_time_prefix": "At {{time}}s",
       "target_pill_separator": " • ",

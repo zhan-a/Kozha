@@ -11,6 +11,12 @@ from __future__ import annotations
 
 
 PRICING_PER_1M_TOKENS: dict[str, dict[str, float]] = {
+    "gpt-5":             {"input": 1.25,  "output": 10.00},
+    "gpt-5-mini":        {"input": 0.25,  "output": 2.00},
+    "gpt-5-nano":        {"input": 0.05,  "output": 0.40},
+    "gpt-4.1":           {"input": 2.00,  "output": 8.00},
+    "gpt-4.1-mini":      {"input": 0.40,  "output": 1.60},
+    "gpt-4.1-nano":      {"input": 0.10,  "output": 0.40},
     "gpt-4o":            {"input": 2.50,  "output": 10.00},
     "gpt-4o-2024-08-06": {"input": 2.50,  "output": 10.00},
     "gpt-4o-2024-05-13": {"input": 5.00,  "output": 15.00},
@@ -18,6 +24,8 @@ PRICING_PER_1M_TOKENS: dict[str, dict[str, float]] = {
     "gpt-4-turbo":       {"input": 10.00, "output": 30.00},
     "gpt-4":             {"input": 30.00, "output": 60.00},
     "gpt-3.5-turbo":     {"input": 0.50,  "output": 1.50},
+    "o3":                {"input": 2.00,  "output": 8.00},
+    "o3-mini":           {"input": 1.10,  "output": 4.40},
     "o1":                {"input": 15.00, "output": 60.00},
     "o1-mini":           {"input": 3.00,  "output": 12.00},
     "o1-preview":        {"input": 15.00, "output": 60.00},

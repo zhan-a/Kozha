@@ -122,6 +122,27 @@ def _resolve_api_key(explicit: str | None) -> str:
     return os.environ.get("OPENAI_API_KEY", "")
 
 
+# Strongest general-purpose model as of this package's pricing table
+# snapshot. Override at deploy time with ``CHAT2HAMNOSYS_MODEL`` if the
+# project key lacks access to the default. The fallback model is what
+# the retry path switches to when the primary is rate-limited past its
+# retry budget — stay on a widely-available tier there.
+_DEFAULT_MODEL_ENV = "CHAT2HAMNOSYS_MODEL"
+_DEFAULT_FALLBACK_MODEL_ENV = "CHAT2HAMNOSYS_FALLBACK_MODEL"
+_BUILTIN_DEFAULT_MODEL = "gpt-5"
+_BUILTIN_DEFAULT_FALLBACK_MODEL = "gpt-4o"
+
+
+def _default_model() -> str:
+    return os.environ.get(_DEFAULT_MODEL_ENV, _BUILTIN_DEFAULT_MODEL)
+
+
+def _default_fallback_model() -> str:
+    return os.environ.get(
+        _DEFAULT_FALLBACK_MODEL_ENV, _BUILTIN_DEFAULT_FALLBACK_MODEL
+    )
+
+
 # ---------------------------------------------------------------------------
 # Result types
 # ---------------------------------------------------------------------------
@@ -213,6 +234,36 @@ def _is_retryable(exc: Exception) -> bool:
     )
 
 
+def _is_model_unavailable(exc: Exception) -> bool:
+    """Heuristic: did OpenAI reject this request because the model is not
+    available on the active API key?
+
+    Covers the 404 ``model_not_found`` path and the 400 ``invalid_model``
+    path — both shapes OpenAI has used at various points. We never want
+    to retry blindly on arbitrary 4xx errors (that path is a bug to
+    surface), so we look specifically for the "model" substring in the
+    error body. Used to trigger the one-shot fallback in
+    :meth:`LLMClient._invoke_with_retry`.
+    """
+    if not isinstance(exc, APIStatusError):
+        return False
+    status = getattr(exc, "status_code", 0) or 0
+    if status not in (400, 403, 404):
+        return False
+    body = str(exc).lower()
+    return (
+        "model" in body
+        and (
+            "not_found" in body
+            or "not found" in body
+            or "does not exist" in body
+            or "invalid_model" in body
+            or "unsupported_model" in body
+            or "does not have access" in body
+        )
+    )
+
+
 def _prompt_fields(prompt_metadata: Any) -> dict[str, Any]:
     """Extract telemetry fields from a ``PromptMetadata`` (or equivalent).
 
@@ -269,8 +320,8 @@ class LLMClient:
     def __init__(
         self,
         api_key: str | None = None,
-        model: str = "gpt-4o",
-        fallback_model: str = "gpt-4o-mini",
+        model: str | None = None,
+        fallback_model: str | None = None,
         *,
         budget: BudgetGuard | None = None,
         telemetry: TelemetryLogger | None = None,
@@ -285,8 +336,12 @@ class LLMClient:
                 "no OpenAI API key: pass api_key= or set the OPENAI_API_KEY env var"
             )
         self._api_key = resolved
-        self.model = model
-        self.fallback_model = fallback_model
+        self.model = model if model is not None else _default_model()
+        self.fallback_model = (
+            fallback_model
+            if fallback_model is not None
+            else _default_fallback_model()
+        )
         self.budget = budget if budget is not None else BudgetGuard()
         self.telemetry = telemetry if telemetry is not None else TelemetryLogger()
         self._client = client if client is not None else OpenAI(api_key=resolved)
@@ -562,6 +617,26 @@ class LLMClient:
                 latency_ms = int((time.perf_counter() - start) * 1000)
                 return response, self.model, latency_ms, False
             except Exception as exc:
+                if _is_model_unavailable(exc) and self.fallback_model != self.model:
+                    # Primary model isn't usable on this API key — fall
+                    # back to the known-available model immediately
+                    # rather than burning retries we'll lose anyway.
+                    start = time.perf_counter()
+                    try:
+                        response = self._client.chat.completions.create(
+                            model=self.fallback_model, **kwargs
+                        )
+                        latency_ms = int((time.perf_counter() - start) * 1000)
+                        return response, self.fallback_model, latency_ms, True
+                    except Exception as fallback_exc:
+                        self._log_failure(
+                            request_id,
+                            self.fallback_model,
+                            temperature,
+                            fallback_exc,
+                            prompt_metadata,
+                        )
+                        raise
                 if not _is_retryable(exc):
                     self._log_failure(
                         request_id, self.model, temperature, exc, prompt_metadata
