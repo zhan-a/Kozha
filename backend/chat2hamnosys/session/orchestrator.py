@@ -236,6 +236,12 @@ def _generate_and_ask(
     if not questions:
         # No parser gaps or clarifier returned nothing — move to GENERATING.
         return session.with_state(SessionState.GENERATING)
+    # Ask one clarification per turn, even if the generator surfaced
+    # multiple gaps — presenting two at once fragments the chat and
+    # makes free-form answers ambiguous about which field they address.
+    # Remaining gaps will be asked on the next turn after the first
+    # answer lands.
+    questions = questions[:1]
     for q in questions:
         emit_event(
             _evs.CLARIFY_QUESTION_ASKED,

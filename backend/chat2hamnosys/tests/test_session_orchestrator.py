@@ -347,8 +347,10 @@ def test_happy_path_description_clarify_twice_generate_accept(tmp_path: Path):
 
 
 def test_on_clarification_answer_stays_clarifying_while_pending_remain():
-    # Parser returns two pending questions in the same batch; answering
-    # one should keep the session in CLARIFYING.
+    # Parser returns two gaps. The orchestrator emits clarifications
+    # one at a time, so the first round asks q1 and the second round
+    # asks q2 after the user answers q1. State must stay in CLARIFYING
+    # across both rounds.
     q1 = _q("orientation_extended_finger", "up")
     q2 = _q("orientation_palm", "down")
     parse_fn = _StubParser(
@@ -361,11 +363,11 @@ def test_on_clarification_answer_stays_clarifying_while_pending_remain():
             raw_response="{}",
         )
     )
-    question_fn = _StubQuestioner([q1, q2])
+    question_fn = _StubQuestioner([q1], [q2])
 
     s = start_session(signer_id="alice", gloss="TEMPLE")
     s = on_description(s, "fist at temple", parse_fn=parse_fn, question_fn=question_fn)
-    assert len(s.draft.pending_questions) == 2
+    assert [q.field for q in s.draft.pending_questions] == ["orientation_extended_finger"]
 
     after_q1 = PartialSignParameters(
         handshape_dominant="fist",
@@ -380,9 +382,13 @@ def test_on_clarification_answer_stays_clarifying_while_pending_remain():
     )
     assert s.state == SessionState.CLARIFYING
     assert [q.field for q in s.draft.pending_questions] == ["orientation_palm"]
-    # One ANSWERED event, no new ASKED event yet.
     types = [e.type for e in s.history]
-    assert types == ["described", "clarification_asked", "clarification_answered"]
+    assert types == [
+        "described",
+        "clarification_asked",
+        "clarification_answered",
+        "clarification_asked",
+    ]
 
 
 def test_on_clarification_answer_requires_pending_question_for_field():

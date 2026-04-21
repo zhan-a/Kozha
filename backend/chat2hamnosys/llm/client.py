@@ -129,8 +129,22 @@ def _resolve_api_key(explicit: str | None) -> str:
 # retry budget — stay on a widely-available tier there.
 _DEFAULT_MODEL_ENV = "CHAT2HAMNOSYS_MODEL"
 _DEFAULT_FALLBACK_MODEL_ENV = "CHAT2HAMNOSYS_FALLBACK_MODEL"
-_BUILTIN_DEFAULT_MODEL = "gpt-5.4"
+# ``gpt-5.4`` was set briefly but is not a real OpenAI model id — it
+# caused the HamNoSys generator to hang through full-duration retries
+# when the slot-resolver and repair loops each hit the non-existent
+# model. ``gpt-5`` is the strongest real model available and has a
+# clean fallback to ``gpt-4o`` via :meth:`_invoke_with_retry`.
+_BUILTIN_DEFAULT_MODEL = "gpt-5"
 _BUILTIN_DEFAULT_FALLBACK_MODEL = "gpt-4o"
+
+# Per-request timeout in seconds for the OpenAI SDK. A single hanging
+# chat completion must not be allowed to tie up the /answer endpoint —
+# the generator's slot-resolver and repair loops each issue several
+# LLM calls, and OpenAI's default (600s) made the page appear dead
+# when a model id was unavailable. We also disable the SDK's own retry
+# loop (``max_retries=0``) so :meth:`_invoke_with_retry` is the single
+# owner of retry policy and the model-unavailable fallback path.
+_OPENAI_REQUEST_TIMEOUT_S = 30.0
 
 
 def _default_model() -> str:
@@ -344,7 +358,15 @@ class LLMClient:
         )
         self.budget = budget if budget is not None else BudgetGuard()
         self.telemetry = telemetry if telemetry is not None else TelemetryLogger()
-        self._client = client if client is not None else OpenAI(api_key=resolved)
+        self._client = (
+            client
+            if client is not None
+            else OpenAI(
+                api_key=resolved,
+                timeout=_OPENAI_REQUEST_TIMEOUT_S,
+                max_retries=0,
+            )
+        )
         self._async_client = async_client
         self.max_retries = max_retries
         self.base_backoff = base_backoff
@@ -492,7 +514,11 @@ class LLMClient:
         )
 
         if self._async_client is None:
-            self._async_client = AsyncOpenAI(api_key=self._api_key)
+            self._async_client = AsyncOpenAI(
+                api_key=self._api_key,
+                timeout=_OPENAI_REQUEST_TIMEOUT_S,
+                max_retries=0,
+            )
 
         kwargs = self._build_kwargs(
             messages, tools, response_format, temperature, max_tokens, stream=True

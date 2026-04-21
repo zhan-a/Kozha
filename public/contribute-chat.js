@@ -220,6 +220,14 @@
       els.input.setAttribute('placeholder', COPY.INPUT_PLACEHOLDER_ANSWER);
     }
 
+    // When an in-flight request completes, this function runs again
+    // with loading=false. It must restore the options-row visibility
+    // that the loading branch above turns off, otherwise a second
+    // clarification's buttons render into a container that stays
+    // display:none.
+    var q = chat.currentQuestion;
+    els.options.hidden = !(q && q.options && q.options.length);
+
     els.input.disabled = noActiveTurn;
     els.sendBtn.disabled = noActiveTurn || !(els.input.value || '').trim();
   }
