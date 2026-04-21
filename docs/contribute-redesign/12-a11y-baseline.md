@@ -1,6 +1,6 @@
 # A11y baseline — prompt 12
 
-Captured by `scripts/a11y/run.mjs` on 2026-04-21 15:18:13 UTC.
+Captured by `scripts/a11y/run.mjs` on 2026-04-21 15:38:11 UTC.
 
 Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best-practice`) and pa11y (HTML_CodeSniffer, `WCAG2AA`) against each scenario below. Raw JSON per scenario is in `12-a11y-raw/`.
 
@@ -8,7 +8,7 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 | id | scenario | axe crit | axe serious | axe mod | axe minor | pa11y error | pa11y warn |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | landing | Landing page / (index.html) | 0 | 0 | 0 | 0 | 0 | 22 |
-| contribute-empty | Contribute — empty state, language picker | 0 | 0 | 0 | 0 | 0 | 5 |
+| contribute-empty | Contribute — empty state, language picker | 0 | 0 | 0 | 0 | 1 | 5 |
 | contribute-after-language | Contribute — language selected, empty authoring area | 0 | 0 | 0 | 0 | 0 | 0 |
 | contribute-mid-session | Contribute — mid-session (chat + preview + notation + submit visible) | 0 | 0 | 0 | 0 | 0 | 0 |
 | governance | Governance page | 0 | 0 | 0 | 0 | 0 | 3 |
@@ -21,7 +21,7 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Landing page / (index.html)
 
-- URL: `http://127.0.0.1:50327/`
+- URL: `http://127.0.0.1:50569/`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 22 warning
 
@@ -51,14 +51,16 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Contribute — empty state, language picker
 
-- URL: `http://127.0.0.1:50327/contribute.html`
+- URL: `http://127.0.0.1:50569/contribute.html`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
-- pa11y: 0 error, 5 warning
+- pa11y: 1 error, 5 warning
 
 ### pa11y issues
 
 - **warning** `WCAG2AA.Principle1.Guideline1_3.1_3_1.H48` — If this element contains a navigation section, it is recommended that it be marked up as a list.
   - `#contributePaused > p:nth-child(4)`
+- **error** `WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2` — This form does not contain a submit button, which creates issues for those who cannot submit the form using the keyboard. Submit buttons are INPUT elements with type attribute "submit" or "image", or BUTTON elements with type "submit" or omitted/invalid.
+  - `#byoKeyForm`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206` — Preformatted text may require scrolling in two dimensions, which is considered a failure of this Success Criterion.
   - ``
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206` — This element has "position: fixed". This may require scrolling in two dimensions, which is considered a failure of this Success Criterion.
@@ -70,19 +72,19 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Contribute — language selected, empty authoring area
 
-- URL: `http://127.0.0.1:50327/contribute.html`
+- URL: `http://127.0.0.1:50569/contribute.html`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 0 warning
 
 ## Contribute — mid-session (chat + preview + notation + submit visible)
 
-- URL: `http://127.0.0.1:50327/contribute.html`
+- URL: `http://127.0.0.1:50569/contribute.html`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 0 warning
 
 ## Governance page
 
-- URL: `http://127.0.0.1:50327/governance.html`
+- URL: `http://127.0.0.1:50569/governance.html`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 3 warning
 
@@ -97,7 +99,7 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Submission status — draft
 
-- URL: `http://127.0.0.1:50327/contribute/status/sim-draft`
+- URL: `http://127.0.0.1:50569/contribute/status/sim-draft`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 1 warning
 
@@ -108,7 +110,7 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Submission status — pending_review
 
-- URL: `http://127.0.0.1:50327/contribute/status/sim-pending_review`
+- URL: `http://127.0.0.1:50569/contribute/status/sim-pending_review`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 1 warning
 
@@ -119,7 +121,7 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Submission status — under_review
 
-- URL: `http://127.0.0.1:50327/contribute/status/sim-under_review`
+- URL: `http://127.0.0.1:50569/contribute/status/sim-under_review`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 1 warning
 
@@ -130,7 +132,7 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Submission status — validated
 
-- URL: `http://127.0.0.1:50327/contribute/status/sim-validated`
+- URL: `http://127.0.0.1:50569/contribute/status/sim-validated`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 1 warning
 
@@ -141,7 +143,7 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Submission status — rejected
 
-- URL: `http://127.0.0.1:50327/contribute/status/sim-rejected`
+- URL: `http://127.0.0.1:50569/contribute/status/sim-rejected`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 1 warning
 
@@ -152,7 +154,7 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Submission status — quarantined
 
-- URL: `http://127.0.0.1:50327/contribute/status/sim-quarantined`
+- URL: `http://127.0.0.1:50569/contribute/status/sim-quarantined`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 1 warning
 

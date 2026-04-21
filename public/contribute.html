@@ -45,6 +45,43 @@
       <p class="contribute-paused-links"><a href="/governance.html" data-i18n="contribute.paused.governance_link">How review works</a><span aria-hidden="true"> · </span><a href="/contribute/me" data-i18n="contribute.paused.me_link">Your prior submissions</a></p>
     </section>
 
+    <!-- Bring-your-own OpenAI API key — fallback when the project key on
+         the server is missing or rate-limited. The key lives only in this
+         browser; contribute-byokey.js injects it as X-OpenAI-Api-Key on
+         every /api/chat2hamnosys/* call. Collapsed by default so it
+         doesn't crowd the primary flow. -->
+    <details class="byo-key">
+      <summary class="byo-key-summary">
+        <span class="byo-key-summary-text">Use your own OpenAI API key (optional)</span>
+      </summary>
+      <div class="byo-key-body">
+        <p class="byo-key-lede">
+          If the shared project key is unavailable or rate-limited, paste
+          your own OpenAI key here. It stays in this browser and is sent
+          directly from this page to the Bridgn backend on your requests
+          only. Remove it any time.
+        </p>
+        <form class="byo-key-form" id="byoKeyForm" novalidate>
+          <label class="byo-key-label" for="byoKeyInput">OpenAI API key</label>
+          <input
+            id="byoKeyInput"
+            type="password"
+            class="byo-key-input"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            placeholder="sk-…"
+            aria-describedby="byoKeyStatus byoKeyError">
+          <div class="byo-key-actions">
+            <button type="button" class="byo-key-save" id="byoKeySaveBtn">Save key</button>
+            <button type="button" class="byo-key-clear" id="byoKeyClearBtn" hidden>Remove saved key</button>
+          </div>
+          <p class="byo-key-status" id="byoKeyStatus" role="status" aria-live="polite">Using the project key on the server.</p>
+          <p class="byo-key-error" id="byoKeyError" role="alert" hidden></p>
+        </form>
+      </div>
+    </details>
+
     <!-- First-visit screen. Hidden once a language is active; re-shown via
          "change" (in the masthead below) or Cmd/Ctrl+K. -->
     <section class="language-picker" id="languagePicker" data-i18n-attr-aria-label="contribute.language_picker.section_label" aria-label="Sign language selection">
@@ -548,6 +585,9 @@
     </ul>
   </footer>
 
+  <!-- byokey.js must load first: it monkey-patches window.fetch to
+       inject X-OpenAI-Api-Key before any pipeline module fires a call. -->
+  <script src="/contribute-byokey.js"></script>
   <script src="/contribute-context.js"></script>
   <script src="/contribute-chat.js"></script>
   <script src="/contribute-notation.js"></script>

@@ -2280,3 +2280,113 @@ h1 {
     text-align: left;
   }
 }
+
+/* Bring-your-own OpenAI key — collapsed by default. Visual weight is
+   intentionally low so it reads as a side door, not a primary control. */
+.byo-key {
+  margin: 0 0 32px;
+  border: 1px solid var(--rule);
+  padding: 0;
+}
+.byo-key-summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 14px 18px;
+  font-size: 15px;
+  color: var(--ink);
+  user-select: none;
+}
+.byo-key-summary::-webkit-details-marker { display: none; }
+.byo-key-summary::before {
+  content: "+";
+  display: inline-block;
+  width: 16px;
+  color: var(--accent);
+  font-weight: 600;
+}
+.byo-key[open] > .byo-key-summary::before { content: "−"; }
+.byo-key-summary:hover { color: var(--accent); }
+.byo-key-summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.byo-key-body {
+  padding: 4px 18px 18px 34px;
+  border-top: 1px solid var(--rule);
+}
+.byo-key-lede {
+  margin: 14px 0 16px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+.byo-key-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.byo-key-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.byo-key-input {
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  padding: 10px 12px;
+  width: 100%;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.byo-key-input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-color: var(--ink);
+}
+.byo-key-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.byo-key-save,
+.byo-key-clear {
+  padding: 9px 18px;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  border: 0;
+  transition: opacity 120ms ease;
+}
+.byo-key-save {
+  background: var(--accent);
+  color: var(--paper);
+  font-weight: 500;
+}
+.byo-key-save:hover,
+.byo-key-save:focus-visible { opacity: 0.9; }
+.byo-key-clear {
+  background: transparent;
+  border: 1px solid var(--rule);
+  color: var(--muted);
+}
+.byo-key-clear:hover { color: var(--ink); }
+.byo-key-status {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+.byo-key-status-saved { color: var(--accent); font-weight: 500; }
+.byo-key-error {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #8a2a12;
+}
+@media (max-width: 640px) {
+  .byo-key-body { padding-left: 20px; }
+  .byo-key-save,
+  .byo-key-clear { width: 100%; }
+}
