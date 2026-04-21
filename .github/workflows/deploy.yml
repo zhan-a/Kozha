@@ -52,17 +52,21 @@ jobs:
 
           OPENAI_API_KEY_NEW='$OPENAI_API_KEY'
           if [ -n "\$OPENAI_API_KEY_NEW" ]; then
-            if [ ! -f /etc/kozha.env ]; then
-              echo "[deploy] /etc/kozha.env missing — run the one-time install from docs/chat2hamnosys/19-deployment.md to create it."
-              exit 1
+            if [ ! -f /etc/kozha.env ] && [ -f ../deploy/systemd/kozha.env ]; then
+              echo "[deploy] /etc/kozha.env missing — bootstrapping from deploy/systemd/kozha.env template. Operator should still populate CHAT2HAMNOSYS_SIGNER_ID_SALT and other host-specific values per docs/chat2hamnosys/19-deployment.md."
+              sudo install -o root -g kozha -m 600 ../deploy/systemd/kozha.env /etc/kozha.env
             fi
-            TMP=\$(sudo mktemp /etc/kozha.env.XXXXXX)
-            sudo chmod 600 "\$TMP"
-            sudo chown root:kozha "\$TMP"
-            sudo sh -c "grep -v '^OPENAI_API_KEY=' /etc/kozha.env > '\$TMP' || true"
-            printf 'OPENAI_API_KEY=%s\n' "\$OPENAI_API_KEY_NEW" | sudo tee -a "\$TMP" >/dev/null
-            sudo mv "\$TMP" /etc/kozha.env
-            echo "[deploy] OPENAI_API_KEY refreshed in /etc/kozha.env."
+            if [ -f /etc/kozha.env ]; then
+              TMP=\$(sudo mktemp /etc/kozha.env.XXXXXX)
+              sudo chmod 600 "\$TMP"
+              sudo chown root:kozha "\$TMP"
+              sudo sh -c "grep -v '^OPENAI_API_KEY=' /etc/kozha.env > '\$TMP' || true"
+              printf 'OPENAI_API_KEY=%s\n' "\$OPENAI_API_KEY_NEW" | sudo tee -a "\$TMP" >/dev/null
+              sudo mv "\$TMP" /etc/kozha.env
+              echo "[deploy] OPENAI_API_KEY refreshed in /etc/kozha.env."
+            else
+              echo "[deploy] /etc/kozha.env missing and no template available — skipping OPENAI_API_KEY refresh. Contributors can still use the BYO-key field on contribute.html."
+            fi
           else
             echo "[deploy] OPENAI_API_KEY secret not set — leaving /etc/kozha.env as-is. Contributors can still use the BYO-key field on contribute.html."
           fi

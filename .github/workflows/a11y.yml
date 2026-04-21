@@ -49,13 +49,16 @@ jobs:
 
       # Puppeteer ships its own Chromium at install time; the OS libs below
       # are the minimal set Ubuntu needs to launch headless Chromium in CI.
+      # Noble (24.04) renamed libasound2 -> libasound2t64 in the time_t
+      # 64-bit transition; libasound2 is now a virtual package with no
+      # installation candidate, so name the concrete package directly.
       - name: Install Chromium runtime deps
         run: |
           sudo apt-get update
           sudo apt-get install -y \
             libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 \
             libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 \
-            libxrandr2 libgbm1 libpango-1.0-0 libcairo2 libasound2
+            libxrandr2 libgbm1 libpango-1.0-0 libcairo2 libasound2t64
 
       - name: Run a11y baseline (axe + pa11y, CI mode)
         run: npm run a11y:ci
