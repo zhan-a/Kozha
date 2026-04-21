@@ -123,3 +123,21 @@ body {
   text-align: center;
   padding: 2px 0 4px;
 }
+
+#popup-footer {
+  padding: 8px 14px 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  text-align: center;
+}
+
+#popup-footer a {
+  font-size: 11px;
+  color: #a6a6a6;
+  text-decoration: none;
+}
+
+#popup-footer a:hover,
+#popup-footer a:focus {
+  color: #e8843e;
+  text-decoration: underline;
+}
