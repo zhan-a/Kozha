@@ -653,4 +653,17 @@ if DATA_DIR.exists():
 def serve_index():
     return FileResponse(PUBLIC_DIR / "index.html")
 
+
+# Permanent per-submission status URL. Prompt 10 ships this as the link
+# the contribute flow hands back after /accept — the path carries the
+# session id so an author (or a reviewer) can bookmark or share it.
+# The actual fetch goes to /api/chat2hamnosys/sessions/{id}/status; this
+# route just serves the static HTML shell. A trailing segment is tolerated
+# so /contribute/status/<id>/ also resolves.
+@app.get("/contribute/status/{session_id}", include_in_schema=False)
+@app.get("/contribute/status/{session_id}/", include_in_schema=False)
+def serve_contribute_status(session_id: str):  # noqa: ARG001 — id read by client JS
+    return FileResponse(PUBLIC_DIR / "contribute-status.html")
+
+
 app.mount("/", StaticFiles(directory=PUBLIC_DIR, html=True), name="public")

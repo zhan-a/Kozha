@@ -108,10 +108,14 @@ from .models import (
     PreviewOut,
     QuestionOut,
     RejectRequest,
+    ReviewerCommentOut,
     SessionEnvelope,
     SignEntryOut,
+    StatusResponse,
 )
 from .token_store import TokenStore
+from review.dependencies import get_reviewer_store
+from review.storage import ReviewerStore
 
 
 logger = logging.getLogger(__name__)
@@ -744,6 +748,7 @@ def post_accept(
     session_store: SessionStore = Depends(get_session_store),
     token_store: TokenStore = Depends(get_token_store),
     sign_store: SQLiteSignStore = Depends(get_sign_store),
+    reviewer_store: ReviewerStore = Depends(get_reviewer_store),
 ) -> AcceptResponse:
     session = _load_session(
         session_id,
@@ -762,9 +767,117 @@ def post_accept(
             code="internal_error",
         )
     entry = sign_store.get(accepted[-1].sign_entry_id)
+    # Promote draft → pending_review when a reviewer competent for this
+    # sign's language is on the roster. See
+    # docs/contribute-redesign/10-backend-gaps.md for the rationale.
+    # Defensive: if the reviewer DB is unavailable the accept still
+    # succeeds as a plain draft.
+    if entry.status == "draft":
+        try:
+            for reviewer in reviewer_store.list(only_active=True):
+                if reviewer.can_review(entry.sign_language, entry.regional_variant):
+                    entry.status = "pending_review"
+                    sign_store.put(entry)
+                    break
+        except Exception:
+            logger.warning(
+                "reviewer-roster check failed during accept; leaving entry as draft",
+                exc_info=True,
+            )
     return AcceptResponse(
         sign_entry=_sign_entry_out(entry),
         session=_envelope(session, request),
+    )
+
+
+@router.get(
+    "/sessions/{session_id}/status",
+    response_model=StatusResponse,
+    summary="Token-optional submission status for the contributor-facing URL",
+)
+def get_status(
+    session_id: UUID,
+    x_session_token: Optional[str] = Header(default=None),
+    session_store: SessionStore = Depends(get_session_store),
+    token_store: TokenStore = Depends(get_token_store),
+    sign_store: SQLiteSignStore = Depends(get_sign_store),
+) -> StatusResponse:
+    """Public read path for ``/contribute/status/<session_id>``.
+
+    Unlike :func:`get_session`, this endpoint does not 403 on a missing
+    token — the status URL is designed to be shareable. With a valid
+    ``X-Session-Token`` the response folds in the contributor's prose
+    description and reviewer comments; without one, only the public
+    envelope is returned.
+    """
+    from session.state import AcceptedEvent
+
+    session = session_store.get(session_id)
+    if session is None:
+        raise ApiError(
+            f"session {session_id} not found",
+            status_code=404,
+            code="session_not_found",
+        )
+    has_token = bool(x_session_token) and token_store.verify(
+        session_id, x_session_token
+    )
+    accepted = [e for e in session.history if isinstance(e, AcceptedEvent)]
+    if not accepted:
+        raise ApiError(
+            "session has not been submitted",
+            status_code=404,
+            code="not_submitted",
+        )
+    entry = sign_store.get(accepted[-1].sign_entry_id)
+    is_validated = entry.status == "validated"
+
+    # The contributor can always see the sign they submitted — token or
+    # not — because they already pasted the URL somewhere. Before
+    # validation, only the contributor (with the token) should see the
+    # draft notation. After validation the notation is public anyway.
+    show_notation = is_validated or has_token
+
+    rejection_category: Optional[str] = None
+    if entry.status == "rejected":
+        for r in reversed(list(entry.reviewers)):
+            if r.verdict == "rejected" and r.category:
+                rejection_category = str(r.category)
+                break
+
+    reviewer_comments: list[ReviewerCommentOut] = []
+    description_prose: Optional[str] = None
+    if has_token:
+        description_prose = entry.description_prose or ""
+        for r in entry.reviewers:
+            comment_text = (r.comment or r.notes or "").strip()
+            if not comment_text:
+                continue
+            reviewer_comments.append(
+                ReviewerCommentOut(
+                    verdict=str(r.verdict),
+                    category=str(r.category) if r.category else None,
+                    comment=comment_text,
+                    reviewed_at=r.reviewed_at,
+                )
+            )
+
+    return StatusResponse(
+        session_id=session_id,
+        sign_id=entry.id,
+        gloss=entry.gloss,
+        sign_language=entry.sign_language,
+        regional_variant=entry.regional_variant,
+        status=str(entry.status),
+        hamnosys=entry.hamnosys if show_notation else None,
+        sigml=entry.sigml if show_notation else None,
+        rejection_category=rejection_category,
+        description_prose=description_prose,
+        reviewer_comments=reviewer_comments,
+        corrections_count=session.draft.corrections_count,
+        has_token=has_token,
+        created_at=entry.created_at,
+        updated_at=entry.updated_at,
     )
 
 

@@ -1409,4 +1409,525 @@ h1 {
   }
   .avatar-speed { order: 2; }
   .chat-target-pill { margin: 12px 14px 0; }
+
+  /* Submission panel: stack action bar on a phone so the primary button
+     doesn't fight the save/discard affordances for width. */
+  .submission-panel { padding: 22px 16px 20px; }
+  .submission-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+  .submission-actions-primary {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .submission-discard { align-self: flex-start; }
+  .submission-save,
+  .submission-submit { width: 100%; }
+
+  .submission-confirmation { padding: 28px 4px 0; }
+  .confirmation-link-row { flex-direction: column; align-items: stretch; gap: 10px; }
+  .confirmation-copy-btn { width: 100%; }
+  .confirmation-nav { flex-direction: column; align-items: stretch; gap: 10px; }
+  .confirmation-link-action { text-align: center; }
+}
+
+/* ----- Submission panel (prompt 10) -----
+   Sits under the notation panel. Diagnostic checklist + action bar.
+   Matches the chat-panel / notation-panel framing so the page reads as a
+   single vertical flow, not three different visual languages. */
+
+.submission-panel {
+  margin: 32px 0 0;
+  padding: 24px 22px 22px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+}
+
+.submission-panel-title {
+  margin: 0 0 14px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+
+.submission-checklist {
+  list-style: none;
+  margin: 0 0 22px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-top: 1px solid var(--rule);
+}
+
+.submission-item {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 10px 0 9px;
+  border-bottom: 1px solid var(--rule);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.submission-mark {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1;
+  transform: translateY(3px);
+  transition: color 120ms ease, border-color 120ms ease, background-color 120ms ease;
+}
+.submission-mark::before {
+  content: "";
+  display: inline-block;
+}
+.submission-item.is-complete .submission-mark {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(179, 68, 27, 0.08);
+}
+.submission-item.is-complete .submission-mark::before {
+  content: "\2713"; /* check mark */
+}
+.submission-item.is-missing .submission-mark {
+  color: var(--muted);
+}
+.submission-item.is-missing .submission-mark::before {
+  content: "";
+}
+
+.submission-text {
+  flex-grow: 1;
+  color: var(--ink);
+}
+.submission-item.is-missing .submission-text {
+  color: var(--muted);
+}
+
+.submission-hint {
+  color: var(--muted);
+  font-size: 13px;
+}
+.submission-hint:empty { display: none; }
+
+.submission-gate-note,
+.submission-optional-note {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.submission-gate-note {
+  color: var(--accent);
+}
+
+.submission-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin: 4px 0 0;
+}
+.submission-actions-primary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+
+.submission-submit {
+  padding: 12px 24px;
+  background: var(--accent);
+  color: var(--paper);
+  border: 0;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: opacity 120ms ease;
+}
+.submission-submit:hover:not(:disabled),
+.submission-submit:focus-visible:not(:disabled) { opacity: 0.9; }
+.submission-submit:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.submission-save {
+  padding: 11px 18px;
+  background: transparent;
+  border: 1px solid var(--rule);
+  font: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 120ms ease, opacity 120ms ease;
+}
+.submission-save:hover:not(:disabled),
+.submission-save:focus-visible:not(:disabled) {
+  border-color: var(--ink);
+}
+.submission-save:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.submission-discard {
+  background: transparent;
+  border: 0;
+  padding: 4px 0;
+  font: inherit;
+  font-size: 14px;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.submission-discard:hover,
+.submission-discard:focus-visible {
+  color: var(--accent);
+}
+
+.submission-error {
+  margin: 16px 0 0;
+  padding: 12px 14px;
+  border-left: 3px solid var(--accent);
+  background: rgba(179, 68, 27, 0.06);
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ----- Submission confirmation (prompt 10) -----
+   Replaces #authoring-root on submit success. The language header and
+   context strip remain, so the page still reads as "this submission" —
+   the confirmation is a continuation, not a different screen. */
+
+.submission-confirmation {
+  margin: 32px 0 0;
+  padding: 32px 0 0;
+  border-top: 1px solid var(--rule);
+}
+
+.confirmation-heading {
+  margin: 0 0 14px;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+}
+
+.confirmation-body {
+  margin: 0 0 28px;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink);
+  max-width: 62ch;
+}
+
+.confirmation-link {
+  margin: 0 0 32px;
+}
+.confirmation-link-label {
+  display: block;
+  margin: 0 0 8px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.confirmation-link-row {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+}
+.confirmation-link-input {
+  flex-grow: 1;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--rule);
+  background: rgba(21, 19, 15, 0.03);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 14px;
+  color: var(--ink);
+}
+.confirmation-link-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-color: transparent;
+}
+.confirmation-copy-btn {
+  background: transparent;
+  border: 1px solid var(--rule);
+  padding: 9px 18px;
+  font: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 120ms ease;
+}
+.confirmation-copy-btn:hover,
+.confirmation-copy-btn:focus-visible {
+  border-color: var(--ink);
+}
+.confirmation-copy-confirm {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+  opacity: 1;
+  transition: opacity 400ms ease;
+}
+.confirmation-copy-confirm.is-fading { opacity: 0; }
+
+.confirmation-nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.confirmation-link-action {
+  background: transparent;
+  border: 0;
+  padding: 4px 0;
+  font: inherit;
+  font-size: 15px;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.confirmation-link-action:hover,
+.confirmation-link-action:focus-visible {
+  color: var(--accent);
+}
+
+/* ----- Submission status page (prompt 10) -----
+   /contribute/status/<id>. Sits on its own page (contribute-status.html).
+   Shares the main design vocabulary but doesn't mount the authoring
+   scaffolding — it's a read-only view of a submission's lifecycle. */
+
+.status-page-title {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  margin: 0 0 32px;
+}
+
+.status-loading,
+.status-error {
+  padding: 20px 22px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink);
+}
+.status-error h2 {
+  margin: 0 0 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+.status-error p { margin: 0 0 12px; }
+.status-error p:last-child { margin-bottom: 0; }
+
+.status-header {
+  margin: 0 0 28px;
+  padding: 20px 0 24px;
+  border-bottom: 1px solid var(--rule);
+}
+.status-gloss-line {
+  margin: 0 0 10px;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.status-gloss { letter-spacing: -0.005em; }
+.status-in { color: var(--muted); font-weight: 400; font-size: 18px; }
+.status-language { font-weight: 500; }
+
+.status-state-line {
+  margin: 0 0 6px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.status-state-label {
+  color: var(--muted);
+  margin-right: 6px;
+}
+.status-state {
+  color: var(--accent);
+  font-weight: 600;
+  margin-right: 8px;
+}
+.status-state-note {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.status-dates {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.status-section-heading {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.status-private,
+.status-notation,
+.status-comments,
+.status-token-gate {
+  margin: 0 0 32px;
+  padding: 18px 0 0;
+}
+.status-private + .status-notation,
+.status-private + .status-comments,
+.status-notation + .status-comments {
+  border-top: 1px solid var(--rule);
+}
+
+.status-description {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--ink);
+  white-space: pre-wrap;
+  max-width: 62ch;
+}
+
+.status-hamnosys {
+  margin: 0 0 12px;
+  padding: 16px 18px;
+  border: 1px solid var(--rule);
+  background: rgba(21, 19, 15, 0.03);
+  font-size: 24px;
+  color: var(--ink);
+  word-break: break-all;
+}
+
+.status-sigml-wrap > summary {
+  cursor: pointer;
+  color: var(--muted);
+  padding: 4px 0;
+  font-size: 14px;
+}
+.status-sigml {
+  margin: 10px 0 0;
+  padding: 14px 16px;
+  border: 1px solid var(--rule);
+  background: rgba(21, 19, 15, 0.03);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.55;
+  overflow-x: auto;
+  max-height: 320px;
+  white-space: pre;
+}
+
+.status-comments-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.status-comment {
+  padding: 14px 16px;
+  border-left: 3px solid var(--rule);
+  background: rgba(21, 19, 15, 0.03);
+}
+.status-comment-verdict {
+  margin: 0 0 4px;
+  font-weight: 600;
+  color: var(--ink);
+  text-transform: capitalize;
+}
+.status-comment-category {
+  margin: 0 0 6px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.status-comment-body {
+  margin: 0 0 6px;
+  line-height: 1.55;
+  color: var(--ink);
+  white-space: pre-wrap;
+}
+.status-comment-stamp {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.status-token-gate {
+  padding: 18px 22px;
+  border: 1px solid var(--rule);
+  background: rgba(21, 19, 15, 0.03);
+}
+.status-token-gate p { margin: 0 0 16px; }
+.status-token-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: stretch;
+}
+.status-token-form label {
+  flex-basis: 100%;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.status-token-form input {
+  flex-grow: 1;
+  min-width: 220px;
+  padding: 10px 12px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  font: inherit;
+  font-size: 14px;
+  color: var(--ink);
+}
+.status-token-form input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-color: transparent;
+}
+.status-token-form button {
+  padding: 10px 20px;
+  background: var(--accent);
+  color: var(--paper);
+  border: 0;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 120ms ease;
+}
+.status-token-form button:hover,
+.status-token-form button:focus-visible { opacity: 0.9; }
+.status-token-error {
+  margin: 12px 0 0;
+  color: var(--accent);
+  font-size: 14px;
 }

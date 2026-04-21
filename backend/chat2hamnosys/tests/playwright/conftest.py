@@ -64,11 +64,12 @@ def c2h_server(tmp_path: Path) -> Iterator[str]:
         {
             "C2H_PORT": str(port),
             "C2H_PUBLIC_DIR": str(PUBLIC_DIR),
-            "CHAT2HAMNOSYS_SESSION_DB": str(tmp_path / "sessions.sqlite3"),
-            "CHAT2HAMNOSYS_SIGN_DB":    str(tmp_path / "signs.sqlite3"),
-            "CHAT2HAMNOSYS_TOKEN_DB":   str(tmp_path / "tokens.sqlite3"),
-            "CHAT2HAMNOSYS_DATA_DIR":   str(tmp_path / "kozha_data"),
-            "CHAT2HAMNOSYS_RATE_LIMIT": "500/minute",
+            "CHAT2HAMNOSYS_SESSION_DB":  str(tmp_path / "sessions.sqlite3"),
+            "CHAT2HAMNOSYS_SIGN_DB":     str(tmp_path / "signs.sqlite3"),
+            "CHAT2HAMNOSYS_TOKEN_DB":    str(tmp_path / "tokens.sqlite3"),
+            "CHAT2HAMNOSYS_REVIEWER_DB": str(tmp_path / "reviewers.sqlite3"),
+            "CHAT2HAMNOSYS_DATA_DIR":    str(tmp_path / "kozha_data"),
+            "CHAT2HAMNOSYS_RATE_LIMIT":  "500/minute",
         }
     )
 

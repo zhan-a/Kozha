@@ -390,6 +390,89 @@
           </div>
         </div>
       </section>
+
+      <!-- Submission panel (prompt 10). Diagnostic checklist + action bar.
+           Only the "sign generated and valid" row is a gate — the rest are
+           visible status indicators so the contributor knows what a
+           reviewer is likely to see. -->
+      <section class="submission-panel" id="submissionPanel" aria-label="Submit for review" hidden>
+        <h2 class="submission-panel-title">Submit for review</h2>
+        <ul class="submission-checklist" id="submissionChecklist" aria-label="Submission checklist">
+          <li class="submission-item" data-key="gloss">
+            <span class="submission-mark" aria-hidden="true"></span>
+            <span class="submission-text">Gloss set</span>
+            <span class="submission-hint" id="checkGlossHint"></span>
+          </li>
+          <li class="submission-item" data-key="language">
+            <span class="submission-mark" aria-hidden="true"></span>
+            <span class="submission-text">Language set</span>
+            <span class="submission-hint" id="checkLanguageHint"></span>
+          </li>
+          <li class="submission-item" data-key="description">
+            <span class="submission-mark" aria-hidden="true"></span>
+            <span class="submission-text">Description complete</span>
+          </li>
+          <li class="submission-item" data-key="sign">
+            <span class="submission-mark" aria-hidden="true"></span>
+            <span class="submission-text">Sign generated and valid</span>
+            <span class="submission-gate-note" aria-hidden="true">required</span>
+          </li>
+          <li class="submission-item submission-item-optional" data-key="deafNative">
+            <span class="submission-mark" aria-hidden="true"></span>
+            <span class="submission-text">Deaf native signer self-identification</span>
+            <span class="submission-optional-note" aria-hidden="true">optional</span>
+          </li>
+          <li class="submission-item submission-item-optional" data-key="correction">
+            <span class="submission-mark" aria-hidden="true"></span>
+            <span class="submission-text">At least one correction applied</span>
+            <span class="submission-optional-note" aria-hidden="true">optional</span>
+          </li>
+        </ul>
+
+        <div class="submission-actions" role="toolbar" aria-label="Submission actions">
+          <button
+            type="button"
+            class="submission-discard"
+            id="submissionDiscardBtn">Discard this draft</button>
+          <div class="submission-actions-primary">
+            <button
+              type="button"
+              class="submission-save"
+              id="submissionSaveBtn">Save draft and leave</button>
+            <button
+              type="button"
+              class="submission-submit"
+              id="submissionSubmitBtn"
+              disabled>Submit for review</button>
+          </div>
+        </div>
+        <p class="submission-error" id="submissionError" role="alert" hidden></p>
+      </section>
+    </section>
+
+    <!-- Submission confirmation view (prompt 10). Replaces #authoring-root
+         once /accept returns. Language header and context strip remain. -->
+    <section class="submission-confirmation" id="submissionConfirmation" aria-labelledby="confirmationHeading" hidden>
+      <h2 class="confirmation-heading" id="confirmationHeading">Submitted</h2>
+      <p class="confirmation-body" id="confirmationBody"></p>
+      <div class="confirmation-link">
+        <label class="confirmation-link-label" for="confirmationUrl">Permanent link</label>
+        <div class="confirmation-link-row">
+          <input
+            type="text"
+            id="confirmationUrl"
+            class="confirmation-link-input"
+            readonly
+            aria-describedby="confirmationCopyBtn">
+          <button type="button" class="confirmation-copy-btn" id="confirmationCopyBtn">Copy link</button>
+        </div>
+        <p class="confirmation-copy-confirm" id="confirmationCopyConfirm" hidden>copied</p>
+      </div>
+      <nav class="confirmation-nav" aria-label="What next">
+        <button type="button" class="confirmation-link-action" id="confirmationAnotherBtn">Contribute another sign</button>
+        <button type="button" class="confirmation-link-action" id="confirmationChangeLangBtn">Change language</button>
+        <a class="confirmation-link-action" href="/">Back to Bridgn</a>
+      </nav>
     </section>
 
     <!-- Transient feedback surface — copy confirmations, brief errors. -->
@@ -429,6 +512,7 @@
   <script src="/contribute-chat.js"></script>
   <script src="/contribute-notation.js"></script>
   <script src="/contribute-preview.js"></script>
+  <script src="/contribute-submit.js"></script>
   <script src="/contribute.js"></script>
 </body>
 </html>

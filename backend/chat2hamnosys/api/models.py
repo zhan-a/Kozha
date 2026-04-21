@@ -217,6 +217,57 @@ class AcceptResponse(BaseModel):
     session: SessionEnvelope
 
 
+class ReviewerCommentOut(BaseModel):
+    """A reviewer's note for the contributor-facing status page.
+
+    Private envelope — only folded into :class:`StatusResponse` when the
+    caller presents a valid ``X-Session-Token``. Matches the one-field
+    comment model of :class:`ReviewRecord`; if the review system grows a
+    public/private split, this is the place to honour it.
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    verdict: str
+    category: Optional[str] = None
+    comment: str = ""
+    reviewed_at: datetime
+
+
+class StatusResponse(BaseModel):
+    """Body of ``GET /sessions/{id}/status`` — drives the status page.
+
+    ``has_token`` signals the caller presented a valid session token, so
+    the frontend can render the private fields conditionally. The public
+    envelope (gloss, language, status, validated HamNoSys/SiGML) is
+    always populated; ``description_prose`` and ``reviewer_comments``
+    only appear when ``has_token`` is true.
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    session_id: UUID
+    sign_id: UUID
+    gloss: str
+    sign_language: str
+    regional_variant: Optional[str] = None
+    status: str
+
+    hamnosys: Optional[str] = None
+    sigml: Optional[str] = None
+
+    rejection_category: Optional[str] = None
+
+    description_prose: Optional[str] = None
+    reviewer_comments: List[ReviewerCommentOut] = Field(default_factory=list)
+
+    corrections_count: int = 0
+    has_token: bool = False
+
+    created_at: datetime
+    updated_at: datetime
+
+
 __all__ = [
     "AcceptResponse",
     "AnswerRequest",
@@ -230,6 +281,8 @@ __all__ = [
     "PreviewOut",
     "QuestionOut",
     "RejectRequest",
+    "ReviewerCommentOut",
     "SessionEnvelope",
     "SignEntryOut",
+    "StatusResponse",
 ]

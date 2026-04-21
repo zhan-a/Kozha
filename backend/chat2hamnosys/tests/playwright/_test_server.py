@@ -49,6 +49,7 @@ from api import (                                            # noqa: E402
     get_render_fn,
 )
 from api.dependencies import reset_stores                    # noqa: E402
+from review.dependencies import reset_review_stores          # noqa: E402
 from clarify import Option, Question                         # noqa: E402
 from parser import Gap, ParseResult                          # noqa: E402
 from parser.models import (                                  # noqa: E402
@@ -125,6 +126,7 @@ def _stub_apply(params, question, answer):
 
 def build_app() -> FastAPI:
     reset_stores()
+    reset_review_stores()
 
     sub = create_app()
     sub.dependency_overrides[get_parse_fn] = lambda: _stub_parser
@@ -147,6 +149,16 @@ def build_app() -> FastAPI:
     @parent.get("/healthz", include_in_schema=False)
     def _healthz():
         return {"ok": True}
+
+    # Prompt 10: mirror the production server's status-page route so
+    # /contribute/status/<id> serves the static HTML shell even though the
+    # StaticFiles mount below can't match the path parameter.
+    from fastapi.responses import FileResponse  # noqa: WPS433
+
+    @parent.get("/contribute/status/{session_id}", include_in_schema=False)
+    @parent.get("/contribute/status/{session_id}/", include_in_schema=False)
+    def _status_page(session_id: str):  # noqa: ARG001 — id read by client JS
+        return FileResponse(public_dir / "contribute-status.html")
 
     parent.mount("/", StaticFiles(directory=str(public_dir), html=True), name="public")
     return parent

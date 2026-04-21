@@ -82,6 +82,12 @@
       sigml:            null,
       parameters:       null,
       generationErrors: [],
+      // Tracked for the submission checklist — the server envelope
+      // carries the running count; the "at least one correction" row is
+      // optional but a useful signal of author engagement.
+      correctionsCount:   0,
+      authorIsDeafNative: null,
+      descriptionProse:   '',
       lastUpdated:      0,
     };
   }
@@ -143,18 +149,21 @@
 
   function getState() {
     return {
-      language:         state.language,
-      gloss:            state.gloss,
-      sessionId:        state.sessionId,
-      sessionToken:     state.sessionToken,
-      sessionState:     state.sessionState,
-      pendingQuestions: state.pendingQuestions.slice(),
-      clarifications:   state.clarifications.slice(),
-      hamnosys:         state.hamnosys,
-      sigml:            state.sigml,
-      parameters:       state.parameters,
-      generationErrors: state.generationErrors.slice(),
-      lastUpdated:      state.lastUpdated,
+      language:           state.language,
+      gloss:              state.gloss,
+      sessionId:          state.sessionId,
+      sessionToken:       state.sessionToken,
+      sessionState:       state.sessionState,
+      pendingQuestions:   state.pendingQuestions.slice(),
+      clarifications:     state.clarifications.slice(),
+      hamnosys:           state.hamnosys,
+      sigml:              state.sigml,
+      parameters:         state.parameters,
+      generationErrors:   state.generationErrors.slice(),
+      correctionsCount:   state.correctionsCount,
+      authorIsDeafNative: state.authorIsDeafNative,
+      descriptionProse:   state.descriptionProse,
+      lastUpdated:        state.lastUpdated,
     };
   }
 
@@ -273,7 +282,7 @@
   // which fields each panel reads.
   function applyEnvelope(env) {
     if (!env) return;
-    setState({
+    var patch = {
       sessionState:     env.state || state.sessionState,
       gloss:            env.gloss || state.gloss,
       pendingQuestions: env.pending_questions || [],
@@ -284,7 +293,14 @@
       sigml:            typeof env.sigml === 'string' ? env.sigml : null,
       parameters:       env.parameters || null,
       generationErrors: env.generation_errors || [],
-    });
+    };
+    if (typeof env.corrections_count === 'number') {
+      patch.correctionsCount = env.corrections_count;
+    }
+    if (typeof env.description_prose === 'string') {
+      patch.descriptionProse = env.description_prose;
+    }
+    setState(patch);
   }
 
   function createSession(opts) {
@@ -308,12 +324,16 @@
     })
       .then(jsonOr)
       .then(function (created) {
-        setState({
+        var patch = {
           sessionId:    created.session_id,
           sessionToken: created.session_token,
           sessionState: created.state,
           gloss:        (created.session && created.session.gloss) || opts.gloss || '',
-        });
+        };
+        if (typeof opts.authorIsDeafNative === 'boolean') {
+          patch.authorIsDeafNative = opts.authorIsDeafNative;
+        }
+        setState(patch);
         // Mirror nested envelope fields too so subscribers see a fully
         // populated snapshot before the chained /describe (if any) fires.
         if (created.session) applyEnvelope(created.session);
@@ -454,16 +474,19 @@
     var id = state.sessionId;
     var token = state.sessionToken;
     setState({
-      sessionId:        null,
-      sessionToken:     null,
-      gloss:            '',
-      sessionState:     'awaiting_description',
-      pendingQuestions: [],
-      clarifications:   [],
-      hamnosys:         null,
-      sigml:            null,
-      parameters:       null,
-      generationErrors: [],
+      sessionId:          null,
+      sessionToken:       null,
+      gloss:              '',
+      sessionState:       'awaiting_description',
+      pendingQuestions:   [],
+      clarifications:     [],
+      hamnosys:           null,
+      sigml:              null,
+      parameters:         null,
+      generationErrors:   [],
+      correctionsCount:   0,
+      authorIsDeafNative: null,
+      descriptionProse:   '',
     });
     clearSessionFragment();
     if (!id || !token) return Promise.resolve();

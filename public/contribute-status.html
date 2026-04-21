@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Submission status — Bridgn</title>
+  <meta name="description" content="View the status of a sign you submitted to the Bridgn dictionary.">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="/contribute.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="site-name">Bridgn</a>
+    <a href="/contribute.html" class="back-link">Contribute</a>
+  </header>
+
+  <main>
+    <h1 class="status-page-title">Submission status</h1>
+
+    <!-- Loading / error / not-found states. One section visible at a time. -->
+    <p class="status-loading" id="statusLoading">Loading status&hellip;</p>
+
+    <section class="status-error" id="statusError" role="alert" hidden>
+      <h2 id="statusErrorHeading">Not found</h2>
+      <p id="statusErrorBody"></p>
+      <p><a href="/contribute.html">Contribute a sign</a></p>
+    </section>
+
+    <!-- Public status body. Always shown when the id resolves. -->
+    <section class="status-body" id="statusBody" hidden>
+      <header class="status-header" id="statusHeader">
+        <p class="status-gloss-line">
+          <span class="status-gloss" id="statusGloss"></span>
+          <span class="status-in"> in </span>
+          <span class="status-language" id="statusLanguage"></span>
+        </p>
+        <p class="status-state-line">
+          <span class="status-state-label">Status:</span>
+          <strong class="status-state" id="statusState"></strong>
+          <span class="status-state-note" id="statusStateNote"></span>
+        </p>
+        <p class="status-dates" id="statusDates"></p>
+      </header>
+
+      <!-- Token-gated private section. The description and reviewer comments
+           are only visible when the caller presents a valid session token.
+           Without one we show the prompt + a nudge to resume via #s/<id>. -->
+      <section class="status-private" id="statusPrivate" hidden>
+        <h2 class="status-section-heading">Your description</h2>
+        <p class="status-description" id="statusDescription"></p>
+      </section>
+
+      <section class="status-notation" id="statusNotation" hidden>
+        <h2 class="status-section-heading">Validated notation</h2>
+        <p class="status-hamnosys" id="statusHamnosys"></p>
+        <details class="status-sigml-wrap">
+          <summary>Show SiGML</summary>
+          <pre class="status-sigml" id="statusSigml"></pre>
+        </details>
+      </section>
+
+      <section class="status-comments" id="statusComments" hidden>
+        <h2 class="status-section-heading">Reviewer comments</h2>
+        <ul class="status-comments-list" id="statusCommentsList"></ul>
+      </section>
+
+      <!-- Shown only when the caller did not present a valid token. Offers
+           the session-token form from prompt 4 so the author can unlock
+           the private fields. -->
+      <section class="status-token-gate" id="statusTokenGate" hidden>
+        <h2 class="status-section-heading">Resume as author</h2>
+        <p>
+          To see the description you submitted and any reviewer notes, paste
+          the resume token that was shown when you first created this draft.
+        </p>
+        <form class="status-token-form" id="statusTokenForm">
+          <label for="statusTokenInput">Resume token</label>
+          <input id="statusTokenInput" type="text" autocomplete="off" spellcheck="false">
+          <button type="submit">Unlock</button>
+        </form>
+        <p class="status-token-error" id="statusTokenError" role="alert" hidden></p>
+      </section>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <ul class="footer-links">
+      <li><a href="/governance.html">Governance</a></li>
+      <li><a href="/privacy.html">Privacy</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </footer>
+
+  <script src="/contribute-status.js"></script>
+</body>
+</html>
