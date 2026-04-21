@@ -21,21 +21,53 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan -H "${{ secrets.EC2_HOST }}" >> ~/.ssh/known_hosts
       - name: Deploy to EC2
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          ssh -o ServerAliveInterval=30 -o ServerAliveCountMax=3 \
+          # Stream the deploy script into `bash -l -s` on the host. The
+          # key is interpolated once here (Actions masks it as *** in
+          # logs) and embedded in the transmitted script inside single
+          # quotes. Remote-side variables are escaped with `\$` so they
+          # evaluate on the host, not on the runner.
+          #
+          # If the OPENAI_API_KEY secret is empty, we skip the env-file
+          # update entirely and leave /etc/kozha.env as it is. The
+          # contribute.html BYO-key header (public/contribute.html) still
+          # lets contributors supply a personal key per request, so
+          # missing a project key is a graceful degradation, not a
+          # deploy failure.
+          ssh -T -o ServerAliveInterval=30 -o ServerAliveCountMax=3 \
               "${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}" \
-              'bash -lc "
-                set -euo pipefail
-                cd /home/ubuntu/Kozha
-                git fetch --prune origin
-                git reset --hard origin/main
-                git clean -fd -e ./data/
-                cd server
-                source /home/ubuntu/kozha-venv/bin/activate
-                pip install --no-cache-dir -r requirements.txt
-                [ -f ../backend/chat2hamnosys/requirements.txt ] || { echo \"Missing backend requirements at ../backend/chat2hamnosys/requirements.txt\"; exit 1; }
-                pip install --no-cache-dir -r ../backend/chat2hamnosys/requirements.txt
-                sudo systemctl daemon-reload
-                sudo systemctl restart kozha.service
-                sudo systemctl --no-pager status kozha.service
-              "'
+              bash -l -s <<REMOTE_SCRIPT
+          set -euo pipefail
+          cd /home/ubuntu/Kozha
+          git fetch --prune origin
+          git reset --hard origin/main
+          git clean -fd -e ./data/
+          cd server
+          source /home/ubuntu/kozha-venv/bin/activate
+          pip install --no-cache-dir -r requirements.txt
+          [ -f ../backend/chat2hamnosys/requirements.txt ] || { echo "Missing backend requirements at ../backend/chat2hamnosys/requirements.txt"; exit 1; }
+          pip install --no-cache-dir -r ../backend/chat2hamnosys/requirements.txt
+
+          OPENAI_API_KEY_NEW='$OPENAI_API_KEY'
+          if [ -n "\$OPENAI_API_KEY_NEW" ]; then
+            if [ ! -f /etc/kozha.env ]; then
+              echo "[deploy] /etc/kozha.env missing — run the one-time install from docs/chat2hamnosys/19-deployment.md to create it."
+              exit 1
+            fi
+            TMP=\$(sudo mktemp /etc/kozha.env.XXXXXX)
+            sudo chmod 600 "\$TMP"
+            sudo chown root:kozha "\$TMP"
+            sudo sh -c "grep -v '^OPENAI_API_KEY=' /etc/kozha.env > '\$TMP' || true"
+            printf 'OPENAI_API_KEY=%s\n' "\$OPENAI_API_KEY_NEW" | sudo tee -a "\$TMP" >/dev/null
+            sudo mv "\$TMP" /etc/kozha.env
+            echo "[deploy] OPENAI_API_KEY refreshed in /etc/kozha.env."
+          else
+            echo "[deploy] OPENAI_API_KEY secret not set — leaving /etc/kozha.env as-is. Contributors can still use the BYO-key field on contribute.html."
+          fi
+
+          sudo systemctl daemon-reload
+          sudo systemctl restart kozha.service
+          sudo systemctl --no-pager status kozha.service
+          REMOTE_SCRIPT
