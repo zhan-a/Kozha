@@ -801,9 +801,276 @@ h1 {
   font-display: swap;
 }
 
-/* ----- Avatar preview placeholder (prompt 9 fills this) ----- */
+/* ----- Avatar preview pane (prompt 9) -----
+   16:9 stage with a light-gray backdrop (Kipp et al. 2011: dark
+   backgrounds reduce avatar legibility for many Deaf signers). The
+   pane stays mounted once visible so the notation panel below never
+   jumps as generation fills it in. No ornamental borders on the
+   stage — we rely on the backdrop itself for the frame. */
 
-.avatar-preview-placeholder { display: none; }
+.avatar-preview {
+  margin: 0 0 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.avatar-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: transparent;
+  overflow: hidden;
+}
+
+/* Light-gray backdrop sits behind the canvas so WebGL's own clear
+   color doesn't bleed the default bluish CWASA fill through. We
+   override the CWASA default via !important because its stylesheet
+   ships a hard background color on .CWASAAvatar. */
+.avatar-backdrop {
+  position: absolute;
+  inset: 0;
+  background: #e9e6df;
+}
+
+.avatar-preview .CWASAAvatar {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: transparent !important;
+  border: 0 !important;
+}
+
+/* Body-region overlay — invisible polygons that only light up on
+   hover. Pointer-events stay on so the regions are clickable but
+   the fill is transparent so the avatar reads clean by default. */
+.avatar-regions {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+}
+.avatar-region {
+  fill: transparent;
+  stroke: transparent;
+  stroke-width: 0.4;
+  pointer-events: auto;
+  cursor: crosshair;
+  transition: stroke 160ms ease, fill 160ms ease;
+}
+.avatar-region:hover,
+.avatar-region.is-hover {
+  stroke: rgba(179, 68, 27, 0.55);
+  fill: rgba(179, 68, 27, 0.05);
+}
+
+/* Subtle backdrop pulse during GENERATING/RENDERING. Not over the
+   canvas — the pulse rides on the backdrop layer only, respecting
+   prefers-reduced-motion. */
+.avatar-pulse {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    120deg,
+    rgba(21, 19, 15, 0) 0%,
+    rgba(21, 19, 15, 0.05) 45%,
+    rgba(21, 19, 15, 0) 100%
+  );
+  animation: avatar-pulse-slide 2.4s ease-in-out infinite;
+}
+@keyframes avatar-pulse-slide {
+  0%,   100% { opacity: 0.0; }
+  50%        { opacity: 1.0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .avatar-pulse {
+    animation: none;
+    opacity: 0.4;
+  }
+}
+
+/* Fallback — takes over the stage surface when WebGL or CWASA is
+   unavailable. Plain text, centered. The notation panel below becomes
+   the primary review surface in this mode. */
+.avatar-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  background: #e9e6df;
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.55;
+}
+.avatar-stage.is-failed .CWASAAvatar,
+.avatar-stage.is-failed .avatar-regions,
+.avatar-stage.is-failed .avatar-pulse {
+  display: none;
+}
+
+/* Status strip — single-line, plain text, aria-live. "Generating…",
+   "Rendering…", "From cache", "Ready." */
+.avatar-status {
+  margin: 0;
+  min-height: 1.4em;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* Control bar. Desktop: single row. Narrow viewports: wraps below
+   the scrubber. */
+.avatar-controls-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 0 4px;
+  border-top: 1px solid var(--rule);
+}
+
+.avatar-play {
+  background: var(--accent);
+  color: var(--paper);
+  border: 0;
+  padding: 8px 18px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  min-width: 72px;
+  cursor: pointer;
+  transition: opacity 120ms ease;
+}
+.avatar-play:hover:not(:disabled),
+.avatar-play:focus-visible:not(:disabled) { opacity: 0.9; }
+.avatar-play:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.avatar-loop {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--ink);
+  cursor: pointer;
+}
+.avatar-loop input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--accent);
+}
+
+.avatar-scrubber {
+  flex: 1;
+  min-width: 220px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.avatar-scrubber-input {
+  flex: 1;
+  min-width: 160px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.avatar-scrubber-input:disabled { cursor: not-allowed; opacity: 0.5; }
+.avatar-time {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.avatar-speed {
+  display: inline-flex;
+  gap: 0;
+}
+.avatar-speed-btn {
+  background: transparent;
+  border: 1px solid var(--rule);
+  padding: 6px 12px;
+  font: inherit;
+  font-size: 13px;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 120ms ease, background 120ms ease;
+  font-variant-numeric: tabular-nums;
+}
+.avatar-speed-btn + .avatar-speed-btn { border-left: 0; }
+.avatar-speed-btn:hover,
+.avatar-speed-btn:focus-visible { border-color: var(--ink); }
+.avatar-speed-btn.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+/* Caption strip — gloss on top, description underneath in muted
+   smaller type. Gives Deaf reviewers a written cross-check at a
+   glance. */
+.avatar-captions {
+  border-top: 1px dotted var(--rule);
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.avatar-caption-gloss {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+.avatar-caption-gloss:empty { display: none; }
+.avatar-caption-desc {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* ----- Chat correction-target pill (prompt 9 hand-off) -----
+   Set by the preview pane when the contributor clicks a body region;
+   sits between the progress bar and the textarea so the contributor
+   sees what they're targeting while they type the correction. */
+.chat-target-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 20px 0;
+  padding: 6px 10px 6px 12px;
+  background: rgba(179, 68, 27, 0.08);
+  border-left: 2px solid var(--accent);
+  font-size: 13px;
+  color: var(--ink);
+  align-self: flex-start;
+  max-width: calc(100% - 40px);
+}
+.chat-target-pill-text {
+  font-variant-numeric: tabular-nums;
+}
+.chat-target-pill-clear {
+  background: transparent;
+  border: 0;
+  padding: 0 2px;
+  font: inherit;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--muted);
+  cursor: pointer;
+}
+.chat-target-pill-clear:hover,
+.chat-target-pill-clear:focus-visible { color: var(--ink); }
 
 /* ----- Notation panel (prompt 7) -----
    Two-tab panel: HamNoSys (default) + SiGML. Occupies the full content
@@ -1131,4 +1398,15 @@ h1 {
   .notation-breakdown dd { font-size: 16px; }
   .notation-sigml { font-size: 13px; padding: 14px 14px 14px 50px; }
   .notation-sigml .sigml-line::before { left: -36px; width: 28px; }
+
+  /* Avatar preview: scrubber wraps underneath the play/loop controls on
+     a phone so it keeps a usable touch target width. */
+  .avatar-controls-bar { gap: 10px; }
+  .avatar-scrubber {
+    flex-basis: 100%;
+    order: 3;
+    min-width: 0;
+  }
+  .avatar-speed { order: 2; }
+  .chat-target-pill { margin: 12px 14px 0; }
 }

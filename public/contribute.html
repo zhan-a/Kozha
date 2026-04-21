@@ -8,6 +8,13 @@
   <link rel="canonical" href="https://kozha-translate.com/contribute.html">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="stylesheet" href="/contribute.css">
+  <!-- CWASA: the signing-avatar renderer. Loaded before our preview
+       controller so window.CWASA is defined when init runs. If WebGL is
+       unavailable or the bundle fails to load, the preview controller
+       collapses the pane into the plain-text fallback and the submit
+       path still works. -->
+  <link rel="stylesheet" href="/cwa/cwasa.css">
+  <script defer src="/cwa/allcsa.js"></script>
 </head>
 <body>
 
@@ -149,6 +156,17 @@
         <div class="chat-progress" id="chatProgress" hidden aria-hidden="true">
           <span class="chat-progress-bar"></span>
         </div>
+        <!-- Correction targeting pill. Appears when the contributor
+             clicks a body region on the preview; carries the captured
+             time + region into the next /correct submission. -->
+        <div class="chat-target-pill" id="chatTargetPill" hidden>
+          <span class="chat-target-pill-text" id="chatTargetPillText"></span>
+          <button
+            type="button"
+            class="chat-target-pill-clear"
+            id="chatTargetPillClear"
+            aria-label="Clear correction target">&times;</button>
+        </div>
         <div class="chat-input-row">
           <label class="visually-hidden" for="chatInput" id="chatInputLabel">Your answer</label>
           <textarea
@@ -166,10 +184,110 @@
         </div>
       </section>
 
-      <!-- Avatar preview placeholder. Prompt 9 replaces this with the
-           actual SiGML renderer surface; keeping the anchor here so the
-           notation panel below sits in its final spot. -->
-      <div class="avatar-preview-placeholder" id="avatarPreview" hidden aria-hidden="true"></div>
+      <!-- Avatar preview pane (prompt 9). Renders via CWASA on the
+           hidden GUI surface; we drive the visible canvas + controls
+           ourselves. Stays in place once mounted so the layout never
+           jumps while the backend is still generating. -->
+      <section class="avatar-preview" id="avatarPreview" aria-label="Sign preview" hidden>
+        <!-- 16:9 stage. Light gray backdrop per Kipp et al. 2011 avatar
+             UX guidance referenced in the feasibility study — dark
+             backgrounds reduce legibility for many Deaf users. -->
+        <div class="avatar-stage" id="avatarStage">
+          <div class="avatar-backdrop" id="avatarBackdrop"></div>
+          <!-- CWASA's canonical mount points. The GUI is kept hidden;
+               our control bar below replaces it. -->
+          <div class="CWASAAvatar av0" id="avatarCanvas"></div>
+          <div class="CWASAGUI av0" style="display:none" aria-hidden="true"></div>
+          <!-- Invisible body-region overlay (prompt 14 target capture).
+               SVG polygons sit over the avatar; hovering outlines a
+               region, clicking captures region + time. -->
+          <svg
+            class="avatar-regions"
+            id="avatarRegions"
+            viewBox="0 0 160 90"
+            preserveAspectRatio="xMidYMid meet"
+            aria-hidden="true"
+            focusable="false">
+            <polygon class="avatar-region" data-region="head"                 points="70,6 90,6 94,18 66,18" />
+            <polygon class="avatar-region" data-region="face"                 points="66,18 94,18 94,28 66,28" />
+            <polygon class="avatar-region" data-region="neck"                 points="72,28 88,28 88,34 72,34" />
+            <polygon class="avatar-region" data-region="shoulder_nondominant" points="48,34 72,34 72,46 46,46" />
+            <polygon class="avatar-region" data-region="shoulder_dominant"    points="88,34 112,34 114,46 88,46" />
+            <polygon class="avatar-region" data-region="chest"                points="58,34 102,34 102,58 58,58" />
+            <polygon class="avatar-region" data-region="arm_nondominant"      points="36,46 58,46 58,68 38,68" />
+            <polygon class="avatar-region" data-region="arm_dominant"         points="102,46 124,46 122,68 102,68" />
+            <polygon class="avatar-region" data-region="hand_nondominant"     points="26,62 48,62 48,84 28,84" />
+            <polygon class="avatar-region" data-region="hand_dominant"        points="112,62 134,62 132,84 112,84" />
+            <polygon class="avatar-region" data-region="torso"                points="58,58 102,58 102,82 58,82" />
+          </svg>
+          <!-- Muted indeterminate pulse during GENERATING/RENDERING.
+               No spinners, no percentage — calm by design. -->
+          <div class="avatar-pulse" id="avatarPulse" aria-hidden="true" hidden></div>
+          <!-- Plain-text fallback if CWASA, WebGL, or rendering fails.
+               Collapses the whole stage to copy; submit stays enabled. -->
+          <div class="avatar-fallback" id="avatarFallback" role="status" aria-live="polite" hidden>
+            Preview unavailable in this environment. The sign can still
+            be submitted; the HamNoSys below is what the reviewer will
+            evaluate.
+          </div>
+        </div>
+
+        <!-- Status strip under the stage: "Generating HamNoSys…",
+             "Rendering avatar…", "From cache", "Ready." — short,
+             one-line, derived from state + SSE. -->
+        <p class="avatar-status" id="avatarStatus" aria-live="polite" aria-atomic="true">&nbsp;</p>
+
+        <!-- Control bar. Single row on desktop, wraps on narrow
+             viewports. Play/pause + loop + scrubber + speed. -->
+        <div class="avatar-controls-bar" role="toolbar" aria-label="Preview playback">
+          <button
+            type="button"
+            class="avatar-play"
+            id="avatarPlayBtn"
+            aria-pressed="false"
+            aria-label="Play preview"
+            disabled>Play</button>
+
+          <label class="avatar-loop">
+            <input type="checkbox" id="avatarLoopInput">
+            <span>Loop</span>
+          </label>
+
+          <div class="avatar-scrubber">
+            <input
+              type="range"
+              id="avatarScrubber"
+              class="avatar-scrubber-input"
+              min="0"
+              max="1400"
+              step="10"
+              value="0"
+              list="avatarScrubberTicks"
+              aria-label="Preview timeline"
+              aria-valuemin="0"
+              aria-valuemax="1400"
+              aria-valuenow="0"
+              aria-valuetext="0.00 seconds of 1.40 seconds"
+              disabled>
+            <datalist id="avatarScrubberTicks"></datalist>
+            <span class="avatar-time" id="avatarTime" aria-hidden="true">0.00 / 1.40 s</span>
+          </div>
+
+          <div class="avatar-speed" role="group" aria-label="Playback speed">
+            <button type="button" class="avatar-speed-btn" data-speed="0.5" aria-pressed="false">0.5&times;</button>
+            <button type="button" class="avatar-speed-btn is-active" data-speed="1" aria-pressed="true">1&times;</button>
+            <button type="button" class="avatar-speed-btn" data-speed="2" aria-pressed="false">2&times;</button>
+          </div>
+        </div>
+
+        <!-- Caption strip — gloss on top, contributor's description
+             underneath. Lets a Deaf reviewer cross-check intent
+             without leaving the preview. -->
+        <div class="avatar-captions" id="avatarCaptions">
+          <p class="avatar-caption-gloss" id="avatarCaptionGloss"></p>
+          <p class="avatar-caption-desc" id="avatarCaptionDesc"></p>
+        </div>
+      </section>
 
       <!-- Notation panel — HamNoSys (default) + SiGML tabs. Mounts once
            the session carries a generated hamnosys string; the avatar
@@ -310,6 +428,7 @@
   <script src="/contribute-context.js"></script>
   <script src="/contribute-chat.js"></script>
   <script src="/contribute-notation.js"></script>
+  <script src="/contribute-preview.js"></script>
   <script src="/contribute.js"></script>
 </body>
 </html>

@@ -57,16 +57,19 @@
   // ---------- DOM ----------
 
   var els = {
-    panel:        document.getElementById('chatPanel'),
-    log:          document.getElementById('chatLog'),
-    options:      document.getElementById('chatOptions'),
-    hint:         document.getElementById('chatInputHint'),
-    progress:     document.getElementById('chatProgress'),
-    inputLabel:   document.getElementById('chatInputLabel'),
-    input:        document.getElementById('chatInput'),
-    sendBtn:      document.getElementById('chatSendBtn'),
-    errorActions: document.getElementById('chatErrorActions'),
-    submitAsIs:   document.getElementById('chatSubmitAsIsBtn'),
+    panel:         document.getElementById('chatPanel'),
+    log:           document.getElementById('chatLog'),
+    options:       document.getElementById('chatOptions'),
+    hint:          document.getElementById('chatInputHint'),
+    progress:      document.getElementById('chatProgress'),
+    inputLabel:    document.getElementById('chatInputLabel'),
+    input:         document.getElementById('chatInput'),
+    sendBtn:       document.getElementById('chatSendBtn'),
+    errorActions:  document.getElementById('chatErrorActions'),
+    submitAsIs:    document.getElementById('chatSubmitAsIsBtn'),
+    targetPill:    document.getElementById('chatTargetPill'),
+    targetText:    document.getElementById('chatTargetPillText'),
+    targetClear:   document.getElementById('chatTargetPillClear'),
   };
 
   if (!els.panel || !els.log || !els.input || !els.sendBtn) {
@@ -90,6 +93,11 @@
     inFlight: false,
     // True after we surface the error message and the Submit-as-is path.
     inError: false,
+    // Correction target set by the preview pane when the contributor
+    // clicks a body region. Carries { region, label, timeMs, timeText }.
+    // Cleared once a correction is submitted or the user dismisses the
+    // pill. Null means "no target — send correction un-targeted."
+    correctionTarget: null,
   };
 
   // ---------- log + options rendering ----------
@@ -260,7 +268,19 @@
   function sendCorrection(text) {
     setInFlight(true);
     clearError();
-    CTX.correct(text, {})
+    var opts = {};
+    if (chat.correctionTarget) {
+      if (typeof chat.correctionTarget.timeMs === 'number') {
+        opts.targetTimeMs = chat.correctionTarget.timeMs;
+      }
+      if (chat.correctionTarget.region) {
+        opts.targetRegion = chat.correctionTarget.region;
+      }
+    }
+    // The target applies to this one correction only — clear the pill
+    // so the next correction starts fresh unless the user re-targets.
+    clearCorrectionTarget();
+    CTX.correct(text, opts)
       .catch(handleError)
       .then(function () { setInFlight(false); });
   }
@@ -380,6 +400,7 @@
     els.options.hidden = true;
     els.progress.hidden = true;
     els.input.value = '';
+    clearCorrectionTarget();
     autoGrowInput();
   }
 
@@ -407,6 +428,46 @@
     }
   }
 
+  // ---------- correction targeting pill ----------
+
+  function setCorrectionTarget(tgt) {
+    if (!els.targetPill) return;
+    if (!tgt || (!tgt.region && typeof tgt.timeMs !== 'number')) {
+      clearCorrectionTarget();
+      return;
+    }
+    chat.correctionTarget = {
+      region:   tgt.region || null,
+      label:    tgt.label  || tgt.region || '',
+      timeMs:   typeof tgt.timeMs === 'number' ? tgt.timeMs : null,
+      timeText: tgt.timeText || (typeof tgt.timeMs === 'number'
+        ? (tgt.timeMs / 1000).toFixed(2) : ''),
+    };
+    var parts = [];
+    if (chat.correctionTarget.timeText) {
+      parts.push('At ' + chat.correctionTarget.timeText + 's');
+    }
+    if (chat.correctionTarget.label) {
+      parts.push(chat.correctionTarget.label);
+    }
+    els.targetText.textContent = parts.join(' • ');
+    els.targetPill.hidden = false;
+    // Focus the input so the contributor can start typing the
+    // correction right away. The pill stays visible above the
+    // textarea until they send or dismiss it.
+    if (els.input && !els.input.disabled && typeof els.input.focus === 'function') {
+      els.input.focus();
+    }
+  }
+
+  function clearCorrectionTarget() {
+    chat.correctionTarget = null;
+    if (els.targetPill) {
+      els.targetPill.hidden = true;
+      if (els.targetText) els.targetText.textContent = '';
+    }
+  }
+
   // ---------- public surface ----------
 
   window.KOZHA_CONTRIB_CHAT = {
@@ -416,6 +477,8 @@
       appendMessage({ kind: 'system', text: COPY.ERROR_MSG });
       els.errorActions.hidden = false;
     },
+    setCorrectionTarget:   setCorrectionTarget,
+    clearCorrectionTarget: clearCorrectionTarget,
   };
 
   // ---------- mount ----------
@@ -425,6 +488,9 @@
     els.input.addEventListener('keydown', onKeyDown);
     els.sendBtn.addEventListener('click', onSendClick);
     els.submitAsIs.addEventListener('click', onSubmitAsIs);
+    if (els.targetClear) {
+      els.targetClear.addEventListener('click', clearCorrectionTarget);
+    }
     autoGrowInput();
     CTX.subscribe(onSnapshot);
     onSnapshot(CTX.getState());
