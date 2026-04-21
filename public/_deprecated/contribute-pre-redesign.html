@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bridgn — Contribute a Sign</title>
+  <meta name="description" content="Help build an open-source sign language dictionary. Register in under a minute and author a sign with the chat2hamnosys pipeline.">
+  <meta property="og:title" content="Contribute to Bridgn">
+  <meta property="og:description" content="Register, describe a sign in plain words, preview the generated animation, and submit it for review. Contribute to an open sign-language dictionary.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kozha-translate.com/contribute.html">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://kozha-translate.com/contribute.html">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#f5f1eb" />
+  <style>
+    :root {
+      --ink: #1a1612;
+      --ink-2: #3d3630;
+      --ink-3: #685d54;
+      --paper: #f5f1eb;
+      --paper-2: #ede8e0;
+      --paper-3: #e4ddd3;
+      --accent: #c96a2e;
+      --accent-2: #e8843e;
+      --accent-light: #f5e4d6;
+      --green: #2d6a4f;
+      --green-light: #d4edda;
+      --red: #b4361a;
+      --red-light: #f7e1db;
+      --border: rgba(26,22,18,0.12);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--accent-2); }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 64px;
+      background: rgba(245,241,235,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Instrument Serif', serif; font-size: 22px; color: var(--ink); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--ink-2); font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a.active { color: var(--accent); }
+    .btn-primary {
+      font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; color: white;
+      background: var(--accent); border: none; border-radius: var(--radius-sm);
+      padding: 8px 20px; cursor: pointer; text-decoration: none;
+      transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-primary:hover { background: var(--accent-2); color: white; }
+
+    /* HERO */
+    .page-hero { padding: 96px 48px 48px; max-width: 1100px; margin: 0 auto; text-align: center; }
+    .page-hero .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent-light); border: 1px solid rgba(201,106,46,0.2);
+      color: var(--accent); font-size: 12px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 6px 14px; border-radius: 999px; margin-bottom: 28px;
+    }
+    .page-hero h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(40px, 6vw, 64px);
+      line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 20px;
+    }
+    .page-hero h1 em { font-style: italic; color: var(--accent); }
+    .page-hero p {
+      font-size: 18px; color: var(--ink-3); line-height: 1.7;
+      max-width: 620px; margin: 0 auto 36px; font-weight: 300;
+    }
+    .hero-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .btn-cta {
+      font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
+      color: white; background: var(--accent);
+      border: none; border-radius: var(--radius);
+      padding: 14px 28px; cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 10px;
+      transition: all 0.2s;
+    }
+    .btn-cta:hover { background: var(--accent-2); color: white; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(201,106,46,0.35); }
+    .btn-ghost {
+      font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
+      color: var(--ink); background: transparent;
+      border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 13px 26px; cursor: pointer; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 10px; transition: all 0.2s;
+    }
+    .btn-ghost:hover { background: var(--paper-2); border-color: var(--ink-3); color: var(--ink); }
+    .btn-ghost svg { width: 18px; height: 18px; }
+
+    /* SECTION CHROME */
+    section { padding: 64px 48px; }
+    .wrap { max-width: 1100px; margin: 0 auto; }
+    .section-head { text-align: center; margin-bottom: 48px; }
+    .section-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+    .section-title { font-family: 'Instrument Serif', serif; font-size: clamp(30px, 4vw, 42px); letter-spacing: -0.01em; margin-bottom: 12px; }
+    .section-sub { font-size: 17px; color: var(--ink-3); font-weight: 300; max-width: 620px; margin: 0 auto; line-height: 1.7; }
+
+    /* WHY — feature grid */
+    .why { background: var(--paper-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .card {
+      background: var(--paper); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 32px; transition: all 0.2s;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(26,22,18,0.06); border-color: rgba(26,22,18,0.2); }
+    .card-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--accent-light); color: var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+    }
+    .card-icon svg { width: 22px; height: 22px; }
+    .card h3 { font-family: 'Instrument Serif', serif; font-size: 22px; letter-spacing: -0.01em; margin-bottom: 10px; }
+    .card p { font-size: 15px; color: var(--ink-3); line-height: 1.7; }
+
+    /* HOW — steps */
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .step {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 22px;
+      position: relative;
+    }
+    .step-num {
+      font-family: 'Instrument Serif', serif;
+      font-size: 40px; line-height: 1;
+      color: var(--accent); margin-bottom: 14px; font-style: italic;
+    }
+    .step h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; color: var(--ink); }
+    .step p { font-size: 14px; color: var(--ink-3); line-height: 1.6; }
+
+    /* FORM */
+    .signup { background: linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%); border-top: 1px solid var(--border); }
+    .form-card {
+      max-width: 560px; margin: 0 auto;
+      background: var(--paper); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 40px;
+      box-shadow: 0 10px 40px rgba(26,22,18,0.05);
+    }
+    .form-card h2 { font-family: 'Instrument Serif', serif; font-size: 30px; margin-bottom: 8px; letter-spacing: -0.01em; }
+    .form-intro { font-size: 15px; color: var(--ink-3); line-height: 1.6; margin-bottom: 28px; }
+    .form-row { margin-bottom: 20px; }
+    .form-row label {
+      display: block; font-size: 13px; font-weight: 600;
+      color: var(--ink-2); margin-bottom: 8px; letter-spacing: 0.01em;
+    }
+    .form-row .hint { display: block; font-size: 12px; color: var(--ink-3); margin-top: 6px; font-weight: 400; }
+    .form-row input[type="text"],
+    .form-row input[type="email"] {
+      width: 100%; font-family: 'DM Sans', sans-serif; font-size: 15px;
+      background: var(--paper); color: var(--ink);
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: 12px 14px; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-row input:focus {
+      outline: none; border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(201,106,46,0.15);
+    }
+    .form-row input:disabled { background: var(--paper-2); color: var(--ink-3); }
+    /* Honeypot — off-screen for real users, visible to naïve bots. */
+    .hp-wrap { position: absolute; left: -9999px; top: -9999px; height: 0; overflow: hidden; opacity: 0; }
+
+    .captcha-row { display: flex; gap: 12px; align-items: stretch; }
+    .captcha-prompt {
+      flex: 1; min-width: 0;
+      background: var(--paper-2); color: var(--ink-2);
+      border: 1px dashed var(--border); border-radius: var(--radius-sm);
+      padding: 12px 14px; font-size: 15px; font-weight: 500;
+      display: flex; align-items: center;
+    }
+    .captcha-prompt.is-loading { color: var(--ink-3); font-style: italic; font-weight: 400; }
+    .captcha-row input[type="text"] { flex: 0 0 140px; }
+    .captcha-refresh {
+      background: transparent; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); width: 44px;
+      cursor: pointer; color: var(--ink-3);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .captcha-refresh:hover { background: var(--paper-2); color: var(--ink); }
+    .captcha-refresh svg { width: 16px; height: 16px; }
+
+    /* BYO OpenAI key — pre-launch scaffolding. */
+    .key-row { position: relative; }
+    .key-row input[type="password"] {
+      width: 100%; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 14px; letter-spacing: 0.02em;
+      background: var(--paper); color: var(--ink);
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: 12px 14px; padding-right: 72px; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .key-row input[type="password"]:focus {
+      outline: none; border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(201,106,46,0.15);
+    }
+    .key-toggle {
+      position: absolute; right: 8px; top: 8px;
+      background: transparent; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 4px 10px;
+      font-size: 12px; font-weight: 500; color: var(--ink-3);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .key-toggle:hover { background: var(--paper-2); color: var(--ink); }
+    .key-row .hint a { color: var(--accent); }
+    .key-panel { display: none; }
+    .key-panel.is-visible { display: block; }
+
+    .submit-btn {
+      width: 100%; font-family: 'DM Sans', sans-serif;
+      font-size: 15px; font-weight: 600; color: white;
+      background: var(--accent); border: none; border-radius: var(--radius-sm);
+      padding: 14px 20px; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      transition: all 0.2s;
+    }
+    .submit-btn:hover:not(:disabled) { background: var(--accent-2); }
+    .submit-btn:disabled { background: var(--ink-3); cursor: not-allowed; opacity: 0.7; }
+    .submit-btn .spinner {
+      width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: white; border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    .submit-btn.is-loading .spinner { display: inline-block; }
+    .submit-btn.is-loading .submit-label::after { content: '…'; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .form-msg {
+      margin-top: 14px; padding: 12px 14px;
+      border-radius: var(--radius-sm); font-size: 14px;
+      display: none;
+    }
+    .form-msg.is-error { display: block; background: var(--red-light); color: var(--red); border: 1px solid rgba(180,54,26,0.2); }
+    .form-msg.is-success { display: block; background: var(--green-light); color: var(--green); border: 1px solid rgba(45,106,79,0.25); }
+
+    .form-fineprint { margin-top: 20px; font-size: 12px; color: var(--ink-3); line-height: 1.6; text-align: center; }
+
+    /* FAQ */
+    .faq-list { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .faq-item {
+      background: var(--paper-2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px;
+    }
+    .faq-item h4 { font-family: 'Instrument Serif', serif; font-size: 19px; margin-bottom: 8px; letter-spacing: -0.01em; }
+    .faq-item p { font-size: 14px; color: var(--ink-3); line-height: 1.7; }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 40px 48px; margin-top: 0; background: var(--paper-2); }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .footer-logo { font-family: 'Instrument Serif', serif; font-size: 18px; color: var(--ink); }
+    .footer-logo span { color: var(--accent); }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { font-size: 13px; color: var(--ink-3); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-copy { font-size: 12px; color: var(--ink-3); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-up { animation: fadeUp 0.6s ease forwards; }
+    .delay-1 { animation-delay: 0.08s; opacity: 0; }
+    .delay-2 { animation-delay: 0.16s; opacity: 0; }
+    .delay-3 { animation-delay: 0.24s; opacity: 0; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .page-hero { padding: 72px 24px 32px; }
+      section { padding: 48px 24px; }
+      .card-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .faq-list { grid-template-columns: 1fr; }
+      .form-card { padding: 28px; }
+      footer { padding: 32px 24px; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 520px) {
+      .steps { grid-template-columns: 1fr; }
+      .captcha-row { flex-wrap: wrap; }
+      .captcha-row input[type="text"] { flex: 1 1 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Bridg<span>n</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="index.html#how-it-works">How it works</a></li>
+      <li><a href="contribute.html" class="active">Contribute</a></li>
+    </ul>
+    <a href="app.html" class="btn-primary">Open Translator →</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="eyebrow fade-up delay-1">
+      Open-source · Community-built
+    </div>
+    <h1 class="fade-up delay-2">Help grow the<br><em>sign dictionary.</em></h1>
+    <p class="fade-up delay-3">
+      Every sign on Bridgn was authored by someone like you. Describe a
+      sign in plain English, preview the generated animation, and our
+      Deaf reviewers validate it before it ships to everyone using the
+      translator.
+    </p>
+    <div class="hero-actions fade-up delay-3">
+      <a href="#contribute" class="btn-cta">Start contributing →</a>
+      <a href="https://github.com/zhan-a/Kozha" target="_blank" rel="noopener" class="btn-ghost">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        View on GitHub
+      </a>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="why">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-eyebrow">Why your work matters</div>
+        <h2 class="section-title">Small effort,<br>real reach.</h2>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Signs reach real users</h3>
+          <p>Approved signs land in the live translator at kozha-translate.com. The next person who types your word sees your sign animated.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <h3>Deaf-led review</h3>
+          <p>Every submission goes to two reviewers, with at least one Deaf native signer. Signs only publish after both approve — your work is never rushed out alone.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <h3>Under five minutes</h3>
+          <p>Describe the sign in plain words (“flat hand near the temple, moves to the chest”). Our pipeline asks clarifying questions and shows you a preview to correct before you submit.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-eyebrow">What to expect</div>
+        <h2 class="section-title">Four steps to a<br>published sign.</h2>
+        <p class="section-sub">The pipeline runs on OpenAI's models, and Bridgn covers the API costs so you can contribute for free.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h4>Register</h4>
+          <p>Share your name and contact so reviewers can follow up if there's a question about your sign.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h4>Describe</h4>
+          <p>Type a plain-English description of the sign. The system asks clarifying questions until it has what it needs.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h4>Preview &amp; correct</h4>
+          <p>Watch the 3D avatar sign it back to you. If something is off, tell the system what to fix — in words, not code.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h4>Submit for review</h4>
+          <p>Two reviewers inspect and approve. Once published, your sign appears in the translator for everyone.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIGNUP FORM -->
+  <section id="contribute" class="signup">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-eyebrow">Start here</div>
+        <h2 class="section-title">Create your<br>contributor profile.</h2>
+      </div>
+      <div class="form-card">
+        <h2>Register</h2>
+        <p class="form-intro">Name and contact stay with us — reviewers only use them if they need to ask about a submission. We never publish or share them.</p>
+
+        <form id="registerForm" novalidate>
+          <div class="form-row">
+            <label for="name">Your name</label>
+            <input type="text" id="name" name="name" required maxlength="120" autocomplete="name" placeholder="e.g. Anna Novak" />
+          </div>
+
+          <div class="form-row">
+            <label for="contact">Email or phone</label>
+            <input type="text" id="contact" name="contact" required maxlength="200" autocomplete="email" placeholder="you@example.com or +1 555 0199" />
+            <span class="hint">We use this only to follow up on submissions.</span>
+          </div>
+
+          <!-- Honeypot — hidden field real users never fill. -->
+          <div class="hp-wrap" aria-hidden="true">
+            <label for="website">Website</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="form-row" id="captchaWrap">
+            <label for="captchaAnswer">Quick check</label>
+            <div class="captcha-row">
+              <div class="captcha-prompt is-loading" id="captchaPrompt">Loading a math problem…</div>
+              <input type="text" id="captchaAnswer" name="captchaAnswer" maxlength="16" autocomplete="off" inputmode="numeric" placeholder="Answer" />
+              <button type="button" class="captcha-refresh" id="captchaRefresh" title="Get a new question" aria-label="Get a new question">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- BYO OpenAI key — optional, pre-launch only. The backend
+               prefers this over the project's ``OPENAI_API_KEY`` when
+               both are set, so contributors can use a personal key
+               while the project secret is still being provisioned. -->
+          <div class="form-row key-panel" id="keyPanel">
+            <label for="openaiKey">Your OpenAI API key <span style="font-weight:400;color:var(--ink-3);">· optional</span></label>
+            <div class="key-row">
+              <input type="password" id="openaiKey" name="openaiKey" maxlength="256" autocomplete="off" spellcheck="false" placeholder="sk-…" />
+              <button type="button" class="key-toggle" id="keyToggle" aria-label="Show key">Show</button>
+            </div>
+            <span class="hint">
+              Stored only in your browser (<code>localStorage</code>) and sent as a header on each call.
+              Leave blank to use the project key once it's provisioned.
+              <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener">Get a key →</a>
+            </span>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span class="spinner"></span>
+            <span class="submit-label">Create profile &amp; start</span>
+          </button>
+
+          <div class="form-msg" id="formMsg" role="status" aria-live="polite"></div>
+          <p class="form-fineprint">By continuing you agree your submitted signs may be published under the project's open licence. Contact details stay private.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-eyebrow">Good to know</div>
+        <h2 class="section-title">Answers to<br>common questions.</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <h4>What happens to my contact info?</h4>
+          <p>It stays in a private database only accessible to reviewers. We never publish it, sell it, or use it for marketing. You can ask us to delete it anytime via the GitHub issues link.</p>
+        </div>
+        <div class="faq-item">
+          <h4>Do I need to be a Deaf signer?</h4>
+          <p>No — anyone can contribute. Every sign is reviewed by at least one Deaf native signer before publication, so your draft is always in good hands.</p>
+        </div>
+        <div class="faq-item">
+          <h4>Which sign languages does Bridgn support?</h4>
+          <p>BSL (British), DGS (German), ASL (American), LSF (French), LSE (Spanish), PJM (Polish), NGT (Dutch), and GSL (Greek). More coming as the dictionary grows.</p>
+        </div>
+        <div class="faq-item">
+          <h4>Who pays for the OpenAI API?</h4>
+          <p>Bridgn does — contributions are free for you. We cap daily spend to keep things sustainable; if you hit a limit, check back the next day.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">Bridg<span>n</span></div>
+      <ul class="footer-links">
+        <li><a href="app.html">Translator</a></li>
+        <li><a href="contribute.html">Contribute</a></li>
+        <li><a href="index.html#features">Features</a></li>
+        <li><a href="https://github.com/zhan-a/Kozha" target="_blank" rel="noopener">GitHub</a></li>
+      </ul>
+      <div class="footer-copy">© 2025–2026 Bridgn. Open-source research project.</div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var API_BASE = '/api/chat2hamnosys/contribute';
+      var TOKEN_KEY = 'bridgn.contributor_token';
+      var TOKEN_EXP_KEY = 'bridgn.contributor_expires_at';
+      var PROFILE_KEY = 'bridgn.contributor_profile';
+      // Personal OpenAI key — present only while the project secret is
+      // still being provisioned. The authoring app reads the same key
+      // and sends it on every backend call.
+      var OPENAI_KEY_STORAGE = 'bridgn.openai_api_key';
+
+      var captchaPrompt = document.getElementById('captchaPrompt');
+      var captchaWrap = document.getElementById('captchaWrap');
+      var captchaInput = document.getElementById('captchaAnswer');
+      var captchaRefresh = document.getElementById('captchaRefresh');
+      var form = document.getElementById('registerForm');
+      var submitBtn = document.getElementById('submitBtn');
+      var formMsg = document.getElementById('formMsg');
+      var nameInput = document.getElementById('name');
+      var contactInput = document.getElementById('contact');
+      var hpInput = document.getElementById('website');
+      var keyPanel = document.getElementById('keyPanel');
+      var keyInput = document.getElementById('openaiKey');
+      var keyToggle = document.getElementById('keyToggle');
+
+      var currentChallenge = null;
+      var captchaDisabled = false;
+
+      // Pre-fill BYO key from storage so returning contributors don't retype it.
+      try {
+        var storedKey = localStorage.getItem(OPENAI_KEY_STORAGE) || '';
+        if (storedKey) keyInput.value = storedKey;
+      } catch (_e) { /* ignore */ }
+
+      keyToggle.addEventListener('click', function () {
+        if (keyInput.type === 'password') {
+          keyInput.type = 'text';
+          keyToggle.textContent = 'Hide';
+        } else {
+          keyInput.type = 'password';
+          keyToggle.textContent = 'Show';
+        }
+      });
+
+      // Show the BYO-key panel unconditionally; it's optional when the
+      // project key is configured and required when it isn't. Keeping
+      // it visible lets contributors swap to a personal key whenever
+      // they want — removing it after launch is a one-line edit.
+      keyPanel.classList.add('is-visible');
+
+      // If the user already registered recently, skip straight into the authoring UI.
+      try {
+        var existing = localStorage.getItem(TOKEN_KEY);
+        var exp = parseInt(localStorage.getItem(TOKEN_EXP_KEY) || '0', 10);
+        if (existing && exp > Math.floor(Date.now() / 1000) + 60) {
+          showMessage('You already have an active profile. Continuing to the authoring tool…', 'success');
+          setTimeout(function () { window.location.href = '/chat2hamnosys/'; }, 900);
+        }
+      } catch (_e) { /* localStorage blocked — carry on */ }
+
+      function showMessage(text, kind) {
+        formMsg.className = 'form-msg is-' + kind;
+        formMsg.textContent = text;
+      }
+      function clearMessage() {
+        formMsg.className = 'form-msg';
+        formMsg.textContent = '';
+      }
+
+      function loadCaptcha() {
+        captchaPrompt.textContent = 'Loading a math problem…';
+        captchaPrompt.classList.add('is-loading');
+        captchaInput.value = '';
+        currentChallenge = null;
+        fetch(API_BASE + '/captcha', { headers: { 'Accept': 'application/json' } })
+          .then(function (r) {
+            if (!r.ok) throw new Error('captcha HTTP ' + r.status);
+            return r.json();
+          })
+          .then(function (data) {
+            currentChallenge = data.challenge;
+            if (data.disabled) {
+              // Pre-launch mode — hide the whole row; the backend will
+              // accept any answer. We still send ``challenge: "disabled"``
+              // on submit so the payload shape stays stable.
+              captchaDisabled = true;
+              captchaWrap.style.display = 'none';
+            } else {
+              captchaDisabled = false;
+              captchaWrap.style.display = '';
+              captchaPrompt.textContent = data.question;
+              captchaPrompt.classList.remove('is-loading');
+            }
+          })
+          .catch(function () {
+            captchaPrompt.textContent = 'Could not load — click refresh.';
+            captchaPrompt.classList.remove('is-loading');
+          });
+      }
+      captchaRefresh.addEventListener('click', loadCaptcha);
+      loadCaptcha();
+
+      form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        clearMessage();
+
+        var name = nameInput.value.trim();
+        var contact = contactInput.value.trim();
+        var answer = captchaInput.value.trim();
+        var byoKey = (keyInput.value || '').trim();
+        if (!name) { showMessage('Please enter your name.', 'error'); nameInput.focus(); return; }
+        if (!contact) { showMessage('Please add an email or phone.', 'error'); contactInput.focus(); return; }
+        if (!captchaDisabled) {
+          if (!answer) { showMessage('Please answer the math question.', 'error'); captchaInput.focus(); return; }
+          if (!currentChallenge) { showMessage('Captcha still loading — try the refresh button.', 'error'); return; }
+        }
+
+        // Stash the BYO key (or clear it if the field was blanked) so
+        // the authoring app picks it up on the next request. Do this
+        // before the network call; registration failure shouldn't make
+        // the user re-enter the key.
+        try {
+          if (byoKey) localStorage.setItem(OPENAI_KEY_STORAGE, byoKey);
+          else localStorage.removeItem(OPENAI_KEY_STORAGE);
+        } catch (_e) { /* ignore */ }
+
+        submitBtn.disabled = true;
+        submitBtn.classList.add('is-loading');
+
+        fetch(API_BASE + '/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            name: name,
+            contact: contact,
+            captcha_challenge: currentChallenge || 'disabled',
+            captcha_answer: answer,
+            website: hpInput.value || ''
+          })
+        })
+          .then(function (r) {
+            return r.json().then(function (data) { return { ok: r.ok, status: r.status, data: data }; });
+          })
+          .then(function (res) {
+            if (!res.ok) {
+              var code = res.data && res.data.error && res.data.error.code;
+              var msg  = (res.data && res.data.error && res.data.error.message) || 'Registration failed.';
+              if (code === 'captcha_failed') msg = 'Captcha answer was wrong. Here is a new question.';
+              showMessage(msg, 'error');
+              loadCaptcha();
+              return;
+            }
+            try {
+              localStorage.setItem(TOKEN_KEY, res.data.contributor_token);
+              localStorage.setItem(TOKEN_EXP_KEY, String(res.data.expires_at));
+              localStorage.setItem(PROFILE_KEY, JSON.stringify({
+                id: res.data.contributor_id,
+                name: name
+              }));
+            } catch (_e) { /* localStorage blocked — token is then session-only */ }
+            showMessage("Profile created. Opening the authoring tool…", 'success');
+            setTimeout(function () { window.location.href = '/chat2hamnosys/'; }, 700);
+          })
+          .catch(function () {
+            showMessage('Network error — please try again.', 'error');
+            loadCaptcha();
+          })
+          .finally(function () {
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('is-loading');
+          });
+      });
+    })();
+  </script>
+
+</body>
+</html>

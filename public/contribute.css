@@ -1,0 +1,194 @@
+/* Contribute page — minimal scaffold. Design contract:
+   docs/contribute-redesign/01-design-principles.md.
+   One typeface (system stack), dark ink on off-white paper, single accent
+   used only for the active-language badge and the primary button. */
+
+:root {
+  --ink: #15130f;
+  --paper: #f7f3ec;
+  --accent: #b3441b;
+  --rule: rgba(21, 19, 15, 0.14);
+  --max-width: 880px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+a:hover, a:focus { text-decoration-thickness: 2px; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.site-header,
+main,
+.site-footer {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.site-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-top: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--rule);
+}
+.site-name {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+}
+.back-link { font-size: 15px; }
+
+main {
+  padding-top: 56px;
+  padding-bottom: 72px;
+}
+
+h1 {
+  font-size: 40px;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 40px;
+}
+
+/* Language picker — empty state: centred, full width of content column. */
+.language-picker {
+  margin-bottom: 40px;
+}
+.picker-prompt {
+  margin: 0 0 20px;
+  font-size: 20px;
+  font-weight: 500;
+}
+.picker-options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.picker-option {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 18px;
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: opacity 120ms ease;
+  width: 100%;
+}
+.picker-option:hover { opacity: 0.72; }
+.picker-option-code {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  min-width: 48px;
+}
+.picker-option-name { flex: 1; }
+.picker-option-coverage {
+  font-size: 14px;
+  color: var(--ink);
+  opacity: 0.6;
+  white-space: nowrap;
+}
+
+/* Active state: high-contrast badge + small "change" button. */
+.picker-active {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.picker-label {
+  font-size: 15px;
+  opacity: 0.7;
+}
+.language-badge {
+  display: inline-block;
+  padding: 10px 18px;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  background: var(--accent);
+  color: var(--paper);
+}
+.change-btn {
+  background: transparent;
+  border: 1px solid var(--rule);
+  padding: 6px 14px;
+  font: inherit;
+  font-size: 14px;
+  color: inherit;
+  cursor: pointer;
+  transition: opacity 120ms ease;
+}
+.change-btn:hover { opacity: 0.7; }
+
+/* Inline "no reviewer assigned" notice — plain, no warning icon. */
+.reviewer-notice {
+  margin-bottom: 32px;
+  padding: 16px 20px;
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--rule);
+  font-size: 16px;
+}
+.reviewer-notice p { margin: 0; }
+
+#authoring-root { margin-top: 32px; }
+
+.site-footer {
+  margin-top: 64px;
+  padding-top: 24px;
+  padding-bottom: 32px;
+  border-top: 1px solid var(--rule);
+}
+.footer-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 14px;
+}
+
+/* Narrow viewports: reduce padding, keep single-column layout. */
+@media (max-width: 640px) {
+  .site-header,
+  main,
+  .site-footer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  main { padding-top: 36px; padding-bottom: 48px; }
+  h1 { font-size: 32px; margin-bottom: 28px; }
+  .language-badge { font-size: 18px; padding: 8px 14px; }
+}

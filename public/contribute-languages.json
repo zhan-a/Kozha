@@ -1,0 +1,60 @@
+{
+  "languages": [
+    {
+      "code": "bsl",
+      "name": "British Sign Language",
+      "english_name": "British Sign Language",
+      "has_reviewers": false,
+      "coverage_count": 907
+    },
+    {
+      "code": "asl",
+      "name": "American Sign Language",
+      "english_name": "American Sign Language",
+      "has_reviewers": false,
+      "coverage_count": 26
+    },
+    {
+      "code": "dgs",
+      "name": "Deutsche Gebärdensprache",
+      "english_name": "German Sign Language",
+      "has_reviewers": false,
+      "coverage_count": 1940
+    },
+    {
+      "code": "lsf",
+      "name": "Langue des Signes Française",
+      "english_name": "French Sign Language",
+      "has_reviewers": false,
+      "coverage_count": 407
+    },
+    {
+      "code": "lse",
+      "name": "Lengua de Signos Española",
+      "english_name": "Spanish Sign Language",
+      "has_reviewers": false,
+      "coverage_count": 0
+    },
+    {
+      "code": "pjm",
+      "name": "Polski Język Migowy",
+      "english_name": "Polish Sign Language",
+      "has_reviewers": false,
+      "coverage_count": 1958
+    },
+    {
+      "code": "ngt",
+      "name": "Nederlandse Gebarentaal",
+      "english_name": "Dutch Sign Language",
+      "has_reviewers": false,
+      "coverage_count": 65
+    },
+    {
+      "code": "gsl",
+      "name": "Ελληνική Νοηματική Γλώσσα",
+      "english_name": "Greek Sign Language",
+      "has_reviewers": false,
+      "coverage_count": 889
+    }
+  ]
+}
