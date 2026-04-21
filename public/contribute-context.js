@@ -22,15 +22,18 @@
  *   createSession({prose?, gloss?, authorIsDeafNative?})
  *                                    POST /sessions (+ /describe if prose)
  *   describe(prose, gloss?)          POST /sessions/:id/describe
+ *   answer(field, answerText)        POST /sessions/:id/answer
+ *   correct(rawText, {targetTimeMs?, targetRegion?})
+ *                                    POST /sessions/:id/correct
  *   resumeSession(id, token)         GET  /sessions/:id (verifies token)
  *   abandonSession()                 POST /sessions/:id/reject + full reset
  *   clearSession({reason?})          POST /sessions/:id/reject but keeps
  *                                    the selected language
  *
  * Persistence rule: only {language, sessionId, sessionToken} land in
- * sessionStorage. gloss / sessionState / lastUpdated are derived from the
- * server envelope after a resume, so persisting them would fight the
- * source of truth.
+ * sessionStorage. gloss / sessionState / pendingQuestions / clarifications
+ * are derived from the server envelope after a resume, so persisting them
+ * would fight the source of truth.
  */
 (function () {
   'use strict';
@@ -60,12 +63,19 @@
 
   function defaultState() {
     return {
-      language:     null,
-      gloss:        '',
-      sessionId:    null,
-      sessionToken: null,
-      sessionState: 'awaiting_description',
-      lastUpdated:  0,
+      language:         null,
+      gloss:            '',
+      sessionId:        null,
+      sessionToken:     null,
+      sessionState:     'awaiting_description',
+      // Latest pending clarification questions from the server envelope.
+      // Transient — never persisted. The chat panel reads the first one
+      // as the question to show next.
+      pendingQuestions: [],
+      // Author/assistant clarification turns from the envelope, used by
+      // the chat panel to replay history on a resume.
+      clarifications:   [],
+      lastUpdated:      0,
     };
   }
 
@@ -126,12 +136,14 @@
 
   function getState() {
     return {
-      language:     state.language,
-      gloss:        state.gloss,
-      sessionId:    state.sessionId,
-      sessionToken: state.sessionToken,
-      sessionState: state.sessionState,
-      lastUpdated:  state.lastUpdated,
+      language:         state.language,
+      gloss:            state.gloss,
+      sessionId:        state.sessionId,
+      sessionToken:     state.sessionToken,
+      sessionState:     state.sessionState,
+      pendingQuestions: state.pendingQuestions.slice(),
+      clarifications:   state.clarifications.slice(),
+      lastUpdated:      state.lastUpdated,
     };
   }
 
@@ -141,8 +153,16 @@
     for (var k in patch) {
       if (!Object.prototype.hasOwnProperty.call(patch, k)) continue;
       if (!(k in state)) continue;
-      if (state[k] !== patch[k]) {
-        state[k] = patch[k];
+      var prev = state[k];
+      var next = patch[k];
+      // Arrays come from server envelopes; reference-compare would
+      // miss in-place changes we never make, but we always assign so
+      // subscribers re-render with the latest envelope payload.
+      if (Array.isArray(prev) || Array.isArray(next)) {
+        state[k] = Array.isArray(next) ? next : [];
+        changed = true;
+      } else if (prev !== next) {
+        state[k] = next;
         changed = true;
       }
     }
@@ -236,6 +256,20 @@
     return parseError(resp).then(function (err) { throw err; });
   }
 
+  // Pulls the chat-relevant fields off a server envelope and mirrors
+  // them into the store. Centralised so /describe, /answer, /correct
+  // and the resume GET stay in sync without each remembering which
+  // fields the chat panel reads.
+  function applyEnvelope(env) {
+    if (!env) return;
+    setState({
+      sessionState:     env.state || state.sessionState,
+      gloss:            env.gloss || state.gloss,
+      pendingQuestions: env.pending_questions || [],
+      clarifications:   env.clarifications || [],
+    });
+  }
+
   function createSession(opts) {
     opts = opts || {};
     if (!state.language) return Promise.reject(new Error('no language selected'));
@@ -263,6 +297,9 @@
           sessionState: created.state,
           gloss:        (created.session && created.session.gloss) || opts.gloss || '',
         });
+        // Mirror nested envelope fields too so subscribers see a fully
+        // populated snapshot before the chained /describe (if any) fires.
+        if (created.session) applyEnvelope(created.session);
         pushSessionFragment();
         if (opts.prose) {
           return describe(opts.prose, opts.gloss);
@@ -288,10 +325,55 @@
     })
       .then(jsonOr)
       .then(function (env) {
-        setState({
-          sessionState: env.state,
-          gloss: env.gloss || state.gloss,
-        });
+        applyEnvelope(env);
+        return env;
+      });
+  }
+
+  function answer(questionField, answerText) {
+    if (!state.sessionId || !state.sessionToken) {
+      return Promise.reject(new Error('no active session'));
+    }
+    if (!questionField) {
+      return Promise.reject(new Error('question field required'));
+    }
+    var body = { question_id: questionField, answer: answerText };
+    return fetch(API_BASE + '/sessions/' + encodeURIComponent(state.sessionId) + '/answer', {
+      method: 'POST',
+      headers: {
+        'Accept':          'application/json',
+        'Content-Type':    'application/json',
+        'X-Session-Token': state.sessionToken,
+      },
+      body: JSON.stringify(body),
+    })
+      .then(jsonOr)
+      .then(function (env) {
+        applyEnvelope(env);
+        return env;
+      });
+  }
+
+  function correct(rawText, opts) {
+    opts = opts || {};
+    if (!state.sessionId || !state.sessionToken) {
+      return Promise.reject(new Error('no active session'));
+    }
+    var body = { raw_text: rawText };
+    if (typeof opts.targetTimeMs === 'number') body.target_time_ms = opts.targetTimeMs;
+    if (opts.targetRegion) body.target_region = opts.targetRegion;
+    return fetch(API_BASE + '/sessions/' + encodeURIComponent(state.sessionId) + '/correct', {
+      method: 'POST',
+      headers: {
+        'Accept':          'application/json',
+        'Content-Type':    'application/json',
+        'X-Session-Token': state.sessionToken,
+      },
+      body: JSON.stringify(body),
+    })
+      .then(jsonOr)
+      .then(function (env) {
+        applyEnvelope(env);
         return env;
       });
   }
@@ -309,11 +391,10 @@
       .then(function (env) {
         setState({
           language:     env.sign_language || state.language,
-          gloss:        env.gloss || '',
           sessionId:    env.session_id,
           sessionToken: token,
-          sessionState: env.state,
         });
+        applyEnvelope(env);
         pushSessionFragment();
         return env;
       });
@@ -356,10 +437,12 @@
     var id = state.sessionId;
     var token = state.sessionToken;
     setState({
-      sessionId:    null,
-      sessionToken: null,
-      gloss:        '',
-      sessionState: 'awaiting_description',
+      sessionId:        null,
+      sessionToken:     null,
+      gloss:            '',
+      sessionState:     'awaiting_description',
+      pendingQuestions: [],
+      clarifications:   [],
     });
     clearSessionFragment();
     if (!id || !token) return Promise.resolve();
@@ -396,6 +479,8 @@
     clearSessionFragment: clearSessionFragment,
     createSession:        createSession,
     describe:             describe,
+    answer:               answer,
+    correct:              correct,
     resumeSession:        resumeSession,
     abandonSession:       abandonSession,
     clearSession:         clearSession,

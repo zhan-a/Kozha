@@ -462,6 +462,201 @@ h1 {
   cursor: not-allowed;
 }
 
+/* ----- Chat panel (clarifications + corrections) -----
+   Two message types: system (left, "Clarification:" label) and you
+   (right, no label). No avatars, no assistant identity, no colored
+   bubbles beyond a light tint. Single scrollable log capped at 50vh
+   so the rest of the page stays accessible underneath. */
+
+.chat-panel {
+  margin: 0 0 32px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-log {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px 20px;
+  max-height: 50vh;
+  overflow-y: auto;
+  border-bottom: 1px solid var(--rule);
+}
+.chat-log:empty {
+  padding: 0;
+  border-bottom: 0;
+}
+
+.chat-msg {
+  max-width: 78%;
+  font-size: 15px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.chat-msg-system {
+  align-self: flex-start;
+  background: rgba(21, 19, 15, 0.04);
+  padding: 10px 14px;
+  border-left: 2px solid var(--rule);
+}
+.chat-msg-you {
+  align-self: flex-end;
+  background: rgba(179, 68, 27, 0.06);
+  padding: 10px 14px;
+  border-right: 2px solid var(--accent);
+}
+.chat-msg-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.chat-msg-text {
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.chat-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 20px 0;
+}
+.chat-option-btn {
+  background: transparent;
+  border: 1px solid var(--rule);
+  padding: 8px 14px;
+  font: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  cursor: pointer;
+  transition: opacity 120ms ease, border-color 120ms ease;
+}
+.chat-option-btn:hover:not(:disabled),
+.chat-option-btn:focus-visible:not(:disabled) {
+  border-color: var(--ink);
+  opacity: 0.85;
+}
+.chat-option-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.chat-input-hint {
+  margin: 12px 20px 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.chat-progress {
+  height: 2px;
+  background: rgba(21, 19, 15, 0.08);
+  overflow: hidden;
+  margin: 12px 20px 0;
+  position: relative;
+}
+.chat-progress-bar {
+  display: block;
+  width: 30%;
+  height: 100%;
+  background: var(--accent);
+  animation: chat-progress-slide 1.2s linear infinite;
+}
+@keyframes chat-progress-slide {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(450%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chat-progress-bar {
+    animation: none;
+    width: 100%;
+    opacity: 0.6;
+  }
+}
+
+.chat-input-row {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  padding: 12px 20px 18px;
+}
+.chat-input {
+  flex: 1;
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--rule);
+  padding: 10px 12px;
+  resize: none;
+  min-height: 44px;
+  max-height: 132px;
+  font-family: inherit;
+  transition: border-color 120ms ease;
+}
+.chat-input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-color: var(--ink);
+}
+.chat-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.chat-send {
+  flex-shrink: 0;
+  padding: 0 20px;
+  background: var(--accent);
+  color: var(--paper);
+  border: 0;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 120ms ease;
+}
+.chat-send:hover:not(:disabled),
+.chat-send:focus-visible:not(:disabled) { opacity: 0.9; }
+.chat-send:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.chat-error-actions {
+  display: flex;
+  gap: 10px;
+  padding: 0 20px 18px;
+}
+.chat-submit-as-is {
+  background: transparent;
+  border: 1px solid var(--ink);
+  padding: 9px 16px;
+  font: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  cursor: pointer;
+  transition: opacity 120ms ease;
+}
+.chat-submit-as-is:hover,
+.chat-submit-as-is:focus-visible { opacity: 0.75; }
+
+/* Screen-reader-only label helper. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ----- Modal (the one modal in this redesign) ----- */
 
 .modal-backdrop {
@@ -622,4 +817,11 @@ h1 {
   }
   .authoring-form { gap: 22px; }
   .authoring-submit { width: 100%; }
+  .chat-msg { max-width: 88%; }
+  .chat-log { padding: 14px; max-height: 60vh; }
+  .chat-input-row { padding: 12px 14px 16px; }
+  .chat-options { padding: 12px 14px 0; }
+  .chat-input-hint { margin: 12px 14px 0; }
+  .chat-progress { margin: 12px 14px 0; }
+  .chat-error-actions { padding: 0 14px 16px; }
 }

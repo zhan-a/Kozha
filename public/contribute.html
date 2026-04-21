@@ -131,6 +131,40 @@
         <button type="submit" class="authoring-submit" id="startAuthoringBtn" disabled>Start authoring</button>
         <p class="field-error form-submit-error" id="submitError" role="alert" hidden></p>
       </form>
+
+      <!-- Chat panel — clarifying questions before the draft is rendered;
+           corrections after. Mounts once a session exists. The log uses
+           aria-live so screen-reader users hear new system messages as
+           they arrive. -->
+      <section class="chat-panel" id="chatPanel" aria-label="Clarification chat" hidden>
+        <div
+          class="chat-log"
+          id="chatLog"
+          role="log"
+          aria-live="polite"
+          aria-relevant="additions"
+          aria-label="Clarification history"></div>
+        <div class="chat-options" id="chatOptions" role="group" aria-label="Suggested answers" hidden></div>
+        <p class="chat-input-hint" id="chatInputHint" hidden></p>
+        <div class="chat-progress" id="chatProgress" hidden aria-hidden="true">
+          <span class="chat-progress-bar"></span>
+        </div>
+        <div class="chat-input-row">
+          <label class="visually-hidden" for="chatInput" id="chatInputLabel">Your answer</label>
+          <textarea
+            id="chatInput"
+            class="chat-input"
+            rows="1"
+            placeholder="Type your answer…"
+            autocomplete="off"
+            spellcheck="true"
+            aria-describedby="chatInputHint"></textarea>
+          <button type="button" class="chat-send" id="chatSendBtn" disabled>Send</button>
+        </div>
+        <div class="chat-error-actions" id="chatErrorActions" hidden>
+          <button type="button" class="chat-submit-as-is" id="chatSubmitAsIsBtn">Submit as-is</button>
+        </div>
+      </section>
     </section>
 
     <!-- Transient feedback surface — copy confirmations, brief errors. -->
@@ -167,6 +201,7 @@
   </footer>
 
   <script src="/contribute-context.js"></script>
+  <script src="/contribute-chat.js"></script>
   <script src="/contribute.js"></script>
 </body>
 </html>

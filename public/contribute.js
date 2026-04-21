@@ -498,6 +498,7 @@
 
     CTX.createSession({
       gloss: gloss,
+      prose: description,
       authorIsDeafNative: !!els.deafNativeInput.checked,
     }).then(function () {
       // render() will be invoked via the subscribe hook once state
@@ -506,6 +507,16 @@
     }).catch(function (err) {
       els.startBtn.disabled = false;
       els.startBtn.textContent = 'Start authoring';
+      // If a session was created but the chained /describe failed, the
+      // form is already hidden behind the summary card. Surface the error
+      // inside the chat panel instead of the (now invisible) submit error.
+      if (CTX.getState().sessionId &&
+          window.KOZHA_CONTRIB_CHAT &&
+          typeof window.KOZHA_CONTRIB_CHAT.showError === 'function') {
+        window.KOZHA_CONTRIB_CHAT.showError();
+        if (window.console) console.error('[contribute] describe failed:', err);
+        return;
+      }
       var msg = 'Could not start a session. Please try again.';
       if (err && err.status === 422) {
         msg = 'This language is not yet enabled on the server. Please pick another.';
