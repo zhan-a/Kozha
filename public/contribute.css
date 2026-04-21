@@ -1931,3 +1931,216 @@ h1 {
   color: var(--accent);
   font-size: 14px;
 }
+
+.status-governance-link {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+.status-governance-link a { color: var(--ink); }
+
+/* ----- Governance page (prompt 11) -----
+   Reuses the page scaffold above. The page is mostly type; the custom
+   rules below are for the reviewer/board lists, the evaluation criteria
+   definition list, and the email block. No decorative imagery per the
+   design contract. */
+
+.governance h1 { margin-bottom: 16px; }
+.governance-lede {
+  margin: 0 0 48px;
+  max-width: 38em;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.governance-section {
+  margin: 0 0 56px;
+  padding-top: 40px;
+  border-top: 1px solid var(--rule);
+}
+.governance-section:first-of-type {
+  padding-top: 0;
+  border-top: 0;
+}
+.governance-section h2 {
+  margin: 0 0 20px;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+.governance-section p {
+  margin: 0 0 16px;
+  max-width: 40em;
+  line-height: 1.65;
+}
+.governance-subheading {
+  margin: 32px 0 14px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.governance-reviewers-loading,
+.governance-reviewers-empty,
+.governance-board-empty {
+  margin: 0;
+  padding: 14px 16px;
+  background: rgba(21, 19, 15, 0.03);
+  border-left: 3px solid var(--rule);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.governance-reviewer-list,
+.governance-board-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.governance-reviewer,
+.governance-board-member {
+  padding: 14px 16px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+}
+.governance-reviewer-name,
+.governance-board-name {
+  margin: 0 0 4px;
+  font-weight: 600;
+  font-size: 17px;
+}
+.governance-reviewer-meta,
+.governance-board-meta {
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.governance-reviewer-native {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 8px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--ink);
+}
+
+.governance-language-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px 24px;
+}
+.governance-language {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.governance-language-name { color: var(--ink); }
+.governance-language-status { color: var(--muted); }
+.governance-language.is-uncovered .governance-language-status { color: var(--accent); }
+
+.governance-flow {
+  margin: 0;
+  padding: 0 0 0 22px;
+  max-width: 40em;
+}
+.governance-flow li {
+  margin: 0 0 12px;
+  padding-left: 4px;
+  line-height: 1.6;
+}
+
+.governance-criteria {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 44em;
+}
+.governance-criterion {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 16px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--rule);
+}
+.governance-criterion:last-child { border-bottom: 0; padding-bottom: 0; }
+.governance-criterion dt {
+  font-weight: 600;
+  color: var(--ink);
+}
+.governance-criterion dd {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.governance-email-label,
+.governance-email-plain-label {
+  margin: 16px 0 6px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.governance-email-line {
+  margin: 0 0 8px;
+  font-size: 22px;
+}
+.governance-email-link {
+  font-weight: 600;
+  color: var(--ink);
+}
+.governance-email-plain {
+  margin: 0 0 16px;
+  padding: 10px 14px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 16px;
+  color: var(--ink);
+  background: rgba(21, 19, 15, 0.04);
+  border: 1px solid var(--rule);
+  user-select: all;
+  word-break: break-all;
+  max-width: 24em;
+}
+.governance-email-note {
+  margin: 16px 0 0;
+  max-width: 38em;
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.governance-nav {
+  margin: 56px 0 0;
+  padding-top: 28px;
+  border-top: 1px solid var(--rule);
+}
+.governance-return {
+  font-size: 15px;
+}
+
+@media (max-width: 640px) {
+  .governance-section { margin-bottom: 40px; padding-top: 32px; }
+  .governance-section h2 { font-size: 21px; }
+  .governance-criterion {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .governance-language-list { grid-template-columns: 1fr; }
+  .governance-email-line { font-size: 18px; }
+}

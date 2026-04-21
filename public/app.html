@@ -589,6 +589,32 @@
     .skip-link:focus {
       top: 8px;
     }
+
+    .app-footer {
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 16px 32px 24px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--ink-3);
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .app-footer a {
+      color: var(--ink-2);
+      text-decoration: none;
+    }
+    .app-footer a:hover,
+    .app-footer a:focus-visible {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    @media (max-width: 1099px) {
+      .app-footer { padding: 12px 16px 20px; }
+    }
   </style>
 </head>
 <body>
@@ -872,6 +898,10 @@
     </div>
 
   </div>
+
+  <footer class="app-footer">
+    <a href="/governance.html">Governance</a>
+  </footer>
 
   <script>
   const renderStatus = document.getElementById('renderStatus');

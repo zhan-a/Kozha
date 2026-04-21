@@ -1,0 +1,17 @@
+{
+  "generated_at": null,
+  "source": "seed",
+  "governance_email": "deaf-feedback@kozha.dev",
+  "board": [],
+  "reviewers": [],
+  "languages": [
+    { "code": "bsl", "name": "British Sign Language",     "reviewers": 0, "deaf_native_reviewers": 0 },
+    { "code": "asl", "name": "American Sign Language",    "reviewers": 0, "deaf_native_reviewers": 0 },
+    { "code": "dgs", "name": "Deutsche Gebärdensprache",  "reviewers": 0, "deaf_native_reviewers": 0 },
+    { "code": "lsf", "name": "Langue des Signes Française","reviewers": 0, "deaf_native_reviewers": 0 },
+    { "code": "lse", "name": "Lengua de Signos Española", "reviewers": 0, "deaf_native_reviewers": 0 },
+    { "code": "pjm", "name": "Polski Język Migowy",       "reviewers": 0, "deaf_native_reviewers": 0 },
+    { "code": "ngt", "name": "Nederlandse Gebarentaal",   "reviewers": 0, "deaf_native_reviewers": 0 },
+    { "code": "gsl", "name": "Ελληνική Νοηματική Γλώσσα", "reviewers": 0, "deaf_native_reviewers": 0 }
+  ]
+}

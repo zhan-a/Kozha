@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Governance — Bridgn</title>
+  <meta name="description" content="How contributions to Bridgn are reviewed: who reviews, the Deaf advisory board, what happens to your submission, evaluation criteria, and how to raise a concern.">
+  <link rel="canonical" href="https://kozha-translate.com/governance.html">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="/contribute.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <a href="/" class="site-name">Bridgn</a>
+    <a href="/" class="back-link">Return to Kozha</a>
+  </header>
+
+  <main class="governance">
+    <h1>Governance</h1>
+    <p class="governance-lede">
+      This page describes who reviews the signs you submit, what happens to them, and how to raise a concern about a sign already published. It is short on purpose. Everything below is a factual description of how review works — or, where something is not yet in place, a plain statement of that.
+    </p>
+
+    <section class="governance-section" aria-labelledby="gov-reviewers">
+      <h2 id="gov-reviewers">Who reviews signs</h2>
+      <p>
+        Every submission is reviewed by Deaf signers of the language it was submitted in. A sign is validated only after <strong>two reviewers</strong> of that language approve it. For each sign language Bridgn supports, at least one of the two reviewers must be a <strong>Deaf native signer of that language</strong>. Non-native reviewers may second an approval, but they cannot approve alone, and any non-native approval requires written justification that the Deaf native reviewer can later override.
+      </p>
+      <p>
+        Reviewers are onboarded individually and listed here by name, affiliation, and the language(s) they are accredited to review. If a language does not yet have Deaf native-signer reviewers, submissions in that language are saved as drafts and do not enter the review queue until reviewers are seated. We do not route signs to reviewers who do not sign the language natively.
+      </p>
+      <div class="governance-reviewers" id="governanceReviewers" aria-live="polite">
+        <p class="governance-reviewers-loading" id="governanceReviewersLoading">Loading reviewer roster…</p>
+      </div>
+      <h3 class="governance-subheading">Reviewer coverage by language</h3>
+      <ul class="governance-language-list" id="governanceLanguageList" aria-label="Reviewer coverage per language">
+      </ul>
+    </section>
+
+    <section class="governance-section" aria-labelledby="gov-board">
+      <h2 id="gov-board">Advisory board</h2>
+      <p>
+        The Deaf advisory board is the project's accountability body. It approves reviewer appointments, arbitrates disputes between reviewers, and holds the authority to remove a sign from the public library without further discussion.
+      </p>
+      <div class="governance-board" id="governanceBoard" aria-live="polite">
+        <p class="governance-board-empty">
+          We are in the process of seating a Deaf advisory board. Until then, no signs are being exported to the Kozha library. Drafts continue to be accepted and queued; they will be reviewed once the board is seated and has approved the first reviewers.
+        </p>
+      </div>
+    </section>
+
+    <section class="governance-section" aria-labelledby="gov-flow">
+      <h2 id="gov-flow">What happens to your contribution</h2>
+      <ol class="governance-flow">
+        <li>You submit a draft.</li>
+        <li>A Deaf reviewer of your chosen language evaluates the draft against the criteria below.</li>
+        <li>If approved by two native-signer reviewers, the sign enters the Kozha public library and becomes available in real-time translation.</li>
+        <li>If rejected, you receive the reviewer's feedback and can submit a revised version.</li>
+      </ol>
+    </section>
+
+    <section class="governance-section" aria-labelledby="gov-criteria">
+      <h2 id="gov-criteria">How signs are evaluated</h2>
+      <dl class="governance-criteria">
+        <div class="governance-criterion">
+          <dt>Accuracy</dt>
+          <dd>The sign, as generated from your description, matches the meaning you intended to convey.</dd>
+        </div>
+        <div class="governance-criterion">
+          <dt>Cultural appropriateness</dt>
+          <dd>The sign does not carry unintended or offensive connotations in the Deaf community of the language it belongs to.</dd>
+        </div>
+        <div class="governance-criterion">
+          <dt>Regional coherence</dt>
+          <dd>The sign is recognisable to signers of the regional variant it is tagged with, and is not silently conflated with a different region's sign.</dd>
+        </div>
+        <div class="governance-criterion">
+          <dt>Phonological correctness</dt>
+          <dd>Handshape, orientation, location, and movement are formed in ways the language actually uses, not invented combinations.</dd>
+        </div>
+        <div class="governance-criterion">
+          <dt>Non-manual features</dt>
+          <dd>Required facial expression, mouthing, and body posture are present and correct — these carry linguistic meaning and are not decoration.</dd>
+        </div>
+        <div class="governance-criterion">
+          <dt>Reusability</dt>
+          <dd>The sign is rendered in a form that will read clearly when combined with other signs in running translation, not only in isolation.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="governance-section" aria-labelledby="gov-concern">
+      <h2 id="gov-concern">How to raise a concern</h2>
+      <p>
+        If you are a member of the Deaf community and believe a sign published on Kozha is inaccurate or inappropriate, email the address below. The sign will be quarantined within 24 hours pending review. This applies to anyone in the Deaf community — you do not need to be a registered reviewer to flag a sign. Any Deaf community member can refuse a published sign by email, and we treat that refusal as a quarantine trigger, not a request to be weighed against other voices.
+      </p>
+      <p class="governance-email-label">Email us:</p>
+      <p class="governance-email-line">
+        <a class="governance-email-link" id="governanceEmailLink" href="mailto:deaf-feedback@kozha.dev">deaf-feedback@kozha.dev</a>
+      </p>
+      <p class="governance-email-plain-label">Or copy the plain address:</p>
+      <p class="governance-email-plain" id="governanceEmailPlain">deaf-feedback@kozha.dev</p>
+      <p class="governance-email-note">
+        We do not run a form, a ticketing portal, or a community-portal workflow for these concerns. A single email reaches the board; the board is the only group that releases a quarantined sign.
+      </p>
+    </section>
+
+    <nav class="governance-nav" aria-label="Return">
+      <a class="governance-return" href="/">Return to Kozha</a>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <ul class="footer-links">
+      <li><a href="/">Home</a></li>
+    </ul>
+  </footer>
+
+  <script src="/governance.js"></script>
+</body>
+</html>

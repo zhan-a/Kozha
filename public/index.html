@@ -195,6 +195,20 @@
       color: var(--muted);
       font-size: 14px;
       margin-top: 24px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .site-footer a { color: var(--ink); }
+    .site-footer-links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
     }
 
     @media (max-width: 640px) {
@@ -248,7 +262,10 @@
   </main>
 
   <footer class="site-footer">
-    © 2025–2026 Bridgn. Open-source research project.
+    <span>© 2025–2026 Bridgn. Open-source research project.</span>
+    <ul class="site-footer-links">
+      <li><a href="/governance.html">Governance</a></li>
+    </ul>
   </footer>
 </body>
 </html>
