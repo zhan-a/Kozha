@@ -52,14 +52,24 @@ jobs:
 
           OPENAI_API_KEY_NEW='$OPENAI_API_KEY'
           if [ -n "\$OPENAI_API_KEY_NEW" ]; then
+            # Mode 600 means only the owner (root) can read, so the group
+            # assignment is cosmetic for systemd's purposes — the service
+            # manager reads EnvironmentFile as root before dropping to
+            # User=/Group=. Prefer the documented `kozha` group when it
+            # exists; fall back to `root` on hosts that provision the
+            # service under a different user (e.g. `ubuntu`).
+            ENV_GROUP=kozha
+            if ! getent group "\$ENV_GROUP" >/dev/null 2>&1; then
+              ENV_GROUP=root
+            fi
             if [ ! -f /etc/kozha.env ] && [ -f ../deploy/systemd/kozha.env ]; then
-              echo "[deploy] /etc/kozha.env missing — bootstrapping from deploy/systemd/kozha.env template. Operator should still populate CHAT2HAMNOSYS_SIGNER_ID_SALT and other host-specific values per docs/chat2hamnosys/19-deployment.md."
-              sudo install -o root -g kozha -m 600 ../deploy/systemd/kozha.env /etc/kozha.env
+              echo "[deploy] /etc/kozha.env missing — bootstrapping from deploy/systemd/kozha.env template (owner root:\$ENV_GROUP). Operator should still populate CHAT2HAMNOSYS_SIGNER_ID_SALT and other host-specific values per docs/chat2hamnosys/19-deployment.md."
+              sudo install -o root -g "\$ENV_GROUP" -m 600 ../deploy/systemd/kozha.env /etc/kozha.env
             fi
             if [ -f /etc/kozha.env ]; then
               TMP=\$(sudo mktemp /etc/kozha.env.XXXXXX)
               sudo chmod 600 "\$TMP"
-              sudo chown root:kozha "\$TMP"
+              sudo chown "root:\$ENV_GROUP" "\$TMP"
               sudo sh -c "grep -v '^OPENAI_API_KEY=' /etc/kozha.env > '\$TMP' || true"
               printf 'OPENAI_API_KEY=%s\n' "\$OPENAI_API_KEY_NEW" | sudo tee -a "\$TMP" >/dev/null
               sudo mv "\$TMP" /etc/kozha.env
