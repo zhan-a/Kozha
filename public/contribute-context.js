@@ -19,10 +19,13 @@
  *   pushSessionFragment() / clearSessionFragment()
  *
  * Session actions (all return Promises that resolve with the envelope):
- *   createSession({prose?, gloss?})  POST /sessions (+ /describe if prose)
+ *   createSession({prose?, gloss?, authorIsDeafNative?})
+ *                                    POST /sessions (+ /describe if prose)
  *   describe(prose, gloss?)          POST /sessions/:id/describe
  *   resumeSession(id, token)         GET  /sessions/:id (verifies token)
- *   abandonSession()                 POST /sessions/:id/reject + reset
+ *   abandonSession()                 POST /sessions/:id/reject + full reset
+ *   clearSession({reason?})          POST /sessions/:id/reject but keeps
+ *                                    the selected language
  *
  * Persistence rule: only {language, sessionId, sessionToken} land in
  * sessionStorage. gloss / sessionState / lastUpdated are derived from the
@@ -238,6 +241,12 @@
     if (!state.language) return Promise.reject(new Error('no language selected'));
     var body = { sign_language: state.language };
     if (opts.gloss) body.gloss = opts.gloss;
+    // The checkbox is optional on the form — only forward the flag when
+    // the caller actually set it, so unchecked stays null (not false) and
+    // downstream reviewer routing can distinguish "not stated" from "no".
+    if (typeof opts.authorIsDeafNative === 'boolean') {
+      body.author_is_deaf_native = opts.authorIsDeafNative;
+    }
     return fetch(API_BASE + '/sessions', {
       method: 'POST',
       headers: {
@@ -337,6 +346,34 @@
       });
   }
 
+  // Rejects the session server-side (best-effort) and clears the local
+  // session fields, but leaves the selected language in place. The
+  // contribute form's "edit" flow uses this so the user lands back on
+  // the input with the same language still selected.
+  function clearSession(opts) {
+    opts = opts || {};
+    var reason = opts.reason || 'cleared';
+    var id = state.sessionId;
+    var token = state.sessionToken;
+    setState({
+      sessionId:    null,
+      sessionToken: null,
+      gloss:        '',
+      sessionState: 'awaiting_description',
+    });
+    clearSessionFragment();
+    if (!id || !token) return Promise.resolve();
+    return fetch(API_BASE + '/sessions/' + encodeURIComponent(id) + '/reject', {
+      method: 'POST',
+      headers: {
+        'Accept':          'application/json',
+        'Content-Type':    'application/json',
+        'X-Session-Token': token,
+      },
+      body: JSON.stringify({ reason: reason }),
+    }).catch(function () { /* best-effort */ });
+  }
+
   // ----- hydrate + export -----
 
   var persisted = readPersisted();
@@ -361,5 +398,6 @@
     describe:             describe,
     resumeSession:        resumeSession,
     abandonSession:       abandonSession,
+    clearSession:         clearSession,
   };
 })();

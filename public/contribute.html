@@ -63,9 +63,75 @@
 
     <div class="reviewer-notice" id="reviewerNotice" role="status" hidden></div>
 
-    <!-- authoring-root: filled by prompts 5 (chat), 6 (notation readout),
-         and 7 (submit region). Deliberately empty in this prompt. -->
-    <section id="authoring-root" aria-label="Sign authoring workspace" hidden></section>
+    <!-- authoring-root: this prompt mounts the gloss + description form
+         (pre-session) and the read-only summary card (post-session). The
+         chat panel lands below in prompt 6; notation readout + submit in
+         later prompts. -->
+    <section id="authoring-root" aria-label="Sign authoring workspace" hidden>
+
+      <!-- Restored-from-last-visit notice. Shown when autosaved values
+           rehydrate into the form on load; auto-dismisses after 5s. -->
+      <p class="restored-notice" id="restoredNotice" role="status" hidden>restored from your last visit</p>
+
+      <!-- Read-only summary card — visible once a session exists. Holds
+           the gloss + language + description and an "edit" link that
+           re-opens the form (after confirmation discards server state). -->
+      <div class="authoring-summary" id="authoringSummary" hidden>
+        <p class="authoring-summary-line">
+          <span class="authoring-summary-lead">Authoring:</span>
+          <span class="authoring-summary-gloss" id="summaryGloss"></span>
+          <span class="authoring-summary-in"> in </span>
+          <span class="authoring-summary-lang" id="summaryLang"></span>
+          <span class="authoring-summary-sep" id="summarySep" hidden> — </span>
+          <span class="authoring-summary-desc" id="summaryDesc"></span>
+        </p>
+        <button type="button" class="authoring-summary-edit" id="summaryEditBtn">edit</button>
+      </div>
+
+      <!-- Pre-session form: gloss, description, deaf-native checkbox, submit. -->
+      <form class="authoring-form" id="authoringForm" novalidate>
+        <div class="field">
+          <label class="field-label" for="glossInput">Gloss — the English word or short phrase for this sign.</label>
+          <input
+            id="glossInput"
+            name="gloss"
+            type="text"
+            class="field-input field-input-gloss"
+            autocomplete="off"
+            autocapitalize="characters"
+            spellcheck="false"
+            maxlength="40"
+            placeholder="e.g. ELECTRON"
+            aria-describedby="glossError"
+            required>
+          <p class="field-error" id="glossError" role="alert" hidden></p>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="descriptionInput">Describe the sign in plain language.</label>
+          <textarea
+            id="descriptionInput"
+            name="description"
+            class="field-input field-input-description"
+            rows="5"
+            placeholder=""
+            aria-describedby="descriptionHint descriptionError descriptionCount"></textarea>
+          <div class="field-meta">
+            <p class="field-hint" id="descriptionHint" hidden>a bit more detail helps</p>
+            <p class="field-count" id="descriptionCount" aria-live="off">0</p>
+          </div>
+          <p class="field-error" id="descriptionError" role="alert" hidden></p>
+        </div>
+
+        <label class="field-check">
+          <input type="checkbox" id="deafNativeInput" name="author_is_deaf_native">
+          <span>I am a Deaf native signer of this language.</span>
+        </label>
+
+        <button type="submit" class="authoring-submit" id="startAuthoringBtn" disabled>Start authoring</button>
+        <p class="field-error form-submit-error" id="submitError" role="alert" hidden></p>
+      </form>
+    </section>
 
     <!-- Transient feedback surface — copy confirmations, brief errors. -->
     <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>

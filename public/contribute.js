@@ -6,16 +6,18 @@
  * language masthead, the context strip, the language picker, the resume
  * prompt, the confirmation modal, and the one-time keyboard hint.
  *
- * Scope for prompt 4:
- *   - render language header + context strip from the store
- *   - language selection, "change" with confirmation modal, deep-link
- *     resume flow, Cmd/Ctrl+K and Cmd/Ctrl+L shortcuts, copy-session-URL,
- *     reviewer notice, one-time hint strip
+ * Scope for prompt 5 (cumulative):
+ *   - prompt 4: language header + context strip, change-language flow,
+ *     deep-link resume, keyboard shortcuts, one-time hint.
+ *   - prompt 5: gloss + description inputs inside #authoring-root,
+ *     inline validation, character counter, autosave per-language draft
+ *     in localStorage, Deaf-native self-ID, submit → POST /sessions,
+ *     summary card + edit flow, restored-from-last-visit notice.
  *
  * Out of scope (later prompts):
- *   - chat panel              → prompt 5
- *   - HamNoSys / SiGML readout → prompt 6
- *   - submit + status URL     → prompt 7
+ *   - chat panel               → prompt 6
+ *   - HamNoSys / SiGML readout → prompt 7
+ *   - submit + status URL      → later
  */
 (function () {
   'use strict';
@@ -27,50 +29,77 @@
   }
 
   var HINT_SEEN_KEY = 'kozha.contribute.hintSeen';
-  // Keys later prompts will write into; clearing them here means changing
-  // language invalidates every downstream draft without each later prompt
-  // having to wire itself into the change-language logic.
-  var DRAFT_KEYS = [
-    'kozha.contribute.draftGloss',
-    'kozha.contribute.draftDescription',
-    'kozha.contribute.draftNotation',
-    'kozha.contribute.draftSession',
-  ];
-
+  var DRAFT_KEY_PREFIX = 'kozha.contribute.draft.';
   var LANGUAGES_URL = '/contribute-languages.json';
   var TOAST_MS = 1800;
+  var RESTORED_NOTICE_MS = 5000;
+  var AUTOSAVE_DEBOUNCE_MS = 500;
+  var DESCRIPTION_MIN = 20;
+  var DESCRIPTION_HINT_THRESHOLD = 40;
+  var GENERIC_DESCRIPTION_PLACEHOLDER =
+    "e.g. describe the handshape, where the hand starts, how it moves, and which way the palm faces.";
 
   var view = {
     languages: [],
+    // Tracks which language the form inputs have been hydrated for so we
+    // don't re-populate on every render. Null when the form isn't mounted.
+    formMountedForLanguage: null,
+    // Guards autosave from firing while we're programmatically populating
+    // inputs during hydration.
+    suppressAutosave: false,
+    // Tracks whether the user has attempted submission — controls whether
+    // inline validation messages appear. Reset on every fresh mount.
+    submitAttempted: false,
+    // The edit flow clears the session so mountForm re-hydrates with the
+    // user's own just-edited draft — the restored-notice doesn't belong
+    // on that path, so we suppress it for the next mount and reset.
+    suppressNextRestoredNotice: false,
   };
 
   var els = {
-    picker:           document.getElementById('languagePicker'),
-    pickerEmpty:      document.getElementById('pickerEmpty'),
-    pickerOptions:    document.getElementById('pickerOptions'),
-    langMasthead:     document.getElementById('langMasthead'),
-    badge:            document.getElementById('languageBadge'),
-    badgeCode:        document.getElementById('languageBadgeCode'),
-    badgeName:        document.getElementById('languageBadgeName'),
-    changeBtn:        document.getElementById('changeLanguageBtn'),
-    contextGloss:     document.getElementById('contextGloss'),
-    contextState:     document.getElementById('contextState'),
-    contextSessionId: document.getElementById('contextSessionId'),
-    contextCopyBtn:   document.getElementById('contextCopyBtn'),
-    tokenPrompt:      document.getElementById('tokenPrompt'),
-    tokenPromptForm:  document.getElementById('tokenPromptForm'),
-    tokenPromptInput: document.getElementById('tokenPromptInput'),
-    tokenPromptError: document.getElementById('tokenPromptError'),
-    notice:           document.getElementById('reviewerNotice'),
-    authoringRoot:    document.getElementById('authoring-root'),
-    modalBackdrop:    document.getElementById('modalBackdrop'),
-    modalTitle:       document.getElementById('modalTitle'),
-    modalBody:        document.getElementById('modalBody'),
-    modalCancelBtn:   document.getElementById('modalCancelBtn'),
-    modalDiscardBtn:  document.getElementById('modalDiscardBtn'),
-    hintStrip:        document.getElementById('hintStrip'),
-    hintClose:        document.getElementById('hintClose'),
-    toast:            document.getElementById('toast'),
+    picker:            document.getElementById('languagePicker'),
+    pickerEmpty:       document.getElementById('pickerEmpty'),
+    pickerOptions:     document.getElementById('pickerOptions'),
+    langMasthead:      document.getElementById('langMasthead'),
+    badge:             document.getElementById('languageBadge'),
+    badgeCode:         document.getElementById('languageBadgeCode'),
+    badgeName:         document.getElementById('languageBadgeName'),
+    changeBtn:         document.getElementById('changeLanguageBtn'),
+    contextGloss:      document.getElementById('contextGloss'),
+    contextState:      document.getElementById('contextState'),
+    contextSessionId:  document.getElementById('contextSessionId'),
+    contextCopyBtn:    document.getElementById('contextCopyBtn'),
+    tokenPrompt:       document.getElementById('tokenPrompt'),
+    tokenPromptForm:   document.getElementById('tokenPromptForm'),
+    tokenPromptInput:  document.getElementById('tokenPromptInput'),
+    tokenPromptError:  document.getElementById('tokenPromptError'),
+    notice:            document.getElementById('reviewerNotice'),
+    authoringRoot:     document.getElementById('authoring-root'),
+    authoringForm:     document.getElementById('authoringForm'),
+    authoringSummary:  document.getElementById('authoringSummary'),
+    summaryGloss:      document.getElementById('summaryGloss'),
+    summaryLang:       document.getElementById('summaryLang'),
+    summarySep:        document.getElementById('summarySep'),
+    summaryDesc:       document.getElementById('summaryDesc'),
+    summaryEditBtn:    document.getElementById('summaryEditBtn'),
+    glossInput:        document.getElementById('glossInput'),
+    glossError:        document.getElementById('glossError'),
+    descriptionInput:  document.getElementById('descriptionInput'),
+    descriptionHint:   document.getElementById('descriptionHint'),
+    descriptionCount:  document.getElementById('descriptionCount'),
+    descriptionError:  document.getElementById('descriptionError'),
+    deafNativeInput:   document.getElementById('deafNativeInput'),
+    startBtn:          document.getElementById('startAuthoringBtn'),
+    submitError:       document.getElementById('submitError'),
+    restoredNotice:    document.getElementById('restoredNotice'),
+    modalBackdrop:     document.getElementById('modalBackdrop'),
+    modalTitle:        document.getElementById('modalTitle'),
+    modalBody:         document.getElementById('modalBody'),
+    modalCancelBtn:    document.getElementById('modalCancelBtn'),
+    modalDiscardBtn:   document.getElementById('modalDiscardBtn'),
+    hintStrip:         document.getElementById('hintStrip'),
+    hintClose:         document.getElementById('hintClose'),
+    toast:             document.getElementById('toast'),
   };
 
   // ---------- languages ----------
@@ -81,14 +110,6 @@
       if (view.languages[i].code === code) return view.languages[i];
     }
     return null;
-  }
-
-  function clearDraftKeys() {
-    try {
-      for (var i = 0; i < DRAFT_KEYS.length; i++) {
-        sessionStorage.removeItem(DRAFT_KEYS[i]);
-      }
-    } catch (_e) { /* ignore */ }
   }
 
   function renderOptions() {
@@ -140,6 +161,58 @@
     return CTX.getState().language;
   }
 
+  // ---------- per-language draft store ----------
+
+  function draftKeyFor(lang) {
+    return lang ? DRAFT_KEY_PREFIX + lang : null;
+  }
+
+  function readDraft(lang) {
+    var key = draftKeyFor(lang);
+    if (!key) return null;
+    try {
+      var raw = localStorage.getItem(key);
+      if (!raw) return null;
+      var parsed = JSON.parse(raw);
+      return {
+        gloss:        typeof parsed.gloss === 'string' ? parsed.gloss : '',
+        description:  typeof parsed.description === 'string' ? parsed.description : '',
+        isDeafNative: typeof parsed.isDeafNative === 'boolean' ? parsed.isDeafNative : null,
+      };
+    } catch (_e) { return null; }
+  }
+
+  function writeDraft(lang, draft) {
+    var key = draftKeyFor(lang);
+    if (!key) return;
+    try {
+      localStorage.setItem(key, JSON.stringify({
+        gloss:        draft.gloss || '',
+        description:  draft.description || '',
+        isDeafNative: typeof draft.isDeafNative === 'boolean' ? draft.isDeafNative : null,
+      }));
+    } catch (_e) { /* storage blocked — stay in-memory only */ }
+  }
+
+  function clearDraft(lang) {
+    var key = draftKeyFor(lang);
+    if (!key) return;
+    try { localStorage.removeItem(key); } catch (_e) { /* ignore */ }
+  }
+
+  function draftHasContent(draft) {
+    if (!draft) return false;
+    return !!(draft.gloss && draft.gloss.length) || !!(draft.description && draft.description.length);
+  }
+
+  function currentFormDraft() {
+    return {
+      gloss:        els.glossInput.value || '',
+      description:  els.descriptionInput.value || '',
+      isDeafNative: !!els.deafNativeInput.checked,
+    };
+  }
+
   // ---------- render ----------
 
   function render(snapshot) {
@@ -154,6 +227,8 @@
       els.notice.hidden = true;
       els.authoringRoot.hidden = true;
       els.hintStrip.hidden = true;
+      hideFormInputs();
+      view.formMountedForLanguage = null;
       return;
     }
 
@@ -196,10 +271,269 @@
       els.contextCopyBtn.hidden = true;
     }
 
-    // authoring-root stays hidden until prompts 5-7 mount content.
-    els.authoringRoot.hidden = true;
+    els.authoringRoot.hidden = false;
+    if (snapshot.sessionId) {
+      // Post-submit: collapse form into the summary card.
+      mountSummary(lang, snapshot);
+    } else {
+      // Pre-submit: show the form, hydrating from localStorage on first
+      // mount for this language.
+      mountForm(lang);
+    }
 
     maybeShowHint();
+  }
+
+  // ---------- form mount + hydration ----------
+
+  function mountForm(lang) {
+    els.authoringSummary.hidden = true;
+    els.authoringForm.hidden = false;
+
+    // Language-specific example placeholder on the description field.
+    els.descriptionInput.setAttribute(
+      'placeholder',
+      lang.description_placeholder || GENERIC_DESCRIPTION_PLACEHOLDER
+    );
+
+    if (view.formMountedForLanguage === lang.code) {
+      // Already mounted for this language — nothing to hydrate.
+      updateDescriptionMeta();
+      updateSubmitEnabled();
+      return;
+    }
+
+    view.formMountedForLanguage = lang.code;
+    view.submitAttempted = false;
+    hideInlineError(els.glossError);
+    hideInlineError(els.descriptionError);
+    hideInlineError(els.submitError);
+
+    var draft = readDraft(lang.code);
+    view.suppressAutosave = true;
+    try {
+      els.glossInput.value = draft ? draft.gloss : '';
+      els.descriptionInput.value = draft ? draft.description : '';
+      els.deafNativeInput.checked = !!(draft && draft.isDeafNative);
+    } finally {
+      view.suppressAutosave = false;
+    }
+
+    updateDescriptionMeta();
+    updateSubmitEnabled();
+
+    if (draftHasContent(draft) && !view.suppressNextRestoredNotice) {
+      showRestoredNotice();
+    } else {
+      hideRestoredNotice();
+    }
+    view.suppressNextRestoredNotice = false;
+  }
+
+  function mountSummary(lang, snapshot) {
+    els.authoringForm.hidden = true;
+    els.authoringSummary.hidden = false;
+
+    var gloss = snapshot.gloss || (readDraft(lang.code) || {}).gloss || '';
+    var draft = readDraft(lang.code);
+    var description = draft ? draft.description : '';
+
+    els.summaryGloss.textContent = gloss;
+    els.summaryLang.textContent = lang.code.toUpperCase();
+    if (description && description.length > 0) {
+      els.summaryDesc.textContent = description;
+      els.summarySep.hidden = false;
+    } else {
+      els.summaryDesc.textContent = '';
+      els.summarySep.hidden = true;
+    }
+
+    view.formMountedForLanguage = null;
+  }
+
+  function hideFormInputs() {
+    els.authoringForm.hidden = true;
+    els.authoringSummary.hidden = true;
+    hideRestoredNotice();
+  }
+
+  // ---------- inline validation + description meta ----------
+
+  function showInlineError(node, text) {
+    if (!node) return;
+    node.textContent = text || '';
+    node.hidden = false;
+  }
+  function hideInlineError(node) {
+    if (!node) return;
+    node.textContent = '';
+    node.hidden = true;
+  }
+
+  function updateDescriptionMeta() {
+    var len = (els.descriptionInput.value || '').length;
+    els.descriptionCount.textContent = String(len);
+    els.descriptionHint.hidden = len >= DESCRIPTION_HINT_THRESHOLD;
+    // Clear existing errors once the user crosses each threshold so the
+    // message doesn't linger while they're actively fixing it.
+    if (view.submitAttempted) {
+      if ((els.glossInput.value || '').trim().length > 0) {
+        hideInlineError(els.glossError);
+      }
+      if (len >= DESCRIPTION_MIN) {
+        hideInlineError(els.descriptionError);
+      }
+    }
+  }
+
+  function updateSubmitEnabled() {
+    var glossOk = (els.glossInput.value || '').trim().length > 0;
+    var descOk = (els.descriptionInput.value || '').trim().length >= DESCRIPTION_MIN;
+    els.startBtn.disabled = !(glossOk && descOk);
+  }
+
+  // ---------- autosave ----------
+
+  var autosaveTimer = null;
+  function scheduleAutosave() {
+    if (view.suppressAutosave) return;
+    if (autosaveTimer) clearTimeout(autosaveTimer);
+    autosaveTimer = setTimeout(function () {
+      autosaveTimer = null;
+      var lang = getLanguage();
+      if (!lang) return;
+      writeDraft(lang, currentFormDraft());
+    }, AUTOSAVE_DEBOUNCE_MS);
+  }
+
+  function flushAutosave() {
+    if (autosaveTimer) {
+      clearTimeout(autosaveTimer);
+      autosaveTimer = null;
+    }
+    var lang = getLanguage();
+    if (!lang) return;
+    writeDraft(lang, currentFormDraft());
+  }
+
+  // ---------- input handlers ----------
+
+  function onGlossInput() {
+    updateSubmitEnabled();
+    if (view.submitAttempted && (els.glossInput.value || '').trim().length > 0) {
+      hideInlineError(els.glossError);
+    }
+    scheduleAutosave();
+  }
+
+  function onGlossBlur() {
+    var trimmed = (els.glossInput.value || '').trim();
+    var upper = trimmed.toUpperCase();
+    if (els.glossInput.value !== upper) {
+      els.glossInput.value = upper;
+      scheduleAutosave();
+    }
+  }
+
+  function onDescriptionInput() {
+    updateDescriptionMeta();
+    updateSubmitEnabled();
+    scheduleAutosave();
+  }
+
+  function onDeafNativeChange() { scheduleAutosave(); }
+
+  // ---------- restored notice ----------
+
+  var restoredTimer = null;
+  function showRestoredNotice() {
+    els.restoredNotice.hidden = false;
+    if (restoredTimer) clearTimeout(restoredTimer);
+    restoredTimer = setTimeout(hideRestoredNotice, RESTORED_NOTICE_MS);
+  }
+  function hideRestoredNotice() {
+    els.restoredNotice.hidden = true;
+    if (restoredTimer) { clearTimeout(restoredTimer); restoredTimer = null; }
+  }
+
+  // ---------- submit ----------
+
+  function onSubmit(ev) {
+    ev.preventDefault();
+    view.submitAttempted = true;
+
+    var gloss = (els.glossInput.value || '').trim().toUpperCase();
+    var description = (els.descriptionInput.value || '').trim();
+
+    var glossOk = gloss.length > 0;
+    var descOk = description.length >= DESCRIPTION_MIN;
+
+    if (!glossOk) {
+      showInlineError(els.glossError, 'Gloss is required before you describe the sign.');
+    } else {
+      hideInlineError(els.glossError);
+    }
+    if (!descOk) {
+      showInlineError(els.descriptionError, 'Please add at least 20 characters of description.');
+    } else {
+      hideInlineError(els.descriptionError);
+    }
+    if (!glossOk || !descOk) {
+      (glossOk ? els.descriptionInput : els.glossInput).focus();
+      return;
+    }
+
+    // Normalise the gloss in the input so autosave captures it uppercased
+    // even if the user submits without blurring the field.
+    if (els.glossInput.value !== gloss) {
+      els.glossInput.value = gloss;
+    }
+
+    // Flush any pending autosave first so the draft matches what we send.
+    flushAutosave();
+
+    hideInlineError(els.submitError);
+    els.startBtn.disabled = true;
+    els.startBtn.textContent = 'Starting…';
+
+    CTX.createSession({
+      gloss: gloss,
+      authorIsDeafNative: !!els.deafNativeInput.checked,
+    }).then(function () {
+      // render() will be invoked via the subscribe hook once state
+      // changes; the summary card takes it from there.
+      els.startBtn.textContent = 'Start authoring';
+    }).catch(function (err) {
+      els.startBtn.disabled = false;
+      els.startBtn.textContent = 'Start authoring';
+      var msg = 'Could not start a session. Please try again.';
+      if (err && err.status === 422) {
+        msg = 'This language is not yet enabled on the server. Please pick another.';
+      }
+      showInlineError(els.submitError, msg);
+      if (window.console) console.error('[contribute] createSession failed:', err);
+    });
+  }
+
+  // ---------- edit (post-submit) ----------
+
+  function onEditSummary() {
+    var snap = CTX.getState();
+    var glossLabel = snap.gloss ? '“' + snap.gloss + '”' : 'your current sign';
+    showModal({
+      title: 'Discard this draft?',
+      body: 'This will discard your draft for ' + glossLabel + ' so you can edit the gloss and description. Continue?',
+      cancelLabel: 'Cancel',
+      confirmLabel: 'Discard',
+      onConfirm: function () {
+        // Reject server-side (best effort) and clear the session fields
+        // while keeping the selected language so the form reopens in
+        // place with the values the user just typed — no "restored from
+        // your last visit" notice on this path.
+        view.suppressNextRestoredNotice = true;
+        CTX.clearSession({ reason: 'edit_requested' });
+      },
+    });
   }
 
   // ---------- change-language flow ----------
@@ -208,22 +542,39 @@
 
   function requestLanguageChange() {
     var snap = CTX.getState();
-    if (!snap.sessionId) {
+    var lang = snap.language;
+    var draft = lang ? readDraft(lang) : null;
+    var hasDraft = draftHasContent(draft);
+
+    if (!snap.sessionId && !hasDraft) {
       // Nothing to discard — drop straight back to the picker.
-      clearDraftKeys();
       CTX.setState({ language: null, gloss: '', sessionState: 'awaiting_description' });
       CTX.clearSessionFragment();
       return;
     }
-    var glossLabel = snap.gloss ? '“' + snap.gloss + '”' : 'your current sign';
+
+    var glossLabel;
+    if (snap.gloss) {
+      glossLabel = '“' + snap.gloss + '”';
+    } else if (draft && draft.gloss) {
+      glossLabel = '“' + draft.gloss + '”';
+    } else {
+      glossLabel = 'your current sign';
+    }
+
     showModal({
       title: 'Discard this draft?',
       body: 'This will discard your draft for ' + glossLabel + '. Continue?',
       cancelLabel: 'Cancel',
       confirmLabel: 'Discard',
       onConfirm: function () {
-        clearDraftKeys();
-        CTX.abandonSession();
+        if (lang) clearDraft(lang);
+        if (snap.sessionId) {
+          CTX.abandonSession();
+        } else {
+          CTX.setState({ language: null, gloss: '', sessionState: 'awaiting_description' });
+          CTX.clearSessionFragment();
+        }
       },
     });
   }
@@ -450,6 +801,12 @@
     els.hintClose.addEventListener('click', dismissHint);
     els.contextCopyBtn.addEventListener('click', copySessionUrl);
     els.tokenPromptForm.addEventListener('submit', onTokenPromptSubmit);
+    els.authoringForm.addEventListener('submit', onSubmit);
+    els.glossInput.addEventListener('input', onGlossInput);
+    els.glossInput.addEventListener('blur', onGlossBlur);
+    els.descriptionInput.addEventListener('input', onDescriptionInput);
+    els.deafNativeInput.addEventListener('change', onDeafNativeChange);
+    els.summaryEditBtn.addEventListener('click', onEditSummary);
     document.addEventListener('keydown', onGlobalKey);
 
     CTX.subscribe(render);
@@ -476,6 +833,9 @@
     copySessionUrl:        copySessionUrl,
     showModal:             showModal,
     hideModal:             hideModal,
+    readDraft:             readDraft,
+    writeDraft:            writeDraft,
+    clearDraft:            clearDraft,
   };
 
   if (document.readyState === 'loading') {

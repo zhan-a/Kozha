@@ -5,56 +5,64 @@
       "name": "British Sign Language",
       "english_name": "British Sign Language",
       "has_reviewers": false,
-      "coverage_count": 907
+      "coverage_count": 907,
+      "description_placeholder": "e.g. right hand in a 'V' shape, palm facing me, moves in a small circle near my temple."
     },
     {
       "code": "asl",
       "name": "American Sign Language",
       "english_name": "American Sign Language",
       "has_reviewers": false,
-      "coverage_count": 26
+      "coverage_count": 26,
+      "description_placeholder": "e.g. dominant hand in a flat 'B' shape, palm facing down, sweeps across the chest from the shoulder outward."
     },
     {
       "code": "dgs",
       "name": "Deutsche Gebärdensprache",
       "english_name": "German Sign Language",
       "has_reviewers": false,
-      "coverage_count": 1940
+      "coverage_count": 1940,
+      "description_placeholder": "e.g. beide Hände in Faust, Daumen nach oben, vor der Brust — die Fäuste wandern abwechselnd nach vorne."
     },
     {
       "code": "lsf",
       "name": "Langue des Signes Française",
       "english_name": "French Sign Language",
       "has_reviewers": false,
-      "coverage_count": 407
+      "coverage_count": 407,
+      "description_placeholder": "e.g. main dominante en 'C', paume vers soi, descend depuis la tempe jusqu'au menton avec un mouvement court."
     },
     {
       "code": "lse",
       "name": "Lengua de Signos Española",
       "english_name": "Spanish Sign Language",
       "has_reviewers": false,
-      "coverage_count": 0
+      "coverage_count": 0,
+      "description_placeholder": "e.g. mano dominante plana, palma hacia abajo, se desplaza horizontalmente desde el hombro hasta el centro del pecho."
     },
     {
       "code": "pjm",
       "name": "Polski Język Migowy",
       "english_name": "Polish Sign Language",
       "has_reviewers": false,
-      "coverage_count": 1958
+      "coverage_count": 1958,
+      "description_placeholder": "e.g. prawa dłoń w kształcie 'O', skierowana palcami do góry — porusza się małym kółkiem obok skroni."
     },
     {
       "code": "ngt",
       "name": "Nederlandse Gebarentaal",
       "english_name": "Dutch Sign Language",
       "has_reviewers": false,
-      "coverage_count": 65
+      "coverage_count": 65,
+      "description_placeholder": "e.g. dominante hand plat, palm naar beneden, beweegt in een korte boog van het voorhoofd naar voren."
     },
     {
       "code": "gsl",
       "name": "Ελληνική Νοηματική Γλώσσα",
       "english_name": "Greek Sign Language",
       "has_reviewers": false,
-      "coverage_count": 889
+      "coverage_count": 889,
+      "description_placeholder": "e.g. κυρίαρχο χέρι σε σχήμα '5', παλάμη προς το πρόσωπο, μικρή κυκλική κίνηση μπροστά από το στόμα."
     }
   ]
 }
