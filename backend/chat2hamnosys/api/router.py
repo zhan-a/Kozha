@@ -43,11 +43,12 @@ from typing import Any, AsyncIterator, Optional
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, Header, Request
-from fastapi.responses import FileResponse, StreamingResponse
+from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from slowapi import Limiter
 from slowapi.util import get_remote_address
 
 from clarify import Question, apply_answer, generate_questions
+from hamnosys.symbols import SYMBOLS, SymClass
 from correct import (
     Correction as _InterpCorrection,
     apply_correction,
@@ -311,11 +312,117 @@ def _sign_entry_out(entry: SignEntry) -> SignEntryOut:
 
 
 # ---------------------------------------------------------------------------
+# HamNoSys symbol table — plain-English legend for the contribute UI.
+#
+# The frontend's notation panel (see public/contribute-notation.js) shows
+# the class_label next to whichever glyph the user is hovering. Labels are
+# kept deliberately literal so a contributor who doesn't know HamNoSys can
+# still tell what kind of thing a symbol is.
+# ---------------------------------------------------------------------------
+
+
+_CLASS_LABELS: dict[SymClass, str] = {
+    SymClass.SYMMETRY:        "Symmetry marker",
+    SymClass.NONDOM:          "Non-dominant hand marker",
+    SymClass.HANDSHAPE_BASE:  "Handshape",
+    SymClass.THUMB_MOD:       "Thumb modifier",
+    SymClass.FINGER_MOD:      "Finger modifier",
+    SymClass.EXT_FINGER_DIR:  "Extended-finger direction",
+    SymClass.ORI_RELATIVE:    "Orientation (relative)",
+    SymClass.PALM_DIR:        "Palm direction",
+    SymClass.LOC_HEAD:        "Location (head)",
+    SymClass.LOC_TORSO:       "Location (torso)",
+    SymClass.LOC_NEUTRAL:     "Location (neutral space)",
+    SymClass.LOC_ARM:         "Location (arm)",
+    SymClass.LOC_HAND_ZONE:   "Hand zone",
+    SymClass.LOC_FINGER:      "Finger part",
+    SymClass.COMBINER:        "Two-hand combiner",
+    SymClass.COREF:           "Coreference",
+    SymClass.MOVE_STRAIGHT:   "Movement (straight)",
+    SymClass.MOVE_CIRCLE:     "Movement (circular)",
+    SymClass.MOVE_ACTION:     "Action",
+    SymClass.MOVE_CLOCK:      "Clock position",
+    SymClass.MOVE_ARC:        "Movement (arc)",
+    SymClass.MOVE_WAVY:       "Movement (wavy)",
+    SymClass.MOVE_ELLIPSE:    "Movement (elliptical)",
+    SymClass.SIZE_MOD:        "Size modifier",
+    SymClass.SPEED_MOD:       "Speed modifier",
+    SymClass.TIMING:          "Timing",
+    SymClass.CONTACT:         "Contact",
+    SymClass.REPEAT:          "Repetition",
+    SymClass.SEQ_BEGIN:       "Sequence begin",
+    SymClass.SEQ_END:         "Sequence end",
+    SymClass.PAR_BEGIN:       "Parallel begin",
+    SymClass.PAR_END:         "Parallel end",
+    SymClass.FUSION_BEGIN:    "Fusion begin",
+    SymClass.FUSION_END:      "Fusion end",
+    SymClass.JOINER:          "Joiner",
+    SymClass.MIME:            "Mime marker",
+    SymClass.VERSION:         "Version marker",
+    SymClass.ALT_BEGIN:       "Alternative begin",
+    SymClass.ALT_END:         "Alternative end",
+    SymClass.META_ALT:        "Alternative separator",
+    SymClass.PUNCT:           "Punctuation",
+    SymClass.OBSOLETE:        "Obsolete symbol",
+}
+
+
+def _build_symbols_payload() -> dict[str, Any]:
+    """Serialize the full HamNoSys 4.0 symbol table for the frontend.
+
+    Precomputed at import time because the table is immutable for the
+    process lifetime; the response carries ``Cache-Control: immutable``
+    so browsers never revalidate.
+    """
+    entries: list[dict[str, Any]] = []
+    for cp, sym in sorted(SYMBOLS.items()):
+        entries.append(
+            {
+                "codepoint":     cp,
+                "hex":           f"U+{cp:04X}",
+                "char":          chr(cp),
+                "short_name":    sym.short_name,
+                "latex_command": sym.latex_command,
+                "class":         sym.sym_class.value,
+                "class_label":   _CLASS_LABELS.get(sym.sym_class, sym.sym_class.value),
+                "slots":         sorted(s.value for s in sym.slots),
+            }
+        )
+    return {"schema_version": 1, "count": len(entries), "symbols": entries}
+
+
+_SYMBOLS_PAYLOAD: dict[str, Any] = _build_symbols_payload()
+_SYMBOLS_ETAG: str = f'"hamnosys-4-0-{_SYMBOLS_PAYLOAD["count"]}"'
+
+
+# ---------------------------------------------------------------------------
 # Router — one APIRouter, mounted at /api/chat2hamnosys by the app layer.
 # ---------------------------------------------------------------------------
 
 
 router = APIRouter(tags=["chat2hamnosys"])
+
+
+@router.get(
+    "/hamnosys/symbols",
+    summary="Full HamNoSys 4.0 symbol table with plain-English class labels",
+)
+def get_hamnosys_symbols(
+    if_none_match: Optional[str] = Header(default=None, alias="If-None-Match"),
+) -> JSONResponse:
+    """Return the immutable HamNoSys 4.0 symbol inventory.
+
+    The table is static for the life of the process (and in practice for
+    the life of the build), so responses carry an immutable cache header
+    and a stable ETag — browsers revalidate once, then never again.
+    """
+    headers = {
+        "Cache-Control": "public, max-age=31536000, immutable",
+        "ETag":          _SYMBOLS_ETAG,
+    }
+    if if_none_match and if_none_match.strip() == _SYMBOLS_ETAG:
+        return JSONResponse(content=None, status_code=304, headers=headers)
+    return JSONResponse(content=_SYMBOLS_PAYLOAD, headers=headers)
 
 
 @router.post(

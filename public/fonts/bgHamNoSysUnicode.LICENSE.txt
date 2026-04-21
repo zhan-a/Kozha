@@ -1,0 +1,39 @@
+bgHamNoSysUnicode — Hamburg HamNoSys 4.0 Unicode font
+======================================================
+
+This directory hosts the Hamburg HamNoSys 4.0 Unicode font
+(`bgHamNoSysUnicode.ttf`), used by the Bridgn/Kozha contribute page to
+render HamNoSys phonetic notation glyphs at their intended visual
+fidelity (§ 5 of the HamNoSys 4.0 manual).
+
+Provenance
+----------
+- Maintainer: Institute of German Sign Language and Communication of the
+  Deaf (IDGS), University of Hamburg.
+- Upstream: https://www.sign-lang.uni-hamburg.de/dgs-korpus/tools/hamnosys
+  (also distributed via the CTAN ``hamnosys`` LaTeX package,
+  https://ctan.org/pkg/hamnosys).
+- Authors: Thomas Hanke, Marc Schulder, et al. (IDGS/DGS-Korpus project).
+
+The font is distributed by IDGS for academic, research, and
+notation-tool use. When redistributing the binary alongside Kozha,
+retain this file and the original IDGS license bundled with the font
+(ship it as `bgHamNoSysUnicode.LICENSE.orig.txt` alongside the `.ttf`).
+This file is a pointer — the binding license terms are the IDGS terms
+shipped with the font itself.
+
+Credit
+------
+If you use this font, credit IDGS (University of Hamburg) per the
+project's README ("Credits → Notation System"). See:
+
+  https://www.sign-lang.uni-hamburg.de/dgs-korpus/
+
+Why we load it locally
+----------------------
+Per the contribute-page redesign (prompts/prompt-contrib-7.md §2), the
+font must be loaded via a local `@font-face` declaration rather than
+depending on a CDN. The declaration lives in `/public/contribute.css`.
+If the `.ttf` is absent, browsers fall back to the system stack and the
+HamNoSys codepoints render as replacement boxes — the UI still works,
+it just isn't pretty.

@@ -212,6 +212,7 @@ If you're unsure where to start, check the open issues or reach out to the maint
 
 ### Notation System
 - **[HamNoSys](https://www.sign-lang.uni-hamburg.de/dgs-korpus/files/inhalt_pdf/HamNoSys_2018.pdf)** — Hamburg Notation System for sign language transcription by the [Institute of German Sign Language](https://www.sign-lang.uni-hamburg.de/), Universitat Hamburg ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/))
+- **bgHamNoSysUnicode font** — HamNoSys 4.0 Unicode glyph font distributed by the [Institute of German Sign Language](https://www.sign-lang.uni-hamburg.de/), Universitat Hamburg. Used on the Contribute page to render HamNoSys glyphs at their intended visual fidelity; loaded locally from `public/fonts/bgHamNoSysUnicode.ttf` (see [`public/fonts/bgHamNoSysUnicode.LICENSE.txt`](public/fonts/bgHamNoSysUnicode.LICENSE.txt) for provenance).
 
 ### Sign Language Databases
 - **BSL** — [DictaSign Corpus](https://www.sign-lang.uni-hamburg.de/dicta-sign/portal/), Universitat Hamburg ([CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/))

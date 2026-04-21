@@ -165,6 +165,113 @@
           <button type="button" class="chat-submit-as-is" id="chatSubmitAsIsBtn">Submit as-is</button>
         </div>
       </section>
+
+      <!-- Avatar preview placeholder. Prompt 9 replaces this with the
+           actual SiGML renderer surface; keeping the anchor here so the
+           notation panel below sits in its final spot. -->
+      <div class="avatar-preview-placeholder" id="avatarPreview" hidden aria-hidden="true"></div>
+
+      <!-- Notation panel — HamNoSys (default) + SiGML tabs. Mounts once
+           the session carries a generated hamnosys string; the avatar
+           preview placeholder sits above it (prompt 9 fills that). -->
+      <section class="notation-panel" id="notationPanel" aria-label="Generated notation" hidden>
+        <nav class="notation-tabs" role="tablist" aria-label="Notation format">
+          <button
+            type="button"
+            role="tab"
+            id="notationTabHamnosys"
+            class="notation-tab is-active"
+            aria-selected="true"
+            aria-controls="notationPanelHamnosys"
+            data-tab="hamnosys">HamNoSys</button>
+          <button
+            type="button"
+            role="tab"
+            id="notationTabSigml"
+            class="notation-tab"
+            aria-selected="false"
+            aria-controls="notationPanelSigml"
+            data-tab="sigml"
+            tabindex="-1">SiGML</button>
+        </nav>
+
+        <!-- HamNoSys tab: glyph row + legend + breakdown + actions. -->
+        <div
+          class="notation-tabpanel"
+          id="notationPanelHamnosys"
+          role="tabpanel"
+          aria-labelledby="notationTabHamnosys">
+          <div class="notation-hamnosys-layout">
+            <div class="notation-hamnosys-main">
+              <div
+                class="notation-hamnosys-display"
+                id="hamnosysDisplay"
+                role="img"
+                aria-live="polite"
+                tabindex="0"></div>
+              <p class="notation-errors" id="notationErrors" role="alert" hidden></p>
+              <p class="notation-fallback" id="notationFallback" hidden>
+                The generated notation could not be validated. A reviewer will finish it.
+              </p>
+            </div>
+            <aside class="notation-legend" id="notationLegend" aria-label="Symbol legend">
+              <p class="notation-legend-title">Symbol</p>
+              <p class="notation-legend-code" id="legendCode">—</p>
+              <p class="notation-legend-class" id="legendClass">Hover or tap a glyph</p>
+              <p class="notation-legend-name" id="legendName"></p>
+            </aside>
+          </div>
+
+          <!-- Phonological breakdown — one line per slot, muted em-dash
+               when a slot hasn't been populated yet. -->
+          <dl class="notation-breakdown" id="notationBreakdown">
+            <div class="notation-breakdown-row">
+              <dt>Handshape</dt>
+              <dd id="breakdownHandshape">—</dd>
+            </div>
+            <div class="notation-breakdown-row">
+              <dt>Orientation</dt>
+              <dd id="breakdownOrientation">—</dd>
+            </div>
+            <div class="notation-breakdown-row">
+              <dt>Location</dt>
+              <dd id="breakdownLocation">—</dd>
+            </div>
+            <div class="notation-breakdown-row">
+              <dt>Movement</dt>
+              <dd id="breakdownMovement">—</dd>
+            </div>
+          </dl>
+
+          <div class="notation-actions">
+            <button type="button" class="notation-copy-btn" id="copyHamnosysBtn" disabled>Copy HamNoSys</button>
+            <span class="notation-copy-confirm" id="copyHamnosysConfirm" hidden>copied</span>
+          </div>
+        </div>
+
+        <!-- SiGML tab: highlighted XML + summary + actions. -->
+        <div
+          class="notation-tabpanel"
+          id="notationPanelSigml"
+          role="tabpanel"
+          aria-labelledby="notationTabSigml"
+          hidden>
+          <pre
+            class="notation-sigml"
+            id="sigmlDisplay"
+            role="region"
+            aria-label="SiGML source code"
+            tabindex="0"><code id="sigmlCode"></code></pre>
+          <p class="notation-sigml-summary">
+            This file contains one <code>&lt;hns_sign&gt;</code> element with the HamNoSys above, in the Kozha canonical format. Your renderer will accept it as-is.
+          </p>
+          <div class="notation-actions">
+            <button type="button" class="notation-copy-btn" id="copySigmlBtn" disabled>Copy SiGML</button>
+            <span class="notation-copy-confirm" id="copySigmlConfirm" hidden>copied</span>
+            <button type="button" class="notation-download-btn" id="downloadSigmlBtn" disabled>Download .sigml</button>
+          </div>
+        </div>
+      </section>
     </section>
 
     <!-- Transient feedback surface — copy confirmations, brief errors. -->
@@ -202,6 +309,7 @@
 
   <script src="/contribute-context.js"></script>
   <script src="/contribute-chat.js"></script>
+  <script src="/contribute-notation.js"></script>
   <script src="/contribute.js"></script>
 </body>
 </html>

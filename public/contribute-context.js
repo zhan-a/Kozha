@@ -75,6 +75,13 @@
       // Author/assistant clarification turns from the envelope, used by
       // the chat panel to replay history on a resume.
       clarifications:   [],
+      // Generator outputs — the notation panel renders these once the
+      // session reaches the RENDERED state. Null until generation has
+      // produced a string.
+      hamnosys:         null,
+      sigml:            null,
+      parameters:       null,
+      generationErrors: [],
       lastUpdated:      0,
     };
   }
@@ -143,6 +150,10 @@
       sessionState:     state.sessionState,
       pendingQuestions: state.pendingQuestions.slice(),
       clarifications:   state.clarifications.slice(),
+      hamnosys:         state.hamnosys,
+      sigml:            state.sigml,
+      parameters:       state.parameters,
+      generationErrors: state.generationErrors.slice(),
       lastUpdated:      state.lastUpdated,
     };
   }
@@ -256,10 +267,10 @@
     return parseError(resp).then(function (err) { throw err; });
   }
 
-  // Pulls the chat-relevant fields off a server envelope and mirrors
-  // them into the store. Centralised so /describe, /answer, /correct
-  // and the resume GET stay in sync without each remembering which
-  // fields the chat panel reads.
+  // Pulls the chat- and notation-relevant fields off a server envelope
+  // and mirrors them into the store. Centralised so /describe, /answer,
+  // /correct and the resume GET stay in sync without each remembering
+  // which fields each panel reads.
   function applyEnvelope(env) {
     if (!env) return;
     setState({
@@ -267,6 +278,12 @@
       gloss:            env.gloss || state.gloss,
       pendingQuestions: env.pending_questions || [],
       clarifications:   env.clarifications || [],
+      // Nullable so a correction that wipes the draft blanks the panel
+      // (instead of leaving the previous notation on screen).
+      hamnosys:         typeof env.hamnosys === 'string' ? env.hamnosys : null,
+      sigml:            typeof env.sigml === 'string' ? env.sigml : null,
+      parameters:       env.parameters || null,
+      generationErrors: env.generation_errors || [],
     });
   }
 
@@ -443,6 +460,10 @@
       sessionState:     'awaiting_description',
       pendingQuestions: [],
       clarifications:   [],
+      hamnosys:         null,
+      sigml:            null,
+      parameters:       null,
+      generationErrors: [],
     });
     clearSessionFragment();
     if (!id || !token) return Promise.resolve();
