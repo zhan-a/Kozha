@@ -93,7 +93,17 @@
     // can attach the session token header.
     sseAbort:            null,
     sseSessionId:        null,
+    sseSessionToken:     null,
+    sseLastEventId:      null,
+    sseReconnectTimer:   null,
+    sseRetryMs:          0,
   };
+
+  // Exponential backoff for SSE reconnection. Starts at 1s, caps at 30s.
+  // Resets to the base after a successful connection (the first frame
+  // delivered) so a transient blip doesn't permanently inflate the delay.
+  var SSE_RETRY_BASE_MS = 1000;
+  var SSE_RETRY_CAP_MS  = 30000;
 
   // ---------- symbol table ----------
 
@@ -613,8 +623,37 @@
     if (state.sseAbort) {
       try { state.sseAbort.abort(); } catch (_e) {}
     }
+    if (state.sseReconnectTimer) {
+      clearTimeout(state.sseReconnectTimer);
+      state.sseReconnectTimer = null;
+    }
     state.sseAbort = null;
     state.sseSessionId = null;
+    state.sseSessionToken = null;
+    state.sseLastEventId = null;
+    state.sseRetryMs = 0;
+  }
+
+  function scheduleSseReconnect() {
+    // Exponential backoff: double the previous wait, capped at the
+    // configured ceiling. A missed frame is not a data-loss event — the
+    // server honours Last-Event-ID so resuming picks up where we left
+    // off.
+    var sessionId = state.sseSessionId;
+    var token = state.sseSessionToken;
+    if (!sessionId || !token) return;
+    if (state.sseReconnectTimer) return;
+    var next = state.sseRetryMs
+      ? Math.min(state.sseRetryMs * 2, SSE_RETRY_CAP_MS)
+      : SSE_RETRY_BASE_MS;
+    state.sseRetryMs = next;
+    state.sseReconnectTimer = setTimeout(function () {
+      state.sseReconnectTimer = null;
+      // Guard against a session swap landing during the backoff delay.
+      if (state.sseSessionId === sessionId && state.rememberedSessionId === sessionId) {
+        openSseConnection();
+      }
+    }, next);
   }
 
   function startSse(sessionId, token) {
@@ -622,22 +661,54 @@
     if (!sessionId || !token) return;
     if (typeof AbortController === 'undefined') return;
     if (typeof TextDecoder === 'undefined') return;
+    state.sseSessionId = sessionId;
+    state.sseSessionToken = token;
+    state.sseLastEventId = null;
+    state.sseRetryMs = 0;
+    openSseConnection();
+  }
+
+  function openSseConnection() {
+    var sessionId = state.sseSessionId;
+    var token = state.sseSessionToken;
+    if (!sessionId || !token) return;
     var ctrl = new AbortController();
     state.sseAbort = ctrl;
-    state.sseSessionId = sessionId;
+    var headers = {
+      'Accept':          'text/event-stream',
+      'X-Session-Token': token,
+    };
+    // Only send Last-Event-ID on a reconnect — the first open should
+    // replay the whole history so the chat panel can populate from a
+    // cold start too.
+    if (state.sseLastEventId !== null && state.sseLastEventId !== undefined) {
+      headers['Last-Event-ID'] = String(state.sseLastEventId);
+    }
     fetch(API_BASE + '/sessions/' + encodeURIComponent(sessionId) + '/events', {
       method: 'GET',
-      headers: {
-        'Accept':          'text/event-stream',
-        'X-Session-Token': token,
-      },
+      headers: headers,
       signal: ctrl.signal,
     })
       .then(function (r) {
-        if (!r.ok || !r.body) return;
-        return consumeEventStream(r.body, sessionId);
+        if (!r.ok || !r.body) {
+          // 4xx with a body usually means the session was rejected or
+          // forbidden — reconnecting won't fix either, so stop.
+          if (r.status >= 400 && r.status < 500) return;
+          scheduleSseReconnect();
+          return;
+        }
+        return consumeEventStream(r.body, sessionId).then(function () {
+          // Clean stream end (server said timeout / closed). Reconnect so
+          // events emitted after the next poll round still reach us.
+          if (state.sseSessionId === sessionId) scheduleSseReconnect();
+        });
       })
-      .catch(function () { /* aborted or network — silent */ });
+      .catch(function (err) {
+        // AbortController-triggered abort surfaces as AbortError; that's
+        // intentional stoppage, not a network drop.
+        if (err && err.name === 'AbortError') return;
+        scheduleSseReconnect();
+      });
   }
 
   function consumeEventStream(body, sessionId) {
@@ -666,13 +737,22 @@
     var lines = frame.split('\n');
     var evName = '';
     var data = '';
+    var eventId = null;
     for (var i = 0; i < lines.length; i++) {
       var line = lines[i];
       if (line.indexOf('event:') === 0) {
         evName = line.slice(6).trim();
       } else if (line.indexOf('data:') === 0) {
         data += (data ? '\n' : '') + line.slice(5).trim();
+      } else if (line.indexOf('id:') === 0) {
+        eventId = line.slice(3).trim();
       }
+    }
+    // A successfully-parsed frame confirms the server is reachable —
+    // reset the backoff so any later drop starts fresh.
+    if (state.sseRetryMs) state.sseRetryMs = 0;
+    if (eventId !== null && eventId !== '') {
+      state.sseLastEventId = eventId;
     }
     if (evName !== 'generated' || !data) return;
     if (state.rememberedSessionId !== sessionId) return;

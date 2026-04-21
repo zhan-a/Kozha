@@ -107,7 +107,9 @@
       "submit_button": "Start authoring",
       "submit_button_starting": "Starting…",
       "submit_error_generic": "Could not start a session. Please try again.",
-      "submit_error_language_unsupported": "This language is not yet enabled on the server. Please pick another."
+      "submit_error_language_unsupported": "This language is not yet enabled on the server. Please pick another.",
+      "submit_error_rate_limited": "You're sending requests faster than the server can process. Wait a moment and try again.",
+      "submit_error_injection_rejected": "We didn't interpret this as a sign description. Please describe only the sign itself."
     },
 
     "chat": {
@@ -130,6 +132,8 @@
       "generating_msg": "Enough information to draft the sign. Preparing preview.",
       "ready_msg": "Draft is ready. Review the preview below and either submit or describe a correction.",
       "error_msg": "Something went wrong generating a clarification. Try rephrasing your description, or submit the draft as-is and let the reviewer fill gaps.",
+      "error_rate_limited": "You're sending requests faster than the server can process. Wait a moment and try again.",
+      "error_injection_rejected": "We didn't interpret this as a sign description. Please describe only the sign itself.",
       "option_aria_prefix": "Answer: {{label}}"
     },
 

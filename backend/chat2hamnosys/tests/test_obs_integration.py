@@ -82,6 +82,7 @@ def obs_client(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setenv("CHAT2HAMNOSYS_TOKEN_DB", str(token_db))
     monkeypatch.setenv("CHAT2HAMNOSYS_DATA_DIR", str(tmp_path / "kozha_data"))
     monkeypatch.setenv("CHAT2HAMNOSYS_RATE_LIMIT", "500/minute")
+    monkeypatch.setenv("CHAT2HAMNOSYS_SESSION_CREATE_RATE_LIMIT", "500/minute")
     monkeypatch.setenv("CHAT2HAMNOSYS_LOG_DIR", str(log_dir))
     monkeypatch.setenv("CHAT2HAMNOSYS_LOG_SINK", "file")
 
@@ -93,6 +94,10 @@ def obs_client(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     from api.dependencies import reset_stores
 
     reset_stores()
+
+    from api.router import limiter as _module_limiter
+
+    _module_limiter.reset()
 
     from api import (
         create_app,

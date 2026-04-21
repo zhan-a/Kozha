@@ -757,6 +757,7 @@ def review_client(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setenv("CHAT2HAMNOSYS_TOKEN_DB", str(tmp_path / "tokens.sqlite3"))
     monkeypatch.setenv("CHAT2HAMNOSYS_DATA_DIR", str(tmp_path / "kozha_data"))
     monkeypatch.setenv("CHAT2HAMNOSYS_RATE_LIMIT", "500/minute")
+    monkeypatch.setenv("CHAT2HAMNOSYS_SESSION_CREATE_RATE_LIMIT", "500/minute")
     # Force production-like policy regardless of host env.
     monkeypatch.setenv("CHAT2HAMNOSYS_REVIEW_MIN_APPROVALS", "2")
     monkeypatch.setenv("CHAT2HAMNOSYS_REVIEW_REQUIRE_NATIVE", "true")
@@ -768,6 +769,10 @@ def review_client(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
 
     reset_stores()
     reset_review_stores()
+
+    from api.router import limiter as _module_limiter
+
+    _module_limiter.reset()
 
     from api import create_app
 

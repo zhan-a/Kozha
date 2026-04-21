@@ -70,6 +70,7 @@ def c2h_server(tmp_path: Path) -> Iterator[str]:
             "CHAT2HAMNOSYS_REVIEWER_DB": str(tmp_path / "reviewers.sqlite3"),
             "CHAT2HAMNOSYS_DATA_DIR":    str(tmp_path / "kozha_data"),
             "CHAT2HAMNOSYS_RATE_LIMIT":  "500/minute",
+            "CHAT2HAMNOSYS_SESSION_CREATE_RATE_LIMIT": "500/minute",
         }
     )
 

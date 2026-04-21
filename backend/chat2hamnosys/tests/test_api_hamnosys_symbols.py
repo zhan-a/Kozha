@@ -23,10 +23,15 @@ def _build_client(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> TestClient
     monkeypatch.setenv("CHAT2HAMNOSYS_TOKEN_DB", str(tmp_path / "tokens.sqlite3"))
     monkeypatch.setenv("CHAT2HAMNOSYS_DATA_DIR", str(tmp_path / "kozha_data"))
     monkeypatch.setenv("CHAT2HAMNOSYS_RATE_LIMIT", "1000/minute")
+    monkeypatch.setenv("CHAT2HAMNOSYS_SESSION_CREATE_RATE_LIMIT", "1000/minute")
 
     from api.dependencies import reset_stores
 
     reset_stores()
+
+    from api.router import limiter as _module_limiter
+
+    _module_limiter.reset()
 
     from api import create_app
 

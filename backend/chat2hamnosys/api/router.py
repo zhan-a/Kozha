@@ -130,6 +130,20 @@ def _default_rate_limit() -> str:
     return os.environ.get("CHAT2HAMNOSYS_RATE_LIMIT", "30/minute")
 
 
+def _session_create_rate_limit() -> str:
+    """Per-IP cap on session creation.
+
+    Cheap for an attacker to open-and-drop sessions, so we clamp this
+    an order of magnitude below the default that covers
+    describe/answer/correct. Override with
+    ``CHAT2HAMNOSYS_SESSION_CREATE_RATE_LIMIT`` if a fixture needs to
+    spin up many sessions in the same test window.
+    """
+    return os.environ.get(
+        "CHAT2HAMNOSYS_SESSION_CREATE_RATE_LIMIT", "2/minute"
+    )
+
+
 # Back-compat alias — some importers and the router's own ``__all__``
 # still reference ``DEFAULT_RATE_LIMIT`` as a string. Resolved once at
 # import time; :func:`api.app.create_app` uses :func:`_default_rate_limit`
@@ -435,6 +449,7 @@ def get_hamnosys_symbols(
     status_code=201,
     summary="Create a new authoring session",
 )
+@limiter.limit(_session_create_rate_limit)
 def create_session(
     request: Request,
     body: Optional[CreateSessionRequest] = None,
@@ -915,6 +930,7 @@ async def _events_generator(
     *,
     session_id: UUID,
     session_store: SessionStore,
+    start_after: int = 0,
     poll_interval: float = EVENTS_POLL_INTERVAL,
     max_duration: float = EVENTS_MAX_DURATION,
 ) -> AsyncIterator[bytes]:
@@ -923,8 +939,12 @@ async def _events_generator(
     Emits a replay of the current history on connect, then polls for
     newly-appended events until the session reaches a terminal state
     or ``max_duration`` elapses.
+
+    Each frame carries an ``id:`` line whose value is the zero-based
+    history index. Clients can resume via ``Last-Event-ID`` so a
+    reconnect after a network blip does not cause duplicate deliveries.
     """
-    seen = 0
+    seen = max(0, start_after)
     loop = asyncio.get_event_loop()
     deadline = loop.time() + max_duration
     terminal_values = {s.value for s in TERMINAL_STATES}
@@ -940,10 +960,15 @@ async def _events_generator(
         history = session.history
         while seen < len(history):
             event = history[seen]
+            event_id = seen
             seen += 1
             data = event.model_dump(mode="json")
             payload = json.dumps(data, ensure_ascii=False, default=str)
-            yield f"event: {data.get('type', 'event')}\ndata: {payload}\n\n".encode("utf-8")
+            yield (
+                f"id: {event_id}\n"
+                f"event: {data.get('type', 'event')}\n"
+                f"data: {payload}\n\n"
+            ).encode("utf-8")
         if session.state.value in terminal_values:
             state_payload = json.dumps(
                 {"type": "state", "state": session.state.value},
@@ -958,6 +983,21 @@ async def _events_generator(
     yield b"event: timeout\ndata: {\"type\":\"timeout\"}\n\n"
 
 
+def _parse_last_event_id(raw: Optional[str]) -> int:
+    """Interpret a ``Last-Event-ID`` header as a non-negative int.
+
+    Malformed values fall back to ``0`` so a broken client replays the
+    full history rather than getting stuck.
+    """
+    if not raw:
+        return 0
+    try:
+        value = int(str(raw).strip())
+    except (TypeError, ValueError):
+        return 0
+    return value + 1 if value >= 0 else 0
+
+
 @router.get(
     "/sessions/{session_id}/events",
     summary="Server-sent event stream for live session updates",
@@ -966,6 +1006,7 @@ async def get_events(
     request: Request,
     session_id: UUID,
     x_session_token: Optional[str] = Header(default=None),
+    last_event_id: Optional[str] = Header(default=None, alias="Last-Event-ID"),
     session_store: SessionStore = Depends(get_session_store),
     token_store: TokenStore = Depends(get_token_store),
 ):
@@ -975,8 +1016,13 @@ async def get_events(
         x_session_token=x_session_token,
         token_store=token_store,
     )
+    start_after = _parse_last_event_id(last_event_id)
     return StreamingResponse(
-        _events_generator(session_id=session_id, session_store=session_store),
+        _events_generator(
+            session_id=session_id,
+            session_store=session_store,
+            start_after=start_after,
+        ),
         media_type="text/event-stream",
         headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
     )

@@ -546,7 +546,20 @@
         return;
       }
       var msg = tr('contribute.authoring.submit_error_generic', 'Could not start a session. Please try again.');
-      if (err && err.status === 422) {
+      var errCode = null;
+      if (err && typeof err.body === 'string') {
+        try {
+          var parsed = JSON.parse(err.body);
+          if (parsed && parsed.error && typeof parsed.error.code === 'string') {
+            errCode = parsed.error.code;
+          }
+        } catch (_e) { /* ignore — fall through to status-based branches */ }
+      }
+      if (errCode === 'rate_limited' || (err && err.status === 429)) {
+        msg = tr('contribute.authoring.submit_error_rate_limited', "You're sending requests faster than the server can process. Wait a moment and try again.");
+      } else if (errCode === 'injection_rejected') {
+        msg = tr('contribute.authoring.submit_error_injection_rejected', "We didn't interpret this as a sign description. Please describe only the sign itself.");
+      } else if (err && err.status === 422) {
         msg = tr('contribute.authoring.submit_error_language_unsupported', 'This language is not yet enabled on the server. Please pick another.');
       }
       showInlineError(els.submitError, msg);
