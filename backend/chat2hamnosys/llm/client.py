@@ -129,7 +129,7 @@ def _resolve_api_key(explicit: str | None) -> str:
 # retry budget — stay on a widely-available tier there.
 _DEFAULT_MODEL_ENV = "CHAT2HAMNOSYS_MODEL"
 _DEFAULT_FALLBACK_MODEL_ENV = "CHAT2HAMNOSYS_FALLBACK_MODEL"
-_BUILTIN_DEFAULT_MODEL = "gpt-5"
+_BUILTIN_DEFAULT_MODEL = "gpt-5.4"
 _BUILTIN_DEFAULT_FALLBACK_MODEL = "gpt-4o"
 
 

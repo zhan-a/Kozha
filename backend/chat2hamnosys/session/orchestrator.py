@@ -47,7 +47,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Any, Callable, Optional
 
-from clarify import Question, apply_answer, generate_questions
+from clarify import AnswerParseError, Question, apply_answer, generate_questions
 from generator import GenerateResult, VOCAB, generate
 from generator.params_to_hamnosys import _compose_pieces
 from models import ClarificationTurn
@@ -312,12 +312,23 @@ def on_description(
         clarifications=list(session.draft.clarifications) + [author_turn],
     )
 
-    return _generate_and_ask(
-        session,
-        parse_result,
-        question_fn=question_fn,
-        is_deaf_native=session.draft.author_is_deaf_native,
-    )
+    try:
+        return _generate_and_ask(
+            session,
+            parse_result,
+            question_fn=question_fn,
+            is_deaf_native=session.draft.author_is_deaf_native,
+        )
+    except Exception as exc:
+        # If the clarifier LLM fails on the very first turn (budget,
+        # network, provider outage), skip clarification entirely and
+        # try to generate from the parsed params. The user can still
+        # submit-as-is or issue corrections afterwards.
+        logger.warning(
+            "initial clarification failed (%s); moving to GENERATING",
+            type(exc).__name__,
+        )
+        return session.with_state(SessionState.GENERATING)
 
 
 def on_clarification_answer(
@@ -356,7 +367,17 @@ def on_clarification_answer(
             "session has no partial parameters; on_description must run first"
         )
 
-    new_params = apply_fn(session.draft.parameters_partial, question, answer)
+    try:
+        new_params = apply_fn(session.draft.parameters_partial, question, answer)
+    except AnswerParseError:
+        # An LLM-generated question with ``allow_freeform=False`` would
+        # otherwise 500 the session on any unusual phrasing. Re-apply
+        # with a lenient copy of the question so the user's answer lands
+        # in the slot verbatim instead of being rejected.
+        lenient_q = question.model_copy(update={"allow_freeform": True})
+        new_params = apply_fn(
+            session.draft.parameters_partial, lenient_q, answer
+        )
     resolved_value = _resolve_field_from_partial(new_params, question_field)
 
     emit_event(
@@ -393,18 +414,28 @@ def on_clarification_answer(
     if not remaining_gaps:
         return session.with_state(SessionState.GENERATING)
 
-    # More gaps — ask another batch.
+    # More gaps — ask another batch. If the follow-up LLM call fails
+    # for any reason (budget, network, provider outage), degrade to
+    # GENERATING: the contributor has already answered once, and a
+    # best-effort draft is better than a 500 they can't recover from.
     stub_parse = ParseResult(
         parameters=new_params,
         gaps=remaining_gaps,
         raw_response="",
     )
-    return _generate_and_ask(
-        session,
-        stub_parse,
-        question_fn=question_fn,
-        is_deaf_native=session.draft.author_is_deaf_native,
-    )
+    try:
+        return _generate_and_ask(
+            session,
+            stub_parse,
+            question_fn=question_fn,
+            is_deaf_native=session.draft.author_is_deaf_native,
+        )
+    except Exception as exc:
+        logger.warning(
+            "follow-up clarification failed (%s); moving to GENERATING",
+            type(exc).__name__,
+        )
+        return session.with_state(SessionState.GENERATING)
 
 
 def _resolve_field_from_partial(

@@ -60,9 +60,13 @@
     get REPLY_USER_QUESTION()          { return tr('contribute.chat.reply_user_question', "I can only ask about this sign. If you'd like to learn HamNoSys, see the docs link below."); },
     get GENERATING_MSG()               { return tr('contribute.chat.generating_msg', 'Enough information to draft the sign. Preparing preview.'); },
     get READY_MSG()                    { return tr('contribute.chat.ready_msg', 'Draft is ready. Review the preview below and either submit or describe a correction.'); },
-    get ERROR_MSG()                    { return tr('contribute.chat.error_msg', 'Something went wrong generating a clarification. Try rephrasing your description, or submit the draft as-is and let the reviewer fill gaps.'); },
+    get ERROR_MSG()                    { return tr('contribute.chat.error_msg', 'The AI had trouble generating a follow-up. Your answer was saved — try rephrasing, or submit the draft as-is and let the reviewer fill any gaps.'); },
     get ERROR_RATE_LIMITED()           { return tr('contribute.chat.error_rate_limited', "You're sending requests faster than the server can process. Wait a moment and try again."); },
     get ERROR_INJECTION_REJECTED()     { return tr('contribute.chat.error_injection_rejected', "We didn't interpret this as a sign description. Please describe only the sign itself."); },
+    get ERROR_BUDGET()                 { return tr('contribute.chat.error_budget', "Today's shared AI quota is used up. Your draft is saved — you can submit it as-is, or come back tomorrow to continue."); },
+    get ERROR_MODEL_UNAVAILABLE()      { return tr('contribute.chat.error_model_unavailable', "The AI model is temporarily unavailable. Your draft is saved — please retry in a minute."); },
+    get PROGRESS_THINKING()            { return tr('contribute.chat.progress_thinking', 'Thinking…'); },
+    get PROGRESS_CONTACTING()          { return tr('contribute.chat.progress_contacting', 'Contacting the AI…'); },
   };
 
   var TERMINAL_STATES = { finalized: true, abandoned: true };
@@ -106,6 +110,9 @@
     shownReadyMsg: false,
     // True while a fetch is outstanding.
     inFlight: false,
+    // Timer id for the "Thinking…" → "Contacting the AI…" upgrade;
+    // null when no upgrade is scheduled.
+    progressUpgradeTimer: null,
     // True after we surface the error message and the Submit-as-is path.
     inError: false,
     // Correction target set by the preview pane when the contributor
@@ -220,11 +227,44 @@
   function setInFlight(yes) {
     chat.inFlight = !!yes;
     els.progress.hidden = !yes;
+    if (chat.progressUpgradeTimer) {
+      clearTimeout(chat.progressUpgradeTimer);
+      chat.progressUpgradeTimer = null;
+    }
     if (yes) {
+      // The progress element is visual-only by default; announce and
+      // label the stage so contributors can see the request is active.
+      // Start as "Thinking…" and upgrade to "Contacting the AI…" after
+      // a short beat so long-running calls read as deliberate rather
+      // than stuck.
+      els.progress.removeAttribute('aria-hidden');
+      els.progress.setAttribute('role', 'status');
+      els.progress.setAttribute('aria-live', 'polite');
+      setProgressText(COPY.PROGRESS_THINKING);
+      chat.progressUpgradeTimer = setTimeout(function () {
+        chat.progressUpgradeTimer = null;
+        if (chat.inFlight) setProgressText(COPY.PROGRESS_CONTACTING);
+      }, 1200);
       els.input.disabled = true;
       els.sendBtn.disabled = true;
     } else {
+      els.progress.setAttribute('aria-hidden', 'true');
+      setProgressText('');
       updateInputMode(CTX.getState());
+    }
+  }
+
+  function setProgressText(text) {
+    // The visual bar is a separate span; clear it, then replace any
+    // previous label so multiple calls overwrite rather than stack.
+    var bar = els.progress.querySelector('.chat-progress-bar');
+    els.progress.textContent = '';
+    if (bar) els.progress.appendChild(bar);
+    if (text) {
+      var label = document.createElement('span');
+      label.className = 'chat-progress-label';
+      label.textContent = text;
+      els.progress.appendChild(label);
     }
   }
 
@@ -319,11 +359,23 @@
     // or rephrase. Hard errors fall through to the generic message.
     var code = parseErrorCode(err);
     var status = err ? err.status : null;
-    if (code === 'rate_limited' || status === 429) {
+    if (code === 'rate_limited') {
       return { text: COPY.ERROR_RATE_LIMITED, offerSubmitAsIs: false };
     }
     if (code === 'injection_rejected') {
       return { text: COPY.ERROR_INJECTION_REJECTED, offerSubmitAsIs: false };
+    }
+    if (code === 'budget_exceeded' ||
+        code === 'daily_budget_exceeded' ||
+        code === 'cost_cap_exceeded') {
+      return { text: COPY.ERROR_BUDGET, offerSubmitAsIs: true };
+    }
+    if (code === 'llm_config_error' ||
+        code === 'model_unavailable') {
+      return { text: COPY.ERROR_MODEL_UNAVAILABLE, offerSubmitAsIs: true };
+    }
+    if (status === 429) {
+      return { text: COPY.ERROR_RATE_LIMITED, offerSubmitAsIs: false };
     }
     return { text: COPY.ERROR_MSG, offerSubmitAsIs: true };
   }

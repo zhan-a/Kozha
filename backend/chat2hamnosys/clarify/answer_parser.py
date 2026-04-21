@@ -139,9 +139,12 @@ def _resolve_value(question: Question, answer: str) -> str:
     1. Whole-answer ordinal word ("first", "the second", "option two").
     2. Whole-answer bare / prefixed index ("2", "#2", "option 2").
     3. Case-insensitive exact match on an option ``label`` or ``value``.
-    4. Freeform fallback — if ``question.allow_freeform`` is ``True``,
+    4. Substring match — the first option whose label (or value)
+       appears anywhere in the cleaned answer. Catches "Fingertips: up"
+       for option "up", or "the flat palm one" for label "flat palm".
+    5. Freeform fallback — if ``question.allow_freeform`` is ``True``,
        the trimmed answer itself is returned.
-    5. Otherwise raise :class:`AnswerParseError`.
+    6. Otherwise raise :class:`AnswerParseError`.
     """
     cleaned = answer.strip()
     lowered = cleaned.lower()
@@ -160,6 +163,25 @@ def _resolve_value(question: Question, answer: str) -> str:
             return opt.value
         if opt.value.strip().lower() == lowered:
             return opt.value
+
+    # Word-boundary substring match — tolerate extra context around an
+    # answer, e.g. "Fingertips: up" for option label "up". Word
+    # boundaries are required so "up" does not match inside "upward"
+    # when a user typed a freeform phrase like "rotated upward and out".
+    # Only fires when exactly one option matches, to avoid silently
+    # picking an arbitrary one when the answer is genuinely ambiguous.
+    ambiguous_hits: list[str] = []
+    for opt in options:
+        label_lc = opt.label.strip().lower()
+        value_lc = opt.value.strip().lower()
+        for candidate in (label_lc, value_lc):
+            if not candidate:
+                continue
+            if re.search(rf"\b{re.escape(candidate)}\b", lowered):
+                ambiguous_hits.append(opt.value)
+                break
+    if len(ambiguous_hits) == 1:
+        return ambiguous_hits[0]
 
     if question.allow_freeform:
         return cleaned

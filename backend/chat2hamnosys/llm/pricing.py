@@ -11,6 +11,11 @@ from __future__ import annotations
 
 
 PRICING_PER_1M_TOKENS: dict[str, dict[str, float]] = {
+    # gpt-5.4 is priced provisionally at the gpt-5 tier until OpenAI
+    # publishes a separate rate card; the cost tracker is intentionally
+    # conservative here so a mispriced entry over-bills rather than
+    # silently under-bills.
+    "gpt-5.4":           {"input": 1.25,  "output": 10.00},
     "gpt-5":             {"input": 1.25,  "output": 10.00},
     "gpt-5-mini":        {"input": 0.25,  "output": 2.00},
     "gpt-5-nano":        {"input": 0.05,  "output": 0.40},

@@ -245,7 +245,7 @@ def generate_questions(
     *,
     is_deaf_native: bool | None = None,
     client: LLMClient | None = None,
-    model: str = "gpt-4o",
+    model: str | None = None,
     temperature: float = 0.3,
     max_tokens: int = 1000,
     request_id: str | None = None,
@@ -264,9 +264,14 @@ def generate_questions(
     4. On any LLM/validation failure, return :func:`templates.template_for`
        for each target gap so the UI still has something to show.
 
+    ``model`` defaults to whatever :class:`LLMClient` resolves from the
+    ``CHAT2HAMNOSYS_MODEL`` env var (with a builtin fallback chain), so
+    callers don't pin a specific family unless they need to.
+
     :class:`BudgetExceeded` is *not* caught — a budget breach is a
     configuration failure, not a soft failure, and must surface to the
-    caller.
+    caller. The orchestrator wraps this function and degrades to
+    GENERATING on propagated errors so the user never sees a bare 500.
     """
     prior_turns = prior_turns or []
     targets = _gap_targets(parse_result, prior_turns)
