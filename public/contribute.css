@@ -1,17 +1,17 @@
-/* Contribute page — minimal scaffold. Design contract:
-   docs/contribute-redesign/01-design-principles.md.
-   One typeface (system stack), dark ink on off-white paper, single accent
-   used only for the language code in the header and the primary button. */
+/* Contribute page. Palette + type stack match the landing (index.html):
+   DM Sans for body, Instrument Serif for display headings, warm
+   #f5f1eb paper + #c96a2e accent. Ink is the near-black from landing
+   so WCAG AA contrast stays deterministic under axe/pa11y. */
 
 :root {
-  --ink: #15130f;
-  --paper: #f7f3ec;
+  --ink: #1a1612;
+  --paper: #f5f1eb;
+  /* --accent is used for text/links on paper; must clear WCAG AA at
+     small text (≥4.5:1). #b3441b on paper = 4.80:1. */
   --accent: #b3441b;
-  --rule: rgba(21, 19, 15, 0.14);
-  /* Solid equivalent of the previous rgba(21,19,15,0.62) composite on
-     paper, nudged slightly darker so it clears WCAG AA contrast (>5:1 on
-     paper at 14px normal). Solid means axe and pa11y both agree on the
-     contrast value instead of pa11y flagging a G18.Alpha warning. */
+  --accent-bright: #c96a2e;
+  --rule: rgba(26, 22, 18, 0.14);
+  /* Solid muted — keeps AA contrast without pa11y's G18.Alpha warning. */
   --muted: #5e5c57;
   --max-width: 880px;
 }
@@ -34,7 +34,7 @@
 html, body { margin: 0; padding: 0; }
 
 body {
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: 'DM Sans', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 18px;
   line-height: 1.6;
   color: var(--ink);
@@ -74,11 +74,13 @@ main,
   border-bottom: 1px solid var(--rule);
 }
 .site-name {
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: 0.01em;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.005em;
   text-decoration: none;
 }
+.site-name span { color: var(--accent); }
 .back-link { font-size: 15px; }
 
 main {
@@ -87,10 +89,11 @@ main {
 }
 
 h1 {
-  font-size: 40px;
-  line-height: 1.2;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 48px;
+  line-height: 1.1;
+  font-weight: 400;
+  letter-spacing: -0.015em;
   margin: 0 0 40px;
 }
 
