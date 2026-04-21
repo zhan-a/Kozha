@@ -126,6 +126,9 @@
         <button type="submit" data-i18n="contribute.token_prompt.submit">Resume</button>
       </form>
       <p class="token-prompt-error" id="tokenPromptError" role="alert" hidden></p>
+      <p class="token-prompt-escape">
+        <button type="button" class="token-prompt-discard" id="tokenPromptDiscardBtn" data-i18n="contribute.token_prompt.discard">Start a new sign instead</button>
+      </p>
     </section>
 
     <div class="reviewer-notice" id="reviewerNotice" role="status" hidden></div>
@@ -246,6 +249,16 @@
         <div class="chat-error-actions" id="chatErrorActions" hidden>
           <button type="button" class="chat-submit-as-is" id="chatSubmitAsIsBtn" data-i18n="contribute.chat.submit_as_is">Submit as-is</button>
         </div>
+        <!-- Always-visible escape hatch. When anything goes sideways —
+             the API stalls, the clarifier returns no question, a stale
+             draft rehydrates into a broken state — this lets the
+             contributor walk away without refreshing the page or
+             editing localStorage by hand. Clicking it discards the
+             server-side session and resets the local state so a fresh
+             sign can be started immediately. -->
+        <p class="chat-footer-actions">
+          <button type="button" class="chat-discard-btn" id="chatDiscardBtn" data-i18n="contribute.chat.discard">Discard this draft and start over</button>
+        </p>
       </section>
 
       <!-- Avatar preview pane (prompt 9). Renders via CWASA on the

@@ -86,6 +86,7 @@
     sendBtn:       document.getElementById('chatSendBtn'),
     errorActions:  document.getElementById('chatErrorActions'),
     submitAsIs:    document.getElementById('chatSubmitAsIsBtn'),
+    discardBtn:    document.getElementById('chatDiscardBtn'),
     targetPill:    document.getElementById('chatTargetPill'),
     targetText:    document.getElementById('chatTargetPillText'),
     targetClear:   document.getElementById('chatTargetPillClear'),
@@ -411,6 +412,20 @@
     document.dispatchEvent(ev);
   }
 
+  function onDiscardClick() {
+    // Dispatch a page-wide event so contribute.js owns the confirmation
+    // modal and the actual clearSession call — keeps the chat panel
+    // ignorant of the modal machinery and lets the same escape hatch
+    // fire from other panels later if needed.
+    var ev;
+    try { ev = new CustomEvent('kozha:discard-session'); }
+    catch (_e) {
+      ev = document.createEvent('Event');
+      ev.initEvent('kozha:discard-session', true, true);
+    }
+    document.dispatchEvent(ev);
+  }
+
   // ---------- envelope / state syncing ----------
 
   function applyState(newState, pending) {
@@ -595,6 +610,9 @@
     els.input.addEventListener('keydown', onKeyDown);
     els.sendBtn.addEventListener('click', onSendClick);
     els.submitAsIs.addEventListener('click', onSubmitAsIs);
+    if (els.discardBtn) {
+      els.discardBtn.addEventListener('click', onDiscardClick);
+    }
     if (els.targetClear) {
       els.targetClear.addEventListener('click', clearCorrectionTarget);
     }

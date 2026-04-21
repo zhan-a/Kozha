@@ -88,6 +88,7 @@
     tokenPromptForm:   document.getElementById('tokenPromptForm'),
     tokenPromptInput:  document.getElementById('tokenPromptInput'),
     tokenPromptError:  document.getElementById('tokenPromptError'),
+    tokenPromptDiscard: document.getElementById('tokenPromptDiscardBtn'),
     notice:            document.getElementById('reviewerNotice'),
     authoringRoot:     document.getElementById('authoring-root'),
     authoringForm:     document.getElementById('authoringForm'),
@@ -637,6 +638,66 @@
     });
   }
 
+  // ---------- always-available escape hatches ----------
+  //
+  // Stale local state (persisted state machine, orphaned fragment, session
+  // id resumed without token) must never lock a contributor out of starting
+  // a fresh sign. Both handlers below wipe local state unconditionally —
+  // the server-side reject is best-effort inside clearSession/abandonSession.
+
+  function onDiscardSessionEvent() {
+    var snap = CTX.getState();
+    var glossLabel = snap.gloss
+      ? '“' + snap.gloss + '”'
+      : tr('contribute.submission.edit_modal_body_unnamed', 'your current sign');
+    showModal({
+      title: tr('contribute.submission.reset_modal_title', 'Discard this draft?'),
+      body: tr(
+        'contribute.submission.reset_modal_body',
+        'This will discard your draft for {{gloss_label}} and return you to the language picker. Continue?',
+        { gloss_label: glossLabel }
+      ),
+      cancelLabel: tr('common.modal_cancel', 'Cancel'),
+      confirmLabel: tr('common.modal_discard', 'Discard'),
+      onConfirm: function () {
+        var lang = snap.language;
+        if (lang) clearDraft(lang);
+        if (snap.sessionId) {
+          CTX.abandonSession();
+        } else {
+          CTX.setState({ language: null, gloss: '', sessionState: 'awaiting_description' });
+          CTX.clearSessionFragment();
+        }
+      },
+    });
+  }
+
+  function onTokenPromptDiscard() {
+    // The fragment points at a session we can't resume (no token on this
+    // device). Just clear local state + the fragment and drop back to the
+    // picker — leave the server session alone (we lack the token to reject
+    // it, and it will be garbage-collected on the server anyway).
+    pendingResumeId = null;
+    CTX.setState({
+      sessionId:          null,
+      sessionToken:       null,
+      gloss:              '',
+      language:           null,
+      sessionState:       'awaiting_description',
+      pendingQuestions:   [],
+      clarifications:     [],
+      hamnosys:           null,
+      sigml:              null,
+      parameters:         null,
+      generationErrors:   [],
+      correctionsCount:   0,
+      authorIsDeafNative: null,
+      descriptionProse:   '',
+    });
+    CTX.clearSessionFragment();
+    hideTokenPrompt();
+  }
+
   // ---------- modal ----------
 
   var modalLastFocused = null;
@@ -902,6 +963,10 @@
     els.hintClose.addEventListener('click', dismissHint);
     els.contextCopyBtn.addEventListener('click', copySessionUrl);
     els.tokenPromptForm.addEventListener('submit', onTokenPromptSubmit);
+    if (els.tokenPromptDiscard) {
+      els.tokenPromptDiscard.addEventListener('click', onTokenPromptDiscard);
+    }
+    document.addEventListener('kozha:discard-session', onDiscardSessionEvent);
     els.authoringForm.addEventListener('submit', onSubmit);
     els.glossInput.addEventListener('input', onGlossInput);
     els.glossInput.addEventListener('blur', onGlossBlur);

@@ -86,7 +86,8 @@
       "submit": "Resume",
       "error_mismatch": "That token does not match this session.",
       "error_not_found": "This session was not found.",
-      "error_generic": "Could not resume the session."
+      "error_generic": "Could not resume the session.",
+      "discard": "Start a new sign instead"
     },
 
     "authoring": {
@@ -128,6 +129,7 @@
       "target_pill_separator": " • ",
       "send": "Send",
       "submit_as_is": "Submit as-is",
+      "discard": "Discard this draft and start over",
       "reply_user_question": "I can only ask about this sign. If you'd like to learn HamNoSys, see the docs link below.",
       "generating_msg": "Enough information to draft the sign. Preparing preview.",
       "ready_msg": "Draft is ready. Review the preview below and either submit or describe a correction.",
@@ -233,7 +235,9 @@
       "edit_modal_body": "This will discard your draft for {{gloss_label}} so you can edit the gloss and description. Continue?",
       "edit_modal_body_unnamed": "your current sign",
       "change_lang_modal_title": "Discard this draft?",
-      "change_lang_modal_body": "This will discard your draft for {{gloss_label}}. Continue?"
+      "change_lang_modal_body": "This will discard your draft for {{gloss_label}}. Continue?",
+      "reset_modal_title": "Discard this draft?",
+      "reset_modal_body": "This will discard your draft for {{gloss_label}} and return you to the language picker. Continue?"
     },
 
     "confirmation": {

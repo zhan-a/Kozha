@@ -309,6 +309,25 @@ h1 {
   font-size: 14px;
   color: var(--accent);
 }
+.token-prompt-escape {
+  margin: 16px 0 0;
+  font-size: 14px;
+}
+.token-prompt-discard {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-size: 14px;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.token-prompt-discard:hover,
+.token-prompt-discard:focus-visible {
+  color: var(--ink);
+}
 
 /* ----- Reviewer notice (unchanged from prompt 3) ----- */
 
@@ -664,6 +683,28 @@ h1 {
   color: var(--ink);
   cursor: pointer;
   transition: opacity 120ms ease;
+}
+.chat-footer-actions {
+  margin: 0;
+  padding: 14px 20px 18px;
+  border-top: 1px dashed var(--rule);
+  text-align: right;
+}
+.chat-discard-btn {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color 120ms ease;
+}
+.chat-discard-btn:hover,
+.chat-discard-btn:focus-visible {
+  color: var(--ink);
 }
 .chat-submit-as-is:hover,
 .chat-submit-as-is:focus-visible { opacity: 0.75; }

@@ -129,12 +129,12 @@ def _resolve_api_key(explicit: str | None) -> str:
 # retry budget — stay on a widely-available tier there.
 _DEFAULT_MODEL_ENV = "CHAT2HAMNOSYS_MODEL"
 _DEFAULT_FALLBACK_MODEL_ENV = "CHAT2HAMNOSYS_FALLBACK_MODEL"
-# ``gpt-5.4`` was set briefly but is not a real OpenAI model id — it
-# caused the HamNoSys generator to hang through full-duration retries
-# when the slot-resolver and repair loops each hit the non-existent
-# model. ``gpt-5`` is the strongest real model available and has a
-# clean fallback to ``gpt-4o`` via :meth:`_invoke_with_retry`.
-_BUILTIN_DEFAULT_MODEL = "gpt-5"
+# Default to the current strongest general-purpose model. ``gpt-5.4``
+# is the live frontier model (reasoning.effort defaults to ``none``, so
+# ``temperature`` and other sampling params remain valid); ``gpt-4o``
+# stays as the fallback model that :meth:`_invoke_with_retry` swaps in
+# when the primary is unavailable or rate-limited past its budget.
+_BUILTIN_DEFAULT_MODEL = "gpt-5.4"
 _BUILTIN_DEFAULT_FALLBACK_MODEL = "gpt-4o"
 
 # Per-request timeout in seconds for the OpenAI SDK. A single hanging
