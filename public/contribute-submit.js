@@ -31,6 +31,24 @@
     return;
   }
 
+  // i18n bridge — resolves from the live catalog with the English original
+  // as the fallback. Written so the confirmation view is still readable if
+  // /strings.en.json fails to load.
+  function tr(key, fallback, vars) {
+    if (window.KOZHA_I18N && typeof window.KOZHA_I18N.t === 'function') {
+      var v = window.KOZHA_I18N.t(key, vars || undefined);
+      if (v && v !== key) return v;
+    }
+    // Tiny interpolator so the fallback supports the same {{placeholder}}
+    // syntax as the catalog — keeps call sites uniform.
+    if (vars) {
+      return String(fallback).replace(/\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g, function (_m, name) {
+        return Object.prototype.hasOwnProperty.call(vars, name) ? String(vars[name]) : '{{' + name + '}}';
+      });
+    }
+    return fallback;
+  }
+
   var API_BASE = '/api/chat2hamnosys';
   var STATUS_PATH = '/contribute/status/';
   var COPY_CONFIRM_MS = 1600;
@@ -196,11 +214,11 @@
     if (submitInFlight) return;
     var snap = CTX.getState();
     if (!snap.sessionId || !snap.sessionToken) {
-      showError('This draft does not have an active session. Refresh and try again.');
+      showError(tr('contribute.submission.submit_error_no_session', 'This draft does not have an active session. Refresh and try again.'));
       return;
     }
     if (!isSignValid(snap)) {
-      showError('The generated sign needs to be ready before you can submit.');
+      showError(tr('contribute.submission.submit_error_not_ready', 'The generated sign needs to be ready before you can submit.'));
       return;
     }
 
@@ -226,14 +244,14 @@
       })
       .then(function (r) {
         if (!r.ok) {
-          var msg = 'Could not submit (HTTP ' + r.status + ').';
+          var msg = tr('contribute.submission.submit_error_http_prefix', 'Could not submit (HTTP {{status}}).', { status: r.status });
           if (r.body && r.body.detail) msg += ' ' + r.body.detail;
           throw new Error(msg);
         }
         showConfirmation(r.body, snap);
       })
       .catch(function (err) {
-        showError((err && err.message) || 'Could not submit this draft.');
+        showError((err && err.message) || tr('contribute.submission.submit_error_generic', 'Could not submit this draft.'));
       })
       .then(function () {
         submitInFlight = false;
@@ -274,18 +292,24 @@
 
     var gloss = snap.gloss || entry.gloss || 'this sign';
     var lang  = languageLabelFor(snap.language || entry.sign_language);
-    els.confirmHeading.textContent = 'Submitted: ' + gloss + ' in ' + lang;
+    els.confirmHeading.textContent = tr(
+      'contribute.confirmation.heading_template',
+      'Submitted: {{gloss}} in {{language}}',
+      { gloss: gloss, language: lang }
+    );
 
     if (status === STATUS_PENDING) {
-      els.confirmBody.textContent =
-        'Your draft is now in the review queue for ' + lang + '. ' +
-        'The typical review time is 3 days. ' +
-        'You can return to this URL any time to check status.';
+      els.confirmBody.textContent = tr(
+        'contribute.confirmation.body_pending',
+        'Your draft is now in the review queue for {{language}}. The typical review time is 3 days. You can return to this URL any time to check status.',
+        { language: lang }
+      );
     } else {
-      els.confirmBody.textContent =
-        'Your draft is saved. ' + lang + ' does not yet have Deaf reviewers assigned, ' +
-        'so review is on hold. If a reviewer is added, we will update the status here. ' +
-        'You can return to this URL any time.';
+      els.confirmBody.textContent = tr(
+        'contribute.confirmation.body_draft',
+        'Your draft is saved. {{language}} does not yet have Deaf reviewers assigned, so review is on hold. If a reviewer is added, we will update the status here. You can return to this URL any time.',
+        { language: lang }
+      );
     }
 
     els.confirmUrl.value = permanentUrlFor(snap.sessionId);
@@ -321,7 +345,7 @@
       }, COPY_CONFIRM_MS);
     }
     function onFail() {
-      els.confirmCopyConfirm.textContent = 'Could not copy';
+      els.confirmCopyConfirm.textContent = tr('contribute.confirmation.copy_fail', 'Could not copy');
       els.confirmCopyConfirm.hidden = false;
     }
 
@@ -379,7 +403,9 @@
   function onDiscardClick() {
     var snap = CTX.getState();
     if (!snap.sessionId) return;
-    var glossLabel = snap.gloss ? '“' + snap.gloss + '”' : 'this draft';
+    var glossLabel = snap.gloss
+      ? '“' + snap.gloss + '”'
+      : tr('contribute.submission.discard_modal_body_unnamed', 'this draft');
 
     var doDiscard = function () {
       // Drop the local session and tell the backend — the existing
@@ -393,10 +419,14 @@
 
     if (window.KOZHA_CONTRIB && typeof window.KOZHA_CONTRIB.showModal === 'function') {
       window.KOZHA_CONTRIB.showModal({
-        title: 'Discard this draft?',
-        body: 'This will permanently discard ' + glossLabel + '. Continue?',
-        cancelLabel: 'Cancel',
-        confirmLabel: 'Discard',
+        title: tr('contribute.submission.discard_modal_title', 'Discard this draft?'),
+        body: tr(
+          'contribute.submission.discard_modal_body',
+          'This will permanently discard {{gloss_label}}. Continue?',
+          { gloss_label: glossLabel }
+        ),
+        cancelLabel: tr('contribute.submission.discard_modal_cancel', 'Cancel'),
+        confirmLabel: tr('contribute.submission.discard_modal_confirm', 'Discard'),
         onConfirm: doDiscard,
       });
     } else {

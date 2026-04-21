@@ -15,42 +15,48 @@
        path still works. -->
   <link rel="stylesheet" href="/cwa/cwasa.css">
   <script defer src="/cwa/allcsa.js"></script>
+  <script defer src="/i18n.js"></script>
 </head>
 <body>
+  <a href="#main" class="skip-link" data-i18n="common.skip_to_main">Skip to main content</a>
 
   <header class="site-header">
-    <a href="/" class="site-name">Bridgn</a>
-    <a href="/app.html" class="back-link">Open translator</a>
+    <a href="/" class="site-name" data-i18n="common.site_name">Bridgn</a>
+    <a href="/app.html" class="back-link" data-i18n="common.nav_translator">Open translator</a>
   </header>
 
-  <main>
-    <h1>Contribute a sign</h1>
+  <main id="main">
+    <h1 data-i18n="contribute.heading">Contribute a sign</h1>
 
     <!-- First-visit screen. Hidden once a language is active; re-shown via
          "change" (in the masthead below) or Cmd/Ctrl+K. -->
-    <section class="language-picker" id="languagePicker" aria-label="Sign language selection">
+    <section class="language-picker" id="languagePicker" data-i18n-attr-aria-label="contribute.language_picker.section_label" aria-label="Sign language selection">
       <div class="picker-empty" id="pickerEmpty">
-        <p class="picker-prompt">Which sign language are you contributing to?</p>
-        <ul class="picker-options" id="pickerOptions" role="listbox" aria-label="Available sign languages"></ul>
+        <p class="picker-prompt" data-i18n="contribute.language_picker.prompt">Which sign language are you contributing to?</p>
+        <ul class="picker-options" id="pickerOptions" data-i18n-attr-aria-label="contribute.language_picker.options_label" aria-label="Available sign languages"></ul>
       </div>
     </section>
 
     <!-- Persistent language header + context strip. Sticks to the top of
          <main> as the user scrolls so they never lose track of which
-         language they're signing in or where they are in the flow. -->
-    <header class="lang-masthead" id="langMasthead" role="banner" hidden>
+         language they're signing in or where they are in the flow.
+         Not a banner landmark — a banner would be top-level, and this one
+         is inside <main>. It's a section with an accessible name instead. -->
+    <section class="lang-masthead" id="langMasthead" data-i18n-attr-aria-label="contribute.masthead.section_label" aria-label="Active language and session" hidden>
       <div class="language-header">
         <span class="language-badge" id="languageBadge">
           <span class="language-badge-code" id="languageBadgeCode"></span><span class="language-badge-sep" aria-hidden="true"> — </span><span class="language-badge-name" id="languageBadgeName"></span>
         </span>
-        <button type="button" class="change-btn" id="changeLanguageBtn" aria-label="Change sign language">change</button>
+        <button type="button" class="change-btn" id="changeLanguageBtn" data-i18n="contribute.masthead.change_button" data-i18n-attr-aria-label="contribute.masthead.change_button_aria" aria-label="Change sign language">change</button>
       </div>
-      <div class="context-strip" id="contextStrip" aria-live="polite" aria-label="Session status">
-        <span class="context-gloss" id="contextGloss">No sign selected</span>
-        <span class="context-state" id="contextState">Draft</span>
+      <div class="context-strip" id="contextStrip" aria-live="polite" data-i18n-attr-aria-label="contribute.masthead.context_strip_label" aria-label="Session status">
+        <span class="context-gloss" id="contextGloss" data-i18n="contribute.masthead.context_gloss_empty">No sign selected</span>
+        <span class="context-state" id="contextState" data-i18n="contribute.context_state.draft">Draft</span>
         <span class="context-session">
-          <span class="context-session-id" id="contextSessionId" title="Session ID">—</span>
-          <button type="button" class="context-copy-btn" id="contextCopyBtn" aria-label="Copy session URL" hidden>copy</button>
+          <span class="context-session-id" id="contextSessionId" data-i18n-attr-title="contribute.masthead.context_session_id_title" title="Session ID">—</span>
+          <!-- aria-label is populated by JS on reveal so a hidden button
+               isn't carrying a label pa11y flags as redundant. -->
+          <button type="button" class="context-copy-btn" id="contextCopyBtn" data-i18n="contribute.masthead.context_copy_button" hidden>copy</button>
         </span>
       </div>
     </header>
@@ -58,12 +64,12 @@
     <!-- Shown when the URL carries a session id we don't have the token
          for — minimum viable access control for resumable drafts. -->
     <section class="token-prompt" id="tokenPrompt" aria-labelledby="tokenPromptHeading" hidden>
-      <h2 id="tokenPromptHeading">Resume this draft</h2>
-      <p>To resume this draft, paste the resume token shown when you first created it.</p>
+      <h2 id="tokenPromptHeading" data-i18n="contribute.token_prompt.heading">Resume this draft</h2>
+      <p data-i18n="contribute.token_prompt.body">To resume this draft, paste the resume token shown when you first created it.</p>
       <form id="tokenPromptForm">
-        <label for="tokenPromptInput">Resume token</label>
+        <label for="tokenPromptInput" data-i18n="contribute.token_prompt.label">Resume token</label>
         <input id="tokenPromptInput" type="text" autocomplete="off" spellcheck="false">
-        <button type="submit">Resume</button>
+        <button type="submit" data-i18n="contribute.token_prompt.submit">Resume</button>
       </form>
       <p class="token-prompt-error" id="tokenPromptError" role="alert" hidden></p>
     </section>
@@ -74,31 +80,31 @@
          (pre-session) and the read-only summary card (post-session). The
          chat panel lands below in prompt 6; notation readout + submit in
          later prompts. -->
-    <section id="authoring-root" aria-label="Sign authoring workspace" hidden>
+    <section id="authoring-root" data-i18n-attr-aria-label="contribute.authoring.section_label" aria-label="Sign authoring workspace" hidden>
 
       <!-- Restored-from-last-visit notice. Shown when autosaved values
            rehydrate into the form on load; auto-dismisses after 5s. -->
-      <p class="restored-notice" id="restoredNotice" role="status" hidden>restored from your last visit</p>
+      <p class="restored-notice" id="restoredNotice" role="status" data-i18n="contribute.authoring.restored_notice" hidden>restored from your last visit</p>
 
       <!-- Read-only summary card — visible once a session exists. Holds
            the gloss + language + description and an "edit" link that
            re-opens the form (after confirmation discards server state). -->
       <div class="authoring-summary" id="authoringSummary" hidden>
         <p class="authoring-summary-line">
-          <span class="authoring-summary-lead">Authoring:</span>
+          <span class="authoring-summary-lead" data-i18n="contribute.authoring.summary_lead">Authoring:</span>
           <span class="authoring-summary-gloss" id="summaryGloss"></span>
-          <span class="authoring-summary-in"> in </span>
+          <span class="authoring-summary-in" data-i18n="contribute.authoring.summary_in"> in </span>
           <span class="authoring-summary-lang" id="summaryLang"></span>
-          <span class="authoring-summary-sep" id="summarySep" hidden> — </span>
+          <span class="authoring-summary-sep" id="summarySep" data-i18n="contribute.authoring.summary_separator" hidden> — </span>
           <span class="authoring-summary-desc" id="summaryDesc"></span>
         </p>
-        <button type="button" class="authoring-summary-edit" id="summaryEditBtn">edit</button>
+        <button type="button" class="authoring-summary-edit" id="summaryEditBtn" data-i18n="contribute.authoring.summary_edit">edit</button>
       </div>
 
       <!-- Pre-session form: gloss, description, deaf-native checkbox, submit. -->
       <form class="authoring-form" id="authoringForm" novalidate>
         <div class="field">
-          <label class="field-label" for="glossInput">Gloss — the English word or short phrase for this sign.</label>
+          <label class="field-label" for="glossInput" data-i18n="contribute.authoring.gloss_label">Gloss — the English word or short phrase for this sign.</label>
           <input
             id="glossInput"
             name="gloss"
@@ -109,13 +115,14 @@
             spellcheck="false"
             maxlength="40"
             placeholder="e.g. ELECTRON"
+            data-i18n-attr-placeholder="contribute.authoring.gloss_placeholder"
             aria-describedby="glossError"
             required>
           <p class="field-error" id="glossError" role="alert" hidden></p>
         </div>
 
         <div class="field">
-          <label class="field-label" for="descriptionInput">Describe the sign in plain language.</label>
+          <label class="field-label" for="descriptionInput" data-i18n="contribute.authoring.description_label">Describe the sign in plain language.</label>
           <textarea
             id="descriptionInput"
             name="description"
@@ -124,7 +131,7 @@
             placeholder=""
             aria-describedby="descriptionHint descriptionError descriptionCount"></textarea>
           <div class="field-meta">
-            <p class="field-hint" id="descriptionHint" hidden>a bit more detail helps</p>
+            <p class="field-hint" id="descriptionHint" data-i18n="contribute.authoring.description_hint_more_detail" hidden>a bit more detail helps</p>
             <p class="field-count" id="descriptionCount" aria-live="off">0</p>
           </div>
           <p class="field-error" id="descriptionError" role="alert" hidden></p>
@@ -132,10 +139,10 @@
 
         <label class="field-check">
           <input type="checkbox" id="deafNativeInput" name="author_is_deaf_native">
-          <span>I am a Deaf native signer of this language.</span>
+          <span data-i18n="contribute.authoring.deaf_native_checkbox">I am a Deaf native signer of this language.</span>
         </label>
 
-        <button type="submit" class="authoring-submit" id="startAuthoringBtn" disabled>Start authoring</button>
+        <button type="submit" class="authoring-submit" id="startAuthoringBtn" data-i18n="contribute.authoring.submit_button" disabled>Start authoring</button>
         <p class="field-error form-submit-error" id="submitError" role="alert" hidden></p>
       </form>
 
@@ -143,15 +150,16 @@
            corrections after. Mounts once a session exists. The log uses
            aria-live so screen-reader users hear new system messages as
            they arrive. -->
-      <section class="chat-panel" id="chatPanel" aria-label="Clarification chat" hidden>
+      <section class="chat-panel" id="chatPanel" data-i18n-attr-aria-label="contribute.chat.section_label" aria-label="Clarification chat" hidden>
         <div
           class="chat-log"
           id="chatLog"
           role="log"
           aria-live="polite"
           aria-relevant="additions"
+          data-i18n-attr-aria-label="contribute.chat.log_label"
           aria-label="Clarification history"></div>
-        <div class="chat-options" id="chatOptions" role="group" aria-label="Suggested answers" hidden></div>
+        <div class="chat-options" id="chatOptions" role="group" data-i18n-attr-aria-label="contribute.chat.options_label" aria-label="Suggested answers" hidden></div>
         <p class="chat-input-hint" id="chatInputHint" hidden></p>
         <div class="chat-progress" id="chatProgress" hidden aria-hidden="true">
           <span class="chat-progress-bar"></span>
@@ -165,22 +173,24 @@
             type="button"
             class="chat-target-pill-clear"
             id="chatTargetPillClear"
+            data-i18n-attr-aria-label="contribute.chat.target_pill_clear_aria"
             aria-label="Clear correction target">&times;</button>
         </div>
         <div class="chat-input-row">
-          <label class="visually-hidden" for="chatInput" id="chatInputLabel">Your answer</label>
+          <label class="visually-hidden" for="chatInput" id="chatInputLabel" data-i18n="contribute.chat.input_label_answer">Your answer</label>
           <textarea
             id="chatInput"
             class="chat-input"
             rows="1"
             placeholder="Type your answer…"
+            data-i18n-attr-placeholder="contribute.chat.input_placeholder_answer"
             autocomplete="off"
             spellcheck="true"
             aria-describedby="chatInputHint"></textarea>
-          <button type="button" class="chat-send" id="chatSendBtn" disabled>Send</button>
+          <button type="button" class="chat-send" id="chatSendBtn" data-i18n="contribute.chat.send" disabled>Send</button>
         </div>
         <div class="chat-error-actions" id="chatErrorActions" hidden>
-          <button type="button" class="chat-submit-as-is" id="chatSubmitAsIsBtn">Submit as-is</button>
+          <button type="button" class="chat-submit-as-is" id="chatSubmitAsIsBtn" data-i18n="contribute.chat.submit_as_is">Submit as-is</button>
         </div>
       </section>
 
@@ -188,7 +198,7 @@
            hidden GUI surface; we drive the visible canvas + controls
            ourselves. Stays in place once mounted so the layout never
            jumps while the backend is still generating. -->
-      <section class="avatar-preview" id="avatarPreview" aria-label="Sign preview" hidden>
+      <section class="avatar-preview" id="avatarPreview" data-i18n-attr-aria-label="contribute.preview.section_label" aria-label="Sign preview" hidden>
         <!-- 16:9 stage. Light gray backdrop per Kipp et al. 2011 avatar
              UX guidance referenced in the feasibility study — dark
              backgrounds reduce legibility for many Deaf users. -->
@@ -225,7 +235,7 @@
           <div class="avatar-pulse" id="avatarPulse" aria-hidden="true" hidden></div>
           <!-- Plain-text fallback if CWASA, WebGL, or rendering fails.
                Collapses the whole stage to copy; submit stays enabled. -->
-          <div class="avatar-fallback" id="avatarFallback" role="status" aria-live="polite" hidden>
+          <div class="avatar-fallback" id="avatarFallback" role="status" aria-live="polite" data-i18n="contribute.preview.fallback" hidden>
             Preview unavailable in this environment. The sign can still
             be submitted; the HamNoSys below is what the reviewer will
             evaluate.
@@ -239,18 +249,20 @@
 
         <!-- Control bar. Single row on desktop, wraps on narrow
              viewports. Play/pause + loop + scrubber + speed. -->
-        <div class="avatar-controls-bar" role="toolbar" aria-label="Preview playback">
+        <div class="avatar-controls-bar" role="toolbar" data-i18n-attr-aria-label="contribute.preview.toolbar_label" aria-label="Preview playback">
           <button
             type="button"
             class="avatar-play"
             id="avatarPlayBtn"
             aria-pressed="false"
+            data-i18n="contribute.preview.play"
+            data-i18n-attr-aria-label="contribute.preview.play_aria"
             aria-label="Play preview"
             disabled>Play</button>
 
           <label class="avatar-loop">
             <input type="checkbox" id="avatarLoopInput">
-            <span>Loop</span>
+            <span data-i18n="contribute.preview.loop">Loop</span>
           </label>
 
           <div class="avatar-scrubber">
@@ -263,6 +275,7 @@
               step="10"
               value="0"
               list="avatarScrubberTicks"
+              data-i18n-attr-aria-label="contribute.preview.timeline_label"
               aria-label="Preview timeline"
               aria-valuemin="0"
               aria-valuemax="1400"
@@ -273,7 +286,7 @@
             <span class="avatar-time" id="avatarTime" aria-hidden="true">0.00 / 1.40 s</span>
           </div>
 
-          <div class="avatar-speed" role="group" aria-label="Playback speed">
+          <div class="avatar-speed" role="group" data-i18n-attr-aria-label="contribute.preview.speed_group_label" aria-label="Playback speed">
             <button type="button" class="avatar-speed-btn" data-speed="0.5" aria-pressed="false">0.5&times;</button>
             <button type="button" class="avatar-speed-btn is-active" data-speed="1" aria-pressed="true">1&times;</button>
             <button type="button" class="avatar-speed-btn" data-speed="2" aria-pressed="false">2&times;</button>
@@ -292,8 +305,8 @@
       <!-- Notation panel — HamNoSys (default) + SiGML tabs. Mounts once
            the session carries a generated hamnosys string; the avatar
            preview placeholder sits above it (prompt 9 fills that). -->
-      <section class="notation-panel" id="notationPanel" aria-label="Generated notation" hidden>
-        <nav class="notation-tabs" role="tablist" aria-label="Notation format">
+      <section class="notation-panel" id="notationPanel" data-i18n-attr-aria-label="contribute.notation.section_label" aria-label="Generated notation" hidden>
+        <nav class="notation-tabs" role="tablist" data-i18n-attr-aria-label="contribute.notation.tabs_label" aria-label="Notation format">
           <button
             type="button"
             role="tab"
@@ -301,7 +314,8 @@
             class="notation-tab is-active"
             aria-selected="true"
             aria-controls="notationPanelHamnosys"
-            data-tab="hamnosys">HamNoSys</button>
+            data-tab="hamnosys"
+            data-i18n="contribute.notation.tab_hamnosys">HamNoSys</button>
           <button
             type="button"
             role="tab"
@@ -310,7 +324,8 @@
             aria-selected="false"
             aria-controls="notationPanelSigml"
             data-tab="sigml"
-            tabindex="-1">SiGML</button>
+            tabindex="-1"
+            data-i18n="contribute.notation.tab_sigml">SiGML</button>
         </nav>
 
         <!-- HamNoSys tab: glyph row + legend + breakdown + actions. -->
@@ -325,45 +340,50 @@
                 class="notation-hamnosys-display"
                 id="hamnosysDisplay"
                 role="img"
+                data-i18n-attr-aria-label="contribute.notation.display_aria_empty"
+                aria-label="HamNoSys notation (not yet generated)"
                 aria-live="polite"
                 tabindex="0"></div>
               <p class="notation-errors" id="notationErrors" role="alert" hidden></p>
-              <p class="notation-fallback" id="notationFallback" hidden>
+              <p class="notation-fallback" id="notationFallback" data-i18n="contribute.notation.validation_fallback" hidden>
                 The generated notation could not be validated. A reviewer will finish it.
               </p>
             </div>
-            <aside class="notation-legend" id="notationLegend" aria-label="Symbol legend">
-              <p class="notation-legend-title">Symbol</p>
+            <!-- Not an <aside> — a complementary landmark nested in <main>
+                 is flagged by axe. A plain div with an aria-label labels
+                 the legend for SR users without creating a landmark. -->
+            <div class="notation-legend" id="notationLegend" role="group" data-i18n-attr-aria-label="contribute.notation.legend_group_label" aria-label="Symbol legend">
+              <p class="notation-legend-title" data-i18n="contribute.notation.legend_title">Symbol</p>
               <p class="notation-legend-code" id="legendCode">—</p>
-              <p class="notation-legend-class" id="legendClass">Hover or tap a glyph</p>
+              <p class="notation-legend-class" id="legendClass" data-i18n="contribute.notation.legend_default_class">Hover or tap a glyph</p>
               <p class="notation-legend-name" id="legendName"></p>
-            </aside>
+            </div>
           </div>
 
           <!-- Phonological breakdown — one line per slot, muted em-dash
                when a slot hasn't been populated yet. -->
           <dl class="notation-breakdown" id="notationBreakdown">
             <div class="notation-breakdown-row">
-              <dt>Handshape</dt>
+              <dt data-i18n="contribute.notation.breakdown_handshape">Handshape</dt>
               <dd id="breakdownHandshape">—</dd>
             </div>
             <div class="notation-breakdown-row">
-              <dt>Orientation</dt>
+              <dt data-i18n="contribute.notation.breakdown_orientation">Orientation</dt>
               <dd id="breakdownOrientation">—</dd>
             </div>
             <div class="notation-breakdown-row">
-              <dt>Location</dt>
+              <dt data-i18n="contribute.notation.breakdown_location">Location</dt>
               <dd id="breakdownLocation">—</dd>
             </div>
             <div class="notation-breakdown-row">
-              <dt>Movement</dt>
+              <dt data-i18n="contribute.notation.breakdown_movement">Movement</dt>
               <dd id="breakdownMovement">—</dd>
             </div>
           </dl>
 
           <div class="notation-actions">
-            <button type="button" class="notation-copy-btn" id="copyHamnosysBtn" disabled>Copy HamNoSys</button>
-            <span class="notation-copy-confirm" id="copyHamnosysConfirm" hidden>copied</span>
+            <button type="button" class="notation-copy-btn" id="copyHamnosysBtn" data-i18n="contribute.notation.copy_hamnosys" disabled>Copy HamNoSys</button>
+            <span class="notation-copy-confirm" id="copyHamnosysConfirm" role="status" aria-live="polite" data-i18n="common.copied" hidden>copied</span>
           </div>
         </div>
 
@@ -378,15 +398,16 @@
             class="notation-sigml"
             id="sigmlDisplay"
             role="region"
+            data-i18n-attr-aria-label="contribute.notation.sigml_region_label"
             aria-label="SiGML source code"
             tabindex="0"><code id="sigmlCode"></code></pre>
           <p class="notation-sigml-summary">
             This file contains one <code>&lt;hns_sign&gt;</code> element with the HamNoSys above, in the Kozha canonical format. Your renderer will accept it as-is.
           </p>
           <div class="notation-actions">
-            <button type="button" class="notation-copy-btn" id="copySigmlBtn" disabled>Copy SiGML</button>
-            <span class="notation-copy-confirm" id="copySigmlConfirm" hidden>copied</span>
-            <button type="button" class="notation-download-btn" id="downloadSigmlBtn" disabled>Download .sigml</button>
+            <button type="button" class="notation-copy-btn" id="copySigmlBtn" data-i18n="contribute.notation.copy_sigml" disabled>Copy SiGML</button>
+            <span class="notation-copy-confirm" id="copySigmlConfirm" role="status" aria-live="polite" data-i18n="common.copied" hidden>copied</span>
+            <button type="button" class="notation-download-btn" id="downloadSigmlBtn" data-i18n="contribute.notation.download_sigml" disabled>Download .sigml</button>
           </div>
         </div>
       </section>
@@ -395,54 +416,57 @@
            Only the "sign generated and valid" row is a gate — the rest are
            visible status indicators so the contributor knows what a
            reviewer is likely to see. -->
-      <section class="submission-panel" id="submissionPanel" aria-label="Submit for review" hidden>
-        <h2 class="submission-panel-title">Submit for review</h2>
-        <ul class="submission-checklist" id="submissionChecklist" aria-label="Submission checklist">
+      <section class="submission-panel" id="submissionPanel" data-i18n-attr-aria-label="contribute.submission.section_label" aria-label="Submit for review" hidden>
+        <h2 class="submission-panel-title" data-i18n="contribute.submission.heading">Submit for review</h2>
+        <ul class="submission-checklist" id="submissionChecklist" data-i18n-attr-aria-label="contribute.submission.checklist_label" aria-label="Submission checklist">
           <li class="submission-item" data-key="gloss">
             <span class="submission-mark" aria-hidden="true"></span>
-            <span class="submission-text">Gloss set</span>
+            <span class="submission-text" data-i18n="contribute.submission.checklist_gloss">Gloss set</span>
             <span class="submission-hint" id="checkGlossHint"></span>
           </li>
           <li class="submission-item" data-key="language">
             <span class="submission-mark" aria-hidden="true"></span>
-            <span class="submission-text">Language set</span>
+            <span class="submission-text" data-i18n="contribute.submission.checklist_language">Language set</span>
             <span class="submission-hint" id="checkLanguageHint"></span>
           </li>
           <li class="submission-item" data-key="description">
             <span class="submission-mark" aria-hidden="true"></span>
-            <span class="submission-text">Description complete</span>
+            <span class="submission-text" data-i18n="contribute.submission.checklist_description">Description complete</span>
           </li>
           <li class="submission-item" data-key="sign">
             <span class="submission-mark" aria-hidden="true"></span>
-            <span class="submission-text">Sign generated and valid</span>
-            <span class="submission-gate-note" aria-hidden="true">required</span>
+            <span class="submission-text" data-i18n="contribute.submission.checklist_sign">Sign generated and valid</span>
+            <span class="submission-gate-note" aria-hidden="true" data-i18n="contribute.submission.checklist_sign_required_tag">required</span>
           </li>
           <li class="submission-item submission-item-optional" data-key="deafNative">
             <span class="submission-mark" aria-hidden="true"></span>
-            <span class="submission-text">Deaf native signer self-identification</span>
-            <span class="submission-optional-note" aria-hidden="true">optional</span>
+            <span class="submission-text" data-i18n="contribute.submission.checklist_deaf_native">Deaf native signer self-identification</span>
+            <span class="submission-optional-note" aria-hidden="true" data-i18n="contribute.submission.checklist_optional_tag">optional</span>
           </li>
           <li class="submission-item submission-item-optional" data-key="correction">
             <span class="submission-mark" aria-hidden="true"></span>
-            <span class="submission-text">At least one correction applied</span>
-            <span class="submission-optional-note" aria-hidden="true">optional</span>
+            <span class="submission-text" data-i18n="contribute.submission.checklist_correction">At least one correction applied</span>
+            <span class="submission-optional-note" aria-hidden="true" data-i18n="contribute.submission.checklist_optional_tag">optional</span>
           </li>
         </ul>
 
-        <div class="submission-actions" role="toolbar" aria-label="Submission actions">
+        <div class="submission-actions" role="toolbar" data-i18n-attr-aria-label="contribute.submission.actions_label" aria-label="Submission actions">
           <button
             type="button"
             class="submission-discard"
-            id="submissionDiscardBtn">Discard this draft</button>
+            id="submissionDiscardBtn"
+            data-i18n="contribute.submission.discard">Discard this draft</button>
           <div class="submission-actions-primary">
             <button
               type="button"
               class="submission-save"
-              id="submissionSaveBtn">Save draft and leave</button>
+              id="submissionSaveBtn"
+              data-i18n="contribute.submission.save">Save draft and leave</button>
             <button
               type="button"
               class="submission-submit"
               id="submissionSubmitBtn"
+              data-i18n="contribute.submission.submit"
               disabled>Submit for review</button>
           </div>
         </div>
@@ -456,22 +480,21 @@
       <h2 class="confirmation-heading" id="confirmationHeading">Submitted</h2>
       <p class="confirmation-body" id="confirmationBody"></p>
       <div class="confirmation-link">
-        <label class="confirmation-link-label" for="confirmationUrl">Permanent link</label>
+        <label class="confirmation-link-label" for="confirmationUrl" data-i18n="contribute.confirmation.link_label">Permanent link</label>
         <div class="confirmation-link-row">
           <input
             type="text"
             id="confirmationUrl"
             class="confirmation-link-input"
-            readonly
-            aria-describedby="confirmationCopyBtn">
-          <button type="button" class="confirmation-copy-btn" id="confirmationCopyBtn">Copy link</button>
+            readonly>
+          <button type="button" class="confirmation-copy-btn" id="confirmationCopyBtn" data-i18n="contribute.confirmation.copy_link">Copy link</button>
         </div>
-        <p class="confirmation-copy-confirm" id="confirmationCopyConfirm" hidden>copied</p>
+        <p class="confirmation-copy-confirm" id="confirmationCopyConfirm" role="status" aria-live="polite" data-i18n="contribute.confirmation.copy_confirm" hidden>copied</p>
       </div>
-      <nav class="confirmation-nav" aria-label="What next">
-        <button type="button" class="confirmation-link-action" id="confirmationAnotherBtn">Contribute another sign</button>
-        <button type="button" class="confirmation-link-action" id="confirmationChangeLangBtn">Change language</button>
-        <a class="confirmation-link-action" href="/">Back to Bridgn</a>
+      <nav class="confirmation-nav" data-i18n-attr-aria-label="contribute.confirmation.nav_label" aria-label="What next">
+        <button type="button" class="confirmation-link-action" id="confirmationAnotherBtn" data-i18n="contribute.confirmation.another_sign">Contribute another sign</button>
+        <button type="button" class="confirmation-link-action" id="confirmationChangeLangBtn" data-i18n="contribute.confirmation.change_language">Change language</button>
+        <a class="confirmation-link-action" href="/" data-i18n="contribute.confirmation.back_to_bridgn">Back to Bridgn</a>
       </nav>
     </section>
 
@@ -483,11 +506,11 @@
        would discard a live session. -->
   <div class="modal-backdrop" id="modalBackdrop" hidden>
     <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalBody">
-      <h2 id="modalTitle">Discard this draft?</h2>
+      <h2 id="modalTitle" data-i18n="contribute.submission.discard_modal_title">Discard this draft?</h2>
       <p id="modalBody"></p>
       <div class="modal-actions">
-        <button type="button" id="modalCancelBtn" class="btn-secondary">Cancel</button>
-        <button type="button" id="modalDiscardBtn" class="btn-primary">Discard</button>
+        <button type="button" id="modalCancelBtn" class="btn-secondary" data-i18n="common.modal_cancel">Cancel</button>
+        <button type="button" id="modalDiscardBtn" class="btn-primary" data-i18n="common.modal_discard">Discard</button>
       </div>
     </div>
   </div>
@@ -495,16 +518,16 @@
   <!-- One-time keyboard hint. localStorage flag suppresses it after dismissal. -->
   <div class="hint-strip" id="hintStrip" role="status" hidden>
     <span class="hint-strip-body">
-      <kbd>Ctrl</kbd><kbd>K</kbd> change language &middot; <kbd>Ctrl</kbd><kbd>L</kbd> copy session link
+      <kbd>Ctrl</kbd><kbd>K</kbd> <span data-i18n="contribute.hint_strip.body_change_lang">change language</span> &middot; <kbd>Ctrl</kbd><kbd>L</kbd> <span data-i18n="contribute.hint_strip.body_copy_link">copy session link</span>
     </span>
-    <button type="button" class="hint-close" id="hintClose" aria-label="Dismiss hint">&times;</button>
+    <button type="button" class="hint-close" id="hintClose" data-i18n-attr-aria-label="contribute.hint_strip.dismiss_aria" aria-label="Dismiss hint">&times;</button>
   </div>
 
   <footer class="site-footer">
     <ul class="footer-links">
-      <li><a href="/governance.html">How contributions are reviewed</a></li>
-      <li><a href="/privacy.html">Privacy</a></li>
-      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/governance.html" data-i18n="common.footer_governance_link">How contributions are reviewed</a></li>
+      <li><a href="/privacy.html" data-i18n="common.footer_privacy">Privacy</a></li>
+      <li><a href="/contact.html" data-i18n="common.footer_contact">Contact</a></li>
     </ul>
   </footer>
 

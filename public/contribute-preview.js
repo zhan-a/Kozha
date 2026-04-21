@@ -50,7 +50,16 @@
   // SVG viewBox is 160x90 (16:9). Convert clicked SVG coords back into
   // percentages of the stage for the caption-friendly "at X.XXs"
   // timestamp; nothing else reads these numbers.
-  var REGION_LABELS = {
+  // Body-region IDs carry a catalog key; the English label is the fallback
+  // used when the i18n catalog has not loaded yet or is absent.
+  function tr(key, fallback) {
+    if (window.KOZHA_I18N && typeof window.KOZHA_I18N.t === 'function') {
+      var v = window.KOZHA_I18N.t(key);
+      if (v && v !== key) return v;
+    }
+    return fallback;
+  }
+  var REGION_LABEL_FALLBACK = {
     head:                  'head',
     face:                  'face',
     neck:                  'neck',
@@ -63,11 +72,15 @@
     hand_dominant:         'hand (dominant)',
     hand_nondominant:      'hand (non-dominant)',
   };
+  function regionLabel(region) {
+    var fb = REGION_LABEL_FALLBACK[region] || region;
+    return tr('contribute.preview.region_' + region, fb);
+  }
 
-  var STATUS_GENERATING = 'Generating HamNoSys…';
-  var STATUS_RENDERING  = 'Rendering avatar…';
-  var STATUS_READY      = 'Ready.';
-  var STATUS_CACHED     = 'From cache';
+  function statusGenerating() { return tr('contribute.preview.status_generating', 'Generating HamNoSys…'); }
+  function statusRendering()  { return tr('contribute.preview.status_rendering', 'Rendering avatar…'); }
+  function statusReady()      { return tr('contribute.preview.status_ready', 'Ready.'); }
+  function statusCached()     { return tr('contribute.preview.status_cached', 'From cache'); }
 
   // ---------- DOM ----------
 
@@ -312,13 +325,13 @@
 
   function applyPlayButtonState() {
     if (state.playing) {
-      els.playBtn.textContent = 'Pause';
+      els.playBtn.textContent = tr('contribute.preview.pause', 'Pause');
       els.playBtn.setAttribute('aria-pressed', 'true');
-      els.playBtn.setAttribute('aria-label', 'Pause preview');
+      els.playBtn.setAttribute('aria-label', tr('contribute.preview.pause_aria', 'Pause preview'));
     } else {
-      els.playBtn.textContent = 'Play';
+      els.playBtn.textContent = tr('contribute.preview.play', 'Play');
       els.playBtn.setAttribute('aria-pressed', 'false');
-      els.playBtn.setAttribute('aria-label', 'Play preview');
+      els.playBtn.setAttribute('aria-label', tr('contribute.preview.play_aria', 'Play preview'));
     }
   }
 
@@ -334,11 +347,11 @@
     if (state.renderFailed) { els.status.textContent = ''; return; }
     var s = state.sessionState;
     if (s === 'generating') {
-      els.status.textContent = STATUS_GENERATING;
+      els.status.textContent = statusGenerating();
     } else if (s === 'applying_correction') {
-      els.status.textContent = STATUS_RENDERING;
+      els.status.textContent = statusRendering();
     } else if (s === 'rendered' || s === 'awaiting_correction') {
-      els.status.textContent = state.currentSigml ? STATUS_READY : '';
+      els.status.textContent = state.currentSigml ? statusReady() : '';
     } else {
       els.status.textContent = '';
     }
@@ -346,7 +359,7 @@
 
   function flashCacheBadge() {
     if (state.renderFailed) return;
-    els.status.textContent = STATUS_CACHED;
+    els.status.textContent = statusCached();
     if (state.cacheBadgeTimer) clearTimeout(state.cacheBadgeTimer);
     state.cacheBadgeTimer = setTimeout(function () {
       state.cacheBadgeTimer = null;
@@ -576,7 +589,7 @@
     if (!chat || typeof chat.setCorrectionTarget !== 'function') return;
     chat.setCorrectionTarget({
       region:   region,
-      label:    REGION_LABELS[region] || region,
+      label:    regionLabel(region),
       timeMs:   state.currentTimeMs,
       timeText: formatSeconds(state.currentTimeMs),
     });

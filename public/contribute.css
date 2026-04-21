@@ -8,9 +8,27 @@
   --paper: #f7f3ec;
   --accent: #b3441b;
   --rule: rgba(21, 19, 15, 0.14);
-  --muted: rgba(21, 19, 15, 0.62);
+  /* Solid equivalent of the previous rgba(21,19,15,0.62) composite on
+     paper, nudged slightly darker so it clears WCAG AA contrast (>5:1 on
+     paper at 14px normal). Solid means axe and pa11y both agree on the
+     contrast value instead of pa11y flagging a G18.Alpha warning. */
+  --muted: #5e5c57;
   --max-width: 880px;
 }
+
+/* Skip-to-main link. Absolute off-screen until focused via keyboard. */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 8px 16px;
+  font-weight: 600;
+  z-index: 200;
+  text-decoration: none;
+}
+.skip-link:focus { top: 8px; }
 
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
@@ -117,8 +135,7 @@ h1 {
 .picker-option-name { flex: 1; }
 .picker-option-coverage {
   font-size: 14px;
-  color: var(--ink);
-  opacity: 0.6;
+  color: var(--muted);
   white-space: nowrap;
 }
 
@@ -168,7 +185,9 @@ h1 {
   font-weight: 500;
 }
 
-/* "change" is a link — visually secondary to the badge. */
+/* "change" is a link — visually secondary to the badge. Solid muted
+   color instead of opacity on ink so the rendered contrast is
+   deterministic and passes 4.5:1 at 14px. */
 .change-btn {
   background: transparent;
   border: 0;
@@ -176,14 +195,13 @@ h1 {
   margin: 0;
   font: inherit;
   font-size: 14px;
-  color: var(--ink);
-  opacity: 0.6;
+  color: var(--muted);
   cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 .change-btn:hover,
-.change-btn:focus-visible { opacity: 1; }
+.change-btn:focus-visible { color: var(--ink); }
 
 .context-strip {
   display: grid;
@@ -198,16 +216,18 @@ h1 {
 }
 .context-gloss {
   justify-self: start;
-  opacity: 0.85;
+  color: var(--ink);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 100%;
 }
-.context-gloss.is-empty { opacity: 0.45; font-style: italic; }
+/* Was opacity:0.45 which composited to 2.95:1 on paper. Using --muted
+   gives italic emphasis without falling below 4.5:1. */
+.context-gloss.is-empty { color: var(--muted); font-style: italic; }
 .context-state {
   justify-self: center;
-  opacity: 0.75;
+  color: var(--muted);
   text-align: center;
 }
 .context-session {
@@ -227,14 +247,13 @@ h1 {
   padding: 0;
   font: inherit;
   font-size: 12px;
-  color: var(--ink);
-  opacity: 0.55;
+  color: var(--muted);
   cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 .context-copy-btn:hover,
-.context-copy-btn:focus-visible { opacity: 1; }
+.context-copy-btn:focus-visible { color: var(--ink); }
 
 /* ----- Token resume prompt ----- */
 
@@ -257,7 +276,7 @@ h1 {
 }
 .token-prompt label {
   font-size: 14px;
-  opacity: 0.7;
+  color: var(--muted);
   flex-basis: 100%;
 }
 .token-prompt input {
@@ -345,8 +364,7 @@ h1 {
   letter-spacing: 0.015em;
 }
 .authoring-summary-desc {
-  color: var(--ink);
-  opacity: 0.8;
+  color: var(--muted);
 }
 .authoring-summary-edit {
   flex-shrink: 0;
@@ -356,15 +374,14 @@ h1 {
   margin: 0;
   font: inherit;
   font-size: 14px;
-  color: var(--ink);
-  opacity: 0.6;
+  color: var(--muted);
   cursor: pointer;
   text-decoration: underline;
   text-underline-offset: 3px;
   align-self: flex-start;
 }
 .authoring-summary-edit:hover,
-.authoring-summary-edit:focus-visible { opacity: 1; }
+.authoring-summary-edit:focus-visible { color: var(--ink); }
 
 /* ----- Authoring form (pre-session): gloss + description + checkbox ----- */
 
@@ -1100,17 +1117,16 @@ h1 {
   font: inherit;
   font-size: 16px;
   font-weight: 500;
-  color: var(--ink);
-  opacity: 0.55;
+  color: var(--muted);
   cursor: pointer;
   border-bottom: 2px solid transparent;
   margin-bottom: -1px;
-  transition: opacity 120ms ease, border-color 120ms ease;
+  transition: color 120ms ease, border-color 120ms ease;
 }
 .notation-tab:hover,
-.notation-tab:focus-visible { opacity: 0.85; }
+.notation-tab:focus-visible { color: var(--ink); }
 .notation-tab.is-active {
-  opacity: 1;
+  color: var(--ink);
   border-bottom-color: var(--ink);
 }
 

@@ -29,6 +29,17 @@
     return;
   }
 
+  // Small shim so each string call gets the live catalog value if present
+  // but always has an English fallback — this panel must be readable even
+  // if /strings.en.json never arrives.
+  function tr(key, fallback) {
+    if (window.KOZHA_I18N && typeof window.KOZHA_I18N.t === 'function') {
+      var v = window.KOZHA_I18N.t(key);
+      if (v && v !== key) return v;
+    }
+    return fallback;
+  }
+
   var els = {
     panel:           document.getElementById('notationPanel'),
     tabHamnosys:     document.getElementById('notationTabHamnosys'),
@@ -135,8 +146,8 @@
     var sym = lookupSymbol(hex);
     if (!sym) {
       els.legendClass.textContent = state.symbolsByHex
-        ? 'Unknown symbol'
-        : 'Loading…';
+        ? tr('contribute.notation.legend_unknown', 'Unknown symbol')
+        : tr('contribute.notation.legend_loading', 'Loading…');
       els.legendName.textContent = '';
       return;
     }
@@ -145,8 +156,8 @@
   }
 
   function resetLegend() {
-    els.legendCode.textContent = '—';
-    els.legendClass.textContent = 'Hover or tap a glyph';
+    els.legendCode.textContent = tr('contribute.notation.legend_default_code', '—');
+    els.legendClass.textContent = tr('contribute.notation.legend_default_class', 'Hover or tap a glyph');
     els.legendName.textContent = '';
   }
 
@@ -161,7 +172,7 @@
     state.activeGlyphEl = null;
     if (!s) {
       els.display.classList.add('is-empty');
-      els.display.textContent = 'No HamNoSys generated yet.';
+      els.display.textContent = tr('contribute.notation.display_empty', 'No HamNoSys generated yet.');
       return;
     }
     els.display.classList.remove('is-empty');
@@ -253,16 +264,16 @@
   function buildAriaLabel(p, hamnosys) {
     var lines = [];
     var hs = buildHandshapeText(p);
-    if (hs) lines.push('Handshape: ' + hs);
+    if (hs) lines.push(tr('contribute.notation.breakdown_handshape', 'Handshape') + ': ' + hs);
     var or = buildOrientationText(p);
-    if (or) lines.push('Orientation: ' + or);
-    if (p && p.location) lines.push('Location: ' + p.location);
+    if (or) lines.push(tr('contribute.notation.breakdown_orientation', 'Orientation') + ': ' + or);
+    if (p && p.location) lines.push(tr('contribute.notation.breakdown_location', 'Location') + ': ' + p.location);
     var mv = buildMovementText(p);
-    if (mv) lines.push('Movement: ' + mv);
+    if (mv) lines.push(tr('contribute.notation.breakdown_movement', 'Movement') + ': ' + mv);
     if (!lines.length) {
       return hamnosys
-        ? 'HamNoSys notation (phonological breakdown not available)'
-        : 'HamNoSys notation (not yet generated)';
+        ? tr('contribute.notation.display_aria_no_breakdown', 'HamNoSys notation (phonological breakdown not available)')
+        : tr('contribute.notation.display_aria_empty', 'HamNoSys notation (not yet generated)');
     }
     return lines.join('. ');
   }

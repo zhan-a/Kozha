@@ -46,11 +46,24 @@
 
   var API_BASE = '/api/chat2hamnosys';
 
-  // Backend session state → plain English label shown in the context strip.
+  // Backend session state → catalog key for the context-strip label.
   // The prompt names five: Draft / Awaiting clarification / Rendering /
   // Ready to submit / Submitted. Correction states collapse into the most
   // natural neighbouring label so the strip never flashes unfamiliar text.
-  var STATE_LABELS = {
+  // Labels live in strings.en.json under contribute.context_state.
+  var STATE_I18N_KEYS = {
+    'awaiting_description': 'contribute.context_state.draft',
+    'clarifying':           'contribute.context_state.awaiting_clarification',
+    'generating':           'contribute.context_state.rendering',
+    'applying_correction':  'contribute.context_state.rendering',
+    'rendered':             'contribute.context_state.ready_to_submit',
+    'awaiting_correction':  'contribute.context_state.ready_to_submit',
+    'finalized':            'contribute.context_state.submitted',
+    'abandoned':            'contribute.context_state.draft',
+  };
+  // Matching English fallbacks used when the catalog hasn't finished loading
+  // or i18n is absent entirely. Keeping a local copy avoids a blank label.
+  var STATE_FALLBACK = {
     'awaiting_description': 'Draft',
     'clarifying':           'Awaiting clarification',
     'generating':           'Rendering',
@@ -60,6 +73,14 @@
     'finalized':            'Submitted',
     'abandoned':            'Draft',
   };
+
+  function tr(key, fallback) {
+    if (window.KOZHA_I18N && typeof window.KOZHA_I18N.t === 'function') {
+      var v = window.KOZHA_I18N.t(key);
+      if (v && v !== key) return v;
+    }
+    return fallback;
+  }
 
   function defaultState() {
     return {
@@ -212,7 +233,10 @@
 
   function stateLabel(raw) {
     var v = raw || state.sessionState;
-    return STATE_LABELS[v] || 'Draft';
+    var key = STATE_I18N_KEYS[v];
+    var fb = STATE_FALLBACK[v] || 'Draft';
+    if (!key) return fb;
+    return tr(key, fb);
   }
 
   function shortId(id) {

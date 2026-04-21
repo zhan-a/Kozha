@@ -35,19 +35,32 @@
   }
 
   // ---------- exact copy (no variation, per spec) ----------
+  //
+  // Source of truth: strings.en.json under contribute.chat.*. The fallbacks
+  // below are the English originals; we read from i18n each time a string
+  // is used so the catalog can override once loaded (and so we stay sane
+  // if the catalog fetch fails — nothing on this panel goes blank).
+
+  function tr(key, fallback) {
+    if (window.KOZHA_I18N && typeof window.KOZHA_I18N.t === 'function') {
+      var v = window.KOZHA_I18N.t(key);
+      if (v && v !== key) return v;
+    }
+    return fallback;
+  }
 
   var COPY = {
-    CLARIFICATION_LABEL:           'Clarification:',
-    INPUT_LABEL_ANSWER:            'Your answer',
-    INPUT_LABEL_CORRECTION:        'Describe what should change',
-    INPUT_PLACEHOLDER_ANSWER:      'Type your answer…',
-    INPUT_PLACEHOLDER_CORRECTION:  'Type a correction…',
-    INPUT_PLACEHOLDER_GENERATING:  'Generating sign…',
-    CORRECTION_HINT:               'Click on the avatar to target a specific moment or body part (optional).',
-    REPLY_USER_QUESTION:           "I can only ask about this sign. If you'd like to learn HamNoSys, see the docs link below.",
-    GENERATING_MSG:                'Enough information to draft the sign. Preparing preview.',
-    READY_MSG:                     'Draft is ready. Review the preview below and either submit or describe a correction.',
-    ERROR_MSG:                     'Something went wrong generating a clarification. Try rephrasing your description, or submit the draft as-is and let the reviewer fill gaps.',
+    get CLARIFICATION_LABEL()          { return tr('contribute.chat.clarification_label', 'Clarification:'); },
+    get INPUT_LABEL_ANSWER()           { return tr('contribute.chat.input_label_answer', 'Your answer'); },
+    get INPUT_LABEL_CORRECTION()       { return tr('contribute.chat.input_label_correction', 'Describe what should change'); },
+    get INPUT_PLACEHOLDER_ANSWER()     { return tr('contribute.chat.input_placeholder_answer', 'Type your answer…'); },
+    get INPUT_PLACEHOLDER_CORRECTION() { return tr('contribute.chat.input_placeholder_correction', 'Type a correction…'); },
+    get INPUT_PLACEHOLDER_GENERATING() { return tr('contribute.chat.input_placeholder_generating', 'Generating sign…'); },
+    get CORRECTION_HINT()              { return tr('contribute.chat.correction_hint', 'Click on the avatar to target a specific moment or body part (optional).'); },
+    get REPLY_USER_QUESTION()          { return tr('contribute.chat.reply_user_question', "I can only ask about this sign. If you'd like to learn HamNoSys, see the docs link below."); },
+    get GENERATING_MSG()               { return tr('contribute.chat.generating_msg', 'Enough information to draft the sign. Preparing preview.'); },
+    get READY_MSG()                    { return tr('contribute.chat.ready_msg', 'Draft is ready. Review the preview below and either submit or describe a correction.'); },
+    get ERROR_MSG()                    { return tr('contribute.chat.error_msg', 'Something went wrong generating a clarification. Try rephrasing your description, or submit the draft as-is and let the reviewer fill gaps.'); },
   };
 
   var TERMINAL_STATES = { finalized: true, abandoned: true };
@@ -147,7 +160,9 @@
       btn.className = 'chat-option-btn';
       btn.textContent = opt.label;
       btn.setAttribute('data-value', opt.value);
-      btn.setAttribute('aria-label', 'Answer: ' + opt.label);
+      btn.setAttribute('aria-label', (window.KOZHA_I18N && window.KOZHA_I18N.t)
+        ? window.KOZHA_I18N.t('contribute.chat.option_aria_prefix', { label: opt.label })
+        : 'Answer: ' + opt.label);
       btn.addEventListener('click', function () { onOptionClick(opt); });
       els.options.appendChild(btn);
     });
@@ -445,12 +460,15 @@
     };
     var parts = [];
     if (chat.correctionTarget.timeText) {
-      parts.push('At ' + chat.correctionTarget.timeText + 's');
+      var timePrefix = (window.KOZHA_I18N && window.KOZHA_I18N.t)
+        ? window.KOZHA_I18N.t('contribute.chat.target_pill_time_prefix', { time: chat.correctionTarget.timeText })
+        : 'At ' + chat.correctionTarget.timeText + 's';
+      parts.push(timePrefix);
     }
     if (chat.correctionTarget.label) {
       parts.push(chat.correctionTarget.label);
     }
-    els.targetText.textContent = parts.join(' • ');
+    els.targetText.textContent = parts.join(tr('contribute.chat.target_pill_separator', ' • '));
     els.targetPill.hidden = false;
     // Focus the input so the contributor can start typing the
     // correction right away. The pill stays visible above the

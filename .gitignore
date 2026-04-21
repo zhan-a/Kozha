@@ -39,3 +39,7 @@ Thumbs.db
 .vscode/
 __pycache__/
 *.pyc
+
+# a11y tooling (dev-only; devDependencies in package.json)
+node_modules/
+docs/contribute-redesign/12-a11y-raw/

@@ -24,13 +24,16 @@
   }
   </script>
   <meta name="theme-color" content="#f7f3ec">
+  <script defer src="/i18n.js"></script>
   <style>
     :root {
       --ink: #15130f;
       --paper: #f7f3ec;
       --accent: #b3441b;
       --rule: rgba(21, 19, 15, 0.14);
-      --muted: rgba(21, 19, 15, 0.62);
+      /* Solid — matches the composite of the previous rgba(21,19,15,0.62)
+         on paper, a touch darker so WCAG AA contrast is deterministic. */
+      --muted: #5e5c57;
       --max-width: 720px;
     }
 
@@ -230,41 +233,41 @@
   </style>
 </head>
 <body>
-  <a href="#main" class="skip-link">Skip to main content</a>
+  <a href="#main" class="skip-link" data-i18n="common.skip_to_main">Skip to main content</a>
 
   <header class="site-header">
-    <a href="/" class="site-name">Bridgn</a>
+    <a href="/" class="site-name" data-i18n="landing.site_name">Bridgn</a>
     <nav class="site-nav" aria-label="Main">
-      <a href="/app.html">Open translator</a>
-      <a href="/contribute.html">Contribute a sign</a>
+      <a href="/app.html" data-i18n="landing.nav_open_translator">Open translator</a>
+      <a href="/contribute.html" data-i18n="landing.nav_contribute_sign">Contribute a sign</a>
     </nav>
   </header>
 
   <main id="main">
     <section class="hero">
-      <h1>Text and speech to sign language.</h1>
-      <p>Bridgn translates typed text, recorded speech, and uploaded video into sign-language animations — entirely in your browser, free and open-source.</p>
+      <h1 data-i18n="landing.hero_heading">Text and speech to sign language.</h1>
+      <p data-i18n="landing.hero_body">Bridgn translates typed text, recorded speech, and uploaded video into sign-language animations — entirely in your browser, free and open-source.</p>
       <div class="hero-actions">
-        <a href="/app.html" class="btn btn-primary">Open translator</a>
-        <a href="/contribute.html" class="btn btn-secondary">Contribute a sign</a>
+        <a href="/app.html" class="btn btn-primary" data-i18n="landing.hero_cta_open_translator">Open translator</a>
+        <a href="/contribute.html" class="btn btn-secondary" data-i18n="landing.hero_cta_contribute">Contribute a sign</a>
       </div>
     </section>
 
     <section class="credits" aria-labelledby="creditsHeading">
-      <h2 id="creditsHeading">Credits</h2>
-      <p class="credits-lead">Bridgn builds on work released by Deaf research institutions, linguists, and open-source contributors. Full attributions and licence terms are in the <a href="https://github.com/zhan-a/Kozha/blob/main/README.md#credits">project README</a>.</p>
+      <h2 id="creditsHeading" data-i18n="landing.credits_heading">Credits</h2>
+      <p class="credits-lead">Bridgn builds on work released by Deaf research institutions, linguists, and open-source contributors. Full attributions and licence terms are in the <a href="https://github.com/zhan-a/Kozha/blob/main/README.md#credits" data-i18n="landing.credits_readme_link_text">project README</a>.</p>
       <ul>
         <li><a href="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/">CWASA</a> — 3D avatar engine, Virtual Humans Group, University of East Anglia.</li>
         <li><a href="https://www.sign-lang.uni-hamburg.de/dgs-korpus/files/inhalt_pdf/HamNoSys_2018.pdf">HamNoSys</a> — notation system, Institute of German Sign Language, Universität Hamburg.</li>
-        <li>Sign-language databases: DictaSign (BSL, GSL/LSF), SignAvatars (DGS, PJM), SignLanguageSynthesis (NGT), algerianSignLanguage-avatar, bdsl-3d-animation (Bangla), Text-to-Sign-Language and text_to_isl (Indian), KurdishSignLanguage, VSL (Vietnamese), syntheticfsl and signtyper (Filipino). See the README for each author and licence.</li>
+        <li data-i18n="landing.credits_databases">Sign-language databases: DictaSign (BSL, GSL/LSF), SignAvatars (DGS, PJM), SignLanguageSynthesis (NGT), algerianSignLanguage-avatar, bdsl-3d-animation (Bangla), Text-to-Sign-Language and text_to_isl (Indian), KurdishSignLanguage, VSL (Vietnamese), syntheticfsl and signtyper (Filipino). See the README for each author and licence.</li>
       </ul>
     </section>
   </main>
 
   <footer class="site-footer">
-    <span>© 2025–2026 Bridgn. Open-source research project.</span>
+    <span data-i18n="landing.footer_copyright">© 2025–2026 Bridgn. Open-source research project.</span>
     <ul class="site-footer-links">
-      <li><a href="/governance.html">Governance</a></li>
+      <li><a href="/governance.html" data-i18n="landing.footer_governance_link">Governance</a></li>
     </ul>
   </footer>
 </body>

@@ -28,6 +28,21 @@
     return;
   }
 
+  // Catalog bridge — return the catalog string when available, else the
+  // English fallback. Supports {{placeholder}} via either path.
+  function tr(key, fallback, vars) {
+    if (window.KOZHA_I18N && typeof window.KOZHA_I18N.t === 'function') {
+      var v = window.KOZHA_I18N.t(key, vars || undefined);
+      if (v && v !== key) return v;
+    }
+    if (vars) {
+      return String(fallback).replace(/\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g, function (_m, name) {
+        return Object.prototype.hasOwnProperty.call(vars, name) ? String(vars[name]) : '{{' + name + '}}';
+      });
+    }
+    return fallback;
+  }
+
   var HINT_SEEN_KEY = 'kozha.contribute.hintSeen';
   var DRAFT_KEY_PREFIX = 'kozha.contribute.draft.';
   var LANGUAGES_URL = '/contribute-languages.json';
@@ -113,16 +128,18 @@
   }
 
   function renderOptions() {
+    // The picker is a list of primary actions, not a single-selection
+    // listbox widget. Buttons in a <ul> gives SR users "list, 2 items"
+    // context and each button is activated via Enter/Space as normal —
+    // no arrow-key listbox pattern to implement or drift out of sync with.
     els.pickerOptions.innerHTML = '';
     for (var i = 0; i < view.languages.length; i++) {
       var lang = view.languages[i];
       var li = document.createElement('li');
-      li.setAttribute('role', 'presentation');
 
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'picker-option';
-      btn.setAttribute('role', 'option');
       btn.setAttribute('data-code', lang.code);
 
       var code = document.createElement('span');
@@ -244,10 +261,11 @@
     } else {
       els.notice.innerHTML = '';
       var p = document.createElement('p');
-      p.textContent =
-        'No Deaf reviewers are currently assigned to ' + lang.english_name +
-        '. You can save a draft, but it will not be reviewed until a reviewer is added. ' +
-        'We will email you if one becomes available.';
+      p.textContent = tr(
+        'contribute.reviewer_notice.no_reviewers_body',
+        'No Deaf reviewers are currently assigned to {{language}}. You can save a draft, but it will not be reviewed until a reviewer is added. We will email you if one becomes available.',
+        { language: lang.english_name }
+      );
       els.notice.appendChild(p);
       els.notice.hidden = false;
     }
@@ -256,7 +274,7 @@
       els.contextGloss.textContent = snapshot.gloss;
       els.contextGloss.classList.remove('is-empty');
     } else {
-      els.contextGloss.textContent = 'No sign selected';
+      els.contextGloss.textContent = tr('contribute.masthead.context_gloss_empty', 'No sign selected');
       els.contextGloss.classList.add('is-empty');
     }
     els.contextState.textContent = CTX.stateLabel(snapshot.sessionState);
@@ -265,10 +283,14 @@
       els.contextSessionId.textContent = CTX.shortId(snapshot.sessionId);
       els.contextSessionId.setAttribute('title', snapshot.sessionId);
       els.contextCopyBtn.hidden = false;
+      // aria-label only exists while the button is in the a11y tree —
+      // setting it on a hidden element triggers a pa11y HiddenAttr warning.
+      els.contextCopyBtn.setAttribute('aria-label', tr('contribute.masthead.context_copy_aria', 'Copy session URL'));
     } else {
-      els.contextSessionId.textContent = '—';
+      els.contextSessionId.textContent = tr('contribute.masthead.context_session_id_placeholder', '—');
       els.contextSessionId.removeAttribute('title');
       els.contextCopyBtn.hidden = true;
+      els.contextCopyBtn.removeAttribute('aria-label');
     }
 
     els.authoringRoot.hidden = false;
@@ -469,12 +491,18 @@
     var descOk = description.length >= DESCRIPTION_MIN;
 
     if (!glossOk) {
-      showInlineError(els.glossError, 'Gloss is required before you describe the sign.');
+      showInlineError(
+        els.glossError,
+        tr('contribute.authoring.gloss_error_required', 'Gloss is required before you describe the sign.')
+      );
     } else {
       hideInlineError(els.glossError);
     }
     if (!descOk) {
-      showInlineError(els.descriptionError, 'Please add at least 20 characters of description.');
+      showInlineError(
+        els.descriptionError,
+        tr('contribute.authoring.description_error_too_short', 'Please add at least 20 characters of description.')
+      );
     } else {
       hideInlineError(els.descriptionError);
     }
@@ -494,7 +522,7 @@
 
     hideInlineError(els.submitError);
     els.startBtn.disabled = true;
-    els.startBtn.textContent = 'Starting…';
+    els.startBtn.textContent = tr('contribute.authoring.submit_button_starting', 'Starting…');
 
     CTX.createSession({
       gloss: gloss,
@@ -503,10 +531,10 @@
     }).then(function () {
       // render() will be invoked via the subscribe hook once state
       // changes; the summary card takes it from there.
-      els.startBtn.textContent = 'Start authoring';
+      els.startBtn.textContent = tr('contribute.authoring.submit_button', 'Start authoring');
     }).catch(function (err) {
       els.startBtn.disabled = false;
-      els.startBtn.textContent = 'Start authoring';
+      els.startBtn.textContent = tr('contribute.authoring.submit_button', 'Start authoring');
       // If a session was created but the chained /describe failed, the
       // form is already hidden behind the summary card. Surface the error
       // inside the chat panel instead of the (now invisible) submit error.
@@ -517,9 +545,9 @@
         if (window.console) console.error('[contribute] describe failed:', err);
         return;
       }
-      var msg = 'Could not start a session. Please try again.';
+      var msg = tr('contribute.authoring.submit_error_generic', 'Could not start a session. Please try again.');
       if (err && err.status === 422) {
-        msg = 'This language is not yet enabled on the server. Please pick another.';
+        msg = tr('contribute.authoring.submit_error_language_unsupported', 'This language is not yet enabled on the server. Please pick another.');
       }
       showInlineError(els.submitError, msg);
       if (window.console) console.error('[contribute] createSession failed:', err);
@@ -530,17 +558,19 @@
 
   function onEditSummary() {
     var snap = CTX.getState();
-    var glossLabel = snap.gloss ? '“' + snap.gloss + '”' : 'your current sign';
+    var glossLabel = snap.gloss
+      ? '“' + snap.gloss + '”'
+      : tr('contribute.submission.edit_modal_body_unnamed', 'your current sign');
     showModal({
-      title: 'Discard this draft?',
-      body: 'This will discard your draft for ' + glossLabel + ' so you can edit the gloss and description. Continue?',
-      cancelLabel: 'Cancel',
-      confirmLabel: 'Discard',
+      title: tr('contribute.submission.edit_modal_title', 'Discard this draft?'),
+      body: tr(
+        'contribute.submission.edit_modal_body',
+        'This will discard your draft for {{gloss_label}} so you can edit the gloss and description. Continue?',
+        { gloss_label: glossLabel }
+      ),
+      cancelLabel: tr('common.modal_cancel', 'Cancel'),
+      confirmLabel: tr('common.modal_discard', 'Discard'),
       onConfirm: function () {
-        // Reject server-side (best effort) and clear the session fields
-        // while keeping the selected language so the form reopens in
-        // place with the values the user just typed — no "restored from
-        // your last visit" notice on this path.
         view.suppressNextRestoredNotice = true;
         CTX.clearSession({ reason: 'edit_requested' });
       },
@@ -570,14 +600,18 @@
     } else if (draft && draft.gloss) {
       glossLabel = '“' + draft.gloss + '”';
     } else {
-      glossLabel = 'your current sign';
+      glossLabel = tr('contribute.submission.edit_modal_body_unnamed', 'your current sign');
     }
 
     showModal({
-      title: 'Discard this draft?',
-      body: 'This will discard your draft for ' + glossLabel + '. Continue?',
-      cancelLabel: 'Cancel',
-      confirmLabel: 'Discard',
+      title: tr('contribute.submission.change_lang_modal_title', 'Discard this draft?'),
+      body: tr(
+        'contribute.submission.change_lang_modal_body',
+        'This will discard your draft for {{gloss_label}}. Continue?',
+        { gloss_label: glossLabel }
+      ),
+      cancelLabel: tr('common.modal_cancel', 'Cancel'),
+      confirmLabel: tr('common.modal_discard', 'Discard'),
       onConfirm: function () {
         if (lang) clearDraft(lang);
         if (snap.sessionId) {
@@ -693,11 +727,14 @@
   function copySessionUrl() {
     var url = CTX.sessionUrl();
     var hasSession = !!CTX.getState().sessionId;
-    var success = 'Copied ' + (hasSession ? 'session URL' : 'page URL');
+    var success = hasSession
+      ? tr('contribute.copy_session_success_with_session', 'Copied session URL')
+      : tr('contribute.copy_session_success_no_session', 'Copied page URL');
+    var failMsg = tr('common.toast_could_not_copy', 'Could not copy');
     if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
       navigator.clipboard.writeText(url)
         .then(function () { showToast(success); })
-        .catch(function () { showToast('Could not copy'); });
+        .catch(function () { showToast(failMsg); });
       return;
     }
     // Fallback: transient textarea + execCommand.
@@ -711,9 +748,9 @@
       ta.select();
       var ok = document.execCommand && document.execCommand('copy');
       document.body.removeChild(ta);
-      showToast(ok ? success : 'Could not copy');
+      showToast(ok ? success : failMsg);
     } catch (_e) {
-      showToast('Could not copy');
+      showToast(failMsg);
     }
   }
 
@@ -767,11 +804,11 @@
       .catch(function (err) {
         els.tokenPromptError.hidden = false;
         if (err && err.status === 403) {
-          els.tokenPromptError.textContent = 'That token does not match this session.';
+          els.tokenPromptError.textContent = tr('contribute.token_prompt.error_mismatch', 'That token does not match this session.');
         } else if (err && err.status === 404) {
-          els.tokenPromptError.textContent = 'This session was not found.';
+          els.tokenPromptError.textContent = tr('contribute.token_prompt.error_not_found', 'This session was not found.');
         } else {
-          els.tokenPromptError.textContent = 'Could not resume the session.';
+          els.tokenPromptError.textContent = tr('contribute.token_prompt.error_generic', 'Could not resume the session.');
         }
       });
   }
@@ -831,7 +868,7 @@
       els.pickerEmpty.innerHTML = '';
       var p = document.createElement('p');
       p.className = 'picker-prompt';
-      p.textContent = 'Could not load the language list. Refresh to retry.';
+      p.textContent = tr('contribute.language_picker.load_error', 'Could not load the language list. Refresh to retry.');
       els.pickerEmpty.appendChild(p);
       if (window.console) console.error('[contribute] language load failed:', err);
     });

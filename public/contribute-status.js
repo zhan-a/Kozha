@@ -25,13 +25,32 @@
   var STORAGE_KEY = 'kozha.contribute.context';
   var PATH_PREFIX = '/contribute/status/';
 
-  var LANGUAGE_LABELS = {
+  function tr(key, fallback, vars) {
+    if (window.KOZHA_I18N && typeof window.KOZHA_I18N.t === 'function') {
+      var v = window.KOZHA_I18N.t(key, vars || undefined);
+      if (v && v !== key) return v;
+    }
+    if (vars) {
+      return String(fallback).replace(/\{\{\s*([a-zA-Z0-9_]+)\s*\}\}/g, function (_m, name) {
+        return Object.prototype.hasOwnProperty.call(vars, name) ? String(vars[name]) : '{{' + name + '}}';
+      });
+    }
+    return fallback;
+  }
+
+  var LANGUAGE_LABEL_FALLBACK = {
     bsl: 'British Sign Language',
     asl: 'American Sign Language',
     dgs: 'German Sign Language',
   };
+  function languageLabel(code) {
+    if (!code) return '';
+    var lc = String(code).toLowerCase();
+    var fb = LANGUAGE_LABEL_FALLBACK[lc] || String(code).toUpperCase();
+    return tr('status.language_label.' + lc, fb);
+  }
 
-  var STATUS_LABELS = {
+  var STATUS_LABEL_FALLBACK = {
     draft:           'Draft',
     pending_review:  'Pending review',
     under_review:    'Under review',
@@ -39,8 +58,12 @@
     rejected:        'Rejected',
     quarantined:     'Quarantined',
   };
+  function statusLabel(status) {
+    var fb = STATUS_LABEL_FALLBACK[status] || status;
+    return tr('status.state.' + status, fb);
+  }
 
-  var STATUS_NOTES = {
+  var STATUS_NOTE_FALLBACK = {
     draft:           'No Deaf reviewer is currently assigned to this language. Review is on hold.',
     pending_review:  'Typical review time is 3 days.',
     under_review:    'A reviewer has this draft open.',
@@ -48,6 +71,10 @@
     rejected:        'A Deaf reviewer declined to publish this sign.',
     quarantined:     'This sign is on hold pending further review.',
   };
+  function statusNote(status) {
+    var fb = STATUS_NOTE_FALLBACK[status] || '';
+    return tr('status.note.' + status, fb);
+  }
 
   var els = {
     loading:           document.getElementById('statusLoading'),
@@ -107,8 +134,7 @@
   }
 
   function languageLabelFor(code) {
-    if (!code) return '';
-    return LANGUAGE_LABELS[code] || String(code).toUpperCase();
+    return languageLabel(code);
   }
 
   function formatDate(iso) {
@@ -186,19 +212,19 @@
     var regional = envelope.regional_variant ? ' (' + envelope.regional_variant + ')' : '';
     els.language.textContent = langName + regional;
 
-    els.state.textContent = STATUS_LABELS[status] || status;
-    var note = STATUS_NOTES[status] || '';
+    els.state.textContent = statusLabel(status);
+    var note = statusNote(status);
     if (status === 'rejected' && envelope.rejection_category) {
-      note = 'Category: ' + envelope.rejection_category + '. ' + note;
+      note = tr('status.note.rejected_category_prefix', 'Category: {{category}}. ', { category: envelope.rejection_category }) + note;
     }
     els.stateNote.textContent = note;
 
     var created = formatDate(envelope.created_at);
     var updated = formatDate(envelope.updated_at);
     var datePieces = [];
-    if (created) datePieces.push('Submitted ' + created);
-    if (updated && updated !== created) datePieces.push('Last update ' + updated);
-    els.dates.textContent = datePieces.join(' · ');
+    if (created) datePieces.push(tr('status.dates_submitted_prefix', 'Submitted {{date}}', { date: created }));
+    if (updated && updated !== created) datePieces.push(tr('status.dates_updated_prefix', 'Last update {{date}}', { date: updated }));
+    els.dates.textContent = datePieces.join(tr('status.dates_separator', ' · '));
 
     // Validated HamNoSys/SiGML is public once status is validated; for
     // any other state it's author-only. The backend enforces this and
@@ -242,18 +268,24 @@
 
   function handleFailure(sessionId, result) {
     if (result.status === 404) {
-      showError('Not found',
-        'No submission matches this URL. It may have been discarded, or the link may be mistyped.');
+      showError(
+        tr('status.error.heading_not_found', 'Not found'),
+        tr('status.error.body_not_found', 'No submission matches this URL. It may have been discarded, or the link may be mistyped.')
+      );
       return;
     }
     if (result.status === 403) {
-      showError('Access denied',
-        'The resume token did not match this submission.');
+      showError(
+        tr('status.error.heading_access_denied', 'Access denied'),
+        tr('status.error.body_access_denied', 'The resume token did not match this submission.')
+      );
       return;
     }
     var detail = (result.body && result.body.detail) || '';
-    showError('Something went wrong',
-      'Could not load this submission (HTTP ' + result.status + '). ' + detail);
+    showError(
+      tr('status.error.heading_something_wrong', 'Something went wrong'),
+      tr('status.error.body_http_prefix', 'Could not load this submission (HTTP {{status}}). ', { status: result.status }) + detail
+    );
   }
 
   function onTokenSubmit(sessionId) {
@@ -267,15 +299,15 @@
         if (!r.ok || !r.body) {
           els.tokenError.hidden = false;
           els.tokenError.textContent = r.status === 403
-            ? 'That token does not match this submission.'
-            : 'Could not unlock this submission.';
+            ? tr('status.error.token_mismatch', 'That token does not match this submission.')
+            : tr('status.error.token_generic_unlock', 'Could not unlock this submission.');
           return;
         }
         writeStoredToken(sessionId, token, r.body.sign_language);
         render(r.body);
       }).catch(function () {
         els.tokenError.hidden = false;
-        els.tokenError.textContent = 'Could not reach the server. Check your connection and try again.';
+        els.tokenError.textContent = tr('status.error.token_network', 'Could not reach the server. Check your connection and try again.');
       });
     };
   }
@@ -283,8 +315,10 @@
   function init() {
     var sessionId = parseSessionId();
     if (!sessionId) {
-      showError('Invalid link',
-        'This URL does not contain a submission id.');
+      showError(
+        tr('status.error.heading_invalid', 'Invalid link'),
+        tr('status.error.body_invalid', 'This URL does not contain a submission id.')
+      );
       return;
     }
 
@@ -312,8 +346,10 @@
       }
       render(r.body);
     }).catch(function () {
-      showError('Something went wrong',
-        'Could not reach the server. Check your connection and try again.');
+      showError(
+        tr('status.error.heading_something_wrong', 'Something went wrong'),
+        tr('status.error.body_network', 'Could not reach the server. Check your connection and try again.')
+      );
     });
   }
 

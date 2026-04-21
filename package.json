@@ -1,0 +1,17 @@
+{
+  "name": "kozha-a11y-tooling",
+  "private": true,
+  "version": "0.0.0",
+  "description": "A11y tooling for the Bridgn/Kozha contribution flow. Dev-only; the site itself ships no Node dependencies.",
+  "type": "module",
+  "scripts": {
+    "a11y": "node scripts/a11y/run.mjs",
+    "a11y:ci": "node scripts/a11y/run.mjs --ci"
+  },
+  "devDependencies": {
+    "@axe-core/puppeteer": "^4.10.1",
+    "axe-core": "^4.10.2",
+    "pa11y": "^8.0.0",
+    "puppeteer": "^23.10.4"
+  }
+}
