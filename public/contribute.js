@@ -854,6 +854,46 @@
     return Promise.resolve(true);
   }
 
+  // Prompt 14 step 10 — binary pause. When /governance-data.json carries
+  // contributions_paused: true the page hides every interactive section
+  // and shows only the pause banner. No new sessions, no authoring, no
+  // submit. Prior submissions remain viewable at /contribute/status/<id>
+  // and /contribute/me — those pages do not read this flag.
+  function checkPaused() {
+    return fetch('/governance-data.json', { headers: { 'Accept': 'application/json' } })
+      .then(function (resp) { return resp.ok ? resp.json() : null; })
+      .then(function (data) {
+        if (!data || data.contributions_paused !== true) return false;
+        var banner = document.getElementById('contributePaused');
+        if (!banner) return false;
+        var bodyEl  = document.getElementById('contributePausedBody');
+        var emailEl = document.getElementById('contributePausedEmail');
+        var reason = typeof data.pause_reason === 'string' && data.pause_reason
+          ? data.pause_reason
+          : tr('contribute.paused.body', 'Contributions are paused while we seat reviewers. Email the governance address below to be notified when the queue opens.');
+        if (bodyEl) bodyEl.textContent = reason;
+        if (emailEl && typeof data.governance_email === 'string' && data.governance_email) {
+          emailEl.textContent = data.governance_email;
+          emailEl.setAttribute('href', 'mailto:' + data.governance_email);
+        }
+        banner.hidden = false;
+        if (els.picker) els.picker.hidden = true;
+        if (els.langMasthead) els.langMasthead.hidden = true;
+        if (els.authoringRoot) els.authoringRoot.hidden = true;
+        if (els.tokenPrompt) els.tokenPrompt.hidden = true;
+        if (els.notice) els.notice.hidden = true;
+        var confirm = document.getElementById('submissionConfirmation');
+        if (confirm) confirm.hidden = true;
+        return true;
+      })
+      .catch(function () {
+        // Network / static-file unavailability → proceed without pausing.
+        // The flag is a server-driven choice; if it cannot be read we
+        // prefer a working page to a blank page with no recourse.
+        return false;
+      });
+  }
+
   function init() {
     els.changeBtn.addEventListener('click', onChangeClick);
     els.modalCancelBtn.addEventListener('click', onModalCancel);
@@ -872,18 +912,21 @@
 
     CTX.subscribe(render);
 
-    loadLanguages().then(function () {
-      renderOptions();
-      return hydrateFromFragment();
-    }).then(function () {
-      render(CTX.getState());
-    }).catch(function (err) {
-      els.pickerEmpty.innerHTML = '';
-      var p = document.createElement('p');
-      p.className = 'picker-prompt';
-      p.textContent = tr('contribute.language_picker.load_error', 'Could not load the language list. Refresh to retry.');
-      els.pickerEmpty.appendChild(p);
-      if (window.console) console.error('[contribute] language load failed:', err);
+    checkPaused().then(function (paused) {
+      if (paused) return;
+      loadLanguages().then(function () {
+        renderOptions();
+        return hydrateFromFragment();
+      }).then(function () {
+        render(CTX.getState());
+      }).catch(function (err) {
+        els.pickerEmpty.innerHTML = '';
+        var p = document.createElement('p');
+        p.className = 'picker-prompt';
+        p.textContent = tr('contribute.language_picker.load_error', 'Could not load the language list. Refresh to retry.');
+        els.pickerEmpty.appendChild(p);
+        if (window.console) console.error('[contribute] language load failed:', err);
+      });
     });
   }
 

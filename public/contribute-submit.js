@@ -53,6 +53,37 @@
   var STATUS_PATH = '/contribute/status/';
   var COPY_CONFIRM_MS = 1600;
 
+  // Prompt 14 step 8 — contributor's dashboard history. Parallel to the
+  // single-session key used by contribute-context.js; this one
+  // accumulates across submissions so /contribute/me can render a list.
+  var HISTORY_KEY = 'kozha.contribute.history';
+  var HISTORY_MAX = 50;
+
+  function pushHistory(entry) {
+    if (!entry || !entry.sessionId) return;
+    try {
+      var raw = sessionStorage.getItem(HISTORY_KEY);
+      var list = [];
+      if (raw) {
+        var parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) list = parsed;
+      }
+      // Dedupe on sessionId so a re-submit of the same id refreshes the
+      // row instead of duplicating it (shouldn't happen in normal flow,
+      // but the status URL is idempotent and a contributor might click
+      // submit twice from the confirmation view via back-navigation).
+      for (var i = 0; i < list.length; i++) {
+        if (list[i] && list[i].sessionId === entry.sessionId) {
+          list.splice(i, 1);
+          break;
+        }
+      }
+      list.unshift(entry);
+      if (list.length > HISTORY_MAX) list.length = HISTORY_MAX;
+      sessionStorage.setItem(HISTORY_KEY, JSON.stringify(list));
+    } catch (_e) { /* storage blocked — /contribute/me will show empty */ }
+  }
+
   // The backend can leave an entry as "draft" when no reviewer covers
   // the language; otherwise /accept promotes it to "pending_review".
   var STATUS_PENDING = 'pending_review';
@@ -248,6 +279,16 @@
           if (r.body && r.body.detail) msg += ' ' + r.body.detail;
           throw new Error(msg);
         }
+        // Record the accepted session in the dashboard history before
+        // switching views. gloss/language come from the local snapshot
+        // because the /accept response doesn't echo them in every case.
+        pushHistory({
+          sessionId:    snap.sessionId,
+          sessionToken: snap.sessionToken,
+          language:     snap.language || null,
+          gloss:        snap.gloss || '',
+          addedAt:      Date.now(),
+        });
         showConfirmation(r.body, snap);
       })
       .catch(function (err) {

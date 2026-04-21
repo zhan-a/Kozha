@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your submissions — Bridgn</title>
+  <meta name="description" content="Your prior sign-contribution sessions in this browser, with their current review status.">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="/contribute.css">
+  <script defer src="/i18n.js"></script>
+</head>
+<body>
+  <a href="#main" class="skip-link" data-i18n="common.skip_to_main">Skip to main content</a>
+
+  <header class="site-header">
+    <a href="/" class="site-name" data-i18n="common.site_name">Bridgn</a>
+    <a href="/contribute.html" class="back-link" data-i18n="common.nav_contribute">Contribute</a>
+  </header>
+
+  <main id="main">
+    <h1 class="status-page-title" data-i18n="me.heading">Your submissions</h1>
+
+    <p class="me-loading" id="meLoading" role="status" aria-live="polite" data-i18n="me.loading">Loading submissions&hellip;</p>
+
+    <!-- No history in this browser. The server does not have a per-user
+         record — identity is client-side via sessionStorage. If the
+         browser has been cleared, the list is empty, but any bookmarked
+         /contribute/status/<id> URL still works. -->
+    <section class="me-empty" id="meEmpty" hidden>
+      <p id="meEmptyBody" data-i18n="me.empty_body">No submissions in this browser. When you submit a sign from the contribute page, it appears here — but only in the browser where you submitted it. Your individual status URLs continue to work when pasted, even if this list is empty.</p>
+      <p><a href="/contribute.html" data-i18n="me.empty_link">Go to the contribute page</a></p>
+    </section>
+
+    <!-- Populated list. Each item is a row with gloss, language, current
+         status, submission date, and a link to the permanent status URL. -->
+    <ul class="me-list" id="meList" hidden data-i18n-attr-aria-label="me.list_label" aria-label="Your contributed signs"></ul>
+
+    <section class="me-actions" id="meActions" hidden>
+      <button type="button" class="me-clear-btn" id="meClearBtn" data-i18n="me.clear_button">Clear this list</button>
+    </section>
+
+    <p class="me-error" id="meError" role="alert" hidden></p>
+  </main>
+
+  <footer class="site-footer">
+    <ul class="footer-links">
+      <li><a href="/governance.html" data-i18n="common.footer_governance_link">How contributions are reviewed</a></li>
+      <li><a href="/privacy.html" data-i18n="common.footer_privacy">Privacy</a></li>
+      <li><a href="/contact.html" data-i18n="common.footer_contact">Contact</a></li>
+    </ul>
+  </footer>
+
+  <script src="/contribute-me.js"></script>
+</body>
+</html>

@@ -254,6 +254,13 @@
       "body_copy_link": "copy session link",
       "separator": " · ",
       "dismiss_aria": "Dismiss hint"
+    },
+
+    "paused": {
+      "heading": "Contributions are paused",
+      "body": "Contributions are paused while we seat reviewers. Email the governance address below to be notified when the queue opens.",
+      "governance_link": "How review works",
+      "me_link": "Your prior submissions"
     }
   },
 
@@ -374,5 +381,17 @@
 
     "return_label": "Return",
     "return_text": "Return to Kozha"
+  },
+
+  "me": {
+    "heading": "Your submissions",
+    "loading": "Loading submissions…",
+    "empty_body": "No submissions in this browser. When you submit a sign from the contribute page, it appears here — but only in the browser where you submitted it. Your individual status URLs continue to work when pasted, even if this list is empty.",
+    "empty_link": "Go to the contribute page",
+    "list_label": "Your contributed signs",
+    "clear_button": "Clear this list",
+    "clear_confirm": "Clear the list of submissions in this browser? The submissions themselves are not deleted; each permanent status URL continues to work.",
+    "row_no_gloss": "(no gloss)",
+    "row_submitted_prefix": "submitted {{date}}"
   }
 }

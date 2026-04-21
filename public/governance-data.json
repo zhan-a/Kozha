@@ -2,6 +2,8 @@
   "generated_at": null,
   "source": "seed",
   "governance_email": "deaf-feedback@kozha.dev",
+  "contributions_paused": true,
+  "pause_reason": "Contributions are paused while we seat reviewers. Email deaf-feedback@kozha.dev to be notified when the queue opens.",
   "board": [],
   "reviewers": [],
   "languages": [

@@ -153,12 +153,37 @@ def build_app() -> FastAPI:
     # Prompt 10: mirror the production server's status-page route so
     # /contribute/status/<id> serves the static HTML shell even though the
     # StaticFiles mount below can't match the path parameter.
-    from fastapi.responses import FileResponse  # noqa: WPS433
+    from fastapi.responses import FileResponse, JSONResponse  # noqa: WPS433
 
     @parent.get("/contribute/status/{session_id}", include_in_schema=False)
     @parent.get("/contribute/status/{session_id}/", include_in_schema=False)
     def _status_page(session_id: str):  # noqa: ARG001 — id read by client JS
         return FileResponse(public_dir / "contribute-status.html")
+
+    # Prompt 14 step 8: contributor's dashboard shell.
+    @parent.get("/contribute/me", include_in_schema=False)
+    @parent.get("/contribute/me/", include_in_schema=False)
+    def _me_page():
+        return FileResponse(public_dir / "contribute-me.html")
+
+    # Prompt 14 step 10: production ships governance-data.json with
+    # contributions_paused=true until reviewers are seated. For the
+    # playwright smoke tests we exercise the authoring flow itself, so
+    # the test environment serves a non-paused copy. This override must
+    # be registered before the StaticFiles mount or the static file
+    # takes precedence.
+    import json  # noqa: WPS433
+
+    _gov_src = public_dir / "governance-data.json"
+
+    @parent.get("/governance-data.json", include_in_schema=False)
+    def _governance_data():
+        try:
+            data = json.loads(_gov_src.read_text())
+        except Exception:
+            data = {}
+        data["contributions_paused"] = False
+        return JSONResponse(data)
 
     parent.mount("/", StaticFiles(directory=str(public_dir), html=True), name="public")
     return parent

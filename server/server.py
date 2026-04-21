@@ -666,4 +666,15 @@ def serve_contribute_status(session_id: str):  # noqa: ARG001 — id read by cli
     return FileResponse(PUBLIC_DIR / "contribute-status.html")
 
 
+# Contributor's session dashboard (prompt 14 step 8). Lists every
+# session this browser has a token for; pure client-side aggregation
+# reading sessionStorage and hitting /sessions/{id}/status for each.
+# No login, no server-side identity — if the browser is cleared, the
+# list is empty but individual status URLs still resolve.
+@app.get("/contribute/me", include_in_schema=False)
+@app.get("/contribute/me/", include_in_schema=False)
+def serve_contribute_me():
+    return FileResponse(PUBLIC_DIR / "contribute-me.html")
+
+
 app.mount("/", StaticFiles(directory=PUBLIC_DIR, html=True), name="public")

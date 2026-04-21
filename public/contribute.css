@@ -2160,3 +2160,120 @@ h1 {
   .governance-language-list { grid-template-columns: 1fr; }
   .governance-email-line { font-size: 18px; }
 }
+
+/* Prompt 14 step 10 — paused-state banner. Appears at the top of #main
+   when the flow is closed to new submissions. Intentionally wordy rather
+   than a dismissive one-liner; the governance email is the call to
+   action, not a "try again later" link. */
+.contribute-paused {
+  margin: 0 0 32px;
+  padding: 28px 28px 24px;
+  border: 1px solid var(--rule);
+}
+.contribute-paused-heading {
+  margin: 0 0 12px;
+  font-size: 22px;
+  font-weight: 500;
+}
+.contribute-paused-body {
+  margin: 0 0 14px;
+  font-size: 16px;
+  line-height: 1.55;
+}
+.contribute-paused-email {
+  margin: 0 0 12px;
+  font-size: 17px;
+}
+.contribute-paused-email a { color: inherit; }
+.contribute-paused-links {
+  margin: 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+.contribute-paused-links a { color: inherit; }
+
+/* /contribute/me — contributor's session dashboard. Flat list, no
+   leaderboard affordances. */
+.me-empty {
+  margin: 24px 0;
+  padding: 20px 22px;
+  border: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.55;
+}
+.me-list {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+}
+.me-item {
+  padding: 18px 20px;
+  margin: 0 0 12px;
+  border: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 16px;
+  align-items: baseline;
+}
+.me-item-main {
+  grid-column: 1;
+}
+.me-gloss {
+  font-size: 18px;
+  font-weight: 500;
+}
+.me-language {
+  font-size: 14px;
+  color: var(--muted);
+  margin-left: 8px;
+}
+.me-state {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 14px;
+  color: var(--muted);
+  text-align: right;
+  white-space: nowrap;
+}
+.me-state.is-validated  { color: #2a6f2a; }
+.me-state.is-rejected   { color: #8a2a2a; }
+.me-state.is-quarantine { color: #8a2a2a; }
+.me-meta {
+  grid-column: 1 / -1;
+  font-size: 13px;
+  color: var(--muted);
+}
+.me-meta a { color: inherit; }
+.me-actions {
+  margin-top: 24px;
+  display: flex;
+  gap: 12px;
+}
+.me-clear-btn {
+  padding: 8px 14px;
+  background: transparent;
+  border: 1px solid var(--rule);
+  font: inherit;
+  font-size: 14px;
+  color: var(--muted);
+  cursor: pointer;
+}
+.me-clear-btn:hover { color: inherit; }
+.me-loading, .me-error {
+  margin: 20px 0;
+  padding: 18px 20px;
+  border: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 15px;
+}
+@media (max-width: 640px) {
+  .me-item {
+    grid-template-columns: 1fr;
+  }
+  .me-state {
+    grid-column: 1;
+    grid-row: auto;
+    text-align: left;
+  }
+}
