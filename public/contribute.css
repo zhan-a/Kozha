@@ -1,13 +1,14 @@
 /* Contribute page — minimal scaffold. Design contract:
    docs/contribute-redesign/01-design-principles.md.
    One typeface (system stack), dark ink on off-white paper, single accent
-   used only for the active-language badge and the primary button. */
+   used only for the language code in the header and the primary button. */
 
 :root {
   --ink: #15130f;
   --paper: #f7f3ec;
   --accent: #b3441b;
   --rule: rgba(21, 19, 15, 0.14);
+  --muted: rgba(21, 19, 15, 0.55);
   --max-width: 880px;
 }
 
@@ -34,6 +35,8 @@ a:hover, a:focus { text-decoration-thickness: 2px; }
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
+
+[hidden] { display: none !important; }
 
 .site-header,
 main,
@@ -73,10 +76,9 @@ h1 {
   margin: 0 0 40px;
 }
 
-/* Language picker — empty state: centred, full width of content column. */
-.language-picker {
-  margin-bottom: 40px;
-}
+/* ----- Language picker (first-visit screen) ----- */
+
+.language-picker { margin-bottom: 40px; }
 .picker-prompt {
   margin: 0 0 20px;
   font-size: 20px;
@@ -120,39 +122,174 @@ h1 {
   white-space: nowrap;
 }
 
-/* Active state: high-contrast badge + small "change" button. */
-.picker-active {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 16px;
+/* ----- Persistent language header + context strip -----
+   Sticks to the top of main's scrolling context so the active language
+   stays visible even after the user scrolls deep into the authoring
+   panels that later prompts mount below. */
+
+.lang-masthead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--paper);
+  margin: 0 0 40px;
+  padding: 18px 0 12px;
+  border-bottom: 1px solid var(--rule);
 }
-.picker-label {
-  font-size: 15px;
-  opacity: 0.7;
+
+.language-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 .language-badge {
-  display: inline-block;
-  padding: 10px 18px;
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  background: var(--accent);
-  color: var(--paper);
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  line-height: 1.15;
+  display: inline-flex;
+  align-items: baseline;
+  flex-wrap: wrap;
 }
+.language-badge-code {
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: 0.015em;
+}
+.language-badge-sep {
+  color: var(--ink);
+  opacity: 0.35;
+  padding: 0 2px;
+}
+.language-badge-name {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* "change" is a link — visually secondary to the badge. */
 .change-btn {
   background: transparent;
-  border: 1px solid var(--rule);
-  padding: 6px 14px;
+  border: 0;
+  padding: 0;
+  margin: 0;
   font: inherit;
   font-size: 14px;
+  color: var(--ink);
+  opacity: 0.6;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.change-btn:hover,
+.change-btn:focus-visible { opacity: 1; }
+
+.context-strip {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: baseline;
+  gap: 16px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dotted var(--rule);
+  font-size: 14px;
+  color: var(--ink);
+}
+.context-gloss {
+  justify-self: start;
+  opacity: 0.85;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+.context-gloss.is-empty { opacity: 0.45; font-style: italic; }
+.context-state {
+  justify-self: center;
+  opacity: 0.75;
+  text-align: center;
+}
+.context-session {
+  justify-self: end;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.context-session-id {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  color: var(--muted);
+}
+.context-copy-btn {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-size: 12px;
+  color: var(--ink);
+  opacity: 0.55;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.context-copy-btn:hover,
+.context-copy-btn:focus-visible { opacity: 1; }
+
+/* ----- Token resume prompt ----- */
+
+.token-prompt {
+  margin: 0 0 32px;
+  padding: 22px 24px;
+  border: 1px solid var(--rule);
+}
+.token-prompt h2 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 500;
+}
+.token-prompt p { margin: 0 0 14px; font-size: 16px; }
+.token-prompt form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.token-prompt label {
+  font-size: 14px;
+  opacity: 0.7;
+  flex-basis: 100%;
+}
+.token-prompt input {
+  flex: 1;
+  min-width: 220px;
+  padding: 10px 12px;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  font: inherit;
+  font-size: 15px;
+  background: transparent;
   color: inherit;
+}
+.token-prompt button {
+  padding: 10px 18px;
+  background: var(--accent);
+  color: var(--paper);
+  border: 0;
+  font: inherit;
+  font-size: 15px;
   cursor: pointer;
   transition: opacity 120ms ease;
 }
-.change-btn:hover { opacity: 0.7; }
+.token-prompt button:hover { opacity: 0.9; }
+.token-prompt-error {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: var(--accent);
+}
 
-/* Inline "no reviewer assigned" notice — plain, no warning icon. */
+/* ----- Reviewer notice (unchanged from prompt 3) ----- */
+
 .reviewer-notice {
   margin-bottom: 32px;
   padding: 16px 20px;
@@ -163,6 +300,118 @@ h1 {
 .reviewer-notice p { margin: 0; }
 
 #authoring-root { margin-top: 32px; }
+
+/* ----- Modal (the one modal in this redesign) ----- */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(21, 19, 15, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 24px;
+}
+.modal {
+  background: var(--paper);
+  padding: 28px 28px 22px;
+  max-width: 480px;
+  width: 100%;
+  border: 1px solid var(--rule);
+}
+.modal h2 {
+  margin: 0 0 10px;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+.modal p {
+  margin: 0 0 20px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--rule);
+  padding: 9px 16px;
+  font: inherit;
+  font-size: 15px;
+  color: inherit;
+  cursor: pointer;
+  transition: opacity 120ms ease;
+}
+.btn-primary {
+  background: var(--accent);
+  border: 0;
+  padding: 10px 18px;
+  font: inherit;
+  font-size: 15px;
+  color: var(--paper);
+  cursor: pointer;
+  transition: opacity 120ms ease;
+}
+.btn-secondary:hover,
+.btn-secondary:focus-visible { opacity: 0.8; }
+.btn-primary:hover,
+.btn-primary:focus-visible { opacity: 0.9; }
+
+/* ----- Hint strip (one-time keyboard tip) ----- */
+
+.hint-strip {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 560px;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 10px 14px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 50;
+}
+.hint-strip kbd {
+  background: rgba(247, 243, 236, 0.16);
+  padding: 1px 6px;
+  border-radius: 2px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  margin-right: 2px;
+}
+.hint-close {
+  background: transparent;
+  border: 0;
+  color: var(--paper);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.7;
+  padding: 0 2px;
+}
+.hint-close:hover,
+.hint-close:focus-visible { opacity: 1; }
+
+/* ----- Transient toast ----- */
+
+.toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: var(--paper);
+  padding: 10px 18px;
+  font-size: 14px;
+  z-index: 60;
+}
 
 .site-footer {
   margin-top: 64px;
@@ -180,7 +429,8 @@ h1 {
   font-size: 14px;
 }
 
-/* Narrow viewports: reduce padding, keep single-column layout. */
+/* ----- Narrow viewport ----- */
+
 @media (max-width: 640px) {
   .site-header,
   main,
@@ -190,5 +440,18 @@ h1 {
   }
   main { padding-top: 36px; padding-bottom: 48px; }
   h1 { font-size: 32px; margin-bottom: 28px; }
-  .language-badge { font-size: 18px; padding: 8px 14px; }
+  .language-badge { font-size: 22px; }
+  .context-strip {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .context-gloss,
+  .context-state,
+  .context-session { justify-self: start; }
+  .hint-strip {
+    left: 12px;
+    right: 12px;
+    transform: none;
+    max-width: none;
+  }
 }

@@ -19,25 +19,78 @@
   <main>
     <h1>Contribute a sign</h1>
 
+    <!-- First-visit screen. Hidden once a language is active; re-shown via
+         "change" (in the masthead below) or Cmd/Ctrl+K. -->
     <section class="language-picker" id="languagePicker" aria-label="Sign language selection">
       <div class="picker-empty" id="pickerEmpty">
         <p class="picker-prompt">Which sign language are you contributing to?</p>
         <ul class="picker-options" id="pickerOptions" role="listbox" aria-label="Available sign languages"></ul>
       </div>
+    </section>
 
-      <div class="picker-active" id="pickerActive" hidden>
-        <span class="picker-label">Signing in</span>
-        <span class="language-badge" id="languageBadge" aria-live="polite"></span>
+    <!-- Persistent language header + context strip. Sticks to the top of
+         <main> as the user scrolls so they never lose track of which
+         language they're signing in or where they are in the flow. -->
+    <header class="lang-masthead" id="langMasthead" role="banner" hidden>
+      <div class="language-header">
+        <span class="language-badge" id="languageBadge">
+          <span class="language-badge-code" id="languageBadgeCode"></span><span class="language-badge-sep" aria-hidden="true"> — </span><span class="language-badge-name" id="languageBadgeName"></span>
+        </span>
         <button type="button" class="change-btn" id="changeLanguageBtn" aria-label="Change sign language">change</button>
       </div>
+      <div class="context-strip" id="contextStrip" aria-live="polite" aria-label="Session status">
+        <span class="context-gloss" id="contextGloss">No sign selected</span>
+        <span class="context-state" id="contextState">Draft</span>
+        <span class="context-session">
+          <span class="context-session-id" id="contextSessionId" title="Session ID">—</span>
+          <button type="button" class="context-copy-btn" id="contextCopyBtn" aria-label="Copy session URL" hidden>copy</button>
+        </span>
+      </div>
+    </header>
+
+    <!-- Shown when the URL carries a session id we don't have the token
+         for — minimum viable access control for resumable drafts. -->
+    <section class="token-prompt" id="tokenPrompt" aria-labelledby="tokenPromptHeading" hidden>
+      <h2 id="tokenPromptHeading">Resume this draft</h2>
+      <p>To resume this draft, paste the resume token shown when you first created it.</p>
+      <form id="tokenPromptForm">
+        <label for="tokenPromptInput">Resume token</label>
+        <input id="tokenPromptInput" type="text" autocomplete="off" spellcheck="false">
+        <button type="submit">Resume</button>
+      </form>
+      <p class="token-prompt-error" id="tokenPromptError" role="alert" hidden></p>
     </section>
 
     <div class="reviewer-notice" id="reviewerNotice" role="status" hidden></div>
 
-    <!-- authoring-root: filled by prompts 4 (chat), 5 (preview), 6 (notation
-         readout), and 7 (submit region). Deliberately empty in this prompt. -->
+    <!-- authoring-root: filled by prompts 5 (chat), 6 (notation readout),
+         and 7 (submit region). Deliberately empty in this prompt. -->
     <section id="authoring-root" aria-label="Sign authoring workspace" hidden></section>
+
+    <!-- Transient feedback surface — copy confirmations, brief errors. -->
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
   </main>
+
+  <!-- The one modal in this redesign: confirmation when changing language
+       would discard a live session. -->
+  <div class="modal-backdrop" id="modalBackdrop" hidden>
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalBody">
+      <h2 id="modalTitle">Discard this draft?</h2>
+      <p id="modalBody"></p>
+      <div class="modal-actions">
+        <button type="button" id="modalCancelBtn" class="btn-secondary">Cancel</button>
+        <button type="button" id="modalDiscardBtn" class="btn-primary">Discard</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- One-time keyboard hint. localStorage flag suppresses it after dismissal. -->
+  <div class="hint-strip" id="hintStrip" role="status" hidden>
+    <span class="hint-strip-body">
+      <kbd>Ctrl</kbd><kbd>K</kbd> change language &middot; <kbd>Ctrl</kbd><kbd>L</kbd> copy session link
+    </span>
+    <button type="button" class="hint-close" id="hintClose" aria-label="Dismiss hint">&times;</button>
+  </div>
 
   <footer class="site-footer">
     <ul class="footer-links">
@@ -47,6 +100,7 @@
     </ul>
   </footer>
 
+  <script src="/contribute-context.js"></script>
   <script src="/contribute.js"></script>
 </body>
 </html>
