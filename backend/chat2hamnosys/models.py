@@ -127,6 +127,14 @@ class ReviewRecord(BaseModel):
     allow_non_native: bool | None = None
     fields_to_revise: list[str] = Field(default_factory=list)
     reviewed_at: datetime = Field(default_factory=_utcnow)
+    # Prompt 6: the reviewer's language match against the entry's target
+    # sign_language. True when the reviewer self-identifies as a native
+    # signer of this entry's sign_language (i.e. entry.sign_language is
+    # present in reviewer.signs). None when the record predates prompt 6
+    # or the information wasn't captured at review time. The live
+    # metadata export uses this to set reviewer_language_match on the
+    # per-sign ``.meta.json`` override.
+    reviewer_language_match: bool | None = None
 
 
 class AuthorInfo(BaseModel):

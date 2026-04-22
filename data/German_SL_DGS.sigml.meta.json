@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "language": "dgs",
+  "source": "DGS Lexicon via SignAvatars (Universitat Hamburg)",
+  "source_kind": "corpus",
+  "sigml_file": "German_SL_DGS.sigml",
+  "default_review": {
+    "deaf_native_reviewed": true,
+    "reviewer_count": 1,
+    "reviewer_language_match": true,
+    "review_source": "corpus_provenance",
+    "last_reviewed": null,
+    "notes": null
+  },
+  "sign_count": 1914,
+  "signs": {}
+}

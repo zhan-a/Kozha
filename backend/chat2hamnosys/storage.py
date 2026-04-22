@@ -182,6 +182,95 @@ def _read_or_init_sigml(path: Path) -> ET.Element:
     return root
 
 
+def _authored_default_review(sign_language: str) -> dict:
+    return {
+        "deaf_native_reviewed": False,
+        "reviewer_count": 0,
+        "reviewer_language_match": False,
+        "review_source": None,
+        "last_reviewed": None,
+        "notes": "authored via chat2hamnosys, pending export review",
+    }
+
+
+def _write_authored_meta(
+    *,
+    kozha_data_dir: Path,
+    sigml_name: str,
+    entry: "SignEntry",
+    qualifying: int,
+) -> None:
+    """Write / update the per-authored-sign entry in the authored .meta.json.
+
+    Keeps the metadata file for the ``hamnosys_<lang>_authored.sigml``
+    library in sync with the review status. Each exported entry gets a
+    per-sign override with reviewer_count, language_match, and a review
+    source keyed off the qualifying-approval count:
+
+    - 1 → ``deaf_reviewer_single``
+    - 2+ → ``deaf_reviewer_double``
+
+    Prior per-sign entries for other glosses are preserved.
+    """
+    import json
+    from datetime import datetime, timezone
+
+    meta_path = kozha_data_dir / f"{sigml_name}.meta.json"
+    payload: dict
+    if meta_path.exists():
+        try:
+            payload = json.loads(meta_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            payload = {}
+    else:
+        payload = {}
+
+    payload.setdefault("version", 1)
+    payload.setdefault("language", entry.sign_language)
+    payload.setdefault("source", "chat2hamnosys authored library")
+    payload.setdefault("source_kind", "authored")
+    payload.setdefault("sigml_file", sigml_name)
+    payload.setdefault(
+        "default_review",
+        _authored_default_review(entry.sign_language),
+    )
+    payload["sign_count"] = int(payload.get("sign_count") or 0)
+    signs = payload.setdefault("signs", {})
+    if not isinstance(signs, dict):
+        signs = {}
+        payload["signs"] = signs
+
+    review_source = (
+        "deaf_reviewer_double" if qualifying >= 2
+        else ("deaf_reviewer_single" if qualifying >= 1 else None)
+    )
+    # Language-match is true iff at least one qualifying reviewer flagged
+    # reviewer_language_match=True for this sign_language.
+    lang_match = any(
+        r.reviewer_language_match is True
+        for r in (entry.reviewers or [])
+        if r.verdict == "approved"
+    )
+    gloss_key = entry.gloss.strip().lower()
+    prior = signs.get(gloss_key) if isinstance(signs.get(gloss_key), dict) else None
+    signs[gloss_key] = {
+        "deaf_native_reviewed": qualifying >= 1,
+        "reviewer_count": qualifying,
+        "reviewer_language_match": lang_match,
+        "review_source": review_source,
+        "last_reviewed": datetime.now(timezone.utc).date().isoformat(),
+        "notes": None if prior is None else prior.get("notes"),
+    }
+    # sign_count tracks distinct glosses in the authored library.
+    payload["sign_count"] = len(signs)
+
+    meta_path.parent.mkdir(parents=True, exist_ok=True)
+    meta_path.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False, sort_keys=False) + "\n",
+        encoding="utf-8",
+    )
+
+
 def _replace_or_append_sign(root: ET.Element, new_sign: ET.Element) -> None:
     """Replace an existing ``<hns_sign>`` with the same gloss, else append."""
     target_gloss = (new_sign.get("gloss") or "").lower()
@@ -311,6 +400,21 @@ class SignStore(ABC):
         new_sign = _build_hns_sign_element(entry)
         _replace_or_append_sign(root, new_sign)
         _atomic_write_text(target, _serialize_sigml(root))
+
+        # Prompt 6: publish per-sign review metadata alongside the SiGML.
+        # The authored library gets its own .meta.json; each export updates
+        # the signs dict with the current reviewer_count + language-match
+        # information. Failures here must not break the export itself —
+        # metadata is additive.
+        try:
+            _write_authored_meta(
+                kozha_data_dir=self.kozha_data_dir,
+                sigml_name=target.name,
+                entry=entry,
+                qualifying=qualifying_approval_count(entry, effective_policy),
+            )
+        except Exception:  # pragma: no cover — best-effort metadata write
+            pass
 
         if audit_log is not None:
             audit_log.append(

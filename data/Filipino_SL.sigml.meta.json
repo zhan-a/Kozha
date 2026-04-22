@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "language": "fsl",
+  "source": "syntheticfsl / signtyper by Jennie Ablog (community)",
+  "source_kind": "community",
+  "sigml_file": "Filipino_SL.sigml",
+  "default_review": {
+    "deaf_native_reviewed": false,
+    "reviewer_count": 0,
+    "reviewer_language_match": false,
+    "review_source": null,
+    "last_reviewed": null,
+    "notes": "community-contributed, pending review"
+  },
+  "sign_count": 0,
+  "signs": {}
+}

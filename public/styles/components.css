@@ -174,3 +174,52 @@
   border-top: 1px solid var(--kozha-color-border);
   padding: var(--kozha-space-10) var(--kozha-space-12);
 }
+
+/* ===========================
+ * Review badges (prompt-polish 6)
+ * ===========================
+ *
+ * .kz-badge-reviewed   — accent-tinted pill: "Reviewed by Deaf native signer"
+ * .kz-badge-unreviewed — muted pill: "Not yet reviewed"
+ *
+ * Used by the translator chip detail panel and the contribute notation
+ * preview. Both stay on a single line; the caller is responsible for
+ * wrapping in a flex row if multiple badges are shown.
+ */
+:where(.kz-badge-reviewed),
+:where(.kz-badge-unreviewed) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--kozha-space-1);
+  font-family: var(--kozha-font-sans);
+  font-size: var(--kozha-text-caption);
+  font-weight: var(--kozha-weight-semibold);
+  letter-spacing: var(--kozha-tracking-wide);
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: var(--kozha-radius-pill);
+  border: 1px solid transparent;
+  line-height: 1.3;
+}
+:where(.kz-badge-reviewed) {
+  color: var(--kozha-badge-reviewed-fg);
+  background: var(--kozha-badge-reviewed-bg);
+  border-color: var(--kozha-badge-reviewed-border);
+}
+:where(.kz-badge-unreviewed) {
+  color: var(--kozha-badge-unreviewed-fg);
+  background: var(--kozha-badge-unreviewed-bg);
+  border-color: var(--kozha-badge-unreviewed-border);
+}
+:where(.kz-badge-reviewed)::before {
+  /* Small check mark — inline so the badge stays one piece even when a
+     screen reader announces the accompanying text. Aria-hidden is set in
+     markup. */
+  content: '\2713';
+  font-weight: var(--kozha-weight-semibold);
+}
+:where(.kz-badge-unreviewed)::before {
+  content: '\00B7';
+  font-size: var(--kozha-text-body);
+  line-height: 1;
+}

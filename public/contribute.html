@@ -342,6 +342,19 @@
            iteration (min-height 120px) per prompt 5 step 9. -->
       <section class="notation-panel card kz-card" id="notationPanel" aria-label="Generated notation" hidden>
         <h2 class="card-title" data-i18n="contribute.notation.section_label">Notation</h2>
+        <!-- Prompt-polish 6: review-status notice. Plain language, no
+             legalese. Shows while the draft is pre-review and names the
+             target sign language so the contributor knows which native
+             signer community will review it. -->
+        <p class="notation-review-status"
+           id="notationReviewStatus"
+           role="note"
+           data-i18n="contribute.notation.review_status_draft">
+          <span class="kz-badge-unreviewed" aria-hidden="true">Not yet reviewed</span>
+          This draft will be marked as unreviewed until a Deaf native signer of
+          <span id="notationReviewStatusLang" class="notation-review-lang">this language</span>
+          approves it.
+        </p>
         <nav class="notation-tabs" role="tablist" aria-label="Notation format">
           <button
             type="button"

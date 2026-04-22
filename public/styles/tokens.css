@@ -196,6 +196,18 @@
   --kozha-z-toast: 60;
   --kozha-z-nav: 100;
   --kozha-z-skip: 200;
+
+  /* -------------------- review badges (prompt-polish 6) ----------- */
+  /* "Reviewed by Deaf native signer" uses the accent family so it reads
+     as a positive provenance signal on paper. "Not yet reviewed" uses the
+     muted ink-3 scale so it looks like informational metadata rather
+     than an error. Border radii follow the pill token. */
+  --kozha-badge-reviewed-fg: var(--kozha-color-accent);
+  --kozha-badge-reviewed-bg: var(--kozha-color-accent-light);
+  --kozha-badge-reviewed-border: var(--kozha-color-border-accent);
+  --kozha-badge-unreviewed-fg: var(--kozha-color-ink-3);
+  --kozha-badge-unreviewed-bg: var(--kozha-color-paper-2);
+  --kozha-badge-unreviewed-border: var(--kozha-color-border);
 }
 
 /* Breakpoints (documentation — CSS custom properties don't work inside

@@ -330,6 +330,14 @@
     els.badgeCode.textContent = lang.code.toUpperCase();
     els.badgeName.textContent = lang.english_name;
 
+    // Prompt-polish 6: the notation-panel review-status notice uses the
+    // picked language name so the contributor sees exactly which native
+    // signer community will review this draft.
+    var reviewStatusLang = document.getElementById('notationReviewStatusLang');
+    if (reviewStatusLang) {
+      reviewStatusLang.textContent = lang.english_name;
+    }
+
     if (lang.has_reviewers) {
       els.notice.hidden = true;
       els.notice.innerHTML = '';

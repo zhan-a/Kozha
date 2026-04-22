@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "language": "isl",
+  "source": "Text-to-Sign-Language / text_to_isl (community)",
+  "source_kind": "community",
+  "sigml_file": "Indian_SL.sigml",
+  "default_review": {
+    "deaf_native_reviewed": false,
+    "reviewer_count": 0,
+    "reviewer_language_match": false,
+    "review_source": null,
+    "last_reviewed": null,
+    "notes": "community-contributed, pending review"
+  },
+  "sign_count": 763,
+  "signs": {}
+}

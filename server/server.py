@@ -53,11 +53,19 @@ class TextRequest(BaseModel):
     text: str
     language: str = "en"
     sign_language: str = "bsl"
+    # Prompt 6: optional "strict" mode. When true, the backend annotates each
+    # token with whether the target sign_language has a Deaf-native-reviewed
+    # record for it; unreviewed tokens get force_fingerspell=true so the
+    # frontend can fall through to the fingerspelling alphabet instead of
+    # serving a questionable sign. Default False preserves legacy behavior.
+    reviewed_only: bool = False
 
 APP_ROOT = Path(__file__).resolve().parent
 REPO_ROOT = APP_ROOT.parent
 PUBLIC_DIR = REPO_ROOT / "public"
 DATA_DIR = REPO_ROOT / "data"
+
+import review_metadata as _review_meta  # noqa: E402 — after DATA_DIR is set
 
 app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
 
@@ -570,12 +578,46 @@ def process_text(text: str, language: str = "en", sign_language: str = "bsl") ->
         result = "[truncated] " + result
     return result
 
-def plan_from_text(text: str, language: str = "en", sign_language: str = "bsl") -> Dict[str, object]:
+def plan_from_text(
+    text: str,
+    language: str = "en",
+    sign_language: str = "bsl",
+    reviewed_only: bool = False,
+) -> Dict[str, object]:
     text = (text or "").strip()
     if not text:
         return {"error": "Empty text."}
     rewritten = process_text(text, language, sign_language)
-    return {"allowed": [], "raw": text, "final": rewritten, "language": language, "sign_language": sign_language}
+
+    # Prompt 6: attach per-token review metadata so the translator chips can
+    # render a Reviewed / Not yet reviewed badge and so reviewed_only mode
+    # can route unreviewed glosses through the fingerspelling fallback. The
+    # metadata is advisory — the client may ignore it without any breakage.
+    tokens: list[str] = []
+    for line in (rewritten or "").split("\n"):
+        for tok in line.split():
+            if tok == ".":
+                continue
+            tokens.append(tok)
+
+    index = _review_meta.get_index()
+    per_token: list[dict] = []
+    for tok in tokens:
+        rec = index.get(sign_language, tok)
+        info = rec.to_dict()
+        info["gloss"] = tok
+        info["force_fingerspell"] = bool(reviewed_only and not rec.deaf_native_reviewed)
+        per_token.append(info)
+
+    return {
+        "allowed": [],
+        "raw": text,
+        "final": rewritten,
+        "language": language,
+        "sign_language": sign_language,
+        "reviewed_only": reviewed_only,
+        "per_token_review": per_token,
+    }
 
 class TranslateTextRequest(BaseModel):
     text: str
@@ -697,7 +739,49 @@ def api_translate_batch(req: BatchTranslateRequest):
 
 @app.post("/api/plan")
 def api_plan(req: TextRequest):
-    return plan_from_text(req.text, req.language, req.sign_language)
+    return plan_from_text(
+        req.text,
+        req.language,
+        req.sign_language,
+        reviewed_only=req.reviewed_only,
+    )
+
+
+@app.get("/api/review-meta/{sign_language}")
+def api_review_meta(sign_language: str):
+    """Public read-only view of a language's review-metadata summary.
+
+    Used by the progress dashboard (prompt 8) and by the translator chip
+    detail panel to look up gloss-level review state without serving the
+    full meta.json payload. Returns the merged default + per-sign overrides
+    for the requested sign language.
+    """
+    lang = (sign_language or "").strip().lower()
+    if not lang:
+        return {"error": "missing sign_language"}
+    index = _review_meta.get_index()
+    summary = index.language_summary(lang)
+    return {"sign_language": lang, **summary}
+
+
+@app.post("/api/review-meta/{sign_language}/lookup")
+def api_review_meta_lookup(sign_language: str, glosses: Dict[str, List[str]]):
+    """Bulk lookup for a list of glosses. Input body: ``{"glosses": [...]}``.
+
+    Used by the translator when a user expands a chip detail panel for an
+    arbitrary token; the server resolves the review status using the same
+    precedence as ``/api/plan``. This avoids duplicating the precedence
+    logic in the browser.
+    """
+    lang = (sign_language or "").strip().lower()
+    index = _review_meta.get_index()
+    out: Dict[str, dict] = {}
+    for g in glosses.get("glosses") or []:
+        rec = index.get(lang, g)
+        info = rec.to_dict()
+        info["gloss"] = g
+        out[g] = info
+    return {"sign_language": lang, "results": out}
 
 try:
     from api import create_app as _create_chat2hamnosys_app

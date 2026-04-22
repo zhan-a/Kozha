@@ -732,6 +732,74 @@
     }
     .coverage-counter .warn { color: var(--kozha-color-accent, #b3441b); font-weight: 500; }
 
+    /* Prompt-polish 6: chips cycle through signed tokens with tab; Enter
+       / Space opens the review detail panel below. The focus ring uses
+       the kozha accent so it matches the rest of the translator. */
+    .token-chip {
+      cursor: pointer;
+    }
+    .token-chip:focus-visible {
+      outline: 2px solid var(--kozha-color-accent, #b3441b);
+      outline-offset: 2px;
+    }
+    .token-chip.is-unreviewed::after {
+      content: '';
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--kozha-color-ink-3, #5e5c57);
+      opacity: 0.7;
+    }
+
+    .review-detail-panel {
+      position: relative;
+      margin-top: 10px;
+      padding: 12px 16px;
+      background: var(--kozha-color-white, #ffffff);
+      border: 1px solid var(--kozha-color-border, rgba(26,22,18,0.12));
+      border-radius: var(--kozha-radius-sm, 10px);
+      font-family: var(--kozha-font-sans, 'DM Sans', sans-serif);
+      font-size: var(--kozha-text-body-sm, 13px);
+      color: var(--kozha-color-ink, #1a1612);
+      line-height: 1.5;
+    }
+    .review-detail-panel p { margin: 6px 0; }
+    .review-detail-label {
+      display: inline-block;
+      min-width: 60px;
+      color: var(--kozha-color-ink-3, #5e5c57);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: var(--kozha-text-caption, 11px);
+      font-weight: 600;
+      margin-right: 8px;
+    }
+    .review-detail-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .review-detail-reviewer-count {
+      color: var(--kozha-color-ink-3, #5e5c57);
+      font-size: var(--kozha-text-caption, 11px);
+    }
+    .review-detail-close {
+      position: absolute;
+      top: 6px;
+      right: 10px;
+      background: transparent;
+      border: 0;
+      font-size: 18px;
+      line-height: 1;
+      color: var(--kozha-color-ink-3, #5e5c57);
+      cursor: pointer;
+    }
+    .review-detail-close:hover { color: var(--kozha-color-accent, #b3441b); }
+
     .lang-sr-only {
       position: absolute !important;
       width: 1px; height: 1px;
@@ -955,6 +1023,23 @@
           </div>
 
         </div>
+
+        <!-- Prompt-polish 6: preferences. Off by default so existing
+             behavior is preserved. When on, unreviewed glosses fall
+             through to fingerspelling rather than serving a
+             questionable sign. -->
+        <div class="card" style="margin-top:16px;">
+          <div class="card-title"><span class="card-title-icon">✅</span> Review preferences</div>
+          <label class="check-label" style="margin-bottom:8px;">
+            <input type="checkbox" id="reviewedOnlyToggle" />
+            Only play Deaf-native-reviewed signs (fall through to fingerspelling otherwise)
+          </label>
+          <p class="field-hint">
+            Strict mode: tokens whose sign isn't reviewed by a Deaf native signer of the target
+            language are spelled out letter-by-letter instead of rendered from the unreviewed sign.
+            Off by default. Your preference is remembered in this browser.
+          </p>
+        </div>
       </div>
 
       <div class="content-panel" id="panel-planner">
@@ -996,8 +1081,38 @@
         <div class="playback-progress" id="playbackProgress" style="display:none;">
           <div class="playback-progress-bar" id="playbackProgressBar"></div>
         </div>
-        <div class="token-list" id="tokenList"></div>
+        <div class="token-list" id="tokenList" role="list" aria-label="Signed tokens (press Enter to inspect)"></div>
         <div class="coverage-counter" id="coverageCounter" role="status" aria-live="polite"></div>
+        <!-- Prompt-polish 6: per-token detail panel. Hidden by default; the
+             chip list opens this when a chip is activated (click or Enter).
+             Shows gloss + source database + Reviewed / Not yet reviewed
+             badge + reviewer count for the currently focused token. -->
+        <aside
+          id="reviewDetailPanel"
+          class="review-detail-panel"
+          role="region"
+          aria-live="polite"
+          aria-label="Sign review detail"
+          hidden>
+          <button
+            type="button"
+            class="review-detail-close"
+            id="reviewDetailClose"
+            aria-label="Close review detail">×</button>
+          <p class="review-detail-gloss">
+            <span class="review-detail-label">Gloss</span>
+            <span id="reviewDetailGloss">—</span>
+          </p>
+          <p class="review-detail-source">
+            <span class="review-detail-label">Source</span>
+            <span id="reviewDetailSource">—</span>
+          </p>
+          <p class="review-detail-badge-row">
+            <span id="reviewDetailBadge" class="kz-badge-unreviewed" aria-hidden="true">Not yet reviewed</span>
+            <span id="reviewDetailReviewerCount" class="review-detail-reviewer-count"></span>
+          </p>
+          <p class="review-detail-notes field-hint" id="reviewDetailNotes" hidden></p>
+        </aside>
         <div class="avatar-controls">
           <span id="renderStatus" class="status-badge loading" role="status" aria-live="polite">Loading…</span>
           <div class="avatar-switcher">
@@ -1693,10 +1808,29 @@
       try {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 10000);
-        const resp = await fetch('/api/plan', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: rawText, language: getTargetLang(), sign_language: getSignLang() }), signal: controller.signal });
+        // Prompt-polish 6: pass the reviewed_only preference so the server
+        // can mark each token with force_fingerspell when strict mode is on.
+        const reviewedOnly = !!(window.__reviewedOnlyPref);
+        const resp = await fetch('/api/plan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            text: rawText,
+            language: getTargetLang(),
+            sign_language: getSignLang(),
+            reviewed_only: reviewedOnly,
+          }),
+          signal: controller.signal,
+        });
         clearTimeout(timeout);
         if (!resp.ok) { const detail = await resp.text().catch(() => ''); throw new Error(`Backend HTTP ${resp.status} ${detail}`); }
-        return await resp.json();
+        const payload = await resp.json();
+        if (Array.isArray(payload && payload.per_token_review)) {
+          window.__lastReviewMeta = payload.per_token_review;
+        } else {
+          window.__lastReviewMeta = [];
+        }
+        return payload;
       } catch (e) { console.error("spaCy backend fetch failed:", e); throw e; }
     }
 
@@ -1819,10 +1953,18 @@
       const corpusShort = (signLang && typeof SIGN_LANG_DISPLAY !== 'undefined')
         ? (SIGN_LANG_DISPLAY[signLang] || signLang.toUpperCase()).split(' ')[0]
         : (signLang || '').toUpperCase();
+      // Prompt-polish 6: when reviewed_only is on, the server marks each
+      // token whose sign isn't Deaf-native-reviewed with force_fingerspell.
+      // We skip the glossToSign lookup for those tokens and fall through
+      // to fingerspelling. The review metadata is keyed positionally.
+      const reviewMeta = Array.isArray(window.__lastReviewMeta) ? window.__lastReviewMeta : [];
       const perToken = [];
       let signed = 0, fingerspelled = 0, omitted = 0;
-      for (const t of tokens){
-        const b = glossToSign.get(t);
+      for (let i = 0; i < tokens.length; i++) {
+        const t = tokens[i];
+        const review = reviewMeta[i] || null;
+        const forceFingerspell = !!(review && review.force_fingerspell);
+        const b = forceFingerspell ? null : glossToSign.get(t);
         let accepted = false;
         if (typeof b === 'string') {
           const v = validator ? validator.validateHnsSignXml(b) : { valid: true };
@@ -1838,22 +1980,46 @@
           console.warn(`[sigml] glossToSign["${t}"] is not a string (got ${typeof b}); skipping`);
         }
         if (accepted) {
-          perToken.push({ kind: 'sign', origin: corpusLong || 'corpus', originShort: corpusShort || 'sign' });
+          perToken.push({ kind: 'sign', origin: corpusLong || 'corpus', originShort: corpusShort || 'sign', review: review });
           signed++;
         } else if (letterToSign.size > 0) {
           const base = glossBase(t);
           const lb = fingerspellWord(base || t);
           if (lb.length > 0){
             blocks.push(...lb);
-            log(`Fingerspelling: "${base || t}"`);
-            perToken.push({ kind: 'fingerspelled', origin: (corpusShort || 'target') + ' fingerspelling alphabet', originShort: 'fingerspelled' });
+            if (forceFingerspell) {
+              log(`Strict mode → fingerspelling unreviewed gloss: "${t}"`);
+            } else {
+              log(`Fingerspelling: "${base || t}"`);
+            }
+            perToken.push({
+              kind: 'fingerspelled',
+              origin: (corpusShort || 'target') + ' fingerspelling alphabet',
+              originShort: forceFingerspell ? 'strict-mode fingerspell' : 'fingerspelled',
+              reason: forceFingerspell ? 'unreviewed — spelled out in strict mode' : undefined,
+              review: review,
+            });
             fingerspelled++;
           } else {
-            perToken.push({ kind: 'omitted', origin: null, originShort: 'omitted', reason: 'word omitted (no fingerspelling alphabet for this target)' });
+            perToken.push({
+              kind: 'omitted',
+              origin: null,
+              originShort: 'omitted',
+              reason: forceFingerspell
+                ? 'unreviewed — and no fingerspelling alphabet available to fall back to'
+                : 'word omitted (no fingerspelling alphabet for this target)',
+              review: review,
+            });
             omitted++;
           }
         } else {
-          perToken.push({ kind: 'omitted', origin: null, originShort: 'omitted', reason: 'word omitted (no fingerspelling alphabet for this target)' });
+          perToken.push({
+            kind: 'omitted',
+            origin: null,
+            originShort: 'omitted',
+            reason: 'word omitted (no fingerspelling alphabet for this target)',
+            review: review,
+          });
           omitted++;
         }
       }
@@ -1890,10 +2056,20 @@
         const chip = document.createElement('span');
         chip.className = 'token-chip';
         chip.dataset.token = t;
+        chip.dataset.index = String(i);
+        // Prompt-polish 6: every chip is focusable and Enter-activates the
+        // review detail panel — Deaf viewers need a clear signal whether a
+        // sign is grounded in community review.
+        chip.setAttribute('role', 'listitem');
+        chip.tabIndex = 0;
         const info = meta[i] || {};
         chip.dataset.kind = info.kind || 'sign';
         if (info.kind === 'fingerspelled') chip.classList.add('fingerspelled');
         else if (info.kind === 'omitted') chip.classList.add('omitted');
+        // Mark unreviewed signed chips so the subtle dot shows on the chip.
+        if ((info.kind || 'sign') === 'sign' && info.review && info.review.deaf_native_reviewed === false) {
+          chip.classList.add('is-unreviewed');
+        }
         const gloss = document.createElement('span');
         gloss.className = 'token-chip-gloss';
         gloss.textContent = t;
@@ -1906,11 +2082,102 @@
           origin.textContent = info.originShort || info.origin;
           chip.appendChild(origin);
         }
-        if (info.kind === 'fingerspelled') chip.setAttribute('aria-label', t + ', fingerspelled');
-        else if (info.kind === 'omitted') chip.setAttribute('aria-label', t + ', omitted — ' + (info.reason || 'no signs available'));
+        const reviewedPart = (info.review && info.review.deaf_native_reviewed)
+          ? 'reviewed by Deaf native signer'
+          : ((info.review && info.kind === 'sign') ? 'not yet reviewed' : '');
+        if (info.kind === 'fingerspelled') {
+          chip.setAttribute('aria-label', t + ', fingerspelled' + (reviewedPart ? ', ' + reviewedPart : ''));
+        } else if (info.kind === 'omitted') {
+          chip.setAttribute('aria-label', t + ', omitted — ' + (info.reason || 'no signs available'));
+        } else {
+          chip.setAttribute('aria-label', t + (reviewedPart ? ', ' + reviewedPart : '') + ', press Enter for details');
+        }
+        chip.addEventListener('click', () => openReviewDetail(i));
+        chip.addEventListener('keydown', (ev) => {
+          if (ev.key === 'Enter' || ev.key === ' ') {
+            ev.preventDefault();
+            openReviewDetail(i);
+          } else if (ev.key === 'Escape') {
+            closeReviewDetail();
+          }
+        });
         tokenList.appendChild(chip);
       });
     }
+
+    // Prompt-polish 6: chip detail panel. Opens on click/Enter to show the
+    // gloss, source database, Reviewed / Not yet reviewed badge, and
+    // reviewer count for the currently focused token. Keyboard: Escape
+    // closes; the close button is focusable.
+    (function initReviewDetailPanel() {
+      const panel = document.getElementById('reviewDetailPanel');
+      if (!panel) return;
+      const closeBtn = document.getElementById('reviewDetailClose');
+      const glossEl = document.getElementById('reviewDetailGloss');
+      const sourceEl = document.getElementById('reviewDetailSource');
+      const badgeEl = document.getElementById('reviewDetailBadge');
+      const reviewerCountEl = document.getElementById('reviewDetailReviewerCount');
+      const notesEl = document.getElementById('reviewDetailNotes');
+
+      window.openReviewDetail = function (index) {
+        const tokens = window.__plannedTokens || [];
+        const perToken = window.__lastPerToken || [];
+        const token = tokens[index] || '';
+        const info = perToken[index] || {};
+        const review = info.review || null;
+        glossEl.textContent = token || '—';
+        const origin = info.origin || (review && review.source) || 'Unknown source';
+        sourceEl.textContent = origin;
+        badgeEl.className = '';
+        const reviewed = !!(review && review.deaf_native_reviewed);
+        if (reviewed) {
+          badgeEl.className = 'kz-badge-reviewed';
+          badgeEl.textContent = 'Reviewed by Deaf native signer';
+        } else {
+          badgeEl.className = 'kz-badge-unreviewed';
+          badgeEl.textContent = 'Not yet reviewed';
+        }
+        if (review && typeof review.reviewer_count === 'number' && review.reviewer_count > 0) {
+          reviewerCountEl.textContent = review.reviewer_count === 1
+            ? '1 reviewer'
+            : review.reviewer_count + ' reviewers';
+        } else {
+          reviewerCountEl.textContent = reviewed ? '' : '0 reviewers';
+        }
+        const noteText = (review && review.notes) ? review.notes : '';
+        notesEl.textContent = noteText;
+        notesEl.hidden = !noteText;
+        panel.hidden = false;
+        closeBtn && closeBtn.focus();
+      };
+      window.closeReviewDetail = function () {
+        panel.hidden = true;
+      };
+      closeBtn && closeBtn.addEventListener('click', () => {
+        window.closeReviewDetail();
+      });
+      document.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Escape' && !panel.hidden) window.closeReviewDetail();
+      });
+    })();
+
+    // Prompt-polish 6: persist the reviewed_only preference per-browser.
+    (function initReviewedOnlyPref() {
+      const toggle = document.getElementById('reviewedOnlyToggle');
+      if (!toggle) return;
+      const KEY = 'bridgn.reviewed_only';
+      try {
+        const stored = localStorage.getItem(KEY);
+        window.__reviewedOnlyPref = stored === '1';
+        toggle.checked = window.__reviewedOnlyPref;
+      } catch (_e) {
+        window.__reviewedOnlyPref = false;
+      }
+      toggle.addEventListener('change', () => {
+        window.__reviewedOnlyPref = !!toggle.checked;
+        try { localStorage.setItem(KEY, window.__reviewedOnlyPref ? '1' : '0'); } catch (_e) {}
+      });
+    })();
 
     function highlightToken(index, total) {
       const chips = tokenList.querySelectorAll('.token-chip');

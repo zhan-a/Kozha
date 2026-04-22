@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "language": "asl",
+  "source": "ASL manual alphabet (community-standard fingerspelling)",
+  "source_kind": "alphabet",
+  "sigml_file": "asl_alphabet_sigml.sigml",
+  "default_review": {
+    "deaf_native_reviewed": false,
+    "reviewer_count": 0,
+    "reviewer_language_match": false,
+    "review_source": null,
+    "last_reviewed": null,
+    "notes": "community-contributed, pending review"
+  },
+  "sign_count": 26,
+  "signs": {}
+}

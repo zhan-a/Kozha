@@ -193,7 +193,13 @@ def _make_record(
     category: Optional[RejectionCategory] = None,
     fields_to_revise: Optional[Iterable[str]] = None,
     allow_non_native: Optional[bool] = None,
+    entry_sign_language: Optional[str] = None,
 ) -> ReviewRecord:
+    lang_match: Optional[bool] = None
+    if entry_sign_language is not None:
+        lang_match = entry_sign_language.strip().lower() in {
+            s.strip().lower() for s in (reviewer.signs or [])
+        }
     return ReviewRecord(
         reviewer_id=str(reviewer.id),
         is_deaf_native=reviewer.is_deaf_native,
@@ -205,6 +211,7 @@ def _make_record(
         signs=list(reviewer.signs),
         allow_non_native=allow_non_native,
         fields_to_revise=list(fields_to_revise or []),
+        reviewer_language_match=lang_match,
     )
 
 
@@ -270,6 +277,7 @@ def approve(
         notes=notes,
         comment=comment.strip(),
         allow_non_native=(allow_non_native if not reviewer.is_deaf_native else None),
+        entry_sign_language=entry.sign_language,
     )
     entry = _push_to_pending(entry)
     entry.reviewers = list(entry.reviewers) + [record]
@@ -325,6 +333,7 @@ def reject(
         notes=reason.strip(),
         comment=reason.strip(),
         category=category,
+        entry_sign_language=entry.sign_language,
     )
     entry = _push_to_pending(entry)
     entry.reviewers = list(entry.reviewers) + [record]
@@ -375,6 +384,7 @@ def request_revision(
         notes=comment.strip(),
         comment=comment.strip(),
         fields_to_revise=fields_to_revise,
+        entry_sign_language=entry.sign_language,
     )
     entry.reviewers = list(entry.reviewers) + [record]
     entry.status = "draft"
@@ -415,6 +425,7 @@ def flag(
         verdict="flagged",
         notes=reason.strip(),
         comment=reason.strip(),
+        entry_sign_language=entry.sign_language,
     )
     entry.reviewers = list(entry.reviewers) + [record]
     entry.status = "quarantined"
@@ -472,6 +483,7 @@ def clear_quarantine(
         verdict="changes_requested",
         notes=f"quarantine cleared → {target_status}: {comment.strip()}",
         comment=comment.strip(),
+        entry_sign_language=entry.sign_language,
     )
     entry.reviewers = list(entry.reviewers) + [record]
     entry.status = target_status

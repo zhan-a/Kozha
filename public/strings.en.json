@@ -202,7 +202,9 @@
       "sigml_summary_suffix": " element with the HamNoSys above, in the Kozha canonical format. Your renderer will accept it as-is.",
       "copy_hamnosys": "Copy HamNoSys",
       "copy_sigml": "Copy SiGML",
-      "download_sigml": "Download .sigml"
+      "download_sigml": "Download .sigml",
+      "review_status_draft_label": "Not yet reviewed",
+      "review_status_draft_body": "This draft will be marked as unreviewed until a Deaf native signer of this language approves it."
     },
 
     "submission": {

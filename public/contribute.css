@@ -953,6 +953,23 @@ select.field-input { cursor: pointer; }
   font-style: italic;
 }
 
+/* Prompt-polish 6: review-status notice above the notation tabs.
+   Compact, plain language, paired with the unreviewed badge. */
+.notation-review-status {
+  display: flex;
+  align-items: center;
+  gap: var(--kozha-space-2);
+  flex-wrap: wrap;
+  margin: var(--kozha-space-2) 0 var(--kozha-space-4);
+  font-size: var(--kozha-text-body-sm);
+  color: var(--kozha-color-ink-2);
+  line-height: 1.5;
+}
+.notation-review-lang {
+  font-weight: var(--kozha-weight-semibold);
+  color: var(--kozha-color-ink);
+}
+
 .notation-legend {
   background: var(--kozha-color-paper);
   border: 1px solid var(--kozha-color-border);
