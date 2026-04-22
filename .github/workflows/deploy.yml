@@ -123,4 +123,16 @@ jobs:
           sudo systemctl daemon-reload
           sudo systemctl restart kozha.service
           sudo systemctl --no-pager status kozha.service
+
+          # Polish-13 §6: deploy receipt for ``server/alerts.py``. The
+          # host-side alerter reads ``data/last_deploy.json`` to tell
+          # whether the most recent deploy attempt succeeded. Written
+          # only when the systemctl restart returned cleanly (the heredoc
+          # set -e aborts before here on any earlier failure).
+          cd /home/ubuntu/Kozha
+          DEPLOY_SHA=\$(git rev-parse HEAD)
+          DEPLOY_AT=\$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          cat > data/last_deploy.json <<JSON
+          {"status": "success", "sha": "\$DEPLOY_SHA", "at": "\$DEPLOY_AT"}
+          JSON
           REMOTE_SCRIPT

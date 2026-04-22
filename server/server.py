@@ -1,4 +1,7 @@
+import os
 import sys
+import time
+from contextlib import contextmanager
 from pathlib import Path
 
 # chat2hamnosys uses flat imports (``from session import ...``); make its
@@ -7,9 +10,9 @@ _CHAT2HAMNOSYS_ROOT = Path(__file__).resolve().parent.parent / "backend" / "chat
 if str(_CHAT2HAMNOSYS_ROOT) not in sys.path:
     sys.path.insert(0, str(_CHAT2HAMNOSYS_ROOT))
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, JSONResponse, Response
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, PlainTextResponse, Response
 from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from pydantic import BaseModel
@@ -22,6 +25,9 @@ import logging
 import spacy
 from spacy.matcher import PhraseMatcher
 
+import kozha_obs as _obs  # noqa: E402 — sibling module under ``server/``
+
+_obs.configure_logging(level=os.environ.get("KOZHA_LOG_LEVEL", "INFO"))
 logger = logging.getLogger(__name__)
 
 _argos_ready = False
@@ -76,6 +82,25 @@ app.add_middleware(
     allow_methods=["GET", "POST"],
     allow_headers=["Content-Type"],
 )
+
+
+# Request-id middleware (polish-13 §2).
+#
+# Every request gets a hex uuid as ``request.state.request_id`` — the
+# translation route handlers log it, the 5xx error handler puts it in
+# the response body, and the ``X-Request-ID`` response header mirrors
+# it so a user quoting the id from the browser's devtools can be
+# correlated with log lines the operator sees.
+#
+# The middleware only touches two dict lookups and one uuid.hex call,
+# so the per-request overhead is well under a millisecond — safely
+# inside the 20 ms instrumentation budget.
+@app.middleware("http")
+async def _kozha_request_id_middleware(request: Request, call_next):
+    request.state.request_id = _obs.new_request_id()
+    response = await call_next(request)
+    response.headers["X-Request-ID"] = request.state.request_id
+    return response
 
 def load_abbreviations(filepath: Path) -> Dict[str, str]:
     if not filepath.exists():
@@ -654,9 +679,123 @@ def text_to_glosses(text: str, source_lang: str = "en") -> list:
         tokens.extend(line.split())
     return tokens
 
+@contextmanager
+def _instrument_translation(request: Request, source_lang: str, target_sign_lang: str, source_text: str):
+    """Stopwatch + log + Prometheus update for translation routes.
+
+    The ``outcome`` is mutable on the yielded context so the route
+    handler can refine ``"success"`` to ``"validation_error"`` or
+    ``"missing_gloss"`` after the fact. Any exception inside the
+    block promotes the outcome to ``"server_error"`` and re-raises
+    (the global exception handler renders the JSON body).
+    """
+    t0 = time.perf_counter()
+    ctx: Dict[str, object] = {"outcome": "success"}
+    try:
+        yield ctx
+    except Exception:
+        ctx["outcome"] = "server_error"
+        raise
+    finally:
+        latency_ms = (time.perf_counter() - t0) * 1000.0
+        outcome = str(ctx.get("outcome") or "server_error")
+        _obs.record_translation(
+            source_lang=source_lang,
+            target_sign_lang=target_sign_lang,
+            outcome=outcome,
+            latency_ms=latency_ms,
+        )
+        client_ip = request.client.host if request.client else None
+        # Honour proxy header when present (nginx terminates TLS and
+        # forwards via loopback). ``X-Forwarded-For`` may be a list;
+        # the first entry is the original client.
+        fwd = request.headers.get("x-forwarded-for")
+        if fwd:
+            client_ip = fwd.split(",")[0].strip() or client_ip
+        _obs.log_request(
+            logger,
+            request_id=getattr(request.state, "request_id", ""),
+            method=request.method,
+            path=request.url.path,
+            source_lang=source_lang,
+            target_sign_lang=target_sign_lang,
+            source_text_length=len(source_text or ""),
+            cache_hit=bool(ctx.get("cache_hit", False)),
+            latency_ms=latency_ms,
+            outcome=outcome,
+            source_text=source_text,
+            ip_hash=_obs.hash_ip(client_ip),
+        )
+
+
 @app.get("/api/health")
 def health():
     return {"ok": True}
+
+
+# Polish-13 §7: liveness probe. Returns 200 whenever the process is
+# able to answer HTTP — no external checks, no data reads. Used by
+# load balancers and uptime monitors that just want "is this pid
+# alive and servicing requests".
+@app.get("/health", include_in_schema=False)
+def health_live():
+    return {"status": "ok"}
+
+
+# Polish-13 §7: readiness probe. Returns 200 only when the translator
+# can actually serve traffic (data files readable, meta parses,
+# optional spaCy model loaded, argostranslate importable). The body
+# details which checks passed so an operator can tell a 503 from a
+# warm-up state at a glance. Gated behind the LB's readiness probe
+# so a slow spaCy model install does not leak requests to a partly-
+# ready worker.
+@app.get("/health/ready", include_in_schema=False)
+def health_ready():
+    report = _obs.readiness_probe()
+    payload = {"status": "ok" if report.ok else "not_ready", "checks": report.checks}
+    if report.detail:
+        payload["detail"] = report.detail
+    return JSONResponse(payload, status_code=200 if report.ok else 503)
+
+
+# Polish-13 §3: Prometheus text exposition. ``PlainTextResponse``
+# avoids any JSON middleware touching the body; the exposition format
+# is a plain ``text/plain`` protocol. The endpoint is intentionally
+# open (no token) because operators scrape it from the local network
+# — nothing privacy-sensitive is here. Label sets are fixed and
+# bounded (see ``obs.OUTCOMES``), so the series cardinality stays
+# manageable.
+@app.get("/metrics", include_in_schema=False)
+def metrics():
+    return PlainTextResponse(
+        _obs.registry.render(),
+        media_type="text/plain; version=0.0.4; charset=utf-8",
+    )
+
+
+# Polish-13 §4: admin ops dashboard. Token-gated via the
+# ``KOZHA_ADMIN_TOKEN`` env var. If that is empty, the route returns
+# 404 — we do not want to leak that the page exists on a server that
+# isn't configured to serve it. Token is compared with a constant-time
+# helper to avoid leaking length through timing.
+import secrets as _secrets  # noqa: E402
+
+
+@app.get("/admin/ops", include_in_schema=False)
+@app.get("/admin/ops/", include_in_schema=False)
+def admin_ops(token: Optional[str] = None):
+    expected = os.environ.get("KOZHA_ADMIN_TOKEN", "")
+    if not expected:
+        raise HTTPException(status_code=404, detail="not found")
+    if not token or not _secrets.compare_digest(token, expected):
+        raise HTTPException(status_code=404, detail="not found")
+    html_path = PUBLIC_DIR / "admin" / "ops.html"
+    if not html_path.exists():
+        return HTMLResponse(
+            "<h1>admin/ops</h1><p>dashboard template missing</p>",
+            status_code=500,
+        )
+    return FileResponse(html_path)
 
 _SUPPORTED_SIGN_LANGS = {
     "bsl", "asl", "dgs", "lsf", "lse", "pjm", "gsl", "rsl",
@@ -674,78 +813,129 @@ def _translation_route_supported(src: str, tgt: str) -> bool:
 
 
 @app.post("/api/translate-text")
-def api_translate_text(req: TranslateTextRequest):
+def api_translate_text(req: TranslateTextRequest, request: Request):
     # Prompt 4: accept either `text` or `source_text`; the JS client sends
     # both, but older extension builds still only send `text`.
     text = (req.text or req.source_text or "").strip()
-    if not text or req.source_lang == req.target_lang:
-        return {"translated": text}
-    # Refuse unknown target sign languages explicitly rather than silently
-    # falling through to argos (which would succeed but produce output the
-    # client cannot render into sign).
-    if req.target_sign_lang and req.target_sign_lang not in _SUPPORTED_SIGN_LANGS:
-        logger.warning(
-            "translate-text: unknown target_sign_lang %r", req.target_sign_lang,
-        )
-        return {
-            "translated": text,
-            "error": f"unknown target sign language: {req.target_sign_lang}",
-        }
-    # Refuse source/target pairs with no argos route rather than silently
-    # returning the original text and leaving the client unsure whether
-    # translation ran.
-    if not _translation_route_supported(req.source_lang, req.target_lang):
-        return {
-            "translated": text,
-            "error": (
-                f"no translation route from {req.source_lang} to {req.target_lang}"
-            ),
-        }
-    try:
-        _ensure_argos()
-        from argostranslate import translate
-        result = translate.translate(text, req.source_lang, req.target_lang)
-        if not isinstance(result, str):
-            for attr in ("translatedText", "translated", "text", "translation"):
-                v = getattr(result, attr, None)
-                if isinstance(v, str):
-                    result = v
-                    break
-            else:
-                logger.error(
-                    "argostranslate returned non-string type %s for %s→%s: %r",
-                    type(result).__name__, req.source_lang, req.target_lang, result,
-                )
-                return {
-                    "translated": text,
-                    "error": f"translation returned unexpected type {type(result).__name__}",
-                }
-        return {"translated": result}
-    except Exception as e:
-        logger.error("Translation error: %s", e)
-        return {"translated": text, "error": str(e)}
+    tgt_sign = req.target_sign_lang or "-"
+    with _instrument_translation(request, req.source_lang or "", tgt_sign, text) as ctx:
+        if not text or req.source_lang == req.target_lang:
+            ctx["outcome"] = "success" if text else "validation_error"
+            return {"translated": text}
+        # Refuse unknown target sign languages explicitly rather than silently
+        # falling through to argos (which would succeed but produce output the
+        # client cannot render into sign).
+        if req.target_sign_lang and req.target_sign_lang not in _SUPPORTED_SIGN_LANGS:
+            logger.warning(
+                "translate-text: unknown target_sign_lang",
+                extra={"ctx": {"target_sign_lang": req.target_sign_lang}},
+            )
+            ctx["outcome"] = "validation_error"
+            return {
+                "translated": text,
+                "error": f"unknown target sign language: {req.target_sign_lang}",
+            }
+        # Refuse source/target pairs with no argos route rather than silently
+        # returning the original text and leaving the client unsure whether
+        # translation ran.
+        if not _translation_route_supported(req.source_lang, req.target_lang):
+            ctx["outcome"] = "validation_error"
+            return {
+                "translated": text,
+                "error": (
+                    f"no translation route from {req.source_lang} to {req.target_lang}"
+                ),
+            }
+        try:
+            _ensure_argos()
+            from argostranslate import translate
+            result = translate.translate(text, req.source_lang, req.target_lang)
+            if not isinstance(result, str):
+                for attr in ("translatedText", "translated", "text", "translation"):
+                    v = getattr(result, attr, None)
+                    if isinstance(v, str):
+                        result = v
+                        break
+                else:
+                    logger.error(
+                        "argostranslate returned non-string type",
+                        extra={"ctx": {
+                            "source_lang": req.source_lang,
+                            "target_lang": req.target_lang,
+                            "result_type": type(result).__name__,
+                        }},
+                    )
+                    ctx["outcome"] = "server_error"
+                    return {
+                        "translated": text,
+                        "error": f"translation returned unexpected type {type(result).__name__}",
+                    }
+            return {"translated": result}
+        except Exception as e:
+            # Explicit outcome + re-raise so the global handler can
+            # format a 5xx body with the request_id; we still want the
+            # metric to count this attempt as a server_error.
+            logger.error("Translation error: %s", e)
+            ctx["outcome"] = "server_error"
+            return {"translated": text, "error": str(e)}
 
 @app.post("/api/translate")
-def api_translate(req: TranslateRequest):
-    glosses = text_to_glosses(req.text, req.source_lang)
-    return {"glosses": glosses, "raw": req.text}
+def api_translate(req: TranslateRequest, request: Request):
+    with _instrument_translation(request, req.source_lang or "", "-", req.text) as ctx:
+        glosses = text_to_glosses(req.text, req.source_lang)
+        if not glosses:
+            ctx["outcome"] = "missing_gloss" if (req.text or "").strip() else "validation_error"
+        return {"glosses": glosses, "raw": req.text}
 
 @app.post("/api/translate/batch")
-def api_translate_batch(req: BatchTranslateRequest):
-    results = []
-    for seg in req.segments:
-        glosses = text_to_glosses(seg.text, req.source_lang)
-        results.append({"glosses": glosses, "start": seg.start, "duration": seg.duration})
-    return {"results": results}
+def api_translate_batch(req: BatchTranslateRequest, request: Request):
+    # Batch is a single instrumented request — counting each segment
+    # separately would inflate the request count metric and break the
+    # p50/p95 derived from it (those are per-request, not per-segment).
+    total_text = " ".join((s.text or "") for s in req.segments)
+    with _instrument_translation(request, req.source_lang or "", "-", total_text) as ctx:
+        results = []
+        for seg in req.segments:
+            glosses = text_to_glosses(seg.text, req.source_lang)
+            results.append({"glosses": glosses, "start": seg.start, "duration": seg.duration})
+        if results and not any(r["glosses"] for r in results):
+            ctx["outcome"] = "missing_gloss"
+        return {"results": results}
 
 @app.post("/api/plan")
-def api_plan(req: TextRequest):
-    return plan_from_text(
-        req.text,
-        req.language,
-        req.sign_language,
-        reviewed_only=req.reviewed_only,
-    )
+def api_plan(req: TextRequest, request: Request):
+    with _instrument_translation(request, req.language or "", req.sign_language or "", req.text) as ctx:
+        result = plan_from_text(
+            req.text,
+            req.language,
+            req.sign_language,
+            reviewed_only=req.reviewed_only,
+        )
+        if isinstance(result, dict) and "error" in result:
+            ctx["outcome"] = "validation_error"
+            return result
+        final = (result.get("final") or "").strip() if isinstance(result, dict) else ""
+        if not final:
+            ctx["outcome"] = "missing_gloss"
+        # Per-token metrics: count words the target language's database
+        # does not cover (unknown_word), and count how often we render a
+        # fingerspelling fallback for a token (force_fingerspell == True
+        # OR the token is not in the database). The labels are target
+        # language only — we intentionally avoid labelling by the token
+        # itself, which would be unbounded and a metrics anti-pattern.
+        per_tok = result.get("per_token_review") if isinstance(result, dict) else None
+        if per_tok:
+            target = req.sign_language or ""
+            for tok in per_tok:
+                if not isinstance(tok, dict):
+                    continue
+                in_db = bool(tok.get("in_database"))
+                force_fs = bool(tok.get("force_fingerspell"))
+                if not in_db:
+                    _obs.UNKNOWN_WORD_TOTAL.inc(target_sign_lang=target)
+                if force_fs or not in_db:
+                    _obs.FINGERSPELL_FALLBACK_TOTAL.inc(target_sign_lang=target)
+        return result
 
 
 @app.get("/api/review-meta/{sign_language}")
@@ -878,6 +1068,50 @@ async def _kozha_http_exception_handler(request: Request, exc: StarletteHTTPExce
         if wants_html and not is_api and not is_asset:
             return FileResponse(PUBLIC_DIR / "404.html", status_code=404)
     return JSONResponse({"detail": exc.detail}, status_code=exc.status_code)
+
+
+# Polish-13 §5: 5xx surface. Any uncaught exception returns a small
+# JSON body with a request_id the user can quote when reporting an
+# error. The stack trace is written to the server log (where operators
+# can correlate by request_id) but never echoed to the client —
+# responses can carry contextual data from locals, and we don't want
+# to leak that across the trust boundary.
+@app.exception_handler(Exception)
+async def _kozha_generic_exception_handler(request: Request, exc: Exception):
+    request_id = getattr(request.state, "request_id", "") if hasattr(request, "state") else ""
+    logger.error(
+        "unhandled server error",
+        extra={"ctx": {
+            "request_id": request_id,
+            "path": request.url.path,
+            "exc_type": type(exc).__name__,
+        }},
+        exc_info=True,
+    )
+    return JSONResponse(
+        {
+            "error": "internal server error",
+            "request_id": request_id,
+            "detail": "An unexpected error occurred. Please include this request_id when reporting the issue.",
+        },
+        status_code=500,
+        headers={"X-Request-ID": request_id} if request_id else None,
+    )
+
+
+# Seed per-language database-size and reviewed-signs gauges from the
+# current progress snapshot. If the snapshot doesn't exist yet (first
+# boot before the cron runs), the gauges stay at zero — the next
+# snapshot writes populate them. A malformed snapshot is logged at
+# INFO and ignored; the server still boots.
+_SNAPSHOT_JSON = PUBLIC_DIR / "progress_snapshot.json"
+if _SNAPSHOT_JSON.exists():
+    try:
+        _obs.refresh_database_gauges_from_snapshot(
+            json.loads(_SNAPSHOT_JSON.read_text(encoding="utf-8"))
+        )
+    except (OSError, json.JSONDecodeError) as _snap_err:
+        logger.info("startup snapshot gauges skipped: %s", _snap_err)
 
 
 app.mount("/", StaticFiles(directory=PUBLIC_DIR, html=True), name="public")

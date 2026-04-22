@@ -1,0 +1,61 @@
+name: Alerts
+
+# Run the rule-based alerter every 5 minutes against the live site.
+# GitHub Actions cron has a documented ~5–20 min delay on the free
+# tier — acceptable for the rules in ``server/alerts.py`` (error rate
+# over 15 min windows, snapshot-age, deploy status). A stricter SLO
+# would need a host-side systemd timer — see
+# ``docs/polish/13-restore-runbook.md`` §Alerts.
+#
+# Webhook delivery is gated on ``ALERT_WEBHOOK_URL`` being set as a
+# repo secret. If the secret is absent, the alerter still runs and
+# prints JSON violations to the job log — convenient for bring-up
+# without a Slack/Discord integration.
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: alerts-main
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  alert:
+    # ``if`` guards the whole job off until an operator sets the
+    # ``KOZHA_ALERTS_ENABLED`` repository variable. Prevents a fresh
+    # fork from hammering the live site on push.
+    if: vars.KOZHA_ALERTS_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run alerts
+        env:
+          KOZHA_METRICS_URL: ${{ vars.KOZHA_METRICS_URL }}
+          KOZHA_ALERT_WEBHOOK_URL: ${{ secrets.ALERT_WEBHOOK_URL }}
+        run: |
+          set -euo pipefail
+          # Exit 1 when any rule fires — that turns the job red so
+          # operators watching the Actions tab see the trend even
+          # without a webhook configured. Exit 2 means
+          # ``/metrics`` was unreachable, which we tolerate (the
+          # server might be between restarts) — mark it neutral.
+          code=0
+          python -m server.alerts || code=$?
+          if [ "$code" -eq 2 ]; then
+            echo "::warning ::metrics endpoint unreachable — not escalating"
+            exit 0
+          fi
+          exit "$code"

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow">
+  <title>Ops — Bridgn</title>
+  <style>
+    :root {
+      --ink: #1a1a1a;
+      --ink-dim: #555;
+      --paper: #fafafa;
+      --rule: #d9d7d2;
+      --ok: #2d7a46;
+      --warn: #9a6b00;
+      --err: #b3441b;
+      --bar: #3b5a98;
+      --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+    header {
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+    }
+    header h1 { font-size: 18px; margin: 0; }
+    header .meta { color: var(--ink-dim); font-size: 12px; font-family: var(--mono); }
+    main { padding: 24px; max-width: 1100px; }
+    section { margin-bottom: 32px; }
+    h2 { font-size: 15px; margin: 0 0 12px; letter-spacing: 0.02em; text-transform: uppercase; color: var(--ink-dim); }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 20px; }
+    .card {
+      border: 1px solid var(--rule);
+      background: #fff;
+      padding: 14px 16px;
+      border-radius: 4px;
+    }
+    .card .k { font-size: 12px; color: var(--ink-dim); text-transform: uppercase; letter-spacing: 0.04em; }
+    .card .v { font-size: 24px; font-family: var(--mono); margin-top: 4px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    th, td {
+      text-align: left;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--rule);
+      font-size: 13px;
+    }
+    th { background: #f2f0eb; font-weight: 500; color: var(--ink-dim); font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+    tr:last-child td { border-bottom: none; }
+    td.num, th.num { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; }
+    .bar {
+      position: relative;
+      background: #eceae4;
+      height: 14px;
+      border-radius: 2px;
+      overflow: hidden;
+      min-width: 120px;
+    }
+    .bar > span {
+      position: absolute;
+      inset: 0 auto 0 0;
+      background: var(--bar);
+      display: block;
+    }
+    .status-ok { color: var(--ok); }
+    .status-warn { color: var(--warn); }
+    .status-err { color: var(--err); }
+    .empty { padding: 16px; color: var(--ink-dim); font-style: italic; }
+    .kv { font-family: var(--mono); font-size: 12px; }
+    .tiny { font-size: 11px; color: var(--ink-dim); }
+    footer { padding: 20px 24px; color: var(--ink-dim); font-size: 12px; border-top: 1px solid var(--rule); }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media (max-width: 720px) { .grid-2 { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Bridgn ops — /admin/ops</h1>
+    <div class="meta"><span id="generated-at">loading…</span> · <span id="health-chip">health: …</span></div>
+  </header>
+
+  <main>
+    <section aria-label="Summary">
+      <div class="cards" id="summary-cards"></div>
+    </section>
+
+    <div class="grid-2">
+      <section aria-labelledby="h-translations">
+        <h2 id="h-translations">Translations by outcome</h2>
+        <div id="translations-table"></div>
+      </section>
+
+      <section aria-labelledby="h-latency">
+        <h2 id="h-latency">Latency (p50 · p95 approx, per outcome)</h2>
+        <div id="latency-table"></div>
+      </section>
+    </div>
+
+    <section aria-labelledby="h-db">
+      <h2 id="h-db">Database size by language</h2>
+      <div id="db-table"></div>
+    </section>
+
+    <section aria-labelledby="h-fallbacks">
+      <h2 id="h-fallbacks">Fingerspell fallbacks &amp; unknown words</h2>
+      <div id="fallback-table"></div>
+    </section>
+
+    <section aria-labelledby="h-contrib">
+      <h2 id="h-contrib">Contributions</h2>
+      <div id="contrib-table"></div>
+    </section>
+  </main>
+
+  <footer>
+    Raw metrics: <a href="/metrics">/metrics</a> · <a href="/health">/health</a> · <a href="/health/ready">/health/ready</a>. Refresh every 30 s.
+  </footer>
+
+  <script>
+    // Minimal Prometheus text-exposition parser. Expects lines of the form:
+    //   # HELP name text
+    //   # TYPE name counter|gauge|histogram|summary
+    //   name{k="v",k="v"} 42
+    //   name_bucket{le="5"} 1
+    // Everything we care about fits in the first two numeric tokens; the
+    // parser stays ~40 lines on purpose.
+    function parseMetrics(text) {
+      const out = {};
+      for (const raw of text.split('\n')) {
+        const line = raw.trim();
+        if (!line) continue;
+        if (line.startsWith('#')) {
+          const m = /^#\s+(HELP|TYPE)\s+(\S+)\s+(.*)$/.exec(line);
+          if (!m) continue;
+          const [, kind, name, rest] = m;
+          out[name] = out[name] || { help: '', type: '', samples: [] };
+          if (kind === 'HELP') out[name].help = rest;
+          if (kind === 'TYPE') out[name].type = rest;
+          continue;
+        }
+        const m = /^([a-zA-Z_:][\w:]*)(\{[^}]*\})?\s+(-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)\s*$/.exec(line);
+        if (!m) continue;
+        const [, name, labelBlock, valueStr] = m;
+        const value = Number(valueStr);
+        const labels = {};
+        if (labelBlock) {
+          const body = labelBlock.slice(1, -1);
+          // Split on ",<name>=" — commas inside quoted label values don't
+          // appear for us since our label vocabulary is ASCII-safe.
+          for (const pair of body.split(/,(?=[a-zA-Z_])/)) {
+            const eq = pair.indexOf('=');
+            if (eq < 0) continue;
+            const k = pair.slice(0, eq);
+            let v = pair.slice(eq + 1);
+            if (v.startsWith('"') && v.endsWith('"')) v = v.slice(1, -1);
+            labels[k] = v;
+          }
+        }
+        const base = name.replace(/_bucket$|_count$|_sum$/, '');
+        out[base] = out[base] || { help: '', type: '', samples: [] };
+        out[base].samples.push({ name, labels, value });
+      }
+      return out;
+    }
+
+    function groupBy(samples, keyFn) {
+      const m = new Map();
+      for (const s of samples) {
+        const k = keyFn(s);
+        if (!m.has(k)) m.set(k, []);
+        m.get(k).push(s);
+      }
+      return m;
+    }
+
+    function labelKey(labels, names) {
+      return names.map(n => `${n}=${labels[n] ?? ''}`).join('|');
+    }
+
+    function approxQuantile(buckets, count, q) {
+      if (count === 0) return null;
+      const target = q * count;
+      // buckets is already sorted ascending by le.
+      for (const b of buckets) {
+        if (b.cumulative >= target) return b.le;
+      }
+      return null;
+    }
+
+    function tableHTML(headers, rows) {
+      if (!rows.length) return '<div class="empty">No data.</div>';
+      const h = headers.map(h => `<th class="${h.num ? 'num' : ''}">${h.label}</th>`).join('');
+      const b = rows.map(r => `<tr>${
+        headers.map(h => `<td class="${h.num ? 'num' : ''}">${r[h.key] ?? ''}</td>`).join('')
+      }</tr>`).join('');
+      return `<table><thead><tr>${h}</tr></thead><tbody>${b}</tbody></table>`;
+    }
+
+    function fmt(n) {
+      if (n === null || n === undefined) return '—';
+      if (typeof n !== 'number') return String(n);
+      if (Number.isInteger(n)) return n.toLocaleString();
+      return n.toFixed(2);
+    }
+
+    function barCell(value, max) {
+      const pct = max > 0 ? Math.max(2, Math.round(100 * value / max)) : 0;
+      return `<div class="bar"><span style="width:${pct}%"></span></div>`;
+    }
+
+    async function refresh() {
+      try {
+        const [metricsRes, healthRes] = await Promise.all([
+          fetch('/metrics', { cache: 'no-store' }),
+          fetch('/health/ready', { cache: 'no-store' }),
+        ]);
+        const metricsText = await metricsRes.text();
+        const healthJson = await healthRes.json();
+        const parsed = parseMetrics(metricsText);
+        render(parsed, healthJson);
+      } catch (e) {
+        document.getElementById('generated-at').textContent = 'refresh failed';
+        console.error(e);
+      }
+    }
+
+    function render(p, health) {
+      document.getElementById('generated-at').textContent = new Date().toISOString().replace('T', ' ').slice(0, 19) + ' UTC';
+      const healthChip = document.getElementById('health-chip');
+      if (health && health.status === 'ok') {
+        healthChip.textContent = 'health: ok';
+        healthChip.className = 'status-ok';
+      } else {
+        healthChip.textContent = 'health: degraded';
+        healthChip.className = 'status-err';
+      }
+
+      // Summary cards
+      const translations = (p['kozha_translations_total']?.samples || [])
+        .filter(s => s.name === 'kozha_translations_total')
+        .reduce((a, s) => a + s.value, 0);
+      const errors = (p['kozha_translations_total']?.samples || [])
+        .filter(s => s.name === 'kozha_translations_total' && s.labels.outcome === 'server_error')
+        .reduce((a, s) => a + s.value, 0);
+      const fallbacks = (p['kozha_fingerspell_fallback_total']?.samples || [])
+        .reduce((a, s) => a + s.value, 0);
+      const unknowns = (p['kozha_unknown_word_total']?.samples || [])
+        .reduce((a, s) => a + s.value, 0);
+      const dbTotal = (p['kozha_database_size_total']?.samples || [])
+        .reduce((a, s) => a + s.value, 0);
+      const reviewedTotal = (p['kozha_reviewed_signs_total']?.samples || [])
+        .reduce((a, s) => a + s.value, 0);
+      const errRate = translations > 0 ? (100 * errors / translations) : 0;
+
+      const summaryHTML = [
+        { k: 'translations', v: fmt(translations) },
+        { k: '5xx rate', v: errRate.toFixed(2) + '%' },
+        { k: 'fingerspell fallbacks', v: fmt(fallbacks) },
+        { k: 'unknown words', v: fmt(unknowns) },
+        { k: 'signs in db', v: fmt(dbTotal) },
+        { k: 'reviewed signs', v: fmt(reviewedTotal) },
+      ].map(c => `<div class="card"><div class="k">${c.k}</div><div class="v">${c.v}</div></div>`).join('');
+      document.getElementById('summary-cards').innerHTML = summaryHTML;
+
+      // Translations by outcome table
+      const translationsSamples = (p['kozha_translations_total']?.samples || [])
+        .filter(s => s.name === 'kozha_translations_total');
+      const translationsGrouped = groupBy(
+        translationsSamples,
+        s => labelKey(s.labels, ['source_lang', 'target_sign_lang', 'outcome']),
+      );
+      const translationsRows = Array.from(translationsGrouped.entries()).map(([, samples]) => {
+        const s = samples[0];
+        return {
+          source_lang: s.labels.source_lang || '—',
+          target_sign_lang: s.labels.target_sign_lang || '—',
+          outcome: s.labels.outcome || '—',
+          count: fmt(samples.reduce((a, s) => a + s.value, 0)),
+        };
+      }).sort((a, b) => b.count.localeCompare(a.count));
+      document.getElementById('translations-table').innerHTML = tableHTML(
+        [
+          { key: 'source_lang', label: 'source' },
+          { key: 'target_sign_lang', label: 'sign' },
+          { key: 'outcome', label: 'outcome' },
+          { key: 'count', label: 'count', num: true },
+        ],
+        translationsRows,
+      );
+
+      // Latency — derive p50/p95 from the histogram buckets per outcome.
+      const latencySamples = p['kozha_translation_latency_ms']?.samples || [];
+      const latencyByKey = new Map();
+      for (const s of latencySamples) {
+        const k = labelKey(s.labels, ['source_lang', 'target_sign_lang', 'outcome']);
+        if (!latencyByKey.has(k)) latencyByKey.set(k, { labels: s.labels, buckets: [], count: 0, sum: 0 });
+        const slot = latencyByKey.get(k);
+        if (s.name.endsWith('_bucket')) {
+          if (s.labels.le === '+Inf') return; // count covers this
+          slot.buckets.push({ le: Number(s.labels.le), cumulative: s.value });
+        } else if (s.name.endsWith('_count')) {
+          slot.count = s.value;
+        } else if (s.name.endsWith('_sum')) {
+          slot.sum = s.value;
+        }
+      }
+      const latencyRows = Array.from(latencyByKey.values())
+        .filter(x => x.count > 0)
+        .map(x => {
+          x.buckets.sort((a, b) => a.le - b.le);
+          return {
+            source_lang: x.labels.source_lang || '—',
+            target_sign_lang: x.labels.target_sign_lang || '—',
+            outcome: x.labels.outcome || '—',
+            count: fmt(x.count),
+            mean: fmt(x.sum / x.count),
+            p50: fmt(approxQuantile(x.buckets, x.count, 0.5)),
+            p95: fmt(approxQuantile(x.buckets, x.count, 0.95)),
+          };
+        });
+      document.getElementById('latency-table').innerHTML = tableHTML(
+        [
+          { key: 'source_lang', label: 'source' },
+          { key: 'target_sign_lang', label: 'sign' },
+          { key: 'outcome', label: 'outcome' },
+          { key: 'count', label: 'n', num: true },
+          { key: 'mean', label: 'mean ms', num: true },
+          { key: 'p50', label: 'p50 ms', num: true },
+          { key: 'p95', label: 'p95 ms', num: true },
+        ],
+        latencyRows,
+      );
+
+      // Database size per language
+      const dbSamples = p['kozha_database_size_total']?.samples || [];
+      const reviewedSamples = p['kozha_reviewed_signs_total']?.samples || [];
+      const reviewedByLang = new Map(reviewedSamples.map(s => [s.labels.language, s.value]));
+      const dbMax = Math.max(1, ...dbSamples.map(s => s.value));
+      const dbRows = [...dbSamples]
+        .sort((a, b) => b.value - a.value)
+        .map(s => ({
+          language: s.labels.language,
+          total: fmt(s.value),
+          reviewed: fmt(reviewedByLang.get(s.labels.language) ?? 0),
+          bar: barCell(s.value, dbMax),
+        }));
+      document.getElementById('db-table').innerHTML = tableHTML(
+        [
+          { key: 'language', label: 'language' },
+          { key: 'total', label: 'signs', num: true },
+          { key: 'reviewed', label: 'reviewed', num: true },
+          { key: 'bar', label: '' },
+        ],
+        dbRows,
+      );
+
+      // Fingerspell + unknown, per language
+      const fsByLang = new Map((p['kozha_fingerspell_fallback_total']?.samples || [])
+        .map(s => [s.labels.target_sign_lang, s.value]));
+      const unkByLang = new Map((p['kozha_unknown_word_total']?.samples || [])
+        .map(s => [s.labels.target_sign_lang, s.value]));
+      const fbLangs = new Set([...fsByLang.keys(), ...unkByLang.keys()]);
+      const fbRows = Array.from(fbLangs).sort().map(lang => ({
+        language: lang,
+        fingerspell: fmt(fsByLang.get(lang) ?? 0),
+        unknown: fmt(unkByLang.get(lang) ?? 0),
+      }));
+      document.getElementById('fallback-table').innerHTML = tableHTML(
+        [
+          { key: 'language', label: 'target sign' },
+          { key: 'fingerspell', label: 'fingerspell fallbacks', num: true },
+          { key: 'unknown', label: 'unknown words', num: true },
+        ],
+        fbRows,
+      );
+
+      // Contributions
+      const received = (p['kozha_contributions_received_total']?.samples || [])
+        .reduce((a, s) => a + s.value, 0);
+      const validated = (p['kozha_contributions_validated_total']?.samples || [])
+        .reduce((a, s) => a + s.value, 0);
+      document.getElementById('contrib-table').innerHTML = tableHTML(
+        [
+          { key: 'metric', label: 'metric' },
+          { key: 'value', label: 'count', num: true },
+        ],
+        [
+          { metric: 'received', value: fmt(received) },
+          { metric: 'validated', value: fmt(validated) },
+        ],
+      );
+    }
+
+    refresh();
+    setInterval(refresh, 30000);
+  </script>
+</body>
+</html>

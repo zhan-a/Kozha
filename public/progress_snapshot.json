@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-22T15:19:33Z",
+  "generated_at": "2026-04-22T17:19:17Z",
   "generator": "server/progress_snapshot.py",
   "schema_version": 1,
   "totals": {
@@ -257,7 +257,12 @@
       "partial_data": false
     }
   ],
-  "progress_series": null,
+  "progress_series": [
+    {
+      "date": "2026-04-22",
+      "reviewed": 4677
+    }
+  ],
   "recent_activity": [],
   "coverage_gaps": {
     "bsl_missing_from_asl": [

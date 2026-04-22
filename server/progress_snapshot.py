@@ -48,6 +48,13 @@ DB_STATS_PATH = DOCS_DIR / "07-database-stats.json"
 
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
+# Also add ``server/`` itself so flat imports (``import review_metadata``)
+# resolve from both invocation paths: ``python -m server.progress_snapshot``
+# (package-qualified) and pytest (which drops ``server/`` on sys.path via
+# its test-discovery rules). Two paths need one clear import style.
+_SERVER_DIR = Path(__file__).resolve().parent
+if str(_SERVER_DIR) not in sys.path:
+    sys.path.insert(0, str(_SERVER_DIR))
 
 # Reuse the same review-metadata loader the translator uses so the
 # dashboard's counts always agree with what ``/api/plan`` would report.
@@ -55,7 +62,7 @@ if str(REPO_ROOT) not in sys.path:
 # (rejects [object Object] bodies, quarantine sidecars, manual-less
 # entries) — re-using it keeps the "alphabet letters covered" number
 # honest rather than regex-scanning blindly.
-from server.review_metadata import (  # noqa: E402
+from review_metadata import (  # noqa: E402
     ReviewMetadataIndex,
     _enumerate_glosses,
     gloss_base,
@@ -164,6 +171,11 @@ def _load_progress_series() -> Optional[list[dict]]:
         lines = PROGRESS_LOG_PATH.read_text(encoding="utf-8").splitlines()
     except OSError:
         return None
+    # Dedup by date: ``append_progress_log`` is idempotent, but older
+    # logs produced before that guard may contain multiple rows for
+    # the same UTC date. Later wins, since it is the more recent
+    # snapshot of that day's state.
+    by_date: dict[str, int] = {}
     for line in lines:
         line = line.strip()
         if not line:
@@ -176,8 +188,9 @@ def _load_progress_series() -> Optional[list[dict]]:
         reviewed = obj.get("reviewed")
         if not isinstance(date, str) or not isinstance(reviewed, (int, float)):
             continue
-        series.append({"date": date, "reviewed": int(reviewed)})
-    series.sort(key=lambda x: x["date"])
+        by_date[date] = int(reviewed)
+    for date in sorted(by_date.keys()):
+        series.append({"date": date, "reviewed": by_date[date]})
     return series
 
 
@@ -624,6 +637,81 @@ def build_snapshot() -> dict:
     }
 
 
+def append_progress_log(
+    snapshot: dict,
+    log_path: Path = PROGRESS_LOG_PATH,
+) -> Optional[dict]:
+    """Append one UTC-dated row summarizing today's snapshot.
+
+    The JSONL row is what the progress dashboard's growth chart reads
+    through ``_load_progress_series`` — that loader only keys on
+    ``date`` and ``reviewed``, so older rows stay valid after schema
+    additions here.
+
+    De-duplication is by UTC date: if a row for the same ``date``
+    already exists, it is kept and this call is a no-op. That keeps
+    the series clean when the snapshot runs twice in one day (e.g. a
+    code deploy plus the nightly cron).
+
+    Returns the appended row, or ``None`` if today already had one.
+    """
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    totals = snapshot.get("totals") or {}
+
+    # Per-language breakdown — small and bounded (one entry per
+    # language). Operators can diff successive rows to see which
+    # language grew or lost coverage without re-running the snapshot.
+    by_language: dict[str, dict] = {}
+    for lang in snapshot.get("languages") or []:
+        if not isinstance(lang, dict):
+            continue
+        code = (lang.get("code") or "").strip().lower()
+        if not code:
+            continue
+        by_language[code] = {
+            "total": lang.get("total"),
+            "reviewed": lang.get("reviewed"),
+            "awaiting_review": lang.get("awaiting_review"),
+            "alphabet_present": lang.get("alphabet_present"),
+            "alphabet_expected": lang.get("alphabet_expected"),
+            "top500_coverage_pct": lang.get("top500_coverage_pct"),
+        }
+
+    row = {
+        "date": today,
+        "generated_at": snapshot.get("generated_at"),
+        "signs": totals.get("signs"),
+        "languages": totals.get("languages"),
+        "reviewed": totals.get("reviewed"),
+        "awaiting_review": totals.get("awaiting_review"),
+        "by_language": by_language,
+    }
+
+    # If today's date is already recorded, skip. Reading the whole
+    # file is cheap (one line per day for the life of the project).
+    if log_path.exists():
+        try:
+            for line in log_path.read_text(encoding="utf-8").splitlines():
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    existing = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                if existing.get("date") == today:
+                    return None
+        except OSError:
+            # An unreadable log should not block the snapshot write —
+            # the dashboard can tolerate a missing row for a day.
+            return row
+
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    with log_path.open("a", encoding="utf-8") as fh:
+        fh.write(json.dumps(row, ensure_ascii=False) + "\n")
+    return row
+
+
 def write_snapshot(out_path: Path = OUTPUT_PATH) -> dict:
     snapshot = build_snapshot()
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -631,6 +719,7 @@ def write_snapshot(out_path: Path = OUTPUT_PATH) -> dict:
         json.dumps(snapshot, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
+    append_progress_log(snapshot)
     return snapshot
 
 
