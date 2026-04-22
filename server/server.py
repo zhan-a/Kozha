@@ -617,6 +617,21 @@ def api_translate_text(req: TranslateTextRequest):
         _ensure_argos()
         from argostranslate import translate
         result = translate.translate(text, req.source_lang, req.target_lang)
+        if not isinstance(result, str):
+            for attr in ("translatedText", "translated", "text", "translation"):
+                v = getattr(result, attr, None)
+                if isinstance(v, str):
+                    result = v
+                    break
+            else:
+                logger.error(
+                    "argostranslate returned non-string type %s for %s→%s: %r",
+                    type(result).__name__, req.source_lang, req.target_lang, result,
+                )
+                return {
+                    "translated": text,
+                    "error": f"translation returned unexpected type {type(result).__name__}",
+                }
         return {"translated": result}
     except Exception as e:
         logger.error("Translation error: %s", e)

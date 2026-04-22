@@ -21,6 +21,7 @@
 
   <link rel="stylesheet" href="/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script defer src="/cwa/allcsa.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script defer src="/sigml-validator.js"></script>
   <link rel="preload" href="/data/hamnosys_bsl_version1.sigml" as="fetch" crossorigin>
   <link rel="preload" href="/cwa/cwasa.css" as="style" crossorigin="anonymous">
 
@@ -1321,7 +1322,12 @@
         });
         if (!resp.ok) throw new Error('Translation request failed: ' + resp.status);
         const data = await resp.json();
-        return (data.translated || text).trim();
+        const coerce = (window.SigmlValidator && window.SigmlValidator.coerceTranslationResult) || null;
+        const raw = coerce ? coerce(data.translated, text) : (typeof data.translated === 'string' ? data.translated : text);
+        if (coerce && typeof data.translated !== 'string' && data.translated != null) {
+          console.warn('[translate] server returned non-string translated:', data.translated);
+        }
+        return (raw || text).trim();
       } catch (err) {
         log('Translation failed — continuing with original text');
         renderStatus.textContent = 'Translation unavailable — using original text';
@@ -1469,18 +1475,52 @@
 
     function fingerspellWord(word){ const blocks = []; const upperWord = (word||'').toUpperCase(); for (const char of upperWord){ if (char >= 'A' && char <= 'Z'){ const lb = letterToSign.get(char); if (lb) blocks.push(lb); } } return blocks; }
 
+    window.__lastMalformedSigns = [];
+
     function buildSigml(tokens){
       const blocks = [];
+      const malformed = [];
+      const validator = window.SigmlValidator || null;
       for (const t of tokens){
         const b = glossToSign.get(t);
-        if (b) { blocks.push(b); }
-        else if (letterToSign.size > 0) { const base = glossBase(t); const lb = fingerspellWord(base || t); if (lb.length > 0){ blocks.push(...lb); log(`Fingerspelling: "${base || t}"`); } }
+        let accepted = false;
+        if (typeof b === 'string') {
+          const v = validator ? validator.validateHnsSignXml(b) : { valid: true };
+          if (v.valid) {
+            blocks.push(b);
+            accepted = true;
+          } else {
+            malformed.push({ gloss: t, reason: v.reason || 'unknown-tags', unknownTags: v.unknownTags || [] });
+            console.warn(`[sigml] skipping malformed sign "${t}": ${v.reason || 'unknown-tags'} ${(v.unknownTags||[]).join(',')}`);
+          }
+        } else if (b != null) {
+          malformed.push({ gloss: t, reason: 'not-a-string', receivedType: typeof b });
+          console.warn(`[sigml] glossToSign["${t}"] is not a string (got ${typeof b}); skipping`);
+        }
+        if (!accepted && letterToSign.size > 0) {
+          const base = glossBase(t);
+          const lb = fingerspellWord(base || t);
+          if (lb.length > 0){ blocks.push(...lb); log(`Fingerspelling: "${base || t}"`); }
+        }
       }
+      window.__lastMalformedSigns = malformed;
       if (!blocks.length) return null;
-      return `<?xml version="1.0" encoding="utf-8"?>\n<sigml>\n${blocks.join('\n')}\n</sigml>`;
+      const composed = `<?xml version="1.0" encoding="utf-8"?>\n<sigml>\n${blocks.join('\n')}\n</sigml>`;
+      if (validator && validator.sigmlHasObjectLiteral(composed)) {
+        console.error('[sigml] refusing to emit: composed SiGML contains "[object Object]"');
+        return null;
+      }
+      return composed;
     }
 
-    function playSigml(sigml){ try{ CWASA.playSiGMLText(sigml, 0); }catch(e){ log('CWASA play error: ' + e); } }
+    function playSigml(sigml){
+      if (typeof sigml !== 'string' || !sigml.trim()) { log('CWASA play: empty SiGML'); return; }
+      if (window.SigmlValidator && window.SigmlValidator.sigmlHasObjectLiteral(sigml)) {
+        log('CWASA play: refusing to play, SiGML contains object literal');
+        return;
+      }
+      try{ CWASA.playSiGMLText(sigml, 0); }catch(e){ log('CWASA play error: ' + e); }
+    }
 
     const translateBtn = document.getElementById('translateBtn');
     const tokenList = document.getElementById('tokenList');
@@ -1560,6 +1600,15 @@
         if (!toks.length) { renderStatus.textContent = 'No matching signs found.'; renderStatus.className = 'status-badge'; return; }
         const sigml = buildSigml(toks);
         showTokenChips(toks);
+        const malformed = window.__lastMalformedSigns || [];
+        if (malformed.length) {
+          const langLabel = (SIGN_LANG_NAMES[getSignLang()] || getSignLang() || '').toString();
+          const list = malformed.map(m => m.gloss).join(', ');
+          log(`Malformed database entries skipped (${langLabel}): ${list}`);
+          const msg = `A database entry for "${malformed[0].gloss}" (${langLabel}) is malformed. This word cannot be signed yet. Please report this in the contribute page.`;
+          renderStatus.textContent = msg;
+          renderStatus.className = 'status-badge';
+        }
         if (!cwasaAvailable) {
           renderStatus.textContent = 'Avatar unavailable — showing text output';
           renderStatus.className = 'status-badge';
@@ -1570,14 +1619,18 @@
           if (allFingerspelled && letterToSign.size > 0) {
             renderStatus.textContent = 'No matching signs — fingerspelling entire phrase';
             renderStatus.className = 'status-badge loading';
-          } else {
+          } else if (!malformed.length) {
             renderStatus.textContent = 'No matching signs found.';
             renderStatus.className = 'status-badge';
             return;
+          } else {
+            return;
           }
         }
-        renderStatus.textContent = 'Playing…';
-        renderStatus.className = 'status-badge loading';
+        if (!malformed.length) {
+          renderStatus.textContent = 'Playing…';
+          renderStatus.className = 'status-badge loading';
+        }
         playSigml(sigml);
         simulatePlayback(toks);
       } catch (e) {

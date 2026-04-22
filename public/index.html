@@ -32,6 +32,7 @@
   <link rel="preload" href="/cwa/cwasa.css" as="style" crossorigin="anonymous">
   <link rel="stylesheet" href="/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script defer src="/cwa/allcsa.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script defer src="/sigml-validator.js"></script>
   <script defer src="/i18n.js"></script>
   <meta name="theme-color" content="#f5f1eb" />
   <style>
@@ -1311,18 +1312,41 @@
       return blocks;
     }
 
+    window.__heroLastMalformedSigns = [];
+
     function buildSigml(tokens) {
       const blocks = [];
+      const malformed = [];
+      const validator = window.SigmlValidator || null;
       for (const t of tokens) {
         const b = glossToSign.get(t);
-        if (b) { blocks.push(b); }
-        else if (letterToSign.size > 0) {
+        let accepted = false;
+        if (typeof b === 'string') {
+          const v = validator ? validator.validateHnsSignXml(b) : { valid: true };
+          if (v.valid) {
+            blocks.push(b);
+            accepted = true;
+          } else {
+            malformed.push({ gloss: t, reason: v.reason || 'unknown-tags', unknownTags: v.unknownTags || [] });
+            console.warn('[hero sigml] skipping malformed sign "' + t + '": ' + (v.reason || 'unknown-tags') + ' ' + (v.unknownTags||[]).join(','));
+          }
+        } else if (b != null) {
+          malformed.push({ gloss: t, reason: 'not-a-string', receivedType: typeof b });
+          console.warn('[hero sigml] glossToSign["' + t + '"] is not a string (got ' + (typeof b) + '); skipping');
+        }
+        if (!accepted && letterToSign.size > 0) {
           const lb = fingerspellWord(t);
           if (lb.length > 0) blocks.push(...lb);
         }
       }
+      window.__heroLastMalformedSigns = malformed;
       if (!blocks.length) return null;
-      return '<?xml version="1.0" encoding="utf-8"?>\n<sigml>\n' + blocks.join('\n') + '\n</sigml>';
+      const composed = '<?xml version="1.0" encoding="utf-8"?>\n<sigml>\n' + blocks.join('\n') + '\n</sigml>';
+      if (validator && validator.sigmlHasObjectLiteral(composed)) {
+        console.error('[hero sigml] refusing to emit: composed SiGML contains "[object Object]"');
+        return null;
+      }
+      return composed;
     }
 
     var SIGN_LANG_GLOSS = {
@@ -1346,7 +1370,12 @@
         });
         if (!resp.ok) throw new Error('Translation request failed: ' + resp.status);
         var data = await resp.json();
-        return (data.translated || text).trim();
+        var coerce = (window.SigmlValidator && window.SigmlValidator.coerceTranslationResult) || null;
+        var raw = coerce ? coerce(data.translated, text) : (typeof data.translated === 'string' ? data.translated : text);
+        if (coerce && typeof data.translated !== 'string' && data.translated != null) {
+          console.warn('[hero translate] server returned non-string translated:', data.translated);
+        }
+        return (raw || text).trim();
       } catch (err) {
         console.warn('[index] Translation failed:', err);
         var statusDot = document.getElementById('statusDot');
@@ -1410,15 +1439,28 @@
           return;
         }
         const sigml = buildSigml(mapped);
+        const heroMalformed = window.__heroLastMalformedSigns || [];
+        if (heroMalformed.length) {
+          var heroLangLabel = (getHeroSignLang() || '').toString().toUpperCase();
+          var statusDot2 = document.getElementById('statusDot');
+          statusDot2.textContent = 'A database entry for "' + heroMalformed[0].gloss + '" (' + heroLangLabel + ') is malformed. This word cannot be signed yet. Please report this in the contribute page.';
+          statusDot2.className = 'status-dot loading';
+        }
         if (!sigml) {
-          btn.textContent = 'No signs found';
+          btn.textContent = heroMalformed.length ? 'Malformed DB entry' : 'No signs found';
+          setTimeout(function() { btn.textContent = 'Translate ▶'; btn.disabled = false; }, 2000);
+          return;
+        }
+        if (window.SigmlValidator && window.SigmlValidator.sigmlHasObjectLiteral(sigml)) {
+          console.error('[hero] refusing to play: SiGML contains [object Object]');
+          btn.textContent = 'Malformed DB entry';
           setTimeout(function() { btn.textContent = 'Translate ▶'; btn.disabled = false; }, 2000);
           return;
         }
 
         if (cwasaReady) {
           CWASA.playSiGMLText(sigml, 0);
-          btn.textContent = 'Playing…';
+          btn.textContent = heroMalformed.length ? 'Playing partial…' : 'Playing…';
         } else {
           var statusDot = document.getElementById('statusDot');
           statusDot.textContent = 'Avatar unavailable — showing text output';
