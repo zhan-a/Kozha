@@ -50,6 +50,18 @@ jobs:
           [ -f ../backend/chat2hamnosys/requirements.txt ] || { echo "Missing backend requirements at ../backend/chat2hamnosys/requirements.txt"; exit 1; }
           pip install --no-cache-dir -r ../backend/chat2hamnosys/requirements.txt
 
+          # Prompt 8: refresh public/progress_snapshot.json so the public
+          # progress dashboard reflects the freshly-deployed data and
+          # meta files. Failures here must not block the deploy — the
+          # dashboard can temporarily serve a stale snapshot while the
+          # operator investigates, which is strictly better than
+          # rolling back a translator deploy over a stats glitch.
+          cd ..
+          if ! python -m server.progress_snapshot; then
+            echo "[deploy] progress_snapshot failed — continuing with existing snapshot"
+          fi
+          cd server
+
           OPENAI_API_KEY_NEW='$OPENAI_API_KEY'
           if [ -n "\$OPENAI_API_KEY_NEW" ]; then
             # Mode 600 means only the owner (root) can read, so the group

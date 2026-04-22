@@ -15,6 +15,7 @@ from typing import Optional
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
@@ -82,6 +83,13 @@ def build_app() -> FastAPI:
             "sign_language": req.sign_language,
             "allowed": [],
         }
+
+    # Match the production server's extensionless /progress route so the
+    # prompt-8 Playwright tests exercise the same URL visitors hit.
+    @app.get("/progress", include_in_schema=False)
+    @app.get("/progress/", include_in_schema=False)
+    def serve_progress():
+        return FileResponse(PUBLIC_DIR / "progress.html")
 
     if DATA_DIR.exists():
         app.mount("/data", StaticFiles(directory=str(DATA_DIR)), name="data")

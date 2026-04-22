@@ -1,0 +1,632 @@
+/* ---------------------------------------------------------------------
+ * /progress page styles
+ *
+ * Uses the shared --kozha-* tokens and .kz-* components from
+ * styles/tokens.css + styles/components.css. Nothing here reaches
+ * outside the token set — if a value feels off, it should be fixed in
+ * the token first.
+ *
+ * Layout strategy: table on desktop, card-per-language list below 768px
+ * (the table is visible=false, cards visible=true). JS flips the
+ * `hidden` attribute + `aria-hidden` so assistive tech sees exactly
+ * one representation at a time.
+ * ------------------------------------------------------------------ */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body.progress-body {
+  font-family: var(--kozha-font-sans);
+  background: var(--kozha-color-paper);
+  color: var(--kozha-color-ink);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+/* ===== Skip link ===== */
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  background: var(--kozha-color-accent);
+  color: var(--kozha-color-white);
+  padding: 8px 16px;
+  border-radius: var(--kozha-radius-sm);
+  font-size: var(--kozha-text-body);
+  font-weight: var(--kozha-weight-semibold);
+  z-index: var(--kozha-z-skip);
+  text-decoration: none;
+}
+.skip-link:focus { top: 8px; }
+
+/* ===== Nav (mirrors index.html shape; the .kz-header token-driven
+ *       base handles positioning, backdrop, and hairline border) ===== */
+
+.kz-header .nav-logo {
+  font-family: var(--kozha-font-serif);
+  font-size: var(--kozha-text-step-title);
+  color: var(--kozha-color-ink);
+  text-decoration: none;
+  letter-spacing: var(--kozha-tracking-tight);
+}
+.kz-header .nav-logo span { color: var(--kozha-color-accent); }
+
+.kz-header .nav-links {
+  display: flex;
+  gap: var(--kozha-space-8);
+  list-style: none;
+}
+
+.kz-header .nav-links .is-active {
+  color: var(--kozha-color-accent);
+}
+
+.kz-header .nav-cta { display: flex; gap: var(--kozha-space-2); align-items: center; }
+.kz-header .btn-primary {
+  font-family: var(--kozha-font-sans);
+  font-size: var(--kozha-text-body);
+  font-weight: var(--kozha-weight-semibold);
+  color: var(--kozha-color-white);
+  background: var(--kozha-color-accent);
+  border: none;
+  border-radius: var(--kozha-radius-sm);
+  padding: 10px 18px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--kozha-duration-slow),
+              box-shadow var(--kozha-duration-slow),
+              transform var(--kozha-duration-slow);
+}
+.kz-header .btn-primary:hover {
+  background: var(--kozha-color-accent-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--kozha-shadow-btn-hover-sm);
+}
+.kz-header .nav-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--kozha-space-2);
+  margin-right: calc(-1 * var(--kozha-space-2));
+  color: var(--kozha-color-ink-2);
+}
+
+/* ===== Main layout ===== */
+
+.progress-main {
+  max-width: var(--kozha-layout-page-max);
+  margin: 0 auto;
+  padding: calc(var(--kozha-layout-nav-h) + var(--kozha-space-12))
+           var(--kozha-space-12) var(--kozha-space-16);
+}
+
+.progress-hero { max-width: 720px; margin: 0 auto var(--kozha-space-12); text-align: center; }
+.progress-eyebrow {
+  display: inline-block;
+  font-size: var(--kozha-text-caption-lg);
+  font-weight: var(--kozha-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--kozha-tracking-widest);
+  color: var(--kozha-color-accent);
+  background: var(--kozha-color-accent-light);
+  padding: 6px 14px;
+  border-radius: var(--kozha-radius-pill);
+  margin-bottom: var(--kozha-space-6);
+}
+.progress-h1 {
+  font-family: var(--kozha-font-serif);
+  font-size: var(--kozha-text-hero-h1);
+  font-weight: var(--kozha-weight-regular);
+  letter-spacing: var(--kozha-tracking-tightest);
+  line-height: var(--kozha-leading-tight);
+  color: var(--kozha-color-ink);
+  margin-bottom: var(--kozha-space-4);
+}
+.progress-lede {
+  font-size: var(--kozha-text-hero-sub);
+  line-height: var(--kozha-leading-loose);
+  color: var(--kozha-color-ink-2);
+  max-width: 640px;
+  margin: 0 auto var(--kozha-space-4);
+}
+.progress-dash { color: var(--kozha-color-accent); font-weight: var(--kozha-weight-semibold); }
+.progress-generated {
+  font-size: var(--kozha-text-caption-lg);
+  color: var(--kozha-color-ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===== Section scaffold ===== */
+
+.progress-section { margin-top: var(--kozha-space-16); }
+.progress-section-head {
+  margin-bottom: var(--kozha-space-6);
+}
+.progress-section-title {
+  font-family: var(--kozha-font-serif);
+  font-size: var(--kozha-text-contribute-h2);
+  font-weight: var(--kozha-weight-regular);
+  letter-spacing: var(--kozha-tracking-tight);
+  color: var(--kozha-color-ink);
+  margin-bottom: var(--kozha-space-2);
+}
+.progress-section-note {
+  font-size: var(--kozha-text-body);
+  color: var(--kozha-color-ink-3);
+  max-width: 640px;
+}
+
+/* ===== Top-line stats ===== */
+
+.progress-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--kozha-space-6);
+}
+.progress-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--kozha-space-2);
+  padding: var(--kozha-space-8) var(--kozha-space-6);
+}
+.progress-stat-num {
+  font-family: var(--kozha-font-serif);
+  font-size: var(--kozha-text-step-num);
+  font-weight: var(--kozha-weight-regular);
+  letter-spacing: var(--kozha-tracking-tight);
+  color: var(--kozha-color-ink);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.progress-stat-num.is-partial,
+.progress-stat-num.is-empty { color: var(--kozha-color-ink-3); }
+.progress-stat-label {
+  font-size: var(--kozha-text-caption-lg);
+  color: var(--kozha-color-ink-3);
+  font-weight: var(--kozha-weight-medium);
+  letter-spacing: var(--kozha-tracking-wide);
+  text-transform: uppercase;
+}
+
+/* ===== Table ===== */
+
+.progress-table-wrap {
+  padding: 0;
+  overflow: hidden;
+}
+.progress-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--kozha-text-body);
+}
+.progress-table thead th {
+  text-align: left;
+  padding: 0;
+  background: var(--kozha-color-paper-2);
+  color: var(--kozha-color-ink-2);
+  font-weight: var(--kozha-weight-semibold);
+  font-size: var(--kozha-text-caption-lg);
+  letter-spacing: var(--kozha-tracking-wide);
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--kozha-color-border);
+}
+.progress-table th.progress-col-num { text-align: right; }
+.progress-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 14px 18px;
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+  transition: background var(--kozha-duration-fast), color var(--kozha-duration-fast);
+}
+.progress-table th.progress-col-num .progress-sort { justify-content: flex-end; }
+.progress-sort:hover { background: var(--kozha-color-paper-3); color: var(--kozha-color-ink); }
+.progress-sort:focus-visible {
+  outline: 2px solid var(--kozha-color-accent);
+  outline-offset: -2px;
+  background: var(--kozha-color-paper-3);
+}
+.progress-sort-icon { width: 10px; display: inline-block; opacity: 0.4; font-size: 11px; }
+.progress-sort.is-active .progress-sort-icon { opacity: 1; color: var(--kozha-color-accent); }
+.progress-sort.is-active[data-direction="asc"]  .progress-sort-icon::before { content: '\25B2'; }
+.progress-sort.is-active[data-direction="desc"] .progress-sort-icon::before { content: '\25BC'; }
+.progress-table tbody td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--kozha-color-border);
+  vertical-align: middle;
+  color: var(--kozha-color-ink-2);
+}
+.progress-table tbody tr:last-child td { border-bottom: none; }
+.progress-table tbody tr:hover td { background: var(--kozha-color-paper-2); }
+.progress-table td.progress-col-num { text-align: right; font-variant-numeric: tabular-nums; }
+
+.progress-lang-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.progress-lang-code {
+  font-family: var(--kozha-font-mono);
+  font-size: var(--kozha-text-caption);
+  text-transform: uppercase;
+  letter-spacing: var(--kozha-tracking-wide);
+  color: var(--kozha-color-ink-3);
+}
+.progress-lang-name {
+  font-weight: var(--kozha-weight-medium);
+  color: var(--kozha-color-ink);
+}
+
+.progress-source-cell {
+  max-width: 18rem;
+  font-size: var(--kozha-text-body-sm);
+  color: var(--kozha-color-ink-3);
+}
+.progress-source-kind {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: var(--kozha-weight-semibold);
+  letter-spacing: var(--kozha-tracking-wider);
+  text-transform: uppercase;
+  padding: 2px 8px;
+  margin-right: 6px;
+  border-radius: var(--kozha-radius-pill);
+  vertical-align: 1px;
+  background: var(--kozha-color-paper-2);
+  color: var(--kozha-color-ink-3);
+  border: 1px solid var(--kozha-color-border);
+}
+.progress-source-kind.is-corpus { background: var(--kozha-badge-reviewed-bg); color: var(--kozha-badge-reviewed-fg); border-color: var(--kozha-badge-reviewed-border); }
+
+.progress-partial {
+  font-size: var(--kozha-text-caption);
+  color: var(--kozha-color-ink-3);
+  font-style: italic;
+  cursor: help;
+  border-bottom: 1px dotted var(--kozha-color-ink-3);
+}
+
+.progress-alphabet-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--kozha-text-caption);
+  font-weight: var(--kozha-weight-semibold);
+  padding: 3px 10px;
+  border-radius: var(--kozha-radius-pill);
+  letter-spacing: var(--kozha-tracking-wide);
+  text-transform: uppercase;
+  border: 1px solid transparent;
+}
+.progress-alphabet-badge.is-full {
+  color: var(--kozha-badge-reviewed-fg);
+  background: var(--kozha-badge-reviewed-bg);
+  border-color: var(--kozha-badge-reviewed-border);
+}
+.progress-alphabet-badge.is-partial {
+  color: var(--kozha-color-ink-2);
+  background: var(--kozha-color-paper-2);
+  border-color: var(--kozha-color-border);
+}
+.progress-alphabet-badge.is-none {
+  color: var(--kozha-color-ink-3);
+  background: var(--kozha-color-paper-2);
+  border-color: var(--kozha-color-border);
+}
+
+.progress-table-empty td {
+  padding: var(--kozha-space-10) var(--kozha-space-6);
+  text-align: center;
+  color: var(--kozha-color-ink-3);
+}
+
+/* ===== Card list (mobile only) =====
+ *
+ * Cards are hidden on desktop — the table above carries the same
+ * information. The media query below flips the table off and the
+ * cards on at narrow viewports. The `hidden` attribute on the
+ * container (set in markup) provides graceful no-CSS behavior but CSS
+ * owns the visibility at runtime. */
+
+.progress-cards {
+  display: none;
+  gap: var(--kozha-space-4);
+}
+.progress-card {
+  padding: var(--kozha-space-6);
+}
+.progress-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--kozha-space-4);
+  margin-bottom: var(--kozha-space-4);
+}
+.progress-card-title {
+  font-family: var(--kozha-font-serif);
+  font-size: var(--kozha-text-feature-title);
+  color: var(--kozha-color-ink);
+  line-height: 1.2;
+}
+.progress-card-code {
+  font-family: var(--kozha-font-mono);
+  font-size: var(--kozha-text-caption);
+  text-transform: uppercase;
+  color: var(--kozha-color-ink-3);
+}
+.progress-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--kozha-space-4) var(--kozha-space-6);
+}
+.progress-card-row { display: flex; flex-direction: column; gap: 2px; }
+.progress-card-row-label {
+  font-size: var(--kozha-text-caption);
+  color: var(--kozha-color-ink-3);
+  text-transform: uppercase;
+  letter-spacing: var(--kozha-tracking-wide);
+}
+.progress-card-row-value {
+  font-size: var(--kozha-text-body);
+  color: var(--kozha-color-ink);
+  font-variant-numeric: tabular-nums;
+}
+.progress-card-source {
+  grid-column: 1 / -1;
+  font-size: var(--kozha-text-body-sm);
+  color: var(--kozha-color-ink-3);
+  padding-top: var(--kozha-space-3);
+  border-top: 1px solid var(--kozha-color-border);
+}
+
+/* ===== Chart ===== */
+
+.progress-chart { padding: var(--kozha-space-8); }
+.progress-chart-body {
+  width: 100%;
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.progress-chart-body svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: 320px;
+}
+.progress-chart-body .axis-line { stroke: var(--kozha-color-border); stroke-width: 1; }
+.progress-chart-body .axis-tick-label {
+  fill: var(--kozha-color-ink-3);
+  font-family: var(--kozha-font-sans);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.progress-chart-body .series-path {
+  fill: none;
+  stroke: var(--kozha-color-accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.progress-chart-body .series-area {
+  fill: var(--kozha-color-accent-light);
+  opacity: 0.6;
+}
+.progress-chart-body .series-point {
+  fill: var(--kozha-color-accent);
+}
+.progress-chart-empty {
+  color: var(--kozha-color-ink-3);
+  font-style: italic;
+  text-align: center;
+}
+.progress-chart-description {
+  margin-top: var(--kozha-space-4);
+  font-size: var(--kozha-text-body-sm);
+  color: var(--kozha-color-ink-3);
+  line-height: var(--kozha-leading-loose);
+}
+
+/* ===== Recent activity ===== */
+
+.progress-recent { padding: var(--kozha-space-4) var(--kozha-space-6); }
+.progress-recent-list { list-style: none; display: flex; flex-direction: column; }
+.progress-recent-list > li {
+  padding: var(--kozha-space-4) 0;
+  border-bottom: 1px solid var(--kozha-color-border);
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: var(--kozha-space-4);
+  align-items: baseline;
+}
+.progress-recent-list > li:last-child { border-bottom: none; }
+.progress-recent-gloss {
+  font-family: var(--kozha-font-mono);
+  font-weight: var(--kozha-weight-semibold);
+  color: var(--kozha-color-ink);
+  font-size: var(--kozha-text-body);
+  letter-spacing: var(--kozha-tracking-tight);
+}
+.progress-recent-lang {
+  font-size: var(--kozha-text-caption-lg);
+  color: var(--kozha-color-ink-3);
+  text-transform: uppercase;
+  letter-spacing: var(--kozha-tracking-wide);
+}
+.progress-recent-meta {
+  font-size: var(--kozha-text-caption);
+  color: var(--kozha-color-ink-3);
+  font-variant-numeric: tabular-nums;
+}
+.progress-recent-empty {
+  padding: var(--kozha-space-8) !important;
+  color: var(--kozha-color-ink-3);
+  font-style: italic;
+  text-align: center;
+  grid-template-columns: 1fr !important;
+}
+
+/* ===== Help wanted ===== */
+
+.progress-help-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--kozha-space-6);
+}
+.progress-help-card { padding: var(--kozha-space-8); }
+.progress-help-h3 {
+  font-family: var(--kozha-font-serif);
+  font-size: var(--kozha-text-feature-title);
+  color: var(--kozha-color-ink);
+  margin-bottom: var(--kozha-space-2);
+}
+.progress-help-body {
+  font-size: var(--kozha-text-body);
+  color: var(--kozha-color-ink-3);
+  margin-bottom: var(--kozha-space-4);
+}
+.progress-help-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--kozha-space-2);
+  list-style: none;
+}
+.progress-help-list .progress-help-empty {
+  color: var(--kozha-color-ink-3);
+  font-style: italic;
+}
+.progress-help-list .progress-help-done {
+  color: var(--kozha-color-success);
+}
+.progress-help-list a {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  background: var(--kozha-color-paper-2);
+  border: 1px solid var(--kozha-color-border);
+  border-radius: var(--kozha-radius-pill);
+  color: var(--kozha-color-ink);
+  text-decoration: none;
+  font-size: var(--kozha-text-body-sm);
+  font-weight: var(--kozha-weight-medium);
+  transition: background var(--kozha-duration-fast),
+              border-color var(--kozha-duration-fast),
+              color var(--kozha-duration-fast);
+}
+.progress-help-list a:hover,
+.progress-help-list a:focus-visible {
+  background: var(--kozha-color-accent-light);
+  border-color: var(--kozha-color-border-accent);
+  color: var(--kozha-color-accent);
+  outline: none;
+}
+
+/* ===== Footer ===== */
+
+.kz-footer .footer-inner {
+  max-width: var(--kozha-layout-page-max);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--kozha-space-6);
+  flex-wrap: wrap;
+}
+.kz-footer .footer-logo {
+  font-family: var(--kozha-font-serif);
+  font-size: var(--kozha-text-hero-sub);
+  color: var(--kozha-color-ink);
+}
+.kz-footer .footer-logo span { color: var(--kozha-color-accent); }
+.kz-footer .footer-links {
+  display: flex;
+  gap: var(--kozha-space-6);
+  list-style: none;
+  flex-wrap: wrap;
+}
+.kz-footer .footer-links a {
+  font-size: var(--kozha-text-body-sm);
+  color: var(--kozha-color-ink-3);
+  text-decoration: none;
+  transition: color var(--kozha-duration-base);
+}
+.kz-footer .footer-links a:hover { color: var(--kozha-color-accent); }
+.kz-footer .footer-copy {
+  font-size: var(--kozha-text-caption-lg);
+  color: var(--kozha-color-ink-3);
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 960px) {
+  .progress-stats { grid-template-columns: repeat(2, 1fr); }
+  .progress-help-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 900px) {
+  .kz-header { padding: 0 var(--kozha-space-5); }
+  .kz-header .nav-links {
+    display: none;
+    position: absolute;
+    top: var(--kozha-layout-nav-h);
+    left: 0; right: 0;
+    flex-direction: column;
+    background: var(--kozha-color-paper-translucent-strong);
+    backdrop-filter: blur(var(--kozha-blur-nav));
+    border-bottom: 1px solid var(--kozha-color-border);
+    padding: var(--kozha-space-4) var(--kozha-space-5);
+    gap: 0;
+  }
+  .kz-header .nav-links.open { display: flex; }
+  .kz-header .nav-links li a { display: block; padding: 12px 0; font-size: var(--kozha-text-button-lg); }
+  .kz-header .nav-hamburger { display: block; }
+  .kz-header .btn-primary { padding: 8px 14px; font-size: var(--kozha-text-body-sm); }
+  .progress-main { padding: calc(var(--kozha-layout-nav-h) + var(--kozha-space-8))
+                            var(--kozha-space-5) var(--kozha-space-12); }
+  .progress-section { margin-top: var(--kozha-space-12); }
+}
+
+@media (max-width: 768px) {
+  .progress-stats { grid-template-columns: repeat(2, 1fr); gap: var(--kozha-space-4); }
+  .progress-stat { padding: var(--kozha-space-6); }
+  .progress-stat-num { font-size: 40px; }
+  .progress-table-wrap { display: none; }
+  .progress-cards { display: grid; }
+  .progress-recent-list > li {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "gloss lang"
+      "meta  meta";
+    row-gap: 4px;
+  }
+  .progress-recent-gloss { grid-area: gloss; }
+  .progress-recent-lang  { grid-area: lang; }
+  .progress-recent-meta  { grid-area: meta; }
+  .progress-h1 { font-size: var(--kozha-text-hero-h1-mobile); }
+}
+
+@media (max-width: 480px) {
+  .progress-main { padding: calc(var(--kozha-layout-nav-h) + var(--kozha-space-6))
+                            var(--kozha-space-4) var(--kozha-space-10); }
+  .progress-stats { grid-template-columns: 1fr; }
+  .kz-footer { padding: var(--kozha-space-6) var(--kozha-space-4); }
+  .kz-footer .footer-inner { flex-direction: column; gap: var(--kozha-space-4); text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kz-header .btn-primary, .progress-sort, .progress-help-list a { transition: none; }
+  html { scroll-behavior: auto; }
+}

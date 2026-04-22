@@ -1001,6 +1001,37 @@
     return Promise.resolve(true);
   }
 
+  // Prompt 8 deep link: the /progress "Help wanted" chips link here with
+  // ?lang=<code>&gloss=<word> so a visitor lands ready to describe the
+  // sign without re-selecting the language and re-typing the gloss.
+  // Runs only when hydrateFromFragment() didn't claim the URL (no
+  // #s/<id> resume fragment) so a session-resume link always wins.
+  function applyQueryParamPrefill() {
+    if (typeof window === 'undefined' || !window.location || !window.URLSearchParams) return;
+    var params;
+    try { params = new URLSearchParams(window.location.search || ''); }
+    catch (_e) { return; }
+    var langParam = (params.get('lang') || '').trim().toLowerCase();
+    var glossParam = (params.get('gloss') || '').trim();
+    if (!langParam && !glossParam) return;
+    var lang = langParam ? findLanguage(langParam) : null;
+    if (langParam && !lang) return;  // unknown code — ignore quietly
+    if (lang) {
+      // Merge with any existing draft so a half-written description
+      // isn't clobbered by a link click.
+      var prior = readDraft(lang.code) || {};
+      var prefillGloss = glossParam
+        ? glossParam.toUpperCase().slice(0, 40)
+        : (prior.gloss || '');
+      writeDraft(lang.code, {
+        gloss:        prefillGloss,
+        description:  prior.description || '',
+        isDeafNative: typeof prior.isDeafNative === 'boolean' ? prior.isDeafNative : null,
+      });
+      setLanguage(lang.code);
+    }
+  }
+
   // Prompt 14 step 10 — binary pause. When /governance-data.json carries
   // contributions_paused: true the page hides every interactive section
   // and shows only the pause banner. No new sessions, no authoring, no
@@ -1078,6 +1109,8 @@
       loadLanguages().then(function () {
         renderOptions();
         return hydrateFromFragment();
+      }).then(function (handledFragment) {
+        if (!handledFragment) applyQueryParamPrefill();
       }).then(function () {
         render(CTX.getState());
       }).catch(function (err) {

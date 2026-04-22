@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Progress — Bridgn</title>
+  <meta name="description" content="Live progress numbers for Bridgn's sign-language databases: per-language coverage, Deaf-native review status, and recent validations.">
+  <meta property="og:title" content="Progress — Bridgn">
+  <meta property="og:description" content="Live progress numbers for Bridgn's sign-language databases.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kozha-translate.com/progress">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://kozha-translate.com/progress">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="/styles/tokens.css">
+  <link rel="stylesheet" href="/styles/components.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/progress.css">
+  <script defer src="/progress.js"></script>
+  <meta name="theme-color" content="#f5f1eb" />
+</head>
+<body class="progress-body">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <nav class="kz-header" aria-label="Main navigation">
+    <a href="/" class="nav-logo">Bridg<span>n</span></a>
+    <ul class="nav-links">
+      <li><a href="/#features" class="kz-link">Features</a></li>
+      <li><a href="/#how-it-works" class="kz-link">How it works</a></li>
+      <li><a href="/contribute.html" class="kz-link">Contribute</a></li>
+      <li><a href="/progress" class="kz-link is-active" aria-current="page">Progress</a></li>
+      <li><a href="/governance.html" class="kz-link">Governance</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="/app.html" class="btn-primary kz-btn-primary">Open translator →</a>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Menu" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <main id="main-content" class="progress-main" role="main">
+    <header class="progress-hero">
+      <div class="progress-eyebrow">Transparency</div>
+      <h1 class="progress-h1">Progress.</h1>
+      <p class="progress-lede">
+        Live numbers from the Bridgn databases. Deaf-native review status, coverage per language, recent validations. If something cannot be computed honestly, it is marked
+        <span class="progress-dash" aria-label="em dash">—</span> rather than zero.
+      </p>
+      <p class="progress-generated" id="progressGenerated" aria-live="polite">Loading…</p>
+    </header>
+
+    <section class="progress-section" aria-labelledby="topLineHeading">
+      <h2 id="topLineHeading" class="progress-section-title">At a glance</h2>
+      <div class="progress-stats" id="topLineStats">
+        <div class="progress-stat kz-card" data-stat="signs">
+          <div class="progress-stat-num" data-field="signs">—</div>
+          <div class="progress-stat-label">Total signs</div>
+        </div>
+        <div class="progress-stat kz-card" data-stat="languages">
+          <div class="progress-stat-num" data-field="languages">—</div>
+          <div class="progress-stat-label">Sign languages</div>
+        </div>
+        <div class="progress-stat kz-card" data-stat="reviewed">
+          <div class="progress-stat-num" data-field="reviewed">—</div>
+          <div class="progress-stat-label">Deaf-native-reviewed signs</div>
+        </div>
+        <div class="progress-stat kz-card" data-stat="awaiting">
+          <div class="progress-stat-num" data-field="awaiting">—</div>
+          <div class="progress-stat-label">Awaiting review</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="progress-section" aria-labelledby="tableHeading">
+      <div class="progress-section-head">
+        <h2 id="tableHeading" class="progress-section-title">Per-language coverage</h2>
+        <p class="progress-section-note">Sortable. Click a column header to re-sort. Default order is total signs descending.</p>
+      </div>
+
+      <div class="progress-table-wrap kz-card" role="region" aria-label="Per-language coverage table">
+        <table class="progress-table" id="progressTable">
+          <thead>
+            <tr>
+              <th scope="col"><button type="button" class="progress-sort" data-sort="name" aria-label="Sort by language name">Language<span class="progress-sort-icon" aria-hidden="true"></span></button></th>
+              <th scope="col"><button type="button" class="progress-sort" data-sort="source" aria-label="Sort by source">Source<span class="progress-sort-icon" aria-hidden="true"></span></button></th>
+              <th scope="col" class="progress-col-num"><button type="button" class="progress-sort" data-sort="total" aria-label="Sort by total signs">Total<span class="progress-sort-icon" aria-hidden="true"></span></button></th>
+              <th scope="col" class="progress-col-num"><button type="button" class="progress-sort" data-sort="reviewed" aria-label="Sort by Deaf-native-reviewed count">Reviewed<span class="progress-sort-icon" aria-hidden="true"></span></button></th>
+              <th scope="col" class="progress-col-num"><button type="button" class="progress-sort" data-sort="community" aria-label="Sort by community-contributed pending count">Community pending<span class="progress-sort-icon" aria-hidden="true"></span></button></th>
+              <th scope="col"><button type="button" class="progress-sort" data-sort="alphabet" aria-label="Sort by fingerspelling alphabet coverage">Alphabet<span class="progress-sort-icon" aria-hidden="true"></span></button></th>
+              <th scope="col" class="progress-col-num"><button type="button" class="progress-sort" data-sort="top500" aria-label="Sort by top-500 English coverage percentage">Top-500<span class="progress-sort-icon" aria-hidden="true"></span></button></th>
+              <th scope="col"><button type="button" class="progress-sort" data-sort="updated" aria-label="Sort by last updated">Last updated<span class="progress-sort-icon" aria-hidden="true"></span></button></th>
+            </tr>
+          </thead>
+          <tbody id="progressTableBody">
+            <tr class="progress-table-empty"><td colspan="8">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="progress-cards" id="progressCards">
+        <p class="progress-cards-empty">Loading…</p>
+      </div>
+    </section>
+
+    <section class="progress-section" aria-labelledby="chartHeading">
+      <div class="progress-section-head">
+        <h2 id="chartHeading" class="progress-section-title">Growth over time</h2>
+        <p class="progress-section-note">Total Deaf-native-reviewed signs across all languages.</p>
+      </div>
+      <div class="progress-chart kz-card">
+        <div class="progress-chart-body" id="progressChart">
+          <p class="progress-chart-empty" id="progressChartEmpty">Loading…</p>
+        </div>
+        <p class="progress-chart-description" id="progressChartDescription" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="progress-section" aria-labelledby="recentHeading">
+      <div class="progress-section-head">
+        <h2 id="recentHeading" class="progress-section-title">Recent validations</h2>
+        <p class="progress-section-note">The last 20 signs that flipped to validated. Aggregate only — no contributor identities.</p>
+      </div>
+      <div class="progress-recent kz-card">
+        <ul class="progress-recent-list" id="progressRecent">
+          <li class="progress-recent-empty">Loading…</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="progress-section progress-help" aria-labelledby="helpHeading">
+      <div class="progress-section-head">
+        <h2 id="helpHeading" class="progress-section-title">Help wanted</h2>
+        <p class="progress-section-note">Common English words with coverage in one major language but not the other. If you're a native signer, a single contribution closes the gap.</p>
+      </div>
+      <div class="progress-help-grid">
+        <div class="progress-help-card kz-card" aria-labelledby="helpAslHeading">
+          <h3 id="helpAslHeading" class="progress-help-h3">Missing from ASL</h3>
+          <p class="progress-help-body">These words are in BSL but not yet in ASL.</p>
+          <ul class="progress-help-list" id="helpAslList" data-target-lang="asl">
+            <li class="progress-help-empty">Loading…</li>
+          </ul>
+        </div>
+        <div class="progress-help-card kz-card" aria-labelledby="helpBslHeading">
+          <h3 id="helpBslHeading" class="progress-help-h3">Missing from BSL</h3>
+          <p class="progress-help-body">These words are in ASL but not yet in BSL.</p>
+          <ul class="progress-help-list" id="helpBslList" data-target-lang="bsl">
+            <li class="progress-help-empty">Loading…</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="kz-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">Bridg<span>n</span></div>
+      <ul class="footer-links">
+        <li><a href="/app.html">Translator</a></li>
+        <li><a href="/contribute.html">Contribute</a></li>
+        <li><a href="/progress">Progress</a></li>
+        <li><a href="/governance.html">Governance</a></li>
+      </ul>
+      <div class="footer-copy">© 2025–2026 Bridgn. Open-source research project.</div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var hamburger = document.getElementById('navHamburger');
+      var links = document.querySelector('.nav-links');
+      if (hamburger && links) {
+        hamburger.addEventListener('click', function () {
+          var open = links.classList.toggle('open');
+          hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        links.querySelectorAll('a').forEach(function (a) {
+          a.addEventListener('click', function () {
+            links.classList.remove('open');
+            hamburger.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

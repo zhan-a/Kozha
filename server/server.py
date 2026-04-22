@@ -9,7 +9,7 @@ if str(_CHAT2HAMNOSYS_ROOT) not in sys.path:
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import Dict, List, Optional
@@ -808,6 +808,39 @@ def serve_index():
 @app.get("/contribute/status/{session_id}/", include_in_schema=False)
 def serve_contribute_status(session_id: str):  # noqa: ARG001 — id read by client JS
     return FileResponse(PUBLIC_DIR / "contribute-status.html")
+
+
+# Public progress dashboard (prompt 8). The extensionless /progress URL
+# serves the same static HTML that the static mount would serve at
+# /progress.html — having an explicit route lets us keep the URL stable
+# even if we ever swap the file name.
+@app.get("/progress", include_in_schema=False)
+@app.get("/progress/", include_in_schema=False)
+def serve_progress():
+    return FileResponse(PUBLIC_DIR / "progress.html")
+
+
+# Progress snapshot JSON with an explicit 15-minute cache window.
+# Leaving this to the static mount would emit no Cache-Control header,
+# pushing visitors to re-download the blob on every navigation. The
+# snapshot is regenerated on deploy at most, so a 900-second cache is
+# safe and keeps the dashboard under the 2s-on-3G budget the prompt
+# calls for. Public/same-origin only — no credentials involved.
+@app.get("/progress_snapshot.json", include_in_schema=False)
+def serve_progress_snapshot():
+    snapshot_path = PUBLIC_DIR / "progress_snapshot.json"
+    if not snapshot_path.exists():
+        return Response(
+            content='{"error": "snapshot not yet generated"}',
+            status_code=503,
+            media_type="application/json",
+            headers={"Cache-Control": "no-store"},
+        )
+    return FileResponse(
+        snapshot_path,
+        media_type="application/json",
+        headers={"Cache-Control": "public, max-age=900"},
+    )
 
 
 # Contributor's session dashboard (prompt 14 step 8). Lists every
