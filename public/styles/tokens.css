@@ -1,0 +1,206 @@
+/* ---------------------------------------------------------------------
+ * kozha design tokens
+ *
+ * Source: docs/polish/01-design-tokens.md (prompt-1 extraction). Every
+ * value in this file comes from the inventory of what index.html and
+ * app.html actually declared or applied. Nothing here is invented.
+ *
+ * Naming: --kozha-<group>-<role>[-<variant>].
+ *
+ * Duplicates and drifts reconciled (per prompt-1 "Summary" normalizations):
+ *   --kozha-color-accent           #b3441b wins (text-safe on paper, WCAG AA
+ *                                   4.80:1; app.html currently drifts to
+ *                                   #c96a2e and fails AA at body sizes).
+ *   --kozha-color-ink-3            #5e5c57 wins (app.html drifts to #685d54;
+ *                                   contribute.css also uses #5e5c57).
+ *   --kozha-color-accent-light     #faeee0 wins (app.html drifts to #f5e4d6).
+ *   --kozha-color-border           rgba(26,22,18,0.12) wins over the
+ *                                   contribute page's rgba(26,22,18,0.14).
+ *   --kozha-text-body              14px wins over 13px (14px is applied to
+ *                                   ~10 selectors across both pages; 13px to
+ *                                   ~8). 13px kept as --kozha-text-body-sm.
+ *   --kozha-radius                 16px (canonical for cards, buttons lg).
+ *   --kozha-radius-sm              10px (canonical for controls; 8px drift
+ *                                   on .demo-lang-select and .input-tab is
+ *                                   the old value to retire).
+ *
+ * Tokens are declared but not yet consumed by page CSS — page-level inline
+ * <style> blocks still own the visual. The --kozha-* namespace is distinct
+ * from legacy --accent / --ink / etc., so inclusion is non-invasive.
+ * ------------------------------------------------------------------ */
+
+:root {
+  /* -------------------- color: ink (body text) -------------------- */
+  --kozha-color-ink: #1a1612;
+  --kozha-color-ink-2: #3d3630;
+  --kozha-color-ink-3: #5e5c57;
+
+  /* -------------------- color: paper (backgrounds) ---------------- */
+  --kozha-color-paper: #f5f1eb;
+  --kozha-color-paper-2: #ede8e0;
+  --kozha-color-paper-3: #e4ddd3;
+
+  /* -------------------- color: accent ----------------------------- */
+  /* --kozha-color-accent is the text-safe shade. Use it for links on
+     paper, button backgrounds behind white text, and focus rings. */
+  --kozha-color-accent: #b3441b;
+  /* --kozha-color-accent-hover is the brighter shade used as a hover
+     lift on primary buttons and anywhere a "pop" is wanted. Matches
+     the index.html --accent-2. */
+  --kozha-color-accent-hover: #c96a2e;
+  /* Historical alias for the bright shade (step-num glyph, etc.). */
+  --kozha-color-accent-bright: #c96a2e;
+  /* Tinted paper wash used for the hero eyebrow, banner bg, chip hover. */
+  --kozha-color-accent-light: #faeee0;
+
+  /* -------------------- color: semantic --------------------------- */
+  --kozha-color-success: #2d6a4f;
+  --kozha-color-success-light: #d4edda;
+  /* Danger colors were literals on app.html (.btn-danger, .char-count.over,
+     .demo-record-btn.recording); promoted to tokens here. */
+  --kozha-color-danger: #c0392b;
+  --kozha-color-danger-hover: #e74c3c;
+  --kozha-color-danger-light: #fdf0ee;
+
+  /* -------------------- color: surface neutrals ------------------- */
+  --kozha-color-white: #ffffff;
+
+  /* -------------------- color: border / hairline ------------------ */
+  --kozha-color-border: rgba(26, 22, 18, 0.12);
+  /* Accent-tinted stroke on feature-card:hover and .contribute-banner. */
+  --kozha-color-border-accent: rgba(201, 106, 46, 0.2);
+  /* Accent-tinted stronger stroke used on .demo-chip:hover. */
+  --kozha-color-border-accent-strong: rgba(201, 106, 46, 0.3);
+
+  /* -------------------- color: focus ring ------------------------- */
+  --kozha-color-focus-ring: rgba(201, 106, 46, 0.1);
+
+  /* -------------------- color: translucent paper (nav bg) --------- */
+  --kozha-color-paper-translucent: rgba(245, 241, 235, 0.85);
+  --kozha-color-paper-translucent-strong: rgba(245, 241, 235, 0.92);
+
+  /* -------------------- color: ink-on-ink (step cards) ------------ */
+  /* Near-black bg for the "How it works" step cards on landing. */
+  --kozha-color-ink-deep: rgba(26, 22, 18, 0.95);
+  /* Body copy inside the ink-on-ink section. */
+  --kozha-color-paper-muted: rgba(245, 241, 235, 0.75);
+
+  /* -------------------- typography: families ---------------------- */
+  --kozha-font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --kozha-font-serif: 'Instrument Serif', serif;
+  --kozha-font-mono: ui-monospace, 'Menlo', monospace;
+
+  /* -------------------- typography: size — body scale ------------- */
+  --kozha-text-micro: 10px;        /* letter-small caps on landing */
+  --kozha-text-caption: 11px;      /* app field labels, nav-badge */
+  --kozha-text-caption-lg: 12px;   /* eyebrows, stat-label, chips, footer-copy */
+  --kozha-text-body-sm: 13px;      /* footer links, nav-link-sm, app-footer */
+  --kozha-text-body: 14px;         /* nav-links, buttons, body copy */
+  --kozha-text-body-lg: 15px;      /* .demo-input textarea */
+  --kozha-text-button-lg: 16px;    /* .btn-large, contribute text */
+  --kozha-text-hero-sub: 18px;     /* hero subheading copy */
+
+  /* -------------------- typography: size — display scale ---------- */
+  /* Serif sizes. _num and _glyph are used for big numerals. */
+  --kozha-text-card-title: 17px;   /* .card-title (app) */
+  --kozha-text-feature-title: 20px;/* .feature-title */
+  --kozha-text-step-title: 22px;   /* .step-title, .nav-logo (landing) */
+  --kozha-text-stat-num: 32px;     /* .stat-num */
+  --kozha-text-section-title: clamp(32px, 4vw, 48px);
+  --kozha-text-contribute-h2: 36px;
+  --kozha-text-step-num: 56px;     /* .step-num */
+  --kozha-text-hero-h1: clamp(44px, 6vw, 72px);
+  --kozha-text-hero-h1-mobile: clamp(36px, 8vw, 48px);
+
+  /* -------------------- typography: weight ------------------------ */
+  --kozha-weight-light: 300;
+  --kozha-weight-regular: 400;
+  --kozha-weight-medium: 500;
+  --kozha-weight-semibold: 600;
+
+  /* -------------------- typography: letter-spacing ---------------- */
+  --kozha-tracking-tightest: -0.02em;
+  --kozha-tracking-tight: -0.01em;
+  --kozha-tracking-normal: 0;
+  --kozha-tracking-wide: 0.04em;
+  --kozha-tracking-wider: 0.06em;
+  --kozha-tracking-widest: 0.08em;
+  --kozha-tracking-ultrawide: 0.1em;
+
+  /* -------------------- typography: line-height ------------------- */
+  --kozha-leading-none: 1;
+  --kozha-leading-tight: 1.05;     /* hero h1 */
+  --kozha-leading-snug: 1.15;      /* section-title */
+  --kozha-leading-normal: 1.5;     /* hint, default input */
+  --kozha-leading-relaxed: 1.6;    /* contribute body copy */
+  --kozha-leading-loose: 1.7;      /* hero-sub, feature-body, step-body */
+
+  /* -------------------- spacing (canonical 12-step scale) --------- */
+  /* Every 4/8/12/16/20/24/32/40/48/64/80/96 px step. Prompt 1 flagged
+     2/3/6/7/10/14/18/22px as drifts to eliminate; we keep the 12-step
+     core here. */
+  --kozha-space-1: 4px;
+  --kozha-space-2: 8px;
+  --kozha-space-3: 12px;
+  --kozha-space-4: 16px;
+  --kozha-space-5: 20px;
+  --kozha-space-6: 24px;
+  --kozha-space-8: 32px;
+  --kozha-space-10: 40px;
+  --kozha-space-12: 48px;
+  --kozha-space-16: 64px;
+  --kozha-space-20: 80px;
+  --kozha-space-24: 96px;
+
+  /* -------------------- radius ------------------------------------ */
+  --kozha-radius-sm: 10px;         /* controls */
+  --kozha-radius: 16px;            /* cards, btn-large */
+  --kozha-radius-lg: 24px;         /* hero-demo-card, contribute-banner */
+  --kozha-radius-pill: 999px;      /* chips, eyebrows, badges */
+  --kozha-radius-circle: 50%;      /* status dots, spinner */
+
+  /* -------------------- shadow ------------------------------------ */
+  --kozha-shadow-card-rest: 0 24px 64px rgba(26, 22, 18, 0.08),
+                            0 4px 12px rgba(26, 22, 18, 0.04);
+  --kozha-shadow-card-hover: 0 12px 32px rgba(26, 22, 18, 0.08);
+  --kozha-shadow-btn-hover-lg: 0 8px 24px rgba(201, 106, 46, 0.3);
+  --kozha-shadow-btn-hover-md: 0 6px 20px rgba(201, 106, 46, 0.3);
+  --kozha-shadow-btn-hover-sm: 0 4px 12px rgba(201, 106, 46, 0.3);
+  --kozha-shadow-tab-active: 0 1px 4px rgba(26, 22, 18, 0.08);
+  /* Focus ring as a ready-made box-shadow. */
+  --kozha-shadow-focus-ring: 0 0 0 3px var(--kozha-color-focus-ring);
+
+  /* -------------------- motion: duration -------------------------- */
+  --kozha-duration-fast: 150ms;    /* chips, sidebar items */
+  --kozha-duration-base: 200ms;    /* default control hover/focus */
+  --kozha-duration-slow: 250ms;    /* card hover, btn-large */
+  --kozha-duration-progress: 300ms;/* playback bar width */
+
+  /* -------------------- motion: easing ---------------------------- */
+  --kozha-ease-standard: ease;
+
+  /* -------------------- backdrop ---------------------------------- */
+  --kozha-blur-nav: 12px;
+
+  /* -------------------- layout ------------------------------------ */
+  --kozha-layout-page-max: 1100px;
+  --kozha-layout-app-max: 1280px;
+  --kozha-layout-sidebar: 260px;
+  --kozha-layout-nav-h: 64px;
+  --kozha-layout-app-nav-h: 56px;
+
+  /* -------------------- z-index ----------------------------------- */
+  --kozha-z-base: 1;
+  --kozha-z-backdrop: 10;
+  --kozha-z-hint: 50;
+  --kozha-z-toast: 60;
+  --kozha-z-nav: 100;
+  --kozha-z-skip: 200;
+}
+
+/* Breakpoints (documentation — CSS custom properties don't work inside
+   media queries by spec):
+     mobile  : max-width: 600px    (canonical; landing currently uses 400, app uses 600)
+     tablet  : max-width: 1099px   (app) / 900px (landing). Prompt 1 recommends collapsing to 1100px.
+     desktop : min-width: 1100px
+     reduced : @media (prefers-reduced-motion: reduce) — honored on landing; app.html should adopt it. */

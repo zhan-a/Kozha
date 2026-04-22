@@ -23,6 +23,8 @@
     "operatingSystem": "Web"
   }
   </script>
+  <link rel="stylesheet" href="/styles/tokens.css">
+  <link rel="stylesheet" href="/styles/components.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
@@ -757,13 +759,13 @@
   <a href="#main-content" class="skip-link" data-i18n="common.skip_to_main">Skip to main content</a>
 
   <div class="SToCA"></div>
-  <nav aria-label="Main navigation">
+  <nav class="kz-header" aria-label="Main navigation">
     <a href="/" class="nav-logo">Bridg<span>n</span></a>
     <ul class="nav-links">
-      <li><a href="#features">Features</a></li>
-      <li><a href="#how-it-works">How it works</a></li>
-      <li><a href="/contribute.html" data-i18n="landing.nav_contribute_sign">Contribute</a></li>
-      <li><a href="/governance.html" data-i18n="landing.footer_governance_link">Governance</a></li>
+      <li><a href="#features" class="kz-link">Features</a></li>
+      <li><a href="#how-it-works" class="kz-link">How it works</a></li>
+      <li><a href="/contribute.html" class="kz-link" data-i18n="landing.nav_contribute_sign">Contribute</a></li>
+      <li><a href="/governance.html" class="kz-link" data-i18n="landing.footer_governance_link">Governance</a></li>
     </ul>
     <div class="nav-cta">
       <a href="/contribute.html" class="btn-ghost">Volunteer</a>
@@ -783,8 +785,8 @@
         Bridgn converts typed text, recorded speech, or uploaded video into sign language animations. It runs entirely in your browser — no accounts, no servers, no cost.
       </p>
       <div class="hero-actions fade-up delay-4">
-        <a href="/app.html" class="btn-large" data-i18n="landing.hero_cta_open_translator">Open translator</a>
-        <a href="#how-it-works" class="btn-large-ghost">How it works</a>
+        <a href="/app.html" class="btn-large kz-btn-primary" data-i18n="landing.hero_cta_open_translator">Open translator</a>
+        <a href="#how-it-works" class="btn-large-ghost kz-btn-secondary">How it works</a>
       </div>
       <div class="hero-stat fade-up delay-5">
         <div class="stat-item">
@@ -887,7 +889,7 @@
       <div class="demo-tab-panel active" id="tab-text">
         <div class="demo-input-wrap">
           <label for="heroInput" class="visually-hidden" style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;">Text to translate</label>
-          <textarea class="demo-input" id="heroInput" placeholder="Type a sentence to translate…">Good morning, everyone.</textarea>
+          <textarea class="demo-input kz-input" id="heroInput" placeholder="Type a sentence to translate…">Good morning, everyone.</textarea>
         </div>
       </div>
 
@@ -922,27 +924,27 @@
     <h2 class="section-title">What <em>Bridgn</em> does.</h2>
 
     <div class="features-grid">
-      <div class="feature-card">
+      <div class="feature-card kz-card">
         <div class="feature-title">Voice-to-Sign</div>
         <p class="feature-body">Record speech in your browser. Transcription uses your device's built-in speech recognition — no audio leaves your machine.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card kz-card">
         <div class="feature-title">Text-to-Sign</div>
         <p class="feature-body">Type a sentence and see it translated into sign language animations. Words not in the dictionary are fingerspelled automatically.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card kz-card">
         <div class="feature-title">Video Input</div>
         <p class="feature-body">Upload a recorded video. Bridgn extracts the audio track, transcribes it, and generates the corresponding sign sequence.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card kz-card">
         <div class="feature-title">STEM Vocabulary</div>
         <p class="feature-body">Pre-loaded with scientific abbreviation packs. "Carbon dioxide" becomes "CO₂" before planning — no manual editing needed.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card kz-card">
         <div class="feature-title">Automatic Planning</div>
         <p class="feature-body">Input text is normalized, lemmatized, and mapped to available signs. The planner reorders words to match sign language grammar.</p>
       </div>
-      <div class="feature-card">
+      <div class="feature-card kz-card">
         <div class="feature-title">Deaf-governed Contributions</div>
         <p class="feature-body">Every new sign is reviewed by two Deaf native signers before it ships. <a href="/governance.html" style="color:var(--accent);font-weight:600;">Governance →</a></p>
       </div>
@@ -980,12 +982,12 @@
         <p>Bridgn's sign database has limited vocabulary and needs help. If you know sign language, work in accessibility, or can code, you can add signs, improve translations, or fix bugs.</p>
       </div>
       <div style="flex-shrink:0;">
-        <a href="/contribute.html" class="btn-large" style="white-space:nowrap;" data-i18n="landing.hero_cta_contribute">Get involved</a>
+        <a href="/contribute.html" class="btn-large kz-btn-primary" style="white-space:nowrap;" data-i18n="landing.hero_cta_contribute">Get involved</a>
       </div>
     </div>
   </section>
   </main>
-  <footer>
+  <footer class="kz-footer">
     <div class="footer-inner">
       <div class="footer-logo">Bridg<span>n</span></div>
       <ul class="footer-links">

@@ -6,12 +6,16 @@
   "type": "module",
   "scripts": {
     "a11y": "node scripts/a11y/run.mjs",
-    "a11y:ci": "node scripts/a11y/run.mjs --ci"
+    "a11y:ci": "node scripts/a11y/run.mjs --ci",
+    "visual": "node tests/visual/regression.mjs",
+    "visual:baseline": "node tests/visual/regression.mjs --baseline"
   },
   "devDependencies": {
     "@axe-core/puppeteer": "^4.10.1",
     "axe-core": "^4.10.2",
     "pa11y": "^8.0.0",
+    "pixelmatch": "^6.0.0",
+    "pngjs": "^7.0.0",
     "puppeteer": "^23.10.4"
   }
 }
