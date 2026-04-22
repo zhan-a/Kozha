@@ -102,11 +102,44 @@ async function startServer() {
 }
 
 // Scenarios. Each scenario renders one page at one viewport.
+//
+// The `filled` variant for /contribute is seeded via localStorage so a
+// fresh capture reproducibly renders the form with the first couple of
+// fields populated. Because the translator homepage is unaffected by
+// contribute-local storage, these two seeds are isolated per-scenario.
 const SCENARIOS = [
-  { name: 'landing-desktop', url: '/',        viewport: { width: 1440, height: 900 } },
-  { name: 'landing-mobile',  url: '/',        viewport: { width: 390,  height: 844 } },
-  { name: 'app-desktop',     url: '/app.html', viewport: { width: 1440, height: 900 } },
-  { name: 'app-mobile',      url: '/app.html', viewport: { width: 390,  height: 844 } },
+  { name: 'landing-desktop',     url: '/',                viewport: { width: 1440, height: 900 } },
+  { name: 'landing-mobile',      url: '/',                viewport: { width: 390,  height: 844 } },
+  { name: 'app-desktop',         url: '/app.html',        viewport: { width: 1440, height: 900 } },
+  { name: 'app-mobile',          url: '/app.html',        viewport: { width: 390,  height: 844 } },
+  { name: 'contribute-desktop',  url: '/contribute.html', viewport: { width: 1440, height: 900 } },
+  { name: 'contribute-mobile',   url: '/contribute.html', viewport: { width: 390,  height: 844 } },
+  {
+    name: 'contribute-filled-desktop',
+    url: '/contribute.html',
+    viewport: { width: 1440, height: 900 },
+    seed: {
+      // Force a language selection + in-progress draft before first paint.
+      // The language slice lives in sessionStorage under the contribute-
+      // context key; the draft body lives in localStorage by language.
+      sessionStorage: {
+        'kozha.contribute.context': JSON.stringify({
+          language: 'bsl',
+          sessionId: null,
+          sessionToken: null,
+          gloss: '',
+          sessionState: 'awaiting_description',
+        }),
+      },
+      localStorage: {
+        'kozha.contribute.draft.bsl': JSON.stringify({
+          gloss: 'ELECTRON',
+          description: 'Right index finger traces a small circle near the right temple, palm facing the signer.',
+          isDeafNative: false,
+        }),
+      },
+    },
+  },
 ];
 
 // Injected to freeze animations, disable caret blinking, and hide the
@@ -127,6 +160,11 @@ const STABILIZE_CSS = `
 .avatar-loading, .spinner, #heroAvatar {
   visibility: hidden !important;
 }
+/* The contribute page's offline banner fires whenever the chat2hamnosys
+   healthz probe fails. In the test server the backend is not mounted,
+   which would cause it to render in every baseline. Force-hide it so the
+   baseline represents the production-up case. */
+#contributeOffline, .contribute-offline { display: none !important; }
 `;
 
 async function capture(browser, server, scenario) {
@@ -141,6 +179,30 @@ async function capture(browser, server, scenario) {
       { name: 'prefers-reduced-motion', value: 'reduce' },
     ]);
     const url = `http://127.0.0.1:${server.port}${scenario.url}`;
+    // Seed localStorage / sessionStorage BEFORE the page script runs so
+    // drafts and session state are already in place when contribute.js
+    // reads them on init. We visit /index.html first to establish the
+    // origin, set storage, then navigate to the real scenario URL.
+    if (scenario.seed && (scenario.seed.localStorage || scenario.seed.sessionStorage)) {
+      await page.goto(`http://127.0.0.1:${server.port}/`, {
+        waitUntil: 'domcontentloaded',
+        timeout: 30000,
+      });
+      await page.evaluate((seed) => {
+        try {
+          if (seed.localStorage) {
+            for (const [k, v] of Object.entries(seed.localStorage)) {
+              window.localStorage.setItem(k, String(v));
+            }
+          }
+          if (seed.sessionStorage) {
+            for (const [k, v] of Object.entries(seed.sessionStorage)) {
+              window.sessionStorage.setItem(k, String(v));
+            }
+          }
+        } catch (_e) { /* storage blocked — seed is best-effort */ }
+      }, scenario.seed);
+    }
     await page.goto(url, { waitUntil: 'networkidle0', timeout: 30000 });
     // Inject stabilizer after initial render so any computed-style-dependent
     // JS has already settled.

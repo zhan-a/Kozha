@@ -75,6 +75,8 @@
     picker:            document.getElementById('languagePicker'),
     pickerEmpty:       document.getElementById('pickerEmpty'),
     pickerOptions:     document.getElementById('pickerOptions'),
+    pickerSelect:      document.getElementById('pickerSelect'),
+    pickerNote:        document.getElementById('pickerNote'),
     langMasthead:      document.getElementById('langMasthead'),
     badge:             document.getElementById('languageBadge'),
     badgeCode:         document.getElementById('languageBadgeCode'),
@@ -129,10 +131,42 @@
   }
 
   function renderOptions() {
-    // The picker is a list of primary actions, not a single-selection
-    // listbox widget. Buttons in a <ul> gives SR users "list, 2 items"
-    // context and each button is activated via Enter/Space as normal —
-    // no arrow-key listbox pattern to implement or drift out of sync with.
+    // Prompt 5 reconciled the picker to the main-page <select> widget so
+    // the signing-language dropdown is visually identical to the target
+    // selector on /app.html. We still populate the legacy <ul> as hidden
+    // backing DOM so any external code that reads pickerOptions keeps
+    // working during the transition.
+    if (els.pickerSelect) {
+      els.pickerSelect.innerHTML = '';
+      // Leading placeholder so a freshly-rendered select doesn't pre-commit
+      // to the first language in the catalog before the user's choice.
+      var placeholder = document.createElement('option');
+      placeholder.value = '';
+      placeholder.textContent = tr(
+        'contribute.language_picker.placeholder',
+        'Choose a sign language…'
+      );
+      placeholder.disabled = true;
+      placeholder.selected = true;
+      els.pickerSelect.appendChild(placeholder);
+      for (var j = 0; j < view.languages.length; j++) {
+        var langOpt = view.languages[j];
+        var opt = document.createElement('option');
+        opt.value = langOpt.code;
+        opt.textContent = langOpt.code.toUpperCase() + ' — ' + langOpt.english_name +
+          ' (' + langOpt.coverage_count + ' signs)';
+        els.pickerSelect.appendChild(opt);
+      }
+      // Sync to current state so reload / back-nav lands on the last choice.
+      var currentLang = CTX.getState().language;
+      if (currentLang && findLanguage(currentLang)) {
+        els.pickerSelect.value = currentLang;
+      }
+    }
+
+    // Legacy pickerOptions rendering — hidden but preserved so external
+    // tests / keyboard-focus fallbacks keep finding .picker-option nodes.
+    if (!els.pickerOptions) return;
     els.pickerOptions.innerHTML = '';
     for (var i = 0; i < view.languages.length; i++) {
       var lang = view.languages[i];
@@ -163,6 +197,38 @@
       li.appendChild(btn);
       els.pickerOptions.appendChild(li);
     }
+  }
+
+  function renderPickerNote() {
+    if (!els.pickerNote) return;
+    var code = els.pickerSelect ? els.pickerSelect.value : '';
+    var lang = findLanguage(code);
+    els.pickerNote.classList.remove('limited');
+    if (!lang) {
+      els.pickerNote.textContent = '';
+      return;
+    }
+    var n = lang.coverage_count || 0;
+    if (n === 0) {
+      els.pickerNote.textContent = tr(
+        'contribute.language_picker.note_empty',
+        'No signs in this corpus yet — you would be the first.'
+      );
+      els.pickerNote.classList.add('limited');
+    } else if (n < 200) {
+      els.pickerNote.textContent = n + ' signs in corpus — a small dictionary to grow.';
+      els.pickerNote.classList.add('limited');
+    } else {
+      els.pickerNote.textContent = n + ' signs in corpus.';
+    }
+  }
+
+  function onPickerSelectChange() {
+    if (!els.pickerSelect) return;
+    var code = els.pickerSelect.value;
+    if (!code) return;
+    renderPickerNote();
+    setLanguage(code);
   }
 
   function onOptionClick(ev) {
@@ -247,11 +313,19 @@
       els.hintStrip.hidden = true;
       hideFormInputs();
       view.formMountedForLanguage = null;
+      // Reset the select to its placeholder so "Change language" → pick
+      // again starts clean instead of showing the previous selection.
+      if (els.pickerSelect) els.pickerSelect.value = '';
+      renderPickerNote();
       return;
     }
 
     els.picker.hidden = true;
     els.langMasthead.hidden = false;
+    if (els.pickerSelect && els.pickerSelect.value !== lang.code) {
+      els.pickerSelect.value = lang.code;
+    }
+    renderPickerNote();
 
     els.badgeCode.textContent = lang.code.toUpperCase();
     els.badgeName.textContent = lang.english_name;
@@ -788,8 +862,12 @@
   function toggleLanguagePicker() {
     var snap = CTX.getState();
     if (!snap.language) {
-      // Already on the picker — give keyboard users the first option.
-      var first = els.pickerOptions.querySelector('.picker-option');
+      // Already on the picker — give keyboard users the dropdown.
+      if (els.pickerSelect && typeof els.pickerSelect.focus === 'function') {
+        els.pickerSelect.focus();
+        return;
+      }
+      var first = els.pickerOptions && els.pickerOptions.querySelector('.picker-option');
       if (first && typeof first.focus === 'function') first.focus();
       return;
     }
@@ -955,6 +1033,11 @@
       });
   }
 
+  function onSaveDraftClick() {
+    flushAutosave();
+    showToast(tr('contribute.authoring.save_draft_toast', 'Draft saved locally.'));
+  }
+
   function init() {
     els.changeBtn.addEventListener('click', onChangeClick);
     els.modalCancelBtn.addEventListener('click', onModalCancel);
@@ -974,6 +1057,11 @@
     els.deafNativeInput.addEventListener('change', onDeafNativeChange);
     els.summaryEditBtn.addEventListener('click', onEditSummary);
     document.addEventListener('keydown', onGlobalKey);
+    if (els.pickerSelect) {
+      els.pickerSelect.addEventListener('change', onPickerSelectChange);
+    }
+    var saveDraftBtn = document.getElementById('authoringSaveDraftBtn');
+    if (saveDraftBtn) saveDraftBtn.addEventListener('click', onSaveDraftClick);
 
     CTX.subscribe(render);
 
