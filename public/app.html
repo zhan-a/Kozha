@@ -618,6 +618,126 @@
     @media (max-width: 1099px) {
       .app-footer { padding: 12px 16px 20px; }
     }
+
+    /* ------------------------------------------------------------------
+     * Three-slot language strip (prompt 4).
+     *
+     * Colors pull from --kozha-color-accent (#b3441b — WCAG-AA safe on
+     * paper) rather than the app-local --accent (#c96a2e, which fails AA
+     * at body sizes). Tokens load from /styles/tokens.css.
+     * ------------------------------------------------------------------ */
+    .lang-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1.2fr;
+      gap: var(--kozha-space-3, 12px);
+      padding: var(--kozha-space-3, 12px);
+      background: var(--kozha-color-paper-2, #ede8e0);
+      border: 1px solid var(--kozha-color-border, rgba(26,22,18,0.12));
+      border-radius: var(--kozha-radius-sm, 10px);
+      margin-bottom: 16px;
+      min-height: 110px;
+    }
+    .lang-slot {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+    .lang-slot-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--kozha-color-ink-3, #5e5c57);
+      margin: 0;
+      min-height: 14px;
+    }
+    .lang-slot select {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+    .lang-slot-note {
+      font-size: 11px;
+      color: var(--kozha-color-ink-3, #5e5c57);
+      line-height: 1.4;
+      min-height: 16px;
+    }
+    .lang-slot-note.limited { color: var(--kozha-color-accent, #b3441b); font-weight: 500; }
+    .route-display { justify-content: flex-start; }
+    .route-text {
+      font-size: 13px;
+      color: var(--kozha-color-ink-2, #3d3630);
+      line-height: 1.4;
+      padding: 8px 10px;
+      background: var(--kozha-color-paper, #f5f1eb);
+      border: 1px solid var(--kozha-color-border, rgba(26,22,18,0.12));
+      border-radius: var(--kozha-radius-sm, 10px);
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+    }
+    .route-text.warning {
+      color: var(--kozha-color-accent, #b3441b);
+      background: var(--kozha-color-accent-light, #faeee0);
+      border-color: var(--kozha-color-accent, #b3441b);
+      font-weight: 500;
+    }
+    @media (max-width: 700px) {
+      .lang-strip { grid-template-columns: 1fr; min-height: 0; }
+    }
+
+    /* Per-sign origin overlay — the chip itself holds the provenance via
+       title attribute; visually the base of each chip carries a subtle
+       corpus tag below the gloss for sighted users. */
+    .token-chip { position: relative; }
+    .token-chip-origin {
+      display: block;
+      font-size: 9px;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--kozha-color-ink-3, #5e5c57);
+      margin-top: 2px;
+      opacity: 0.85;
+    }
+    .token-chip.active .token-chip-origin,
+    .token-chip.done .token-chip-origin { color: inherit; opacity: 0.7; }
+
+    .token-chip.fingerspelled {
+      background: var(--kozha-color-paper, #f5f1eb);
+      border-style: dashed;
+      border-color: var(--kozha-color-accent, #b3441b);
+      color: var(--kozha-color-ink-2, #3d3630);
+    }
+    .token-chip.fingerspelled .token-chip-gloss {
+      text-decoration: underline dotted var(--kozha-color-accent, #b3441b);
+      text-underline-offset: 3px;
+    }
+    .token-chip.omitted {
+      background: transparent;
+      border-style: dashed;
+      border-color: var(--kozha-color-ink-3, #5e5c57);
+      color: var(--kozha-color-ink-3, #5e5c57);
+      text-decoration: line-through;
+    }
+
+    .coverage-counter {
+      font-size: 12px;
+      color: var(--kozha-color-ink-3, #5e5c57);
+      line-height: 1.4;
+      min-height: 18px;
+      margin-top: 6px;
+    }
+    .coverage-counter .warn { color: var(--kozha-color-accent, #b3441b); font-weight: 500; }
+
+    .lang-sr-only {
+      position: absolute !important;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
   </style>
 </head>
 <body>
@@ -683,83 +803,76 @@
       <div class="content-panel active" id="panel-translate">
         <div class="card">
           <div class="card-title"><span class="card-title-icon">✏️</span> Text Input</div>
-          <label class="field-label">Enter your phrase</label>
-          <textarea id="textIn" placeholder="Try something like: Hello, how are you?" rows="3" maxlength="10000"></textarea>
-          <div class="char-count" id="charCount">0 / 10000</div>
 
-          <div class="row" style="margin-top: 12px; gap: 12px;">
-            <div class="grow">
-              <label class="field-label" style="margin-bottom:6px;">Input language</label>
-              <select id="langHint" aria-label="Input language">
-                <optgroup label="Common">
-                  <option value="en" selected>English</option>
-                  <option value="es">Spanish</option>
-                  <option value="fr">French</option>
+          <div class="lang-strip" role="group" aria-label="Translation language settings">
+            <div class="lang-slot">
+              <label class="lang-slot-label" for="langHint">You write in</label>
+              <select id="langHint" aria-describedby="langHintNote">
+                <optgroup label="Native NLP (spaCy)">
+                  <option value="en">English</option>
                   <option value="de">German</option>
-                  <option value="zh">Chinese</option>
-                  <option value="ar">Arabic</option>
-                  <option value="ru">Russian</option>
-                  <option value="pt">Portuguese</option>
-                  <option value="ja">Japanese</option>
-                  <option value="hi">Hindi</option>
-                  <option value="ko">Korean</option>
-                  <option value="it">Italian</option>
-                  <option value="tr">Turkish</option>
+                  <option value="fr">French</option>
+                  <option value="es">Spanish</option>
+                  <option value="pl">Polish</option>
+                  <option value="nl">Dutch</option>
+                  <option value="el">Greek</option>
                 </optgroup>
-                <optgroup label="More languages">
+                <optgroup label="Translated to base language">
                   <option value="af">Afrikaans</option>
+                  <option value="ar">Arabic</option>
                   <option value="bn">Bengali</option>
                   <option value="bg">Bulgarian</option>
                   <option value="ca">Catalan</option>
+                  <option value="zh">Chinese</option>
                   <option value="hr">Croatian</option>
                   <option value="cs">Czech</option>
                   <option value="da">Danish</option>
-                  <option value="nl">Dutch</option>
                   <option value="et">Estonian</option>
                   <option value="fi">Finnish</option>
-                  <option value="el">Greek</option>
                   <option value="he">Hebrew</option>
+                  <option value="hi">Hindi</option>
                   <option value="hu">Hungarian</option>
                   <option value="id">Indonesian</option>
+                  <option value="it">Italian</option>
+                  <option value="ja">Japanese</option>
+                  <option value="ko">Korean</option>
                   <option value="lv">Latvian</option>
                   <option value="lt">Lithuanian</option>
                   <option value="ms">Malay</option>
                   <option value="no">Norwegian</option>
                   <option value="fa">Persian</option>
-                  <option value="pl">Polish</option>
+                  <option value="pt">Portuguese</option>
                   <option value="ro">Romanian</option>
+                  <option value="ru">Russian</option>
                   <option value="sr">Serbian</option>
                   <option value="sk">Slovak</option>
                   <option value="sl">Slovenian</option>
                   <option value="sv">Swedish</option>
                   <option value="th">Thai</option>
+                  <option value="tr">Turkish</option>
                   <option value="uk">Ukrainian</option>
                   <option value="ur">Urdu</option>
                   <option value="vi">Vietnamese</option>
                 </optgroup>
               </select>
+              <div id="langHintNote" class="lang-slot-note" aria-live="polite"></div>
             </div>
-            <div class="grow">
-              <label class="field-label" style="margin-bottom:6px;">Sign language</label>
-              <select id="signLangSelect" aria-label="Sign language">
-                <option value="bsl" selected>BSL (British)</option>
-                <option value="asl">ASL (American)</option>
-                <option value="dgs">DGS (German)</option>
-                <option value="lsf">LSF (French)</option>
-                <option value="lse">LSE (Spanish)</option>
-                <option value="pjm">PJM (Polish)</option>
-                <option value="gsl">GSL (Greek)</option>
-                <option value="rsl">RSL (Russian)</option>
-                <option value="algerian">Algerian SL</option>
-                <option value="bangla">Bangla SL</option>
-                <option value="ngt">NGT (Dutch)</option>
-                <option value="fsl">FSL (Filipino)</option>
-                <option value="isl">ISL (Indian)</option>
-                <option value="kurdish">Kurdish SL</option>
-                <option value="vsl">VSL (Vietnamese)</option>
-              </select>
+
+            <div class="lang-slot">
+              <label class="lang-slot-label" for="signLangSelect">You want this signed in</label>
+              <select id="signLangSelect" aria-describedby="signLangNote"></select>
+              <div id="signLangNote" class="lang-slot-note" aria-live="polite"></div>
+            </div>
+
+            <div class="lang-slot route-display">
+              <div class="lang-slot-label" id="routeLabel">Translation route</div>
+              <div id="translationRoute" class="route-text" role="status" aria-live="polite" aria-labelledby="routeLabel">Loading…</div>
             </div>
           </div>
+
+          <label class="field-label" for="textIn">Enter your phrase</label>
+          <textarea id="textIn" placeholder="Try something like: Hello, how are you?" rows="3" maxlength="10000"></textarea>
+          <div class="char-count" id="charCount">0 / 10000</div>
 
           <button id="translateBtn" class="btn-translate" style="margin-top: 16px;" aria-label="Translate to sign language">
             🤟 Translate to Sign
@@ -884,6 +997,7 @@
           <div class="playback-progress-bar" id="playbackProgressBar"></div>
         </div>
         <div class="token-list" id="tokenList"></div>
+        <div class="coverage-counter" id="coverageCounter" role="status" aria-live="polite"></div>
         <div class="avatar-controls">
           <span id="renderStatus" class="status-badge loading" role="status" aria-live="polite">Loading…</span>
           <div class="avatar-switcher">
@@ -1232,7 +1346,6 @@
     }
 
     let _switchId = 0;
-    const FALLBACK_ALPHABET = '/data/bsl_alphabet_sigml.sigml';
 
     async function switchSignLanguage(langCode) {
       const myId = ++_switchId;
@@ -1257,9 +1370,10 @@
       if (_switchId !== myId) return;
       extractEmbeddedAlphabet();
 
-      if (letterToSign.size < 26) {
-        await loadAlphabetSigmlUrl(FALLBACK_ALPHABET, true);
-      }
+      // Intentionally no cross-language alphabet fallback here. If the
+      // target language has no alphabet of its own, missing words are
+      // reported as omitted rather than silently fingerspelled with a
+      // different language's letters. See prompt 4 §7 "Removed guessing".
 
       if (_switchId !== myId) return;
       if (glossToSign.size === 0 && letterToSign.size === 0) {
@@ -1282,14 +1396,204 @@
       kurdish: 'Kurdish SL', vsl: 'VSL'
     };
 
-    document.getElementById('signLangSelect').addEventListener('change', async function() {
-      const lang = this.value;
+    const SIGN_LANG_DISPLAY = {
+      bsl: 'BSL (British)', asl: 'ASL (American)', dgs: 'DGS (German)',
+      lsf: 'LSF (French)', lse: 'LSE (Spanish)', pjm: 'PJM (Polish)',
+      gsl: 'GSL (Greek)', rsl: 'RSL (Russian)', algerian: 'Algerian SL',
+      bangla: 'Bangla SL', ngt: 'NGT (Dutch)', fsl: 'FSL (Filipino)',
+      isl: 'ISL (Indian)', kurdish: 'Kurdish SL', vsl: 'VSL (Vietnamese)'
+    };
+
+    // Coverage per sign language — source: docs/polish/01-database-inventory.md
+    // (actual `<hns_sign gloss=*>` entries loadable by the parser).
+    const SIGN_LANG_COVERAGE = {
+      bsl: 881, asl: 881, dgs: 1914, lsf: 381, lse: 0,
+      pjm: 1932, gsl: 889, rsl: 0, algerian: 418, bangla: 81,
+      ngt: 39, fsl: 0, isl: 763, kurdish: 558, vsl: 3564
+    };
+
+    // Corpus attribution per sign language — surfaced as per-sign provenance
+    // on the token timeline so users can see where each sign came from.
+    const SIGN_LANG_CORPUS = {
+      bsl: 'BSL Corpus (DictaSign)',
+      asl: 'BSL Corpus (aliased)',
+      dgs: 'DGS Lexicon',
+      lsf: 'DictaSign LSF',
+      lse: '—',
+      pjm: 'PJM Dictionary',
+      gsl: 'DictaSign GSL',
+      rsl: '—',
+      algerian: 'Algerian SL',
+      bangla: 'bdsl-3d-animation',
+      ngt: 'NGT Synthesis',
+      fsl: 'Filipino SL',
+      isl: 'ISL dataset',
+      kurdish: 'KurdishBLARK',
+      vsl: 'VSL dataset'
+    };
+
+    const BASE_LANG_NAMES = {
+      en: 'English', fr: 'French', de: 'German', es: 'Spanish',
+      pl: 'Polish', nl: 'Dutch', el: 'Greek', ru: 'Russian',
+      ar: 'Arabic', it: 'Italian', pt: 'Portuguese', ja: 'Japanese',
+      zh: 'Chinese', ko: 'Korean', hi: 'Hindi', tr: 'Turkish',
+      af: 'Afrikaans', bn: 'Bengali', bg: 'Bulgarian', ca: 'Catalan',
+      hr: 'Croatian', cs: 'Czech', da: 'Danish', et: 'Estonian',
+      fi: 'Finnish', he: 'Hebrew', hu: 'Hungarian', id: 'Indonesian',
+      lv: 'Latvian', lt: 'Lithuanian', ms: 'Malay', no: 'Norwegian',
+      fa: 'Persian', ro: 'Romanian', sr: 'Serbian', sk: 'Slovak',
+      sl: 'Slovenian', sv: 'Swedish', th: 'Thai', uk: 'Ukrainian',
+      ur: 'Urdu', vi: 'Vietnamese', ku: 'Kurdish'
+    };
+
+    // Argos translate packages actually available via server._ensure_argos.
+    const ARGOS_SUPPORTED = new Set(['en','fr','de','es','pl','nl','el','ru','ar']);
+
+    const LS_SOURCE = 'kozha.lang.source';
+    const LS_TARGET = 'kozha.lang.target';
+
+    function populateSignLangOptions() {
+      const sel = document.getElementById('signLangSelect');
+      if (!sel) return;
+      // Order: largest corpora first, empty-corpora last (but kept visible so
+      // authors can still pick LSE/RSL/FSL and see the "no signs yet" note).
+      const order = ['bsl','asl','dgs','lsf','pjm','gsl','isl','vsl','ngt','kurdish','algerian','bangla','lse','rsl','fsl'];
+      sel.innerHTML = '';
+      for (const code of order) {
+        const display = SIGN_LANG_DISPLAY[code] || code.toUpperCase();
+        const n = SIGN_LANG_COVERAGE[code] ?? 0;
+        let suffix;
+        if (n === 0) suffix = ' (no signs yet)';
+        else if (n < 200) suffix = ' (' + n + ' signs — limited)';
+        else suffix = ' (' + n + ' signs)';
+        const opt = document.createElement('option');
+        opt.value = code;
+        opt.textContent = display + suffix;
+        sel.appendChild(opt);
+      }
+    }
+
+    function detectBrowserLang() {
+      const raw = (navigator.language || 'en').toLowerCase();
+      const two = raw.split('-')[0];
+      const sel = document.getElementById('langHint');
+      if (!sel) return 'en';
+      const options = Array.from(sel.options).map(o => o.value);
+      if (options.includes(two)) return two;
+      return 'en';
+    }
+
+    function detectRegionalTarget() {
+      const raw = (navigator.language || 'en').toLowerCase();
+      const two = raw.split('-')[0];
+      // Best-available match by browser language when we have no localStorage.
+      // No Libras corpus yet; Brazilian browsers fall through to BSL as the
+      // global default, per prompt 4 deployment safety (preserve English→BSL).
+      const map = { de: 'dgs', fr: 'lsf', pl: 'pjm', nl: 'ngt', el: 'gsl' };
+      return map[two] || 'bsl';
+    }
+
+    function restoreLangChoices() {
+      let src = null, tgt = null;
+      try { src = localStorage.getItem(LS_SOURCE); tgt = localStorage.getItem(LS_TARGET); } catch (_) {}
+      const srcSel = document.getElementById('langHint');
+      const tgtSel = document.getElementById('signLangSelect');
+      if (!srcSel || !tgtSel) return;
+      const srcOptions = Array.from(srcSel.options).map(o => o.value);
+      const tgtOptions = Array.from(tgtSel.options).map(o => o.value);
+      srcSel.value = (src && srcOptions.includes(src)) ? src : detectBrowserLang();
+      tgtSel.value = (tgt && tgtOptions.includes(tgt)) ? tgt : detectRegionalTarget();
+    }
+
+    function saveLangChoices() {
+      try {
+        const s = document.getElementById('langHint')?.value;
+        const t = document.getElementById('signLangSelect')?.value;
+        if (s) localStorage.setItem(LS_SOURCE, s);
+        if (t) localStorage.setItem(LS_TARGET, t);
+      } catch (_) {}
+    }
+
+    function translationRouteSupported(src, tgtBase) {
+      if (!src || !tgtBase) return false;
+      if (src === tgtBase) return true;
+      return ARGOS_SUPPORTED.has(src) && ARGOS_SUPPORTED.has(tgtBase);
+    }
+
+    function updateSourceNote() {
+      const sel = document.getElementById('langHint');
+      const note = document.getElementById('langHintNote');
+      if (!sel || !note) return;
+      const native = new Set(['en','de','fr','es','pl','nl','el']).has(sel.value);
+      note.textContent = native ? 'Native spaCy NLP.' : 'Will translate first, then sign.';
+    }
+
+    function updateSignLangNote() {
+      const sel = document.getElementById('signLangSelect');
+      const note = document.getElementById('signLangNote');
+      if (!sel || !note) return;
+      const code = sel.value;
+      const n = SIGN_LANG_COVERAGE[code] ?? 0;
+      const db = (typeof SIGN_LANG_DB !== 'undefined') ? SIGN_LANG_DB[code] : null;
+      const hasAlphabet = !!(db && db.alphabet);
+      note.classList.remove('limited');
+      if (n === 0) {
+        note.textContent = hasAlphabet
+          ? 'No signs yet — fingerspelling only.'
+          : 'No signs and no fingerspelling alphabet yet.';
+        note.classList.add('limited');
+      } else if (n < 200) {
+        note.textContent = n + ' signs — limited, mostly fingerspelling.';
+        note.classList.add('limited');
+      } else {
+        note.textContent = n + ' signs available.';
+      }
+    }
+
+    function updateTranslationRoute() {
+      const route = document.getElementById('translationRoute');
+      const btn = document.getElementById('translateBtn');
+      if (!route) return;
+      const src = document.getElementById('langHint').value;
+      const tgtSign = document.getElementById('signLangSelect').value;
+      const tgtBase = SIGN_LANG_GLOSS[tgtSign] || 'en';
+      const srcName = BASE_LANG_NAMES[src] || src.toUpperCase();
+      const tgtBaseName = BASE_LANG_NAMES[tgtBase] || tgtBase.toUpperCase();
+      const tgtSignName = SIGN_LANG_DISPLAY[tgtSign] || tgtSign.toUpperCase();
+      const supported = translationRouteSupported(src, tgtBase);
+      if (!supported) {
+        route.textContent = 'No translation path available. Try a different target language.';
+        route.classList.add('warning');
+        if (btn) { btn.disabled = true; btn.title = 'No translation path available for this source-to-target combination.'; }
+        return;
+      }
+      route.classList.remove('warning');
+      if (btn) { btn.disabled = false; btn.title = ''; }
+      if (src === tgtBase) {
+        route.textContent = 'Direct lookup in ' + tgtSignName + ' — no intermediate translation.';
+      } else {
+        route.textContent = 'Translating ' + srcName + ' → ' + tgtBaseName + ', then looking up ' + tgtSignName + ' signs.';
+      }
+    }
+
+    function onSourceLangChanged() {
+      saveLangChoices();
+      updateSourceNote();
+      updateTranslationRoute();
+    }
+
+    async function onTargetLangChanged() {
+      const sel = document.getElementById('signLangSelect');
+      saveLangChoices();
+      updateSignLangNote();
+      updateTranslationRoute();
+      const lang = sel.value;
       const name = SIGN_LANG_NAMES[lang] || lang.toUpperCase();
       renderStatus.textContent = 'Loading ' + name + ' database…';
       renderStatus.className = 'status-badge loading';
       await switchSignLanguage(lang);
       checkAllReady();
-    });
+    }
 
     let _avatarReady = false;
     let _dbReady = false;
@@ -1304,24 +1608,50 @@
       }
     }
 
+    // Initialize the three-slot strip — options, defaults, listeners. Must
+    // run before the initial switchSignLanguage() call below so the restored
+    // target language (not hardcoded 'bsl') is what gets loaded on first
+    // paint. English→BSL remains the universal fallback if navigator and
+    // localStorage give us nothing.
+    populateSignLangOptions();
+    restoreLangChoices();
+    updateSourceNote();
+    updateSignLangNote();
+    updateTranslationRoute();
+    document.getElementById('langHint').addEventListener('change', onSourceLangChanged);
+    document.getElementById('signLangSelect').addEventListener('change', onTargetLangChanged);
+
     window.addEventListener('load', async () => {
-      await switchSignLanguage('bsl');
+      const initialTgt = document.getElementById('signLangSelect').value || 'bsl';
+      await switchSignLanguage(initialTgt);
       checkAllReady();
     });
   </script>
 
   <script>
 
-    async function translateText(text, srcLang, tgtLang) {
+    async function translateText(text, srcLang, tgtLang, tgtSignLang) {
       if (!text.trim() || srcLang === tgtLang) return text;
       try {
         const resp = await fetch('/api/translate-text', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({text: text, source_lang: srcLang, target_lang: tgtLang})
+          body: JSON.stringify({
+            text: text,
+            source_text: text,
+            source_lang: srcLang,
+            target_lang: tgtLang,
+            target_sign_lang: tgtSignLang || null
+          })
         });
         if (!resp.ok) throw new Error('Translation request failed: ' + resp.status);
         const data = await resp.json();
+        if (data && data.error) {
+          log('Translation error: ' + data.error);
+          renderStatus.textContent = 'Translation unavailable — ' + data.error;
+          renderStatus.className = 'status-badge';
+          return text;
+        }
         const coerce = (window.SigmlValidator && window.SigmlValidator.coerceTranslationResult) || null;
         const raw = coerce ? coerce(data.translated, text) : (typeof data.translated === 'string' ? data.translated : text);
         if (coerce && typeof data.translated !== 'string' && data.translated != null) {
@@ -1342,11 +1672,12 @@
 
     async function translateIfNeeded(text, statusFn) {
       const src = getInputLang();
-      const glossLang = SIGN_LANG_GLOSS[getSignLang()];
+      const signLang = getSignLang();
+      const glossLang = SIGN_LANG_GLOSS[signLang];
       const tgt = glossLang || 'en';
       if (src === tgt) return text;
       if (statusFn) statusFn('Translating ' + src.toUpperCase() + ' → ' + tgt.toUpperCase() + '…');
-      const translated = await translateText(text, src, tgt);
+      const translated = await translateText(text, src, tgt, signLang);
       if (translated !== text) log('Translated: "' + text.substring(0, 40) + '…" → "' + translated.substring(0, 40) + '…"');
       return translated;
     }
@@ -1476,11 +1807,20 @@
     function fingerspellWord(word){ const blocks = []; const upperWord = (word||'').toUpperCase(); for (const char of upperWord){ if (char >= 'A' && char <= 'Z'){ const lb = letterToSign.get(char); if (lb) blocks.push(lb); } } return blocks; }
 
     window.__lastMalformedSigns = [];
+    window.__lastPerToken = [];
+    window.__lastStats = { signed: 0, fingerspelled: 0, omitted: 0, total: 0 };
 
     function buildSigml(tokens){
       const blocks = [];
       const malformed = [];
       const validator = window.SigmlValidator || null;
+      const signLang = (typeof getSignLang === 'function') ? getSignLang() : null;
+      const corpusLong = (signLang && typeof SIGN_LANG_CORPUS !== 'undefined') ? SIGN_LANG_CORPUS[signLang] : null;
+      const corpusShort = (signLang && typeof SIGN_LANG_DISPLAY !== 'undefined')
+        ? (SIGN_LANG_DISPLAY[signLang] || signLang.toUpperCase()).split(' ')[0]
+        : (signLang || '').toUpperCase();
+      const perToken = [];
+      let signed = 0, fingerspelled = 0, omitted = 0;
       for (const t of tokens){
         const b = glossToSign.get(t);
         let accepted = false;
@@ -1497,13 +1837,29 @@
           malformed.push({ gloss: t, reason: 'not-a-string', receivedType: typeof b });
           console.warn(`[sigml] glossToSign["${t}"] is not a string (got ${typeof b}); skipping`);
         }
-        if (!accepted && letterToSign.size > 0) {
+        if (accepted) {
+          perToken.push({ kind: 'sign', origin: corpusLong || 'corpus', originShort: corpusShort || 'sign' });
+          signed++;
+        } else if (letterToSign.size > 0) {
           const base = glossBase(t);
           const lb = fingerspellWord(base || t);
-          if (lb.length > 0){ blocks.push(...lb); log(`Fingerspelling: "${base || t}"`); }
+          if (lb.length > 0){
+            blocks.push(...lb);
+            log(`Fingerspelling: "${base || t}"`);
+            perToken.push({ kind: 'fingerspelled', origin: (corpusShort || 'target') + ' fingerspelling alphabet', originShort: 'fingerspelled' });
+            fingerspelled++;
+          } else {
+            perToken.push({ kind: 'omitted', origin: null, originShort: 'omitted', reason: 'word omitted (no fingerspelling alphabet for this target)' });
+            omitted++;
+          }
+        } else {
+          perToken.push({ kind: 'omitted', origin: null, originShort: 'omitted', reason: 'word omitted (no fingerspelling alphabet for this target)' });
+          omitted++;
         }
       }
       window.__lastMalformedSigns = malformed;
+      window.__lastPerToken = perToken;
+      window.__lastStats = { signed, fingerspelled, omitted, total: tokens.length };
       if (!blocks.length) return null;
       const composed = `<?xml version="1.0" encoding="utf-8"?>\n<sigml>\n${blocks.join('\n')}\n</sigml>`;
       if (validator && validator.sigmlHasObjectLiteral(composed)) {
@@ -1527,13 +1883,31 @@
     const playbackProgress = document.getElementById('playbackProgress');
     const playbackProgressBar = document.getElementById('playbackProgressBar');
 
-    function showTokenChips(tokens) {
+    function showTokenChips(tokens, perToken) {
       tokenList.innerHTML = '';
-      tokens.forEach(t => {
+      const meta = Array.isArray(perToken) ? perToken : (window.__lastPerToken || []);
+      tokens.forEach((t, i) => {
         const chip = document.createElement('span');
         chip.className = 'token-chip';
-        chip.textContent = t;
         chip.dataset.token = t;
+        const info = meta[i] || {};
+        chip.dataset.kind = info.kind || 'sign';
+        if (info.kind === 'fingerspelled') chip.classList.add('fingerspelled');
+        else if (info.kind === 'omitted') chip.classList.add('omitted');
+        const gloss = document.createElement('span');
+        gloss.className = 'token-chip-gloss';
+        gloss.textContent = t;
+        chip.appendChild(gloss);
+        if (info.origin || info.originShort) {
+          const tooltip = info.reason ? (t + ' — ' + info.reason) : (t + ' — from ' + info.origin);
+          chip.title = tooltip;
+          const origin = document.createElement('span');
+          origin.className = 'token-chip-origin';
+          origin.textContent = info.originShort || info.origin;
+          chip.appendChild(origin);
+        }
+        if (info.kind === 'fingerspelled') chip.setAttribute('aria-label', t + ', fingerspelled');
+        else if (info.kind === 'omitted') chip.setAttribute('aria-label', t + ', omitted — ' + (info.reason || 'no signs available'));
         tokenList.appendChild(chip);
       });
     }
@@ -1541,9 +1915,9 @@
     function highlightToken(index, total) {
       const chips = tokenList.querySelectorAll('.token-chip');
       chips.forEach((chip, i) => {
-        if (i < index) chip.className = 'token-chip done';
-        else if (i === index) chip.className = 'token-chip active';
-        else chip.className = 'token-chip';
+        chip.classList.remove('active', 'done');
+        if (i < index) chip.classList.add('done');
+        else if (i === index) chip.classList.add('active');
       });
       if (playbackProgress) {
         playbackProgress.style.display = 'block';
@@ -1568,7 +1942,7 @@
           clearInterval(_playbackTimer);
           _playbackTimer = null;
           const chips = tokenList.querySelectorAll('.token-chip');
-          chips.forEach(c => c.className = 'token-chip done');
+          chips.forEach(c => { c.classList.remove('active'); c.classList.add('done'); });
           if (playbackProgressBar) playbackProgressBar.style.width = '100%';
           renderStatus.textContent = 'Ready';
           renderStatus.className = 'status-badge ready';
@@ -1578,11 +1952,25 @@
       }, 1200);
     }
 
+    function updateCoverageCounter(stats) {
+      const el = document.getElementById('coverageCounter');
+      if (!el) return;
+      if (!stats || !stats.total) { el.textContent = ''; return; }
+      const { signed, fingerspelled, omitted, total } = stats;
+      const parts = [];
+      parts.push(signed + ' of ' + total + ' signed');
+      if (fingerspelled) parts.push(fingerspelled + (fingerspelled === 1 ? ' word' : ' words') + ' fingerspelled');
+      if (omitted) parts.push('<span class="warn">' + omitted + ' omitted</span>');
+      el.innerHTML = parts.join(' · ');
+    }
+
     translateBtn?.addEventListener('click', async () => {
       const cwasaAvailable = !!window.CWASA;
+      if (translateBtn.disabled) return;
       translateBtn.disabled = true;
       clearPlaybackUI();
       tokenList.innerHTML = '';
+      updateCoverageCounter(null);
       try {
         renderStatus.textContent = 'Translating…';
         renderStatus.className = 'status-badge loading';
@@ -1599,7 +1987,8 @@
         const toks = window.__plannedTokens || [];
         if (!toks.length) { renderStatus.textContent = 'No matching signs found.'; renderStatus.className = 'status-badge'; return; }
         const sigml = buildSigml(toks);
-        showTokenChips(toks);
+        showTokenChips(toks, window.__lastPerToken);
+        updateCoverageCounter(window.__lastStats);
         const malformed = window.__lastMalformedSigns || [];
         if (malformed.length) {
           const langLabel = (SIGN_LANG_NAMES[getSignLang()] || getSignLang() || '').toString();

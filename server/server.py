@@ -581,6 +581,13 @@ class TranslateTextRequest(BaseModel):
     text: str
     source_lang: str
     target_lang: str
+    # Prompt 4: the client now sends the target *sign* language too so the
+    # server can log/validate it independently of the argos base-lang route.
+    target_sign_lang: Optional[str] = None
+    # Alias accepted for compatibility with prompt 4's explicit payload
+    # shape ({source_lang, target_sign_lang, source_text}). Treated as a
+    # fallback for `text`.
+    source_text: Optional[str] = None
 
 class TranslateRequest(BaseModel):
     text: str
@@ -608,11 +615,49 @@ def text_to_glosses(text: str, source_lang: str = "en") -> list:
 def health():
     return {"ok": True}
 
+_SUPPORTED_SIGN_LANGS = {
+    "bsl", "asl", "dgs", "lsf", "lse", "pjm", "gsl", "rsl",
+    "algerian", "bangla", "ngt", "fsl", "isl", "kurdish", "vsl",
+}
+# Argos packages pre-warmed in _ensure_argos(). Any source_lang or target_lang
+# outside this set is either unsupported (soft error) or a pass-through.
+_SUPPORTED_BASE_LANGS = {"en", "fr", "de", "es", "pl", "nl", "el", "ru", "ar"}
+
+
+def _translation_route_supported(src: str, tgt: str) -> bool:
+    if src == tgt:
+        return True
+    return src in _SUPPORTED_BASE_LANGS and tgt in _SUPPORTED_BASE_LANGS
+
+
 @app.post("/api/translate-text")
 def api_translate_text(req: TranslateTextRequest):
-    text = (req.text or "").strip()
+    # Prompt 4: accept either `text` or `source_text`; the JS client sends
+    # both, but older extension builds still only send `text`.
+    text = (req.text or req.source_text or "").strip()
     if not text or req.source_lang == req.target_lang:
         return {"translated": text}
+    # Refuse unknown target sign languages explicitly rather than silently
+    # falling through to argos (which would succeed but produce output the
+    # client cannot render into sign).
+    if req.target_sign_lang and req.target_sign_lang not in _SUPPORTED_SIGN_LANGS:
+        logger.warning(
+            "translate-text: unknown target_sign_lang %r", req.target_sign_lang,
+        )
+        return {
+            "translated": text,
+            "error": f"unknown target sign language: {req.target_sign_lang}",
+        }
+    # Refuse source/target pairs with no argos route rather than silently
+    # returning the original text and leaving the client unsure whether
+    # translation ran.
+    if not _translation_route_supported(req.source_lang, req.target_lang):
+        return {
+            "translated": text,
+            "error": (
+                f"no translation route from {req.source_lang} to {req.target_lang}"
+            ),
+        }
     try:
         _ensure_argos()
         from argostranslate import translate
