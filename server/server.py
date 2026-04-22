@@ -820,6 +820,15 @@ def serve_progress():
     return FileResponse(PUBLIC_DIR / "progress.html")
 
 
+# Public credits page (prompt 9). Extensionless /credits URL parallels
+# /progress — a stable path for citation-quality links from the README,
+# the main footer, and the per-language rows on the progress dashboard.
+@app.get("/credits", include_in_schema=False)
+@app.get("/credits/", include_in_schema=False)
+def serve_credits():
+    return FileResponse(PUBLIC_DIR / "credits.html")
+
+
 # Progress snapshot JSON with an explicit 15-minute cache window.
 # Leaving this to the static mount would emit no Cache-Control header,
 # pushing visitors to re-download the blob on every navigation. The

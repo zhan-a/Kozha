@@ -98,6 +98,19 @@
 
   // ---------- source-cell helper ----------
 
+  // Each per-language row links into the /credits page via an anchor.
+  // The anchor ids on /credits mirror the language code (e.g. #pjm, #dgs),
+  // so the progress dashboard can deep-link the reader straight to the
+  // full citation rather than forcing a scroll-hunt through the page.
+  // 'alphabet' and any unknown kind route to the top of /credits rather
+  // than inventing a missing anchor.
+  var CREDITS_ANCHORS = {
+    bsl: 'bsl', asl: 'bsl',
+    dgs: 'dgs', lsf: 'lsf', gsl: 'gsl', pjm: 'pjm',
+    ngt: 'ngt', algerian: 'algerian', bangla: 'bangla',
+    isl: 'isl', kurdish: 'kurdish', vsl: 'vsl', fsl: 'fsl',
+  };
+
   function renderSourceCell(lang) {
     var kind = (lang.source_kind || '').toLowerCase();
     var label = kind === 'corpus' ? 'Corpus'
@@ -107,10 +120,12 @@
     var pill = label
       ? '<span class="progress-source-kind' + (kind === 'corpus' ? ' is-corpus' : '') + '">' + escapeHtml(label) + '</span>'
       : '';
+    var anchor = CREDITS_ANCHORS[(lang.code || '').toLowerCase()];
+    var href = anchor ? '/credits#' + anchor : '/credits';
     if (!source) {
-      return pill + '<span class="progress-dash" aria-label="unknown source">' + DASH + '</span>';
+      return pill + '<a class="progress-source-link" href="' + href + '"><span class="progress-dash" aria-label="unknown source">' + DASH + '</span></a>';
     }
-    return pill + escapeHtml(source);
+    return pill + '<a class="progress-source-link" href="' + href + '" aria-label="Open full citation and license for ' + escapeHtml(lang.name || lang.code || source) + '">' + escapeHtml(source) + '</a>';
   }
 
   // ---------- reviewed-cell helper ----------

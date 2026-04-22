@@ -289,6 +289,21 @@ body.progress-body {
   border: 1px solid var(--kozha-color-border);
 }
 .progress-source-kind.is-corpus { background: var(--kozha-badge-reviewed-bg); color: var(--kozha-badge-reviewed-fg); border-color: var(--kozha-badge-reviewed-border); }
+/* Deep-link to /credits — the source label becomes a citation pointer
+   for the reader who wants the full license terms and author credit. */
+.progress-source-link {
+  color: inherit;
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--kozha-color-border);
+  transition: color var(--kozha-duration-base), text-decoration-color var(--kozha-duration-base);
+}
+.progress-source-link:hover,
+.progress-source-link:focus-visible {
+  color: var(--kozha-color-accent);
+  text-decoration-color: var(--kozha-color-accent);
+  outline: none;
+}
 
 .progress-partial {
   font-size: var(--kozha-text-caption);

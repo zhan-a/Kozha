@@ -207,26 +207,49 @@ If you're unsure where to start, check the open issues or reach out to the maint
 
 ## Credits
 
-### Avatar & Rendering
-- **[CWASA](https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/)** — 3D signing avatar engine by the [Virtual Humans Group](https://vhg.cmp.uea.ac.uk/), University of East Anglia ([CC BY-ND](https://vh.cmp.uea.ac.uk/index.php/CWASA_Conditions_of_Use))
+Full attribution, license detail, per-corpus entry counts, and reviewer-provenance statements live on the public credits page: **[kozha-translate.com/credits](https://kozha-translate.com/credits)** (source: [`public/credits.html`](public/credits.html)). The section below is a pointer summary — if the two disagree, the `/credits` page is the authoritative version.
 
-### Notation System
-- **[HamNoSys](https://www.sign-lang.uni-hamburg.de/dgs-korpus/files/inhalt_pdf/HamNoSys_2018.pdf)** — Hamburg Notation System for sign language transcription by the [Institute of German Sign Language](https://www.sign-lang.uni-hamburg.de/), Universitat Hamburg ([CC BY 4.0](https://creativecommons.org/licenses/by/4.0/))
-- **bgHamNoSysUnicode font** — HamNoSys 4.0 Unicode glyph font distributed by the [Institute of German Sign Language](https://www.sign-lang.uni-hamburg.de/), Universitat Hamburg. Used on the Contribute page to render HamNoSys glyphs at their intended visual fidelity; loaded locally from `public/fonts/bgHamNoSysUnicode.ttf` (see [`public/fonts/bgHamNoSysUnicode.LICENSE.txt`](public/fonts/bgHamNoSysUnicode.LICENSE.txt) for provenance).
+### Avatar and rendering
+- **[CWASA](https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/)** — 3D signing avatar engine by the [Virtual Humans Group](https://vhg.cmp.uea.ac.uk/), University of East Anglia. License: Creative Commons Attribution-NoDerivatives (CC BY-ND), per the upstream [CWASA Conditions of Use](https://vh.cmp.uea.ac.uk/index.php/CWASA_Conditions_of_Use).
 
-### Sign Language Databases
-- **BSL** — [DictaSign Corpus](https://www.sign-lang.uni-hamburg.de/dicta-sign/portal/), Universitat Hamburg ([CC BY-NC-SA 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/))
-- **DGS, PJM, GSL, LSF** — [SignAvatars](https://github.com/ZhengdiYu/SignAvatars) by Zhengdi Yu et al., which credits [DGS Lexicon](https://www.sign-lang.uni-hamburg.de/) (Universitat Hamburg), [PJM Dictionary](https://slownikpjm.uw.edu.pl/) (University of Warsaw), and [DictaSign](https://www.sign-lang.uni-hamburg.de/dicta-sign/portal/) (GSL/LSF)
-- **NGT** (Dutch) — [SignLanguageSynthesis](https://github.com/LykeEsselink/SignLanguageSynthesis) by Lyke Esselink
-- **Algerian SL** — [algerianSignLanguage-avatar](https://github.com/linuxscout/algerianSignLanguage-avatar) by Taha Zerrouki
-- **Bangla SL** — [bdsl-3d-animation](https://gitlab.com/devarifkhan/bdsl-3d-animation) by Devr Arif Khan
-- **Indian SL** — [Text-to-Sign-Language](https://github.com/human-divanshu/Text-to-Sign-Language) by Divanshu, [text_to_isl](https://github.com/shoebham/text_to_isl) by Shoebham
-- **Kurdish SL** — [KurdishSignLanguage](https://github.com/KurdishBLARK/KurdishSignLanguage) by KurdishBLARK
-- **Vietnamese SL** — [VSL](https://github.com/raianrido/VSL) by Raian Rido
-- **Filipino SL** — [syntheticfsl](https://github.com/jennieablog/syntheticfsl) and [signtyper](https://github.com/jennieablog/signtyper) by Jennie Ablog
+### Notation system
+- **[HamNoSys](https://www.sign-lang.uni-hamburg.de/dgs-korpus/files/inhalt_pdf/HamNoSys_2018.pdf)** — Hamburg Notation System for sign language transcription by the [Institute of German Sign Language (IDGS)](https://www.sign-lang.uni-hamburg.de/), Universität Hamburg. License: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — share and adapt with attribution, including commercial use.
+- **bgHamNoSysUnicode font** — HamNoSys 4.0 Unicode glyph font distributed by IDGS, Universität Hamburg. Used on the contribute page to render HamNoSys glyphs at their intended visual fidelity; loaded locally from `public/fonts/bgHamNoSysUnicode.ttf` (see [`public/fonts/bgHamNoSysUnicode.LICENSE.txt`](public/fonts/bgHamNoSysUnicode.LICENSE.txt) for provenance and distribution terms).
 
-## Team
+### Sign-language databases
+
+Corpora with declared licenses:
+
+- **BSL** — [DictaSign Corpus](https://www.sign-lang.uni-hamburg.de/dicta-sign/portal/), IDGS, Universität Hamburg. License: [CC BY-NC-SA 3.0 Unported](https://creativecommons.org/licenses/by-nc-sa/3.0/). 881 signs loaded; aliased to ASL (lexical fallback + ASL fingerspelling).
+- **LSF, GSL** — DictaSign LSF and GSL portions, redistributed via [SignAvatars](https://github.com/ZhengdiYu/SignAvatars). License: CC BY-NC-SA 3.0 Unported (inherited from DictaSign). 381 + 889 signs.
+- **DGS** — DGS Lexicon (IDGS / DGS-Korpus, Universität Hamburg), redistributed via SignAvatars. License: per the upstream DGS Lexicon terms. 1,914 signs.
+- **PJM** — [PJM Dictionary (słownik PJM)](https://slownikpjm.uw.edu.pl/), Section for Sign Linguistics, University of Warsaw, redistributed via SignAvatars. License: per the upstream Warsaw PJM Dictionary terms. 1,932 signs.
+
+Community repositories — license status unclear (being clarified with authors; if clarification is not obtained the source will be removed from the translator rather than used silently):
+
+- **NGT** (Dutch) — [SignLanguageSynthesis](https://github.com/LykeEsselink/SignLanguageSynthesis) by Lyke Esselink. No license declared upstream. 39 signs.
+- **Algerian SL** — [algerianSignLanguage-avatar](https://github.com/linuxscout/algerianSignLanguage-avatar) by Taha Zerrouki. No license declared upstream. 1 sign (seed).
+- **Bangla SL** — [bdsl-3d-animation](https://gitlab.com/devarifkhan/bdsl-3d-animation) by Devr Arif Khan. No license declared upstream. 81 signs.
+- **Indian SL** — [Text-to-Sign-Language](https://github.com/human-divanshu/Text-to-Sign-Language) by Divanshu and [text_to_isl](https://github.com/shoebham/text_to_isl) by Shoebham. No license declared upstream. 763 signs combined.
+- **Kurdish SL** — [KurdishSignLanguage](https://github.com/KurdishBLARK/KurdishSignLanguage) by KurdishBLARK. No license declared upstream. 558 signs.
+- **Vietnamese SL** — [VSL](https://github.com/raianrido/VSL) by Raian Rido. No license declared upstream. 3,564 signs (largest community contribution; license clarification is a priority).
+- **Filipino SL** — [syntheticfsl](https://github.com/jennieablog/syntheticfsl) and [signtyper](https://github.com/jennieablog/signtyper) by Jennie Ablog. No license declared upstream. Filipino SL data ships in a SiGML variant the current loader does not parse (`<hamgestural_sign>`), so lexical signs do not load today; fingerspelling works.
+
+### Translation layer
+
+- **[argostranslate](https://github.com/argosopentech/argos-translate)** — offline text translation by Argos Open Technologies. License: MIT (library). Translation-model terms vary per pair.
+- **[spaCy](https://spacy.io/)** — NLP pipeline (tokenisation, lemmatisation, POS, sentence segmentation) by Explosion AI. License: MIT (library). Model terms per the [spaCy model registry](https://github.com/explosion/spacy-models); the small-news and core-web models Bridgn uses are MIT-licensed as of spaCy 3.8.
+
+### Team
 
 - **Zhan** — developer
 - **Bogdan** — developer
-- **Advisor: Askhat Zhumabekov**
+- **Advisor**: Askhat Zhumabekov
+
+### Deaf advisory board
+
+The Deaf advisory board is being seated (zero candidates confirmed). Until the board is seated, no signs from community contributions are exported to the public translator — see the [governance page](https://kozha-translate.com/governance.html) for the full review policy.
+
+### Funding and contributor compensation
+
+No external funding to date; infrastructure costs are covered by the core team. A contributor compensation policy for Deaf reviewers and advisory-board members is not yet in place — drafting it is a prerequisite for seating the board. Both status notes are maintained on the [credits page](https://kozha-translate.com/credits).

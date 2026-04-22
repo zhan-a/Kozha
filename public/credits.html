@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Credits — Bridgn</title>
+  <meta name="description" content="Full attribution, license detail, and per-corpus citations for every sign-language database, avatar engine, notation system, and translation layer used by Bridgn.">
+  <meta property="og:title" content="Credits — Bridgn">
+  <meta property="og:description" content="Full attribution and license detail for every corpus, notation system, and tool Bridgn uses.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kozha-translate.com/credits">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://kozha-translate.com/credits">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="/styles/tokens.css">
+  <link rel="stylesheet" href="/styles/components.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#f5f1eb" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body.credits-body {
+      font-family: var(--kozha-font-sans);
+      background: var(--kozha-color-paper);
+      color: var(--kozha-color-ink);
+      line-height: var(--kozha-leading-relaxed);
+      min-height: 100vh;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: var(--kozha-space-4);
+      background: var(--kozha-color-accent);
+      color: var(--kozha-color-white);
+      padding: var(--kozha-space-2) var(--kozha-space-4);
+      border-radius: var(--kozha-radius-sm);
+      font-size: var(--kozha-text-body);
+      font-weight: var(--kozha-weight-semibold);
+      z-index: var(--kozha-z-skip);
+      text-decoration: none;
+    }
+    .skip-link:focus { top: var(--kozha-space-2); }
+
+    .kz-header .nav-logo {
+      font-family: var(--kozha-font-serif);
+      font-size: var(--kozha-text-step-title);
+      color: var(--kozha-color-ink);
+      text-decoration: none;
+      letter-spacing: var(--kozha-tracking-tight);
+    }
+    .kz-header .nav-logo span { color: var(--kozha-color-accent); }
+    .kz-header .nav-links {
+      display: flex;
+      gap: var(--kozha-space-8);
+      list-style: none;
+    }
+    .kz-header .nav-links .is-active { color: var(--kozha-color-accent); }
+    .kz-header .nav-cta { display: flex; gap: var(--kozha-space-2); align-items: center; }
+    .kz-header .btn-primary {
+      font-family: var(--kozha-font-sans);
+      font-size: var(--kozha-text-body);
+      font-weight: var(--kozha-weight-semibold);
+      color: var(--kozha-color-white);
+      background: var(--kozha-color-accent);
+      border: none;
+      border-radius: var(--kozha-radius-sm);
+      padding: 10px 18px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background var(--kozha-duration-slow), box-shadow var(--kozha-duration-slow), transform var(--kozha-duration-slow);
+    }
+    .kz-header .btn-primary:hover {
+      background: var(--kozha-color-accent-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--kozha-shadow-btn-hover-sm);
+    }
+    .kz-header .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: var(--kozha-space-2);
+      margin-right: calc(-1 * var(--kozha-space-2));
+      color: var(--kozha-color-ink-2);
+    }
+
+    .credits-main {
+      max-width: var(--kozha-layout-page-max);
+      margin: 0 auto;
+      padding: calc(var(--kozha-layout-nav-h) + var(--kozha-space-12)) var(--kozha-space-12) var(--kozha-space-20);
+    }
+
+    .credits-hero {
+      margin-bottom: var(--kozha-space-12);
+    }
+    .credits-eyebrow {
+      display: inline-block;
+      font-size: var(--kozha-text-caption-lg);
+      font-weight: var(--kozha-weight-semibold);
+      letter-spacing: var(--kozha-tracking-widest);
+      text-transform: uppercase;
+      color: var(--kozha-color-accent);
+      margin-bottom: var(--kozha-space-3);
+    }
+    .credits-h1 {
+      font-family: var(--kozha-font-serif);
+      font-size: var(--kozha-text-section-title);
+      line-height: var(--kozha-leading-snug);
+      letter-spacing: var(--kozha-tracking-tightest);
+      color: var(--kozha-color-ink);
+      margin-bottom: var(--kozha-space-5);
+    }
+    .credits-lede {
+      font-size: var(--kozha-text-hero-sub);
+      line-height: var(--kozha-leading-loose);
+      color: var(--kozha-color-ink-3);
+      max-width: 720px;
+    }
+
+    .credits-toc {
+      margin-top: var(--kozha-space-10);
+      padding: var(--kozha-space-6);
+      background: var(--kozha-color-paper-2);
+      border: 1px solid var(--kozha-color-border);
+      border-radius: var(--kozha-radius-sm);
+    }
+    .credits-toc-heading {
+      font-family: var(--kozha-font-sans);
+      font-size: var(--kozha-text-caption-lg);
+      font-weight: var(--kozha-weight-semibold);
+      letter-spacing: var(--kozha-tracking-wide);
+      text-transform: uppercase;
+      color: var(--kozha-color-ink-3);
+      margin-bottom: var(--kozha-space-3);
+    }
+    .credits-toc-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--kozha-space-2) var(--kozha-space-6);
+      list-style: none;
+    }
+    .credits-toc-list a {
+      color: var(--kozha-color-ink-2);
+      font-size: var(--kozha-text-body);
+      text-decoration: none;
+      font-weight: var(--kozha-weight-medium);
+    }
+    .credits-toc-list a:hover,
+    .credits-toc-list a:focus-visible {
+      color: var(--kozha-color-accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .credits-section {
+      margin-bottom: var(--kozha-space-16);
+    }
+    .credits-section-title {
+      font-family: var(--kozha-font-serif);
+      font-size: var(--kozha-text-contribute-h2);
+      line-height: var(--kozha-leading-snug);
+      letter-spacing: var(--kozha-tracking-tightest);
+      color: var(--kozha-color-ink);
+      margin-bottom: var(--kozha-space-3);
+    }
+    .credits-section-note {
+      font-size: var(--kozha-text-body);
+      color: var(--kozha-color-ink-3);
+      max-width: 720px;
+      margin-bottom: var(--kozha-space-8);
+    }
+
+    .credits-entry {
+      padding: var(--kozha-space-6) 0;
+      border-top: 1px solid var(--kozha-color-border);
+    }
+    .credits-entry:first-of-type { border-top: none; padding-top: 0; }
+
+    .credits-entry-title {
+      font-family: var(--kozha-font-serif);
+      font-size: var(--kozha-text-feature-title);
+      color: var(--kozha-color-ink);
+      margin-bottom: var(--kozha-space-2);
+    }
+    .credits-entry-title .credits-code {
+      font-family: var(--kozha-font-sans);
+      font-size: var(--kozha-text-caption-lg);
+      font-weight: var(--kozha-weight-semibold);
+      letter-spacing: var(--kozha-tracking-wider);
+      text-transform: uppercase;
+      color: var(--kozha-color-ink-3);
+      margin-left: var(--kozha-space-2);
+      vertical-align: middle;
+    }
+
+    .credits-entry-body {
+      font-size: var(--kozha-text-body);
+      color: var(--kozha-color-ink-2);
+      line-height: var(--kozha-leading-loose);
+      margin-bottom: var(--kozha-space-3);
+      max-width: 760px;
+    }
+
+    .credits-meta {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: var(--kozha-space-1) var(--kozha-space-4);
+      font-size: var(--kozha-text-body-sm);
+      color: var(--kozha-color-ink-2);
+      margin-bottom: var(--kozha-space-3);
+    }
+    .credits-meta dt {
+      font-weight: var(--kozha-weight-semibold);
+      color: var(--kozha-color-ink-3);
+      letter-spacing: var(--kozha-tracking-wide);
+      text-transform: uppercase;
+      font-size: var(--kozha-text-caption);
+    }
+    .credits-meta dd { color: var(--kozha-color-ink-2); }
+    .credits-meta .credits-link-list { display: inline; }
+    .credits-meta .credits-link-list a + a { margin-left: var(--kozha-space-3); }
+
+    .credits-languages {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--kozha-space-2);
+    }
+    .credits-languages li {
+      font-size: var(--kozha-text-caption-lg);
+      font-weight: var(--kozha-weight-medium);
+      letter-spacing: var(--kozha-tracking-wide);
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: var(--kozha-radius-pill);
+      background: var(--kozha-color-paper-2);
+      border: 1px solid var(--kozha-color-border);
+      color: var(--kozha-color-ink-2);
+    }
+
+    .credits-provenance {
+      font-size: var(--kozha-text-body-sm);
+      color: var(--kozha-color-ink-3);
+      font-style: italic;
+      margin-top: var(--kozha-space-2);
+    }
+
+    .credits-unclear {
+      display: inline-block;
+      font-size: var(--kozha-text-caption);
+      font-weight: var(--kozha-weight-semibold);
+      letter-spacing: var(--kozha-tracking-wide);
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: var(--kozha-radius-pill);
+      background: var(--kozha-color-danger-light);
+      color: var(--kozha-color-danger);
+      border: 1px solid rgba(192, 57, 43, 0.2);
+      margin-left: var(--kozha-space-2);
+      vertical-align: middle;
+    }
+
+    .credits-prose p {
+      font-size: var(--kozha-text-body);
+      color: var(--kozha-color-ink-2);
+      line-height: var(--kozha-leading-loose);
+      max-width: 720px;
+    }
+    .credits-prose p + p { margin-top: var(--kozha-space-3); }
+    .credits-prose a { color: var(--kozha-color-accent); }
+
+    .credits-list {
+      list-style: disc;
+      padding-left: var(--kozha-space-6);
+    }
+    .credits-list li {
+      font-size: var(--kozha-text-body);
+      color: var(--kozha-color-ink-2);
+      line-height: var(--kozha-leading-loose);
+      max-width: 720px;
+    }
+    .credits-list li + li { margin-top: var(--kozha-space-1); }
+
+    .credits-empty-note {
+      font-size: var(--kozha-text-body);
+      color: var(--kozha-color-ink-3);
+      font-style: italic;
+      max-width: 720px;
+    }
+
+    .kz-footer { padding: var(--kozha-space-10) var(--kozha-space-12); }
+    .kz-footer .footer-inner {
+      max-width: var(--kozha-layout-page-max);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--kozha-space-6);
+      flex-wrap: wrap;
+    }
+    .kz-footer .footer-logo {
+      font-family: var(--kozha-font-serif);
+      font-size: 18px;
+      color: var(--kozha-color-ink);
+    }
+    .kz-footer .footer-logo span { color: var(--kozha-color-accent); }
+    .kz-footer .footer-links {
+      display: flex;
+      gap: var(--kozha-space-6);
+      list-style: none;
+      flex-wrap: wrap;
+    }
+    .kz-footer .footer-links a {
+      font-size: var(--kozha-text-body-sm);
+      color: var(--kozha-color-ink-3);
+      text-decoration: none;
+      transition: color var(--kozha-duration-base);
+    }
+    .kz-footer .footer-links a:hover,
+    .kz-footer .footer-links a:focus-visible { color: var(--kozha-color-accent); }
+    .kz-footer .footer-copy {
+      font-size: var(--kozha-text-caption-lg);
+      color: var(--kozha-color-ink-3);
+    }
+
+    @media (max-width: 900px) {
+      .kz-header { padding: 0 var(--kozha-space-5); }
+      .kz-header .nav-links {
+        display: none;
+        position: absolute;
+        top: var(--kozha-layout-nav-h);
+        left: 0; right: 0;
+        flex-direction: column;
+        background: var(--kozha-color-paper-translucent-strong);
+        backdrop-filter: blur(var(--kozha-blur-nav));
+        border-bottom: 1px solid var(--kozha-color-border);
+        padding: var(--kozha-space-4) var(--kozha-space-5);
+        gap: 0;
+      }
+      .kz-header .nav-links.open { display: flex; }
+      .kz-header .nav-links li a { display: block; padding: 12px 0; font-size: 16px; }
+      .kz-header .nav-hamburger { display: block; }
+      .kz-header .nav-cta { gap: var(--kozha-space-2); }
+
+      .credits-main {
+        padding: calc(var(--kozha-layout-nav-h) + var(--kozha-space-6)) var(--kozha-space-5) var(--kozha-space-12);
+      }
+      .credits-meta { grid-template-columns: 1fr; gap: 2px; }
+      .credits-meta dt { margin-top: var(--kozha-space-2); }
+      .kz-footer { padding: var(--kozha-space-8) var(--kozha-space-5); }
+      .kz-footer .footer-inner { flex-direction: column; gap: var(--kozha-space-5); text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+
+    /* Print stylesheet — prompt 9 step 11. Credits pages are often printed
+       or saved for citation. Remove chrome, print single-column, black on
+       white, and expand hrefs next to their anchors so the hardcopy is a
+       self-contained bibliography. */
+    @media print {
+      .kz-header,
+      .kz-footer,
+      .skip-link,
+      .credits-toc {
+        display: none !important;
+      }
+      body.credits-body {
+        background: #fff;
+        color: #000;
+      }
+      .credits-main {
+        padding: 0;
+        max-width: none;
+      }
+      .credits-h1,
+      .credits-section-title,
+      .credits-entry-title,
+      .credits-entry-body,
+      .credits-meta dd,
+      .credits-meta dt,
+      .credits-prose p,
+      .credits-list li {
+        color: #000;
+      }
+      .credits-entry,
+      .credits-section {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      a,
+      a:visited { color: #000; text-decoration: underline; }
+      a[href^="http"]::after,
+      a[href^="/"]::after {
+        content: " (" attr(href) ")";
+        font-size: 90%;
+        font-style: italic;
+      }
+      .credits-languages li {
+        background: transparent;
+        border-color: #000;
+        color: #000;
+      }
+      .credits-unclear {
+        background: transparent;
+        color: #000;
+        border: 1px solid #000;
+      }
+    }
+  </style>
+</head>
+<body class="credits-body">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <nav class="kz-header" aria-label="Main navigation">
+    <a href="/" class="nav-logo">Bridg<span>n</span></a>
+    <ul class="nav-links">
+      <li><a href="/#features" class="kz-link">Features</a></li>
+      <li><a href="/#how-it-works" class="kz-link">How it works</a></li>
+      <li><a href="/contribute.html" class="kz-link">Contribute</a></li>
+      <li><a href="/progress" class="kz-link">Progress</a></li>
+      <li><a href="/governance.html" class="kz-link">Governance</a></li>
+      <li><a href="/credits" class="kz-link is-active" aria-current="page">Credits</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="/app.html" class="btn-primary kz-btn-primary">Open translator →</a>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Menu" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <main id="main-content" class="credits-main" role="main">
+    <header class="credits-hero">
+      <div class="credits-eyebrow">Attribution</div>
+      <h1 class="credits-h1">Credits.</h1>
+      <p class="credits-lede">
+        Bridgn is built on work released by Deaf research institutions, linguists, and open-source contributors. Every corpus, notation system, and tool we depend on is listed below with its full citation and license. Where a source's license is unclear, we say so plainly.
+      </p>
+
+      <nav class="credits-toc" aria-label="On this page">
+        <div class="credits-toc-heading">On this page</div>
+        <ul class="credits-toc-list">
+          <li><a href="#avatar">Avatar and rendering</a></li>
+          <li><a href="#notation">Notation system</a></li>
+          <li><a href="#corpora">Sign-language databases</a></li>
+          <li><a href="#translation">Translation layer</a></li>
+          <li><a href="#contributors">Contributors</a></li>
+          <li><a href="#board">Deaf advisory board</a></li>
+          <li><a href="#funding">Funding</a></li>
+          <li><a href="#compensation">Contributor compensation</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="credits-section" id="avatar" aria-labelledby="avatar-heading">
+      <h2 id="avatar-heading" class="credits-section-title">Avatar and rendering</h2>
+      <p class="credits-section-note">
+        Every animation you see on Bridgn is drawn by CWASA, a signing-avatar engine built by the Virtual Humans Group at the University of East Anglia. CWASA is the only reason the rest of the pipeline has anywhere to send its output — without it, Bridgn would be text-only.
+      </p>
+
+      <article class="credits-entry">
+        <h3 class="credits-entry-title">CWASA — Character animation system</h3>
+        <p class="credits-entry-body">
+          CWASA (the CWA Signing Avatar system) is a WebGL-based signing avatar engine that renders SiGML input as a 3D animation in the browser. Maintained by the Virtual Humans Group (VHG) at the University of East Anglia, CWASA is the public successor to the JASigning and Animgen avatars developed under the eSIGN and DictaSign research programmes.
+        </p>
+        <dl class="credits-meta">
+          <dt>Maintainer</dt>
+          <dd>Virtual Humans Group, School of Computing Sciences, University of East Anglia</dd>
+          <dt>License</dt>
+          <dd>Creative Commons Attribution-NoDerivatives (CC BY-ND) — see <a href="https://vh.cmp.uea.ac.uk/index.php/CWASA_Conditions_of_Use" rel="noopener">CWASA Conditions of Use</a>. You may use and share CWASA with attribution, but you may not distribute modified versions.</dd>
+          <dt>Links</dt>
+          <dd class="credits-link-list">
+            <a href="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/" rel="noopener">Home page</a>
+            <a href="http://vh.cmp.uea.ac.uk/index.php/CWA" rel="noopener">Documentation</a>
+            <a href="https://vhg.cmp.uea.ac.uk/" rel="noopener">Virtual Humans Group</a>
+          </dd>
+          <dt>Used for</dt>
+          <dd>All avatar rendering on the landing page, the translator, and the contribute preview.</dd>
+        </dl>
+      </article>
+    </section>
+
+    <section class="credits-section" id="notation" aria-labelledby="notation-heading">
+      <h2 id="notation-heading" class="credits-section-title">Notation system</h2>
+      <p class="credits-section-note">
+        HamNoSys is the intermediate representation between parsed text and a rendered sign. Every sign in the Bridgn corpus is stored as HamNoSys, then serialised into SiGML for CWASA. The notation itself — its glyphs, the phonological categories it describes, and the reference documentation — comes from the Institute of German Sign Language at the University of Hamburg.
+      </p>
+
+      <article class="credits-entry">
+        <h3 class="credits-entry-title">HamNoSys — Hamburg Notation System for sign languages</h3>
+        <p class="credits-entry-body">
+          HamNoSys is a phonetic transcription system for sign languages, covering handshape, orientation, location, movement, and non-manual features. The current reference is HamNoSys 4.0 (Hanke et al., 2018). Bridgn uses HamNoSys as the canonical internal representation for every sign regardless of language; the authoring flow on the contribute page writes HamNoSys, and the translator reads it.
+        </p>
+        <dl class="credits-meta">
+          <dt>Maintainer</dt>
+          <dd>Institute of German Sign Language and Communication of the Deaf (IDGS), Universität Hamburg</dd>
+          <dt>License</dt>
+          <dd>Creative Commons Attribution 4.0 International (CC BY 4.0) — you may share and adapt HamNoSys for any purpose, including commercial, provided you credit IDGS.</dd>
+          <dt>Links</dt>
+          <dd class="credits-link-list">
+            <a href="https://www.sign-lang.uni-hamburg.de/dgs-korpus/tools/hamnosys" rel="noopener">HamNoSys home</a>
+            <a href="https://www.sign-lang.uni-hamburg.de/dgs-korpus/files/inhalt_pdf/HamNoSys_2018.pdf" rel="noopener">HamNoSys 4.0 reference (PDF)</a>
+            <a href="https://www.sign-lang.uni-hamburg.de/" rel="noopener">IDGS home</a>
+          </dd>
+          <dt>Used for</dt>
+          <dd>Every sign's canonical encoding; the contribute page's HamNoSys editor; the Chrome extension's pre-compiled notation.</dd>
+        </dl>
+      </article>
+
+      <article class="credits-entry">
+        <h3 class="credits-entry-title">bgHamNoSysUnicode — HamNoSys 4.0 Unicode font</h3>
+        <p class="credits-entry-body">
+          The bgHamNoSysUnicode TrueType font ships the HamNoSys 4.0 glyph set at their intended visual fidelity. Bridgn loads the font locally (no CDN) on the contribute page so HamNoSys codepoints render correctly in the notation editor.
+        </p>
+        <dl class="credits-meta">
+          <dt>Maintainer</dt>
+          <dd>Institute of German Sign Language and Communication of the Deaf (IDGS), Universität Hamburg</dd>
+          <dt>Authors</dt>
+          <dd>Thomas Hanke, Marc Schulder, et al. (IDGS / DGS-Korpus project)</dd>
+          <dt>License</dt>
+          <dd>IDGS distribution terms — see the license file shipped alongside the font. The font is distributed by IDGS for academic, research, and notation-tool use; redistribution requires keeping the upstream license file intact.</dd>
+          <dt>Links</dt>
+          <dd class="credits-link-list">
+            <a href="/fonts/bgHamNoSysUnicode.LICENSE.txt" rel="noopener">Local provenance note</a>
+            <a href="https://ctan.org/pkg/hamnosys" rel="noopener">CTAN hamnosys package</a>
+          </dd>
+          <dt>Used for</dt>
+          <dd>Rendering HamNoSys notation in the contribute-page preview panel.</dd>
+        </dl>
+      </article>
+    </section>
+
+    <section class="credits-section" id="corpora" aria-labelledby="corpora-heading">
+      <h2 id="corpora-heading" class="credits-section-title">Sign-language databases</h2>
+      <p class="credits-section-note">
+        The signs Bridgn can render come from thirteen sources across twelve sign languages. Every source is listed with its institution, license (where declared), entry count as loaded by the translator, and the languages it contributes to. Where the upstream repository does not declare a license, we say so plainly and mark the source until the author confirms permissions.
+      </p>
+
+      <article class="credits-entry" id="bsl" aria-labelledby="bsl-heading">
+        <h3 id="bsl-heading" class="credits-entry-title">DictaSign Corpus <span class="credits-code">BSL</span></h3>
+        <p class="credits-entry-body">
+          The European DictaSign project produced a comparable parallel corpus across four sign languages (BSL, DGS, GSL, LSF). Bridgn's British Sign Language data is drawn directly from the DictaSign BSL portion, maintained at the Institute of German Sign Language. The same corpus is aliased to the ASL translator entry, since no dedicated ASL corpus is available in this repository yet — ASL output still uses ASL fingerspelling, but lexical signs fall through to the BSL dataset.
+        </p>
+        <dl class="credits-meta">
+          <dt>Citation</dt>
+          <dd>Efthimiou, E., Fotinea, S.-E., Hanke, T., Glauert, J., Bowden, R., Braffort, A., Collet, C., Maragos, P., &amp; Lefebvre-Albaret, F. (2012). The DictaSign Wiki: Enabling Web Communication for the Deaf. <em>Computers Helping People with Special Needs (ICCHP)</em>.</dd>
+          <dt>Institution</dt>
+          <dd>Institute of German Sign Language and Communication of the Deaf (IDGS), Universität Hamburg</dd>
+          <dt>License</dt>
+          <dd>Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0) — you may use, share, and adapt the corpus, but not commercially, and derivatives must be shared under the same license.</dd>
+          <dt>Entries loaded</dt>
+          <dd>881 signs (plus 26-letter BSL fingerspelling alphabet)</dd>
+          <dt>Reviewer provenance</dt>
+          <dd>Native-signer review at corpus level — DictaSign signs were elicited and recorded with native BSL signers during the original corpus build. Per-sign review status for the Bridgn library is published on the <a href="/progress">progress dashboard</a>.</dd>
+          <dt>Languages</dt>
+          <dd><ul class="credits-languages"><li>BSL</li><li>ASL (fingerspelling + BSL lexical fallback)</li></ul></dd>
+          <dt>Links</dt>
+          <dd class="credits-link-list">
+            <a href="https://www.sign-lang.uni-hamburg.de/dicta-sign/portal/" rel="noopener">DictaSign portal</a>
+            <a href="https://www.sign-lang.uni-hamburg.de/" rel="noopener">IDGS</a>
+          </dd>
+        </dl>
+      </article>
+
+      <article class="credits-entry" id="dgs" aria-labelledby="dgs-heading">
+        <h3 id="dgs-heading" class="credits-entry-title">DGS Lexicon (via SignAvatars) <span class="credits-code">DGS</span></h3>
+        <p class="credits-entry-body">
+          German Sign Language data is drawn from the DGS Lexicon, curated by IDGS as part of the long-running DGS-Korpus project, and re-packaged for avatar rendering by the SignAvatars aggregation. Bridgn ingests the SignAvatars SiGML export; the upstream linguistic record is the DGS-Korpus.
+        </p>
+        <dl class="credits-meta">
+          <dt>Citation</dt>
+          <dd>Prillwitz, S., Hanke, T., König, S., Konrad, R., Langer, G., &amp; Schwarz, A. (2008). DGS Corpus Project — Development of a Corpus Based Electronic Dictionary German Sign Language / German. <em>LREC Workshop on the Representation and Processing of Sign Languages</em>. And: Yu, Z. et al. (2024). <em>SignAvatars: A Large-scale 3D Sign Language Holistic Motion Dataset and Benchmark</em>.</dd>
+          <dt>Institution</dt>
+          <dd>IDGS, Universität Hamburg (upstream) · SignAvatars project (aggregation)</dd>
+          <dt>License</dt>
+          <dd>Per DGS Lexicon terms (varies by entry; academic/research use permitted). SignAvatars code is released under the upstream repository's declared terms — consult the repository for the authoritative statement.</dd>
+          <dt>Entries loaded</dt>
+          <dd>1,914 signs</dd>
+          <dt>Reviewer provenance</dt>
+          <dd>Native-signer review at corpus level (DGS-Korpus recordings). Per-sign review status is on the <a href="/progress">progress dashboard</a>.</dd>
+          <dt>Languages</dt>
+          <dd><ul class="credits-languages"><li>DGS</li></ul></dd>
+          <dt>Links</dt>
+          <dd class="credits-link-list">
+            <a href="https://www.sign-lang.uni-hamburg.de/" rel="noopener">IDGS / DGS-Korpus</a>
+            <a href="https://github.com/ZhengdiYu/SignAvatars" rel="noopener">SignAvatars repository</a>
+          </dd>
+        </dl>
+      </article>
+
+      <article class="credits-entry" id="lsf" aria-labelledby="lsf-heading">
+        <h3 id="lsf-heading" class="credits-entry-title">DictaSign LSF (via SignAvatars) <span class="credits-code">LSF</span></h3>
+        <p class="credits-entry-body">
+          The French Sign Language portion of the DictaSign corpus, re-packaged for avatar rendering by SignAvatars. The LSF branch of DictaSign was recorded in collaboration with French Deaf community signers during the original EU project.
+        </p>
+        <dl class="credits-meta">
+          <dt>Citation</dt>
+          <dd>DictaSign consortium (2012). LSF entries redistributed via Yu, Z. et al. (2024), <em>SignAvatars</em>.</dd>
+          <dt>Institution</dt>
+          <dd>DictaSign consortium (upstream) · SignAvatars project (aggregation)</dd>
+          <dt>License</dt>
+          <dd>Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0) — inherited from the DictaSign corpus terms.</dd>
+          <dt>Entries loaded</dt>
+          <dd>381 signs (plus 26-letter LSF fingerspelling alphabet)</dd>
+          <dt>Reviewer provenance</dt>
+          <dd>Native-signer review at corpus level.</dd>
+          <dt>Languages</dt>
+          <dd><ul class="credits-languages"><li>LSF</li></ul></dd>
+          <dt>Links</dt>
+          <dd class="credits-link-list">
+            <a href="https://www.sign-lang.uni-hamburg.de/dicta-sign/portal/" rel="noopener">DictaSign portal</a>
+            <a href="https://github.com/ZhengdiYu/SignAvatars" rel="noopener">SignAvatars repository</a>
+          </dd>
+        </dl>
+      </article>
+
+      <article class="credits-entry" id="gsl" aria-labelledby="gsl-heading">
+        <h3 id="gsl-heading" class="credits-entry-title">DictaSign GSL (via SignAvatars) <span class="credits-code">GSL</span></h3>
+        <p class="credits-entry-body">
+          The Greek Sign Language portion of the DictaSign corpus, re-packaged by SignAvatars. GSL was recorded with native signers from the Greek Deaf community during the DictaSign project.
+        </p>
+        <dl class="credits-meta">
+          <dt>Citation</dt>
+          <dd>DictaSign consortium (2012). GSL entries redistributed via Yu, Z. et al. (2024), <em>SignAvatars</em>.</dd>
+          <dt>Institution</dt>
+          <dd>DictaSign consortium (upstream) · SignAvatars project (aggregation)</dd>
+          <dt>License</dt>
+          <dd>Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (CC BY-NC-SA 3.0).</dd>
+          <dt>Entries loaded</dt>
+          <dd>889 signs</dd>
+          <dt>Reviewer provenance</dt>
+          <dd>Native-signer review at corpus level.</dd>
+          <dt>Languages</dt>
+          <dd><ul class="credits-languages"><li>GSL</li></ul></dd>
+          <dt>Links</dt>
+          <dd class="credits-link-list">
+            <a href="https://www.sign-lang.uni-hamburg.de/dicta-sign/portal/" rel="noopener">DictaSign portal</a>
+            <a href="https://github.com/ZhengdiYu/SignAvatars" rel="noopener">SignAvatars repository</a>
+          </dd>
+        </dl>
+      </article>
+
+      <article class="credits-entry" id="pjm" aria-labelledby="pjm-heading">
+        <h3 id="pjm-heading" class="credits-entry-title">PJM Dictionary (via SignAvatars) <span class="credits-code">PJM</span></h3>
+        <p class="credits-entry-body">
+          Polish Sign Language data comes from the PJM Dictionary at the University of Warsaw, re-packaged by SignAvatars. The Warsaw PJM dictionary is maintained by the Section for Sign Linguistics and is the reference record for Polish Deaf lexicography.
+        </p>
+        <dl class="credits-meta">
+          <dt>Citation</dt>
+          <dd>Łacheta, J., Czajkowska-Kisil, M., Linde-Usiekniewicz, J., &amp; Rutkowski, P. (eds.). <em>Corpus-based Dictionary of Polish Sign Language (słownik PJM)</em>. University of Warsaw. Entries redistributed via SignAvatars.</dd>
+          <dt>Institution</dt>
+          <dd>Section for Sign Linguistics, University of Warsaw (upstream) · SignAvatars project (aggregation)</dd>
+          <dt>License</dt>
+          <dd>Per the Warsaw PJM Dictionary terms (academic/research use permitted; see the upstream dictionary site for the authoritative statement).</dd>
+          <dt>Entries loaded</dt>
+          <dd>1,932 signs (plus 26-letter PJM fingerspelling alphabet)</dd>
+          <dt>Reviewer provenance</dt>
+          <dd>Native-signer review at corpus level — the Warsaw dictionary is built on recordings with native PJM signers.</dd>
+          <dt>Languages</dt>
+          <dd><ul class="credits-languages"><li>PJM</li></ul></dd>
+          <dt>Links</dt>
+          <dd class="credits-link-list">
+            <a href="https://slownikpjm.uw.edu.pl/" rel="noopener">słownik PJM</a>
+            <a href="https://github.com/ZhengdiYu/SignAvatars" rel="noopener">SignAvatars repository</a>
+          </dd>
+        </dl>
+      </article>
+
+      <article class="credits-entry" id="ngt" aria-labelledby="ngt-heading">
+        <h3 id="ngt-heading" class="credits-entry-title">SignLanguageSynthesis <span class="credits-code">NGT</span></h3>
+        <p class="credits-entry-body">
+          Dutch Sign Language (Nederlandse Gebarentaal, NGT) data is drawn from Lyke Esselink's SignLanguageSynthesis project, an open-source SiGML dataset authored as part of research work.
+        </p>
+        <dl class="credits-meta">
+          <dt>Citation</dt>
+          <dd>Esselink, L. <em>SignLanguageSynthesis</em>. GitHub repository.</dd>
+          <dt>Maintainer</dt>
+          <dd>Lyke Esselink (community contributor)</dd>
+          <dt>License</dt>
+          <dd>
+            No license declared in the upstream repository.
+            <span class="credits-unclear" aria-label="License status: unclear">License unclear</span>
+            We are reaching out to the author to confirm permissions for redistribution. If clarification is not obtained within a reasonable timeline, we will remove the NGT dataset from the translator rather than continue to use it silently.
+          </dd>
+          <dt>Entries loaded</dt>
+          <dd>39 signs (plus 26-letter NGT fingerspelling alphabet)</dd>
+          <dt>Reviewer provenance</dt>
+          <dd>Review status varies — see the <a href="/progress">progress dashboard</a>. Community-contributed source, pending Deaf-native-signer review.</dd>
+          <dt>Languages</dt>
+          <dd><ul class="credits-languages"><li>NGT</li></ul></dd>
+          <dt>Links</dt>
+          <dd class="credits-link-list">
+            <a href="https://github.com/LykeEsselink/SignLanguageSynthesis" rel="noopener">SignLanguageSynthesis on GitHub</a>
+          </dd>
+        </dl>
+      </article>
+
+      <article class="credits-entry" id="algerian" aria-labelledby="algerian-heading">
+        <h3 id="algerian-heading" class="credits-entry-title">algerianSignLanguage-avatar <span class="credits-code">Algerian SL</span></h3>
+        <p class="credits-entry-body">
+          Algerian Sign Language data comes from Taha Zerrouki's algerianSignLanguage-avatar GitHub repository. The repository contains a small seed of SiGML entries; coverage is limited pending community contribution.
+        </p>
+        <dl class="credits-meta">
+          <dt>Citation</dt>
+          <dd>Zerrouki, T. <em>algerianSignLanguage-avatar</em>. GitHub repository.</dd>
+          <dt>Maintainer</dt>
+          <dd>Taha Zerrouki (community contributor)</dd>
+          <dt>License</dt>
+          <dd>
+            No license declared in the upstream repository.
+            <span class="credits-unclear" aria-label="License status: unclear">License unclear</span>
+            We are reaching out to the author to confirm permissions.
+          </dd>
+          <dt>Entries loaded</dt>
+          <dd>1 sign (seed only)</dd>
+          <dt>Reviewer provenance</dt>
+          <dd>Review status varies — see the <a href="/progress">progress dashboard</a>. No Deaf-native-signer review yet.</dd>
+          <dt>Languages</dt>
+          <dd><ul class="credits-languages"><li>Algerian SL</li></ul></dd>
+          <dt>Links</dt>
+          <dd class="credits-link-list">
+            <a href="https://github.com/linuxscout/algerianSignLanguage-avatar" rel="noopener">GitHub repository</a>
+          </dd>
+        </dl>
+      </article>
+
+      <article class="credits-entry" id="bangla" aria-labelledby="bangla-heading">
+        <h3 id="bangla-heading" class="credits-entry-title">bdsl-3d-animation <span class="credits-code">Bangla SL</span></h3>
+        <p class="credits-entry-body">
+          Bangla Sign Language data is drawn from Devr Arif Khan's bdsl-3d-animation GitLab repository, a community project producing SiGML for BdSL signs.
+        </p>
+        <dl class="credits-meta">
+          <dt>Citation</dt>
+          <dd>Khan, D. A. <em>bdsl-3d-animation</em>. GitLab repository.</dd>
+          <dt>Maintainer</dt>
+          <dd>Devr Arif Khan (community contributor)</dd>
+          <dt>License</dt>
+          <dd>
+            No license declared in the upstream repository.
+            <span class="credits-unclear" aria-label="License status: unclear">License unclear</span>
+            We are reaching out to the author to confirm permissions.
+          </dd>
+          <dt>Entries loaded</dt>
+          <dd>81 signs (self-declared 94; 13 entries unaccounted for)</dd>
+          <dt>Reviewer provenance</dt>
+          <dd>Review status varies — see the <a href="/progress">progress dashboard</a>. Community-contributed, pending Deaf-native review.</dd>
+          <dt>Languages</dt>
+          <dd><ul class="credits-languages"><li>Bangla SL</li></ul></dd>
+          <dt>Links</dt>
+          <dd class="credits-link-list">
+            <a href="https://gitlab.com/devarifkhan/bdsl-3d-animation" rel="noopener">GitLab repository</a>
+          </dd>
+        </dl>
+      </article>
+
+      <article class="credits-entry" id="isl" aria-labelledby="isl-heading">
+        <h3 id="isl-heading" class="credits-entry-title">Text-to-Sign-Language and text_to_isl <span class="credits-code">Indian SL</span></h3>
+        <p class="credits-entry-body">
+          Indian Sign Language data is drawn from two community GitHub repositories — Divanshu's Text-to-Sign-Language and Shoebham's text_to_isl — which together contribute the current ISL SiGML set.
+        </p>
+        <dl class="credits-meta">
+          <dt>Citation</dt>
+          <dd>Divanshu, H. <em>Text-to-Sign-Language</em>; Shoebham. <em>text_to_isl</em>. GitHub repositories.</dd>
+          <dt>Maintainer</dt>
+          <dd>Divanshu and Shoebham (community contributors)</dd>
+          <dt>License</dt>
+          <dd>
+            No license declared in either upstream repository.
+            <span class="credits-unclear" aria-label="License status: unclear">License unclear</span>
+            We are reaching out to both authors to confirm permissions.
+          </dd>
+          <dt>Entries loaded</dt>
+          <dd>763 signs</dd>
+          <dt>Reviewer provenance</dt>
+          <dd>Review status varies — see the <a href="/progress">progress dashboard</a>. Community-contributed, pending Deaf-native review.</dd>
+          <dt>Languages</dt>
+          <dd><ul class="credits-languages"><li>Indian SL</li></ul></dd>
+          <dt>Links</dt>
+          <dd class="credits-link-list">
+            <a href="https://github.com/human-divanshu/Text-to-Sign-Language" rel="noopener">Text-to-Sign-Language</a>
+            <a href="https://github.com/shoebham/text_to_isl" rel="noopener">text_to_isl</a>
+          </dd>
+        </dl>
+      </article>
+
+      <article class="credits-entry" id="kurdish" aria-labelledby="kurdish-heading">
+        <h3 id="kurdish-heading" class="credits-entry-title">KurdishSignLanguage <span class="credits-code">Kurdish SL</span></h3>
+        <p class="credits-entry-body">
+          Kurdish Sign Language data comes from the KurdishBLARK organisation's KurdishSignLanguage repository — a community GitHub project with a SiGML dataset for Kurdish signs.
+        </p>
+        <dl class="credits-meta">
+          <dt>Citation</dt>
+          <dd>KurdishBLARK. <em>KurdishSignLanguage</em>. GitHub repository.</dd>
+          <dt>Maintainer</dt>
+          <dd>KurdishBLARK organisation (community contributors)</dd>
+          <dt>License</dt>
+          <dd>
+            No license declared in the upstream repository.
+            <span class="credits-unclear" aria-label="License status: unclear">License unclear</span>
+            We are reaching out to the maintainers to confirm permissions.
+          </dd>
+          <dt>Entries loaded</dt>
+          <dd>558 signs</dd>
+          <dt>Reviewer provenance</dt>
+          <dd>Review status varies — see the <a href="/progress">progress dashboard</a>. Community-contributed, pending Deaf-native review.</dd>
+          <dt>Languages</dt>
+          <dd><ul class="credits-languages"><li>Kurdish SL</li></ul></dd>
+          <dt>Links</dt>
+          <dd class="credits-link-list">
+            <a href="https://github.com/KurdishBLARK/KurdishSignLanguage" rel="noopener">GitHub repository</a>
+          </dd>
+        </dl>
+      </article>
+
+      <article class="credits-entry" id="vsl" aria-labelledby="vsl-heading">
+        <h3 id="vsl-heading" class="credits-entry-title">VSL <span class="credits-code">Vietnamese SL</span></h3>
+        <p class="credits-entry-body">
+          Vietnamese Sign Language data is drawn from Raian Rido's VSL GitHub repository — the largest community-contributed SiGML dataset in Bridgn, contributing over three thousand entries.
+        </p>
+        <dl class="credits-meta">
+          <dt>Citation</dt>
+          <dd>Rido, R. <em>VSL</em>. GitHub repository.</dd>
+          <dt>Maintainer</dt>
+          <dd>Raian Rido (community contributor)</dd>
+          <dt>License</dt>
+          <dd>
+            No license declared in the upstream repository.
+            <span class="credits-unclear" aria-label="License status: unclear">License unclear</span>
+            We are reaching out to the author to confirm permissions. Given the size of this contribution, license clarification is a priority before further integration work.
+          </dd>
+          <dt>Entries loaded</dt>
+          <dd>3,564 signs</dd>
+          <dt>Reviewer provenance</dt>
+          <dd>Review status varies — see the <a href="/progress">progress dashboard</a>. Community-contributed, pending Deaf-native review.</dd>
+          <dt>Languages</dt>
+          <dd><ul class="credits-languages"><li>Vietnamese SL</li></ul></dd>
+          <dt>Links</dt>
+          <dd class="credits-link-list">
+            <a href="https://github.com/raianrido/VSL" rel="noopener">GitHub repository</a>
+          </dd>
+        </dl>
+      </article>
+
+      <article class="credits-entry" id="fsl" aria-labelledby="fsl-heading">
+        <h3 id="fsl-heading" class="credits-entry-title">syntheticfsl and signtyper <span class="credits-code">Filipino SL</span></h3>
+        <p class="credits-entry-body">
+          Filipino Sign Language data is drawn from Jennie Ablog's two GitHub repositories, syntheticfsl and signtyper. The FSL entries ship in a SiGML variant (<code>&lt;hamgestural_sign&gt;</code>) that the current loader does not parse; FSL output today uses fingerspelling only. A future release will add a structural adapter so the lexical signs load.
+        </p>
+        <dl class="credits-meta">
+          <dt>Citation</dt>
+          <dd>Ablog, J. <em>syntheticfsl</em>; <em>signtyper</em>. GitHub repositories.</dd>
+          <dt>Maintainer</dt>
+          <dd>Jennie Ablog (community contributor)</dd>
+          <dt>License</dt>
+          <dd>
+            No license declared in the upstream repositories.
+            <span class="credits-unclear" aria-label="License status: unclear">License unclear</span>
+            We are reaching out to the author to confirm permissions.
+          </dd>
+          <dt>Entries loaded</dt>
+          <dd>0 lexical signs (file format not yet supported by loader; 14 entries declared but parsed as zero). The ASL/FSL fingerspelling alphabet is available.</dd>
+          <dt>Reviewer provenance</dt>
+          <dd>Review status varies — see the <a href="/progress">progress dashboard</a>. Community-contributed, pending Deaf-native review.</dd>
+          <dt>Languages</dt>
+          <dd><ul class="credits-languages"><li>Filipino SL</li></ul></dd>
+          <dt>Links</dt>
+          <dd class="credits-link-list">
+            <a href="https://github.com/jennieablog/syntheticfsl" rel="noopener">syntheticfsl</a>
+            <a href="https://github.com/jennieablog/signtyper" rel="noopener">signtyper</a>
+          </dd>
+        </dl>
+      </article>
+    </section>
+
+    <section class="credits-section" id="translation" aria-labelledby="translation-heading">
+      <h2 id="translation-heading" class="credits-section-title">Translation layer</h2>
+      <p class="credits-section-note">
+        Input text arrives in one of many source languages; Bridgn routes it through translation and NLP before it ever touches a sign database. Two libraries do almost all of this work.
+      </p>
+
+      <article class="credits-entry">
+        <h3 class="credits-entry-title">argostranslate — offline text translation</h3>
+        <p class="credits-entry-body">
+          argostranslate is the text-translation layer between Bridgn's supported input languages and the sign language's base language. It runs server-side with no network calls and packages per-pair translation models downloaded at install time. Supported pairs today: English, French, German, Spanish, Polish, Dutch, Greek, Russian, Arabic.
+        </p>
+        <dl class="credits-meta">
+          <dt>Maintainer</dt>
+          <dd>Argos Open Technologies</dd>
+          <dt>License</dt>
+          <dd>MIT License (library). Translation models are distributed per the argosopentech-published terms per pair — consult the argostranslate model registry for the authoritative statement for a given pair.</dd>
+          <dt>Links</dt>
+          <dd class="credits-link-list">
+            <a href="https://github.com/argosopentech/argos-translate" rel="noopener">argos-translate on GitHub</a>
+            <a href="https://www.argosopentech.com/" rel="noopener">Argos Open Technologies</a>
+          </dd>
+          <dt>Used for</dt>
+          <dd>All server-side text-to-text translation when the input language differs from the sign language's base language.</dd>
+        </dl>
+      </article>
+
+      <article class="credits-entry">
+        <h3 class="credits-entry-title">spaCy — NLP pipeline</h3>
+        <p class="credits-entry-body">
+          spaCy is the parser, tokenizer, lemmatizer, and POS tagger that turns input text into a sequence of linguistic tokens before the sign database is consulted. Bridgn loads dedicated spaCy models for seven languages (English, German, French, Spanish, Polish, Dutch, Greek) and caches up to four concurrent models in an LRU.
+        </p>
+        <dl class="credits-meta">
+          <dt>Maintainer</dt>
+          <dd>Explosion AI</dd>
+          <dt>License</dt>
+          <dd>MIT License (library). Language models are distributed under per-model terms; the small-news and core-web models Bridgn uses are MIT-licensed as of spaCy 3.8.</dd>
+          <dt>Links</dt>
+          <dd class="credits-link-list">
+            <a href="https://spacy.io/" rel="noopener">spaCy home</a>
+            <a href="https://github.com/explosion/spaCy" rel="noopener">spaCy on GitHub</a>
+            <a href="https://github.com/explosion/spacy-models" rel="noopener">spaCy model registry</a>
+          </dd>
+          <dt>Used for</dt>
+          <dd>Tokenisation, lemmatisation, POS tagging, and sentence segmentation in the planner.</dd>
+        </dl>
+      </article>
+    </section>
+
+    <section class="credits-section" id="contributors" aria-labelledby="contributors-heading">
+      <h2 id="contributors-heading" class="credits-section-title">Contributors</h2>
+      <p class="credits-section-note">
+        The people who built Bridgn, and the people who reviewed signs into it. Anonymous contribution is respected — contributors who have asked not to be named are counted in the aggregate line below rather than listed individually.
+      </p>
+
+      <div class="credits-prose">
+        <p><strong>Core team.</strong> Zhan (developer). Bogdan (developer). Askhat Zhumabekov (advisor).</p>
+        <p><strong>Named contributors.</strong> None yet. When named individual contributors are onboarded and have consented to public listing, they will be added here.</p>
+        <p><strong>Anonymous contributors.</strong> None yet. When anonymous contributors have submitted reviewed signs, the aggregate count will appear here.</p>
+      </div>
+    </section>
+
+    <section class="credits-section" id="board" aria-labelledby="board-heading">
+      <h2 id="board-heading" class="credits-section-title">Deaf advisory board</h2>
+      <p class="credits-section-note">
+        The Deaf advisory board is the project's accountability body. It approves reviewer appointments, arbitrates disputes, and can remove a published sign without further discussion.
+      </p>
+
+      <div class="credits-prose">
+        <p>Deaf advisory board is being seated. Current status: zero candidates confirmed. Until the board is seated, no signs from community contributions are exported to the public translator — see the <a href="/governance.html">governance page</a> for the full review policy.</p>
+      </div>
+    </section>
+
+    <section class="credits-section" id="funding" aria-labelledby="funding-heading">
+      <h2 id="funding-heading" class="credits-section-title">Funding</h2>
+      <p class="credits-section-note">
+        Full transparency on where operating costs come from.
+      </p>
+
+      <div class="credits-prose">
+        <p>No external funding to date. Bridgn's infrastructure costs (hosting, domain, translation-model storage) are covered by the core team out of pocket. If and when external funding arrives, it will be listed here with the funder, amount bracket, and any conditions attached.</p>
+      </div>
+    </section>
+
+    <section class="credits-section" id="compensation" aria-labelledby="compensation-heading">
+      <h2 id="compensation-heading" class="credits-section-title">Contributor compensation</h2>
+      <p class="credits-section-note">
+        How Deaf reviewers and advisory-board members are compensated for their time.
+      </p>
+
+      <div class="credits-prose">
+        <p>A compensation policy is not yet in place. Drafting the policy — covering hourly rates for reviewer work, flat stipends for advisory-board meetings, and the process for requesting payment — is a prerequisite for seating the Deaf advisory board. Until that is done, no reviewers are being asked to work.</p>
+        <p>The policy will be published on the <a href="/governance.html">governance page</a> as soon as it is drafted, and linked from here. We prefer to say "not yet in place" rather than describe an aspirational arrangement that hasn't been funded.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="kz-footer">
+    <div class="footer-inner">
+      <div class="footer-logo">Bridg<span>n</span></div>
+      <ul class="footer-links">
+        <li><a href="/app.html">Translator</a></li>
+        <li><a href="/contribute.html">Contribute</a></li>
+        <li><a href="/progress">Progress</a></li>
+        <li><a href="/governance.html">Governance</a></li>
+        <li><a href="/credits">Credits</a></li>
+      </ul>
+      <div class="footer-copy">© 2025–2026 Bridgn. Open-source research project.</div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var hamburger = document.getElementById('navHamburger');
+      var links = document.querySelector('.nav-links');
+      if (hamburger && links) {
+        hamburger.addEventListener('click', function () {
+          var open = links.classList.toggle('open');
+          hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        links.querySelectorAll('a').forEach(function (a) {
+          a.addEventListener('click', function () {
+            links.classList.remove('open');
+            hamburger.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
