@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+# Per-submission status pages carry a session-id path segment and are
+# not indexable; they are also marked noindex in the page head. Exclude
+# from crawlers as a belt-and-suspenders measure.
+Disallow: /contribute/status/
+Disallow: /contribute/me
+
+Sitemap: https://kozha-translate.com/sitemap.xml

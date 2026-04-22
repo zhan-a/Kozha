@@ -25,22 +25,20 @@
   <script defer src="/i18n.js"></script>
 </head>
 <body>
-  <a href="#main-content" class="skip-link" data-i18n="common.skip_to_main">Skip to main content</a>
+  <a href="#main-content" class="skip-link kz-skip-link" data-i18n="common.skip_to_main">Skip to main content</a>
 
-  <nav class="app-nav" aria-label="Main navigation">
-    <div class="nav-left">
-      <a href="/" class="nav-logo" data-i18n="common.site_name">Bridg<span>n</span></a>
-      <span class="nav-badge">Contribute</span>
-    </div>
-    <ul class="nav-links">
-      <li><a href="/app.html" class="nav-link" data-i18n="common.nav_translator">Translate</a></li>
-      <li><a href="/contribute.html" class="nav-link is-active" aria-current="page">Contribute</a></li>
-      <li><a href="/" class="nav-link">About</a></li>
+  <header class="kz-header" aria-label="Main navigation">
+    <a href="/" class="kz-header__logo" data-i18n="common.site_name">Bridg<span>n</span></a>
+    <ul class="kz-header__nav">
+      <li><a href="/app.html" class="kz-header__link" data-i18n="common.nav_translate">Translate</a></li>
+      <li><a href="/contribute.html" class="kz-header__link is-active" aria-current="page" data-i18n="common.nav_contribute">Contribute</a></li>
+      <li><a href="/progress" class="kz-header__link" data-i18n="common.nav_progress">Progress</a></li>
+      <li><a href="/credits" class="kz-header__link" data-i18n="common.nav_about">About</a></li>
     </ul>
-    <button class="hamburger" id="navHamburger" aria-label="Menu" aria-expanded="false">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    <button class="kz-header__hamburger" type="button" aria-label="Menu" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
-  </nav>
+  </header>
 
   <main id="main-content" class="contribute-main" role="main">
     <header class="contribute-header">
@@ -563,19 +561,40 @@
     <button type="button" class="hint-close" id="hintClose" aria-label="Dismiss hint">&times;</button>
   </div>
 
-  <footer class="kz-footer site-footer">
-    <div class="footer-inner">
-      <div class="footer-logo">Bridg<span>n</span></div>
-      <ul class="footer-links">
-        <li><a href="/app.html" data-i18n="landing.nav_open_translator">Translator</a></li>
-        <li><a href="/contribute.html" data-i18n="landing.nav_contribute_sign">Contribute</a></li>
-        <li><a href="/progress" data-i18n="common.footer_progress_link">Progress</a></li>
-        <li><a href="/governance.html" data-i18n="common.footer_governance_link">How contributions are reviewed</a></li>
-        <li><a href="/credits">Credits</a></li>
-        <li><a href="/privacy.html" data-i18n="common.footer_privacy">Privacy</a></li>
-        <li><a href="/contact.html" data-i18n="common.footer_contact">Contact</a></li>
-      </ul>
-      <div class="footer-copy" data-i18n="landing.footer_copyright">© 2025–2026 Bridgn. Open-source research project.</div>
+  <footer class="kz-footer" role="contentinfo">
+    <div class="kz-footer__inner">
+      <div class="kz-footer__brand">
+        <a href="/" class="kz-footer__logo">Bridg<span>n</span></a>
+        <p class="kz-footer__mission" data-i18n="common.footer_mission">Open-source translator from text and speech into sign language. Built with the Deaf community.</p>
+      </div>
+      <nav class="kz-footer__cols" aria-label="Footer">
+        <div class="kz-footer__col">
+          <h3 class="kz-footer__col-title" data-i18n="common.footer_col_use">Use</h3>
+          <ul>
+            <li><a href="/app.html" data-i18n="common.nav_translate">Translate</a></li>
+            <li><a href="/contribute.html" data-i18n="common.nav_contribute">Contribute</a></li>
+          </ul>
+        </div>
+        <div class="kz-footer__col">
+          <h3 class="kz-footer__col-title" data-i18n="common.footer_col_project">Project</h3>
+          <ul>
+            <li><a href="/progress" data-i18n="common.nav_progress">Progress</a></li>
+            <li><a href="/credits" data-i18n="common.nav_credits">Credits</a></li>
+            <li><a href="/governance.html" data-i18n="common.nav_governance">Governance</a></li>
+          </ul>
+        </div>
+        <div class="kz-footer__col">
+          <h3 class="kz-footer__col-title" data-i18n="common.footer_col_community">Community</h3>
+          <ul>
+            <li><a href="https://github.com/zhan-a/Kozha" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="mailto:deaf-feedback@kozha.dev">deaf-feedback@kozha.dev</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="kz-footer__meta">
+        <p class="kz-footer__copy" data-i18n="landing.footer_copyright">© 2025–2026 Bridgn. Open-source research project.</p>
+        <p class="kz-footer__os"><span data-i18n="common.footer_open_source">Open source on</span> <a href="https://github.com/zhan-a/Kozha" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+      </div>
     </div>
   </footer>
 
@@ -589,18 +608,7 @@
   <script src="/contribute-submit.js"></script>
   <script src="/contribute.js"></script>
 
-  <script>
-    // Hamburger toggle for mobile — mirrors the main-page pattern.
-    (function () {
-      var btn = document.getElementById('navHamburger');
-      var nav = document.querySelector('.app-nav');
-      if (!btn || !nav) return;
-      btn.addEventListener('click', function () {
-        var open = nav.classList.toggle('is-open');
-        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
-    }());
-  </script>
+  <script src="/nav.js"></script>
 
   <!-- Graceful-degradation probe. Hits the chat2hamnosys liveness route
        once on load; if the backend is not reachable (network error, 404

@@ -154,7 +154,8 @@ body {
   width: 100%;
   max-width: var(--kozha-layout-page-max);
   margin: 0 auto;
-  padding: var(--kozha-space-10) var(--kozha-space-8) var(--kozha-space-16);
+  /* Top padding clears the fixed .kz-header (layout-nav-h). */
+  padding: calc(var(--kozha-layout-nav-h) + var(--kozha-space-8)) var(--kozha-space-8) var(--kozha-space-16);
   display: flex;
   flex-direction: column;
   gap: var(--kozha-space-6);
@@ -1274,7 +1275,7 @@ select.field-input { cursor: pointer; }
 @media (max-width: 1099px) {
   .app-nav { padding: 0 var(--kozha-space-4); }
   .contribute-main {
-    padding: var(--kozha-space-6) var(--kozha-space-4) var(--kozha-space-12);
+    padding: calc(var(--kozha-layout-nav-h) + var(--kozha-space-4)) var(--kozha-space-4) var(--kozha-space-12);
   }
   .notation-hamnosys-layout { grid-template-columns: 1fr; }
   .notation-breakdown { grid-template-columns: 1fr; }
@@ -1297,7 +1298,7 @@ select.field-input { cursor: pointer; }
   }
   .app-nav.is-open .nav-links { display: flex; }
   .contribute-main {
-    padding: var(--kozha-space-5) var(--kozha-space-3) var(--kozha-space-10);
+    padding: calc(var(--kozha-layout-nav-h) + var(--kozha-space-3)) var(--kozha-space-3) var(--kozha-space-10);
     gap: var(--kozha-space-4);
   }
   .card { padding: var(--kozha-space-5) var(--kozha-space-5); }

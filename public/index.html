@@ -757,25 +757,21 @@
   </style>
 </head>
 <body>
-  <a href="#main-content" class="skip-link" data-i18n="common.skip_to_main">Skip to main content</a>
+  <a href="#main-content" class="skip-link kz-skip-link" data-i18n="common.skip_to_main">Skip to main content</a>
 
   <div class="SToCA"></div>
-  <nav class="kz-header" aria-label="Main navigation">
-    <a href="/" class="nav-logo">Bridg<span>n</span></a>
-    <ul class="nav-links">
-      <li><a href="#features" class="kz-link">Features</a></li>
-      <li><a href="#how-it-works" class="kz-link">How it works</a></li>
-      <li><a href="/contribute.html" class="kz-link" data-i18n="landing.nav_contribute_sign">Contribute</a></li>
-      <li><a href="/governance.html" class="kz-link" data-i18n="landing.footer_governance_link">Governance</a></li>
+  <header class="kz-header" aria-label="Main navigation">
+    <a href="/" class="kz-header__logo">Bridg<span>n</span></a>
+    <ul class="kz-header__nav">
+      <li><a href="/app.html" class="kz-header__link" data-i18n="common.nav_translate">Translate</a></li>
+      <li><a href="/contribute.html" class="kz-header__link" data-i18n="common.nav_contribute">Contribute</a></li>
+      <li><a href="/progress" class="kz-header__link" data-i18n="common.nav_progress">Progress</a></li>
+      <li><a href="/credits" class="kz-header__link" data-i18n="common.nav_about">About</a></li>
     </ul>
-    <div class="nav-cta">
-      <a href="/contribute.html" class="btn-ghost">Volunteer</a>
-      <a href="/app.html" class="btn-primary" data-i18n="landing.nav_open_translator">Open translator →</a>
-      <button class="nav-hamburger" id="navHamburger" aria-label="Menu" aria-expanded="false">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
-    </div>
-  </nav>
+    <button class="kz-header__hamburger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="kzPrimaryNav">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </header>
 
   <main id="main-content">
   <section class="hero">
@@ -988,40 +984,45 @@
     </div>
   </section>
   </main>
-  <footer class="kz-footer">
-    <div class="footer-inner">
-      <div class="footer-logo">Bridg<span>n</span></div>
-      <ul class="footer-links">
-        <li><a href="/app.html" data-i18n="landing.nav_open_translator">Translator</a></li>
-        <li><a href="/contribute.html" data-i18n="landing.nav_contribute_sign">Contribute</a></li>
-        <li><a href="/progress" data-i18n="landing.footer_progress_link">Progress</a></li>
-        <li><a href="/governance.html" data-i18n="landing.footer_governance_link">Governance</a></li>
-        <li><a href="/credits">Credits</a></li>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#how-it-works">How it works</a></li>
-      </ul>
-      <div class="footer-copy" data-i18n="landing.footer_copyright">© 2025–2026 Bridgn. Open-source research project.</div>
+  <footer class="kz-footer" role="contentinfo">
+    <div class="kz-footer__inner">
+      <div class="kz-footer__brand">
+        <a href="/" class="kz-footer__logo">Bridg<span>n</span></a>
+        <p class="kz-footer__mission" data-i18n="common.footer_mission">Open-source translator from text and speech into sign language. Built with the Deaf community.</p>
+      </div>
+      <nav class="kz-footer__cols" aria-label="Footer">
+        <div class="kz-footer__col">
+          <h3 class="kz-footer__col-title" data-i18n="common.footer_col_use">Use</h3>
+          <ul>
+            <li><a href="/app.html" data-i18n="common.nav_translate">Translate</a></li>
+            <li><a href="/contribute.html" data-i18n="common.nav_contribute">Contribute</a></li>
+          </ul>
+        </div>
+        <div class="kz-footer__col">
+          <h3 class="kz-footer__col-title" data-i18n="common.footer_col_project">Project</h3>
+          <ul>
+            <li><a href="/progress" data-i18n="common.nav_progress">Progress</a></li>
+            <li><a href="/credits" data-i18n="common.nav_credits">Credits</a></li>
+            <li><a href="/governance.html" data-i18n="common.nav_governance">Governance</a></li>
+          </ul>
+        </div>
+        <div class="kz-footer__col">
+          <h3 class="kz-footer__col-title" data-i18n="common.footer_col_community">Community</h3>
+          <ul>
+            <li><a href="https://github.com/zhan-a/Kozha" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="mailto:deaf-feedback@kozha.dev">deaf-feedback@kozha.dev</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="kz-footer__meta">
+        <p class="kz-footer__copy" data-i18n="landing.footer_copyright">© 2025–2026 Bridgn. Open-source research project.</p>
+        <p class="kz-footer__os"><span data-i18n="common.footer_open_source">Open source on</span> <a href="https://github.com/zhan-a/Kozha" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+      </div>
     </div>
   </footer>
 
+  <script src="/nav.js"></script>
   <script>
-    (function() {
-      var hamburger = document.getElementById('navHamburger');
-      var links = document.querySelector('.nav-links');
-      if (hamburger && links) {
-        hamburger.addEventListener('click', function() {
-          var open = links.classList.toggle('open');
-          hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
-        });
-        links.querySelectorAll('a').forEach(function(a) {
-          a.addEventListener('click', function() {
-            links.classList.remove('open');
-            hamburger.setAttribute('aria-expanded', 'false');
-          });
-        });
-      }
-    })();
-
     const chips = document.querySelectorAll('.demo-chip');
     chips.forEach(c => {
       c.addEventListener('click', () => {

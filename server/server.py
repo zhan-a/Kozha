@@ -7,10 +7,11 @@ _CHAT2HAMNOSYS_ROOT = Path(__file__).resolve().parent.parent / "backend" / "chat
 if str(_CHAT2HAMNOSYS_ROOT) not in sys.path:
     sys.path.insert(0, str(_CHAT2HAMNOSYS_ROOT))
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, Response
+from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
+from starlette.exceptions import HTTPException as StarletteHTTPException
 from pydantic import BaseModel
 from typing import Dict, List, Optional
 from collections import OrderedDict
@@ -861,6 +862,22 @@ def serve_progress_snapshot():
 @app.get("/contribute/me/", include_in_schema=False)
 def serve_contribute_me():
     return FileResponse(PUBLIC_DIR / "contribute-me.html")
+
+
+# HTTP 404 handler: browser navigations get the designed 404.html (same
+# header/footer as every other page). API clients and asset requests
+# continue to receive plain JSON — we gate on path prefix and Accept.
+@app.exception_handler(StarletteHTTPException)
+async def _kozha_http_exception_handler(request: Request, exc: StarletteHTTPException):
+    if exc.status_code == 404:
+        path = request.url.path or ""
+        accept = request.headers.get("accept", "")
+        wants_html = "text/html" in accept or accept == ""
+        is_api = path.startswith("/api/")
+        is_asset = path.startswith(("/data/", "/cwa/", "/styles/", "/fonts/"))
+        if wants_html and not is_api and not is_asset:
+            return FileResponse(PUBLIC_DIR / "404.html", status_code=404)
+    return JSONResponse({"detail": exc.detail}, status_code=exc.status_code)
 
 
 app.mount("/", StaticFiles(directory=PUBLIC_DIR, html=True), name="public")

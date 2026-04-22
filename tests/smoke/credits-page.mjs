@@ -200,11 +200,12 @@ function parseCreditsAnchorsAndCitations(html) {
     ranges.push({ start: m.index, end: m.index + m[0].length });
   }
 
-  // Also allow anchors in the TOC nav, the hero <header>, the navigation,
-  // and the content of the non-corpus sections (contributors, board,
-  // funding, compensation, translation layer, notation, avatar). Those have
-  // their own content structures rather than <article class="credits-entry">.
-  const allowRangeRe = /<(nav[^>]*?class="(?:kz-header|credits-toc)"[^>]*?>[\s\S]*?<\/nav>|header[^>]*?class="credits-hero"[^>]*?>[\s\S]*?<\/header>|section[^>]*?id="(?:contributors|board|funding|compensation|translation|notation|avatar)"[^>]*?>[\s\S]*?<\/section>|footer[^>]*?class="kz-footer"[^>]*?>[\s\S]*?<\/footer>)/gi;
+  // Also allow anchors in the TOC nav, the hero <header>, the shared
+  // site header/footer (prompt-11 chrome), and the content of the
+  // non-corpus sections (contributors, board, funding, compensation,
+  // translation layer, notation, avatar). Those have their own content
+  // structures rather than <article class="credits-entry">.
+  const allowRangeRe = /<(header[^>]*?class="kz-header"[^>]*?>[\s\S]*?<\/header>|nav[^>]*?class="credits-toc"[^>]*?>[\s\S]*?<\/nav>|header[^>]*?class="credits-hero"[^>]*?>[\s\S]*?<\/header>|section[^>]*?id="(?:contributors|board|funding|compensation|translation|notation|avatar)"[^>]*?>[\s\S]*?<\/section>|footer[^>]*?class="kz-footer"[^>]*?>[\s\S]*?<\/footer>)/gi;
   const allowRanges = [];
   while ((m = allowRangeRe.exec(html)) !== null) {
     allowRanges.push({ start: m.index, end: m.index + m[0].length });

@@ -5,23 +5,92 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Governance — Bridgn</title>
   <meta name="description" content="How contributions to Bridgn are reviewed: who reviews, the Deaf advisory board, what happens to your submission, evaluation criteria, and how to raise a concern.">
+  <meta property="og:title" content="Governance — Bridgn">
+  <meta property="og:description" content="How contributions to Bridgn are reviewed, by whom, and how to raise a concern.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kozha-translate.com/governance.html">
+  <meta name="twitter:card" content="summary">
   <link rel="canonical" href="https://kozha-translate.com/governance.html">
   <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="/styles/tokens.css">
+  <link rel="stylesheet" href="/styles/components.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/contribute.css">
   <script defer src="/i18n.js"></script>
+  <meta name="theme-color" content="#f5f1eb" />
+  <style>
+    /* Governance-specific scaffolding — the page uses contribute.css for
+       most of its typography; the rules below handle the kz-header clear
+       and sub-page breadcrumb spacing. */
+    main.governance {
+      max-width: var(--kozha-layout-page-max);
+      margin: 0 auto;
+      padding: calc(var(--kozha-layout-nav-h) + var(--kozha-space-8))
+               var(--kozha-space-8)
+               var(--kozha-space-16);
+    }
+    main.governance h1 {
+      font-family: var(--kozha-font-serif);
+      font-size: var(--kozha-text-hero-h1);
+      font-weight: var(--kozha-weight-regular);
+      letter-spacing: var(--kozha-tracking-tightest);
+      line-height: var(--kozha-leading-tight);
+      color: var(--kozha-color-ink);
+      margin: 0 0 var(--kozha-space-4);
+    }
+    main.governance .governance-lede {
+      font-size: var(--kozha-text-hero-sub);
+      line-height: var(--kozha-leading-loose);
+      color: var(--kozha-color-ink-2);
+      margin: 0 0 var(--kozha-space-8);
+      max-width: 62ch;
+    }
+    .governance-section { margin-top: var(--kozha-space-12); }
+    .governance-section h2 {
+      font-family: var(--kozha-font-serif);
+      font-size: var(--kozha-text-contribute-h2);
+      font-weight: var(--kozha-weight-regular);
+      color: var(--kozha-color-ink);
+      margin: 0 0 var(--kozha-space-4);
+    }
+    .governance-section p,
+    .governance-section li {
+      font-size: var(--kozha-text-body-lg);
+      line-height: var(--kozha-leading-loose);
+      color: var(--kozha-color-ink-2);
+    }
+    @media (max-width: 1099px) {
+      main.governance {
+        padding: calc(var(--kozha-layout-nav-h) + var(--kozha-space-4))
+                 var(--kozha-space-4)
+                 var(--kozha-space-12);
+      }
+    }
+  </style>
 </head>
 <body>
-  <a href="#main" class="skip-link" data-i18n="common.skip_to_main">Skip to main content</a>
+  <a href="#main" class="skip-link kz-skip-link" data-i18n="common.skip_to_main">Skip to main content</a>
 
-  <header class="site-header">
-    <a href="/" class="site-name" data-i18n="common.site_name">Bridgn</a>
-    <a href="/" class="back-link" data-i18n="common.nav_back_to_kozha">Return to Kozha</a>
+  <header class="kz-header" aria-label="Main navigation">
+    <a href="/" class="kz-header__logo" data-i18n="common.site_name">Bridg<span>n</span></a>
+    <ul class="kz-header__nav">
+      <li><a href="/app.html" class="kz-header__link" data-i18n="common.nav_translate">Translate</a></li>
+      <li><a href="/contribute.html" class="kz-header__link" data-i18n="common.nav_contribute">Contribute</a></li>
+      <li><a href="/progress" class="kz-header__link" data-i18n="common.nav_progress">Progress</a></li>
+      <li><a href="/credits" class="kz-header__link" data-i18n="common.nav_about">About</a></li>
+    </ul>
+    <button class="kz-header__hamburger" type="button" aria-label="Menu" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
   </header>
 
   <main class="governance" id="main">
+    <ol class="kz-breadcrumbs" aria-label="Breadcrumb">
+      <li><a href="/">Home</a></li>
+      <li aria-current="page">Governance</li>
+    </ol>
     <h1 data-i18n="governance.heading">Governance</h1>
     <p class="governance-lede" data-i18n="governance.lede">
       This page describes who reviews the signs you submit, what happens to them, and how to raise a concern about a sign already published. It is short on purpose. Everything below is a factual description of how review works — or, where something is not yet in place, a plain statement of that.
@@ -116,13 +185,44 @@
     </nav>
   </main>
 
-  <footer class="site-footer">
-    <ul class="footer-links">
-      <li><a href="/" data-i18n="common.nav_home">Home</a></li>
-      <li><a href="/credits">Credits</a></li>
-    </ul>
+  <footer class="kz-footer" role="contentinfo">
+    <div class="kz-footer__inner">
+      <div class="kz-footer__brand">
+        <a href="/" class="kz-footer__logo">Bridg<span>n</span></a>
+        <p class="kz-footer__mission" data-i18n="common.footer_mission">Open-source translator from text and speech into sign language. Built with the Deaf community.</p>
+      </div>
+      <nav class="kz-footer__cols" aria-label="Footer">
+        <div class="kz-footer__col">
+          <h3 class="kz-footer__col-title" data-i18n="common.footer_col_use">Use</h3>
+          <ul>
+            <li><a href="/app.html" data-i18n="common.nav_translate">Translate</a></li>
+            <li><a href="/contribute.html" data-i18n="common.nav_contribute">Contribute</a></li>
+          </ul>
+        </div>
+        <div class="kz-footer__col">
+          <h3 class="kz-footer__col-title" data-i18n="common.footer_col_project">Project</h3>
+          <ul>
+            <li><a href="/progress" data-i18n="common.nav_progress">Progress</a></li>
+            <li><a href="/credits" data-i18n="common.nav_credits">Credits</a></li>
+            <li><a href="/governance.html" data-i18n="common.nav_governance">Governance</a></li>
+          </ul>
+        </div>
+        <div class="kz-footer__col">
+          <h3 class="kz-footer__col-title" data-i18n="common.footer_col_community">Community</h3>
+          <ul>
+            <li><a href="https://github.com/zhan-a/Kozha" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="mailto:deaf-feedback@kozha.dev">deaf-feedback@kozha.dev</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="kz-footer__meta">
+        <p class="kz-footer__copy">© 2025–2026 Bridgn. Open-source research project.</p>
+        <p class="kz-footer__os"><span data-i18n="common.footer_open_source">Open source on</span> <a href="https://github.com/zhan-a/Kozha" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+      </div>
+    </div>
   </footer>
 
+  <script src="/nav.js"></script>
   <script src="/governance.js"></script>
 </body>
 </html>
