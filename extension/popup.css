@@ -117,11 +117,71 @@ body {
   border: none;
 }
 
+#popup-playback {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+#popup-playback-buttons { display: flex; gap: 4px; }
+
+.popup-play-btn {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  font-size: 14px;
+  color: #e0e0e0;
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.popup-play-btn:hover { background: #222; color: #e8843e; border-color: rgba(232, 132, 62, 0.4); }
+.popup-play-btn:focus-visible { outline: 2px solid #e8843e; outline-offset: 2px; }
+.popup-play-btn[aria-pressed="true"] { background: #2b1a0f; color: #e8843e; }
+
+#popup-speed {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  background: #0f0f0f;
+  border-radius: 6px;
+  padding: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.popup-speed-btn {
+  min-width: 40px;
+  height: 36px;
+  padding: 0 8px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: #999;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+.popup-speed-btn:hover { color: #e0e0e0; }
+.popup-speed-btn.is-active { background: #1a1a1a; color: #e8843e; }
+.popup-speed-btn:focus-visible { outline: 2px solid #e8843e; outline-offset: 1px; }
+
 #popup-status {
   font-size: 11px;
   color: #666;
   text-align: center;
   padding: 2px 0 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .popup-play-btn,
+  .popup-speed-btn { transition: none; }
 }
 
 #popup-footer {

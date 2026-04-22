@@ -61,6 +61,23 @@
       <iframe id="popup-avatar-frame" src="panel.html"></iframe>
     </div>
 
+    <!-- Prompt-polish 10 §12: playback parity with the main site. The
+         popup can pause/resume/stop and pick a speed; these map to the
+         same postMessage channel the YouTube mode already uses. -->
+    <div id="popup-playback">
+      <div id="popup-playback-buttons">
+        <button type="button" class="popup-play-btn" id="popup-pause-btn"
+                aria-label="Pause" aria-pressed="false" title="Pause / resume (space)">⏸</button>
+        <button type="button" class="popup-play-btn" id="popup-stop-btn"
+                aria-label="Stop" title="Stop">⏹</button>
+      </div>
+      <div id="popup-speed" role="group" aria-label="Playback speed">
+        <button type="button" class="popup-speed-btn" data-speed="0.5">0.5×</button>
+        <button type="button" class="popup-speed-btn is-active" data-speed="1">1×</button>
+        <button type="button" class="popup-speed-btn" data-speed="2">2×</button>
+      </div>
+    </div>
+
     <div id="popup-status">Ready</div>
   </div>
 

@@ -359,26 +359,431 @@
       padding: 20px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 16px;
+      align-items: stretch;
+      gap: 12px;
     }
 
+    /* Prompt-polish 10 §1/§2: the top strip reserves 2px of vertical space
+       so the indeterminate loading bar can fade in without shifting the
+       avatar area below. The 200ms threshold is enforced in JS; this
+       surface is always present. */
+    .translator-progress {
+      height: 2px;
+      background: var(--kozha-color-paper-2, var(--paper-2));
+      overflow: hidden;
+      border-radius: var(--kozha-radius-pill, 999px);
+      opacity: 0;
+      transition: opacity 150ms ease;
+    }
+    .translator-progress.visible { opacity: 1; }
+    .translator-progress-bar {
+      display: block;
+      width: 40%;
+      height: 100%;
+      background: var(--kozha-color-accent, var(--accent));
+      animation: translatorProgressSlide 1.4s ease-in-out infinite;
+    }
+    @keyframes translatorProgressSlide {
+      0%   { transform: translateX(-100%); }
+      100% { transform: translateX(300%); }
+    }
+
+    /* Prompt-polish 10 §2/§4: avatar stage holds a fixed 16:9 space so
+       the layout does not shift when CWASA mounts. Backdrop is the
+       light-gray surface token (not white, not black). */
     .avatar-stage {
-      background: white;
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--kozha-color-surface-avatar, #e9e6df);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .avatar-stage:focus-visible {
+      outline: 2px solid var(--kozha-color-accent, var(--accent));
+      outline-offset: 2px;
     }
 
-    .CWASAAvatar.av0 { width: 384px; height: 320px; }
+    /* CWASA's canvas is positioned to fill the stage, centered. */
+    .CWASAAvatar.av0 {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .CWASAAvatar.av0 canvas {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto !important;
+      height: auto !important;
+    }
     .divCtrlPanel { display: none; }
     .menuAv { display: none; }
+
+    /* Neutral placeholder pose shown before first playback. Fades out as
+       soon as a SiGML plays. A simple outline figure glyph. */
+    .avatar-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      pointer-events: none;
+      color: var(--kozha-color-ink-3, var(--ink-3));
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      transition: opacity 200ms ease;
+    }
+    .avatar-placeholder[hidden] { display: none; }
+    .avatar-placeholder-icon {
+      font-size: 48px;
+      opacity: 0.35;
+      line-height: 1;
+    }
+
+    /* Prompt-polish 10 §6: caption strip sits directly under the avatar.
+       Fixed min-height prevents layout shift between empty and one/two
+       line captions. */
+    .caption-strip {
+      background: var(--kozha-color-white, white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      min-height: 54px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2px;
+    }
+    .caption-gloss {
+      font-family: 'Instrument Serif', serif;
+      font-size: 20px;
+      color: var(--kozha-color-ink, var(--ink));
+      line-height: 1.2;
+      min-height: 24px;
+    }
+    .caption-source {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--kozha-color-ink-3, var(--ink-3));
+      line-height: 1.2;
+      min-height: 14px;
+    }
+    .caption-gloss.placeholder,
+    .caption-source.placeholder {
+      opacity: 0.45;
+    }
+
+    /* Prompt-polish 10 §5: playback controls — always visible, never
+       hidden behind a toggle. Speed is a segmented control. The
+       scrubber uses a native range input styled to match. The time
+       display uses a monospace font so digits don't jitter. */
+    .playback-controls {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 12px;
+      background: var(--kozha-color-white, white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+    }
+    .playback-buttons {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .playback-btn {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      min-height: 44px;
+      border: 1px solid transparent;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      color: var(--kozha-color-ink-2, var(--ink-2));
+      font-size: 16px;
+      line-height: 1;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+    }
+    .playback-btn:hover {
+      background: var(--paper-2);
+      color: var(--kozha-color-ink, var(--ink));
+    }
+    .playback-btn:focus-visible {
+      outline: 2px solid var(--kozha-color-accent, var(--accent));
+      outline-offset: 2px;
+    }
+    .playback-btn.is-active,
+    .playback-btn[aria-pressed="true"] {
+      background: var(--kozha-color-accent-light, var(--accent-light));
+      color: var(--kozha-color-accent, var(--accent));
+      border-color: rgba(201, 106, 46, 0.2);
+    }
+    .playback-btn:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+    .playback-scrub-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+    .playback-scrub {
+      width: 100%;
+      height: 20px;
+      padding: 0;
+      margin: 0;
+      background: transparent;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .playback-scrub::-webkit-slider-runnable-track {
+      height: 4px;
+      border-radius: 2px;
+      background: var(--paper-2);
+    }
+    .playback-scrub::-moz-range-track {
+      height: 4px;
+      border-radius: 2px;
+      background: var(--paper-2);
+    }
+    .playback-scrub::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: var(--kozha-color-accent, var(--accent));
+      border: 2px solid var(--kozha-color-white, white);
+      box-shadow: 0 1px 2px rgba(26, 22, 18, 0.2);
+      margin-top: -5px;
+      cursor: pointer;
+    }
+    .playback-scrub::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: var(--kozha-color-accent, var(--accent));
+      border: 2px solid var(--kozha-color-white, white);
+      box-shadow: 0 1px 2px rgba(26, 22, 18, 0.2);
+      cursor: pointer;
+    }
+    .playback-scrub:focus-visible {
+      outline: 2px solid var(--kozha-color-accent, var(--accent));
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+    .playback-time {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-family: ui-monospace, 'Menlo', 'DM Sans', monospace;
+      font-variant-numeric: tabular-nums;
+      font-size: 12px;
+      color: var(--kozha-color-ink-3, var(--ink-3));
+      min-width: 74px;
+      justify-content: flex-end;
+    }
+    .playback-speed {
+      display: inline-flex;
+      align-items: center;
+      gap: 0;
+      background: var(--paper-2);
+      border-radius: var(--radius-sm);
+      padding: 3px;
+    }
+    .playback-speed-btn {
+      min-width: 40px;
+      height: 30px;
+      padding: 0 8px;
+      background: transparent;
+      border: none;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--kozha-color-ink-3, var(--ink-3));
+      cursor: pointer;
+      transition: background 150ms ease, color 150ms ease;
+    }
+    .playback-speed-btn.is-active {
+      background: var(--kozha-color-white, white);
+      color: var(--kozha-color-accent, var(--accent));
+      box-shadow: 0 1px 4px rgba(26,22,18,0.08);
+    }
+    .playback-speed-btn:focus-visible {
+      outline: 2px solid var(--kozha-color-accent, var(--accent));
+      outline-offset: 1px;
+    }
+    .playback-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Prompt-polish 10 §7: inline error recovery panel replaces the
+       status-badge-only error surface. Sits in the output area, keeps
+       the user's input intact, offers a retry. */
+    .translator-error {
+      background: var(--kozha-color-danger-light, #fdf0ee);
+      border: 1px solid rgba(192, 57, 43, 0.3);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .translator-error[hidden] { display: none; }
+    .translator-error-title {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--kozha-color-danger, #c0392b);
+      line-height: 1.3;
+    }
+    .translator-error-body {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: var(--kozha-color-ink-2, var(--ink-2));
+      line-height: 1.5;
+    }
+    .translator-error-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* Prompt-polish 10 §10: dismissible first-visit keyboard hint.
+       Uses localStorage to track the dismissal flag. */
+    .kb-hint-strip {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 12px;
+      background: var(--kozha-color-accent-light, var(--accent-light));
+      border: 1px solid var(--kozha-color-border-accent, rgba(201,106,46,0.2));
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      color: var(--kozha-color-accent, var(--accent));
+    }
+    .kb-hint-strip[hidden] { display: none; }
+    .kb-hint-text { flex: 1; min-width: 0; }
+    .kb-hint-text kbd {
+      background: var(--kozha-color-white, white);
+      border: 1px solid var(--kozha-color-border-accent, rgba(201,106,46,0.2));
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-family: ui-monospace, 'Menlo', monospace;
+      font-size: 11px;
+      color: var(--kozha-color-accent, var(--accent));
+      margin: 0 2px;
+    }
+    .kb-hint-close {
+      background: transparent;
+      border: 0;
+      color: var(--kozha-color-accent, var(--accent));
+      font-size: 18px;
+      cursor: pointer;
+      padding: 4px 8px;
+      line-height: 1;
+      border-radius: var(--radius-sm);
+      min-width: 32px;
+    }
+    .kb-hint-close:hover { background: rgba(255,255,255,0.5); }
+    .kb-hint-close:focus-visible {
+      outline: 2px solid var(--kozha-color-accent, var(--accent));
+      outline-offset: 2px;
+    }
+
+    /* Prompt-polish 10 §8/§9: textarea auto-grow cap + character counter
+       that only appears once we're near the limit. */
+    #textIn {
+      min-height: 80px;
+      max-height: 168px; /* ~6 lines at 24px line-height + padding */
+      overflow-y: auto;
+      resize: none;
+    }
+    .char-count {
+      text-align: right;
+      font-family: ui-monospace, 'Menlo', monospace;
+      font-variant-numeric: tabular-nums;
+      font-size: 11px;
+      color: var(--kozha-color-ink-3, var(--ink-3));
+      margin-top: 4px;
+      min-height: 14px;
+      opacity: 0;
+      transition: opacity 150ms ease;
+    }
+    .char-count.visible { opacity: 1; }
+    .char-count.warn { color: var(--kozha-color-accent, var(--accent)); font-weight: 600; }
+    .char-count.over { color: var(--kozha-color-danger, #c0392b); font-weight: 600; }
+
+    /* Opt-in auto-translate toggle. Off by default per prompt 10 §8. */
+    .auto-translate-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 4px;
+      min-height: 24px;
+    }
+    .auto-translate-row label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--kozha-color-ink-3, var(--ink-3));
+      cursor: pointer;
+    }
+
+    /* Prompt-polish 10 §2: lock the coverage counter + token list to
+       predictable heights. Coverage-counter already had min-height 18px;
+       token list gets a two-row floor so wrapping doesn't push controls. */
+    .token-list {
+      min-height: 56px;
+      align-content: flex-start;
+    }
+    .coverage-counter {
+      min-height: 18px;
+    }
+
+    /* Prompt-polish 10 §13: honor prefers-reduced-motion everywhere we
+       added new motion. */
+    @media (prefers-reduced-motion: reduce) {
+      .translator-progress { transition: none; }
+      .translator-progress-bar { animation: none; width: 100%; }
+      .avatar-placeholder { transition: none; }
+      .playback-btn,
+      .playback-speed-btn,
+      .playback-progress-bar,
+      .kb-hint-close { transition: none; }
+      .btn, .btn-secondary, .btn-primary, .btn-translate, .sidebar-item {
+        transition: none !important;
+      }
+    }
 
     .avatar-controls {
       display: flex;
       align-items: center;
       justify-content: space-between;
       width: 100%;
+      gap: 12px;
+      flex-wrap: wrap;
     }
 
     .avatar-switcher {
@@ -559,13 +964,23 @@
       .sidebar-section-label { display: none; }
       .sidebar-divider { display: none; }
       .render-panel { width: 100%; }
-      .CWASAAvatar.av0 { width: 100%; height: auto; }
+      /* On mobile, the render panel stacks under the input. Avatar stage
+         keeps its 16:9 aspect; the rule above handles sizing via
+         aspect-ratio, so we don't stretch height here. */
       .advanced-grid { grid-template-columns: 1fr; }
       .hamburger { display: block; }
-      .btn, .btn-secondary, .btn-primary, .btn-translate, .sidebar-item {
+      .btn, .btn-secondary, .btn-primary, .btn-translate, .sidebar-item,
+      .avatar-switcher select, #stopBtn,
+      .playback-btn, .playback-speed-btn {
         min-height: 44px;
       }
+      .playback-speed-btn { min-width: 44px; }
       .avatar-controls { flex-wrap: wrap; gap: 8px; }
+      .playback-controls {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      .playback-time { justify-content: center; }
       .nav-right { gap: 8px; }
       .nav-link-sm { font-size: 12px; }
       .app-nav { padding: 0 16px; }
@@ -575,6 +990,10 @@
       .render-panel .avatar-stage { overflow: hidden; }
       .row { flex-direction: column; align-items: stretch; }
       .row .grow { width: 100%; }
+      /* Prompt-polish 10 §11: narrow viewport stacks selectors → input →
+         avatar → captions → coverage. The DOM order already matches; we
+         only need to ensure all targets stay ≥ 44px. */
+      .caption-strip { min-height: 56px; }
     }
     .skip-link {
       position: absolute;
@@ -939,12 +1358,32 @@
           </div>
 
           <label class="field-label" for="textIn">Enter your phrase</label>
-          <textarea id="textIn" placeholder="Try something like: Hello, how are you?" rows="3" maxlength="10000"></textarea>
-          <div class="char-count" id="charCount">0 / 10000</div>
+          <textarea id="textIn" placeholder="Try something like: Hello, how are you?" rows="3" maxlength="10000" aria-describedby="charCount autoTranslateLabel"></textarea>
+          <div class="char-count" id="charCount" aria-live="polite"></div>
+
+          <div class="auto-translate-row">
+            <label id="autoTranslateLabel">
+              <input type="checkbox" id="autoTranslateToggle" />
+              Auto-translate as I type
+            </label>
+            <span class="hint" id="shortcutHintSm" aria-hidden="true">Enter to translate · Shift+Enter for newline</span>
+          </div>
 
           <button id="translateBtn" class="btn-translate" style="margin-top: 16px;" aria-label="Translate to sign language">
             🤟 Translate to Sign
           </button>
+
+          <!-- Prompt-polish 10 §7: inline error recovery block. Sits in the
+               input card so the user sees the problem near the text they
+               entered, not in a disconnected toast. -->
+          <div class="translator-error" id="translatorError" role="alert" hidden>
+            <div class="translator-error-title" id="translatorErrorTitle">Translation failed.</div>
+            <div class="translator-error-body" id="translatorErrorBody">Try again, or switch to a supported language pair.</div>
+            <div class="translator-error-actions">
+              <button type="button" id="translatorErrorRetry" class="kz-btn-secondary" style="padding:8px 16px; font-size:14px;">Retry</button>
+              <button type="button" id="translatorErrorDismiss" class="btn btn-secondary">Dismiss</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1074,13 +1513,73 @@
 
     <div class="render-panel">
       <div class="avatar-wrapper">
+
+        <!-- Prompt-polish 10 §10: first-visit keyboard hint. Dismissal
+             is persisted in localStorage under bridgn.kbHintDismissed.
+             Hidden on subsequent visits. -->
+        <div class="kb-hint-strip" id="kbHintStrip" role="note" hidden>
+          <span class="kb-hint-text">
+            <kbd>Enter</kbd> to translate · <kbd>Space</kbd> to play/pause ·
+            <kbd>←</kbd> <kbd>→</kbd> to scrub
+          </span>
+          <button type="button" class="kb-hint-close" id="kbHintClose" aria-label="Dismiss keyboard shortcut hint">×</button>
+        </div>
+
+        <!-- Prompt-polish 10 §1: indeterminate progress bar above the
+             avatar. Shown only when translation takes > 200ms. -->
+        <div class="translator-progress" id="translatorProgress" role="progressbar" aria-label="Translating" aria-hidden="true">
+          <span class="translator-progress-bar"></span>
+        </div>
+
         <div class="avatar-stage" tabindex="0" aria-label="Sign language avatar animation">
           <div class="CWASAAvatar av0"></div>
           <div class="CWASAGUI av0" style="display:none"></div>
+          <div class="avatar-placeholder" id="avatarPlaceholder" aria-hidden="true">
+            <span class="avatar-placeholder-icon" aria-hidden="true">🤟</span>
+            <span>Ready when you are.</span>
+          </div>
         </div>
-        <div class="playback-progress" id="playbackProgress" style="display:none;">
-          <div class="playback-progress-bar" id="playbackProgressBar"></div>
+
+        <!-- Prompt-polish 10 §6: caption strip — gloss large, source small.
+             Synced with the playback sequencer so it never lags. -->
+        <div class="caption-strip" role="status" aria-live="polite" aria-label="Current sign and source word">
+          <div class="caption-gloss placeholder" id="captionGloss">—</div>
+          <div class="caption-source placeholder" id="captionSource">Translate to see captions</div>
         </div>
+
+        <!-- Prompt-polish 10 §5: full playback controls — play/pause,
+             loop, speed, timeline scrubber, monospace time display. -->
+        <div class="playback-controls" id="playbackControls" aria-label="Playback controls">
+          <div class="playback-buttons">
+            <button type="button" class="playback-btn" id="playPauseBtn"
+                    aria-label="Play" aria-pressed="false" disabled>▶</button>
+            <button type="button" class="playback-btn" id="loopBtn"
+                    aria-label="Loop playback" aria-pressed="false" disabled>↻</button>
+            <button type="button" class="playback-btn" id="replayBtn"
+                    aria-label="Restart from beginning" disabled>⏮</button>
+          </div>
+          <div class="playback-scrub-wrap">
+            <input type="range" class="playback-scrub" id="playbackScrub"
+                   min="0" max="1000" value="0" step="1"
+                   aria-label="Timeline" disabled />
+            <div class="playback-progress" id="playbackProgress" style="display:none;" aria-hidden="true">
+              <div class="playback-progress-bar" id="playbackProgressBar"></div>
+            </div>
+          </div>
+          <div class="playback-right">
+            <div class="playback-speed" role="group" aria-label="Playback speed">
+              <button type="button" class="playback-speed-btn" data-speed="0.5" aria-pressed="false">0.5×</button>
+              <button type="button" class="playback-speed-btn is-active" data-speed="1" aria-pressed="true">1×</button>
+              <button type="button" class="playback-speed-btn" data-speed="2" aria-pressed="false">2×</button>
+            </div>
+            <div class="playback-time" aria-label="Current and total duration">
+              <span id="playbackCurrent">0:00</span>
+              <span aria-hidden="true">/</span>
+              <span id="playbackTotal">0:00</span>
+            </div>
+          </div>
+        </div>
+
         <div class="token-list" id="tokenList" role="list" aria-label="Signed tokens (press Enter to inspect)"></div>
         <div class="coverage-counter" id="coverageCounter" role="status" aria-live="polite"></div>
         <!-- Prompt-polish 6: per-token detail panel. Hidden by default; the
@@ -1946,7 +2445,7 @@
     window.__lastStats = { signed: 0, fingerspelled: 0, omitted: 0, total: 0 };
 
     function buildSigml(tokens){
-      const blocks = [];
+      const perTokenBlocks = [];
       const malformed = [];
       const validator = window.SigmlValidator || null;
       const signLang = (typeof getSignLang === 'function') ? getSignLang() : null;
@@ -1962,6 +2461,10 @@
       const perToken = [];
       let signed = 0, fingerspelled = 0, omitted = 0;
       for (let i = 0; i < tokens.length; i++) {
+        // Prompt-polish 10: keep per-token block arrays parallel to tokens
+        // so the sequencer can play a single sign without rebuilding the
+        // entire SiGML doc. An omitted token contributes [].
+        const blocksForI = [];
         const t = tokens[i];
         const review = reviewMeta[i] || null;
         const forceFingerspell = !!(review && review.force_fingerspell);
@@ -1970,7 +2473,7 @@
         if (typeof b === 'string') {
           const v = validator ? validator.validateHnsSignXml(b) : { valid: true };
           if (v.valid) {
-            blocks.push(b);
+            blocksForI.push(b);
             accepted = true;
           } else {
             malformed.push({ gloss: t, reason: v.reason || 'unknown-tags', unknownTags: v.unknownTags || [] });
@@ -1987,7 +2490,7 @@
           const base = glossBase(t);
           const lb = fingerspellWord(base || t);
           if (lb.length > 0){
-            blocks.push(...lb);
+            blocksForI.push(...lb);
             if (forceFingerspell) {
               log(`Strict mode → fingerspelling unreviewed gloss: "${t}"`);
             } else {
@@ -2023,12 +2526,15 @@
           });
           omitted++;
         }
+        perTokenBlocks.push(blocksForI);
       }
       window.__lastMalformedSigns = malformed;
       window.__lastPerToken = perToken;
+      window.__lastPerTokenBlocks = perTokenBlocks;
       window.__lastStats = { signed, fingerspelled, omitted, total: tokens.length };
-      if (!blocks.length) return null;
-      const composed = `<?xml version="1.0" encoding="utf-8"?>\n<sigml>\n${blocks.join('\n')}\n</sigml>`;
+      const allBlocks = perTokenBlocks.reduce((acc, arr) => acc.concat(arr), []);
+      if (!allBlocks.length) return null;
+      const composed = `<?xml version="1.0" encoding="utf-8"?>\n<sigml>\n${allBlocks.join('\n')}\n</sigml>`;
       if (validator && validator.sigmlHasObjectLiteral(composed)) {
         console.error('[sigml] refusing to emit: composed SiGML contains "[object Object]"');
         return null;
@@ -2198,26 +2704,360 @@
       if (playbackProgressBar) playbackProgressBar.style.width = '0%';
     }
 
-    let _playbackTimer = null;
-    function simulatePlayback(tokens) {
-      if (_playbackTimer) clearInterval(_playbackTimer);
-      const total = tokens.length;
-      let current = 0;
-      highlightToken(0, total);
-      _playbackTimer = setInterval(() => {
-        current++;
-        if (current >= total) {
-          clearInterval(_playbackTimer);
-          _playbackTimer = null;
-          const chips = tokenList.querySelectorAll('.token-chip');
-          chips.forEach(c => { c.classList.remove('active'); c.classList.add('done'); });
-          if (playbackProgressBar) playbackProgressBar.style.width = '100%';
-          renderStatus.textContent = 'Ready';
-          renderStatus.className = 'status-badge ready';
-          return;
+    // -------------------------------------------------------------------
+    // Prompt-polish 10 §3, §5, §13: sign-playback sequencer.
+    //
+    // CWASA plays a SiGML doc as an atomic unit; it does not expose pause
+    // or seek. To get play/pause/loop/seek semantics, we play *one token*
+    // per CWASA call, sequenced by a JS timer. The timer delay is based
+    // on a conservative per-block estimate (1200ms/sign, 350ms/letter)
+    // plus an inter-sign neutral-pose pause (300ms at 1×). Speed scales
+    // delays inversely. prefers-reduced-motion drops the neutral-pose
+    // pause entirely — the signing itself is the content, not the
+    // pose-transition choreography.
+    //
+    // The sequencer *never* synthesizes SiGML from scratch; it only
+    // replays per-token blocks that buildSigml() already produced.
+    // Translation correctness is preserved because the signs that play
+    // are identical to what the monolithic buildSigml/playSiGMLText path
+    // produced in prompt 9.
+    // -------------------------------------------------------------------
+    const SignSequencer = (function () {
+      const reducedMotionQ = typeof window !== 'undefined' && window.matchMedia
+        ? window.matchMedia('(prefers-reduced-motion: reduce)')
+        : { matches: false, addEventListener: function () {} };
+
+      // Per-block playback-time estimates. These drive the scrubber and
+      // the time display. They're intentionally conservative; CWASA
+      // itself decides when a sign actually finishes.
+      const SIGN_BLOCK_MS = 1200;
+      const LETTER_BLOCK_MS = 350;
+      const INTER_SIGN_MS = 300;
+
+      const state = {
+        tokens: [],
+        perToken: [],
+        perTokenBlocks: [],
+        perTokenMs: [],      // parallel duration estimates
+        totalMs: 0,
+        cumulativeMs: [],    // index i = ms elapsed when token i *starts*
+        index: 0,
+        playing: false,
+        looping: false,
+        speed: 1,
+        timer: null,
+        scrubTimer: null,
+        scrubMs: 0,          // elapsed ms into current token
+        scrubStart: 0,       // Date.now() when current token started
+        onEndedCb: null,
+        reducedMotion: !!reducedMotionQ.matches,
+      };
+
+      function estimateMs(perTokenBlocks, perToken) {
+        return perTokenBlocks.map((blocks, i) => {
+          const info = perToken[i] || {};
+          if (info.kind === 'omitted' || blocks.length === 0) return 0;
+          if (info.kind === 'fingerspelled') return blocks.length * LETTER_BLOCK_MS;
+          return SIGN_BLOCK_MS;
+        });
+      }
+
+      function cumulative(durations) {
+        const cum = [];
+        let sum = 0;
+        for (let i = 0; i < durations.length; i++) {
+          cum.push(sum);
+          sum += durations[i];
         }
-        highlightToken(current, total);
-      }, 1200);
+        cum.push(sum);
+        return cum;
+      }
+
+      function fmtTime(ms) {
+        const s = Math.max(0, Math.floor(ms / 1000));
+        const mm = Math.floor(s / 60);
+        const ss = s % 60;
+        return mm + ':' + (ss < 10 ? '0' + ss : ss);
+      }
+
+      function clearTimers() {
+        if (state.timer) { clearTimeout(state.timer); state.timer = null; }
+        if (state.scrubTimer) { clearInterval(state.scrubTimer); state.scrubTimer = null; }
+      }
+
+      function ensureUI() {
+        return {
+          playPauseBtn: document.getElementById('playPauseBtn'),
+          loopBtn: document.getElementById('loopBtn'),
+          replayBtn: document.getElementById('replayBtn'),
+          scrub: document.getElementById('playbackScrub'),
+          timeCurrent: document.getElementById('playbackCurrent'),
+          timeTotal: document.getElementById('playbackTotal'),
+          speedBtns: document.querySelectorAll('.playback-speed-btn'),
+          captionGloss: document.getElementById('captionGloss'),
+          captionSource: document.getElementById('captionSource'),
+          progress: document.getElementById('playbackProgress'),
+          progressBar: document.getElementById('playbackProgressBar'),
+          tokenList: document.getElementById('tokenList'),
+        };
+      }
+
+      function updatePlayPauseBtn() {
+        const el = document.getElementById('playPauseBtn');
+        if (!el) return;
+        if (state.playing) {
+          el.textContent = '⏸';
+          el.setAttribute('aria-label', 'Pause');
+          el.setAttribute('aria-pressed', 'true');
+        } else {
+          el.textContent = '▶';
+          el.setAttribute('aria-label', 'Play');
+          el.setAttribute('aria-pressed', 'false');
+        }
+      }
+
+      function updateLoopBtn() {
+        const el = document.getElementById('loopBtn');
+        if (!el) return;
+        el.setAttribute('aria-pressed', state.looping ? 'true' : 'false');
+        el.classList.toggle('is-active', state.looping);
+      }
+
+      function updateSpeedBtns() {
+        document.querySelectorAll('.playback-speed-btn').forEach((btn) => {
+          const s = parseFloat(btn.getAttribute('data-speed'));
+          const active = Math.abs(s - state.speed) < 0.001;
+          btn.classList.toggle('is-active', active);
+          btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+      }
+
+      function enableUI(enabled) {
+        const ui = ensureUI();
+        [ui.playPauseBtn, ui.loopBtn, ui.replayBtn, ui.scrub].forEach((el) => {
+          if (el) el.disabled = !enabled;
+        });
+      }
+
+      function updateTotals() {
+        const ui = ensureUI();
+        if (ui.timeTotal) ui.timeTotal.textContent = fmtTime(state.totalMs / state.speed);
+      }
+
+      function updateCurrentTime(elapsedMs) {
+        const ui = ensureUI();
+        if (ui.timeCurrent) ui.timeCurrent.textContent = fmtTime(elapsedMs / state.speed);
+        if (ui.scrub && state.totalMs > 0) {
+          const val = Math.min(1000, Math.round(elapsedMs / state.totalMs * 1000));
+          // Only sync scrub if user isn't dragging.
+          if (!ui.scrub.dataset.userDragging) {
+            ui.scrub.value = String(val);
+          }
+        }
+        if (ui.progressBar && state.totalMs > 0) {
+          const pct = Math.min(100, elapsedMs / state.totalMs * 100);
+          ui.progressBar.style.width = pct + '%';
+        }
+      }
+
+      function renderCaption() {
+        const ui = ensureUI();
+        const idx = Math.min(state.index, state.tokens.length - 1);
+        const token = state.tokens[idx] || '';
+        const info = state.perToken[idx] || {};
+        if (ui.captionGloss) {
+          ui.captionGloss.classList.toggle('placeholder', !token);
+          ui.captionGloss.textContent = token ? token.toUpperCase() : '—';
+        }
+        if (ui.captionSource) {
+          let sourceText = '';
+          if (info.kind === 'fingerspelled') sourceText = 'fingerspelled — ' + (token || '');
+          else if (info.kind === 'omitted') sourceText = (info.reason || 'no sign available');
+          else sourceText = (info.origin || info.originShort || '—');
+          ui.captionSource.classList.toggle('placeholder', !sourceText);
+          ui.captionSource.textContent = sourceText;
+        }
+      }
+
+      function renderHighlight() {
+        if (!state.tokens.length) return;
+        highlightToken(state.index, state.tokens.length);
+      }
+
+      function playCurrent() {
+        if (!state.playing) return;
+        if (state.index >= state.tokens.length) {
+          if (state.looping) {
+            state.index = 0;
+          } else {
+            state.playing = false;
+            updatePlayPauseBtn();
+            updateCurrentTime(state.totalMs);
+            if (typeof state.onEndedCb === 'function') {
+              try { state.onEndedCb(); } catch (_e) {}
+            }
+            return;
+          }
+        }
+        renderHighlight();
+        renderCaption();
+        const blocks = state.perTokenBlocks[state.index] || [];
+        if (blocks.length && window.CWASA) {
+          const sigml = '<?xml version="1.0" encoding="utf-8"?>\n<sigml>\n' + blocks.join('\n') + '\n</sigml>';
+          try { CWASA.stop(0); } catch (_e) {}
+          try { CWASA.playSiGMLText(sigml, 0); } catch (_e) {}
+          hidePlaceholder();
+        }
+        const dur = state.perTokenMs[state.index] || 0;
+        const interSign = state.reducedMotion ? 0 : INTER_SIGN_MS;
+        const scaled = Math.max(50, Math.round((dur + interSign) / state.speed));
+        state.scrubMs = 0;
+        state.scrubStart = Date.now();
+        if (state.scrubTimer) clearInterval(state.scrubTimer);
+        state.scrubTimer = setInterval(() => {
+          if (!state.playing) return;
+          const tokenElapsed = Date.now() - state.scrubStart;
+          const globalElapsed = (state.cumulativeMs[state.index] || 0) + Math.min(tokenElapsed * state.speed, dur + interSign);
+          updateCurrentTime(globalElapsed);
+        }, 100);
+        state.timer = setTimeout(() => {
+          state.index++;
+          playCurrent();
+        }, scaled);
+      }
+
+      function hidePlaceholder() {
+        const placeholder = document.getElementById('avatarPlaceholder');
+        if (placeholder) placeholder.hidden = true;
+      }
+
+      function showPlaceholder() {
+        const placeholder = document.getElementById('avatarPlaceholder');
+        if (placeholder) placeholder.hidden = false;
+      }
+
+      reducedMotionQ.addEventListener && reducedMotionQ.addEventListener('change', (e) => {
+        state.reducedMotion = !!e.matches;
+      });
+
+      return {
+        load(tokens, perToken, perTokenBlocks) {
+          clearTimers();
+          state.tokens = Array.isArray(tokens) ? tokens.slice() : [];
+          state.perToken = Array.isArray(perToken) ? perToken.slice() : [];
+          state.perTokenBlocks = Array.isArray(perTokenBlocks) ? perTokenBlocks.slice() : [];
+          state.perTokenMs = estimateMs(state.perTokenBlocks, state.perToken);
+          state.cumulativeMs = cumulative(state.perTokenMs);
+          state.totalMs = state.cumulativeMs[state.cumulativeMs.length - 1] || 0;
+          state.index = 0;
+          state.playing = false;
+          enableUI(state.tokens.length > 0);
+          updateTotals();
+          updateCurrentTime(0);
+          updatePlayPauseBtn();
+          renderCaption();
+          const ui = ensureUI();
+          if (ui.scrub) { ui.scrub.value = '0'; }
+          if (state.tokens.length && ui.progress) ui.progress.style.display = 'block';
+        },
+        play(fromIdx) {
+          if (!state.tokens.length) return;
+          clearTimers();
+          if (typeof fromIdx === 'number') state.index = Math.max(0, Math.min(fromIdx, state.tokens.length - 1));
+          if (state.index >= state.tokens.length) state.index = 0;
+          state.playing = true;
+          updatePlayPauseBtn();
+          playCurrent();
+        },
+        pause() {
+          clearTimers();
+          state.playing = false;
+          try { if (window.CWASA) CWASA.stop(0); } catch (_e) {}
+          updatePlayPauseBtn();
+          const pausedElapsed = (state.cumulativeMs[state.index] || 0);
+          updateCurrentTime(pausedElapsed);
+        },
+        toggle() {
+          if (state.playing) this.pause();
+          else this.play();
+        },
+        stop() {
+          clearTimers();
+          state.playing = false;
+          state.index = 0;
+          try { if (window.CWASA) CWASA.stop(0); } catch (_e) {}
+          updatePlayPauseBtn();
+          updateCurrentTime(0);
+          const ui = ensureUI();
+          if (ui.progressBar) ui.progressBar.style.width = '0%';
+          if (ui.progress) ui.progress.style.display = 'none';
+          if (ui.scrub) ui.scrub.value = '0';
+          showPlaceholder();
+          renderCaption();
+          const chips = document.querySelectorAll('.token-chip');
+          chips.forEach((c) => { c.classList.remove('active', 'done'); });
+        },
+        seek(idx) {
+          if (!state.tokens.length) return;
+          const wasPlaying = state.playing;
+          clearTimers();
+          state.index = Math.max(0, Math.min(idx, state.tokens.length - 1));
+          renderHighlight();
+          renderCaption();
+          updateCurrentTime(state.cumulativeMs[state.index] || 0);
+          if (wasPlaying) {
+            state.playing = true;
+            playCurrent();
+          }
+        },
+        seekByScrubValue(v) {
+          if (!state.tokens.length || !state.totalMs) return;
+          const ms = (v / 1000) * state.totalMs;
+          let idx = 0;
+          for (let i = 0; i < state.cumulativeMs.length; i++) {
+            if (state.cumulativeMs[i] > ms) break;
+            idx = i;
+          }
+          this.seek(Math.min(idx, state.tokens.length - 1));
+        },
+        seekDelta(ms) {
+          if (!state.tokens.length || !state.totalMs) return;
+          const current = state.cumulativeMs[state.index] || 0;
+          const target = Math.max(0, Math.min(state.totalMs - 1, current + ms));
+          let idx = 0;
+          for (let i = 0; i < state.cumulativeMs.length; i++) {
+            if (state.cumulativeMs[i] > target) break;
+            idx = i;
+          }
+          this.seek(Math.min(idx, state.tokens.length - 1));
+        },
+        toggleLoop() {
+          state.looping = !state.looping;
+          updateLoopBtn();
+        },
+        setSpeed(s) {
+          state.speed = s;
+          updateSpeedBtns();
+          updateTotals();
+          if (state.playing) {
+            const wasAt = state.index;
+            clearTimers();
+            state.playing = true;
+            state.index = wasAt;
+            playCurrent();
+          }
+        },
+        onEnded(cb) { state.onEndedCb = cb; },
+        isPlaying() { return state.playing; },
+        hasContent() { return state.tokens.length > 0; },
+        reducedMotion() { return state.reducedMotion; },
+      };
+    })();
+
+    // Legacy-compat wrapper — some code paths still call simulatePlayback.
+    function simulatePlayback(tokens) {
+      if (!tokens || !tokens.length) return;
+      SignSequencer.play(0);
     }
 
     function updateCoverageCounter(stats) {
@@ -2232,28 +3072,121 @@
       el.innerHTML = parts.join(' · ');
     }
 
-    translateBtn?.addEventListener('click', async () => {
+    // -------------------------------------------------------------------
+    // Prompt-polish 10 §1: loading indicator with a 200ms threshold. Under
+    // 200ms the bar never appears — avoids the flicker-spinner tax on
+    // same-language direct lookups. Over 200ms the bar fades in and
+    // stays until .stop() is called.
+    // -------------------------------------------------------------------
+    const LoadingIndicator = (function () {
+      const THRESHOLD_MS = 200;
+      let visibleTimer = null;
+      const el = () => document.getElementById('translatorProgress');
+      return {
+        start() {
+          this.stop();
+          visibleTimer = setTimeout(() => {
+            const node = el();
+            if (node) {
+              node.classList.add('visible');
+              node.setAttribute('aria-hidden', 'false');
+            }
+          }, THRESHOLD_MS);
+        },
+        stop() {
+          if (visibleTimer) { clearTimeout(visibleTimer); visibleTimer = null; }
+          const node = el();
+          if (node) {
+            node.classList.remove('visible');
+            node.setAttribute('aria-hidden', 'true');
+          }
+        },
+      };
+    })();
+
+    // -------------------------------------------------------------------
+    // Prompt-polish 10 §7: inline error UI. Replaces the old status-badge
+    // error messaging. The input textarea is never cleared.
+    // -------------------------------------------------------------------
+    const ErrorPanel = (function () {
+      const panel = () => document.getElementById('translatorError');
+      const title = () => document.getElementById('translatorErrorTitle');
+      const body = () => document.getElementById('translatorErrorBody');
+      let retryCb = null;
+      function wire() {
+        const retryBtn = document.getElementById('translatorErrorRetry');
+        const dismissBtn = document.getElementById('translatorErrorDismiss');
+        if (retryBtn && !retryBtn.dataset.wired) {
+          retryBtn.addEventListener('click', () => {
+            ErrorPanel.hide();
+            if (typeof retryCb === 'function') retryCb();
+          });
+          retryBtn.dataset.wired = '1';
+        }
+        if (dismissBtn && !dismissBtn.dataset.wired) {
+          dismissBtn.addEventListener('click', () => ErrorPanel.hide());
+          dismissBtn.dataset.wired = '1';
+        }
+      }
+      return {
+        show(opts) {
+          wire();
+          const p = panel();
+          if (!p) return;
+          const t = title(); if (t) t.textContent = (opts && opts.title) || 'Translation failed.';
+          const b = body(); if (b) b.textContent = (opts && opts.message) ||
+            'Try again, or switch to a supported language pair.';
+          retryCb = (opts && typeof opts.onRetry === 'function') ? opts.onRetry : null;
+          p.hidden = false;
+        },
+        hide() {
+          const p = panel(); if (p) p.hidden = true;
+          retryCb = null;
+        },
+      };
+    })();
+
+    async function runTranslateFlow() {
       const cwasaAvailable = !!window.CWASA;
-      if (translateBtn.disabled) return;
       translateBtn.disabled = true;
+      ErrorPanel.hide();
+      LoadingIndicator.start();
       clearPlaybackUI();
       tokenList.innerHTML = '';
       updateCoverageCounter(null);
+      SignSequencer.stop();
       try {
         renderStatus.textContent = 'Translating…';
         renderStatus.className = 'status-badge loading';
         const originalText = textIn.value.trim();
+        if (!originalText) {
+          renderStatus.textContent = 'Enter a phrase first.';
+          renderStatus.className = 'status-badge';
+          return;
+        }
         const translated = await translateIfNeeded(originalText, (msg) => { renderStatus.textContent = msg; });
         const translationExpected = getInputLang() !== getTargetLang();
-        if (translationExpected && translated === originalText) {
+        const translationFailed = translationExpected && translated === originalText;
+        if (translationFailed) {
           log('Translation failed — using original text');
+          ErrorPanel.show({
+            title: 'Translation failed.',
+            message: 'We could not translate from ' + (BASE_LANG_NAMES[getInputLang()] || getInputLang()) +
+                     ' to ' + (BASE_LANG_NAMES[getTargetLang()] || getTargetLang()) +
+                     '. Try again, or switch to a supported language pair.',
+            onRetry: runTranslateFlow,
+          });
           renderStatus.textContent = 'Translation unavailable — using original text';
           renderStatus.className = 'status-badge';
         }
         textIn.value = translated;
         await doPlan('spacy', translationExpected);
         const toks = window.__plannedTokens || [];
-        if (!toks.length) { renderStatus.textContent = 'No matching signs found.'; renderStatus.className = 'status-badge'; return; }
+        if (!toks.length) {
+          renderStatus.textContent = 'No matching signs found.';
+          renderStatus.className = 'status-badge';
+          return;
+        }
         const sigml = buildSigml(toks);
         showTokenChips(toks, window.__lastPerToken);
         updateCoverageCounter(window.__lastStats);
@@ -2288,23 +3221,100 @@
           renderStatus.textContent = 'Playing…';
           renderStatus.className = 'status-badge loading';
         }
-        playSigml(sigml);
-        simulatePlayback(toks);
+        SignSequencer.load(toks, window.__lastPerToken || [], window.__lastPerTokenBlocks || []);
+        SignSequencer.onEnded(() => {
+          renderStatus.textContent = 'Ready';
+          renderStatus.className = 'status-badge ready';
+        });
+        SignSequencer.play(0);
       } catch (e) {
         console.error(e);
         renderStatus.textContent = 'Could not translate — showing original text';
         renderStatus.className = 'status-badge';
+        ErrorPanel.show({
+          title: 'Something went wrong.',
+          message: 'We could not complete the translation. Try again, or switch to a supported language pair.',
+          onRetry: runTranslateFlow,
+        });
+      } finally {
+        translateBtn.disabled = false;
+        LoadingIndicator.stop();
       }
-      finally { translateBtn.disabled = false; }
+    }
+
+    translateBtn?.addEventListener('click', () => {
+      if (translateBtn.disabled) return;
+      runTranslateFlow();
     });
 
     stopBtn.addEventListener('click', () => {
-      try { CWASA.stop(0); } catch(_e) {}
-      if (_playbackTimer) { clearInterval(_playbackTimer); _playbackTimer = null; }
+      SignSequencer.stop();
       clearPlaybackUI();
       renderStatus.textContent = 'Stopped';
       renderStatus.className = 'status-badge';
     });
+
+    // -------------------------------------------------------------------
+    // Prompt-polish 10 §5: wire the play/pause, loop, speed, and scrubber
+    // UI to the sequencer. Keyboard shortcuts: Space = play/pause, Arrow
+    // = ±100ms, Shift+Arrow = ±1s, Home = restart.
+    // -------------------------------------------------------------------
+    (function wirePlaybackControls() {
+      const playPauseBtn = document.getElementById('playPauseBtn');
+      const loopBtn = document.getElementById('loopBtn');
+      const replayBtn = document.getElementById('replayBtn');
+      const scrub = document.getElementById('playbackScrub');
+      playPauseBtn?.addEventListener('click', () => {
+        if (!SignSequencer.hasContent()) return;
+        SignSequencer.toggle();
+      });
+      loopBtn?.addEventListener('click', () => SignSequencer.toggleLoop());
+      replayBtn?.addEventListener('click', () => {
+        if (!SignSequencer.hasContent()) return;
+        SignSequencer.play(0);
+      });
+      if (scrub) {
+        scrub.addEventListener('pointerdown', () => { scrub.dataset.userDragging = '1'; });
+        scrub.addEventListener('pointerup', () => { delete scrub.dataset.userDragging; SignSequencer.seekByScrubValue(Number(scrub.value)); });
+        scrub.addEventListener('change', () => { SignSequencer.seekByScrubValue(Number(scrub.value)); });
+        // Keyboard on the scrubber itself: left/right in 100ms increments.
+        scrub.addEventListener('keydown', (ev) => {
+          if (!SignSequencer.hasContent()) return;
+          const step = ev.shiftKey ? 1000 : 100;
+          if (ev.key === 'ArrowLeft') { ev.preventDefault(); SignSequencer.seekDelta(-step); }
+          else if (ev.key === 'ArrowRight') { ev.preventDefault(); SignSequencer.seekDelta(step); }
+        });
+      }
+      document.querySelectorAll('.playback-speed-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const s = parseFloat(btn.getAttribute('data-speed')) || 1;
+          SignSequencer.setSpeed(s);
+        });
+      });
+
+      // Global keyboard shortcuts — only active when the user is not
+      // typing into a textarea / input / contenteditable region.
+      document.addEventListener('keydown', (ev) => {
+        const t = ev.target;
+        const tag = t && t.tagName ? t.tagName.toLowerCase() : '';
+        const typing = tag === 'textarea' || tag === 'input' || (t && t.isContentEditable);
+        if (typing) return;
+        if (!SignSequencer.hasContent()) return;
+        if (ev.key === ' ' || ev.code === 'Space') {
+          ev.preventDefault();
+          SignSequencer.toggle();
+        } else if (ev.key === 'ArrowLeft') {
+          ev.preventDefault();
+          SignSequencer.seekDelta(ev.shiftKey ? -1000 : -100);
+        } else if (ev.key === 'ArrowRight') {
+          ev.preventDefault();
+          SignSequencer.seekDelta(ev.shiftKey ? 1000 : 100);
+        } else if (ev.key === 'Home') {
+          ev.preventDefault();
+          SignSequencer.play(0);
+        }
+      });
+    })();
   </script>
 
   <script>
@@ -2450,16 +3460,96 @@
   </script>
 
   <script>
+    // -------------------------------------------------------------------
+    // Prompt-polish 10 §8: textarea behavior — Enter submits, Shift+Enter
+    // inserts a newline, auto-grow up to 6 lines (cap set in CSS via
+    // max-height), debounced auto-translate opt-in (default off).
+    // -------------------------------------------------------------------
     const charCount = document.getElementById('charCount');
-    textIn.addEventListener('input', () => {
+    const CHAR_LIMIT = 10000;
+    const CHAR_WARN_AT = 8000;       // prompt-polish 10 §9: warn at 80%
+    const CHAR_SHOW_AT = CHAR_LIMIT * 0.8;
+    function updateCharCount() {
       const len = textIn.value.length;
-      charCount.textContent = len + ' / 10000';
-      charCount.className = len > 10000 ? 'char-count over' : 'char-count';
+      charCount.textContent = len.toLocaleString() + ' / ' + CHAR_LIMIT.toLocaleString();
+      charCount.classList.remove('visible', 'warn', 'over');
+      if (len >= CHAR_LIMIT) {
+        charCount.classList.add('visible', 'over');
+      } else if (len >= CHAR_WARN_AT) {
+        charCount.classList.add('visible', 'warn');
+      } else if (len >= CHAR_SHOW_AT) {
+        // Between 80% and the warn threshold show the counter but
+        // without any color — advance notice, not an alert.
+        charCount.classList.add('visible');
+      }
+    }
+
+    function autoGrowTextarea() {
+      // CSS caps at 168px ~ 6 lines; rely on the browser to size within
+      // that. We set rows dynamically as the user types to avoid a
+      // scrollbar flicker at the transition.
+      textIn.style.height = 'auto';
+      const scrollH = textIn.scrollHeight;
+      const cap = 168; // must stay in sync with CSS max-height
+      textIn.style.height = Math.min(scrollH, cap) + 'px';
+    }
+
+    // Opt-in auto-translate, default OFF (prompt-polish 10 §8). Debounce
+    // at 600ms after the last keystroke. Persisted per-browser.
+    const autoTranslateToggle = document.getElementById('autoTranslateToggle');
+    const AUTO_TRANSLATE_KEY = 'bridgn.autoTranslate';
+    try {
+      autoTranslateToggle.checked = localStorage.getItem(AUTO_TRANSLATE_KEY) === '1';
+    } catch (_e) {}
+    autoTranslateToggle.addEventListener('change', () => {
+      try { localStorage.setItem(AUTO_TRANSLATE_KEY, autoTranslateToggle.checked ? '1' : '0'); } catch (_e) {}
     });
+    let _autoTranslateTimer = null;
+    function scheduleAutoTranslate() {
+      if (_autoTranslateTimer) { clearTimeout(_autoTranslateTimer); _autoTranslateTimer = null; }
+      if (!autoTranslateToggle.checked) return;
+      _autoTranslateTimer = setTimeout(() => {
+        if (!translateBtn.disabled && textIn.value.trim()) {
+          runTranslateFlow();
+        }
+      }, 600);
+    }
+
+    textIn.addEventListener('input', () => {
+      updateCharCount();
+      autoGrowTextarea();
+      scheduleAutoTranslate();
+    });
+    textIn.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Enter' && !ev.shiftKey && !ev.isComposing) {
+        ev.preventDefault();
+        if (!translateBtn.disabled) runTranslateFlow();
+      }
+    });
+    updateCharCount();
+    autoGrowTextarea();
 
     document.getElementById('hamburgerBtn').addEventListener('click', () => {
       document.querySelector('.sidebar').classList.toggle('open');
     });
+
+    // -------------------------------------------------------------------
+    // Prompt-polish 10 §10: first-visit keyboard hint. Shown once, then
+    // dismissed forever via localStorage.
+    // -------------------------------------------------------------------
+    (function initKeyboardHint() {
+      const KEY = 'bridgn.kbHintDismissed';
+      const strip = document.getElementById('kbHintStrip');
+      const close = document.getElementById('kbHintClose');
+      if (!strip || !close) return;
+      let dismissed = false;
+      try { dismissed = localStorage.getItem(KEY) === '1'; } catch (_e) {}
+      if (!dismissed) strip.hidden = false;
+      close.addEventListener('click', () => {
+        strip.hidden = true;
+        try { localStorage.setItem(KEY, '1'); } catch (_e) {}
+      });
+    })();
 
     window.addEventListener('load', () => { textIn.focus(); });
   </script>

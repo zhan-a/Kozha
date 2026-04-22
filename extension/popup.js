@@ -6,10 +6,15 @@ var signLangEl = document.getElementById("popup-sign-lang");
 var signBtn = document.getElementById("popup-sign-btn");
 var avatarFrame = document.getElementById("popup-avatar-frame");
 var statusEl = document.getElementById("popup-status");
+var pauseBtn = document.getElementById("popup-pause-btn");
+var stopBtn = document.getElementById("popup-stop-btn");
 
 var avatarReady = false;
 var dbReady = false;
 var cwasaFailed = false;
+var playbackSpeed = 1.0;
+var isPaused = false;
+var lastGlosses = [];
 
 chrome.storage.local.get(["popup_input_lang", "kozha_sign_lang", "kozha_last_input", "kozha_pending_text"], function(stored) {
   if (stored.popup_input_lang) inputLangEl.value = stored.popup_input_lang;
@@ -94,6 +99,9 @@ signBtn.addEventListener("click", function() {
           signBtn.disabled = false;
           return;
         }
+        lastGlosses = glosses;
+        isPaused = false;
+        updatePauseBtn();
         if (cwasaFailed) {
           var glossArea = document.getElementById("popup-gloss-text");
           if (glossArea) glossArea.textContent = glosses.join(" ");
@@ -145,3 +153,62 @@ signBtn.addEventListener("click", function() {
     });
   }
 });
+
+// -------------------------------------------------------------------
+// Prompt-polish 10 §12: playback parity controls in the popup.
+// Pause/resume is simulated by stopping CWASA + replaying the last
+// glosses on resume (CWASA doesn't expose a true pause). Stop halts
+// the current queue. Speed picker mirrors the site's 0.5/1/2 set.
+// -------------------------------------------------------------------
+function updatePauseBtn() {
+  if (!pauseBtn) return;
+  pauseBtn.textContent = isPaused ? "▶" : "⏸";
+  pauseBtn.setAttribute("aria-pressed", isPaused ? "true" : "false");
+  pauseBtn.setAttribute("aria-label", isPaused ? "Resume" : "Pause");
+}
+
+if (pauseBtn) {
+  pauseBtn.addEventListener("click", function () {
+    if (!lastGlosses.length) return;
+    if (!isPaused) {
+      avatarFrame.contentWindow.postMessage({ type: "stop" }, "*");
+      isPaused = true;
+      statusEl.textContent = "Paused";
+    } else {
+      avatarFrame.contentWindow.postMessage({
+        type: "play_glosses",
+        glosses: lastGlosses
+      }, "*");
+      isPaused = false;
+      statusEl.textContent = "Signing...";
+    }
+    updatePauseBtn();
+  });
+}
+
+if (stopBtn) {
+  stopBtn.addEventListener("click", function () {
+    avatarFrame.contentWindow.postMessage({ type: "stop" }, "*");
+    isPaused = false;
+    updatePauseBtn();
+    statusEl.textContent = "Stopped";
+  });
+}
+
+Array.prototype.forEach.call(
+  document.querySelectorAll(".popup-speed-btn"),
+  function (btn) {
+    btn.addEventListener("click", function () {
+      var s = parseFloat(btn.getAttribute("data-speed")) || 1;
+      playbackSpeed = s;
+      Array.prototype.forEach.call(
+        document.querySelectorAll(".popup-speed-btn"),
+        function (b) {
+          var bs = parseFloat(b.getAttribute("data-speed"));
+          b.classList.toggle("is-active", Math.abs(bs - s) < 0.001);
+        }
+      );
+      avatarFrame.contentWindow.postMessage({ type: "set_speed", speed: s }, "*");
+    });
+  }
+);

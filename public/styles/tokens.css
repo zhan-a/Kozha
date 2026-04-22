@@ -64,6 +64,12 @@
 
   /* -------------------- color: surface neutrals ------------------- */
   --kozha-color-white: #ffffff;
+  /* Avatar backdrop — a warm neutral between paper and white. Matches the
+     literal #e9e6df that contribute.css uses for its .avatar-backdrop.
+     Light gray (not stark white, not black) is the recommended surface
+     for prolonged Deaf viewing of a signing avatar. Prompt-polish 10 §4
+     brings the main translator's avatar stage onto this token. */
+  --kozha-color-surface-avatar: #e9e6df;
 
   /* -------------------- color: border / hairline ------------------ */
   --kozha-color-border: rgba(26, 22, 18, 0.12);
@@ -174,7 +180,13 @@
   --kozha-duration-fast: 150ms;    /* chips, sidebar items */
   --kozha-duration-base: 200ms;    /* default control hover/focus */
   --kozha-duration-slow: 250ms;    /* card hover, btn-large */
-  --kozha-duration-progress: 300ms;/* playback bar width */
+  --kozha-duration-progress: 300ms;/* playback bar width, pose transition */
+  /* Threshold below which we do *not* show a loading indicator. Flash of
+     spinner under 200ms reads as a glitch, not progress (prompt-polish 10
+     §1). Keep this a token so the unit tests can lock on the same value. */
+  --kozha-duration-loading-threshold: 200ms;
+  /* Neutral-pose pause between consecutive signs (prompt-polish 10 §3). */
+  --kozha-duration-inter-sign: 300ms;
 
   /* -------------------- motion: easing ---------------------------- */
   --kozha-ease-standard: ease;
