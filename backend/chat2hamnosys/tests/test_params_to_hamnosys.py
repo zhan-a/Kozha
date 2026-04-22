@@ -363,22 +363,33 @@ def test_repair_loop_gives_up_after_max_attempts(monkeypatch):
     from generator import params_to_hamnosys as mod
 
     monkeypatch.setattr(mod, "_assemble", lambda pieces: "ABC")
-    # Both repair attempts return strings that still fail validation.
-    client = FakeLLMClient([_repair_payload("ABCD"), _repair_payload("DEFG")])
+    # Both repair attempts return strings that still fail validation, and
+    # the whole-sign emergency fallback likewise produces invalid hex.
+    client = FakeLLMClient(
+        [
+            _repair_payload("ABCD"),
+            _repair_payload("DEFG"),
+            _repair_payload("0123"),
+        ]
+    )
 
     params = _basic_params()
     result = generate(params, client=client, request_id="test-repair-give-up")
 
     assert result.hamnosys is None
     assert not result.validation.ok
-    # Two repair calls attempted.
-    assert len(client.calls) == 2
+    # Two repair calls + one whole-sign emergency call.
+    assert len(client.calls) == 3
 
 
 def test_no_client_and_invalid_string_returns_none(monkeypatch):
     from generator import params_to_hamnosys as mod
 
     monkeypatch.setattr(mod, "_assemble", lambda pieces: "ABC")
+    # Force the auto-construct path to return None regardless of whether
+    # the developer's shell has OPENAI_API_KEY set — this test covers the
+    # graceful-degrade branch.
+    monkeypatch.setattr(mod, "_maybe_construct_client", lambda c: None)
     params = _basic_params()
     result = generate(params)  # no client
     assert result.hamnosys is None

@@ -46,6 +46,7 @@ from hamnosys import SYMBOLS, SymClass, ValidationResult, classify, normalize, v
 from hamnosys.symbols import symbols_in_classes
 from llm import ChatResult, LLMClient, LLMError
 from llm.budget import BudgetExceeded
+from llm.client import LLMConfigError
 from parser.models import PartialMovementSegment, PartialSignParameters
 from prompts import PromptMetadata, load_prompt
 
@@ -89,6 +90,11 @@ class GenerateResult:
     errors:
         Human-readable explanations of any unresolved slots (e.g.
         ``"no LLM client available to resolve handshape_dominant"``).
+    last_candidate:
+        The final HamNoSys string produced before giving up. On success
+        this is the same as ``hamnosys``; on failure it is the best we
+        had before the validator rejected it (possibly empty when the
+        composer couldn't even assemble a candidate).
     """
 
     hamnosys: str | None
@@ -97,6 +103,7 @@ class GenerateResult:
     llm_fallback_fields: list[str] = field(default_factory=list)
     confidence: float = 1.0
     errors: list[str] = field(default_factory=list)
+    last_candidate: str = ""
 
 
 # ---------------------------------------------------------------------------
@@ -350,6 +357,7 @@ _FALLBACK_SCHEMA: dict[str, Any] = {
 
 PROMPT_ID_SLOT: str = "generate_hamnosys_fallback"
 PROMPT_ID_REPAIR: str = "generate_hamnosys_repair"
+PROMPT_ID_WHOLE_SIGN: str = "generate_hamnosys_whole_sign"
 
 _SLOT_PROMPT = load_prompt(PROMPT_ID_SLOT)
 _SYSTEM_PROMPT_SLOT: str = _SLOT_PROMPT.render()
@@ -505,6 +513,39 @@ _SYSTEM_PROMPT_REPAIR: str = _REPAIR_PROMPT.render()
 _REPAIR_METADATA: PromptMetadata = _REPAIR_PROMPT.metadata
 
 
+_WHOLE_SIGN_SCHEMA: dict[str, Any] = {
+    "type": "json_schema",
+    "json_schema": {
+        "name": "hamnosys_whole_sign",
+        "strict": True,
+        "schema": {
+            "type": "object",
+            "additionalProperties": False,
+            "required": ["hamnosys_hex", "rationale"],
+            "properties": {
+                "hamnosys_hex": {
+                    "type": "string",
+                    "description": (
+                        "A space-separated list of 4-digit uppercase hex "
+                        "codepoints encoding the full sign."
+                    ),
+                    "pattern": "^([0-9A-F]{4})(\\s+[0-9A-F]{4})*$",
+                },
+                "rationale": {
+                    "type": "string",
+                    "description": "One sentence on the slot choices.",
+                },
+            },
+        },
+    },
+}
+
+
+_WHOLE_SIGN_PROMPT = load_prompt(PROMPT_ID_WHOLE_SIGN)
+_SYSTEM_PROMPT_WHOLE_SIGN: str = _WHOLE_SIGN_PROMPT.render()
+_WHOLE_SIGN_METADATA: PromptMetadata = _WHOLE_SIGN_PROMPT.metadata
+
+
 def _decode_hex_string(hex_str: str) -> str:
     """Decode ``'E001 E020'`` → ``chr(0xE001) + chr(0xE020)``."""
     parts = hex_str.strip().split()
@@ -578,6 +619,79 @@ def _llm_repair(
 
 
 # ---------------------------------------------------------------------------
+# LLM fallback — whole-sign emergency
+# ---------------------------------------------------------------------------
+
+
+def _llm_whole_sign(
+    parameters: PartialSignParameters,
+    pieces: list[_Piece],
+    *,
+    client: LLMClient,
+    request_id: str,
+    previous_errors: list[str],
+    prose: str = "",
+    gloss: str = "",
+    sign_language: str = "bsl",
+) -> tuple[str, str]:
+    """Last-resort: ask the LLM for the whole HamNoSys string at once.
+
+    Used when the slot-by-slot composer + per-slot LLM fallback +
+    repair loop have all failed to produce a validator-clean string.
+    Returns ``(hamnosys, rationale)``; ``hamnosys`` is empty on failure.
+    """
+    resolved_chunks: dict[str, str] = {}
+    unresolved_slots: list[str] = []
+    for piece in pieces:
+        if piece.field_name == "symmetry":
+            continue
+        if piece.resolved and piece.chunk:
+            resolved_chunks[piece.field_name] = f"{ord(piece.chunk[0]):04X}"
+        else:
+            unresolved_slots.append(piece.field_name)
+
+    user_payload = {
+        "prose": prose or "",
+        "gloss": gloss or "",
+        "sign_language": sign_language,
+        "partial_params": parameters.model_dump(mode="json", exclude_none=True),
+        "resolved_chunks": resolved_chunks,
+        "unresolved_slots": unresolved_slots,
+        "previous_errors": list(previous_errors)[:5],
+    }
+    messages = [
+        {"role": "system", "content": _SYSTEM_PROMPT_WHOLE_SIGN},
+        {"role": "user", "content": json.dumps(user_payload, ensure_ascii=False)},
+    ]
+    try:
+        result: ChatResult = client.chat(
+            messages=messages,
+            response_format=_WHOLE_SIGN_SCHEMA,
+            temperature=0.1,
+            max_tokens=400,
+            request_id=f"{request_id}:whole_sign",
+            prompt_metadata=_WHOLE_SIGN_METADATA,
+        )
+    except BudgetExceeded:
+        raise
+    except Exception as exc:
+        logger.warning("LLM whole-sign call failed: %s", exc)
+        return "", f"llm call failed: {type(exc).__name__}"
+
+    try:
+        payload = json.loads(result.content)
+    except json.JSONDecodeError:
+        return "", "llm returned invalid json"
+    hex_str = payload.get("hamnosys_hex", "")
+    rationale = str(payload.get("rationale", "")).strip()
+    try:
+        whole = _decode_hex_string(hex_str)
+    except ValueError:
+        return "", "llm returned non-hex payload"
+    return whole, rationale
+
+
+# ---------------------------------------------------------------------------
 # Public API
 # ---------------------------------------------------------------------------
 
@@ -586,11 +700,36 @@ def _assemble(pieces: list[_Piece]) -> str:
     return "".join(p.chunk for p in pieces)
 
 
+def _maybe_construct_client(client: LLMClient | None) -> LLMClient | None:
+    """Return ``client`` if given, else try to build a default one.
+
+    The orchestrator and the dependency layer historically passed
+    ``client=None`` and expected the generator to gracefully degrade.
+    Auto-constructing here means the slot-fallback / repair / whole-sign
+    paths fire whenever an OpenAI key (project secret OR per-request
+    BYO header) is configured — which is the normal production case.
+    Returns ``None`` if no key is available so legacy graceful-degrade
+    callers still get the ``no LLM client available`` error path.
+    """
+    if client is not None:
+        return client
+    try:
+        return LLMClient()
+    except LLMConfigError as exc:
+        logger.info(
+            "no OpenAI key available; LLM fallback paths disabled (%s)", exc
+        )
+        return None
+
+
 def generate(
     parameters: PartialSignParameters,
     *,
     client: LLMClient | None = None,
     request_id: str | None = None,
+    prose: str = "",
+    gloss: str = "",
+    sign_language: str = "bsl",
 ) -> GenerateResult:
     """Produce a HamNoSys string from plain-English parameters.
 
@@ -604,17 +743,25 @@ def generate(
     client:
         An :class:`LLMClient` used only when the deterministic composer
         cannot resolve a slot, or when the initial assembly fails
-        grammar validation. ``None`` disables the fallback; unresolved
-        slots then cause the generator to return ``hamnosys=None``.
+        grammar validation. If ``None``, one is auto-constructed from
+        the ambient OpenAI key (project secret or BYO header). Pass
+        ``client=None`` and call without a configured key to opt into
+        the legacy "no LLM" graceful-degrade path.
     request_id:
         Used as a prefix for telemetry ``request_id`` when the LLM
         fallback fires. A random UUID is generated if not provided.
+    prose, gloss, sign_language:
+        Optional context forwarded to the whole-sign emergency
+        fallback. The slot-by-slot composer ignores these — they only
+        matter when slot-and-repair both give up and we ask the LLM to
+        compose the entire sign from the contributor's prose.
 
     Returns
     -------
     :class:`GenerateResult` — see its docstring.
     """
     rid = request_id or f"gen-{uuid.uuid4().hex[:12]}"
+    client = _maybe_construct_client(client)
 
     pieces = _compose_pieces(parameters)
     unresolved = [p for p in pieces if not p.resolved]
@@ -657,9 +804,42 @@ def generate(
             rationale,
         )
 
-    # If any slot is still unresolved, we cannot assemble a string.
+    # If any slot is still unresolved, try the whole-sign emergency
+    # fallback before giving up — the LLM may know an idiomatic codepoint
+    # for a slot the deterministic composer and the per-slot resolver
+    # both missed.
     still_missing = [p for p in pieces if not p.resolved]
     if still_missing:
+        if client is not None:
+            whole, why = _llm_whole_sign(
+                parameters,
+                pieces,
+                client=client,
+                request_id=rid,
+                previous_errors=errors_out,
+                prose=prose,
+                gloss=gloss,
+                sign_language=sign_language,
+            )
+            if whole:
+                normalized = normalize(whole)
+                wvr = validate(normalized)
+                if wvr.ok:
+                    fallback_fields.append("_whole_sign")
+                    return GenerateResult(
+                        hamnosys=normalized,
+                        validation=wvr,
+                        used_llm_fallback=True,
+                        llm_fallback_fields=fallback_fields,
+                        confidence=0.5,
+                        errors=errors_out,
+                        last_candidate=normalized,
+                    )
+                errors_out.append(
+                    f"whole-sign LLM produced invalid string: {wvr.summary()}"
+                )
+            else:
+                errors_out.append(f"whole-sign LLM gave up: {why}")
         candidate = _assemble(pieces)
         vr = validate(candidate) if candidate else ValidationResult(
             ok=False,
@@ -674,6 +854,7 @@ def generate(
             llm_fallback_fields=fallback_fields,
             confidence=0.0,
             errors=errors_out,
+            last_candidate=candidate,
         )
 
     candidate = normalize(_assemble(pieces))
@@ -710,6 +891,43 @@ def generate(
             rationale,
         )
 
+    # If repair could not save the slot-composed string, try the
+    # whole-sign emergency LLM as a last resort.
+    if not vr.ok and client is not None:
+        prior = list(errors_out) + [vr.summary()]
+        whole, why = _llm_whole_sign(
+            parameters,
+            pieces,
+            client=client,
+            request_id=rid,
+            previous_errors=prior,
+            prose=prose,
+            gloss=gloss,
+            sign_language=sign_language,
+        )
+        if whole:
+            normalized = normalize(whole)
+            wvr = validate(normalized)
+            if wvr.ok:
+                fallback_fields.append("_whole_sign")
+                return GenerateResult(
+                    hamnosys=normalized,
+                    validation=wvr,
+                    used_llm_fallback=True,
+                    llm_fallback_fields=fallback_fields,
+                    confidence=0.4,
+                    errors=errors_out,
+                    last_candidate=normalized,
+                )
+            errors_out.append(
+                f"whole-sign LLM produced invalid string: {wvr.summary()}"
+            )
+            # Record the rejected whole-sign candidate so the caller can
+            # show the contributor what the LLM tried.
+            candidate = normalized
+        else:
+            errors_out.append(f"whole-sign LLM gave up: {why}")
+
     if not vr.ok:
         return GenerateResult(
             hamnosys=None,
@@ -718,6 +936,7 @@ def generate(
             llm_fallback_fields=fallback_fields,
             confidence=0.0,
             errors=errors_out,
+            last_candidate=candidate,
         )
 
     return GenerateResult(
@@ -727,6 +946,7 @@ def generate(
         llm_fallback_fields=fallback_fields,
         confidence=running_confidence,
         errors=errors_out,
+        last_candidate=candidate,
     )
 
 

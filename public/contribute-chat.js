@@ -61,6 +61,9 @@
     get GENERATING_MSG()               { return tr('contribute.chat.generating_msg', 'Enough information to draft the sign. Preparing preview.'); },
     get READY_MSG()                    { return tr('contribute.chat.ready_msg', 'Draft is ready. Review the preview below and either submit or describe a correction.'); },
     get ERROR_MSG()                    { return tr('contribute.chat.error_msg', 'The AI had trouble generating a follow-up. Your answer was saved — try rephrasing, or submit the draft as-is and let the reviewer fill any gaps.'); },
+    get GENERATION_FAILED_DEBUG()      { return tr('contribute.chat.generation_failed_debug', 'Generator detail: '); },
+    get GENERATION_CANDIDATE_LABEL()   { return tr('contribute.chat.generation_candidate_label', 'Tried candidate: '); },
+    get GENERATION_PATH_LABEL()        { return tr('contribute.chat.generation_path_label', 'Generation path: '); },
     get ERROR_RATE_LIMITED()           { return tr('contribute.chat.error_rate_limited', "You're sending requests faster than the server can process. Wait a moment and try again."); },
     get ERROR_INJECTION_REJECTED()     { return tr('contribute.chat.error_injection_rejected', "We didn't interpret this as a sign description. Please describe only the sign itself."); },
     get ERROR_BUDGET()                 { return tr('contribute.chat.error_budget', "Today's shared AI quota is used up. Your draft is saved — you can submit it as-is, or come back tomorrow to continue."); },
@@ -116,6 +119,10 @@
     progressUpgradeTimer: null,
     // True after we surface the error message and the Submit-as-is path.
     inError: false,
+    // Signature of the last generation_errors list we surfaced in chat —
+    // prevents the "generation failed" message from duplicating on
+    // repeated envelopes that still carry the same errors list.
+    lastSurfacedGenerationError: null,
     // Correction target set by the preview pane when the contributor
     // clicks a body region. Carries { region, label, timeMs, timeText }.
     // Cleared once a correction is submitted or the user dismisses the
@@ -504,6 +511,7 @@
     }
 
     applyState(snapshot.sessionState, snapshot.pendingQuestions || []);
+    maybeSurfaceGenerationError(snapshot);
     updateInputMode(snapshot);
   }
 
@@ -515,12 +523,45 @@
     chat.shownReadyMsg = false;
     chat.inError = false;
     chat.inFlight = false;
+    chat.lastSurfacedGenerationError = null;
     els.errorActions.hidden = true;
     els.options.hidden = true;
     els.progress.hidden = true;
     els.input.value = '';
     clearCorrectionTarget();
     autoGrowInput();
+  }
+
+  // Surface a generator failure inline: when the backend bounced out of
+  // the generating/applying_correction loading state *without* producing
+  // a HamNoSys string, we want the contributor to see (a) something went
+  // wrong, (b) what the generator actually complained about, and (c) the
+  // Submit-as-is escape hatch. Runs idempotently — repeated envelopes
+  // carrying the same errors list don't re-append.
+  function maybeSurfaceGenerationError(snap) {
+    var errs = snap.generationErrors || [];
+    if (!errs.length) return;
+    var s = snap.sessionState;
+    if (s === 'generating' || s === 'applying_correction') return;
+    if (snap.hamnosys) return;
+    // Include the generation path and candidate in the signature so a
+    // contributor who retries and gets a different failure sees the
+    // fresh debug trail.
+    var path = (snap.generationPath || []).join(',');
+    var cand = snap.candidateHamnosys || '';
+    var sig = errs.join('|') + '::' + path + '::' + cand;
+    if (sig === chat.lastSurfacedGenerationError) return;
+    chat.lastSurfacedGenerationError = sig;
+    chat.inError = true;
+    appendMessage({ kind: 'system', text: COPY.ERROR_MSG });
+    appendMessage({ kind: 'system', text: COPY.GENERATION_FAILED_DEBUG + errs[0] });
+    if (path) {
+      appendMessage({ kind: 'system', text: COPY.GENERATION_PATH_LABEL + path });
+    }
+    if (cand) {
+      appendMessage({ kind: 'system', text: COPY.GENERATION_CANDIDATE_LABEL + cand });
+    }
+    els.errorActions.hidden = false;
   }
 
   // ---------- input behaviour ----------

@@ -452,10 +452,12 @@ def test_run_generation_requires_populated_partial():
         run_generation(s, render_fn=None)
 
 
-def test_run_generation_failure_stays_in_generating():
+def test_run_generation_failure_transitions_out_of_generating():
     # parse_fn feeds a bundle that VOCAB can't resolve; with no LLM
-    # client the generator returns hamnosys=None, and the session must
-    # stay in GENERATING with generation_errors populated.
+    # client the generator returns hamnosys=None. The session must leave
+    # GENERATING so the frontend stops showing the loading spinner, and
+    # generation_errors must be populated so the chat can surface the
+    # failure.
     impossible = PartialSignParameters(
         handshape_dominant="zzzz-not-a-term",
         orientation_extended_finger="zzzz",
@@ -470,7 +472,7 @@ def test_run_generation_failure_stays_in_generating():
     s = _build_generating_session(parse_fn, question_fn)
     assert s.state == SessionState.GENERATING
     s = run_generation(s, render_fn=None)
-    assert s.state == SessionState.GENERATING
+    assert s.state == SessionState.AWAITING_DESCRIPTION
     assert s.draft.hamnosys is None
     assert s.draft.generation_errors  # non-empty
     gen_events = [e for e in s.history if isinstance(e, GeneratedEvent)]

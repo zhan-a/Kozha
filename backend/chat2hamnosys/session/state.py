@@ -242,6 +242,15 @@ class SignEntryDraft(BaseModel):
     generation_confidence: Optional[float] = None
     generation_errors: List[str] = Field(default_factory=list)
 
+    # Debug trail: which fallback paths fired during the last generation.
+    # Contains slot field names ("handshape_dominant", …) plus synthetic
+    # markers "_repair" and "_whole_sign". Empty when the deterministic
+    # composer produced a valid string without any LLM assistance.
+    generation_path: List[str] = Field(default_factory=list)
+    # Last candidate HamNoSys string that failed validation — surfaced so
+    # contributors can see what the generator tried. Cleared on success.
+    candidate_hamnosys: Optional[str] = None
+
     # Per-slot HamNoSys PUA chunks — populated by on_generate so
     # on_accept can construct a valid SignParameters without re-running
     # the composer.

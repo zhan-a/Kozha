@@ -305,6 +305,8 @@ def _envelope(session: AuthoringSession, request: Request) -> SessionEnvelope:
         preview=_preview_for(session, request),
         generation_confidence=draft.generation_confidence,
         generation_errors=list(draft.generation_errors),
+        generation_path=list(draft.generation_path),
+        candidate_hamnosys=draft.candidate_hamnosys,
         corrections_count=draft.corrections_count,
         history=history,
         created_at=session.created_at,

@@ -1,0 +1,55 @@
+---
+id: generate_hamnosys_repair_v2
+description: "Repair a HamNoSys 4.0 string that failed grammar validation, with worked few-shot examples"
+model: gpt-4o
+temperature: 0.0
+response_format: json_schema
+created: 2026-04-21
+owner: bogdan
+---
+You repair HamNoSys 4.0 strings that failed grammar validation. Produce the smallest edit that fixes every reported error while preserving the input's phonological intent.
+
+Input shape (JSON):
+{
+  "candidate_hex": "<space-separated hex codepoints, e.g. 'E013 E020 E03A E051 E093'>",
+  "errors":        [{"position": <int>, "symbol_hex": "<hex>", "code": "<code>", "message": "<msg>"}, ...],
+  "guidance":      "<short instruction on edit budget>"
+}
+
+Output shape (JSON, exactly this schema):
+{
+  "hamnosys_hex": "<space-separated 4-digit uppercase hex codepoints>",
+  "rationale":    "<one sentence on what changed and why>"
+}
+
+Hard rules:
+- Output must be a space-separated list of 4-digit uppercase hex values, each a valid HamNoSys 4.0 codepoint (U+E000..U+E0FF) — no other glyphs.
+- Touch only the codepoints implicated by the reported error positions. Do not "improve" unrelated parts of the string.
+- Preserve the canonical slot order: [symmetry] handshape ext_finger palm location [contact] [movement [size/speed/timing] [repeat]].
+- If an error reports a missing mandatory slot (handshape / ext_finger / palm / location), insert a plausible codepoint of the right class at the correct position rather than deleting the surrounding string.
+- If an error reports a duplicate or misordered slot, remove or move the offending codepoint with the fewest edits possible.
+
+Worked examples:
+
+Example 1 — missing palm orientation between ext_finger and location:
+Input:
+  candidate_hex: "E013 E020 E051 E093"
+  errors: [{"position":2,"symbol_hex":"E051","code":"missing_palm","message":"location at position 2 but no palm direction precedes it"}]
+Output:
+  {"hamnosys_hex":"E013 E020 E03A E051 E093","rationale":"Inserted U+E03A (palm-down) between the extended-finger direction and the location to satisfy the canonical handshape→ext_finger→palm→location order."}
+
+Example 2 — size modifier misplaced before path:
+Input:
+  candidate_hex: "E013 E020 E03A E051 E0C5 E093"
+  errors: [{"position":4,"symbol_hex":"E0C5","code":"misordered_modifier","message":"size_mod must follow its movement path symbol, not precede it"}]
+Output:
+  {"hamnosys_hex":"E013 E020 E03A E051 E093 E0C5","rationale":"Swapped the size modifier (U+E0C5) and the path glyph (U+E093) so the size modifier follows its path."}
+
+Example 3 — invalid codepoint outside the HamNoSys range:
+Input:
+  candidate_hex: "E013 E020 E03A E051 1234"
+  errors: [{"position":4,"symbol_hex":"1234","code":"unknown_symbol","message":"U+1234 is not a HamNoSys 4.0 codepoint"}]
+Output:
+  {"hamnosys_hex":"E013 E020 E03A E051 E093","rationale":"Replaced the unknown U+1234 with U+E093 (small circle), the most common movement path codepoint, since the original slot intent was a movement path."}
+
+If the errors are too tangled to fix with a small edit, return the input candidate unchanged with a rationale explaining what you attempted — the caller will fall back to whole-sign regeneration.

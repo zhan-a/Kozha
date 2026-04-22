@@ -170,6 +170,11 @@ class SessionEnvelope(BaseModel):
 
     generation_confidence: Optional[float] = None
     generation_errors: List[str] = Field(default_factory=list)
+    # Debug trail for the last generation attempt.
+    generation_path: List[str] = Field(default_factory=list)
+    # Rejected HamNoSys candidate when generation failed (``None`` on
+    # success). Lets the UI show "here's what the generator tried".
+    candidate_hamnosys: Optional[str] = None
     corrections_count: int = 0
 
     history: List[dict[str, Any]] = Field(default_factory=list)

@@ -481,11 +481,14 @@ def run_generation(
 ) -> AuthoringSession:
     """Run generator → SiGML → preview on a session in GENERATING or APPLYING_CORRECTION.
 
-    The session stays in GENERATING / APPLYING_CORRECTION on failure
-    (with errors recorded on the draft and a :class:`GeneratedEvent`
-    logged) so the caller can decide whether to route the user back to
-    clarification or surface the error. On success the state moves to
-    :data:`SessionState.RENDERED`.
+    On failure the session transitions OUT of GENERATING /
+    APPLYING_CORRECTION — back to AWAITING_DESCRIPTION (first attempt)
+    or AWAITING_CORRECTION (correction-apply) — so the frontend stops
+    showing the "Generating HamNoSys…" spinner and the contributor can
+    retry, correct, or submit-as-is. Errors are recorded on the draft
+    (``generation_errors``, ``preview_status="generation_failed"``) so
+    the chat panel can surface the reason. On success the state moves
+    to :data:`SessionState.RENDERED`.
     """
     _require_state(
         session,
@@ -495,17 +498,33 @@ def run_generation(
     if session.draft.parameters_partial is None:
         raise RuntimeError("run_generation requires a populated parameters_partial")
 
+    was_correction = session.state == SessionState.APPLYING_CORRECTION
+
     emit_event(
         _evs.GENERATE_HAMNOSYS_ATTEMPTED,
         session_id=str(session.id),
     )
-    gen_result = generate_fn(session.draft.parameters_partial)
+    try:
+        gen_result = generate_fn(
+            session.draft.parameters_partial,
+            prose=session.draft.description_prose or "",
+            gloss=session.draft.gloss or "",
+            sign_language=session.draft.sign_language,
+        )
+    except TypeError:
+        # Test stubs and older fixtures may not accept the extra kwargs.
+        gen_result = generate_fn(session.draft.parameters_partial)
 
     if not gen_result.hamnosys:
+        errors = list(gen_result.errors) or [
+            gen_result.validation.summary()
+            if gen_result.validation
+            else "generation failed"
+        ]
         emit_event(
             _evs.GENERATE_HAMNOSYS_GAVE_UP,
             session_id=str(session.id),
-            errors=list(gen_result.errors)[:5],
+            errors=errors[:5],
             used_llm_fallback=gen_result.used_llm_fallback,
         )
         session = session.append_event(
@@ -513,15 +532,31 @@ def run_generation(
                 success=False,
                 confidence=0.0,
                 used_llm_fallback=gen_result.used_llm_fallback,
-                errors=list(gen_result.errors)
-                or [gen_result.validation.summary() if gen_result.validation else "generation failed"],
+                errors=errors,
             )
         )
+        human_message = errors[0] if errors else "generation failed"
+        # Cap the surfaced message so a chatty validator summary can't
+        # blow up the envelope or the chat bubble.
+        human_message = human_message[:500]
         session = session.with_draft(
-            generation_errors=list(gen_result.errors),
+            generation_errors=errors,
             generation_confidence=0.0,
+            generation_path=list(gen_result.llm_fallback_fields),
+            candidate_hamnosys=getattr(gen_result, "last_candidate", "") or None,
+            preview_status="generation_failed",
+            preview_message=human_message,
         )
-        return session  # stays in GENERATING / APPLYING_CORRECTION
+        # Transition OUT of the loading state so the frontend stops
+        # waiting. AWAITING_CORRECTION preserves the prior render for
+        # correction flows; AWAITING_DESCRIPTION is the natural retry
+        # point for the initial describe / clarify path.
+        recovery_state = (
+            SessionState.AWAITING_CORRECTION
+            if was_correction
+            else SessionState.AWAITING_DESCRIPTION
+        )
+        return session.with_state(recovery_state)
 
     emit_event(
         _evs.GENERATE_HAMNOSYS_VALIDATED,
@@ -542,7 +577,35 @@ def run_generation(
     if pnm is not None and pnm.mouth_picture:
         from models import NonManualFeatures  # local import to avoid cycles
         non_manual = NonManualFeatures(mouth_picture=pnm.mouth_picture)
-    sigml = to_sigml_fn(hamnosys, gloss=gloss, non_manual=non_manual)
+    try:
+        sigml = to_sigml_fn(hamnosys, gloss=gloss, non_manual=non_manual)
+    except Exception as exc:  # noqa: BLE001 — surface every SiGML failure
+        logger.warning(
+            "to_sigml failed for hamnosys=%r: %s", hamnosys, exc
+        )
+        err = f"SiGML conversion failed: {exc}"
+        session = session.append_event(
+            GeneratedEvent(
+                success=False,
+                confidence=0.0,
+                used_llm_fallback=gen_result.used_llm_fallback,
+                errors=[err],
+            )
+        )
+        session = session.with_draft(
+            generation_errors=[err],
+            generation_confidence=0.0,
+            generation_path=list(gen_result.llm_fallback_fields),
+            candidate_hamnosys=hamnosys,
+            preview_status="generation_failed",
+            preview_message=err[:500],
+        )
+        recovery_state = (
+            SessionState.AWAITING_CORRECTION
+            if was_correction
+            else SessionState.AWAITING_DESCRIPTION
+        )
+        return session.with_state(recovery_state)
 
     preview: PreviewResult | None = None
     if render_fn is not None:
@@ -608,6 +671,8 @@ def run_generation(
         preview_message=preview.message if preview else "renderer not invoked",
         generation_confidence=gen_result.confidence,
         generation_errors=list(gen_result.errors),
+        generation_path=list(gen_result.llm_fallback_fields),
+        candidate_hamnosys=None,
     )
     return session.with_state(SessionState.RENDERED)
 

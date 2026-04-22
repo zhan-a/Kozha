@@ -46,6 +46,40 @@
 
   var API_BASE = '/api/chat2hamnosys';
 
+  // Client-side watchdog: if a /describe, /answer, or /correct request
+  // takes longer than this, abort so the chat panel can show an error
+  // instead of spinning forever. The backend bounds generation at
+  // ~30s per LLM call x a handful of calls, so 150s covers the
+  // worst-case happy path with headroom.
+  var REQUEST_TIMEOUT_MS = 150000;
+
+  function fetchWithTimeout(url, opts, timeoutMs) {
+    opts = opts || {};
+    var controller = null;
+    try { controller = new AbortController(); } catch (_e) { controller = null; }
+    if (controller) opts.signal = controller.signal;
+    var timer = setTimeout(function () {
+      if (controller) {
+        try { controller.abort(); } catch (_e) { /* noop */ }
+      }
+    }, timeoutMs || REQUEST_TIMEOUT_MS);
+    return fetch(url, opts).then(function (resp) {
+      clearTimeout(timer);
+      return resp;
+    }, function (err) {
+      clearTimeout(timer);
+      if (err && err.name === 'AbortError') {
+        var timeoutErr = new Error('request timed out');
+        timeoutErr.status = 0;
+        timeoutErr.body = JSON.stringify({
+          error: { code: 'client_timeout', message: 'request timed out' },
+        });
+        throw timeoutErr;
+      }
+      throw err;
+    });
+  }
+
   // Backend session state → catalog key for the context-strip label.
   // The prompt names five: Draft / Awaiting clarification / Rendering /
   // Ready to submit / Submitted. Correction states collapse into the most
@@ -103,6 +137,12 @@
       sigml:            null,
       parameters:       null,
       generationErrors: [],
+      // Debug trail from the last generation attempt — slot names plus
+      // "_repair"/"_whole_sign" markers for which fallback path fired.
+      generationPath:   [],
+      // The rejected HamNoSys candidate when generation failed — null
+      // on success. Used by the chat to show "here's what was tried".
+      candidateHamnosys: null,
       // Tracked for the submission checklist — the server envelope
       // carries the running count; the "at least one correction" row is
       // optional but a useful signal of author engagement.
@@ -181,6 +221,8 @@
       sigml:              state.sigml,
       parameters:         state.parameters,
       generationErrors:   state.generationErrors.slice(),
+      generationPath:     state.generationPath.slice(),
+      candidateHamnosys:  state.candidateHamnosys,
       correctionsCount:   state.correctionsCount,
       authorIsDeafNative: state.authorIsDeafNative,
       descriptionProse:   state.descriptionProse,
@@ -317,6 +359,9 @@
       sigml:            typeof env.sigml === 'string' ? env.sigml : null,
       parameters:       env.parameters || null,
       generationErrors: env.generation_errors || [],
+      generationPath:   env.generation_path || [],
+      candidateHamnosys:
+        typeof env.candidate_hamnosys === 'string' ? env.candidate_hamnosys : null,
     };
     if (typeof env.corrections_count === 'number') {
       patch.correctionsCount = env.corrections_count;
@@ -338,7 +383,7 @@
     if (typeof opts.authorIsDeafNative === 'boolean') {
       body.author_is_deaf_native = opts.authorIsDeafNative;
     }
-    return fetch(API_BASE + '/sessions', {
+    return fetchWithTimeout(API_BASE + '/sessions', {
       method: 'POST',
       headers: {
         'Accept':       'application/json',
@@ -375,7 +420,7 @@
     }
     var body = { prose: prose };
     if (gloss) body.gloss = gloss;
-    return fetch(API_BASE + '/sessions/' + encodeURIComponent(state.sessionId) + '/describe', {
+    return fetchWithTimeout(API_BASE + '/sessions/' + encodeURIComponent(state.sessionId) + '/describe', {
       method: 'POST',
       headers: {
         'Accept':          'application/json',
@@ -399,7 +444,7 @@
       return Promise.reject(new Error('question field required'));
     }
     var body = { question_id: questionField, answer: answerText };
-    return fetch(API_BASE + '/sessions/' + encodeURIComponent(state.sessionId) + '/answer', {
+    return fetchWithTimeout(API_BASE + '/sessions/' + encodeURIComponent(state.sessionId) + '/answer', {
       method: 'POST',
       headers: {
         'Accept':          'application/json',
@@ -423,7 +468,7 @@
     var body = { raw_text: rawText };
     if (typeof opts.targetTimeMs === 'number') body.target_time_ms = opts.targetTimeMs;
     if (opts.targetRegion) body.target_region = opts.targetRegion;
-    return fetch(API_BASE + '/sessions/' + encodeURIComponent(state.sessionId) + '/correct', {
+    return fetchWithTimeout(API_BASE + '/sessions/' + encodeURIComponent(state.sessionId) + '/correct', {
       method: 'POST',
       headers: {
         'Accept':          'application/json',
@@ -508,6 +553,8 @@
       sigml:              null,
       parameters:         null,
       generationErrors:   [],
+      generationPath:     [],
+      candidateHamnosys:  null,
       correctionsCount:   0,
       authorIsDeafNative: null,
       descriptionProse:   '',
