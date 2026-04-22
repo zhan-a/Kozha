@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sigml>
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="W">
+    <hamnosys_manual>
+            <hamfinger234 />
+            <hamfingerstraightmod />
+            <hamthumbacrossmod />
+            <hamextfingeru />
+            <hampalmd />
+    </hamnosys_manual>
+</hns_sign>
+
+
+</sigml>

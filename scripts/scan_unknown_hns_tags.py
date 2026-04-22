@@ -52,7 +52,13 @@ def scan_file(path: Path, known: set[str]) -> dict[str, list[int]]:
 def scan_repo() -> dict[Path, dict[str, list[int]]]:
     known = extract_known_tags()
     report: dict[Path, dict[str, list[int]]] = {}
+    # Quarantine sidecars (``*_quarantine.sigml``) are not served — they
+    # exist for community review of broken entries. Scanning them would
+    # re-surface issues we already know about and inflate the health
+    # report.
     for path in sorted(DATA_DIR.glob("*.sigml")):
+        if "_quarantine" in path.name:
+            continue
         u = scan_file(path, known)
         if u:
             report[path] = u
@@ -69,9 +75,15 @@ def render_markdown(report: dict[Path, dict[str, list[int]]]) -> str:
         "the remaining HamNoSys sequence may fail tree-parsing, which surfaces as",
         "`mismatched input '[object Object]'`.",
         "",
-        "Prompt 3 ships a runtime validator that skips affected signs and surfaces a",
-        "clear error instead of emitting broken XML. Fixing the underlying data is",
-        "owned by prompt 7.",
+        "Prompt 3 shipped a runtime validator that skips affected signs and",
+        "surfaces a clear error instead of emitting broken XML. Prompt 7",
+        "closed the loop: `scripts/database_health_audit.py` applies safe",
+        "tag renames in place (`hamupperarm` → `hamUpperarm`,",
+        "`hamindxfinger` → `hamindexfinger`) and moves every remaining entry",
+        "with unknown tags into `data/<stem>_quarantine.sigml` (not served,",
+        "preserved for community review). This scan skips those sidecars",
+        "intentionally — see `docs/polish/07-summary.md` for the quarantine",
+        "roll-up and `docs/polish/07-database-health/` for per-file reports.",
         "",
         "## Totals",
         "",

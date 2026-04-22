@@ -1,0 +1,716 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sigml_collection language="Bangla_SL" count="33">
+
+  <!-- quarantined: empty_gloss -->
+  <hns_sign gloss="">
+  		<hamnosys_manual>
+  			<hamfinger2 />
+  			<hamthumbacrossmod />
+  			<hamextfingero />
+  			<hampalml />
+  			<hamshoulders />
+  			<hamlrat />
+  			<hamclose />
+  			<hammoveo />
+  			<hamfast />
+  			<hamhalt />
+  		</hamnosys_manual>
+  	</hns_sign>
+
+  <!-- quarantined: empty_gloss -->
+  <hns_sign gloss="">
+  		<hamnosys_manual>
+  			<hamfinger2 />
+  			<hamthumbacrossmod />
+  			<hamextfingeril />
+  			<hampalmdr />
+  			<hamchest />
+  			<hamlrat />
+  			<hamclose />
+  			<hamparbegin />
+  			<hammoveo />
+  			<hamlargemod />
+  			<hamarcr />
+  			<hamreplace />
+  			<hamextfingerol />
+  			<hampalmd />
+  			<hamparend />
+  			<hamparbegin />
+  			<hammovei />
+  			<hamlargemod />
+  			<hamarcl />
+  			<hamreplace />
+  			<hamextfingeril />
+  			<hampalmdr />
+  			<hamparend />
+  		</hamnosys_manual>
+  	</hns_sign>
+
+  <!-- quarantined: empty_gloss -->
+  <hns_sign gloss="">
+  		<hamnosys_manual>
+  			<hamflathand />
+  			<hamextfingerul />
+  			<hampalml />
+  			<hamchest />
+  			<hammovei />
+  			<hamsmallmod />
+  			<hamtouch />
+  		</hamnosys_manual>
+  	</hns_sign>
+
+  <!-- quarantined: empty_gloss -->
+  <hns_sign gloss="">
+  		<hamnosys_manual>
+  			<hamfinger2 />
+  			<hamfingerstraightmod />
+  			<hamextfingeril />
+  			<hampalmr />
+  			<hamchest />
+  			<hamclose />
+  			<hammovei />
+  			<hamtouch />
+  		</hamnosys_manual>
+  	</hns_sign>
+
+  <!-- quarantined: empty_gloss -->
+  <hns_sign gloss="">
+  		<hamnosys_manual>
+  			<hamfinger2 />
+  			<hamfingerstraightmod />
+  			<hamextfingerol />
+  			<hampalmd />
+  			<hammoved />
+  		</hamnosys_manual>
+  	</hns_sign>
+
+  <!-- quarantined: no_hamnosys_content -->
+  <hamgestural_sign gloss="cup1">
+    <sign_manual both_hands="true" lr_symm="true">
+      <split_handconfig>
+        <handconfig handshape="pinch12open" mainbend="bent" />
+        <handconfig handshape="flat" thumbpos="out" />
+      </split_handconfig>
+      <split_handconfig>
+        <handconfig extfidir="o" palmor="l" />
+        <handconfig extfidir="or" palmor="u" />
+      </split_handconfig>
+      <split_location>
+        <location_bodyarm location="shoulders" side="right_at" />
+        <location_bodyarm location="chest" />
+      </split_location>
+      <directedmotion direction="u" size="small" />
+      <split_motion>
+        <tgt_motion>
+          <changeposture />
+          <handconfig handshape="pinch12open" mainbend="bent" />
+          <handconfig extfidir="u" />
+        </tgt_motion>
+        <nomotion />
+      </split_motion>
+    </sign_manual>
+  </hamgestural_sign>
+
+  <!-- quarantined: no_hamnosys_content -->
+  <hamgestural_sign gloss="crore">
+    <sign_manual>
+      <handconfig ceeopening="tight" handshape="ceeall" />
+      <handconfig extfidir="up" />
+      <handconfig palmor="l" />
+      <location_bodyarm location="shouldertop" />
+    </sign_manual>
+  </hamgestural_sign>
+
+  <!-- quarantined: empty_gloss -->
+  <hns_sign gloss="">
+  		<hamnosys_manual>
+  			<hampinchall />
+  			<hamfingerstraightmod />
+  			<hamextfingeru />
+  			<hampalmu />
+  			<hamlips />
+  			<hamclose />
+  			<hammovei />
+  			<hamsmallmod />
+  			<hamrepeatfromstartseveral />
+  		</hamnosys_manual>
+  	</hns_sign>
+
+  <!-- quarantined: empty_gloss -->
+  <hns_sign gloss="">
+  		<hamnosys_manual>
+  			<hampinchall />
+  			<hamfingerstraightmod />
+  			<hamextfingeru />
+  			<hampalmu />
+  			<hamlips />
+  			<hammoveo />
+  			<hamsmallmod />
+  			<hammovei />
+  			<hamsmallmod />
+  			<hamrepeatfromstart />
+  		</hamnosys_manual>
+  	</hns_sign>
+
+  <!-- quarantined: empty_gloss -->
+  <hns_sign gloss="">
+  		<hamnosys_manual>
+  			<hamparbegin />
+  			<hampinch12open />
+  			<hamplus />
+  			<hamflathand />
+  			<hamthumboutmod />
+  			<hamparend />
+  			<hamparbegin />
+  			<hamextfingerol />
+  			<hampalml />
+  			<hamplus />
+  			<hamextfingerr />
+  			<hambetween />
+  			<hamextfingeror />
+  			<hampalmu />
+  			<hamparend />
+  			<hamparbegin />
+  			<hamfingernail />
+  			<hamindexfinger />
+  			<hammiddlefinger />
+  			<hamringfinger />
+  			<hamplus />
+  			<hampinkyside />
+  			<hamparend />
+  			<hamclose />
+  			<hamshoulders />
+  			<hamparbegin />
+  			<hamreplace />
+  			<hamextfingeru />
+  			<hampalml />
+  			<hamparend />
+  			<hamparbegin />
+  			<hamreplace />
+  			<hamextfingerol />
+  			<hampalml />
+  			<hamparend />
+  		</hamnosys_manual>
+  	</hns_sign>
+
+  <!-- quarantined: empty_gloss -->
+  <hns_sign gloss="">
+  		<hamnosys_manual>
+  			<hamfinger2 />
+  			<hamthumbacrossmod />
+  			<hamfingerhookmod />
+  			<hamextfingerl />
+  			<hampalmd />
+  			<hamneck />
+  			<hamlrat />
+  			<hambetween />
+  			<hamlips />
+  			<hamparbegin />
+  			<hamcirclel />
+  			<hamsmallmod />
+  			<hamstircw />
+  			<hamparend />
+  			<hamrepeatfromstart />
+  		</hamnosys_manual>
+  	</hns_sign>
+
+  <!-- quarantined: no_hamnosys_content -->
+  <hamgestural_sign gloss="rice1">
+    <sign_manual>
+      <sign_manual>
+        <handconfig handshape="finger2" mainbend="bent" thumbpos="across" />
+        <handconfig extfidir="u" />
+        <handconfig palmor="l" />
+        <location_bodyarm contact="touch" location="eyes" side="right_beside">
+          <location_hand digits="2" location="tip" side="left_beside" />
+        </location_bodyarm>
+      </sign_manual>
+      <sign_manual>
+        <handconfig handshape="pinch12" mainbend="bent" second_handshape="pinch12" />
+        <handconfig extfidir="uo" />
+        <handconfig palmor="u" />
+        <location_bodyarm location="shoulders" side="right_at" />
+        <fingerplay />
+      </sign_manual>
+    </sign_manual>
+  </hamgestural_sign>
+
+  <!-- quarantined: no_hamnosys_content -->
+  <hamgestural_sign gloss="chair1">
+    <sign_manual both_hands="true" lr_symm="true">
+      <handconfig handshape="fist" thumbpos="across" />
+      <handconfig extfidir="o" />
+      <handconfig palmor="l" />
+      <location_bodyarm location="shoulders" />
+      <rpt_motion repetition="fromstart">
+        <directedmotion direction="d" size="small" />
+      </rpt_motion>
+    </sign_manual>
+  </hamgestural_sign>
+
+  <!-- quarantined: no_hamnosys_content -->
+  <hamgestural_sign gloss="chairman1">
+    <sign_manual both_hands="true" lr_symm="true">
+      <split_handconfig>
+        <handconfig handshape="fist" thumbpos="out" />
+        <handconfig handshape="finger2" second_handshape="finger2" second_mainbend="hooked" second_thumbpos="opposed" thumbpos="opposed" />
+      </split_handconfig>
+      <split_handconfig>
+        <handconfig extfidir="ol" palmor="l" />
+        <handconfig extfidir="ur" palmor="d" />
+      </split_handconfig>
+      <split_location>
+        <location_bodyarm location="stomatch" />
+        <location_bodyarm location="stomach" />
+      </split_location>
+      <handconstellation contact="touch">
+         <location_hand location="ball" />
+        <location_hand digits="2" location="nail" />
+        </handconstellation>
+    </sign_manual>
+  </hamgestural_sign>
+
+  <!-- quarantined: empty_gloss -->
+  <hns_sign gloss="">
+  		<hamnosys_manual>
+  			<hamparbegin />
+  			<hamfinger23 />
+  			<hamthumbacrossmod />
+  			<hamextfingero />
+  			<hampalmu />
+  			<hamplus />
+  			<hamcee12 />
+  			<hamfingerstraightmod />
+  			<hamextfingeror />
+  			<hampalmr />
+  			<hamparend />
+  			<hamclose />
+  			<hamparbegin />
+  			<hamreplace />
+  			<hamextfingero />
+  			<hampalmd />
+  			<hammovel />
+  			<hamlargemod />
+  			<hamparbegin />
+  			<hamfingermidjoint />
+  			<hamhandback />
+  			<hamplus />
+  			<hamfingerpad />
+  			<hamparend />
+  			<hamtouch />
+  			<hamparend />
+  		</hamnosys_manual>
+  	</hns_sign>
+
+  <!-- quarantined: no_hamnosys_content -->
+  <hamgestural_sign gloss="table">
+    <sign_manual both_hands="true" lr_symm="true">
+      <handconfig handshape="flat" thumbpos="across" />
+      <handconfig extfidir="o" />
+      <handconfig palmor="d" />
+      <handconstellation contact="touch" />
+      <directedmotion direction="r" />
+      <tgt_motion>
+        <changeposture />
+        <handconfig palmor="l" />
+      </tgt_motion>
+      <directedmotion direction="d" />
+    </sign_manual>
+  </hamgestural_sign>
+
+  <!-- quarantined: empty_gloss -->
+  <hns_sign gloss="">
+  		<hamnosys_manual>
+  			<hamfinger23 />
+  			<hambetween />
+  			<hamfinger2 />
+  			<hamthumbopenmod />
+  			<hamfingerhookmod />
+  			<hamextfingeru />
+  			<hampalml />
+  			<hamshoulders />
+  			<hamlrat />
+  			<hamclose />
+  			<hammoveo />
+  			<hamsmallmod />
+  			<hamhalt />
+  		</hamnosys_manual>
+  	</hns_sign>
+
+  <!-- quarantined: empty_gloss -->
+  <hns_sign gloss="">
+  		<hamnosys_manual>
+  			<hamparbegin />
+  			<hamcee12 />
+  			<hamfingerstraightmod />
+  			<hamplus />
+  			<hamfinger2345 />
+  			<hamthumbopenmod />
+  			<hamparend />
+  			<hamparbegin />
+  			<hamextfingerl />
+  			<hambetween />
+  			<hamextfingeruo />
+  			<hampalmd />
+  			<hamplus />
+  			<hamextfingero />
+  			<hambetween />
+  			<hamextfingeru />
+  			<hampalmd />
+  			<hamparend />
+  			<hamparbegin />
+  			<hamindexfinger />
+  			<hamfingerbase />
+  			<hamplus />
+  			<hamfingerpad />
+  			<hamindexfinger />
+  			<hamparend />
+  			<hamtouch />
+  			<hamlrat />
+  			<hamchest />
+  			<hamclose />
+  		</hamnosys_manual>
+  	</hns_sign>
+
+  <!-- quarantined: empty_gloss -->
+  <hns_sign gloss="">
+  		<hamnosys_manual>
+  			<hamparbegin />
+  			<hamfinger2 />
+  			<hamthumbacrossmod />
+  			<hamplus />
+  			<hamflathand />
+  			<hamthumboutmod />
+  			<hamparend />
+  			<hamparbegin />
+  			<hamextfingerl />
+  			<hambetween />
+  			<hamextfingeruo />
+  			<hampalmd />
+  			<hamplus />
+  			<hamextfingero />
+  			<hambetween />
+  			<hamextfingeru />
+  			<hampalmd />
+  			<hamparend />
+  			<hamparbegin />
+  			<hamthumb />
+  			<hamfingerbase />
+  			<hamplus />
+  			<hamfingernail />
+  			<hamindexfinger />
+  			<hamparend />
+  			<hamtouch />
+  			<hamlrat />
+  			<hamchest />
+  			<hamclose />
+  			<hamcircleil />
+  			<hamsmallmod />
+  			<hammoveir />
+  			<hamsmallmod />
+  			<hamarcd />
+  		</hamnosys_manual>
+  	</hns_sign>
+
+  <!-- quarantined: empty_gloss -->
+  <hns_sign gloss="">
+  		<hamnosys_manual>
+  			<hamfinger2 />
+  			<hamthumbacrossmod />
+  			<hamextfingero />
+  			<hampalml />
+  			<hamshoulders />
+  			<hamlrat />
+  			<hamclose />
+  			<hammoveo />
+  			<hamfast />
+  			<hamhalt />
+  		</hamnosys_manual>
+  	</hns_sign>
+
+  <!-- quarantined: empty_gloss -->
+  <hns_sign gloss="">
+  		<hamnosys_manual>
+  			<hamparbegin />
+  			<hamfinger23spread />
+  			<hamthumbacrossmod />
+  			<hamextfingerd />
+  			<hampalmd />
+  			<hamplus />
+  			<hamflathand />
+  			<hamthumboutmod />
+  			<hamextfingeror />
+  			<hampalmu />
+  			<hamparend />
+  			<hamparbegin />
+  			<hamshoulders />
+  			<hambetween />
+  			<hamshouldertop />
+  			<hamlrat />
+  			<hamplus />
+  			<hamchest />
+  			<hamparend />
+  			<hamparbegin />
+  			<hammoved />
+  			<hamfast />
+  			<hamreplace />
+  			<hamextfingerd />
+  			<hampalmd />
+  			<hamparbegin />
+  			<hampalm />
+  			<hamplus />
+  			<hamfingertip />
+  			<hamindexfinger />
+  			<hamparend />
+  			<hamtouch />
+  			<hamparend />
+  		</hamnosys_manual>
+  	</hns_sign>
+
+  <!-- quarantined: no_hamnosys_content -->
+  <hamgestural_sign gloss="milk1">
+    <sign_manual both_hands="true" lr_symm="true" outofphase="true" ud_symm="true">
+      <handconfig handshape="finger2345" mainbend="round" thumbpos="opposed" />
+      <handconfig extfidir="o" />
+      <handconfig palmor="l" />
+      <location_bodyarm location="shoulders" second_location="chest" />
+      <rpt_motion repetition="fromstart_several">
+        <seq_motion fused="true">
+          <directedmotion direction="d" fast="true" size="small" />
+          <directedmotion direction="u" fast="true" />
+          <tgt_motion fast="true">
+            <changeposture />
+            <handconfig handshape="fist" thumbpos="across" />
+          </tgt_motion>
+        </seq_motion>
+      </rpt_motion>
+    </sign_manual>
+  </hamgestural_sign>
+
+  <!-- quarantined: no_hamnosys_content -->
+  <hamgestural_sign gloss="bird1">
+    <sign_manual both_hands="true" lr_symm="true">
+      <handconfig handshape="flat" second_handshape="flat" second_thumbpos="out" />
+      <handconfig extfidir="r" second_extfidir="o" />
+      <handconfig palmor="d" />
+      <location_bodyarm contact="close" location="shouldertop" side="right_beside" />
+      <directedmotion direction="ir" fast="true" />
+      <nonman_motion>
+        <handconfig bodypart="elbow" />
+        <directedmotion direction="l" />
+      </nonman_motion>
+      <wristmotion motion="nodding" size="small" />
+    </sign_manual>
+  </hamgestural_sign>
+
+  <!-- quarantined: empty_gloss -->
+  <hns_sign gloss="">
+  		<hamnosys_manual>
+  			<hampinchall />
+  			<hamextfingeru />
+  			<hampalmu />
+  			<hamnose />
+  			<hamparbegin />
+  			<hammoveuo />
+  			<hamsmallmod />
+  			<hamslow />
+  			<hamreplace />
+  			<hamfinger2345 />
+  			<hamnose />
+  			<hamclose />
+  			<hamparend />
+  		</hamnosys_manual>
+  	</hns_sign>
+
+  <!-- quarantined: no_hamnosys_content -->
+  <hamgestural_sign gloss="car1">
+    <sign_manual>
+      <sign_manual both_hands="true" outofphase="true" ud_symm="true">
+        <handconfig handshape="fist" thumbpos="across" />
+        <handconfig extfidir="o" />
+        <handconfig palmor="ul" />
+        <location_bodyarm contact="close" location="chest" />
+        <split_motion>
+          <seq_motion>
+            <directedmotion direction="ur" />
+            <directedmotion direction="dl" />
+          </seq_motion>
+          <nomotion />
+        </split_motion>
+        <rpt_motion repetition="reverse">
+          <split_motion>
+            <nomotion />
+            <directedmotion direction="ul" />
+          </split_motion>
+        </rpt_motion>
+      </sign_manual>
+      <sign_manual both_hands="true" lr_symm="true">
+        <split_handconfig>
+          <handconfig handshape="flat" mainbend="hooked" second_handshape="flat" second_thumbpos="opposed" thumbpos="opposed" />
+          <handconfig handshape="flat" mainbend="hooked" second_handshape="flat" second_thumbpos="opposed" thumbpos="opposed" />
+        </split_handconfig>
+        <split_handconfig>
+          <handconfig extfidir="u" palmor="l" />
+          <handconfig extfidir="u" palmor="r" />
+        </split_handconfig>
+        <split_location>
+          <location_bodyarm contact="close" location="shoulders" side="right_at" />
+          <location_bodyarm location="shoulders" />
+        </split_location>
+        <split_motion>
+          <tgt_motion>
+            <directedmotion direction="ir" />
+            <location_bodyarm contact="close" location="neck" side="right_at" />
+          </tgt_motion>
+          <directedmotion direction="o" size="small" />
+        </split_motion>
+      </sign_manual>
+    </sign_manual>
+  </hamgestural_sign>
+
+  <!-- quarantined: no_hamnosys_content -->
+  <hamgestural_sign gloss="house1">
+    <sign_manual both_hands="true" lr_symm="true">
+      <handconfig handshape="flat" />
+      <handconfig extfidir="ul" />
+      <handconfig palmor="d" />
+      <location_bodyarm location="shouldertop" />
+      <rpt_motion repetition="fromstart">
+        <tgt_motion>
+          <directedmotion direction="ul" />
+          <location_hand contact="touch" digits="3" location="tip" />
+        </tgt_motion>
+      </rpt_motion>
+    </sign_manual>
+  </hamgestural_sign>
+
+  <!-- quarantined: empty_gloss -->
+  <hns_sign gloss="">
+  		<hamnosys_manual>
+  			<hampinch12open />
+  			<hamextfingeru />
+  			<hampalmdl />
+  			<hammovedo />
+  			<hamsmallmod />
+  		</hamnosys_manual>
+  	</hns_sign>
+
+  <!-- quarantined: empty_gloss -->
+  <hns_sign gloss="">
+  		<hamnosys_manual>
+  			<hamflathand />
+  			<hamextfingero />
+  			<hampalml />
+  			<hamchest />
+  			<hamlrat />
+  			<hammoveol />
+  			<hamwavy />
+  			<hamtense />
+  		</hamnosys_manual>
+  	</hns_sign>
+
+  <!-- quarantined: empty_gloss -->
+  <hns_sign gloss="">
+  		<hamnosys_manual>
+  			<hamcee12 />
+  			<hamextfingeru />
+  			<hampalmd />
+  			<hambetween />
+  			<hampalml />
+  			<hamlips />
+  			<hamclose />
+  			<hamparbegin />
+  			<hamreplace />
+  			<hampinch12 />
+  			<hamfingerstraightmod />
+  			<hamparend />
+  			<hamrepeatfromstart />
+  		</hamnosys_manual>
+  	</hns_sign>
+
+  <!-- quarantined: empty_gloss -->
+  <hns_sign gloss="">
+  		<hamnosys_manual>
+  			<hampinch12 />
+  			<hamfingerstraightmod />
+  			<hamindexfinger />
+  			<hammiddlefinger />
+  			<hamlargemod />
+  			<hamextfingero />
+  			<hampalmd />
+  			<hamshoulders />
+  			<hamparbegin />
+  			<hamfingerplay />
+  			<hamcircled />
+  			<hamsmallmod />
+  			<hamparend />
+  		</hamnosys_manual>
+  	</hns_sign>
+
+  <!-- quarantined: no_hamnosys_content -->
+  <hamgestural_sign gloss="zero1">
+    <sign_manual>
+      <handconfig handshape="pinchall" />
+      <handconfig extfidir="u" />
+      <handconfig palmor="l" />
+      <location_bodyarm location="lips" />
+      <directedmotion direction="o" />
+    </sign_manual>
+  </hamgestural_sign>
+
+  <!-- quarantined: no_hamnosys_content -->
+  <hamgestural_sign gloss="hear1">
+    <sign_manual>
+      <handconfig handshape="ceeall" mainbend="bent" />
+      <handconfig extfidir="u" />
+      <handconfig palmor="l" />
+      <location_bodyarm contact="close" location="ear" side="right_at" />
+      <rpt_motion repetition="fromstart_several">
+        <tgt_motion>
+          <changeposture />
+          <handconfig handshape="pinchall" mainbend="bent" />
+        </tgt_motion>
+      </rpt_motion>
+    </sign_manual>
+  </hamgestural_sign>
+
+  <!-- quarantined: empty_gloss -->
+  <hns_sign gloss="">
+  		<hamnosys_manual>
+  			<hamparbegin />
+  			<hamfist />
+  			<hamextfingerul />
+  			<hampalmd />
+  			<hamplus />
+  			<hamflathand />
+  			<hamextfingeru />
+  			<hampalmr />
+  			<hamparend />
+  			<hamparbegin />
+  			<hamchest />
+  			<hamlrat />
+  			<hamplus />
+  			<hamchest />
+  			<hamparend />
+  			<hamparbegin />
+  			<hammovel />
+  			<hamsmallmod />
+  			<hamreplace />
+  			<hamextfingerol />
+  			<hambetween />
+  			<hamextfingeru />
+  			<hampalml />
+  			<hamparend />
+  			<hamparbegin />
+  			<hammiddlefinger />
+  			<hamfingerbase />
+  			<hamplus />
+  			<hamringfinger />
+  			<hamfingermidjoint />
+  			<hamparend />
+  			<hamtouch />
+  		</hamnosys_manual>
+  	</hns_sign>
+
+
+</sigml_collection>

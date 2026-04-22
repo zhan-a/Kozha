@@ -1,5 +1,5 @@
 <sigml>
-	<hns_sign gloss="abroad(a)#1">
+  <hns_sign gloss="abroad(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -17,7 +17,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="accident(n)#1">
+
+  <hns_sign gloss="accident(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -54,7 +55,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="lodge(v)#4">
+
+  <hns_sign gloss="lodge(v)#4">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -79,7 +81,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="hurt(v)#6">
+
+  <hns_sign gloss="hurt(v)#6">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -115,7 +118,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="achieve(v)#1">
+
+  <hns_sign gloss="achieve(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -195,7 +199,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="action(n)#1">
+
+  <hns_sign gloss="action(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -240,7 +245,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="actor(n)#1">
+
+  <hns_sign gloss="actor(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -265,7 +271,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="adapt(v)#1">
+
+  <hns_sign gloss="adapt(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -294,7 +301,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="address(n)#6">
+
+  <hns_sign gloss="address(n)#6">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -313,7 +321,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="admire(v)#1">
+
+  <hns_sign gloss="admire(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -330,7 +339,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="admit(v)#1">
+
+  <hns_sign gloss="admit(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -349,7 +359,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="advertise(v)#2">
+
+  <hns_sign gloss="advertise(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -385,7 +396,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="rede(v)#2">
+
+  <hns_sign gloss="rede(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -444,7 +456,8 @@
 			<hammovedo />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="subsequently(r)#1">
+
+  <hns_sign gloss="subsequently(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -472,7 +485,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="afternoon(n)#1">
+
+  <hns_sign gloss="afternoon(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23 />
@@ -489,7 +503,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="again(r)#1">
+
+  <hns_sign gloss="again(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23spread />
@@ -506,7 +521,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="against(p)#1">
+
+  <hns_sign gloss="against(p)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -534,7 +550,8 @@
 			<hamlargemod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="age(n)#3">
+
+  <hns_sign gloss="age(n)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -552,7 +569,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="agree(v)#2">
+
+  <hns_sign gloss="agree(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -564,7 +582,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="air(n)#2">
+
+  <hns_sign gloss="air(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -579,7 +598,8 @@
 			<hamrepeatcontinue />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="alcohol(n)#1">
+
+  <hns_sign gloss="alcohol(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamceeall />
@@ -591,7 +611,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="alive(a)#1">
+
+  <hns_sign gloss="alive(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -612,7 +633,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="about(r)#7">
+
+  <hns_sign gloss="about(r)#7">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -633,7 +655,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="alone(a)#1">
+
+  <hns_sign gloss="alone(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -666,7 +689,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="already(r)#1">
+
+  <hns_sign gloss="already(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -690,7 +714,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="besides(r)#2">
+
+  <hns_sign gloss="besides(r)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -704,7 +729,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="always(r)#1">
+
+  <hns_sign gloss="always(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -737,7 +763,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="anger(n)#1">
+
+  <hns_sign gloss="anger(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -759,7 +786,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="animal(n)#1">
+
+  <hns_sign gloss="animal(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -778,7 +806,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="annoy(v)#1">
+
+  <hns_sign gloss="annoy(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -796,7 +825,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="answer(v)#1">
+
+  <hns_sign gloss="answer(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -852,7 +882,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="apartment(n)#1">
+
+  <hns_sign gloss="apartment(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -864,7 +895,8 @@
 			<hammover />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="appetite(n)#1">
+
+  <hns_sign gloss="appetite(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -878,7 +910,8 @@
 			<hamfast />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="apple(n)#1">
+
+  <hns_sign gloss="apple(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -898,7 +931,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="appreciate(v)#1">
+
+  <hns_sign gloss="appreciate(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -910,7 +944,8 @@
 			<hamswinging />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="april(n)#1">
+
+  <hns_sign gloss="april(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -962,7 +997,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="area(n)#1">
+
+  <hns_sign gloss="area(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -976,7 +1012,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="armchair(n)#1">
+
+  <hns_sign gloss="armchair(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -991,7 +1028,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="army(n)#1">
+
+  <hns_sign gloss="army(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -1011,7 +1049,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="arrange(v)#2">
+
+  <hns_sign gloss="arrange(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -1052,7 +1091,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="ash(n)#1">
+
+  <hns_sign gloss="ash(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -1072,7 +1112,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="ask(v)#2">
+
+  <hns_sign gloss="ask(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinch12open />
@@ -1084,7 +1125,8 @@
 			<hamarcu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="ask(v)#3">
+
+  <hns_sign gloss="ask(v)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinch12open />
@@ -1096,7 +1138,8 @@
 			<hamarcu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="assiduous(a)#1">
+
+  <hns_sign gloss="assiduous(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -1147,7 +1190,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="athens(n)#1">
+
+  <hns_sign gloss="athens(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -1187,7 +1231,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="ultimately(r)#1">
+
+  <hns_sign gloss="ultimately(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -1201,7 +1246,8 @@
 			<hamchest />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="august(n)#1">
+
+  <hns_sign gloss="august(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -1249,7 +1295,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="aunt(n)#1">
+
+  <hns_sign gloss="aunt(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23 />
@@ -1266,7 +1313,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="authority(n)#6">
+
+  <hns_sign gloss="authority(n)#6">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -1279,7 +1327,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="automatic(a)#1">
+
+  <hns_sign gloss="automatic(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -1324,7 +1373,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="fall(n)#1">
+
+  <hns_sign gloss="fall(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -1345,7 +1395,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="bad(a)#1">
+
+  <hns_sign gloss="bad(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -1359,7 +1410,8 @@
 			<hammoveo />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="bag(n)#1">
+
+  <hns_sign gloss="bag(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinch12 />
@@ -1373,7 +1425,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="bakery(n)#1">
+
+  <hns_sign gloss="bakery(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -1396,7 +1449,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="ball(n)#1">
+
+  <hns_sign gloss="ball(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -1417,7 +1471,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="basement(n)#1">
+
+  <hns_sign gloss="basement(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -1447,7 +1502,8 @@
 			<hamlargemod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="battle(n)#1">
+
+  <hns_sign gloss="battle(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -1469,7 +1525,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="afraid(a)#3">
+
+  <hns_sign gloss="afraid(a)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -1503,7 +1560,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="beautiful(a)#1">
+
+  <hns_sign gloss="beautiful(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinch12 />
@@ -1521,7 +1579,8 @@
 			<hamshoulders />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="beer(n)#1">
+
+  <hns_sign gloss="beer(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamceeall />
@@ -1533,7 +1592,8 @@
 			<hamswinging />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="beg(v)#1">
+
+  <hns_sign gloss="beg(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -1546,7 +1606,8 @@
 			<hamswinging />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="get_down(v)#7">
+
+  <hns_sign gloss="get_down(v)#7">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -1592,7 +1653,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="impressed(a)#1">
+
+  <hns_sign gloss="impressed(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -1619,7 +1681,8 @@
 			<hamneck />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="doorbell(n)#1">
+
+  <hns_sign gloss="doorbell(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -1632,7 +1695,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="belong(v)#1">
+
+  <hns_sign gloss="belong(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -1645,7 +1709,8 @@
 			<hammovedr />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="bend(v)#1">
+
+  <hns_sign gloss="bend(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -1662,7 +1727,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="berlin(n)#1">
+
+  <hns_sign gloss="berlin(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -1678,7 +1744,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="between(r)#2">
+
+  <hns_sign gloss="between(r)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -1698,7 +1765,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="beverage(n)#1">
+
+  <hns_sign gloss="beverage(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamceeall />
@@ -1712,7 +1780,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="bicycle(n)#1">
+
+  <hns_sign gloss="bicycle(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -1736,7 +1805,8 @@
 			<hamrepeatreverse />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="large(a)#1">
+
+  <hns_sign gloss="large(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -1747,7 +1817,8 @@
 			<hammover />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="bird(n)#1">
+
+  <hns_sign gloss="bird(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -1762,7 +1833,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="birthday(n)#1">
+
+  <hns_sign gloss="birthday(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -1783,7 +1855,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="bitter(a)#6">
+
+  <hns_sign gloss="bitter(a)#6">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -1797,7 +1870,8 @@
 			<hamarcu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="black(a)#1">
+
+  <hns_sign gloss="black(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -1809,7 +1883,8 @@
 			<hamarcu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="blood(n)#1">
+
+  <hns_sign gloss="blood(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -1822,7 +1897,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="blouse(n)#1">
+
+  <hns_sign gloss="blouse(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -1834,7 +1910,8 @@
 			<hamswinging />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="blue(a)#1">
+
+  <hns_sign gloss="blue(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -1851,7 +1928,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="boat(n)#1">
+
+  <hns_sign gloss="boat(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -1863,7 +1941,8 @@
 			<hammoveo />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="body(n)#1">
+
+  <hns_sign gloss="body(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -1878,7 +1957,8 @@
 			<hamstomach />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="boil(v)#1">
+
+  <hns_sign gloss="boil(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -1902,7 +1982,8 @@
 			<hamfingerplay />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="bomb(n)#1">
+
+  <hns_sign gloss="bomb(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -1915,7 +1996,8 @@
 			<hamtense />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="book(n)#1">
+
+  <hns_sign gloss="book(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -1929,7 +2011,8 @@
 			<hampalmu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="boundary_line(n)#1">
+
+  <hns_sign gloss="boundary_line(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -1951,7 +2034,8 @@
 			<hammoved />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="bottle(n)#1">
+
+  <hns_sign gloss="bottle(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -1970,7 +2054,8 @@
 			<hamthumbacrossmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="box(n)#1">
+
+  <hns_sign gloss="box(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -1987,7 +2072,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="male_child(n)#1">
+
+  <hns_sign gloss="male_child(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -2002,7 +2088,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="bread(n)#1">
+
+  <hns_sign gloss="bread(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -2021,7 +2108,8 @@
 			<hammoveir />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="respite(n)#2">
+
+  <hns_sign gloss="respite(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -2034,7 +2122,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="bridge(n)#1">
+
+  <hns_sign gloss="bridge(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -2047,7 +2136,8 @@
 			<hamclose />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="brief(a)#1">
+
+  <hns_sign gloss="brief(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -2060,7 +2150,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="bring(v)#1">
+
+  <hns_sign gloss="bring(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -2074,7 +2165,8 @@
 			<hamarcu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="brother(n)#1">
+
+  <hns_sign gloss="brother(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -2091,7 +2183,8 @@
 			<hamalternatingmotion />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="building(n)#1">
+
+  <hns_sign gloss="building(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -2103,7 +2196,8 @@
 			<hamlargemod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="but(c)#1">
+
+  <hns_sign gloss="but(c)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -2115,7 +2209,8 @@
 			<hammoveo />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="butter(n)#1">
+
+  <hns_sign gloss="butter(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -2140,7 +2235,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="button(n)#1">
+
+  <hns_sign gloss="button(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinch12open />
@@ -2153,7 +2249,8 @@
 			<hamrepeatcontinueseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="buy(v)#1">
+
+  <hns_sign gloss="buy(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -2171,7 +2268,8 @@
 			<hamarcl />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="calculate(v)#1">
+
+  <hns_sign gloss="calculate(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -2189,7 +2287,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="call(v)#25">
+
+  <hns_sign gloss="call(v)#25">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -2200,7 +2299,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="name(v)#1">
+
+  <hns_sign gloss="name(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23 />
@@ -2217,7 +2317,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="calm(v)#1">
+
+  <hns_sign gloss="calm(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -2232,7 +2333,8 @@
 			<hampalmd />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="camera(n)#1">
+
+  <hns_sign gloss="camera(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -2249,7 +2351,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="cancel(v)#1">
+
+  <hns_sign gloss="cancel(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -2266,7 +2369,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="capable(a)#1">
+
+  <hns_sign gloss="capable(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -2280,7 +2384,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="capital(n)#3">
+
+  <hns_sign gloss="capital(n)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -2297,7 +2402,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="car(n)#1">
+
+  <hns_sign gloss="car(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -2318,7 +2424,8 @@
 			<hamalternatingmotion />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="van(n)#4">
+
+  <hns_sign gloss="van(n)#4">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -2342,7 +2449,8 @@
 			<hammoveu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="care(v)#2">
+
+  <hns_sign gloss="care(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -2359,7 +2467,8 @@
 			<hamrepeatcontinue />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="rug(n)#1">
+
+  <hns_sign gloss="rug(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -2373,7 +2482,8 @@
 			<hammover />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="transport(v)#2">
+
+  <hns_sign gloss="transport(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -2390,7 +2500,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="case(n)#5">
+
+  <hns_sign gloss="case(n)#5">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -2402,7 +2513,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="cat(n)#1">
+
+  <hns_sign gloss="cat(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -2418,7 +2530,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="century(n)#1">
+
+  <hns_sign gloss="century(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamcee12 />
@@ -2426,7 +2539,8 @@
 			<hampalml />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="chain(n)#3">
+
+  <hns_sign gloss="chain(n)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -2444,7 +2558,8 @@
 			<hamrepeatcontinue />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="chair(n)#1">
+
+  <hns_sign gloss="chair(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -2458,7 +2573,8 @@
 			<hammoved />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="president(n)#4">
+
+  <hns_sign gloss="president(n)#4">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -2466,12 +2582,13 @@
 			<hamextfingerol />
 			<hampalmd />
 			<hamseqbegin />
-			<hamupperarm />
+			<hamUpperarm />
 			<hammoved />
 			<hamseqend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="change(n)#2">
+
+  <hns_sign gloss="change(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -2485,7 +2602,8 @@
 			<hampalmu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="character(n)#3">
+
+  <hns_sign gloss="character(n)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -2500,7 +2618,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="cheap(a)#1">
+
+  <hns_sign gloss="cheap(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -2515,7 +2634,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="cheese(n)#1">
+
+  <hns_sign gloss="cheese(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -2535,7 +2655,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="check(n)#1">
+
+  <hns_sign gloss="check(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -2547,7 +2668,8 @@
 			<hampalmd />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="cherry(n)#3">
+
+  <hns_sign gloss="cherry(n)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -2558,7 +2680,8 @@
 			<hamnodding />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="thorax(n)#2">
+
+  <hns_sign gloss="thorax(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -2571,7 +2694,8 @@
 			<hamnodding />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="chicken(n)#1">
+
+  <hns_sign gloss="chicken(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -2586,7 +2710,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="chilly(a)#2">
+
+  <hns_sign gloss="chilly(a)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -2604,7 +2729,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="choose(v)#1">
+
+  <hns_sign gloss="choose(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -2625,7 +2751,8 @@
 			<hampalmd />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="christmas(n)#2">
+
+  <hns_sign gloss="christmas(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -2650,7 +2777,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="church(n)#2">
+
+  <hns_sign gloss="church(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -2662,7 +2790,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="cigarette(n)#1">
+
+  <hns_sign gloss="cigarette(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -2684,7 +2813,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="circle(n)#3">
+
+  <hns_sign gloss="circle(n)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -2695,7 +2825,8 @@
 			<hamcirclei />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="citizen(n)#1">
+
+  <hns_sign gloss="citizen(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamcee12 />
@@ -2714,7 +2845,8 @@
 			<hamlargemod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="clean(a)#1">
+
+  <hns_sign gloss="clean(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -2729,7 +2861,8 @@
 			<hammoveor />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="close(v)#1">
+
+  <hns_sign gloss="close(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -2752,7 +2885,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="shut(a)#1">
+
+  <hns_sign gloss="shut(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -2775,7 +2909,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="apparel(n)#1">
+
+  <hns_sign gloss="apparel(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -2794,7 +2929,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="seashore(n)#1">
+
+  <hns_sign gloss="seashore(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -2811,7 +2947,8 @@
 			<hamwavy />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="coffee(n)#1">
+
+  <hns_sign gloss="coffee(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamcee12 />
@@ -2828,7 +2965,8 @@
 			<hamswinging />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="coin(n)#1">
+
+  <hns_sign gloss="coin(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinch12open />
@@ -2849,7 +2987,8 @@
 			<hamarcr />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="cold(a)#1">
+
+  <hns_sign gloss="cold(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -2876,7 +3015,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="color(n)#1">
+
+  <hns_sign gloss="color(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -2890,7 +3030,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="comfortable(a)#1">
+
+  <hns_sign gloss="comfortable(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -2908,7 +3049,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="common(a)#4">
+
+  <hns_sign gloss="common(a)#4">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -2923,7 +3065,8 @@
 			<hamshouldertop />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="communication(n)#1">
+
+  <hns_sign gloss="communication(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -2949,7 +3092,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="community(n)#1">
+
+  <hns_sign gloss="community(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -2969,7 +3113,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="company(n)#3">
+
+  <hns_sign gloss="company(n)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -2990,7 +3135,8 @@
 			<hamlargemod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="compare(v)#1">
+
+  <hns_sign gloss="compare(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -3003,7 +3149,8 @@
 			<hamarcu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="complain(v)#1">
+
+  <hns_sign gloss="complain(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -3023,7 +3170,8 @@
 			<hamcircleul />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="continue(v)#1">
+
+  <hns_sign gloss="continue(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -3044,7 +3192,8 @@
 			<hammover />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="cook(v)#1">
+
+  <hns_sign gloss="cook(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -3066,7 +3215,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="replicate(v)#2">
+
+  <hns_sign gloss="replicate(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -3091,7 +3241,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="sofa(n)#1">
+
+  <hns_sign gloss="sofa(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -3104,7 +3255,8 @@
 			<hammoved />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="cough(v)#1">
+
+  <hns_sign gloss="cough(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -3117,7 +3269,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="country(n)#4">
+
+  <hns_sign gloss="country(n)#4">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -3129,7 +3282,8 @@
 			<hamcircleu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="couple(n)#2">
+
+  <hns_sign gloss="couple(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23spread />
@@ -3145,7 +3299,8 @@
 			<hamshoulders />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="court(n)#1">
+
+  <hns_sign gloss="court(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -3164,7 +3319,8 @@
 			<hammoved />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="coward(n)#1">
+
+  <hns_sign gloss="coward(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -3183,7 +3339,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="cry(v)#2">
+
+  <hns_sign gloss="cry(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -3201,7 +3358,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="cup(n)#1">
+
+  <hns_sign gloss="cup(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamcee12 />
@@ -3216,7 +3374,8 @@
 			<hampalml />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="cut(v)#1">
+
+  <hns_sign gloss="cut(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -3252,7 +3411,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="damage(n)#1">
+
+  <hns_sign gloss="damage(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -3273,7 +3433,8 @@
 			<hamclose />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="dancing(n)#1">
+
+  <hns_sign gloss="dancing(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -3298,7 +3459,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="danger(n)#1">
+
+  <hns_sign gloss="danger(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -3315,7 +3477,8 @@
 			<hamswinging />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="dangerous(a)#1">
+
+  <hns_sign gloss="dangerous(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -3332,7 +3495,8 @@
 			<hamswinging />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="dark(a)#1">
+
+  <hns_sign gloss="dark(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -3365,7 +3529,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="daughter(n)#1">
+
+  <hns_sign gloss="daughter(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -3399,7 +3564,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="day(n)#1">
+
+  <hns_sign gloss="day(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -3419,7 +3585,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="dead(a)#1">
+
+  <hns_sign gloss="dead(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -3433,7 +3600,8 @@
 			<hampalml />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="death(n)#1">
+
+  <hns_sign gloss="death(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -3447,7 +3615,8 @@
 			<hampalml />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="december(n)#1">
+
+  <hns_sign gloss="december(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -3510,7 +3679,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="decide(v)#1">
+
+  <hns_sign gloss="decide(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -3555,7 +3725,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="announce(v)#2">
+
+  <hns_sign gloss="announce(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -3577,7 +3748,8 @@
 			<hamarmextended />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="defend(v)#3">
+
+  <hns_sign gloss="defend(v)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -3602,7 +3774,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="degree(n)#6">
+
+  <hns_sign gloss="degree(n)#6">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -3637,7 +3810,8 @@
 			<hammoveui />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="delay(n)#1">
+
+  <hns_sign gloss="delay(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -3657,7 +3831,8 @@
 			<hamarcu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="intentionally(r)#1">
+
+  <hns_sign gloss="intentionally(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -3683,7 +3858,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="democracy(n)#2">
+
+  <hns_sign gloss="democracy(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -3705,7 +3881,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="dentist(n)#1">
+
+  <hns_sign gloss="dentist(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -3718,7 +3895,8 @@
 			<hammovedr />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="deny(v)#1">
+
+  <hns_sign gloss="deny(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -3746,7 +3924,8 @@
 			<hamlargemod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="depth(n)#1">
+
+  <hns_sign gloss="depth(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -3771,7 +3950,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="describe(v)#1">
+
+  <hns_sign gloss="describe(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -3809,7 +3989,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="desk(n)#1">
+
+  <hns_sign gloss="desk(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -3825,7 +4006,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="die(v)#1">
+
+  <hns_sign gloss="die(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -3842,7 +4024,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="different(a)#1">
+
+  <hns_sign gloss="different(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -3862,7 +4045,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="difficult(a)#1">
+
+  <hns_sign gloss="difficult(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -3897,7 +4081,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="dig(v)#1">
+
+  <hns_sign gloss="dig(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -3915,7 +4100,8 @@
 			<hamseqend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="direction(n)#1">
+
+  <hns_sign gloss="direction(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -3939,7 +4125,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="directive(n)#1">
+
+  <hns_sign gloss="directive(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -3958,7 +4145,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="director(n)#1">
+
+  <hns_sign gloss="director(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -3970,7 +4158,8 @@
 			<hampalmdl />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="dirty(a)#1">
+
+  <hns_sign gloss="dirty(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -3985,7 +4174,8 @@
 			<hamcircleu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="disagree(v)#1">
+
+  <hns_sign gloss="disagree(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -4003,7 +4193,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="defeated(a)#2">
+
+  <hns_sign gloss="defeated(a)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23 />
@@ -4016,7 +4207,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="hash_out(v)#1">
+
+  <hns_sign gloss="hash_out(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -4033,7 +4225,8 @@
 			<hamalternatingmotion />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="distance(n)#3">
+
+  <hns_sign gloss="distance(n)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -4049,7 +4242,8 @@
 			<hamarcu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="distant(a)#5">
+
+  <hns_sign gloss="distant(a)#5">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -4063,7 +4257,8 @@
 			<hamseqend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="perform(v)#1">
+
+  <hns_sign gloss="perform(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -4075,7 +4270,8 @@
 			<hamfinger2 />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="doctor(n)#1">
+
+  <hns_sign gloss="doctor(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23 />
@@ -4093,7 +4289,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="dog(n)#1">
+
+  <hns_sign gloss="dog(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -4107,7 +4304,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="unacquainted(a)#2">
+
+  <hns_sign gloss="unacquainted(a)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -4122,7 +4320,8 @@
 			<hampalmur />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="door(n)#1">
+
+  <hns_sign gloss="door(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -4152,7 +4351,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="double(a)#2">
+
+  <hns_sign gloss="double(a)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23spread />
@@ -4168,7 +4368,8 @@
 			<hamshoulders />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="dream(n)#1">
+
+  <hns_sign gloss="dream(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -4181,7 +4382,8 @@
 			<hamcirclel />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="dress(n)#1">
+
+  <hns_sign gloss="dress(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -4201,7 +4403,8 @@
 			<hampalmd />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="drink(v)#1">
+
+  <hns_sign gloss="drink(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamcee12 />
@@ -4214,7 +4417,8 @@
 			<hampalml />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="drive(v)#1">
+
+  <hns_sign gloss="drive(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -4228,7 +4432,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="drop(v)#1">
+
+  <hns_sign gloss="drop(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -4242,7 +4447,8 @@
 			<hammoved />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="dry(a)#1">
+
+  <hns_sign gloss="dry(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -4259,7 +4465,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="dust(n)#1">
+
+  <hns_sign gloss="dust(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -4316,7 +4523,8 @@
 			<hamfingerplay />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="duty(n)#2">
+
+  <hns_sign gloss="duty(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -4331,7 +4539,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="populate(v)#1">
+
+  <hns_sign gloss="populate(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -4346,7 +4555,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="ear(n)#1">
+
+  <hns_sign gloss="ear(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinch12 />
@@ -4357,7 +4567,8 @@
 			<haminterlock />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="earth(n)#1">
+
+  <hns_sign gloss="earth(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -4372,7 +4583,8 @@
 			<hammoved />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="east(a)#1">
+
+  <hns_sign gloss="east(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -4384,7 +4596,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="easy(a)#1">
+
+  <hns_sign gloss="easy(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -4399,7 +4612,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="eat(v)#1">
+
+  <hns_sign gloss="eat(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinchall />
@@ -4412,7 +4626,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="egg(n)#1">
+
+  <hns_sign gloss="egg(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -4423,7 +4638,8 @@
 			<hamfist />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="eight(a)#1">
+
+  <hns_sign gloss="eight(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23spread />
@@ -4437,7 +4653,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="eighteen(a)#1">
+
+  <hns_sign gloss="eighteen(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23spread />
@@ -4452,7 +4669,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="elegant(a)#1">
+
+  <hns_sign gloss="elegant(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -4463,7 +4681,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="eleven(a)#1">
+
+  <hns_sign gloss="eleven(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinch12 />
@@ -4474,7 +4693,8 @@
 			<hamnodding />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="empty(a)#1">
+
+  <hns_sign gloss="empty(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -4504,7 +4724,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="end(n)#2">
+
+  <hns_sign gloss="end(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -4525,7 +4746,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="enemy(n)#1">
+
+  <hns_sign gloss="enemy(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -4553,7 +4775,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="engineer(n)#1">
+
+  <hns_sign gloss="engineer(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -4573,7 +4796,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="england(n)#1">
+
+  <hns_sign gloss="england(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -4603,7 +4827,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="enjoy(v)#1">
+
+  <hns_sign gloss="enjoy(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -4644,7 +4869,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="adequate(a)#2">
+
+  <hns_sign gloss="adequate(a)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -4656,7 +4882,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="enterprise(n)#2">
+
+  <hns_sign gloss="enterprise(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -4684,7 +4911,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="entrance(n)#1">
+
+  <hns_sign gloss="entrance(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -4723,7 +4951,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="environment(n)#1">
+
+  <hns_sign gloss="environment(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -4735,7 +4964,8 @@
 			<hamcircleu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="mistake(n)#1">
+
+  <hns_sign gloss="mistake(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -4748,7 +4978,8 @@
 			<hamfingerplay />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="essential(a)#1">
+
+  <hns_sign gloss="essential(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -4792,7 +5023,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="europe(n)#1">
+
+  <hns_sign gloss="europe(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinchall />
@@ -4808,7 +5040,8 @@
 			<hamcirclei />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="everyone(o)#1">
+
+  <hns_sign gloss="everyone(o)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -4829,7 +5062,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="everything(o)#1">
+
+  <hns_sign gloss="everything(o)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -4857,7 +5091,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="everywhere(r)#1">
+
+  <hns_sign gloss="everywhere(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -4876,7 +5111,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="overstate(v)#1">
+
+  <hns_sign gloss="overstate(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -4904,7 +5140,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="probe(v)#1">
+
+  <hns_sign gloss="probe(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -4934,7 +5171,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="change(v)#6">
+
+  <hns_sign gloss="change(v)#6">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -4971,7 +5209,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="excuse(v)#1">
+
+  <hns_sign gloss="excuse(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -4981,7 +5220,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="explain(v)#1">
+
+  <hns_sign gloss="explain(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -5019,7 +5259,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="eye(n)#1">
+
+  <hns_sign gloss="eye(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -5031,7 +5272,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="fabric(n)#1">
+
+  <hns_sign gloss="fabric(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -5044,7 +5286,8 @@
 			<hamfingerplay />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="face(n)#1">
+
+  <hns_sign gloss="face(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -5059,7 +5302,8 @@
 			<hamcirclei />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="factory(n)#1">
+
+  <hns_sign gloss="factory(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -5082,7 +5326,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="fair(a)#1">
+
+  <hns_sign gloss="fair(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -5095,7 +5340,8 @@
 			<hamarcu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="family(n)#1">
+
+  <hns_sign gloss="family(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -5110,7 +5356,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="celebrated(a)#1">
+
+  <hns_sign gloss="celebrated(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -5130,7 +5377,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="far(a)#1">
+
+  <hns_sign gloss="far(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -5146,7 +5394,8 @@
 			<hamarmextended />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="fast(a)#1">
+
+  <hns_sign gloss="fast(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -5180,7 +5429,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="fat(a)#1">
+
+  <hns_sign gloss="fat(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -5198,7 +5448,8 @@
 			<hamarmextended />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="father(n)#1">
+
+  <hns_sign gloss="father(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -5243,7 +5494,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="february(n)#1">
+
+  <hns_sign gloss="february(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -5271,7 +5523,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="feel(v)#1">
+
+  <hns_sign gloss="feel(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -5295,7 +5548,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="few(a)#1">
+
+  <hns_sign gloss="few(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinch12open />
@@ -5315,7 +5569,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="field(n)#1">
+
+  <hns_sign gloss="field(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -5362,7 +5617,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="fifteen(a)#1">
+
+  <hns_sign gloss="fifteen(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -5382,7 +5638,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="find(v)#3">
+
+  <hns_sign gloss="find(v)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -5426,7 +5683,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="finger(n)#1">
+
+  <hns_sign gloss="finger(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -5440,7 +5698,8 @@
 			<hamfingerplay />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="five(a)#1">
+
+  <hns_sign gloss="five(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -5454,7 +5713,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="relish(n)#3">
+
+  <hns_sign gloss="relish(n)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -5468,7 +5728,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="floor(n)#2">
+
+  <hns_sign gloss="floor(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -5498,7 +5759,8 @@
 			<hammover />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="floor(n)#1">
+
+  <hns_sign gloss="floor(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -5510,7 +5772,8 @@
 			<hammover />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="flour(n)#1">
+
+  <hns_sign gloss="flour(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -5529,7 +5792,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="flower(n)#1">
+
+  <hns_sign gloss="flower(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinch12open />
@@ -5549,7 +5813,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="fog(n)#1">
+
+  <hns_sign gloss="fog(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -5581,7 +5846,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="follow(v)#1">
+
+  <hns_sign gloss="follow(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -5608,7 +5874,8 @@
 			<hamtense />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="food(n)#1">
+
+  <hns_sign gloss="food(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinchall />
@@ -5623,7 +5890,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="foot(n)#1">
+
+  <hns_sign gloss="foot(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -5661,7 +5929,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="football(n)#1">
+
+  <hns_sign gloss="football(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -5710,7 +5979,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="forbidden(a)#1">
+
+  <hns_sign gloss="forbidden(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -5738,7 +6008,8 @@
 			<hamlargemod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="foreigner(n)#1">
+
+  <hns_sign gloss="foreigner(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -5771,7 +6042,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="forest(n)#1">
+
+  <hns_sign gloss="forest(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -5812,7 +6084,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="forgive(v)#1">
+
+  <hns_sign gloss="forgive(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -5862,7 +6135,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="fork(n)#1">
+
+  <hns_sign gloss="fork(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23 />
@@ -5886,7 +6160,8 @@
 			<hamclose />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="forty(n)#1">
+
+  <hns_sign gloss="forty(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -5901,7 +6176,8 @@
 			<hampalml />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="four(n)#1">
+
+  <hns_sign gloss="four(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -5915,7 +6191,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="fourteen(n)#1">
+
+  <hns_sign gloss="fourteen(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -5928,7 +6205,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="friday(n)#1">
+
+  <hns_sign gloss="friday(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -5960,7 +6238,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="friend(n)#1">
+
+  <hns_sign gloss="friend(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -5986,7 +6265,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="occasionally(r)#1">
+
+  <hns_sign gloss="occasionally(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -6017,7 +6297,8 @@
 			<hamrepeatcontinue />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="fruit(n)#1">
+
+  <hns_sign gloss="fruit(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamceeall />
@@ -6041,7 +6322,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="full(a)#1">
+
+  <hns_sign gloss="full(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -6072,7 +6354,8 @@
 			<hammoved />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="amusing(a)#2">
+
+  <hns_sign gloss="amusing(a)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -6089,7 +6372,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="furniture(n)#1">
+
+  <hns_sign gloss="furniture(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -6107,7 +6391,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="future(n)#1">
+
+  <hns_sign gloss="future(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -6140,7 +6425,8 @@
 			<hamlargemod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="game(n)#1">
+
+  <hns_sign gloss="game(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -6157,7 +6443,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="garden(n)#1">
+
+  <hns_sign gloss="garden(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -6170,7 +6457,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="gas(n)#1">
+
+  <hns_sign gloss="gas(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -6190,7 +6478,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="general(a)#1">
+
+  <hns_sign gloss="general(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -6215,7 +6504,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="gentleman(n)#1">
+
+  <hns_sign gloss="gentleman(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -6238,7 +6528,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="germany(n)#1">
+
+  <hns_sign gloss="germany(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -6258,7 +6549,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="gift(n)#1">
+
+  <hns_sign gloss="gift(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -6297,7 +6589,8 @@
 			<hammovei />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="female_child(n)#1">
+
+  <hns_sign gloss="female_child(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -6316,7 +6609,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="give(v)#3">
+
+  <hns_sign gloss="give(v)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -6332,7 +6626,8 @@
 			<hamarcu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="glass(n)#2">
+
+  <hns_sign gloss="glass(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -6380,7 +6675,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="travel(v)#1">
+
+  <hns_sign gloss="travel(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -6401,7 +6697,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="god(n)#1">
+
+  <hns_sign gloss="god(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -6417,7 +6714,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="good(a)#1">
+
+  <hns_sign gloss="good(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -6441,7 +6739,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="good_evening(n)#1">
+
+  <hns_sign gloss="good_evening(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -6473,7 +6772,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="good_morning(n)#1">
+
+  <hns_sign gloss="good_morning(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -6507,7 +6807,8 @@
 			<hamlrat />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="good_night(n)#1">
+
+  <hns_sign gloss="good_night(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -6545,7 +6846,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="government(n)#1">
+
+  <hns_sign gloss="government(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -6576,7 +6878,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="grape(n)#1">
+
+  <hns_sign gloss="grape(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -6609,7 +6912,8 @@
 			<hamrepeatcontinue />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="grass(n)#1">
+
+  <hns_sign gloss="grass(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -6643,7 +6947,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="greece(n)#1">
+
+  <hns_sign gloss="greece(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -6663,7 +6968,8 @@
 			<hamseqend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="green(a)#1">
+
+  <hns_sign gloss="green(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -6711,7 +7017,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="greet(v)#1">
+
+  <hns_sign gloss="greet(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -6734,7 +7041,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="grey(a)#1">
+
+  <hns_sign gloss="grey(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -6756,7 +7064,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="land(n)#4">
+
+  <hns_sign gloss="land(n)#4">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -6771,7 +7080,8 @@
 			<hammover />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="group(n)#1">
+
+  <hns_sign gloss="group(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -6787,7 +7097,8 @@
 			<hamclose />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="gun(n)#1">
+
+  <hns_sign gloss="gun(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23 />
@@ -6797,7 +7108,8 @@
 			<hamshouldertop />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="habit(n)#1">
+
+  <hns_sign gloss="habit(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -6848,7 +7160,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="one-half(n)#1">
+
+  <hns_sign gloss="one-half(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -6865,7 +7178,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="hall(n)#3">
+
+  <hns_sign gloss="hall(n)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -6879,7 +7193,8 @@
 			<hamslow />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="hand(n)#1">
+
+  <hns_sign gloss="hand(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -6891,7 +7206,8 @@
 			<hamclose />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="fine-looking(a)#1">
+
+  <hns_sign gloss="fine-looking(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -6913,7 +7229,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="hang(v)#2">
+
+  <hns_sign gloss="hang(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -6932,7 +7249,8 @@
 			<hammoved />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="happy(a)#1">
+
+  <hns_sign gloss="happy(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -6973,7 +7291,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="hard(a)#3">
+
+  <hns_sign gloss="hard(a)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -6991,7 +7310,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="own(v)#1">
+
+  <hns_sign gloss="own(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -7013,7 +7333,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="mend(v)#2">
+
+  <hns_sign gloss="mend(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -7032,7 +7353,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="hear(v)#1">
+
+  <hns_sign gloss="hear(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -7058,7 +7380,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="heart(n)#1">
+
+  <hns_sign gloss="heart(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -7081,7 +7404,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="hotness(n)#1">
+
+  <hns_sign gloss="hotness(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -7099,7 +7423,8 @@
 			<hammover />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="heavy(a)#1">
+
+  <hns_sign gloss="heavy(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -7116,7 +7441,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="height(n)#1">
+
+  <hns_sign gloss="height(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -7130,7 +7456,8 @@
 			<hammoveu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="help(v)#1">
+
+  <hns_sign gloss="help(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -7149,7 +7476,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="hen(n)#1">
+
+  <hns_sign gloss="hen(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamcee12 />
@@ -7167,7 +7495,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="here(r)#1">
+
+  <hns_sign gloss="here(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -7184,7 +7513,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="hesitate(v)#1">
+
+  <hns_sign gloss="hesitate(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -7212,7 +7542,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="hill(n)#1">
+
+  <hns_sign gloss="hill(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -7242,7 +7573,8 @@
 			<hamrepeatcontinue />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="hospital(n)#1">
+
+  <hns_sign gloss="hospital(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -7263,7 +7595,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="hot(a)#1">
+
+  <hns_sign gloss="hot(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -7279,7 +7612,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="hour(n)#1">
+
+  <hns_sign gloss="hour(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -7308,7 +7642,8 @@
 			<hamcirclel />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="house(n)#1">
+
+  <hns_sign gloss="house(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -7340,7 +7675,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="how(r)#1">
+
+  <hns_sign gloss="how(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -7360,7 +7696,8 @@
 			<haminterlock />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="how_many(r)#1">
+
+  <hns_sign gloss="how_many(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -7381,7 +7718,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="homo(n)#2">
+
+  <hns_sign gloss="homo(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamcee12 />
@@ -7392,7 +7730,8 @@
 			<hammoved />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="wit(n)#1">
+
+  <hns_sign gloss="wit(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -7408,7 +7747,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="rush(v)#4">
+
+  <hns_sign gloss="rush(v)#4">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -7446,7 +7786,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="ice(n)#1">
+
+  <hns_sign gloss="ice(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -7471,7 +7812,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="ice_cream(n)#1">
+
+  <hns_sign gloss="ice_cream(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -7494,7 +7836,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="idea(n)#1">
+
+  <hns_sign gloss="idea(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -7514,7 +7857,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="imagine(v)#1">
+
+  <hns_sign gloss="imagine(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -7543,7 +7887,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="immediately(r)#1">
+
+  <hns_sign gloss="immediately(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -7586,7 +7931,8 @@
 			<hamclose />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="important(a)#1">
+
+  <hns_sign gloss="important(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -7630,7 +7976,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="inside(r)#2">
+
+  <hns_sign gloss="inside(r)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -7666,7 +8013,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="industry(n)#1">
+
+  <hns_sign gloss="industry(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -7700,7 +8048,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="information(n)#2">
+
+  <hns_sign gloss="information(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -7730,7 +8079,8 @@
 			<hamrepeatreverse />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="in_front_of(p)#1">
+
+  <hns_sign gloss="in_front_of(p)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -7776,7 +8126,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="innocent(a)#1">
+
+  <hns_sign gloss="innocent(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinch12open />
@@ -7790,7 +8141,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="international(a)#1">
+
+  <hns_sign gloss="international(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -7823,7 +8175,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="iron(n)#1">
+
+  <hns_sign gloss="iron(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -7838,7 +8191,8 @@
 			<hamlargemod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="island(n)#1">
+
+  <hns_sign gloss="island(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinch12open />
@@ -7851,7 +8205,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="january(n)#1">
+
+  <hns_sign gloss="january(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -7897,7 +8252,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="joy(n)#1">
+
+  <hns_sign gloss="joy(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -7938,7 +8294,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="evaluate(v)#2">
+
+  <hns_sign gloss="evaluate(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -7957,7 +8314,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="july(n)#1">
+
+  <hns_sign gloss="july(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -8094,7 +8452,8 @@
 			<hamclose />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="jump(v)#1">
+
+  <hns_sign gloss="jump(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23spread />
@@ -8122,7 +8481,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="june(n)#1">
+
+  <hns_sign gloss="june(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -8260,7 +8620,8 @@
 			<hamclose />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="merely(r)#1">
+
+  <hns_sign gloss="merely(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -8281,7 +8642,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="keep(v)#3">
+
+  <hns_sign gloss="keep(v)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -8329,7 +8691,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="key(n)#1">
+
+  <hns_sign gloss="key(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -8349,7 +8712,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="kick(v)#1">
+
+  <hns_sign gloss="kick(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -8397,7 +8761,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="kilogram(n)#1">
+
+  <hns_sign gloss="kilogram(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -8427,7 +8792,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="kilometer(n)#1">
+
+  <hns_sign gloss="kilometer(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -8484,7 +8850,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="booth(n)#2">
+
+  <hns_sign gloss="booth(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -8499,7 +8866,8 @@
 			<hammoved />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="kiss(n)#1">
+
+  <hns_sign gloss="kiss(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -8518,7 +8886,8 @@
 			<hamslow />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="kitchen(n)#1">
+
+  <hns_sign gloss="kitchen(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -8559,7 +8928,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="knit(v)#1">
+
+  <hns_sign gloss="knit(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -8611,7 +8981,8 @@
 			<hamtwisting />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="know(v)#4">
+
+  <hns_sign gloss="know(v)#4">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -8623,7 +8994,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="lab(n)#1">
+
+  <hns_sign gloss="lab(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -8665,7 +9037,8 @@
 			<hamalternatingmotion />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="ladder(n)#1">
+
+  <hns_sign gloss="ladder(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -8733,7 +9106,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="lady(n)#1">
+
+  <hns_sign gloss="lady(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -8752,7 +9126,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="lake(n)#1">
+
+  <hns_sign gloss="lake(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -8786,7 +9161,8 @@
 			<hamrepeatcontinue />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="language(n)#1">
+
+  <hns_sign gloss="language(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -8815,7 +9191,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="later(a)#1">
+
+  <hns_sign gloss="later(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -8830,7 +9207,8 @@
 			<hamarcu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="laugh(v)#1">
+
+  <hns_sign gloss="laugh(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -8854,7 +9232,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="lawyer(n)#1">
+
+  <hns_sign gloss="lawyer(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -8885,7 +9264,8 @@
 			<hamlrat />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="leave(v)#2">
+
+  <hns_sign gloss="leave(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -8902,7 +9282,8 @@
 			<hammoveu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="left(a)#1">
+
+  <hns_sign gloss="left(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -8920,7 +9301,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="lend(v)#2">
+
+  <hns_sign gloss="lend(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -8937,7 +9319,8 @@
 			<hammoveo />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="length(n)#1">
+
+  <hns_sign gloss="length(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -8949,7 +9332,8 @@
 			<hammover />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="lease(v)#3">
+
+  <hns_sign gloss="lease(v)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -8984,7 +9368,8 @@
 			<hammoveur />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="letter(n)#2">
+
+  <hns_sign gloss="letter(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -9017,7 +9402,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="letter(n)#1">
+
+  <hns_sign gloss="letter(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -9035,7 +9421,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="library(n)#1">
+
+  <hns_sign gloss="library(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -9059,7 +9446,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="lie(n)#1">
+
+  <hns_sign gloss="lie(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -9079,7 +9467,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="life(n)#1">
+
+  <hns_sign gloss="life(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -9100,7 +9489,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="light(a)#1">
+
+  <hns_sign gloss="light(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -9113,7 +9503,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="like(v)#2">
+
+  <hns_sign gloss="like(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -9125,7 +9516,8 @@
 			<hamcirclei />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="line(n)#1">
+
+  <hns_sign gloss="line(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -9137,7 +9529,8 @@
 			<hammover />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="liquid(n)#1">
+
+  <hns_sign gloss="liquid(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinchall />
@@ -9157,7 +9550,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="list(n)#1">
+
+  <hns_sign gloss="list(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -9180,7 +9574,8 @@
 			<hamrepeatcontinueseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="populate(v)#2">
+
+  <hns_sign gloss="populate(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -9195,7 +9590,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="lock(n)#1">
+
+  <hns_sign gloss="lock(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -9215,7 +9611,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="alone(a)#2">
+
+  <hns_sign gloss="alone(a)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -9247,7 +9644,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="long(a)#2">
+
+  <hns_sign gloss="long(a)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -9260,7 +9658,8 @@
 			<hamclose />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="look(v)#1">
+
+  <hns_sign gloss="look(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23spread />
@@ -9279,7 +9678,8 @@
 			<hamlrat />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="look_after(v)#1">
+
+  <hns_sign gloss="look_after(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -9308,7 +9708,8 @@
 			<hamarmextended />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="lose(v)#1">
+
+  <hns_sign gloss="lose(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -9332,7 +9733,8 @@
 			<hamstomach />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="love(v)#1">
+
+  <hns_sign gloss="love(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -9370,7 +9772,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="luck(n)#3">
+
+  <hns_sign gloss="luck(n)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -9395,7 +9798,8 @@
 			<hamchest />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="lucky(a)#2">
+
+  <hns_sign gloss="lucky(a)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -9417,7 +9821,8 @@
 			<hamchest />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="mail(n)#1">
+
+  <hns_sign gloss="mail(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -9436,7 +9841,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="machine(n)#1">
+
+  <hns_sign gloss="machine(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -9451,7 +9857,8 @@
 			<hamalternatingmotion />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="magazine(n)#1">
+
+  <hns_sign gloss="magazine(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -9467,7 +9874,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="mail(n)#2">
+
+  <hns_sign gloss="mail(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -9500,7 +9908,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="make(v)#15">
+
+  <hns_sign gloss="make(v)#15">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -9518,7 +9927,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="man(n)#1">
+
+  <hns_sign gloss="man(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -9530,7 +9940,8 @@
 			<hammoved />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="pull_off(v)#3">
+
+  <hns_sign gloss="pull_off(v)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -9548,7 +9959,8 @@
 			<hamalternatingmotion />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="many(a)#1">
+
+  <hns_sign gloss="many(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -9569,7 +9981,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="map(n)#1">
+
+  <hns_sign gloss="map(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -9583,7 +9996,8 @@
 			<hammoved />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="march(n)#1">
+
+  <hns_sign gloss="march(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -9630,7 +10044,8 @@
 			<hammoveor />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="marriage(n)#1">
+
+  <hns_sign gloss="marriage(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -9661,7 +10076,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="material(n)#1">
+
+  <hns_sign gloss="material(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -9677,7 +10093,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="may(n)#1">
+
+  <hns_sign gloss="may(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -9744,7 +10161,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="me(p)#1">
+
+  <hns_sign gloss="me(p)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -9756,7 +10174,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="meal(n)#1">
+
+  <hns_sign gloss="meal(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -9783,7 +10202,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="meaning(n)#1">
+
+  <hns_sign gloss="meaning(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -9806,7 +10226,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="measure(v)#1">
+
+  <hns_sign gloss="measure(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -9837,7 +10258,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="meat(n)#1">
+
+  <hns_sign gloss="meat(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -9851,7 +10273,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="medicine(n)#2">
+
+  <hns_sign gloss="medicine(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinchall />
@@ -9867,7 +10290,8 @@
 			<hamcirclel />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="meet(v)#1">
+
+  <hns_sign gloss="meet(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -9884,7 +10308,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="dissolve(v)#9">
+
+  <hns_sign gloss="dissolve(v)#9">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -9908,7 +10333,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="metallic_element(n)#1">
+
+  <hns_sign gloss="metallic_element(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -9931,7 +10357,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="noon(n)#1">
+
+  <hns_sign gloss="noon(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -9950,7 +10377,8 @@
 			<hampalmu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="center(n)#1">
+
+  <hns_sign gloss="center(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -9970,7 +10398,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="midnight(n)#1">
+
+  <hns_sign gloss="midnight(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -9992,7 +10421,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="milk(n)#1">
+
+  <hns_sign gloss="milk(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -10011,7 +10441,8 @@
 			<hamalternatingmotion />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="mirror(n)#1">
+
+  <hns_sign gloss="mirror(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -10024,7 +10455,8 @@
 			<hamtwisting />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="cellular_telephone(n)#1">
+
+  <hns_sign gloss="cellular_telephone(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -10047,7 +10479,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="moment(n)#1">
+
+  <hns_sign gloss="moment(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -10071,7 +10504,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="monday(n)#1">
+
+  <hns_sign gloss="monday(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -10113,7 +10547,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="money(n)#1">
+
+  <hns_sign gloss="money(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -10149,7 +10584,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="calendar_month(n)#1">
+
+  <hns_sign gloss="calendar_month(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -10190,7 +10626,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="moon(n)#1">
+
+  <hns_sign gloss="moon(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -10207,7 +10644,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="morning(n)#1">
+
+  <hns_sign gloss="morning(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -10234,7 +10672,8 @@
 			<hamseqend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="mother(n)#1">
+
+  <hns_sign gloss="mother(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -10276,7 +10715,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="mouth(n)#1">
+
+  <hns_sign gloss="mouth(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -10294,7 +10734,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="move(v)#4">
+
+  <hns_sign gloss="move(v)#4">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -10306,7 +10747,8 @@
 			<hammover />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="be_active(v)#1">
+
+  <hns_sign gloss="be_active(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -10335,7 +10777,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="museum(n)#1">
+
+  <hns_sign gloss="museum(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -10365,7 +10808,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="music(n)#1">
+
+  <hns_sign gloss="music(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -10387,7 +10831,8 @@
 			<hamrepeatreverse />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="must(a)#1">
+
+  <hns_sign gloss="must(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -10407,7 +10852,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="my(a)#1">
+
+  <hns_sign gloss="my(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -10421,7 +10867,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="nail(n)#2">
+
+  <hns_sign gloss="nail(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -10461,7 +10908,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="bare(a)#1">
+
+  <hns_sign gloss="bare(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -10484,7 +10932,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="name(n)#1">
+
+  <hns_sign gloss="name(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23 />
@@ -10502,7 +10951,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="tell(v)#3">
+
+  <hns_sign gloss="tell(v)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -10538,7 +10988,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="narrow(a)#1">
+
+  <hns_sign gloss="narrow(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -10550,7 +11001,8 @@
 			<hammoveo />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="national(a)#1">
+
+  <hns_sign gloss="national(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -10576,7 +11028,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="nature(n)#3">
+
+  <hns_sign gloss="nature(n)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -10613,7 +11066,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="near(a)#1">
+
+  <hns_sign gloss="near(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -10626,7 +11080,8 @@
 			<hamhalt />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="want(v)#2">
+
+  <hns_sign gloss="want(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -10643,7 +11098,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="needle(n)#3">
+
+  <hns_sign gloss="needle(n)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -10690,7 +11146,8 @@
 			<hamarcl />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="neighborhood(n)#2">
+
+  <hns_sign gloss="neighborhood(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -10729,7 +11186,8 @@
 			<hamcircleu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="never(r)#1">
+
+  <hns_sign gloss="never(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -10747,7 +11205,8 @@
 			<hammoved />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="new(a)#1">
+
+  <hns_sign gloss="new(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -10774,7 +11233,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="news(n)#1">
+
+  <hns_sign gloss="news(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -10895,7 +11355,8 @@
 			<hamclose />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="newspaper(n)#1">
+
+  <hns_sign gloss="newspaper(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -10913,7 +11374,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="future(a)#3">
+
+  <hns_sign gloss="future(a)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -10933,7 +11395,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="nice(a)#1">
+
+  <hns_sign gloss="nice(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -10954,7 +11417,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="nine(a)#1">
+
+  <hns_sign gloss="nine(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -10968,7 +11432,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="nineteen(a)#1">
+
+  <hns_sign gloss="nineteen(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -10982,7 +11447,8 @@
 			<hamlargemod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="ninety(a)#1">
+
+  <hns_sign gloss="ninety(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -10997,7 +11463,8 @@
 			<hampalml />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="no(n)#1">
+
+  <hns_sign gloss="no(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23spread />
@@ -11014,7 +11481,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="noise(n)#1">
+
+  <hns_sign gloss="noise(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -11031,7 +11499,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="no_one(p)#1">
+
+  <hns_sign gloss="no_one(p)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -11059,7 +11528,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="normal(a)#1">
+
+  <hns_sign gloss="normal(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -11092,7 +11562,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="north(n)#4">
+
+  <hns_sign gloss="north(n)#4">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -11106,7 +11577,8 @@
 			<hamlrat />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="nose(n)#1">
+
+  <hns_sign gloss="nose(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -11119,7 +11591,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="advise(v)#2">
+
+  <hns_sign gloss="advise(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -11143,7 +11616,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="november(n)#1">
+
+  <hns_sign gloss="november(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -11230,7 +11704,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="now(n)#1">
+
+  <hns_sign gloss="now(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -11251,7 +11726,8 @@
 			<hamhalt />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="numeral(n)#1">
+
+  <hns_sign gloss="numeral(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -11266,7 +11742,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="nurse(n)#1">
+
+  <hns_sign gloss="nurse(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -11274,12 +11751,13 @@
 			<hamthumbacrossmod />
 			<hamextfingerul />
 			<hampalmul />
-			<hamupperarm />
+			<hamUpperarm />
 			<hamtouch />
 			<hammovecross />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="nut(n)#1">
+
+  <hns_sign gloss="nut(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -11297,7 +11775,8 @@
 			<hamseqend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="expostulation(n)#1">
+
+  <hns_sign gloss="expostulation(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -11324,7 +11803,8 @@
 			<hamlargemod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="object(n)#1">
+
+  <hns_sign gloss="object(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -11345,7 +11825,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="october(n)#1">
+
+  <hns_sign gloss="october(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -11411,7 +11892,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="pique(v)#1">
+
+  <hns_sign gloss="pique(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -11442,7 +11924,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="offer(n)#2">
+
+  <hns_sign gloss="offer(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -11459,7 +11942,8 @@
 			<hamarcu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="frequently(r)#1">
+
+  <hns_sign gloss="frequently(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -11503,7 +11987,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="petroleum(n)#1">
+
+  <hns_sign gloss="petroleum(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -11523,7 +12008,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="oil(n)#1">
+
+  <hns_sign gloss="oil(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23spread />
@@ -11542,7 +12028,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="old(a)#2">
+
+  <hns_sign gloss="old(a)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -11568,7 +12055,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="one(a)#1">
+
+  <hns_sign gloss="one(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -11582,7 +12070,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="open(v)#1">
+
+  <hns_sign gloss="open(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -11603,7 +12092,8 @@
 			<hamrepeatcontinue />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="open-minded(a)#1">
+
+  <hns_sign gloss="open-minded(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -11624,7 +12114,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="opinion(n)#1">
+
+  <hns_sign gloss="opinion(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -11653,7 +12144,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="opportunity(n)#1">
+
+  <hns_sign gloss="opportunity(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -11684,7 +12176,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="order(v)#1">
+
+  <hns_sign gloss="order(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -11707,7 +12200,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="organize(v)#4">
+
+  <hns_sign gloss="organize(v)#4">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -11747,7 +12241,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="other(a)#1">
+
+  <hns_sign gloss="other(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -11794,7 +12289,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="outdoor(a)#1">
+
+  <hns_sign gloss="outdoor(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -11810,7 +12306,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="oven(n)#1">
+
+  <hns_sign gloss="oven(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -11824,7 +12321,8 @@
 			<hammoved />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="owe(v)#3">
+
+  <hns_sign gloss="owe(v)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -11839,7 +12337,8 @@
 			<hamtense />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="owner(n)#2">
+
+  <hns_sign gloss="owner(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -11860,7 +12359,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="ox(n)#1">
+
+  <hns_sign gloss="ox(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -11885,7 +12385,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="package(n)#1">
+
+  <hns_sign gloss="package(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -11914,7 +12415,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="page(n)#1">
+
+  <hns_sign gloss="page(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -11955,7 +12457,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="paint(v)#2">
+
+  <hns_sign gloss="paint(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -11980,7 +12483,8 @@
 			<hamrepeatcontinueseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="palm(n)#1">
+
+  <hns_sign gloss="palm(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -12008,7 +12512,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="paper(n)#1">
+
+  <hns_sign gloss="paper(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -12022,7 +12527,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="parent(n)#1">
+
+  <hns_sign gloss="parent(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -12090,7 +12596,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="paris(n)#1">
+
+  <hns_sign gloss="paris(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -12115,7 +12622,8 @@
 			<hamneck />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="park(v)#2">
+
+  <hns_sign gloss="park(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -12133,7 +12641,8 @@
 			<hamhalt />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="particular(a)#1">
+
+  <hns_sign gloss="particular(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -12160,7 +12669,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="passenger(n)#1">
+
+  <hns_sign gloss="passenger(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamcee12 />
@@ -12176,7 +12686,8 @@
 			<hamlrat />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="path(n)#3">
+
+  <hns_sign gloss="path(n)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -12196,7 +12707,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="patience(n)#1">
+
+  <hns_sign gloss="patience(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -12224,7 +12736,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="patisserie(n)#1">
+
+  <hns_sign gloss="patisserie(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -12258,7 +12771,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="pay(v)#1">
+
+  <hns_sign gloss="pay(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -12276,7 +12790,8 @@
 			<hamarcu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="peace(n)#2">
+
+  <hns_sign gloss="peace(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -12312,7 +12827,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="pear(n)#1">
+
+  <hns_sign gloss="pear(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23 />
@@ -12332,7 +12848,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="people(n)#1">
+
+  <hns_sign gloss="people(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -12346,7 +12863,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="pepper(n)#1">
+
+  <hns_sign gloss="pepper(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -12367,7 +12885,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="performance(n)#3">
+
+  <hns_sign gloss="performance(n)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -12410,7 +12929,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="permanent(a)#1">
+
+  <hns_sign gloss="permanent(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -12451,7 +12971,8 @@
 			<hammoveo />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="gasoline(n)#1">
+
+  <hns_sign gloss="gasoline(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -12468,7 +12989,8 @@
 			<hamlargemod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="drugstore(n)#1">
+
+  <hns_sign gloss="drugstore(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -12502,7 +13024,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="call(v)#3">
+
+  <hns_sign gloss="call(v)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -12520,7 +13043,8 @@
 			<hamclose />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="photograph(n)#1">
+
+  <hns_sign gloss="photograph(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -12537,7 +13061,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="piece(n)#1">
+
+  <hns_sign gloss="piece(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -12557,7 +13082,8 @@
 			<hampalmdr />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="pile(n)#1">
+
+  <hns_sign gloss="pile(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -12579,7 +13105,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="pill(n)#2">
+
+  <hns_sign gloss="pill(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinch12 />
@@ -12600,7 +13127,8 @@
 			<hamseqend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="pipeline(n)#2">
+
+  <hns_sign gloss="pipeline(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -12628,7 +13156,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="commiseration(n)#1">
+
+  <hns_sign gloss="commiseration(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -12644,7 +13173,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="topographic_point(n)#1">
+
+  <hns_sign gloss="topographic_point(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamceeall />
@@ -12661,7 +13191,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="airplane(n)#1">
+
+  <hns_sign gloss="airplane(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -12675,7 +13206,8 @@
 			<hamlargemod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="plant(v)#1">
+
+  <hns_sign gloss="plant(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -12706,7 +13238,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="plant(n)#2">
+
+  <hns_sign gloss="plant(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinch12open />
@@ -12728,7 +13261,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="plastic(n)#1">
+
+  <hns_sign gloss="plastic(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -12740,7 +13274,8 @@
 			<hamswinging />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="plate(n)#4">
+
+  <hns_sign gloss="plate(n)#4">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -12764,7 +13299,8 @@
 			<hamcircleu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="play(v)#5">
+
+  <hns_sign gloss="play(v)#5">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -12776,7 +13312,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="please(r)#1">
+
+  <hns_sign gloss="please(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -12800,7 +13337,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="poison(n)#1">
+
+  <hns_sign gloss="poison(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -12837,7 +13375,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="police(n)#1">
+
+  <hns_sign gloss="police(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -12871,7 +13410,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="policeman(n)#1">
+
+  <hns_sign gloss="policeman(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23spread />
@@ -12903,7 +13443,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="polite(a)#1">
+
+  <hns_sign gloss="polite(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -12918,7 +13459,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="poor(a)#2">
+
+  <hns_sign gloss="poor(a)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -12932,7 +13474,8 @@
 			<hammover />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="population(n)#1">
+
+  <hns_sign gloss="population(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -12952,7 +13495,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="port(n)#1">
+
+  <hns_sign gloss="port(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -12972,7 +13516,8 @@
 			<hammoveo />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="possible(a)#1">
+
+  <hns_sign gloss="possible(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamcee12 />
@@ -12995,7 +13540,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="postpone(v)#1">
+
+  <hns_sign gloss="postpone(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -13007,7 +13553,8 @@
 			<hamrepeatcontinue />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="potato(n)#1">
+
+  <hns_sign gloss="potato(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -13046,7 +13593,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="pray(v)#1">
+
+  <hns_sign gloss="pray(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -13061,7 +13609,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="press(v)#1">
+
+  <hns_sign gloss="press(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -13074,7 +13623,8 @@
 			<hamfast />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="prevent(v)#1">
+
+  <hns_sign gloss="prevent(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -13105,7 +13655,8 @@
 			<hammoveo />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="prey(v)#1">
+
+  <hns_sign gloss="prey(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -13119,7 +13670,8 @@
 			<hamarmextended />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="priest(n)#1">
+
+  <hns_sign gloss="priest(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamcee12 />
@@ -13132,7 +13684,8 @@
 			<hammover />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="private(a)#2">
+
+  <hns_sign gloss="private(a)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -13159,7 +13712,8 @@
 			<hamclose />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="problem(n)#1">
+
+  <hns_sign gloss="problem(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -13188,7 +13742,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="merchandise(n)#1">
+
+  <hns_sign gloss="merchandise(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -13209,7 +13764,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="professor(n)#1">
+
+  <hns_sign gloss="professor(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -13232,7 +13788,8 @@
 			<hamhalt />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="forbid(v)#1">
+
+  <hns_sign gloss="forbid(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -13249,7 +13806,8 @@
 			<hamlargemod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="promise(v)#1">
+
+  <hns_sign gloss="promise(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -13294,7 +13852,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="property(n)#1">
+
+  <hns_sign gloss="property(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -13307,7 +13866,8 @@
 			<hamrepeatcontinueseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="protect(v)#1">
+
+  <hns_sign gloss="protect(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -13321,7 +13881,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="proud(a)#1">
+
+  <hns_sign gloss="proud(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -13346,7 +13907,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="prove(v)#2">
+
+  <hns_sign gloss="prove(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -13369,7 +13931,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="public(a)#1">
+
+  <hns_sign gloss="public(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -13389,7 +13952,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="announcement(n)#2">
+
+  <hns_sign gloss="announcement(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -13411,7 +13975,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="schoolchild(n)#1">
+
+  <hns_sign gloss="schoolchild(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamcee12 />
@@ -13425,7 +13990,8 @@
 			<hamlargemod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="push(v)#1">
+
+  <hns_sign gloss="push(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -13436,7 +14002,8 @@
 			<hammoveo />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="put(v)#1">
+
+  <hns_sign gloss="put(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinchall />
@@ -13451,7 +14018,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="one-fourth(n)#1">
+
+  <hns_sign gloss="one-fourth(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinch12open />
@@ -13467,7 +14035,8 @@
 			<hammoved />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="question(n)#1">
+
+  <hns_sign gloss="question(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -13483,7 +14052,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="question(n)#3">
+
+  <hns_sign gloss="question(n)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -13496,7 +14066,8 @@
 			<hamhalt />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="quiet(a)#1">
+
+  <hns_sign gloss="quiet(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -13516,7 +14087,8 @@
 			<hamarcd />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="keep_quiet(v)#1">
+
+  <hns_sign gloss="keep_quiet(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -13536,7 +14108,8 @@
 			<hamarcd />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="radiator(n)#2">
+
+  <hns_sign gloss="radiator(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -13550,7 +14123,8 @@
 			<hammoved />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="radio(n)#1">
+
+  <hns_sign gloss="radio(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -13571,7 +14145,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="rain(n)#1">
+
+  <hns_sign gloss="rain(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -13597,7 +14172,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="rare(a)#1">
+
+  <hns_sign gloss="rare(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinchall />
@@ -13614,7 +14190,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="raw(a)#3">
+
+  <hns_sign gloss="raw(a)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -13680,7 +14257,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="reach(v)#1">
+
+  <hns_sign gloss="reach(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -13701,7 +14279,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="read(v)#1">
+
+  <hns_sign gloss="read(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -13718,7 +14297,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="real(a)#1">
+
+  <hns_sign gloss="real(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -13750,7 +14330,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="reason(n)#1">
+
+  <hns_sign gloss="reason(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -13767,7 +14348,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="fair(a)#2">
+
+  <hns_sign gloss="fair(a)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -13792,7 +14374,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="recipe(n)#1">
+
+  <hns_sign gloss="recipe(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -13833,7 +14416,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="red(a)#1">
+
+  <hns_sign gloss="red(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -13851,7 +14435,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="refrigerator(n)#1">
+
+  <hns_sign gloss="refrigerator(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -13864,7 +14449,8 @@
 			<hamlargemod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="repent(v)#2">
+
+  <hns_sign gloss="repent(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -13882,7 +14468,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="relation(n)#1">
+
+  <hns_sign gloss="relation(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -13909,7 +14496,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="relative(n)#1">
+
+  <hns_sign gloss="relative(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -13938,7 +14526,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="remember(v)#1">
+
+  <hns_sign gloss="remember(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -13993,7 +14582,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="remind(v)#1">
+
+  <hns_sign gloss="remind(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -14011,7 +14601,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="rent(n)#1">
+
+  <hns_sign gloss="rent(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -14032,7 +14623,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="repair(v)#1">
+
+  <hns_sign gloss="repair(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -14063,7 +14655,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="repeat(v)#1">
+
+  <hns_sign gloss="repeat(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23spread />
@@ -14084,7 +14677,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="responsible(a)#1">
+
+  <hns_sign gloss="responsible(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -14148,7 +14742,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="leave(v)#7">
+
+  <hns_sign gloss="leave(v)#7">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -14164,7 +14759,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="return(v)#1">
+
+  <hns_sign gloss="return(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -14179,7 +14775,8 @@
 			<hammovei />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="ribbon(n)#4">
+
+  <hns_sign gloss="ribbon(n)#4">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -14203,7 +14800,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="rice(n)#1">
+
+  <hns_sign gloss="rice(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -14230,7 +14828,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="rich(a)#1">
+
+  <hns_sign gloss="rich(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -14251,7 +14850,8 @@
 			<hammoved />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="right(n)#7">
+
+  <hns_sign gloss="right(n)#7">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -14267,7 +14867,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="correct(a)#1">
+
+  <hns_sign gloss="correct(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -14305,7 +14906,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="right(a)#1">
+
+  <hns_sign gloss="right(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -14316,7 +14918,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="ring(n)#8">
+
+  <hns_sign gloss="ring(n)#8">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -14352,7 +14955,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="river(n)#1">
+
+  <hns_sign gloss="river(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -14365,7 +14969,8 @@
 			<hamclose />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="robust(a)#1">
+
+  <hns_sign gloss="robust(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -14393,7 +14998,8 @@
 			<hamchest />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="roof(n)#1">
+
+  <hns_sign gloss="roof(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -14419,7 +15025,8 @@
 			<hammovedr />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="room(n)#1">
+
+  <hns_sign gloss="room(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -14436,7 +15043,8 @@
 			<hammovel />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="root(n)#1">
+
+  <hns_sign gloss="root(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -14471,7 +15079,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="approximately(r)#1">
+
+  <hns_sign gloss="approximately(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -14484,7 +15093,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="round(a)#1">
+
+  <hns_sign gloss="round(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -14496,7 +15106,8 @@
 			<hamlargemod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="backpack(n)#1">
+
+  <hns_sign gloss="backpack(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -14515,7 +15126,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="destroy(v)#2">
+
+  <hns_sign gloss="destroy(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -14560,7 +15172,8 @@
 			<hamclose />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="salad(n)#1">
+
+  <hns_sign gloss="salad(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -14581,7 +15194,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="wage(n)#1">
+
+  <hns_sign gloss="wage(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -14601,7 +15215,8 @@
 			<hamthumbacrossmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="salt(n)#2">
+
+  <hns_sign gloss="salt(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -14622,7 +15237,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="same(a)#1">
+
+  <hns_sign gloss="same(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -14635,7 +15251,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="satchel(n)#1">
+
+  <hns_sign gloss="satchel(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -14657,7 +15274,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="saturday(n)#1">
+
+  <hns_sign gloss="saturday(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -14692,7 +15310,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="sauce(n)#1">
+
+  <hns_sign gloss="sauce(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -14705,7 +15324,8 @@
 			<hamcircleu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="save(v)#3">
+
+  <hns_sign gloss="save(v)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -14748,7 +15368,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="state(v)#1">
+
+  <hns_sign gloss="state(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -14760,7 +15381,8 @@
 			<hammoveo />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="agenda(n)#1">
+
+  <hns_sign gloss="agenda(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -14796,7 +15418,8 @@
 			<hammover />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="school(n)#1">
+
+  <hns_sign gloss="school(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -14810,7 +15433,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="scientist(n)#1">
+
+  <hns_sign gloss="scientist(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -14852,7 +15476,8 @@
 			<hamalternatingmotion />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="rub(v)#3">
+
+  <hns_sign gloss="rub(v)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -14883,7 +15508,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="screw(n)#4">
+
+  <hns_sign gloss="screw(n)#4">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -14896,7 +15522,8 @@
 			<hamtwisting />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="sea(n)#1">
+
+  <hns_sign gloss="sea(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -14922,7 +15549,8 @@
 			<hamrepeatcontinue />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="search(v)#1">
+
+  <hns_sign gloss="search(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -14971,7 +15599,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="season(n)#2">
+
+  <hns_sign gloss="season(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -15018,7 +15647,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="seat(n)#1">
+
+  <hns_sign gloss="seat(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -15038,7 +15668,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="see(v)#1">
+
+  <hns_sign gloss="see(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23spread />
@@ -15055,7 +15686,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="search(v)#2">
+
+  <hns_sign gloss="search(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -15071,7 +15703,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="sell(v)#1">
+
+  <hns_sign gloss="sell(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -15099,7 +15732,8 @@
 			<hamextfingero />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="send(v)#6">
+
+  <hns_sign gloss="send(v)#6">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -15116,7 +15750,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="september(n)#1">
+
+  <hns_sign gloss="september(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -15217,7 +15852,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="serve(v)#5">
+
+  <hns_sign gloss="serve(v)#5">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -15238,7 +15874,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="seven(a)#1">
+
+  <hns_sign gloss="seven(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -15257,7 +15894,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="seventeen(a)#1">
+
+  <hns_sign gloss="seventeen(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -15274,7 +15912,8 @@
 			<hamswinging />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="seventy(a)#1">
+
+  <hns_sign gloss="seventy(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -15296,7 +15935,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="shadow(n)#1">
+
+  <hns_sign gloss="shadow(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -15319,7 +15959,8 @@
 			<hamtwisting />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="share(v)#4">
+
+  <hns_sign gloss="share(v)#4">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -15344,7 +15985,8 @@
 			<hammovei />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="sharp(a)#9">
+
+  <hns_sign gloss="sharp(a)#9">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -15378,7 +16020,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="sheet(n)#2">
+
+  <hns_sign gloss="sheet(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -15414,7 +16057,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="shelf(n)#1">
+
+  <hns_sign gloss="shelf(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -15431,7 +16075,8 @@
 			<hammover />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="shine(v)#2">
+
+  <hns_sign gloss="shine(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -15449,7 +16094,8 @@
 			<hamrepeatcontinueseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="ship(n)#1">
+
+  <hns_sign gloss="ship(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -15469,7 +16115,8 @@
 			<hammoveo />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="shirt(n)#1">
+
+  <hns_sign gloss="shirt(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -15492,7 +16139,8 @@
 			<hamseqend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="shoe(n)#1">
+
+  <hns_sign gloss="shoe(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -15514,7 +16162,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="shop(n)#1">
+
+  <hns_sign gloss="shop(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -15529,7 +16178,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="short(a)#2">
+
+  <hns_sign gloss="short(a)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -15541,7 +16191,8 @@
 			<hammoveo />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="short(a)#3">
+
+  <hns_sign gloss="short(a)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -15555,7 +16206,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="shout(v)#2">
+
+  <hns_sign gloss="shout(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinchall />
@@ -15579,7 +16231,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="show(v)#4">
+
+  <hns_sign gloss="show(v)#4">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -15598,7 +16251,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="nauseated(a)#1">
+
+  <hns_sign gloss="nauseated(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -15625,7 +16279,8 @@
 			<hamhalt />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="signal(n)#1">
+
+  <hns_sign gloss="signal(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -15654,7 +16309,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="signal(n)#2">
+
+  <hns_sign gloss="signal(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -15691,7 +16347,8 @@
 			<hammovedr />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="similar(a)#1">
+
+  <hns_sign gloss="similar(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -15709,7 +16366,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="sister(n)#1">
+
+  <hns_sign gloss="sister(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -15730,7 +16388,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="sit(v)#1">
+
+  <hns_sign gloss="sit(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23spread />
@@ -15745,7 +16404,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="six(a)#1">
+
+  <hns_sign gloss="six(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -15760,7 +16420,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="sixteen(a)#1">
+
+  <hns_sign gloss="sixteen(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -15772,7 +16433,8 @@
 			<hamswinging />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="sixty(a)#1">
+
+  <hns_sign gloss="sixty(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -15790,7 +16452,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="size(n)#1">
+
+  <hns_sign gloss="size(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -15803,7 +16466,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="skin(n)#1">
+
+  <hns_sign gloss="skin(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -15835,7 +16499,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="skirt(n)#2">
+
+  <hns_sign gloss="skirt(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -15852,7 +16517,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="sky(n)#1">
+
+  <hns_sign gloss="sky(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -15887,7 +16553,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="sleep(v)#1">
+
+  <hns_sign gloss="sleep(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -15901,7 +16568,8 @@
 			<hamfingerstraightmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="slowly(r)#1">
+
+  <hns_sign gloss="slowly(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -15931,7 +16599,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="small(a)#1">
+
+  <hns_sign gloss="small(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinch12 />
@@ -15948,7 +16617,8 @@
 			<hammovel />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="smile(v)#1">
+
+  <hns_sign gloss="smile(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -15975,7 +16645,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="smoke(v)#1">
+
+  <hns_sign gloss="smoke(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23spread />
@@ -15991,7 +16662,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="smooth(a)#1">
+
+  <hns_sign gloss="smooth(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -16008,7 +16680,8 @@
 			<hammoveor />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="snow(n)#1">
+
+  <hns_sign gloss="snow(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -16022,7 +16695,8 @@
 			<hamfingerplay />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="soap(n)#1">
+
+  <hns_sign gloss="soap(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -16068,7 +16742,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="society(n)#1">
+
+  <hns_sign gloss="society(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -16101,7 +16776,8 @@
 			<hamcircledl />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="soft(a)#1">
+
+  <hns_sign gloss="soft(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -16116,7 +16792,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="soldier(n)#1">
+
+  <hns_sign gloss="soldier(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -16133,7 +16810,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="sometime(r)#1">
+
+  <hns_sign gloss="sometime(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -16158,7 +16836,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="sometimes(r)#1">
+
+  <hns_sign gloss="sometimes(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -16180,7 +16859,8 @@
 			<hamlargemod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="somewhere(r)#1">
+
+  <hns_sign gloss="somewhere(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -16192,7 +16872,8 @@
 			<hamtense />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="son(n)#1">
+
+  <hns_sign gloss="son(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -16205,7 +16886,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="soon(r)#1">
+
+  <hns_sign gloss="soon(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -16229,7 +16911,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="deplorable(a)#1">
+
+  <hns_sign gloss="deplorable(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -16242,7 +16925,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="soul(n)#1">
+
+  <hns_sign gloss="soul(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -16266,7 +16950,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="soup(n)#1">
+
+  <hns_sign gloss="soup(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -16301,7 +16986,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="sour(a)#2">
+
+  <hns_sign gloss="sour(a)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -16316,7 +17002,8 @@
 			<hamfingerplay />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="south(n)#5">
+
+  <hns_sign gloss="south(n)#5">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -16327,7 +17014,8 @@
 			<hammoved />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="talk(v)#2">
+
+  <hns_sign gloss="talk(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23spread />
@@ -16350,7 +17038,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="divide(v)#1">
+
+  <hns_sign gloss="divide(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -16365,7 +17054,8 @@
 			<hamtense />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="spoon(n)#1">
+
+  <hns_sign gloss="spoon(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -16385,7 +17075,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="sport(n)#1">
+
+  <hns_sign gloss="sport(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -16423,7 +17114,8 @@
 			<hammoveo />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="spring(n)#1">
+
+  <hns_sign gloss="spring(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -16455,7 +17147,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="square(a)#1">
+
+  <hns_sign gloss="square(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -16468,7 +17161,8 @@
 			<hammoveu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="stairway(n)#1">
+
+  <hns_sign gloss="stairway(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23spread />
@@ -16490,7 +17184,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="stand(v)#1">
+
+  <hns_sign gloss="stand(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -16508,7 +17203,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="state(n)#2">
+
+  <hns_sign gloss="state(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -16541,7 +17237,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="stay(v)#2">
+
+  <hns_sign gloss="stay(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -16554,7 +17251,8 @@
 			<hamtense />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="steak(n)#1">
+
+  <hns_sign gloss="steak(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -16573,7 +17271,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="steal(v)#1">
+
+  <hns_sign gloss="steal(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -16591,7 +17290,8 @@
 			<hamarcl />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="steam(n)#1">
+
+  <hns_sign gloss="steam(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -16640,7 +17340,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="step_on(v)#1">
+
+  <hns_sign gloss="step_on(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -16658,7 +17359,8 @@
 			<hamarcu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="stick(v)#9">
+
+  <hns_sign gloss="stick(v)#9">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -16688,7 +17390,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="stick(n)#2">
+
+  <hns_sign gloss="stick(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -16707,7 +17410,8 @@
 			<hammover />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="sting(n)#3">
+
+  <hns_sign gloss="sting(n)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -16732,7 +17436,8 @@
 			<hamfast />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="rock(n)#1">
+
+  <hns_sign gloss="rock(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -16774,7 +17479,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="stop(v)#1">
+
+  <hns_sign gloss="stop(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -16788,7 +17494,8 @@
 			<hamhalt />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="discontinue(v)#1">
+
+  <hns_sign gloss="discontinue(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -16802,7 +17509,8 @@
 			<hamfingerstraightmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="storm(n)#1">
+
+  <hns_sign gloss="storm(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -16839,7 +17547,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="stove(n)#1">
+
+  <hns_sign gloss="stove(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -16858,7 +17567,8 @@
 			<hammoveo />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="foreign(a)#2">
+
+  <hns_sign gloss="foreign(a)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -16877,7 +17587,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="stream(n)#1">
+
+  <hns_sign gloss="stream(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -16905,7 +17616,8 @@
 			<hamrepeatcontinueseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="street(n)#1">
+
+  <hns_sign gloss="street(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -16920,7 +17632,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="rigorous(a)#1">
+
+  <hns_sign gloss="rigorous(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -16948,7 +17661,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="strike(n)#2">
+
+  <hns_sign gloss="strike(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -16975,7 +17689,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="strong(a)#1">
+
+  <hns_sign gloss="strong(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -16987,7 +17702,8 @@
 			<hamtense />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="student(n)#1">
+
+  <hns_sign gloss="student(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamcee12 />
@@ -17003,7 +17719,8 @@
 			<hamlrat />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="study(v)#2">
+
+  <hns_sign gloss="study(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -17034,7 +17751,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="stupid(a)#1">
+
+  <hns_sign gloss="stupid(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -17064,7 +17782,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="subject(n)#1">
+
+  <hns_sign gloss="subject(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -17080,7 +17799,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="suddenly(r)#1">
+
+  <hns_sign gloss="suddenly(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -17133,7 +17853,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="suffer(v)#3">
+
+  <hns_sign gloss="suffer(v)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -17163,7 +17884,8 @@
 			<hamlargemod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="propose(v)#1">
+
+  <hns_sign gloss="propose(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -17187,7 +17909,8 @@
 			<hamshoulders />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="summer(n)#1">
+
+  <hns_sign gloss="summer(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -17205,7 +17928,8 @@
 			<hammover />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="sun(n)#1">
+
+  <hns_sign gloss="sun(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -17243,7 +17967,8 @@
 			<hamclose />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="sunday(n)#1">
+
+  <hns_sign gloss="sunday(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -17257,7 +17982,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="dawn(n)#1">
+
+  <hns_sign gloss="dawn(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -17289,7 +18015,8 @@
 			<hamlrat />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="surprise(n)#1">
+
+  <hns_sign gloss="surprise(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -17317,7 +18044,8 @@
 			<hammoveo />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="suspect(v)#3">
+
+  <hns_sign gloss="suspect(v)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -17335,7 +18063,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="suspect(n)#1">
+
+  <hns_sign gloss="suspect(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -17353,7 +18082,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="sweat(v)#1">
+
+  <hns_sign gloss="sweat(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -17377,7 +18107,8 @@
 			<hamstomach />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="sweep(v)#3">
+
+  <hns_sign gloss="sweep(v)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -17392,7 +18123,8 @@
 			<hamrepeatcontinue />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="sweet(a)#1">
+
+  <hns_sign gloss="sweet(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -17416,7 +18148,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="swim(v)#1">
+
+  <hns_sign gloss="swim(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -17436,7 +18169,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="switch(n)#1">
+
+  <hns_sign gloss="switch(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinch12 />
@@ -17449,7 +18183,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="switch_off(v)#1">
+
+  <hns_sign gloss="switch_off(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -17480,7 +18215,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="take(v)#4">
+
+  <hns_sign gloss="take(v)#4">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -17496,7 +18232,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="bathe(v)#1">
+
+  <hns_sign gloss="bathe(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -17520,7 +18257,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="aim(n)#2">
+
+  <hns_sign gloss="aim(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -17564,7 +18302,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="taste(v)#1">
+
+  <hns_sign gloss="taste(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -17584,7 +18323,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="tasty(a)#1">
+
+  <hns_sign gloss="tasty(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -17615,7 +18355,8 @@
 			<hamlrat />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="cab(n)#3">
+
+  <hns_sign gloss="cab(n)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23 />
@@ -17640,7 +18381,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="tea(n)#1">
+
+  <hns_sign gloss="tea(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -17680,7 +18422,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="teacher(n)#1">
+
+  <hns_sign gloss="teacher(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -17702,7 +18445,8 @@
 			<hamseqend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="tear(v)#1">
+
+  <hns_sign gloss="tear(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -17732,7 +18476,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="impermanent(a)#1">
+
+  <hns_sign gloss="impermanent(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -17745,7 +18490,8 @@
 			<hamswinging />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="ten(a)#1">
+
+  <hns_sign gloss="ten(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -17757,7 +18503,8 @@
 			<hamlrat />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="tenant(n)#1">
+
+  <hns_sign gloss="tenant(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamcee12 />
@@ -17798,7 +18545,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="tent(n)#1">
+
+  <hns_sign gloss="tent(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -17826,7 +18574,8 @@
 			<hammovedr />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="text(n)#1">
+
+  <hns_sign gloss="text(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -17868,7 +18617,8 @@
 			<hamseqend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="thank(v)#1">
+
+  <hns_sign gloss="thank(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -17895,7 +18645,8 @@
 			<hammovedo />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="theater(n)#1">
+
+  <hns_sign gloss="theater(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -17937,7 +18688,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="then(r)#1">
+
+  <hns_sign gloss="then(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -17952,7 +18704,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="thin(a)#1">
+
+  <hns_sign gloss="thin(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -17980,7 +18733,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="thin(a)#2">
+
+  <hns_sign gloss="thin(a)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -17998,7 +18752,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="thing(n)#8">
+
+  <hns_sign gloss="thing(n)#8">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -18019,7 +18774,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="think(v)#1">
+
+  <hns_sign gloss="think(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -18031,7 +18787,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="entertain(v)#2">
+
+  <hns_sign gloss="entertain(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -18048,7 +18805,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="thirsty(a)#2">
+
+  <hns_sign gloss="thirsty(a)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -18073,7 +18831,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="thirteen(a)#1">
+
+  <hns_sign gloss="thirteen(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -18089,7 +18848,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="thirty(a)#1">
+
+  <hns_sign gloss="thirty(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -18107,7 +18867,8 @@
 			<hamlrat />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="threat(n)#2">
+
+  <hns_sign gloss="threat(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -18125,7 +18886,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="three(a)#1">
+
+  <hns_sign gloss="three(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -18140,7 +18902,8 @@
 			<hamclose />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="throw(v)#1">
+
+  <hns_sign gloss="throw(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -18162,7 +18925,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="thursday(n)#1">
+
+  <hns_sign gloss="thursday(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -18214,7 +18978,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="ticket(n)#1">
+
+  <hns_sign gloss="ticket(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -18229,7 +18994,8 @@
 			<hampinch12 />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="tight(a)#1">
+
+  <hns_sign gloss="tight(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -18251,7 +19017,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="time(n)#2">
+
+  <hns_sign gloss="time(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -18280,7 +19047,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="canister(n)#2">
+
+  <hns_sign gloss="canister(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -18301,7 +19069,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="today(n)#2">
+
+  <hns_sign gloss="today(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -18324,7 +19093,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="together(r)#5">
+
+  <hns_sign gloss="together(r)#5">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -18346,7 +19116,8 @@
 			<haminterlock />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="digest(v)#3">
+
+  <hns_sign gloss="digest(v)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -18368,7 +19139,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="tomato(n)#1">
+
+  <hns_sign gloss="tomato(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -18413,7 +19185,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="tomorrow(r)#1">
+
+  <hns_sign gloss="tomorrow(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -18434,7 +19207,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="tongue(n)#1">
+
+  <hns_sign gloss="tongue(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -18450,7 +19224,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="tooth(n)#1">
+
+  <hns_sign gloss="tooth(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -18465,7 +19240,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="touch(v)#1">
+
+  <hns_sign gloss="touch(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -18477,7 +19253,8 @@
 			<hamhalt />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="town(n)#1">
+
+  <hns_sign gloss="town(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinch12open />
@@ -18493,7 +19270,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="town_hall(n)#1">
+
+  <hns_sign gloss="town_hall(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -18535,7 +19313,8 @@
 			<hammoveo />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="track(v)#2">
+
+  <hns_sign gloss="track(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -18562,7 +19341,8 @@
 			<hamshouldertop />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="trade(n)#1">
+
+  <hns_sign gloss="trade(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -18592,7 +19372,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="trader(n)#1">
+
+  <hns_sign gloss="trader(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -18642,7 +19423,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="traffic_light(n)#1">
+
+  <hns_sign gloss="traffic_light(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -18687,7 +19469,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="train(n)#1">
+
+  <hns_sign gloss="train(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -18706,7 +19489,8 @@
 			<hamlrat />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="tree(n)#1">
+
+  <hns_sign gloss="tree(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -18735,7 +19519,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="fuss(n)#2">
+
+  <hns_sign gloss="fuss(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -18779,7 +19564,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="trouser(n)#1">
+
+  <hns_sign gloss="trouser(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -18798,7 +19584,8 @@
 			<hammovedr />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="truck(n)#1">
+
+  <hns_sign gloss="truck(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -18820,7 +19607,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="true(a)#1">
+
+  <hns_sign gloss="true(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -18857,7 +19645,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="trust(v)#1">
+
+  <hns_sign gloss="trust(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -18897,7 +19686,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="truth(n)#3">
+
+  <hns_sign gloss="truth(n)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -18937,7 +19727,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="try(v)#1">
+
+  <hns_sign gloss="try(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -18970,7 +19761,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="pipe(n)#3">
+
+  <hns_sign gloss="pipe(n)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -18982,7 +19774,8 @@
 			<hammover />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="tuesday(n)#1">
+
+  <hns_sign gloss="tuesday(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -19002,7 +19795,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="turn(v)#1">
+
+  <hns_sign gloss="turn(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -19031,7 +19825,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="bend(n)#1">
+
+  <hns_sign gloss="bend(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -19047,7 +19842,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="switch_on(v)#1">
+
+  <hns_sign gloss="switch_on(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -19065,7 +19861,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="twelve(a)#1">
+
+  <hns_sign gloss="twelve(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23spread />
@@ -19081,7 +19878,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="twenty(a)#1">
+
+  <hns_sign gloss="twenty(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23spread />
@@ -19097,7 +19895,8 @@
 			<hamlrat />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="two(a)#1">
+
+  <hns_sign gloss="two(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23spread />
@@ -19109,7 +19908,8 @@
 			<hamclose />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="type(n)#1">
+
+  <hns_sign gloss="type(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -19127,7 +19927,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="umbrella(n)#1">
+
+  <hns_sign gloss="umbrella(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -19153,7 +19954,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="uncle(n)#1">
+
+  <hns_sign gloss="uncle(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23 />
@@ -19174,7 +19976,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="nether(a)#3">
+
+  <hns_sign gloss="nether(a)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -19220,7 +20023,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="metro(n)#1">
+
+  <hns_sign gloss="metro(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -19257,7 +20061,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="unfortunately(r)#1">
+
+  <hns_sign gloss="unfortunately(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -19307,7 +20112,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="unlucky(a)#1">
+
+  <hns_sign gloss="unlucky(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -19330,7 +20136,8 @@
 			<hamchest />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="until(c)#1">
+
+  <hns_sign gloss="until(c)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -19386,7 +20193,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="up(a)#1">
+
+  <hns_sign gloss="up(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -19396,7 +20204,8 @@
 			<hammoveu />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="acclivitous(a)#1">
+
+  <hns_sign gloss="acclivitous(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -19419,7 +20228,8 @@
 			<hamlrat />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="upset(v)#2">
+
+  <hns_sign gloss="upset(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -19440,7 +20250,8 @@
 			<hamseqend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="use(v)#1">
+
+  <hns_sign gloss="use(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -19467,7 +20278,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="useful(a)#1">
+
+  <hns_sign gloss="useful(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -19494,7 +20306,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="vacation(n)#1">
+
+  <hns_sign gloss="vacation(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -19517,7 +20330,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="victim(n)#1">
+
+  <hns_sign gloss="victim(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -19578,7 +20392,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="villa(n)#4">
+
+  <hns_sign gloss="villa(n)#4">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -19601,7 +20416,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="village(n)#1">
+
+  <hns_sign gloss="village(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinch12open />
@@ -19615,7 +20431,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="violence(n)#1">
+
+  <hns_sign gloss="violence(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -19636,7 +20453,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="visit(v)#3">
+
+  <hns_sign gloss="visit(v)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -19666,7 +20484,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="visitor(n)#1">
+
+  <hns_sign gloss="visitor(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -19719,7 +20538,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="voice(n)#2">
+
+  <hns_sign gloss="voice(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger23 />
@@ -19746,7 +20566,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="vote(v)#1">
+
+  <hns_sign gloss="vote(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -19795,7 +20616,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="wait(v)#1">
+
+  <hns_sign gloss="wait(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -19810,7 +20632,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="walk(v)#1">
+
+  <hns_sign gloss="walk(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -19844,7 +20667,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="desire(v)#1">
+
+  <hns_sign gloss="desire(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -19868,7 +20692,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="warn(v)#1">
+
+  <hns_sign gloss="warn(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -19881,7 +20706,8 @@
 			<hamswinging />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="wash(v)#3">
+
+  <hns_sign gloss="wash(v)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -19907,7 +20733,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="watch(n)#1">
+
+  <hns_sign gloss="watch(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -19946,7 +20773,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="water(n)#1">
+
+  <hns_sign gloss="water(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -19967,7 +20795,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="water(v)#1">
+
+  <hns_sign gloss="water(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -19985,7 +20814,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="way(n)#6">
+
+  <hns_sign gloss="way(n)#6">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -20000,7 +20830,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="we(p)#1">
+
+  <hns_sign gloss="we(p)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -20014,7 +20845,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="wedding(n)#1">
+
+  <hns_sign gloss="wedding(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -20063,7 +20895,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="wednesday(n)#1">
+
+  <hns_sign gloss="wednesday(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -20113,7 +20946,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="week(n)#3">
+
+  <hns_sign gloss="week(n)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -20142,7 +20976,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="weigh(v)#3">
+
+  <hns_sign gloss="weigh(v)#3">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -20163,7 +20998,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="weight(n)#1">
+
+  <hns_sign gloss="weight(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -20176,7 +21012,8 @@
 			<hamalternatingmotion />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="weird(a)#2">
+
+  <hns_sign gloss="weird(a)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -20200,7 +21037,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="welcome(v)#2">
+
+  <hns_sign gloss="welcome(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -20222,7 +21060,8 @@
 			<hamclose />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="west(n)#4">
+
+  <hns_sign gloss="west(n)#4">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -20235,7 +21074,8 @@
 			<hamlargemod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="wet(a)#1">
+
+  <hns_sign gloss="wet(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -20250,7 +21090,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="what(r)#1">
+
+  <hns_sign gloss="what(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -20262,7 +21103,8 @@
 			<hamswinging />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="wheel(n)#1">
+
+  <hns_sign gloss="wheel(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -20275,7 +21117,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="when(r)#1">
+
+  <hns_sign gloss="when(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -20290,7 +21133,8 @@
 			<hamfingerplay />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="where(r)#1">
+
+  <hns_sign gloss="where(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -20310,7 +21154,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="whether(c)#1">
+
+  <hns_sign gloss="whether(c)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -20325,7 +21170,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="while(n)#1">
+
+  <hns_sign gloss="while(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -20354,7 +21200,8 @@
 			<hamchest />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="white(a)#1">
+
+  <hns_sign gloss="white(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinch12open />
@@ -20375,7 +21222,8 @@
 			<hamlrat />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="who(r)#1">
+
+  <hns_sign gloss="who(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -20390,7 +21238,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="whole(a)#1">
+
+  <hns_sign gloss="whole(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -20418,7 +21267,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="why(n)#1">
+
+  <hns_sign gloss="why(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -20431,7 +21281,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="wide(a)#1">
+
+  <hns_sign gloss="wide(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -20442,7 +21293,8 @@
 			<hammover />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="wild(a)#2">
+
+  <hns_sign gloss="wild(a)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -20463,7 +21315,8 @@
 			<hamlrat />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="willing(a)#1">
+
+  <hns_sign gloss="willing(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -20488,7 +21341,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="win(n)#1">
+
+  <hns_sign gloss="win(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -20564,7 +21418,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="wind(n)#1">
+
+  <hns_sign gloss="wind(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmpar />
@@ -20608,7 +21463,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="window(n)#1">
+
+  <hns_sign gloss="window(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamflathand />
@@ -20626,7 +21482,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="wine(n)#1">
+
+  <hns_sign gloss="wine(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinch12open />
@@ -20641,7 +21498,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="winner(n)#1">
+
+  <hns_sign gloss="winner(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -20710,7 +21568,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="winter(n)#1">
+
+  <hns_sign gloss="winter(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -20727,7 +21586,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="wire(n)#2">
+
+  <hns_sign gloss="wire(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinch12open />
@@ -20756,7 +21616,8 @@
 			<hamrepeatcontinue />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="wish(v)#1">
+
+  <hns_sign gloss="wish(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2345 />
@@ -20781,7 +21642,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="with(p)#4">
+
+  <hns_sign gloss="with(p)#4">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -20803,7 +21665,8 @@
 			<haminterlock />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="without(p)#1">
+
+  <hns_sign gloss="without(p)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -20820,7 +21683,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="woman(n)#1">
+
+  <hns_sign gloss="woman(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -20839,7 +21703,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="fantastic(a)#2">
+
+  <hns_sign gloss="fantastic(a)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -20852,7 +21717,8 @@
 			<hammoveor />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="word(n)#1">
+
+  <hns_sign gloss="word(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamcee12 />
@@ -20867,7 +21733,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="work(v)#2">
+
+  <hns_sign gloss="work(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -20895,7 +21762,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="worker(n)#1">
+
+  <hns_sign gloss="worker(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -20931,7 +21799,8 @@
 			<hammoved />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="earth(n)#2">
+
+  <hns_sign gloss="earth(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -20956,7 +21825,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="wound(n)#1">
+
+  <hns_sign gloss="wound(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinch12open />
@@ -20969,7 +21839,8 @@
 			<hamrepeatfromstart />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="wrap(v)#1">
+
+  <hns_sign gloss="wrap(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -20986,7 +21857,8 @@
 			<hamtense />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="write(v)#2">
+
+  <hns_sign gloss="write(v)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -21011,7 +21883,8 @@
 			<hamrepeatfromstartseveral />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="write_down(v)#1">
+
+  <hns_sign gloss="write_down(v)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamsymmlr />
@@ -21029,7 +21902,8 @@
 			<hamparend />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="year(n)#1">
+
+  <hns_sign gloss="year(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -21064,7 +21938,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="yellow(a)#1">
+
+  <hns_sign gloss="yellow(a)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -21103,7 +21978,8 @@
 			<hamarcd />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="yes(n)#1">
+
+  <hns_sign gloss="yes(n)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfist />
@@ -21115,7 +21991,8 @@
 			<hamnodding />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="yesterday(r)#1">
+
+  <hns_sign gloss="yesterday(r)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -21141,7 +22018,8 @@
 			<hamtouch />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="you(p)#1">
+
+  <hns_sign gloss="you(p)#1">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamfinger2 />
@@ -21154,7 +22032,8 @@
 			<hamsmallmod />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="young(n)#9">
+
+  <hns_sign gloss="young(n)#9">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hamparbegin />
@@ -21193,7 +22072,8 @@
 			<hamarcd />
 		</hamnosys_manual>
 	</hns_sign>
-	<hns_sign gloss="zero(n)#2">
+
+  <hns_sign gloss="zero(n)#2">
 		<hamnosys_nonmanual />
 		<hamnosys_manual>
 			<hampinchall />
@@ -21203,4 +22083,6 @@
 			<hammoveo />
 		</hamnosys_manual>
 	</hns_sign>
+
+
 </sigml>

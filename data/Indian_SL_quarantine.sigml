@@ -1,0 +1,772 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sigml_collection language="Indian_SL" count="34">
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="april">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hamfinger2 />
+  		<hamthumbacrossmod />
+  		<hamextfingerul />
+  		<hampalmdl />
+  		<hamstomach />
+  		<hamclose />
+  		<hamparbegin />
+  		<hamreplace />
+  		<hampinchopen />
+  		<hamextfingeru />
+  		<hampalml />
+  		<hamparend />
+  		<hamparbegin />
+  		<hamreplace />
+  		<hamfinger2 />
+  		<hamthumbacrossmod />
+  		<hamextfingerol />
+  		<hampalmd />
+  		<hamparend />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="ask anything">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hampinchopen />
+  		<hamextfingerl />
+  		<hambetween />
+  		<hamextfingero />
+  		<hampalml />
+  		<hamchest />
+  		<hamarmextended />
+  		<hammovei />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="ask question">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hampinchopen />
+  		<hamextfingerl />
+  		<hambetween />
+  		<hamextfingero />
+  		<hampalml />
+  		<hamchest />
+  		<hamarmextended />
+  		<hammovei />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="associate">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hamsymmpar />
+  		<hampinchopen />
+  		<hamparbegin />
+  		<hamextfingerl />
+  		<hampalmd />
+  		<hamplus />
+  		<hamextfingerr />
+  		<hampalmur />
+  		<hamparend />
+  		<hamparbegin />
+  		<hamindexfinger />
+  		<hamfingerpad />
+  		<hamplus />
+  		<hamindexfinger />
+  		<hamfingerpad />
+  		<hamparend />
+  		<hamtouch />
+  		<hammovedo />
+  		<hamrepeatfromstart />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="b">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hamsymmlr />
+  		<hampinchopen />
+  		<hamextfingeru />
+  		<hampalml />
+  		<hamparbegin />
+  		<hamfingertip />
+  		<hamthumb />
+  		<hamindexfinger />
+  		<hamplus />
+  		<hamfingertip />
+  		<hamthumb />
+  		<hamindexfinger />
+  		<hamparend />
+  		<hamtouch />
+  		<hamchest />
+  		<hamclose />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="buddha">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hamparbegin />
+  		<hampinchopen />
+  		<hamplus />
+  		<hampinchopen />
+  		<hamparend />
+  		<hamparbegin />
+  		<hamextfingeru />
+  		<hamplus />
+  		<hamextfingerd />
+  		<hamparend />
+  		<hamparbegin />
+  		<hampalml />
+  		<hamplus />
+  		<hampalmr />
+  		<hamparend />
+  		<hamparbegin />
+  		<hamwristback />
+  		<hamplus />
+  		<hamwristback />
+  		<hamparend />
+  		<hamtouch />
+  		<hammoveu />
+  		<hamsmallmod />
+  		<hammoved />
+  		<hamsmallmod />
+  		<hamrepeatfromstart />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="coin">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hampinchopen />
+  		<hamextfingeru />
+  		<hampalmu />
+  		<hamparbegin />
+  		<hamreplace />
+  		<hampalmdl />
+  		<hamparend />
+  		<hamfingerplay />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="contact(point hand)">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hamfinger2345 />
+  		<hamthumboutmod />
+  		<hamextfingeru />
+  		<hampalmdl />
+  		<hamshoulders />
+  		<hamclose />
+  		<hammovedo />
+  		<hamlargemod />
+  		<hamparbegin />
+  		<hamreplace />
+  		<hampinchopen />
+  		<hamstomach />
+  		<hamparend />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="contact">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hamfinger2345 />
+  		<hamthumboutmod />
+  		<hamextfingeru />
+  		<hampalmdl />
+  		<hamshoulders />
+  		<hamclose />
+  		<hammovedo />
+  		<hamlargemod />
+  		<hamparbegin />
+  		<hamreplace />
+  		<hampinchopen />
+  		<hamstomach />
+  		<hamparend />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="council">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hampinchopen />
+  		<hamextfingeru />
+  		<hampalml />
+  		<hamforehead />
+  		<hamlrat />
+  		<hamparbegin />
+  		<hamreplace />
+  		<hampalmul />
+  		<hamrepeatfromstart />
+  		<hamparend />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="dance">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hamsymmlr />
+  		<hamparbegin />
+  		<hampinchopen />
+  		<hamfingerstraightmod />
+  		<hamplus />
+  		<hampinchopen />
+  		<hamfingerstraightmod />
+  		<hamparend />
+  		<hamparbegin />
+  		<hamextfingerl />
+  		<hampalml />
+  		<hamplus />
+  		<hamextfingeror />
+  		<hampalmd />
+  		<hamparend />
+  		<hamparbegin />
+  		<hamchest />
+  		<hamplus />
+  		<hamlrat />
+  		<hamneck />
+  		<hamparend />
+  		<hamreplace />
+  		<hamparbegin />
+  		<hamextfingerol />
+  		<hampalmd />
+  		<hamplus />
+  		<hamextfingerur />
+  		<hampalml />
+  		<hamparend />
+  		<hamrepeatfromstartseveral />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="detail">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hamparbegin />
+  		<hampinchopen />
+  		<hamplus />
+  		<hamfinger2 />
+  		<hamthumbacrossmod />
+  		<hamparend />
+  		<hamparbegin />
+  		<hamextfingeru />
+  		<hampalml />
+  		<hamplus />
+  		<hamextfingeru />
+  		<hampalmr />
+  		<hamparend />
+  		<hamparbegin />
+  		<hamindexfinger />
+  		<hamfingertip />
+  		<hamplus />
+  		<hamindexfinger />
+  		<hamfingernail />
+  		<hamparend />
+  		<hamtouch />
+  		<hamshoulders />
+  		<hammovedo />
+  		<hamsmallmod />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="eleven">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hampinchopen />
+  		<hamfingerstraightmod />
+  		<hamextfingerol />
+  		<hampalmd />
+  		<hamchest />
+  		<hamclose />
+  		<hamfingerplay />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="february">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hamfinger23spread />
+  		<hamthumbacrossmod />
+  		<hamextfingerol />
+  		<hampalmd />
+  		<hamstomach />
+  		<hamclose />
+  		<hamparbegin />
+  		<hamreplace />
+  		<hamfinger2 />
+  		<hamthumbacrossmod />
+  		<hampalmdl />
+  		<hamparend />
+  		<hamparbegin />
+  		<hamreplace />
+  		<hampinchopen />
+  		<hamextfingeru />
+  		<hampalml />
+  		<hamparend />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="fruit">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hamfinger2345 />
+  		<hamfingerbendmod />
+  		<hambetween />
+  		<hampinchopen />
+  		<hamextfingeru />
+  		<hampalmdl />
+  		<hamhead />
+  		<hamlrbeside />
+  		<hamcircleu />
+  		<hamclose />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="health">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hamsymmpar />
+  		<hamfinger2345 />
+  		<hamfingerbendmod />
+  		<hambetween />
+  		<hampinchopen />
+  		<hamextfingeru />
+  		<hampalmdl />
+  		<hamchest />
+  		<hamclose />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="heart beat">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hamfinger2345 />
+  		<hamthumboutmod />
+  		<hamextfingeri />
+  		<hampalmr />
+  		<hamlrat />
+  		<hamchest />
+  		<hamreplace />
+  		<hampinch12 />
+  		<hamfingerstraightmod />
+  		<hamextfingeru />
+  		<hampalmd />
+  		<hamreplace />
+  		<hampinchopen />
+  		<hamreplace />
+  		<hampinch12 />
+  		<hamfingerstraightmod />
+  		<hamreplace />
+  		<hampinchopen />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="important">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hamfinger2 />
+  		<hamthumbacrossmod />
+  		<hamextfingeru />
+  		<hampalml />
+  		<hamcheek />
+  		<hamtouch />
+  		<hamreplace />
+  		<hampinchopen />
+  		<hamfingerstraightmod />
+  		<hamextfingeru />
+  		<hampalmdl />
+  		<hamshouldertop />
+  		<hamlrat />
+  		<hamclose />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="intelligent">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hamfinger2 />
+  		<hamextfingerl />
+  		<hampalmd />
+  		<hamforehead />
+  		<hamlrbeside />
+  		<hamtouch />
+  		<hamreplace />
+  		<hampinchopen />
+  		<hamextfingeru />
+  		<hampalml />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="like">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hampinchopen />
+  		<hamextfingeru />
+  		<hampalml />
+  		<hamlrat />
+  		<hamshoulders />
+  		<hamtouch />
+  		<hammoveo />
+  		<hamsmallmod />
+  		<hamrepeatfromstart />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="link">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hamsymmpar />
+  		<hampinchopen />
+  		<hamparbegin />
+  		<hamextfingerl />
+  		<hampalmd />
+  		<hamplus />
+  		<hamextfingerr />
+  		<hampalmur />
+  		<hamparend />
+  		<hamparbegin />
+  		<hamindexfinger />
+  		<hamfingerpad />
+  		<hamplus />
+  		<hamindexfinger />
+  		<hamfingerpad />
+  		<hamparend />
+  		<hamtouch />
+  		<hammovedo />
+  		<hamrepeatfromstart />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="new">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hampinchopen />
+  		<hamfingerstraightmod />
+  		<hamextfingero />
+  		<hampalmu />
+  		<hamshoulders />
+  		<hamlrat />
+  		<hamreplace />
+  		<hamfinger2345 />
+  		<hamthumbopenmod />
+  		<hamextfingerol />
+  		<hambetween />
+  		<hamextfingerl />
+  		<hampalmu />
+  		<hamlrat />
+  		<hamchest />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="olympics">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hamsymmlr />
+  		<hamfingerstraightmod />
+  		<hamalternatingmotion />
+  		<hamfist />
+  		<hamextfingerl />
+  		<hampalml />
+  		<hamchest />
+  		<hamclose />
+  		<hamseqbegin />
+  		<hammoveuo />
+  		<hammoveui />
+  		<hamseqend />
+  		<hamreplace />
+  		<hampinchopen />
+  		<hamextfingeru />
+  		<hamparbegin />
+  		<hamindexfinger />
+  		<hamfingernail />
+  		<hamplus />
+  		<hamindexfinger />
+  		<hamfingernail />
+  		<hamparend />
+  		<hamtouch />
+  		<hammoveuo />
+  		<hamwavy />
+  		<hamsmallmod />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="oriya">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hampinchopen />
+  		<hamextfingero />
+  		<hampalmd />
+  		<hamchest />
+  		<hamclose />
+  		<hammover />
+  		<hamwavy />
+  		<hamsmallmod />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="p">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hampinchopen />
+  		<hamextfingeru />
+  		<hampalml />
+  		<hamchest />
+  		<hamclose />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="reach">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hamparbegin />
+  		<hamfinger2345 />
+  		<hamthumboutmod />
+  		<hamplus />
+  		<hamfinger2345 />
+  		<hamthumboutmod />
+  		<hamparend />
+  		<hamparbegin />
+  		<hamextfingeru />
+  		<hampalml />
+  		<hamplus />
+  		<hamextfingeru />
+  		<hampalmr />
+  		<hambetween />
+  		<hampalmdr />
+  		<hamparend />
+  		<hamparbegin />
+  		<hammovel />
+  		<hamreplace />
+  		<hampinchopen />
+  		<hamparend />
+  		<hamparbegin />
+  		<hampalm />
+  		<hamplus />
+  		<hamfingertip />
+  		<hamthumb />
+  		<hamindexfinger />
+  		<hamparend />
+  		<hamtouch />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="relate">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hamceeopen />
+  		<hamextfingeru />
+  		<hampalmdl />
+  		<hamshoulders />
+  		<hamclose />
+  		<hamparbegin />
+  		<hamreplace />
+  		<hampinchopen />
+  		<hamextfingerul />
+  		<hampalmd />
+  		<hammovedo />
+  		<hamparend />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="relation">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hamparbegin />
+  		<hampinchopen />
+  		<hamextfingeru />
+  		<hampalml />
+  		<hamorirelative />
+  		<hamplus />
+  		<hampinchopen />
+  		<hamextfingeror />
+  		<hampalmr />
+  		<hamparend />
+  		<hamparbegin />
+  		<hamfingerpad />
+  		<hamthumb />
+  		<hamplus />
+  		<hamfingerpad />
+  		<hamthumb />
+  		<hamparend />
+  		<hamtouch />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="stupid">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hampinchopen />
+  		<hamextfingeru />
+  		<hampalml />
+  		<hamforehead />
+  		<hamswinging />
+  		<hamrepeatfromstartseveral />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="telgu">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hamparbegin />
+  		<hampinchopen />
+  		<hamplus />
+  		<hamfinger2 />
+  		<hamthumbacrossmod />
+  		<hamparend />
+  		<hamparbegin />
+  		<hamextfingero />
+  		<hamplus />
+  		<hamextfingerur />
+  		<hamparend />
+  		<hamparbegin />
+  		<hampalmd />
+  		<hamplus />
+  		<hampalmd />
+  		<hamparend />
+  		<hamchest />
+  		<hamclose />
+  		<hammover />
+  		<hamzigzag />
+  		<hamsmallmod />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="truth">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hamflathand />
+  		<hamextfingeru />
+  		<hampalmu />
+  		<hamlips />
+  		<hammoveo />
+  		<hamreplace />
+  		<hampinchopen />
+  		<hamextfingeru />
+  		<hampalml />
+  		<hamshoulders />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="vapour">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hamsymmlr />
+  		<hampinchopen />
+  		<hamextfingeru />
+  		<hampalml />
+  		<hammoveu />
+  		<hamwavy />
+  		<hamsmallmod />
+  		<hamreplace />
+  		<hamfinger2345 />
+  		<hamthumboutmod />
+  		<hamextfingerul />
+  		<hampalmd />
+  		<hammoveu />
+  		<hamwavy />
+  		<hamsmallmod />
+  		<hamreplace />
+  		<hamflathand />
+  		<hamfingerstraightmod />
+  		<hamextfingeru />
+  		<hampalml />
+  		<hamhead />
+  		<hammover />
+  		<hamsmallmod />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="wee wee">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hampinchopen />
+  		<hamfingerstraightmod />
+  		<hamextfingerol />
+  		<hampalmd />
+  		<hambelowstomach />
+  		<hamclose />
+  	</hamnosys_manual>
+  </hns_sign>
+
+  <!-- quarantined: unknown_tags_after_repair -->
+  <hns_sign gloss="zero">
+  	<hamnosys_nonmanual>
+  	</hamnosys_nonmanual>
+  	<hamnosys_manual>
+  		<hamfinger2345 />
+  		<hamfingerbendmod />
+  		<hambetween />
+  		<hampinchopen />
+  		<hamextfingeru />
+  		<hampalml />
+  		<hamchest />
+  		<hamclose />
+  	</hamnosys_manual>
+  </hns_sign>
+
+
+</sigml_collection>

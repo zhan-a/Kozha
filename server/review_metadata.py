@@ -83,21 +83,71 @@ class ReviewRecord:
 
 
 _GLOSS_RE = re.compile(r'<hns_sign\s+gloss="([^"]*)"', re.IGNORECASE)
+# Pattern matching one ``<hns_sign ...>...</hns_sign>`` block so we can
+# inspect each entry's body and reject obviously broken ones before
+# adding its gloss to the known set. Used in ``_enumerate_glosses``.
+_HNS_SIGN_BLOCK_RE = re.compile(
+    r'<hns_sign\s+gloss="([^"]*)"\s*>(.*?)</hns_sign>',
+    re.IGNORECASE | re.DOTALL,
+)
 
 
 def _enumerate_glosses(sigml_path: Path) -> set[str]:
-    """Case-insensitive set of non-empty glosses in a .sigml file."""
+    """Case-insensitive set of non-empty glosses in a .sigml file.
+
+    Defence-in-depth for prompt 7: every entry is inspected for the two
+    failure modes that have been observed in the wild. A broken entry
+    would survive the regex scan for ``gloss="..."`` but not render, so
+    admitting its gloss to the known set misleads the translator into
+    claiming coverage it can't deliver.
+
+    Rejected entries:
+
+    * Any entry whose body contains the literal ``[object Object]`` —
+      always a bug (a JS object got template-literal'd into XML).
+    * Any entry whose body is empty or has no ``hamnosys_manual`` /
+      ``sign_manual`` child — can't render.
+
+    Files named ``*_quarantine.sigml`` are skipped entirely: those are
+    sidecars kept for community review, not served content.
+    """
     if not sigml_path.exists():
+        return set()
+    if "_quarantine" in sigml_path.name:
         return set()
     try:
         text = sigml_path.read_text(encoding="utf-8", errors="replace")
     except OSError:
         return set()
     out: set[str] = set()
-    for m in _GLOSS_RE.finditer(text):
-        g = m.group(1).strip().lower()
-        if g:
-            out.add(g)
+    # Prefer the block-aware pass when the file structure is standard.
+    any_blocks = False
+    for m in _HNS_SIGN_BLOCK_RE.finditer(text):
+        any_blocks = True
+        gloss = m.group(1).strip()
+        body = m.group(2)
+        if not gloss:
+            continue
+        if "[object Object]" in body:
+            logger.warning(
+                "review-metadata: skipping '%s' in %s — body contains [object Object]",
+                gloss, sigml_path.name,
+            )
+            continue
+        if "hamnosys_manual" not in body and "sign_manual" not in body:
+            logger.warning(
+                "review-metadata: skipping '%s' in %s — no manual child",
+                gloss, sigml_path.name,
+            )
+            continue
+        out.add(gloss.lower())
+    if not any_blocks:
+        # Fall back to the older attribute-only scan so we stay tolerant
+        # of files the block regex can't split (e.g. single-line formats).
+        for m in _GLOSS_RE.finditer(text):
+            g = m.group(1).strip().lower()
+            if g:
+                out.add(g)
     return out
 
 
@@ -190,6 +240,12 @@ class ReviewMetadataIndex:
                 logger.warning("review-metadata: %s does not exist", self._data_dir)
                 return
             for meta_path in sorted(self._data_dir.glob("*.meta.json")):
+                # Quarantine sidecars keep failing entries off the served
+                # index. If someone ever writes a matching meta file for a
+                # quarantine sidecar, skip it here so those glosses never
+                # enter the active review map.
+                if "_quarantine" in meta_path.name:
+                    continue
                 try:
                     payload = json.loads(meta_path.read_text(encoding="utf-8"))
                 except (OSError, json.JSONDecodeError) as exc:
@@ -199,7 +255,17 @@ class ReviewMetadataIndex:
                         exc,
                     )
                     continue
-                self._ingest(payload, meta_path.name)
+                try:
+                    self._ingest(payload, meta_path.name)
+                except Exception as exc:  # noqa: BLE001 — defensive loader
+                    # An unexpected schema in a meta.json must not crash
+                    # the translator. Log and keep going so the other
+                    # languages remain queryable.
+                    logger.warning(
+                        "review-metadata: skipping %s — ingest failed: %s",
+                        meta_path.name,
+                        exc,
+                    )
 
     def _ingest(self, payload: dict, filename: str) -> None:
         lang = str(payload.get("language") or "").strip().lower()

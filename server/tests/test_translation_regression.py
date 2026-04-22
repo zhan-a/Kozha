@@ -130,16 +130,32 @@ def test_fruit_bsl_exists_and_is_parseable() -> None:
     assert not unknown, f"FRUIT in BSL has unknown tags {unknown}"
 
 
-def test_fruit_lsf_is_parseable_but_flags_unknown_tags() -> None:
-    """This is the reported bug case: FRUIT in LSF contains `<hampalmud/>`."""
-    block = _extract_sign_block(DATA_DIR / "French_SL_LSF.sigml", "FRUIT")
-    assert block is not None, "FRUIT entry missing from LSF file"
+def test_fruit_lsf_was_quarantined_by_prompt_7() -> None:
+    """Closure of the prompt-3 bug: FRUIT in LSF used ``<hampalmud/>``,
+    an unknown CWASA tag that the client-side validator rejects. Prompt 7
+    quarantined every entry whose HamNoSys could not be safely auto-
+    repaired, so FRUIT is now in the sidecar, not the active file.
+
+    Asserting both halves pins the guarantee the health audit makes:
+    no unknown tags in the live file, the failing entry preserved in
+    quarantine for community review.
+    """
+    active = _extract_sign_block(DATA_DIR / "French_SL_LSF.sigml", "FRUIT")
+    assert active is None, (
+        "FRUIT is still in the active LSF file — the health audit should "
+        "have moved it to `French_SL_LSF_quarantine.sigml`"
+    )
+    sidecar = DATA_DIR / "French_SL_LSF_quarantine.sigml"
+    assert sidecar.exists(), "LSF quarantine sidecar is missing"
+    block = _extract_sign_block(sidecar, "FRUIT")
+    assert block is not None, "FRUIT missing from LSF quarantine sidecar"
     parseable, unknown = _validate_sign_block(block)
-    assert parseable, "FRUIT in LSF is not well-formed XML"
+    assert parseable, "FRUIT in LSF quarantine is not well-formed XML"
     assert "[object Object]" not in block
     assert "hampalmud" in unknown, (
-        "expected FRUIT in LSF to contain the unknown `hampalmud` tag — if this "
-        "assertion flipped, the data was fixed and prompt 7 can close the loop"
+        "FRUIT in LSF quarantine no longer contains hampalmud — either the "
+        "sidecar was hand-edited or the quarantine decision changed; review "
+        "`docs/polish/07-database-health/French_SL_LSF.md`"
     )
 
 
@@ -185,10 +201,28 @@ def test_no_sigml_file_contains_object_literal() -> None:
         )
 
 
-def test_scanner_detects_known_problem_tags() -> None:
-    """Sanity-check the scanner: it must still flag hampalmud in LSF."""
+def test_scanner_flags_no_unknown_tags_in_active_lsf() -> None:
+    """Scanner sanity post-prompt-7: the active LSF file contains only
+    tags CWASA recognises. All ``hampalmud`` occurrences live in the
+    quarantine sidecar now — scanning the live file returns nothing.
+    """
     unknown = scan_file(DATA_DIR / "French_SL_LSF.sigml", KNOWN_TAGS)
+    assert not unknown, (
+        f"LSF still has unknown tags in the active file: {dict(unknown)}. "
+        f"Rerun `python3 scripts/database_health_audit.py --write`"
+    )
+
+
+def test_scanner_still_sees_hampalmud_in_quarantine() -> None:
+    """The broken entries are preserved, not deleted: the quarantine
+    sidecar still surfaces ``hampalmud`` so community reviewers can find
+    them.
+    """
+    sidecar = DATA_DIR / "French_SL_LSF_quarantine.sigml"
+    if not sidecar.exists():
+        pytest.skip("no LSF quarantine sidecar — nothing to review")
+    unknown = scan_file(sidecar, KNOWN_TAGS)
     assert "hampalmud" in unknown, (
-        "scanner no longer flags hampalmud — either data was cleaned (great, "
-        "remove this assertion) or the scanner is broken"
+        "quarantine sidecar lost hampalmud — someone deleted the failing "
+        "entries; restore them from git so reviewers can see what went wrong"
     )

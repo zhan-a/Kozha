@@ -46,8 +46,14 @@ client = TestClient(app)
 # ---------------------------------------------------------------------------
 
 
+def _active_sigml_paths() -> list[Path]:
+    """Exclude prompt-7 quarantine sidecars — those hold broken entries by
+    design and are not expected to carry review metadata."""
+    return sorted(p for p in DATA_DIR.glob("*.sigml") if "_quarantine" not in p.name)
+
+
 def test_every_sigml_has_meta_file() -> None:
-    sigmls = sorted(DATA_DIR.glob("*.sigml"))
+    sigmls = _active_sigml_paths()
     assert sigmls, "no .sigml files found — the data directory layout changed"
     missing = [p.name for p in sigmls if not (p.with_suffix(".sigml.meta.json")).exists()]
     assert not missing, f"missing .meta.json for: {missing}"
@@ -72,7 +78,7 @@ def _glosses_in(path: Path) -> set[str]:
 
 @pytest.mark.parametrize(
     "sigml_name",
-    [p.name for p in sorted(DATA_DIR.glob("*.sigml"))],
+    [p.name for p in _active_sigml_paths()],
 )
 def test_every_sign_resolves_to_a_record(sigml_name: str) -> None:
     sigml_path = DATA_DIR / sigml_name
