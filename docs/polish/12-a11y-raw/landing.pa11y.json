@@ -1,0 +1,316 @@
+{
+  "documentTitle": "Bridgn — Text and Speech to Sign Language",
+  "pageUrl": "http://127.0.0.1:60789/",
+  "issues": [
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element has \"position: fixed\". This may require scrolling in two dimensions, which is considered a failure of this Success Criterion.",
+      "context": "<header class=\"kz-header\" aria-label=\"Main navigation\">\n    <a href=\"/\" class=\"kz-head...</header>",
+      "selector": "html > body > header",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/\" class=\"kz-header__logo\">Bridg<span>n</span></a>",
+      "selector": "html > body > header > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span>n</span>",
+      "selector": "html > body > header > a > span",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/app.html\" class=\"kz-header__link\" data-i18n=\"common.nav_translate\">Translate</a>",
+      "selector": "html > body > header > ul > li:nth-child(1) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/contribute.html\" class=\"kz-header__link\" data-i18n=\"common.nav_contribute\">Contribute</a>",
+      "selector": "html > body > header > ul > li:nth-child(2) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/progress\" class=\"kz-header__link\" data-i18n=\"common.nav_progress\">Progress</a>",
+      "selector": "html > body > header > ul > li:nth-child(3) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/credits\" class=\"kz-header__link\" data-i18n=\"common.nav_about\">About</a>",
+      "selector": "html > body > header > ul > li:nth-child(4) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H48",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "If this element contains a navigation section, it is recommended that it be marked up as a list.",
+      "context": "<div class=\"hero-actions fade-up delay-4\">\n        <a href=\"/app.html\" cl...</div>",
+      "selector": "#main-content > section:nth-child(1) > div:nth-child(1) > div:nth-child(4)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H85.2",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "If this selection list contains groups of related options, they should be grouped with optgroup.",
+      "context": "<select class=\"demo-lang-select\" id=\"heroSignLang\" aria-label=\"Sign language\">\n            <option value=\"bsl...</select>",
+      "selector": "#heroSignLang",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3_F24.F24.FGColour",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Check that this element has an inherited background colour or image to complement the corresponding inline foreground colour.",
+      "context": "<a href=\"/app.html\" style=\"color: var(--accent); font-weight:600; font-size:12px; text-decoration:none;\">Open full app →</a>",
+      "selector": "#main-content > section:nth-child(1) > div:nth-child(2) > div:nth-child(7) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3_F24.F24.FGColour",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Check that this element has an inherited background colour or image to complement the corresponding inline foreground colour.",
+      "context": "<a href=\"/governance.html\" style=\"color:var(--accent);font-weight:600;\">Governance →</a>",
+      "selector": "#features > div:nth-child(3) > div:nth-child(6) > p > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 3:1.",
+      "context": "<div class=\"step-num\">01</div>",
+      "selector": "#how-it-works > div > div:nth-child(3) > div:nth-child(1) > div:nth-child(1)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<div class=\"step-title\">Provide input</div>",
+      "selector": "#how-it-works > div > div:nth-child(3) > div:nth-child(1) > div:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<p class=\"step-body\">Type text, record speech with y...</p>",
+      "selector": "#how-it-works > div > div:nth-child(3) > div:nth-child(1) > p",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 3:1.",
+      "context": "<div class=\"step-num\">02</div>",
+      "selector": "#how-it-works > div > div:nth-child(3) > div:nth-child(2) > div:nth-child(1)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<div class=\"step-title\">Plan the translation</div>",
+      "selector": "#how-it-works > div > div:nth-child(3) > div:nth-child(2) > div:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<p class=\"step-body\">The planner normalizes your tex...</p>",
+      "selector": "#how-it-works > div > div:nth-child(3) > div:nth-child(2) > p",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 3:1.",
+      "context": "<div class=\"step-num\">03</div>",
+      "selector": "#how-it-works > div > div:nth-child(3) > div:nth-child(3) > div:nth-child(1)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<div class=\"step-title\">Animate the signs</div>",
+      "selector": "#how-it-works > div > div:nth-child(3) > div:nth-child(3) > div:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<p class=\"step-body\">The matched signs are rendered ...</p>",
+      "selector": "#how-it-works > div > div:nth-child(3) > div:nth-child(3) > p",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element has \"position: fixed\". This may require scrolling in two dimensions, which is considered a failure of this Success Criterion.",
+      "context": "<nav class=\"kz-footer__cols\" aria-label=\"Footer\">\n        <div class=\"kz-footer_...</nav>",
+      "selector": "html > body > footer > div > nav",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<h2 class=\"kz-footer__col-title\" data-i18n=\"common.footer_col_use\">Use</h2>",
+      "selector": "html > body > footer > div > nav > div:nth-child(1) > h2",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/app.html\" data-i18n=\"common.nav_translate\">Translate</a>",
+      "selector": "html > body > footer > div > nav > div:nth-child(1) > ul > li:nth-child(1) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/contribute.html\" data-i18n=\"common.nav_contribute\">Contribute</a>",
+      "selector": "html > body > footer > div > nav > div:nth-child(1) > ul > li:nth-child(2) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<h2 class=\"kz-footer__col-title\" data-i18n=\"common.footer_col_project\">Project</h2>",
+      "selector": "html > body > footer > div > nav > div:nth-child(2) > h2",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/progress\" data-i18n=\"common.nav_progress\">Progress</a>",
+      "selector": "html > body > footer > div > nav > div:nth-child(2) > ul > li:nth-child(1) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/credits\" data-i18n=\"common.nav_credits\">Credits</a>",
+      "selector": "html > body > footer > div > nav > div:nth-child(2) > ul > li:nth-child(2) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/governance.html\" data-i18n=\"common.nav_governance\">Governance</a>",
+      "selector": "html > body > footer > div > nav > div:nth-child(2) > ul > li:nth-child(3) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<h2 class=\"kz-footer__col-title\" data-i18n=\"common.footer_col_community\">Community</h2>",
+      "selector": "html > body > footer > div > nav > div:nth-child(3) > h2",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"https://github.com/zhan-a/Kozha\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>",
+      "selector": "html > body > footer > div > nav > div:nth-child(3) > ul > li:nth-child(1) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"mailto:deaf-feedback@kozha.dev\">deaf-feedback@kozha.dev</a>",
+      "selector": "html > body > footer > div > nav > div:nth-child(3) > ul > li:nth-child(2) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    }
+  ]
+}

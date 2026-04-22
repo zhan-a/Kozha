@@ -36,21 +36,19 @@ import pa11y from 'pa11y';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, '..', '..');
 const PUBLIC_DIR = path.join(REPO_ROOT, 'public');
-const RAW_DIR = path.join(
-  REPO_ROOT,
-  'docs',
-  'contribute-redesign',
-  '12-a11y-raw',
-);
-const BASELINE_MD = path.join(
-  REPO_ROOT,
-  'docs',
-  'contribute-redesign',
-  '12-a11y-baseline.md',
-);
 
 const ARGS = new Set(process.argv.slice(2));
 const CI = ARGS.has('--ci');
+// --critical-only is the deploy gate: fail only on *critical* axe
+// violations, tolerating serious/moderate/minor (which may legitimately
+// block for review-and-fix without blocking a deploy). The regular
+// --ci mode is stricter and is what the a11y PR workflow uses.
+const CRITICAL_ONLY = ARGS.has('--critical-only');
+
+// Polish-12 is the current home. The contribute-redesign baseline is kept
+// as historical record; the runner writes the live baseline under polish.
+const RAW_DIR = path.join(REPO_ROOT, 'docs', 'polish', '12-a11y-raw');
+const BASELINE_MD = path.join(REPO_ROOT, 'docs', 'polish', '12-a11y-baseline.md');
 
 fs.mkdirSync(RAW_DIR, { recursive: true });
 
@@ -226,6 +224,30 @@ function makeStatusFixture(status) {
 // navigation; it can inject fixture data, hit buttons, or reveal
 // hidden panels to get the DOM into the right state for the audit.
 
+const PROGRESS_FIXTURE = {
+  generated_at: '2026-04-20T00:00:00Z',
+  totals: { signs: 11003, languages: 12, reviewed: 7103, awaiting: 138 },
+  languages: [
+    { code: 'bsl', name: 'British Sign Language', source: 'DictaSign', total: 881, reviewed: 881, community_pending: 0, alphabet: 'full', top500: 0.92, updated: '2026-04-14' },
+    { code: 'dgs', name: 'German Sign Language', source: 'DGS Lexicon', total: 1914, reviewed: 1914, community_pending: 0, alphabet: 'full', top500: 0.71, updated: '2026-04-13' },
+    { code: 'pjm', name: 'Polish Sign Language', source: 'PJM Dictionary', total: 1932, reviewed: 1932, community_pending: 0, alphabet: 'full', top500: 0.55, updated: '2026-04-10' },
+  ],
+  progress_series: [
+    { date: '2026-01-01', reviewed: 5400 },
+    { date: '2026-02-01', reviewed: 6100 },
+    { date: '2026-03-01', reviewed: 6720 },
+    { date: '2026-04-01', reviewed: 7103 },
+  ],
+  recent_validations: [
+    { gloss: 'ELECTRON', language: 'BSL', reviewer_count: 2, timestamp: '2026-04-15' },
+    { gloss: 'MOLECULE', language: 'DGS', reviewer_count: 2, timestamp: '2026-04-14' },
+  ],
+  help_wanted: {
+    missing_from_asl: ['breakfast', 'cupboard', 'recycle'],
+    missing_from_bsl: ['acorn', 'doorknob', 'thumbtack'],
+  },
+};
+
 function scenarios(port) {
   const base = `http://127.0.0.1:${port}`;
   const withFixtures = async (page) => {
@@ -254,6 +276,14 @@ function scenarios(port) {
             })),
             email: 'deaf-feedback@kozha.dev',
           }),
+        });
+        return;
+      }
+      if (u.endsWith('/progress_snapshot.json')) {
+        req.respond({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify(PROGRESS_FIXTURE),
         });
         return;
       }
@@ -313,6 +343,42 @@ function scenarios(port) {
       id: 'landing',
       label: 'Landing page / (index.html)',
       url: `${base}/`,
+      setUp: null,
+    },
+    {
+      id: 'app-fresh',
+      label: 'Translator /app — fresh load',
+      url: `${base}/app.html`,
+      setUp: async (page) => {
+        await withFixtures(page);
+      },
+    },
+    {
+      id: 'app-mid-translation',
+      label: 'Translator /app — mid-translation (captions, token list, controls active)',
+      url: `${base}/app.html`,
+      setUp: async (page) => {
+        await withFixtures(page);
+      },
+    },
+    {
+      id: 'progress',
+      label: 'Progress dashboard /progress',
+      url: `${base}/progress.html`,
+      setUp: async (page) => {
+        await withFixtures(page);
+      },
+    },
+    {
+      id: 'credits',
+      label: 'Credits /credits',
+      url: `${base}/credits.html`,
+      setUp: null,
+    },
+    {
+      id: 'not-found',
+      label: '404 page',
+      url: `${base}/404.html`,
       setUp: null,
     },
     {
@@ -456,12 +522,12 @@ function mdEscape(s) {
 
 function renderBaseline(results, brokenScenarios) {
   const lines = [];
-  lines.push('# A11y baseline — prompt 12\n');
+  lines.push('# A11y baseline — polish prompt 12\n');
   lines.push(
     `Captured by \`scripts/a11y/run.mjs\` on ${new Date().toISOString().slice(0, 19).replace('T', ' ')} UTC.\n`,
   );
   lines.push(
-    'Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best-practice`) and pa11y (HTML_CodeSniffer, `WCAG2AA`) against each scenario below. Raw JSON per scenario is in `12-a11y-raw/`.\n',
+    'Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best-practice`) and pa11y (HTML_CodeSniffer, `WCAG2AA`) against each scenario below. Raw JSON per scenario is in `12-a11y-raw/`. Screen-reader, keyboard-live, and device-matrix results live in sibling `12-sr-findings.md` and `12-lighthouse-audit.md`.\n',
   );
 
   if (brokenScenarios.length) {
@@ -552,10 +618,16 @@ function renderBaseline(results, brokenScenarios) {
   lines.push('## pa11y warnings accepted as-is\n');
   lines.push(
     [
+      '- **`WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206`** on the site-wide `.kz-header` — the unified header uses `position: fixed` so the translator, contribute flow, progress dashboard, and status pages share the same nav across scroll. pa11y warns about 2D scrolling for any fixed element, but the header content wraps and the hamburger menu engages under 900px — there is no horizontal scroll at any viewport width on any page, including 400% zoom.',
+      '- **`WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha`** on the `.kz-header` nav links — the header has `background: rgba(245,241,235,0.85)` + `backdrop-filter: blur(12px)`. pa11y cannot read the composited background so it warns on any transparency. Computed composite against paper (`#f5f1eb`) is `#eeeae3`; with link color `#3d3630` (ink-2) the ratio is 10.7:1 — AAA. axe correctly passes.',
       '- **`WCAG2AA.Principle1.Guideline1_3.1_3_1.H48`** on the landing hero-actions div — pa11y heuristically suggests any link cluster inside a section be a list. The hero actions are two primary CTA buttons, not navigation. Semantically they belong in a flex row; a `<ul>` would be artificial. No user impact — both buttons are reached by Tab.',
       '- **`WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206`** on `#toast`, `#modalBackdrop`, `#hintStrip` — these use `position: fixed` by function (overlay toast, confirm modal, dismissable keyboard hint). `position: fixed` is inherent to the pattern; the content inside wraps on narrow viewports (see `@media (max-width: 640px)` override). No two-dimensional scrolling in practice.',
       '- **`WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,...`** on the SiGML `<pre>` element — preformatted XML for a reviewer is legitimately not reflowable. `overflow-x: auto` and `max-height: 360px` bound the element; `tabindex="0"` lets keyboard users scroll within it. A hands-on reviewer at 400% zoom on a phone still sees a usable scroll container.',
       '- **`WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha`** on `#governanceReviewers > p`, `#governanceBoard > p`, `#governanceEmailPlain` — these elements have a ~3–4% ink-tint background (`rgba(21,19,15,0.03–0.04)`) for visual grouping. Foreground is solid `--ink` (#15130f); composite background on paper is #eeeae3 / #efebe4, giving >15:1 contrast. pa11y cannot compute composites and warns on any transparency; axe correctly passes these.',
+      '- **`WCAG2AA.Principle1.Guideline1_3.1_3_1.H85.2`** on `#heroSignLang`, `#pickerSelect` — pa11y suggests any long `<select>` with ≥10 options group them with `<optgroup>`. `#heroSignLang` already uses optgroups; the warning fires on the common-vs-more split because pa11y counts options across both groups. `#pickerSelect` lists 12 sign languages total — a flat list is easier to scan than forced groups and matches the per-language progress dashboard. Keyboard users can still type-ahead.',
+      '- **`WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.NoCaption`** on `#progressTable` — pa11y suggests a `<caption>` on data tables. The table has a sibling `<h2 id="tableHeading">Per-language coverage</h2>` and the wrapper `role="region" aria-label="Per-language coverage table"`; the heading serves as the caption and is preferred because it participates in heading-order navigation.',
+      '- **`WCAG2AA.Principle2.Guideline2_5.2_5_3.F96`** on progress-table help-wanted links — the link text is the target English word (e.g. "breakfast") which is the visible label. pa11y thinks the accessible name must include the column value; axe and WCAG 2.5.3 only require the visible label appear — which it does.',
+      '- **`WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.Select.Value`** on `#langHint`, `#signLangSelect`, `#pickerSelect` in fresh-load state — the selects are populated by JS post-DOMContentLoaded. pa11y inspects the DOM before the population event fires in static analysis. Once populated, each select has a real selected option. No run-time impact.',
     ].join('\n') + '\n',
   );
 
@@ -573,6 +645,25 @@ function renderBaseline(results, brokenScenarios) {
   );
 
   return lines.join('\n');
+}
+
+// ---------------------------------------------------------------------
+// Interaction helpers — drive the contribute page past the language
+// picker so downstream panels render. The picker is a native <select>;
+// we set its value and dispatch a change event so the listener fires.
+// ---------------------------------------------------------------------
+
+async function selectContributeLanguage(page) {
+  await page.waitForSelector('#pickerSelect', { timeout: 15000 });
+  await page.evaluate(() => {
+    const sel = document.getElementById('pickerSelect');
+    if (!sel) return;
+    const bsl = Array.from(sel.options).find((o) => o.value === 'bsl');
+    if (bsl) sel.value = 'bsl';
+    sel.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+  // Let the click handler reveal downstream panels and assemble the DOM.
+  await page.evaluate(() => new Promise((r) => setTimeout(r, 250)));
 }
 
 // ---------------------------------------------------------------------
@@ -602,12 +693,9 @@ async function main() {
         // Re-run setUp after nav if it only worked via request interception,
         // so reveal/seed side-effects happen post-navigation.
         if (scn.id === 'contribute-after-language') {
-          await page.waitForSelector('#pickerOptions button', { timeout: 15000 });
-          await page.click('#pickerOptions button');
-          await page.evaluate(() => new Promise((r) => setTimeout(r, 100)));
+          await selectContributeLanguage(page);
         } else if (scn.id === 'contribute-mid-session') {
-          await page.waitForSelector('#pickerOptions button', { timeout: 15000 });
-          await page.click('#pickerOptions button');
+          await selectContributeLanguage(page);
           await page.evaluate(() => {
             ['langMasthead', 'authoring-root', 'chatPanel', 'avatarPreview', 'notationPanel', 'submissionPanel'].forEach((id) => {
               const el = document.getElementById(id);
@@ -642,6 +730,35 @@ async function main() {
               log.appendChild(msg);
             }
           });
+        } else if (scn.id === 'app-mid-translation') {
+          // Seed the translator caption strip, token list and coverage so
+          // axe audits the active state (captions visible, chips focusable)
+          // rather than just the empty-state placeholder.
+          await page.evaluate(() => {
+            const gloss = document.getElementById('captionGloss');
+            const src = document.getElementById('captionSource');
+            if (gloss) { gloss.textContent = 'ELECTRON'; gloss.classList.remove('placeholder'); }
+            if (src) { src.textContent = 'electron'; src.classList.remove('placeholder'); }
+            const tokenList = document.getElementById('tokenList');
+            if (tokenList) {
+              tokenList.innerHTML = '';
+              ['hello','how','are','you'].forEach((t) => {
+                const chip = document.createElement('button');
+                chip.type = 'button';
+                chip.className = 'token-chip';
+                chip.textContent = t;
+                chip.setAttribute('aria-label', t + ', press Enter for details');
+                tokenList.appendChild(chip);
+              });
+            }
+            const coverage = document.getElementById('coverageCounter');
+            if (coverage) coverage.textContent = '4 of 4 tokens mapped';
+            const renderStatus = document.getElementById('renderStatus');
+            if (renderStatus) {
+              renderStatus.textContent = 'Playing';
+              renderStatus.className = 'status-badge ready';
+            }
+          });
         }
 
         const axeRes = await runAxe(page);
@@ -656,7 +773,10 @@ async function main() {
         // state and only run it where the plain navigated URL reflects
         // the scenario.
         let pa11ySum = { counts: { error: 0, warning: 0 }, issues: [] };
-        const pa11yEligible = !scn.id.startsWith('contribute-after') && !scn.id.startsWith('contribute-mid');
+        const pa11yEligible =
+          !scn.id.startsWith('contribute-after') &&
+          !scn.id.startsWith('contribute-mid') &&
+          !scn.id.startsWith('app-mid');
         if (pa11yEligible) {
           const pa11yRes = await runPa11y(scn.url, scn.id);
           fs.writeFileSync(
@@ -698,6 +818,10 @@ async function main() {
     serious += r.axe.counts.serious;
   }
   console.log(`[a11y] totals: ${crit} critical, ${serious} serious`);
+  if (CRITICAL_ONLY && crit > 0) {
+    console.error('[a11y] deploy-gate mode: failing on critical violations');
+    process.exit(1);
+  }
   if (CI && (crit > 0 || serious > 0)) {
     console.error('[a11y] CI mode: failing on critical/serious violations');
     process.exit(1);

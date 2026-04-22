@@ -92,6 +92,7 @@
   };
 
   function wireUI() {
+    var form = document.getElementById('byoKeyForm');
     var input = document.getElementById('byoKeyInput');
     var saveBtn = document.getElementById('byoKeySaveBtn');
     var clearBtn = document.getElementById('byoKeyClearBtn');
@@ -124,7 +125,8 @@
       error.hidden = false;
     }
 
-    saveBtn.addEventListener('click', function () {
+    function handleSave(evt) {
+      if (evt && typeof evt.preventDefault === 'function') evt.preventDefault();
       var value = (input.value || '').trim();
       if (!value) {
         showError('Paste a key before saving.');
@@ -139,18 +141,20 @@
         return;
       }
       render();
-    });
+    }
+
+    // Wire the form submit so that pressing Enter inside the input, or
+    // clicking the Save button (type="submit"), both route through one
+    // handler. The form has a submit button for WCAG 3.2.2 compliance.
+    if (form) {
+      form.addEventListener('submit', handleSave);
+    } else {
+      saveBtn.addEventListener('click', handleSave);
+    }
 
     clearBtn.addEventListener('click', function () {
       writeKey('');
       render();
-    });
-
-    input.addEventListener('keydown', function (evt) {
-      if (evt.key === 'Enter') {
-        evt.preventDefault();
-        saveBtn.click();
-      }
     });
 
     render();

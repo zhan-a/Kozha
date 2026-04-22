@@ -1,0 +1,136 @@
+{
+  "documentTitle": "Contribute a sign — Bridgn",
+  "pageUrl": "http://127.0.0.1:60789/contribute.html",
+  "issues": [
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element has \"position: fixed\". This may require scrolling in two dimensions, which is considered a failure of this Success Criterion.",
+      "context": "<header class=\"kz-header\" aria-label=\"Main navigation\">\n    <a href=\"/\" class=\"kz-head...</header>",
+      "selector": "html > body > header",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/\" class=\"kz-header__logo\" data-i18n=\"common.site_name\">Bridgn</a>",
+      "selector": "html > body > header > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/app.html\" class=\"kz-header__link\" data-i18n=\"common.nav_translate\">Translate</a>",
+      "selector": "html > body > header > ul > li:nth-child(1) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/contribute.html\" class=\"kz-header__link is-active\" aria-current=\"page\" data-i18n=\"common.nav_contribute\">Contribute</a>",
+      "selector": "html > body > header > ul > li:nth-child(2) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/progress\" class=\"kz-header__link\" data-i18n=\"common.nav_progress\">Progress</a>",
+      "selector": "html > body > header > ul > li:nth-child(3) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/credits\" class=\"kz-header__link\" data-i18n=\"common.nav_about\">About</a>",
+      "selector": "html > body > header > ul > li:nth-child(4) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H48",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "If this element contains a navigation section, it is recommended that it be marked up as a list.",
+      "context": "<p class=\"contribute-paused-links\">\n        <a href=\"/governance.h...</p>",
+      "selector": "#contributePaused > p:nth-child(4)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.Select.Value",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This select element does not have a value available to an accessibility API.",
+      "context": "<select id=\"pickerSelect\" class=\"field-input\" aria-describedby=\"pickerNote\"><option value=\"\" disabled=\"\">Ch...</select>",
+      "selector": "#pickerSelect",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H85.2",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "If this selection list contains groups of related options, they should be grouped with optgroup.",
+      "context": "<select id=\"pickerSelect\" class=\"field-input\" aria-describedby=\"pickerNote\"><option value=\"\" disabled=\"\">Ch...</select>",
+      "selector": "#pickerSelect",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Preformatted text may require scrolling in two dimensions, which is considered a failure of this Success Criterion.",
+      "context": null,
+      "selector": "",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element has \"position: fixed\". This may require scrolling in two dimensions, which is considered a failure of this Success Criterion.",
+      "context": "<div class=\"toast\" id=\"toast\" role=\"status\" aria-live=\"polite\" hidden=\"\"></div>",
+      "selector": "#toast",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element has \"position: fixed\". This may require scrolling in two dimensions, which is considered a failure of this Success Criterion.",
+      "context": "<div class=\"modal-backdrop\" id=\"modalBackdrop\" hidden=\"\">\n    <div class=\"modal card kz-...</div>",
+      "selector": "#modalBackdrop",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element has \"position: fixed\". This may require scrolling in two dimensions, which is considered a failure of this Success Criterion.",
+      "context": "<div class=\"hint-strip\" id=\"hintStrip\" role=\"status\" hidden=\"\">\n    <span class=\"hint-strip-bo...</div>",
+      "selector": "#hintStrip",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    }
+  ]
+}

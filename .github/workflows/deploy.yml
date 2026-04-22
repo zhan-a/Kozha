@@ -7,7 +7,34 @@ concurrency:
   group: deploy-main
   cancel-in-progress: true
 jobs:
+  # polish-12 §14: critical-only a11y gate — fail the deploy if any
+  # page has a critical axe violation. Serious/moderate/minor are
+  # tracked in docs/polish/12-a11y-baseline.md and reviewed separately;
+  # they don't block a deploy because a legitimate copy change can
+  # introduce a moderate regression that the operator wants to ship.
+  a11y-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+      - name: Install dev dependencies
+        run: npm ci
+      - name: Install Chromium runtime deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 \
+            libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 \
+            libxrandr2 libgbm1 libpango-1.0-0 libcairo2 libasound2t64
+      - name: Run axe deploy-gate (critical only)
+        run: npm run a11y:deploy-gate
+
   deploy:
+    needs: a11y-gate
     runs-on: ubuntu-latest
     steps:
       - name: Checkout (optional)

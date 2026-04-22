@@ -1,19 +1,21 @@
 name: a11y baseline
 
-# Runs axe-core + pa11y against the 11 frontend scenarios documented in
-# docs/contribute-redesign/12-a11y-baseline.md. Fails the build on any new
-# critical or serious axe violation (the baseline in main is zero; this
-# workflow guards against regressions).
+# Runs axe-core + pa11y against the 16 frontend scenarios documented in
+# docs/polish/12-a11y-baseline.md (landing, /app fresh+mid, /progress,
+# /credits, /404, contribute variants, governance, status variants).
+# Fails the build on any new critical or serious axe violation (baseline
+# in main is zero; this workflow guards against regressions).
 #
 # Local: `npm run a11y` (writes the baseline md) or `npm run a11y:ci`
-# (same run, CI flag so the script uses strict exit codes on critical /
-# serious).
+# (same run, strict exit codes on critical / serious). For deploy-gate
+# severity (critical-only), use `npm run a11y:deploy-gate`.
 
 on:
   pull_request:
     paths:
       - "public/**"
       - "scripts/a11y/**"
+      - "tests/a11y/**"
       - "package.json"
       - "package-lock.json"
       - ".github/workflows/a11y.yml"
@@ -22,6 +24,7 @@ on:
     paths:
       - "public/**"
       - "scripts/a11y/**"
+      - "tests/a11y/**"
       - "package.json"
       - "package-lock.json"
       - ".github/workflows/a11y.yml"
@@ -72,6 +75,6 @@ jobs:
         with:
           name: a11y-baseline-${{ github.run_id }}
           path: |
-            docs/contribute-redesign/12-a11y-baseline.md
-            docs/contribute-redesign/12-a11y-raw/
+            docs/polish/12-a11y-baseline.md
+            docs/polish/12-a11y-raw/
           retention-days: 30

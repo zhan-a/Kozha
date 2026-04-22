@@ -1,0 +1,356 @@
+{
+  "documentTitle": "Progress — Bridgn",
+  "pageUrl": "http://127.0.0.1:60789/progress.html",
+  "issues": [
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element has \"position: fixed\". This may require scrolling in two dimensions, which is considered a failure of this Success Criterion.",
+      "context": "<header class=\"kz-header\" aria-label=\"Main navigation\">\n    <a href=\"/\" class=\"kz-head...</header>",
+      "selector": "html > body > header",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/\" class=\"kz-header__logo\">Bridg<span>n</span></a>",
+      "selector": "html > body > header > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span>n</span>",
+      "selector": "html > body > header > a > span",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/app.html\" class=\"kz-header__link\">Translate</a>",
+      "selector": "html > body > header > ul > li:nth-child(1) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/contribute.html\" class=\"kz-header__link\">Contribute</a>",
+      "selector": "html > body > header > ul > li:nth-child(2) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/progress\" class=\"kz-header__link is-active\" aria-current=\"page\">Progress</a>",
+      "selector": "html > body > header > ul > li:nth-child(3) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/credits\" class=\"kz-header__link\">About</a>",
+      "selector": "html > body > header > ul > li:nth-child(4) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.NoCaption",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "If this table is a data table, consider using a caption element to the table element to identify this table.",
+      "context": "<table class=\"progress-table\" id=\"progressTable\">\n          <thead>\n            ...</table>",
+      "selector": "#progressTable",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<button type=\"button\" class=\"progress-sort\" data-sort=\"community\" aria-label=\"Sort by community-contributed pending count\">Community pending<span class=\"p...</button>",
+      "selector": "#progressTable > thead > tr > th:nth-child(5) > button",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#vsl\" aria-label=\"Open full citation and license for Vietnamese Sign Language\">VSL by Raian Rido (community)</a>",
+      "selector": "#progressTableBody > tr:nth-child(1) > td:nth-child(2) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#dgs\" aria-label=\"Open full citation and license for German Sign Language\">DGS Lexicon via SignAvatars (Un...</a>",
+      "selector": "#progressTableBody > tr:nth-child(2) > td:nth-child(2) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#pjm\" aria-label=\"Open full citation and license for Polish Sign Language\">PJM Dictionary via SignAvatars ...</a>",
+      "selector": "#progressTableBody > tr:nth-child(3) > td:nth-child(2) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#bsl\" aria-label=\"Open full citation and license for British Sign Language\">DictaSign Corpus (Universitat H...</a>",
+      "selector": "#progressTableBody > tr:nth-child(4) > td:nth-child(2) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#isl\" aria-label=\"Open full citation and license for Indian Sign Language\">Text-to-Sign-Language / text_to...</a>",
+      "selector": "#progressTableBody > tr:nth-child(5) > td:nth-child(2) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#kurdish\" aria-label=\"Open full citation and license for Kurdish Sign Language\">KurdishSignLanguage by KurdishB...</a>",
+      "selector": "#progressTableBody > tr:nth-child(6) > td:nth-child(2) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#gsl\" aria-label=\"Open full citation and license for Greek Sign Language\">DictaSign Corpus via SignAvatar...</a>",
+      "selector": "#progressTableBody > tr:nth-child(7) > td:nth-child(2) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#lsf\" aria-label=\"Open full citation and license for French Sign Language\">DictaSign Corpus via SignAvatar...</a>",
+      "selector": "#progressTableBody > tr:nth-child(8) > td:nth-child(2) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#ngt\" aria-label=\"Open full citation and license for Dutch Sign Language\">SignLanguageSynthesis by Lyke E...</a>",
+      "selector": "#progressTableBody > tr:nth-child(9) > td:nth-child(2) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#bangla\" aria-label=\"Open full citation and license for Bangla Sign Language\">bdsl-3d-animation by Devr Arif ...</a>",
+      "selector": "#progressTableBody > tr:nth-child(10) > td:nth-child(2) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#bsl\" aria-label=\"Open full citation and license for American Sign Language\">ASL manual alphabet (community-...</a>",
+      "selector": "#progressTableBody > tr:nth-child(11) > td:nth-child(2) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#algerian\" aria-label=\"Open full citation and license for Algerian Sign Language\">algerianSignLanguage-avatar by ...</a>",
+      "selector": "#progressTableBody > tr:nth-child(12) > td:nth-child(2) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#fsl\" aria-label=\"Open full citation and license for Filipino Sign Language\">syntheticfsl / signtyper by Jen...</a>",
+      "selector": "#progressTableBody > tr:nth-child(13) > td:nth-child(2) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#vsl\" aria-label=\"Open full citation and license for Vietnamese Sign Language\">VSL by Raian Rido (community)</a>",
+      "selector": "#progressCards > article:nth-child(1) > div:nth-child(2) > div:nth-child(7) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#dgs\" aria-label=\"Open full citation and license for German Sign Language\">DGS Lexicon via SignAvatars (Un...</a>",
+      "selector": "#progressCards > article:nth-child(2) > div:nth-child(2) > div:nth-child(7) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#pjm\" aria-label=\"Open full citation and license for Polish Sign Language\">PJM Dictionary via SignAvatars ...</a>",
+      "selector": "#progressCards > article:nth-child(3) > div:nth-child(2) > div:nth-child(7) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#bsl\" aria-label=\"Open full citation and license for British Sign Language\">DictaSign Corpus (Universitat H...</a>",
+      "selector": "#progressCards > article:nth-child(4) > div:nth-child(2) > div:nth-child(7) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#isl\" aria-label=\"Open full citation and license for Indian Sign Language\">Text-to-Sign-Language / text_to...</a>",
+      "selector": "#progressCards > article:nth-child(5) > div:nth-child(2) > div:nth-child(7) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#kurdish\" aria-label=\"Open full citation and license for Kurdish Sign Language\">KurdishSignLanguage by KurdishB...</a>",
+      "selector": "#progressCards > article:nth-child(6) > div:nth-child(2) > div:nth-child(7) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#gsl\" aria-label=\"Open full citation and license for Greek Sign Language\">DictaSign Corpus via SignAvatar...</a>",
+      "selector": "#progressCards > article:nth-child(7) > div:nth-child(2) > div:nth-child(7) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#lsf\" aria-label=\"Open full citation and license for French Sign Language\">DictaSign Corpus via SignAvatar...</a>",
+      "selector": "#progressCards > article:nth-child(8) > div:nth-child(2) > div:nth-child(7) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#ngt\" aria-label=\"Open full citation and license for Dutch Sign Language\">SignLanguageSynthesis by Lyke E...</a>",
+      "selector": "#progressCards > article:nth-child(9) > div:nth-child(2) > div:nth-child(7) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#bangla\" aria-label=\"Open full citation and license for Bangla Sign Language\">bdsl-3d-animation by Devr Arif ...</a>",
+      "selector": "#progressCards > article:nth-child(10) > div:nth-child(2) > div:nth-child(7) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#bsl\" aria-label=\"Open full citation and license for American Sign Language\">ASL manual alphabet (community-...</a>",
+      "selector": "#progressCards > article:nth-child(11) > div:nth-child(2) > div:nth-child(7) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#algerian\" aria-label=\"Open full citation and license for Algerian Sign Language\">algerianSignLanguage-avatar by ...</a>",
+      "selector": "#progressCards > article:nth-child(12) > div:nth-child(2) > div:nth-child(7) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<a class=\"progress-source-link\" href=\"/credits#fsl\" aria-label=\"Open full citation and license for Filipino Sign Language\">syntheticfsl / signtyper by Jen...</a>",
+      "selector": "#progressCards > article:nth-child(13) > div:nth-child(2) > div:nth-child(7) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    }
+  ]
+}

@@ -1,0 +1,156 @@
+{
+  "documentTitle": "Bridgn — Translator",
+  "pageUrl": "http://127.0.0.1:60789/app.html",
+  "issues": [
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element has \"position: fixed\". This may require scrolling in two dimensions, which is considered a failure of this Success Criterion.",
+      "context": "<header class=\"kz-header\" aria-label=\"Main navigation\">\n    <a href=\"/\" class=\"kz-head...</header>",
+      "selector": "html > body > header",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/\" class=\"kz-header__logo\">Bridg<span>n</span></a>",
+      "selector": "html > body > header > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span>n</span>",
+      "selector": "html > body > header > a > span",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/app.html\" class=\"kz-header__link is-active\" aria-current=\"page\">Translate</a>",
+      "selector": "html > body > header > ul > li:nth-child(1) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/contribute.html\" class=\"kz-header__link\">Contribute</a>",
+      "selector": "html > body > header > ul > li:nth-child(2) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/progress\" class=\"kz-header__link\">Progress</a>",
+      "selector": "html > body > header > ul > li:nth-child(3) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/credits\" class=\"kz-header__link\">About</a>",
+      "selector": "html > body > header > ul > li:nth-child(4) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.Select.Value",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This select element does not have a value available to an accessibility API.",
+      "context": "<select id=\"langHint\" aria-describedby=\"langHintNote\">\n                <optgroup labe...</select>",
+      "selector": "#langHint",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.Select.Value",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This select element does not have a value available to an accessibility API.",
+      "context": "<select id=\"signLangSelect\" aria-describedby=\"signLangNote\"><option value=\"bsl\">BSL (Britis...</select>",
+      "selector": "#signLangSelect",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H85.2",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "If this selection list contains groups of related options, they should be grouped with optgroup.",
+      "context": "<select id=\"signLangSelect\" aria-describedby=\"signLangNote\"><option value=\"bsl\">BSL (Britis...</select>",
+      "selector": "#signLangSelect",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3_F24.F24.FGColour",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Check that this element has an inherited background colour or image to complement the corresponding inline foreground colour.",
+      "context": "<div id=\"allowedOut\" style=\"font-family: ui-monospace, monospace; font-size:12px; color:var(--ink-3); max-height:160px; overflow:auto; line-height:1.8;\"></div>",
+      "selector": "#allowedOut",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.Select.Value",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This select element does not have a value available to an accessibility API.",
+      "context": "<select id=\"avatarSelect\"><option value=\"anna\">Anna</opti...</select>",
+      "selector": "#avatarSelect",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H85.2",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "If this selection list contains groups of related options, they should be grouped with optgroup.",
+      "context": "<select id=\"avatarSelect\"><option value=\"anna\">Anna</opti...</select>",
+      "selector": "#avatarSelect",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Abs",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element is absolutely positioned and the background color can not be determined. Ensure the contrast ratio between the text and all covered parts of the background are at least 3:1.",
+      "context": "<span class=\"avatar-placeholder-icon\" aria-hidden=\"true\">🤟</span>",
+      "selector": "#avatarPlaceholder > span:nth-child(1)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Abs",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element is absolutely positioned and the background color can not be determined. Ensure the contrast ratio between the text and all covered parts of the background are at least 4.5:1.",
+      "context": "<span>Ready when you are.</span>",
+      "selector": "#avatarPlaceholder > span:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    }
+  ]
+}

@@ -276,12 +276,15 @@
       var key = btn.getAttribute('data-sort');
       var active = key === state.sort.key;
       btn.classList.toggle('is-active', active);
+      // aria-sort is only valid on columnheader/rowheader (the <th>), not
+      // on a child <button>, so announce the sort state on the header.
+      var th = btn.closest('th');
       if (active) {
         btn.setAttribute('data-direction', state.sort.direction);
-        btn.setAttribute('aria-sort', state.sort.direction === 'asc' ? 'ascending' : 'descending');
+        if (th) th.setAttribute('aria-sort', state.sort.direction === 'asc' ? 'ascending' : 'descending');
       } else {
         btn.removeAttribute('data-direction');
-        btn.setAttribute('aria-sort', 'none');
+        if (th) th.setAttribute('aria-sort', 'none');
       }
     });
   }
