@@ -181,9 +181,14 @@ async function exerciseFruit(page, lang) {
   }, lang);
 }
 
+// expectMalformed encodes the validator's expected state *after* the
+// prompt-7 data-health quarantine pass. The LSF fruit entry was the
+// original `[object Object]` bug (used <hampalmud/>); the quarantine
+// either repaired or quarantined malformed entries, so the validator
+// should no longer flag anything on the clean paths.
 const CASES = [
   { lang: 'bsl', expectMalformed: false, expectSigml: true, label: 'English fruit → BSL' },
-  { lang: 'lsf', expectMalformed: true,  expectSigml: true, label: 'English fruit → LSF (reported bug)' },
+  { lang: 'lsf', expectMalformed: false, expectSigml: true, label: 'English fruit → LSF (reported bug, now fixed)' },
   { lang: 'asl', expectMalformed: false, expectSigml: true, label: 'English fruit → ASL (BSL alias)' },
   { lang: 'dgs', expectMalformed: false, expectSigml: false, label: 'English fruit → DGS (no FRUIT entry)' },
   { lang: 'pjm', expectMalformed: null,  expectSigml: null,  label: 'English fruit → PJM (whatever the DB has)' },

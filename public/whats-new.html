@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>What's new — Bridgn</title>
+  <meta name="description" content="Plain-language changelog of the April 2026 polish release: translator bug fixes, new progress dashboard, expanded credits, and a11y improvements.">
+  <meta property="og:title" content="What's new — Bridgn">
+  <meta property="og:description" content="Plain-language changelog of the April 2026 polish release.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kozha-translate.com/whats-new">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://kozha-translate.com/whats-new">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="/styles/tokens.css">
+  <link rel="stylesheet" href="/styles/components.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/contribute.css">
+  <script defer src="/i18n.js"></script>
+  <meta name="theme-color" content="#f5f1eb" />
+  <style>
+    main.whats-new {
+      max-width: var(--kozha-layout-page-max);
+      margin: 0 auto;
+      padding: calc(var(--kozha-layout-nav-h) + var(--kozha-space-8))
+               var(--kozha-space-8)
+               var(--kozha-space-16);
+    }
+    main.whats-new h1 {
+      font-family: var(--kozha-font-serif);
+      font-size: var(--kozha-text-hero-h1);
+      font-weight: var(--kozha-weight-regular);
+      letter-spacing: var(--kozha-tracking-tightest);
+      line-height: var(--kozha-leading-tight);
+      color: var(--kozha-color-ink);
+      margin: 0 0 var(--kozha-space-4);
+    }
+    main.whats-new .lede {
+      font-size: var(--kozha-text-hero-sub);
+      line-height: var(--kozha-leading-loose);
+      color: var(--kozha-color-ink-2);
+      margin: 0 0 var(--kozha-space-8);
+      max-width: 62ch;
+    }
+    main.whats-new h2 {
+      font-family: var(--kozha-font-serif);
+      font-size: var(--kozha-text-contribute-h2);
+      font-weight: var(--kozha-weight-regular);
+      color: var(--kozha-color-ink);
+      margin: var(--kozha-space-10) 0 var(--kozha-space-3);
+    }
+    main.whats-new p,
+    main.whats-new li {
+      font-size: var(--kozha-text-body-lg);
+      line-height: var(--kozha-leading-loose);
+      color: var(--kozha-color-ink-2);
+      max-width: 62ch;
+    }
+    main.whats-new ul {
+      list-style: disc outside;
+      padding-left: var(--kozha-space-6);
+      margin: 0 0 var(--kozha-space-4);
+    }
+    main.whats-new li {
+      margin: 0 0 var(--kozha-space-3);
+    }
+    main.whats-new strong { color: var(--kozha-color-ink); }
+    main.whats-new a { color: var(--kozha-color-accent); }
+    main.whats-new .meta {
+      font-size: var(--kozha-text-body);
+      color: var(--kozha-color-ink-3);
+      margin: var(--kozha-space-8) 0 0;
+    }
+    @media (max-width: 1099px) {
+      main.whats-new {
+        padding: calc(var(--kozha-layout-nav-h) + var(--kozha-space-4))
+                 var(--kozha-space-4)
+                 var(--kozha-space-12);
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link kz-skip-link">Skip to main content</a>
+
+  <header class="kz-header" aria-label="Main navigation">
+    <a href="/" class="kz-header__logo">Bridg<span>n</span></a>
+    <ul class="kz-header__nav">
+      <li><a href="/app.html" class="kz-header__link">Translate</a></li>
+      <li><a href="/contribute.html" class="kz-header__link">Contribute</a></li>
+      <li><a href="/progress" class="kz-header__link">Progress</a></li>
+      <li><a href="/credits" class="kz-header__link">About</a></li>
+    </ul>
+    <button class="kz-header__hamburger" type="button" aria-label="Menu" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </header>
+
+  <main class="whats-new" id="main">
+    <ol class="kz-breadcrumbs" aria-label="Breadcrumb">
+      <li><a href="/">Home</a></li>
+      <li aria-current="page">What's new</li>
+    </ol>
+    <h1>What's new</h1>
+    <p class="lede">
+      Plain-language summary of the April 2026 polish release. This page is a shortened, user-facing version of the full changelog; the source-of-truth record lives in the repository at <code>docs/polish/14-changelog.md</code>.
+    </p>
+
+    <h2>Fixed</h2>
+    <ul>
+      <li>
+        <strong>Translator bug where certain word → language combinations produced no output.</strong>
+        The original report was English &ldquo;fruit&rdquo; &rarr; LSF, which emitted a SiGML string containing a literal <code>[object Object]</code> and failed to render. The fix was twofold: the HamNoSys composer no longer produces that string, and similar database entries using the unsupported <code>&lt;hampalmud/&gt;</code> tag were either repaired or quarantined.
+      </li>
+      <li>
+        <strong>Contribute-page pipeline could get stuck on common English terms.</strong>
+        Describing a sign like &ldquo;dominant hand up and waving&rdquo; used to bounce the <em>waving</em> token into an LLM fallback that sometimes failed. The vocabulary now maps <em>waving</em> / <em>wave</em> / <em>waves</em> to the HamNoSys pendulum-swing codepoint so the deterministic composer resolves them without calling out.
+      </li>
+    </ul>
+
+    <h2>New</h2>
+    <ul>
+      <li>
+        <strong>Progress dashboard at <a href="/progress">/progress</a>.</strong>
+        Public, live view of language coverage, reviewer status, and cross-language gloss gaps. The &ldquo;Help wanted&rdquo; section shows real gaps; clicking one pre-fills the contribute form.
+      </li>
+      <li>
+        <strong>Expanded credits page at <a href="/credits">/credits</a>.</strong>
+        Full per-corpus attribution: institution, license where declared, entry count, reviewer provenance, and upstream links. Corpora without a declared upstream license are marked plainly as &ldquo;License unclear&rdquo;.
+      </li>
+      <li>
+        <strong>&ldquo;Reviewed by Deaf native signer&rdquo; badges on every translated word.</strong>
+        The badge appears inline in translator output and on the contribute-page preview.
+      </li>
+      <li>
+        <strong>Health, metrics, and snapshot endpoints.</strong>
+        <code>/health</code>, <code>/metrics</code>, and a scheduled snapshot pipeline now back the public dashboards.
+      </li>
+      <li>
+        <strong>Governance page at <a href="/governance.html">/governance</a>.</strong>
+        Standing reviewer list, evaluation criteria, and refusal mechanism.
+      </li>
+    </ul>
+
+    <h2>Improved</h2>
+    <ul>
+      <li>
+        <strong>Contribute page design now matches the main site.</strong>
+        The old brutalist shell was reconciled to the warm main-page design system. Every JS module ID is preserved.
+      </li>
+      <li>
+        <strong>Translator smoothness, accessibility, and mobile experience.</strong>
+        Loading bar appears only past a 200 ms threshold, reduced-motion preference is honoured, the visible focus ring is enforced, and every public route now passes axe-core with zero critical or serious violations &mdash; and scores 100 on Lighthouse accessibility.
+      </li>
+      <li>
+        <strong>Unified navigation, footer, sitemap, and 404 across every public page.</strong>
+      </li>
+    </ul>
+
+    <h2>Honest limitations we ship with</h2>
+    <ul>
+      <li>
+        The Deaf native-signer reviewer pool is still zero in the live snapshot. The dashboard reflects the truth: we have the infrastructure but not yet a reviewer. Community contributions are marked &ldquo;Not yet reviewed&rdquo; until that changes.
+      </li>
+      <li>
+        Landing and translator pages score below the Lighthouse desktop performance target (77&ndash;78 vs 85). The bottleneck is the CWASA avatar bundle, a licensed third-party dependency we cannot modify. Lazy-loading CWASA on the landing page is a documented follow-up.
+      </li>
+      <li>
+        The HamNoSys notation font (<code>bgHamNoSysUnicode.ttf</code>) is referenced by the CSS but the binary is not yet committed. When the file is missing the browser falls back to the system monospace font; the page never errors. Getting the binary shipped through IDGS's distribution terms is on the post-launch punch list.
+      </li>
+    </ul>
+
+    <p class="meta">
+      Release date: 2026-04-22 &middot; Full technical notes in
+      <a href="https://github.com/zhan-a/Kozha/blob/main/docs/polish/14-changelog.md" rel="noopener">docs/polish/14-changelog.md</a>.
+    </p>
+  </main>
+
+  <footer class="kz-footer" role="contentinfo">
+    <div class="kz-footer__inner">
+      <div class="kz-footer__brand">
+        <a href="/" class="kz-footer__logo">Bridg<span>n</span></a>
+        <p class="kz-footer__mission">Open-source translator from text and speech into sign language. Built with the Deaf community.</p>
+      </div>
+      <nav class="kz-footer__cols" aria-label="Footer">
+        <div class="kz-footer__col">
+          <h2 class="kz-footer__col-title">Use</h2>
+          <ul>
+            <li><a href="/app.html">Translate</a></li>
+            <li><a href="/contribute.html">Contribute</a></li>
+          </ul>
+        </div>
+        <div class="kz-footer__col">
+          <h2 class="kz-footer__col-title">Project</h2>
+          <ul>
+            <li><a href="/progress">Progress</a></li>
+            <li><a href="/credits">Credits</a></li>
+            <li><a href="/governance.html">Governance</a></li>
+            <li><a href="/whats-new.html" aria-current="page">What's new</a></li>
+          </ul>
+        </div>
+        <div class="kz-footer__col">
+          <h2 class="kz-footer__col-title">Community</h2>
+          <ul>
+            <li><a href="https://github.com/zhan-a/Kozha" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="mailto:deaf-feedback@kozha.dev">deaf-feedback@kozha.dev</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div class="kz-footer__meta">
+        <p class="kz-footer__copy">© 2025–2026 Bridgn. Open-source research project.</p>
+        <p class="kz-footer__os">Open source on <a href="https://github.com/zhan-a/Kozha" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/nav.js"></script>
+</body>
+</html>

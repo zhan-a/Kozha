@@ -51,6 +51,8 @@
 
   var COPY = {
     get CLARIFICATION_LABEL()          { return tr('contribute.chat.clarification_label', 'Clarification:'); },
+    get ERROR_LABEL()                  { return tr('contribute.chat.error_label', 'Error:'); },
+    get NOTICE_LABEL()                 { return tr('contribute.chat.notice_label', 'Notice:'); },
     get INPUT_LABEL_ANSWER()           { return tr('contribute.chat.input_label_answer', 'Your answer'); },
     get INPUT_LABEL_CORRECTION()       { return tr('contribute.chat.input_label_correction', 'Describe what should change'); },
     get INPUT_PLACEHOLDER_ANSWER()     { return tr('contribute.chat.input_placeholder_answer', 'Type your answer…'); },
@@ -143,10 +145,18 @@
     msg.className = 'chat-msg chat-msg-' + opts.kind;
     msg.setAttribute('title', fmtTime(opts.ts));
 
-    if (opts.kind === 'system') {
+    var labelText = null;
+    if (opts.kind === 'error') {
+      labelText = COPY.ERROR_LABEL;
+    } else if (opts.kind === 'notice') {
+      labelText = COPY.NOTICE_LABEL;
+    } else if (opts.kind === 'system') {
+      labelText = COPY.CLARIFICATION_LABEL;
+    }
+    if (labelText) {
       var label = document.createElement('span');
       label.className = 'chat-msg-label';
-      label.textContent = COPY.CLARIFICATION_LABEL;
+      label.textContent = labelText;
       msg.appendChild(label);
     }
 
@@ -400,7 +410,7 @@
     if (window.console) console.error('[contribute-chat] action failed:', err);
     chat.inError = true;
     var picked = pickErrorMessage(err);
-    appendMessage({ kind: 'system', text: picked.text });
+    appendMessage({ kind: 'error', text: picked.text });
     els.errorActions.hidden = !picked.offerSubmitAsIs;
   }
 
@@ -553,13 +563,13 @@
     if (sig === chat.lastSurfacedGenerationError) return;
     chat.lastSurfacedGenerationError = sig;
     chat.inError = true;
-    appendMessage({ kind: 'system', text: COPY.ERROR_MSG });
-    appendMessage({ kind: 'system', text: COPY.GENERATION_FAILED_DEBUG + errs[0] });
+    appendMessage({ kind: 'error', text: COPY.ERROR_MSG });
+    appendMessage({ kind: 'notice', text: COPY.GENERATION_FAILED_DEBUG + errs[0] });
     if (path) {
-      appendMessage({ kind: 'system', text: COPY.GENERATION_PATH_LABEL + path });
+      appendMessage({ kind: 'notice', text: COPY.GENERATION_PATH_LABEL + path });
     }
     if (cand) {
-      appendMessage({ kind: 'system', text: COPY.GENERATION_CANDIDATE_LABEL + cand });
+      appendMessage({ kind: 'notice', text: COPY.GENERATION_CANDIDATE_LABEL + cand });
     }
     els.errorActions.hidden = false;
   }
@@ -637,7 +647,7 @@
     reset: resetChat,
     showError: function () {
       chat.inError = true;
-      appendMessage({ kind: 'system', text: COPY.ERROR_MSG });
+      appendMessage({ kind: 'error', text: COPY.ERROR_MSG });
       els.errorActions.hidden = false;
     },
     setCorrectionTarget:   setCorrectionTarget,

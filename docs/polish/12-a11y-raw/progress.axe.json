@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-22T16:53:15.574Z",
-  "url": "http://127.0.0.1:60789/progress.html",
+  "timestamp": "2026-04-22T23:45:52.305Z",
+  "url": "http://127.0.0.1:55369/progress.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -8065,6 +8065,31 @@
             {
               "id": "color-contrast",
               "data": {
+                "fgColor": "#3d3630",
+                "bgColor": "#f5f1eb",
+                "contrastRatio": 10.55,
+                "fontSize": "9.8pt (13px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 10.55"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<a href=\"/whats-new.html\">What’s new</a>",
+          "target": [
+            "a[href$=\"whats-new.html\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
                 "fgColor": "#1a1612",
                 "bgColor": "#f5f1eb",
                 "contrastRatio": 15.98,
@@ -10164,6 +10189,32 @@
             }
           ],
           "impact": null,
+          "html": "<a href=\"/whats-new.html\">What’s new</a>",
+          "target": [
+            "a[href$=\"whats-new.html\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [
+            {
+              "id": "focusable-no-name",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element is not in tab order or has accessible text"
+            }
+          ],
+          "impact": null,
           "html": "<a href=\"https://github.com/zhan-a/Kozha\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>",
           "target": [
             "li:nth-child(1) > a[target=\"_blank\"][rel=\"noopener noreferrer\"]"
@@ -10342,7 +10393,7 @@
             }
           ],
           "impact": null,
-          "html": "<ul>\n            <li><a href=\"/progress\">Progress</a></li>\n            <li><a href=\"/credits\">Credits</a></li>\n            <li><a href=\"/governance.html\">Governance</a></li>\n          </ul>",
+          "html": "<ul>\n            <li><a href=\"/progress\">Progress</a></li>\n            <li><a href=\"/credits\">Credits</a></li>\n            <li><a href=\"/governance.html\">Governance</a></li>\n            <li><a href=\"/whats-new.html\">What’s new</a></li>\n          </ul>",
           "target": [
             ".kz-footer__col:nth-child(2) > ul"
           ]
@@ -10452,7 +10503,7 @@
           "impact": null,
           "html": "<li><a href=\"/credits\" class=\"kz-header__link\">About</a></li>",
           "target": [
-            "li:nth-child(4)"
+            ".kz-header__nav > li:nth-child(4)"
           ]
         },
         {
@@ -10597,6 +10648,24 @@
           "html": "<li><a href=\"/governance.html\">Governance</a></li>",
           "target": [
             ".kz-footer__col:nth-child(2) > ul > li:nth-child(3)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "listitem",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "List item has a <ul>, <ol> or role=\"list\" parent element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<li><a href=\"/whats-new.html\">What’s new</a></li>",
+          "target": [
+            ".kz-footer__col:nth-child(2) > ul > li:nth-child(4)"
           ]
         },
         {
@@ -11175,7 +11244,7 @@
           "impact": null,
           "html": "<li><a href=\"/credits\" class=\"kz-header__link\">About</a></li>",
           "target": [
-            "li:nth-child(4)"
+            ".kz-header__nav > li:nth-child(4)"
           ]
         },
         {
@@ -14253,7 +14322,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"kz-footer__col\">\n          <h2 class=\"kz-footer__col-title\">Project</h2>\n          <ul>\n            <li><a href=\"/progress\">Progress</a></li>\n            <li><a href=\"/credits\">Credits</a></li>\n            <li><a href=\"/governance.html\">Governance</a></li>\n          </ul>\n        </div>",
+          "html": "<div class=\"kz-footer__col\">",
           "target": [
             ".kz-footer__col:nth-child(2)"
           ]
@@ -14293,7 +14362,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<ul>\n            <li><a href=\"/progress\">Progress</a></li>\n            <li><a href=\"/credits\">Credits</a></li>\n            <li><a href=\"/governance.html\">Governance</a></li>\n          </ul>",
+          "html": "<ul>\n            <li><a href=\"/progress\">Progress</a></li>\n            <li><a href=\"/credits\">Credits</a></li>\n            <li><a href=\"/governance.html\">Governance</a></li>\n            <li><a href=\"/whats-new.html\">What’s new</a></li>\n          </ul>",
           "target": [
             ".kz-footer__col:nth-child(2) > ul"
           ]
@@ -14416,6 +14485,46 @@
           "html": "<a href=\"/governance.html\">Governance</a>",
           "target": [
             "a[href$=\"governance.html\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<li><a href=\"/whats-new.html\">What’s new</a></li>",
+          "target": [
+            ".kz-footer__col:nth-child(2) > ul > li:nth-child(4)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<a href=\"/whats-new.html\">What’s new</a>",
+          "target": [
+            "a[href$=\"whats-new.html\"]"
           ]
         },
         {
@@ -15667,6 +15776,27 @@
           "html": "<a href=\"/governance.html\">Governance</a>",
           "target": [
             "a[href$=\"governance.html\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "target-offset",
+              "data": {
+                "closestOffset": 24,
+                "minOffset": 24
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Target has sufficient space from its closest neighbors. Safe clickable space has a diameter of 24px which is at least 24px."
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<a href=\"/whats-new.html\">What’s new</a>",
+          "target": [
+            "a[href$=\"whats-new.html\"]"
           ]
         },
         {

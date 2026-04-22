@@ -21,8 +21,32 @@
   <link rel="stylesheet" href="/contribute.css">
 
   <link rel="stylesheet" href="/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script defer src="/cwa/allcsa.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script defer src="/i18n.js"></script>
+  <script>
+    // CWASA avatar bundle is ~4.6 MB — inject it on first user interaction
+    // or after a brief idle window so mobile LCP isn't dragged down by the
+    // download. contribute-preview.js polls for window.CWASA with a 6s
+    // timeout and degrades gracefully if the script never arrives.
+    (function () {
+      var injected = false;
+      function inject() {
+        if (injected) return;
+        injected = true;
+        var s = document.createElement('script');
+        s.src = '/cwa/allcsa.js';
+        s.crossOrigin = 'anonymous';
+        s.referrerPolicy = 'no-referrer';
+        s.async = true;
+        document.head.appendChild(s);
+        off();
+      }
+      var TRIGGERS = ['pointerdown', 'keydown', 'touchstart', 'scroll'];
+      function on()  { TRIGGERS.forEach(function (t) { window.addEventListener(t, inject, { passive: true, once: false }); }); }
+      function off() { TRIGGERS.forEach(function (t) { window.removeEventListener(t, inject); }); }
+      on();
+      window.addEventListener('load', function () { setTimeout(inject, 2500); });
+    })();
+  </script>
 </head>
 <body>
   <a href="#main-content" class="skip-link kz-skip-link" data-i18n="common.skip_to_main">Skip to main content</a>
@@ -584,6 +608,7 @@
             <li><a href="/progress" data-i18n="common.nav_progress">Progress</a></li>
             <li><a href="/credits" data-i18n="common.nav_credits">Credits</a></li>
             <li><a href="/governance.html" data-i18n="common.nav_governance">Governance</a></li>
+            <li><a href="/whats-new.html" data-i18n="common.nav_whats_new">What&rsquo;s new</a></li>
           </ul>
         </div>
         <div class="kz-footer__col">

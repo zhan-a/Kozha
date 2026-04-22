@@ -1,6 +1,6 @@
 {
   "documentTitle": "Bridgn — Text and Speech to Sign Language",
-  "pageUrl": "http://127.0.0.1:60789/",
+  "pageUrl": "http://127.0.0.1:55369/",
   "issues": [
     {
       "code": "WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206",
@@ -89,6 +89,16 @@
       "message": "If this selection list contains groups of related options, they should be grouped with optgroup.",
       "context": "<select class=\"demo-lang-select\" id=\"heroSignLang\" aria-label=\"Sign language\">\n            <option value=\"bsl...</select>",
       "selector": "#heroSignLang",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Abs",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element is absolutely positioned and the background color can not be determined. Ensure the contrast ratio between the text and all covered parts of the background are at least 4.5:1.",
+      "context": "<span>Loading avatar…</span>",
+      "selector": "#avatarLoading > span",
       "runner": "htmlcs",
       "runnerExtras": {}
     },
@@ -279,6 +289,16 @@
       "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
       "context": "<a href=\"/governance.html\" data-i18n=\"common.nav_governance\">Governance</a>",
       "selector": "html > body > footer > div > nav > div:nth-child(2) > ul > li:nth-child(3) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<a href=\"/whats-new.html\" data-i18n=\"common.nav_whats_new\">What’s new</a>",
+      "selector": "html > body > footer > div > nav > div:nth-child(2) > ul > li:nth-child(4) > a",
       "runner": "htmlcs",
       "runnerExtras": {}
     },

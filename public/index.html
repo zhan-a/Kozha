@@ -28,12 +28,36 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
-  <link rel="preload" href="/data/hamnosys_bsl_version1.sigml" as="fetch" crossorigin>
-  <link rel="preload" href="/cwa/cwasa.css" as="style" crossorigin="anonymous">
   <link rel="stylesheet" href="/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script defer src="/cwa/allcsa.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script defer src="/sigml-validator.js"></script>
   <script defer src="/i18n.js"></script>
+  <script>
+    // CWASA avatar bundle is ~4.6 MB — inject only on first user intent
+    // so mobile LCP doesn't have to wait on the download. The hero demo
+    // polls for window.CWASA with an 8s timeout and degrades to a "Try
+    // the full app" affordance if the script never arrives.
+    (function () {
+      var injected = false;
+      function inject() {
+        if (injected) return;
+        injected = true;
+        var s = document.createElement('script');
+        s.src = '/cwa/allcsa.js';
+        s.crossOrigin = 'anonymous';
+        s.referrerPolicy = 'no-referrer';
+        s.async = true;
+        document.head.appendChild(s);
+        off();
+      }
+      var TRIGGERS = ['pointerdown', 'keydown', 'touchstart', 'scroll'];
+      function on()  { TRIGGERS.forEach(function (t) { window.addEventListener(t, inject, { passive: true, once: false }); }); }
+      function off() { TRIGGERS.forEach(function (t) { window.removeEventListener(t, inject); }); }
+      on();
+      // Inject after a couple seconds idle so users on slow phones who
+      // never interact still see a working demo.
+      window.addEventListener('load', function () { setTimeout(inject, 2500); });
+    })();
+  </script>
   <meta name="theme-color" content="#f5f1eb" />
   <style>
     :root {
@@ -943,7 +967,7 @@
       </div>
       <div class="feature-card kz-card">
         <div class="feature-title">Deaf-governed Contributions</div>
-        <p class="feature-body">Every new sign is reviewed by two Deaf native signers before it ships. <a href="/governance.html" style="color:var(--accent);font-weight:600;">Governance →</a></p>
+        <p class="feature-body">Every new sign is reviewed by two Deaf native signers before it ships. The Deaf advisory board is currently being seated; until it is, community drafts are queued rather than published. <a href="/governance.html" style="color:var(--accent);font-weight:600;">Governance →</a></p>
       </div>
     </div>
   </section>
@@ -1004,6 +1028,7 @@
             <li><a href="/progress" data-i18n="common.nav_progress">Progress</a></li>
             <li><a href="/credits" data-i18n="common.nav_credits">Credits</a></li>
             <li><a href="/governance.html" data-i18n="common.nav_governance">Governance</a></li>
+            <li><a href="/whats-new.html" data-i18n="common.nav_whats_new">What's new</a></li>
           </ul>
         </div>
         <div class="kz-footer__col">
@@ -1095,13 +1120,25 @@
       if (loadingEl) loadingEl.innerHTML = '<div style="text-align:center;color:var(--ink-3);font-size:13px;">Avatar could not load.<br><a href="/app.html" style="color:var(--accent);font-weight:600;">Try the full app →</a></div>';
     }
 
+    // Poll for the lazily-injected CWASA bundle — see the <head> loader.
+    // Gives up after 8s and the status dot flips to "Avatar unavailable".
+    function awaitCWASAThen(cb) {
+      var waited = 0, tick = 100, limit = 8000;
+      (function check() {
+        if (window.CWASA) { cb(); return; }
+        waited += tick;
+        if (waited >= limit) { cb(); return; }
+        setTimeout(check, tick);
+      })();
+    }
+
     window.addEventListener('load', function() {
-      setTimeout(function() {
+      awaitCWASAThen(function () {
         try { initCWASA(); } catch(e) {
           console.error(e);
           document.getElementById('statusDot').textContent = 'Avatar failed to load';
         }
-      }, 150);
+      });
     });
 
     const glossToSign = new Map();

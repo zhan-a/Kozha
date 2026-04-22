@@ -507,3 +507,45 @@ def test_vocab_lookup_respects_normalization():
         entry = VOCAB.lookup("handshape", variant)
         assert entry is not None
         assert entry.codepoints == (0xE001,)
+
+
+def test_vocab_movement_path_includes_waving_aliases():
+    # Regression guard — polish-14 gate. Contributors describing a
+    # greeting wave as "waving" previously bounced into the LLM fallback
+    # and surfaced a user-facing BadRequestError. "waving" / "wave" and
+    # their side-to-side phrasings are aliases for HamNoSys pendulum
+    # swing (U+E0A6).
+    for term in (
+        "waving",
+        "wave",
+        "waves",
+        "hand wave",
+        "hand waving",
+        "side to side",
+        "side-to-side",
+        "side to side wave",
+        "wave side to side",
+        "pendulum",
+        "pendulum swing",
+    ):
+        assert VOCAB.has_term("movement_path", term), term
+        entry = VOCAB.lookup("movement_path", term)
+        assert entry is not None
+        assert entry.codepoints == (0xE0A6,)
+
+
+def test_generate_resolves_waving_without_llm():
+    # Authored "dominant hand up and waving" parse — the downstream
+    # movement path is "waving". Prior bug: this slot went to the LLM
+    # fallback and could fail with BadRequestError. Now the deterministic
+    # composer must resolve it without any LLM involvement.
+    params = _basic_params(
+        orientation_palm="down",
+        movement=[PartialMovementSegment(path="waving")],
+    )
+    result = generate(params, client=None)
+    assert result.hamnosys is not None
+    assert result.used_llm_fallback is False
+    assert result.llm_fallback_fields == []
+    # trailing codepoint is the swing/waving pendulum
+    assert result.hamnosys.endswith(""), result.hamnosys

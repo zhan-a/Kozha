@@ -317,6 +317,20 @@ movement_path:
   nodding: E0A5
   swinging: E0A6
   swing: E0A6
+  # "waving" (e.g. hello-wave, side-to-side greeting gesture) is the
+  # HamNoSys pendulum movement — same codepoint as swinging. Alias added
+  # so common contributor phrasing ("dominant hand up and waving") hits
+  # the deterministic composer instead of falling through to the LLM.
+  waving: E0A6
+  wave: E0A6
+  waves: E0A6
+  hand_wave: E0A6
+  hand_waving: E0A6
+  side_to_side: E0A6
+  side_to_side_wave: E0A6
+  wave_side_to_side: E0A6
+  pendulum: E0A6
+  pendulum_swing: E0A6
   twisting: E0A7
   twist: E0A7
   stir_cw: E0A8

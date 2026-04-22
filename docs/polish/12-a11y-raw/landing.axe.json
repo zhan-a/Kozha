@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-22T16:53:06.173Z",
-  "url": "http://127.0.0.1:60789/",
+  "timestamp": "2026-04-22T23:45:39.954Z",
+  "url": "http://127.0.0.1:55369/",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -879,7 +879,7 @@
             }
           ],
           "impact": null,
-          "html": "<button class=\"demo-translate-btn\" id=\"heroTranslateBtn\" aria-label=\"Translate to sign language\">Translate ▶</button>",
+          "html": "<button class=\"demo-translate-btn\" id=\"heroTranslateBtn\" disabled=\"\" aria-label=\"Translate to sign language\">Translate ▶</button>",
           "target": [
             "#heroTranslateBtn"
           ]
@@ -1011,7 +1011,7 @@
             }
           ],
           "impact": null,
-          "html": "<span class=\"status-dot ready\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Ready</span>",
+          "html": "<span class=\"status-dot loading\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Connecting…</span>",
           "target": [
             "#statusDot"
           ]
@@ -1129,7 +1129,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span class=\"status-dot ready\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Ready</span>",
+          "html": "<span class=\"status-dot loading\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Connecting…</span>",
           "target": [
             "#statusDot"
           ]
@@ -1201,7 +1201,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<button class=\"demo-translate-btn\" id=\"heroTranslateBtn\" aria-label=\"Translate to sign language\">Translate ▶</button>",
+          "html": "<button class=\"demo-translate-btn\" id=\"heroTranslateBtn\" disabled=\"\" aria-label=\"Translate to sign language\">Translate ▶</button>",
           "target": [
             "#heroTranslateBtn"
           ]
@@ -1273,7 +1273,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<span class=\"status-dot ready\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Ready</span>",
+          "html": "<span class=\"status-dot loading\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Connecting…</span>",
           "target": [
             "#statusDot"
           ]
@@ -1345,7 +1345,7 @@
             }
           ],
           "impact": null,
-          "html": "<span class=\"status-dot ready\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Ready</span>",
+          "html": "<span class=\"status-dot loading\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Connecting…</span>",
           "target": [
             "#statusDot"
           ]
@@ -1539,7 +1539,7 @@
             }
           ],
           "impact": null,
-          "html": "<button class=\"demo-translate-btn\" id=\"heroTranslateBtn\" aria-label=\"Translate to sign language\">Translate ▶</button>",
+          "html": "<button class=\"demo-translate-btn\" id=\"heroTranslateBtn\" disabled=\"\" aria-label=\"Translate to sign language\">Translate ▶</button>",
           "target": [
             "#heroTranslateBtn"
           ]
@@ -1611,7 +1611,7 @@
             }
           ],
           "impact": null,
-          "html": "<span class=\"status-dot ready\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Ready</span>",
+          "html": "<span class=\"status-dot loading\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Connecting…</span>",
           "target": [
             "#statusDot"
           ]
@@ -1683,7 +1683,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span class=\"status-dot ready\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Ready</span>",
+          "html": "<span class=\"status-dot loading\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Connecting…</span>",
           "target": [
             "#statusDot"
           ]
@@ -1783,7 +1783,7 @@
             }
           ],
           "impact": null,
-          "html": "<span class=\"status-dot ready\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Ready</span>",
+          "html": "<span class=\"status-dot loading\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Connecting…</span>",
           "target": [
             "#statusDot"
           ]
@@ -1897,7 +1897,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<button class=\"demo-translate-btn\" id=\"heroTranslateBtn\" aria-label=\"Translate to sign language\">Translate ▶</button>",
+          "html": "<button class=\"demo-translate-btn\" id=\"heroTranslateBtn\" disabled=\"\" aria-label=\"Translate to sign language\">Translate ▶</button>",
           "target": [
             "#heroTranslateBtn"
           ]
@@ -2025,7 +2025,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<span class=\"status-dot ready\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Ready</span>",
+          "html": "<span class=\"status-dot loading\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Connecting…</span>",
           "target": [
             "#statusDot"
           ]
@@ -2111,7 +2111,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"demo-translate-btn\" id=\"heroTranslateBtn\" aria-label=\"Translate to sign language\">Translate ▶</button>",
+          "html": "<button class=\"demo-translate-btn\" id=\"heroTranslateBtn\" disabled=\"\" aria-label=\"Translate to sign language\">Translate ▶</button>",
           "target": [
             "#heroTranslateBtn"
           ]
@@ -2183,7 +2183,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span class=\"status-dot ready\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Ready</span>",
+          "html": "<span class=\"status-dot loading\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Connecting…</span>",
           "target": [
             "#statusDot"
           ]
@@ -2544,7 +2544,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"demo-translate-btn\" id=\"heroTranslateBtn\" aria-label=\"Translate to sign language\">Translate ▶</button>",
+          "html": "<button class=\"demo-translate-btn\" id=\"heroTranslateBtn\" disabled=\"\" aria-label=\"Translate to sign language\">Translate ▶</button>",
           "target": [
             "#heroTranslateBtn"
           ]
@@ -2905,15 +2905,15 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#ffffff",
-                "bgColor": "#b3441b",
-                "contrastRatio": 5.58,
+                "bgColor": "#b54820",
+                "contrastRatio": 5.36,
                 "fontSize": "12.0pt (16px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 5.58"
+              "message": "Element has sufficient color contrast of 5.36"
             }
           ],
           "all": [],
@@ -2929,16 +2929,16 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#3d3630",
+                "fgColor": "#413a34",
                 "bgColor": "#ffffff",
-                "contrastRatio": 11.87,
+                "contrastRatio": 11.17,
                 "fontSize": "12.0pt (16px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 11.87"
+              "message": "Element has sufficient color contrast of 11.17"
             }
           ],
           "all": [],
@@ -2954,16 +2954,16 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#1a1612",
+                "fgColor": "#2e2a26",
                 "bgColor": "#f5f1eb",
-                "contrastRatio": 15.98,
+                "contrastRatio": 12.65,
                 "fontSize": "24.0pt (32px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "3:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 15.98"
+              "message": "Element has sufficient color contrast of 12.65"
             }
           ],
           "all": [],
@@ -2979,16 +2979,16 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#5e5c57",
+                "fgColor": "#6c6964",
                 "bgColor": "#f5f1eb",
-                "contrastRatio": 5.93,
+                "contrastRatio": 4.85,
                 "fontSize": "9.0pt (12px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 5.93"
+              "message": "Element has sufficient color contrast of 4.85"
             }
           ],
           "all": [],
@@ -3004,16 +3004,16 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#1a1612",
+                "fgColor": "#2e2a26",
                 "bgColor": "#f5f1eb",
-                "contrastRatio": 15.98,
+                "contrastRatio": 12.65,
                 "fontSize": "24.0pt (32px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "3:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 15.98"
+              "message": "Element has sufficient color contrast of 12.65"
             }
           ],
           "all": [],
@@ -3029,16 +3029,16 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#5e5c57",
+                "fgColor": "#6c6964",
                 "bgColor": "#f5f1eb",
-                "contrastRatio": 5.93,
+                "contrastRatio": 4.85,
                 "fontSize": "9.0pt (12px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 5.93"
+              "message": "Element has sufficient color contrast of 4.85"
             }
           ],
           "all": [],
@@ -3054,16 +3054,16 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#1a1612",
+                "fgColor": "#2e2a26",
                 "bgColor": "#f5f1eb",
-                "contrastRatio": 15.98,
+                "contrastRatio": 12.65,
                 "fontSize": "24.0pt (32px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "3:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 15.98"
+              "message": "Element has sufficient color contrast of 12.65"
             }
           ],
           "all": [],
@@ -3079,16 +3079,16 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#5e5c57",
+                "fgColor": "#6c6964",
                 "bgColor": "#f5f1eb",
-                "contrastRatio": 5.93,
+                "contrastRatio": 4.85,
                 "fontSize": "9.0pt (12px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 5.93"
+              "message": "Element has sufficient color contrast of 4.85"
             }
           ],
           "all": [],
@@ -3172,31 +3172,6 @@
           "html": "<button class=\"demo-chip\" data-tab=\"video\" id=\"chip-video\">🎬 Video</button>",
           "target": [
             "#chip-video"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "color-contrast",
-              "data": {
-                "fgColor": "#ffffff",
-                "bgColor": "#b3441b",
-                "contrastRatio": 5.58,
-                "fontSize": "9.0pt (12px)",
-                "fontWeight": "normal",
-                "expectedContrastRatio": "4.5:1"
-              },
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Element has sufficient color contrast of 5.58"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<button class=\"demo-translate-btn\" id=\"heroTranslateBtn\" aria-label=\"Translate to sign language\">Translate ▶</button>",
-          "target": [
-            "#heroTranslateBtn"
           ]
         },
         {
@@ -3349,22 +3324,47 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#2d6a4f",
+                "fgColor": "#5e5c57",
+                "bgColor": "#f5f1eb",
+                "contrastRatio": 5.93,
+                "fontSize": "9.8pt (13px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 5.93"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span>Loading avatar…</span>",
+          "target": [
+            "#avatarLoading > span"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#5e5c57",
                 "bgColor": "#ffffff",
-                "contrastRatio": 6.39,
+                "contrastRatio": 6.67,
                 "fontSize": "9.0pt (12px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 6.39"
+              "message": "Element has sufficient color contrast of 6.67"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span class=\"status-dot ready\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Ready</span>",
+          "html": "<span class=\"status-dot loading\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Connecting…</span>",
           "target": [
             "#statusDot"
           ]
@@ -3689,7 +3689,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"feature-body\">Every new sign is reviewed by two Deaf native signers before it ships. <a href=\"/governance.html\" style=\"color:var(--accent);font-weight:600;\">Governance →</a></p>",
+          "html": "<p class=\"feature-body\">",
           "target": [
             ".feature-card.kz-card:nth-child(6) > .feature-body"
           ]
@@ -4264,31 +4264,6 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/progress\" data-i18n=\"common.nav_progress\">Progress</a>",
-          "target": [
-            "li:nth-child(1) > a[href$=\"progress\"][data-i18n=\"common.nav_progress\"]"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "color-contrast",
-              "data": {
-                "fgColor": "#3d3630",
-                "bgColor": "#f5f1eb",
-                "contrastRatio": 10.55,
-                "fontSize": "9.8pt (13px)",
-                "fontWeight": "normal",
-                "expectedContrastRatio": "4.5:1"
-              },
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Element has sufficient color contrast of 10.55"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
           "html": "<a href=\"/credits\" data-i18n=\"common.nav_credits\">Credits</a>",
           "target": [
             "a[data-i18n=\"common.nav_credits\"]"
@@ -4317,6 +4292,31 @@
           "html": "<a href=\"/governance.html\" data-i18n=\"common.nav_governance\">Governance</a>",
           "target": [
             "a[data-i18n=\"common.nav_governance\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#3d3630",
+                "bgColor": "#f5f1eb",
+                "contrastRatio": 10.55,
+                "fontSize": "9.8pt (13px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 10.55"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<a href=\"/whats-new.html\" data-i18n=\"common.nav_whats_new\">What’s new</a>",
+          "target": [
+            "a[href$=\"whats-new.html\"]"
           ]
         },
         {
@@ -5528,7 +5528,7 @@
               "data": null,
               "relatedNodes": [
                 {
-                  "html": "<p class=\"feature-body\">Every new sign is reviewed by two Deaf native signers before it ships. <a href=\"/governance.html\" style=\"color:var(--accent);font-weight:600;\">Governance →</a></p>",
+                  "html": "<p class=\"feature-body\">",
                   "target": [
                     ".feature-card.kz-card:nth-child(6) > .feature-body"
                   ]
@@ -6059,6 +6059,32 @@
             }
           ],
           "impact": null,
+          "html": "<a href=\"/whats-new.html\" data-i18n=\"common.nav_whats_new\">What’s new</a>",
+          "target": [
+            "a[href$=\"whats-new.html\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [
+            {
+              "id": "focusable-no-name",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element is not in tab order or has accessible text"
+            }
+          ],
+          "impact": null,
           "html": "<a href=\"https://github.com/zhan-a/Kozha\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>",
           "target": [
             "li:nth-child(1) > a[target=\"_blank\"][rel=\"noopener noreferrer\"]"
@@ -6183,7 +6209,7 @@
             }
           ],
           "impact": null,
-          "html": "<ul>\n            <li><a href=\"/progress\" data-i18n=\"common.nav_progress\">Progress</a></li>\n            <li><a href=\"/credits\" data-i18n=\"common.nav_credits\">Credits</a></li>\n            <li><a href=\"/governance.html\" data-i18n=\"common.nav_governance\">Governance</a></li>\n          </ul>",
+          "html": "<ul>",
           "target": [
             ".kz-footer__col:nth-child(2) > ul"
           ]
@@ -6293,7 +6319,7 @@
           "impact": null,
           "html": "<li><a href=\"/credits\" class=\"kz-header__link\" data-i18n=\"common.nav_about\">About</a></li>",
           "target": [
-            "li:nth-child(4)"
+            ".kz-header__nav > li:nth-child(4)"
           ]
         },
         {
@@ -6384,6 +6410,24 @@
           "html": "<li><a href=\"/governance.html\" data-i18n=\"common.nav_governance\">Governance</a></li>",
           "target": [
             ".kz-footer__col:nth-child(2) > ul > li:nth-child(3)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "listitem",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "List item has a <ul>, <ol> or role=\"list\" parent element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<li><a href=\"/whats-new.html\" data-i18n=\"common.nav_whats_new\">What’s new</a></li>",
+          "target": [
+            ".kz-footer__col:nth-child(2) > ul > li:nth-child(4)"
           ]
         },
         {
@@ -6577,7 +6621,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"demo-translate-btn\" id=\"heroTranslateBtn\" aria-label=\"Translate to sign language\">Translate ▶</button>",
+          "html": "<button class=\"demo-translate-btn\" id=\"heroTranslateBtn\" disabled=\"\" aria-label=\"Translate to sign language\">Translate ▶</button>",
           "target": [
             "#heroTranslateBtn"
           ]
@@ -7936,7 +7980,7 @@
           "impact": null,
           "html": "<li><a href=\"/credits\" class=\"kz-header__link\" data-i18n=\"common.nav_about\">About</a></li>",
           "target": [
-            "li:nth-child(4)"
+            ".kz-header__nav > li:nth-child(4)"
           ]
         },
         {
@@ -8454,7 +8498,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"demo-translate-btn\" id=\"heroTranslateBtn\" aria-label=\"Translate to sign language\">Translate ▶</button>",
+          "html": "<button class=\"demo-translate-btn\" id=\"heroTranslateBtn\" disabled=\"\" aria-label=\"Translate to sign language\">Translate ▶</button>",
           "target": [
             "#heroTranslateBtn"
           ]
@@ -9894,7 +9938,47 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"CWASAAvatar av0\" id=\"heroAvatar\"><div class=\"divAv av0\">\n<canvas class=\"canvasAv av0\" ondragstart=\"return false\" width=\"358\" height=\"238\"></canvas>\n</div>  <!--class=\"divAv av0\"--></div>",
+          "html": "<div class=\"avatar-loading\" id=\"avatarLoading\">\n          <div class=\"spinner\" aria-hidden=\"true\"></div>\n          <span>Loading avatar…</span>\n        </div>",
+          "target": [
+            "#avatarLoading"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span>Loading avatar…</span>",
+          "target": [
+            "#avatarLoading > span"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"CWASAAvatar av0\" id=\"heroAvatar\"></div>",
           "target": [
             "#heroAvatar"
           ]
@@ -9914,47 +9998,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"divAv av0\">\n<canvas class=\"canvasAv av0\" ondragstart=\"return false\" width=\"358\" height=\"238\"></canvas>\n</div>",
-          "target": [
-            ".divAv"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "region",
-              "data": {
-                "isIframe": false
-              },
-              "relatedNodes": [],
-              "impact": "moderate",
-              "message": "All page content is contained by landmarks"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<canvas class=\"canvasAv av0\" ondragstart=\"return false\" width=\"358\" height=\"238\"></canvas>",
-          "target": [
-            "canvas"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "region",
-              "data": {
-                "isIframe": false
-              },
-              "relatedNodes": [],
-              "impact": "moderate",
-              "message": "All page content is contained by landmarks"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<div class=\"demo-status-bar\">\n        <span class=\"status-dot ready\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Ready</span>\n        <a href=\"/app.html\" style=\"color: var(--accent); font-weight:600; font-size:12px; text-decoration:none;\">Open full app →</a>\n      </div>",
+          "html": "<div class=\"demo-status-bar\">\n        <span class=\"status-dot loading\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Connecting…</span>\n        <a href=\"/app.html\" style=\"color: var(--accent); font-weight:600; font-size:12px; text-decoration:none;\">Open full app →</a>\n      </div>",
           "target": [
             ".demo-status-bar"
           ]
@@ -9974,7 +10018,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span class=\"status-dot ready\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Ready</span>",
+          "html": "<span class=\"status-dot loading\" id=\"statusDot\" role=\"status\" aria-live=\"polite\">Connecting…</span>",
           "target": [
             "#statusDot"
           ]
@@ -10454,7 +10498,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"feature-body\">Every new sign is reviewed by two Deaf native signers before it ships. <a href=\"/governance.html\" style=\"color:var(--accent);font-weight:600;\">Governance →</a></p>",
+          "html": "<p class=\"feature-body\">",
           "target": [
             ".feature-card.kz-card:nth-child(6) > .feature-body"
           ]
@@ -11314,7 +11358,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<ul>\n            <li><a href=\"/progress\" data-i18n=\"common.nav_progress\">Progress</a></li>\n            <li><a href=\"/credits\" data-i18n=\"common.nav_credits\">Credits</a></li>\n            <li><a href=\"/governance.html\" data-i18n=\"common.nav_governance\">Governance</a></li>\n          </ul>",
+          "html": "<ul>",
           "target": [
             ".kz-footer__col:nth-child(2) > ul"
           ]
@@ -11437,6 +11481,46 @@
           "html": "<a href=\"/governance.html\" data-i18n=\"common.nav_governance\">Governance</a>",
           "target": [
             "a[data-i18n=\"common.nav_governance\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<li><a href=\"/whats-new.html\" data-i18n=\"common.nav_whats_new\">What’s new</a></li>",
+          "target": [
+            ".kz-footer__col:nth-child(2) > ul > li:nth-child(4)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<a href=\"/whats-new.html\" data-i18n=\"common.nav_whats_new\">What’s new</a>",
+          "target": [
+            "a[href$=\"whats-new.html\"]"
           ]
         },
         {
@@ -12277,38 +12361,6 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 99.4,
-                "height": 27.5
-              },
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Control has sufficient size (99.4px by 27.5px, should be at least 24px by 24px)"
-            },
-            {
-              "id": "target-offset",
-              "data": {
-                "closestOffset": 24,
-                "minOffset": 24
-              },
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Target has sufficient space from its closest neighbors. Safe clickable space has a diameter of 24px which is at least 24px."
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<button class=\"demo-translate-btn\" id=\"heroTranslateBtn\" aria-label=\"Translate to sign language\">Translate ▶</button>",
-          "target": [
-            "#heroTranslateBtn"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "target-size",
-              "data": {
-                "minSize": 24,
                 "width": 121,
                 "height": 33.5
               },
@@ -12605,6 +12657,27 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<a href=\"/whats-new.html\" data-i18n=\"common.nav_whats_new\">What’s new</a>",
+          "target": [
+            "a[href$=\"whats-new.html\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "target-offset",
+              "data": {
+                "closestOffset": 24,
+                "minOffset": 24
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Target has sufficient space from its closest neighbors. Safe clickable space has a diameter of 24px which is at least 24px."
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<a href=\"https://github.com/zhan-a/Kozha\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>",
           "target": [
             "li:nth-child(1) > a[target=\"_blank\"][rel=\"noopener noreferrer\"]"
@@ -12756,7 +12829,7 @@
               "id": "color-contrast",
               "data": {
                 "contrastRatio": 0,
-                "fontSize": "9.0pt (12px)",
+                "fontSize": "9.8pt (13px)",
                 "fontWeight": "normal",
                 "messageKey": "elmPartiallyObscured",
                 "expectedContrastRatio": "4.5:1"
@@ -12776,9 +12849,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<h2 class=\"kz-footer__col-title\" data-i18n=\"common.footer_col_project\">Project</h2>",
+          "html": "<a href=\"/progress\" data-i18n=\"common.nav_progress\">Progress</a>",
           "target": [
-            "h2[data-i18n=\"common.footer_col_project\"]"
+            "li:nth-child(1) > a[href$=\"progress\"][data-i18n=\"common.nav_progress\"]"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
         }

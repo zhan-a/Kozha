@@ -49,10 +49,15 @@ def test_language_header_and_session_url(c2h_server: str) -> None:
             expect(page.locator("#languagePicker")).to_be_visible()
             expect(page.locator("#langMasthead")).to_be_hidden()
             expect(page.locator("#tokenPrompt")).to_be_hidden()
+            # Backward-compat: the hidden legacy picker-options list still
+            # renders a button per language for keyboard-focus fallbacks.
             expect(page.locator("#pickerOptions .picker-option")).to_have_count(8)
+            # The visible control is a <select> with one placeholder + one
+            # <option> per language.
+            expect(page.locator("#pickerSelect option")).to_have_count(9)
 
             # ---- (b) Pick BSL: header + context strip mount ----
-            page.locator('.picker-option[data-code="bsl"]').click()
+            page.locator("#pickerSelect").select_option("bsl")
             expect(page.locator("#langMasthead")).to_be_visible(timeout=3000)
             expect(page.locator("#languagePicker")).to_be_hidden()
             expect(page.locator("#languageBadgeCode")).to_have_text("BSL")

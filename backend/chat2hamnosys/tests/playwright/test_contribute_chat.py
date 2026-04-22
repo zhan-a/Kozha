@@ -89,7 +89,7 @@ def _envelope(
 
 def _pick_bsl(page) -> None:
     expect(page.locator("#languagePicker")).to_be_visible()
-    page.locator('.picker-option[data-code="bsl"]').click()
+    page.locator("#pickerSelect").select_option("bsl")
     expect(page.locator("#langMasthead")).to_be_visible(timeout=3000)
 
 

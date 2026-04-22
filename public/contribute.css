@@ -659,7 +659,8 @@ select.field-input { cursor: pointer; }
   flex-direction: column;
   gap: var(--kozha-space-3);
 }
-.chat-message {
+.chat-message,
+.chat-msg {
   padding: var(--kozha-space-2) var(--kozha-space-3);
   border-radius: var(--kozha-radius-sm);
   max-width: 85%;
@@ -668,15 +669,45 @@ select.field-input { cursor: pointer; }
 }
 .chat-message.system,
 .chat-message.bot,
-.chat-message.assistant {
+.chat-message.assistant,
+.chat-msg-system {
   background: var(--kozha-color-paper-2);
   color: var(--kozha-color-ink-2);
   align-self: flex-start;
 }
-.chat-message.user {
+.chat-message.user,
+.chat-msg-you {
   background: var(--kozha-color-accent-light);
   color: var(--kozha-color-ink);
   align-self: flex-end;
+}
+.chat-msg-error {
+  background: var(--kozha-color-error-soft, #fbeae6);
+  color: var(--kozha-color-error, #b3441b);
+  align-self: flex-start;
+  border: 1px solid var(--kozha-color-error, #b3441b);
+}
+.chat-msg-notice {
+  background: transparent;
+  color: var(--kozha-color-ink-3, #6b5f52);
+  align-self: flex-start;
+  font-size: var(--kozha-text-body-sm);
+  font-family: var(--kozha-font-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, monospace);
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.chat-msg-label {
+  display: inline-block;
+  font-weight: var(--kozha-weight-semibold);
+  margin-right: var(--kozha-space-2);
+}
+.chat-msg-error .chat-msg-label {
+  color: var(--kozha-color-error, #b3441b);
+}
+.chat-msg-text {
+  margin: 0;
+  display: inline;
+  white-space: pre-wrap;
 }
 .chat-options {
   display: flex;
@@ -780,11 +811,7 @@ select.field-input { cursor: pointer; }
 .avatar-backdrop {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    var(--kozha-color-paper) 0%,
-    var(--kozha-color-paper-2) 100%
-  );
+  background: var(--kozha-color-surface-avatar, #e9e6df);
   pointer-events: none;
 }
 .CWASAAvatar.av0 {
@@ -929,8 +956,21 @@ select.field-input { cursor: pointer; }
   margin-bottom: var(--kozha-space-4);
 }
 .notation-hamnosys-main { min-width: 0; }
+/* Locally hosted Hamburg HamNoSys 4.0 font. The binary lives at
+   /fonts/bgHamNoSysUnicode.ttf (license: see the sibling .LICENSE.txt).
+   When the binary isn't deployed, browsers fall through to the generic
+   mono stack and render the underlying PUA codepoints with the system
+   font — unlikely to be pretty but never errors. */
+@font-face {
+  font-family: 'bgHamNoSysUnicode';
+  src: url('/fonts/bgHamNoSysUnicode.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 .notation-hamnosys-display {
-  font-family: var(--kozha-font-mono);
+  font-family: 'bgHamNoSysUnicode', 'HamNoSysUnicode', var(--kozha-font-mono);
   font-size: var(--kozha-text-hero-sub);
   line-height: var(--kozha-leading-relaxed);
   padding: var(--kozha-space-4);
@@ -1035,7 +1075,7 @@ select.field-input { cursor: pointer; }
   font-family: var(--kozha-font-mono);
   font-size: var(--kozha-text-body-sm);
   line-height: var(--kozha-leading-relaxed);
-  padding: var(--kozha-space-4);
+  padding: var(--kozha-space-4) var(--kozha-space-4) var(--kozha-space-4) var(--kozha-space-6);
   min-height: 120px;
   background: var(--kozha-color-paper);
   border: 1px solid var(--kozha-color-border);
@@ -1044,6 +1084,25 @@ select.field-input { cursor: pointer; }
   overflow: auto;
   white-space: pre;
   margin: 0 0 var(--kozha-space-3);
+  counter-reset: sigml-line;
+  position: relative;
+}
+.notation-sigml code { display: block; }
+.notation-sigml .sigml-line {
+  display: block;
+  counter-increment: sigml-line;
+  position: relative;
+}
+.notation-sigml .sigml-line::before {
+  content: counter(sigml-line);
+  position: absolute;
+  left: calc(-1 * var(--kozha-space-5));
+  width: var(--kozha-space-5);
+  text-align: right;
+  color: var(--kozha-color-ink-3);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--kozha-text-caption);
+  line-height: inherit;
 }
 .notation-sigml-summary { margin: 0 0 var(--kozha-space-3); }
 .notation-sigml-summary code {

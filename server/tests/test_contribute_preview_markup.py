@@ -61,21 +61,14 @@ def test_preview_pane_structural_ids_present(client: TestClient) -> None:
 
 def test_preview_control_bar_has_all_named_controls(client: TestClient) -> None:
     body = client.get("/contribute.html").text
-    # Play + loop + scrubber + speed buttons at 0.5/1/2.
+    # Play + loop + speed buttons at 0.5/1/2. The scrubber-slider was
+    # intentionally removed (see commit dca6209) — CWASA has no seek API
+    # and the control misled testers. Play / loop / speed remain.
     assert 'id="avatarPlayBtn"' in body
     assert 'id="avatarLoopInput"' in body
-    assert 'id="avatarScrubber"' in body
-    assert 'id="avatarScrubberTicks"' in body
-    assert 'id="avatarTime"' in body
     assert 'data-speed="0.5"' in body
     assert 'data-speed="1"' in body
     assert 'data-speed="2"' in body
-    # Scrubber is a proper slider with min/max/valuenow + valuetext.
-    assert 'type="range"' in body
-    assert 'aria-valuemin="0"' in body
-    assert 'aria-valuemax=' in body
-    assert 'aria-valuenow=' in body
-    assert 'aria-valuetext=' in body
 
 
 def test_preview_pane_loads_cwasa_assets_and_controller(client: TestClient) -> None:
@@ -136,9 +129,6 @@ def test_preview_css_declares_stage_aspect_ratio_and_backdrop(client: TestClient
     # Fallback + pulse styles the controller toggles via hidden.
     assert '.avatar-fallback' in css
     assert '.avatar-pulse' in css
-    # Scrubber + time display.
-    assert '.avatar-scrubber' in css
-    assert '.avatar-time' in css
 
 
 def test_preview_css_respects_reduced_motion(client: TestClient) -> None:

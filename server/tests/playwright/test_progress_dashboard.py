@@ -155,8 +155,13 @@ def test_progress_table_sorts_by_column_click(
             )
 
             # The header now advertises an active sort state via the
-            # aria-sort attribute (ascending or descending).
-            aria_sort = name_header.get_attribute("aria-sort")
+            # aria-sort attribute (ascending or descending). Per ARIA
+            # spec, aria-sort belongs on the <th> (columnheader), not on
+            # the child <button> that users actually click — progress.js
+            # sets it on the header's ancestor cell.
+            aria_sort = page.locator(
+                'th:has(.progress-sort[data-sort="name"])'
+            ).get_attribute("aria-sort")
             assert aria_sort in ("ascending", "descending"), (
                 f"name column aria-sort is {aria_sort!r}; expected asc or desc"
             )
