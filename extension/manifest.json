@@ -28,7 +28,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["panel.html"],
+      "resources": ["panel.html", "cwa/*", "cwa/avatars/*"],
       "matches": ["<all_urls>"]
     }
   ],

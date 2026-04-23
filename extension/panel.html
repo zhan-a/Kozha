@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <link rel="stylesheet" href="https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/cwasa.css"
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="cwa/cwasa.css" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: transparent; overflow: hidden; }
@@ -32,9 +31,7 @@
       if (cwasaLoading) { pendingAction = callback; return; }
       cwasaLoading = true;
       var s = document.createElement("script");
-      s.src = "https://vhg.cmp.uea.ac.uk/tech/jas/vhg2024/cwa/allcsa.js";
-      s.crossOrigin = "anonymous";
-      s.referrerPolicy = "no-referrer";
+      s.src = "cwa/allcsa.js";
       s.onload = function() {
         cwasaScriptLoaded = true;
         cwasaLoading = false;
