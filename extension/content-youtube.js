@@ -313,33 +313,60 @@ function startRealtimeTextTrackSync(sourceLang) {
 }
 
 var captionObserver = null;
-var lastCaptionEmit = 0;
 var captionDebounceTimer = null;
-var pendingCaptionText = "";
+var lastSignedText = "";
+
+function dedupeDoubledText(text) {
+  if (!text || text.length < 20) return text;
+  var half = Math.floor(text.length / 2);
+  for (var i = half - 10; i <= half + 10; i++) {
+    if (i < 10 || i > text.length - 10) continue;
+    var first = text.substring(0, i).replace(/\s+/g, "").toLowerCase();
+    var second = text.substring(i).replace(/\s+/g, "").toLowerCase();
+    if (first === second) return text.substring(i).trim();
+  }
+  return text;
+}
 
 function readCaptionText() {
-  var container = document.querySelector(".ytp-caption-window-container") ||
-                  document.querySelector(".caption-window") ||
-                  document.querySelector(".ytp-caption-segment") && document.querySelector(".ytp-caption-segment").parentElement;
-  if (!container) return "";
-  var segs = container.querySelectorAll(".ytp-caption-segment, .captions-text");
-  if (segs.length === 0) {
-    return container.textContent.trim();
-  }
+  var segs = document.querySelectorAll(".ytp-caption-segment");
+  if (segs.length === 0) return "";
   var parts = [];
   for (var i = 0; i < segs.length; i++) {
     parts.push(segs[i].textContent);
   }
-  return parts.join(" ").replace(/\s+/g, " ").trim();
+  var text = parts.join(" ").replace(/\s+/g, " ").trim();
+  return dedupeDoubledText(text);
+}
+
+function diffNewWords(prev, curr) {
+  if (!prev) return curr;
+  if (curr.indexOf(prev) === 0) {
+    return curr.substring(prev.length).trim();
+  }
+  var prevWords = prev.split(/\s+/);
+  var currWords = curr.split(/\s+/);
+  var overlapLen = 0;
+  for (var n = Math.min(prevWords.length, currWords.length); n > 0; n--) {
+    var prevTail = prevWords.slice(prevWords.length - n).join(" ");
+    var currHead = currWords.slice(0, n).join(" ");
+    if (prevTail.toLowerCase() === currHead.toLowerCase()) { overlapLen = n; break; }
+  }
+  return currWords.slice(overlapLen).join(" ").trim();
 }
 
 function emitCaption(sourceLang) {
   var text = readCaptionText();
   if (!text || text === lastRealtimeText) return;
   lastRealtimeText = text;
-  console.log("[Kozha YT] DOM caption:", text);
+
+  var newPart = diffNewWords(lastSignedText, text);
+  if (!newPart || newPart.length < 3) return;
+
+  lastSignedText = text;
+  console.log("[Kozha YT] new caption part:", newPart);
   Kozha.setSubtitle(text);
-  translateAndSign(text, sourceLang);
+  translateAndSign(newPart, sourceLang);
 }
 
 function startCaptionDomObserver(sourceLang) {
@@ -347,11 +374,10 @@ function startCaptionDomObserver(sourceLang) {
   if (captionObserver) captionObserver.disconnect();
   captionObserver = new MutationObserver(function() {
     if (captionDebounceTimer) clearTimeout(captionDebounceTimer);
-    captionDebounceTimer = setTimeout(function() { emitCaption(sourceLang); }, 200);
+    captionDebounceTimer = setTimeout(function() { emitCaption(sourceLang); }, 800);
   });
   captionObserver.observe(target, { childList: true, subtree: true, characterData: true });
   console.log("[Kozha YT] MutationObserver attached to", target.id || target.tagName);
-  setTimeout(function() { emitCaption(sourceLang); }, 500);
 }
 
 function translateAndSign(text, sourceLang) {
