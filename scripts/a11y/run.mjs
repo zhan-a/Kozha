@@ -459,7 +459,14 @@ async function runPa11y(targetUrl, scenarioId) {
       includeWarnings: true,
       timeout: 30000,
       chromeLaunchConfig: {
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        // Same reasoning as the puppeteer block above: pa11y opens its own
+        // browser, so we pass the Chromium flag that pins the OS-level
+        // motion preference to "reduce" before any page CSS runs.
+        args: [
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          '--force-prefers-reduced-motion',
+        ],
       },
     });
   } catch (err) {
@@ -687,6 +694,19 @@ async function main() {
       console.log(`[a11y] ${scn.id} — ${scn.label}`);
       const page = await browser.newPage();
       await page.setViewport({ width: 1280, height: 900, deviceScaleFactor: 1 });
+      // Force prefers-reduced-motion: reduce so any opacity/transform fade-in
+      // is disabled before navigation. The site's CSS already collapses
+      // `.fade-up` to `opacity: 1; animation: none` under that preference,
+      // so axe sees the settled DOM rather than mid-animation composited
+      // colors. Without this, headless Chromium on slower CI runners
+      // captured `.fade-up` parents at ~0.7–0.9 opacity, which composite
+      // text+bg through paper and produce false-positive color-contrast
+      // violations (e.g. white-on-#b3441b reading as 4.46:1 instead of
+      // the true 8:1). Real users see the post-animation state; tests
+      // should too.
+      await page.emulateMediaFeatures([
+        { name: 'prefers-reduced-motion', value: 'reduce' },
+      ]);
       try {
         if (scn.setUp) await scn.setUp(page);
         await page.goto(scn.url, { waitUntil: 'networkidle0', timeout: 30000 });

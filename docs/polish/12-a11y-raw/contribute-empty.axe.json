@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-22T23:46:00.539Z",
-  "url": "http://127.0.0.1:55369/contribute.html",
+  "timestamp": "2026-04-23T00:30:07.729Z",
+  "url": "http://127.0.0.1:57182/contribute.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -1549,7 +1549,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-hamnosys-display\" id=\"hamnosysDisplay\" role=\"img\" aria-label=\"HamNoSys notation (not yet generated)\" aria-live=\"polite\" tabindex=\"0\"></div>",
+          "html": "<div class=\"notation-hamnosys-display is-font-missing\" id=\"hamnosysDisplay\" role=\"img\" aria-label=\"HamNoSys notation (not yet generated)\" aria-live=\"polite\" tabindex=\"0\"></div>",
           "target": [
             "#hamnosysDisplay"
           ]
