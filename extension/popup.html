@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=400" />
+  <meta name="viewport" content="width=420" />
   <link rel="stylesheet" href="popup.css" />
 </head>
 <body>
@@ -11,7 +11,10 @@
   </div>
 
   <div id="popup-body">
-    <textarea id="popup-input" rows="4" placeholder="Type or paste text to sign..."></textarea>
+    <p id="popup-intro">Look up a word or phrase to see how it signs.</p>
+    <a id="popup-yt-link" href="https://www.youtube.com" target="_blank" rel="noopener">Open YouTube — captions sign automatically</a>
+    <textarea id="popup-input" rows="3" placeholder="Type or paste text to sign..."></textarea>
+    <div id="popup-history"></div>
 
     <div id="popup-selects">
       <div class="select-group">
@@ -61,9 +64,6 @@
       <iframe id="popup-avatar-frame" src="panel.html"></iframe>
     </div>
 
-    <!-- Prompt-polish 10 §12: playback parity with the main site. The
-         popup can pause/resume/stop and pick a speed; these map to the
-         same postMessage channel the YouTube mode already uses. -->
     <div id="popup-playback">
       <div id="popup-playback-buttons">
         <button type="button" class="popup-play-btn" id="popup-pause-btn"
@@ -78,6 +78,7 @@
       </div>
     </div>
 
+    <div id="popup-gloss-display"></div>
     <div id="popup-status">Ready</div>
   </div>
 

@@ -8,6 +8,8 @@ var avatarFrame = document.getElementById("popup-avatar-frame");
 var statusEl = document.getElementById("popup-status");
 var pauseBtn = document.getElementById("popup-pause-btn");
 var stopBtn = document.getElementById("popup-stop-btn");
+var glossDisplay = document.getElementById("popup-gloss-display");
+var historyEl = document.getElementById("popup-history");
 
 var avatarReady = false;
 var dbReady = false;
@@ -15,8 +17,35 @@ var cwasaFailed = false;
 var playbackSpeed = 1.0;
 var isPaused = false;
 var lastGlosses = [];
+var MAX_HISTORY = 5;
 
-chrome.storage.local.get(["popup_input_lang", "kozha_sign_lang", "kozha_last_input", "kozha_pending_text"], function(stored) {
+function renderHistory(items) {
+  historyEl.innerHTML = "";
+  items.forEach(function(phrase) {
+    var chip = document.createElement("button");
+    chip.className = "history-chip";
+    chip.type = "button";
+    chip.textContent = phrase;
+    chip.addEventListener("click", function() {
+      inputEl.value = phrase;
+      inputEl.focus();
+    });
+    historyEl.appendChild(chip);
+  });
+}
+
+function addToHistory(phrase) {
+  chrome.storage.local.get(["kozha_history"], function(stored) {
+    var list = stored.kozha_history || [];
+    list = list.filter(function(item) { return item !== phrase; });
+    list.unshift(phrase);
+    if (list.length > MAX_HISTORY) list = list.slice(0, MAX_HISTORY);
+    chrome.storage.local.set({ kozha_history: list });
+    renderHistory(list);
+  });
+}
+
+chrome.storage.local.get(["popup_input_lang", "kozha_sign_lang", "kozha_last_input", "kozha_pending_text", "kozha_history"], function(stored) {
   if (stored.popup_input_lang) inputLangEl.value = stored.popup_input_lang;
   if (stored.kozha_sign_lang) signLangEl.value = stored.kozha_sign_lang;
   if (stored.kozha_pending_text) {
@@ -25,6 +54,7 @@ chrome.storage.local.get(["popup_input_lang", "kozha_sign_lang", "kozha_last_inp
   } else if (stored.kozha_last_input) {
     inputEl.value = stored.kozha_last_input;
   }
+  if (stored.kozha_history) renderHistory(stored.kozha_history);
 });
 
 inputEl.addEventListener("input", function() {
@@ -78,7 +108,9 @@ signBtn.addEventListener("click", function() {
   if (!text) return;
 
   signBtn.disabled = true;
-  statusEl.textContent = "Processing...";
+  statusEl.textContent = "Signing...";
+  glossDisplay.textContent = "";
+  addToHistory(text);
 
   var inputLang = inputLangEl.value;
 
@@ -102,10 +134,11 @@ signBtn.addEventListener("click", function() {
         lastGlosses = glosses;
         isPaused = false;
         updatePauseBtn();
+        glossDisplay.textContent = glosses.join(" \u00b7 ");
         if (cwasaFailed) {
           var glossArea = document.getElementById("popup-gloss-text");
           if (glossArea) glossArea.textContent = glosses.join(" ");
-          statusEl.textContent = "Text mode";
+          statusEl.textContent = "Done (text mode)";
         } else {
           avatarFrame.contentWindow.postMessage({
             type: "play_glosses",
@@ -154,15 +187,9 @@ signBtn.addEventListener("click", function() {
   }
 });
 
-// -------------------------------------------------------------------
-// Prompt-polish 10 §12: playback parity controls in the popup.
-// Pause/resume is simulated by stopping CWASA + replaying the last
-// glosses on resume (CWASA doesn't expose a true pause). Stop halts
-// the current queue. Speed picker mirrors the site's 0.5/1/2 set.
-// -------------------------------------------------------------------
 function updatePauseBtn() {
   if (!pauseBtn) return;
-  pauseBtn.textContent = isPaused ? "▶" : "⏸";
+  pauseBtn.textContent = isPaused ? "\u25b6" : "\u23f8";
   pauseBtn.setAttribute("aria-pressed", isPaused ? "true" : "false");
   pauseBtn.setAttribute("aria-label", isPaused ? "Resume" : "Pause");
 }
