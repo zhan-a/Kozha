@@ -9,7 +9,10 @@ raised and no network call leaves the process. After a successful call
 the client invokes :meth:`BudgetGuard.record` with the actual cost to
 update the running total.
 
-The default cap is ``$2`` per session; override via the
+The default cap is ``$20`` per session (bumped 10× from the original
+$2 to give the SiGML-direct retry loop, slot-by-slot fallback, and
+correction passes plenty of headroom on a single contributor session
+before the guard fires). Override via the
 ``CHAT2HAMNOSYS_SESSION_BUDGET_USD`` env var or by passing
 ``max_usd_per_session=`` to the constructor.
 """
@@ -23,7 +26,7 @@ from dataclasses import dataclass, field
 from .pricing import compute_cost
 
 
-DEFAULT_SESSION_BUDGET_USD = 2.0
+DEFAULT_SESSION_BUDGET_USD = 20.0
 SESSION_BUDGET_ENV_VAR = "CHAT2HAMNOSYS_SESSION_BUDGET_USD"
 
 

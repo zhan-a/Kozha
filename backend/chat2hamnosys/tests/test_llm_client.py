@@ -444,11 +444,13 @@ def test_env_var_nonpositive_raises(monkeypatch: pytest.MonkeyPatch) -> None:
         BudgetGuard()
 
 
-def test_default_session_cap_is_two_dollars(
+def test_default_session_cap(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
+    # Bumped 10× from $2 to $20 so the SiGML-direct retry loop and
+    # slot fallback have headroom on a single contributor session.
     monkeypatch.delenv("CHAT2HAMNOSYS_SESSION_BUDGET_USD", raising=False)
-    assert BudgetGuard().max_usd_per_session == 2.0
+    assert BudgetGuard().max_usd_per_session == 20.0
 
 
 # ---------------------------------------------------------------------------

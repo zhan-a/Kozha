@@ -375,6 +375,16 @@ body {
 .byo-key {
   padding: 0;
 }
+/* When the API returns ``llm_config_error`` (no project key + no
+   user-supplied key), contribute.js opens this panel and adds the
+   .is-required class so the contributor can find it at a glance. */
+.byo-key.is-required {
+  border-color: var(--kozha-color-accent);
+  box-shadow: 0 0 0 3px var(--kozha-color-accent-light);
+}
+.byo-key.is-required > summary.byo-key-summary {
+  color: var(--kozha-color-accent);
+}
 .byo-key > summary.byo-key-summary {
   list-style: none;
   cursor: pointer;

@@ -497,11 +497,33 @@
 
   function handleError(err) {
     if (window.console) console.error('[contribute-chat] action failed:', err);
+    var code = parseErrorCode(err);
     DEBUG.log('chat: action failed (after retry)', {
-      status:  err && err.status,
-      code:    parseErrorCode(err),
-      body:    err && (err.body || err.message),
+      status: err && err.status,
+      code:   code,
+      body:   err && (err.body || err.message),
     });
+
+    // No-key situation: the panel-opening UX from contribute.js's
+    // describe-failure path is just as relevant here. Pop the BYO-key
+    // panel so the contributor can recover with one paste, instead of
+    // staring at "AI model is temporarily unavailable" with no clue
+    // what to do.
+    if (code === 'llm_config_error' || code === 'llm_no_key') {
+      var panel = document.querySelector('.byo-key');
+      if (panel && typeof panel.open !== 'undefined') {
+        panel.open = true;
+        panel.classList.add('is-required');
+        if (typeof panel.scrollIntoView === 'function') {
+          panel.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        }
+      }
+      var keyInput = document.getElementById('byoKeyInput');
+      if (keyInput && typeof keyInput.focus === 'function') {
+        setTimeout(function () { try { keyInput.focus(); } catch (_e) {} }, 250);
+      }
+    }
+
     chat.inError = true;
     var picked = pickErrorMessage(err);
     appendMessage({ kind: 'error', text: picked.text });

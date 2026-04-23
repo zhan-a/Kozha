@@ -50,8 +50,11 @@ class SecurityConfig:
     """Immutable snapshot of the security-relevant env config."""
 
     max_input_len: int = 2000
-    per_ip_daily_cap_usd: float = 10.0
-    global_daily_cap_usd: float = 200.0
+    # Bumped 10× from the prior $10 / $200 caps so the SiGML-direct
+    # retry loop, slot fallback, and a busy day of contributions all
+    # have headroom before the per-IP / global daily guards fire.
+    per_ip_daily_cap_usd: float = 100.0
+    global_daily_cap_usd: float = 2000.0
     pii_policy: PIIPolicy = "hashed"
     signer_id_salt: str = DEFAULT_SIGNER_SALT
     enable_injection_classifier: bool = True
@@ -128,10 +131,10 @@ def load_security_config() -> SecurityConfig:
     return SecurityConfig(
         max_input_len=_read_int("CHAT2HAMNOSYS_MAX_INPUT_LEN", 2000),
         per_ip_daily_cap_usd=_read_float(
-            "CHAT2HAMNOSYS_PER_IP_DAILY_CAP_USD", 10.0
+            "CHAT2HAMNOSYS_PER_IP_DAILY_CAP_USD", 100.0
         ),
         global_daily_cap_usd=_read_float(
-            "CHAT2HAMNOSYS_GLOBAL_DAILY_CAP_USD", 200.0
+            "CHAT2HAMNOSYS_GLOBAL_DAILY_CAP_USD", 2000.0
         ),
         pii_policy=policy,
         signer_id_salt=salt,

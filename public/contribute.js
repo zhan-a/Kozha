@@ -618,6 +618,44 @@
     }).catch(function (err) {
       els.startBtn.disabled = false;
       els.startBtn.textContent = tr('contribute.authoring.submit_button', 'Start authoring');
+
+      // Decode the structured error body up front so every branch can
+      // see the code (instead of duplicating the JSON.parse).
+      var errCode = null;
+      if (err && typeof err.body === 'string') {
+        try {
+          var parsed = JSON.parse(err.body);
+          if (parsed && parsed.error && typeof parsed.error.code === 'string') {
+            errCode = parsed.error.code;
+          }
+        } catch (_e) { /* ignore — fall through to status-based branches */ }
+      }
+
+      // Server has no OpenAI key (project secret unset, BYO-key not yet
+      // entered). The contributor needs to act, not retry — open the
+      // BYO-key panel automatically and surface the inline guidance so
+      // the next attempt has a key to use.
+      if (errCode === 'llm_config_error' || errCode === 'llm_no_key') {
+        var panel = document.querySelector('.byo-key');
+        if (panel && typeof panel.open !== 'undefined') {
+          panel.open = true;
+          panel.classList.add('is-required');
+          if (typeof panel.scrollIntoView === 'function') {
+            panel.scrollIntoView({ block: 'center', behavior: 'smooth' });
+          }
+        }
+        var keyInput = document.getElementById('byoKeyInput');
+        if (keyInput && typeof keyInput.focus === 'function') {
+          setTimeout(function () { try { keyInput.focus(); } catch (_e) {} }, 250);
+        }
+        showInlineError(els.submitError, tr(
+          'contribute.authoring.submit_error_no_key',
+          'The shared project key is unavailable. Paste your own OpenAI API key in the panel above (it stays in this browser) and try again.'
+        ));
+        if (window.console) console.warn('[contribute] no llm key available — opened BYO panel');
+        return;
+      }
+
       // If a session was created but the chained /describe failed, the
       // form is already hidden behind the summary card. Surface the error
       // inside the chat panel instead of the (now invisible) submit error.
@@ -629,15 +667,6 @@
         return;
       }
       var msg = tr('contribute.authoring.submit_error_generic', 'Could not start a session. Please try again.');
-      var errCode = null;
-      if (err && typeof err.body === 'string') {
-        try {
-          var parsed = JSON.parse(err.body);
-          if (parsed && parsed.error && typeof parsed.error.code === 'string') {
-            errCode = parsed.error.code;
-          }
-        } catch (_e) { /* ignore — fall through to status-based branches */ }
-      }
       if (errCode === 'rate_limited' || (err && err.status === 429)) {
         msg = tr('contribute.authoring.submit_error_rate_limited', "You're sending requests faster than the server can process. Wait a moment and try again.");
       } else if (errCode === 'injection_rejected') {
