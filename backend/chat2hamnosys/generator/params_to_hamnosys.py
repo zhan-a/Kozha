@@ -771,13 +771,62 @@ def generate(
     errors_out: list[str] = []
     running_confidence = 1.0
 
-    # First pass — LLM fallback for slots the deterministic layer missed.
+    # ---- LLM path: SiGML-direct ------------------------------------
+    # When the deterministic composer left any slot unresolved, skip
+    # the slot-by-slot HamNoSys dance and ask the model for a complete
+    # SiGML fragment grounded in BSL few-shot examples. Reverse-mapping
+    # SiGML → HamNoSys is loss-free, so the rest of the pipeline
+    # (storage, validator, renderer) sees the same PUA shape it always
+    # has. This eliminates the per-slot BadRequestError storm and makes
+    # the whole sign succeed-or-fail as one transactional call.
+    if unresolved and client is not None:
+        from .sigml_direct import generate_sigml_direct
+
+        sigml_hamnosys, _sigml_xml, sigml_rationale = generate_sigml_direct(
+            parameters=parameters,
+            client=client,
+            request_id=rid,
+            prose=prose,
+            gloss=gloss,
+            sign_language=sign_language,
+            previous_errors=errors_out,
+        )
+        if sigml_hamnosys:
+            normalized = normalize(sigml_hamnosys)
+            vr = validate(normalized)
+            if vr.ok:
+                fallback_fields.append("_sigml_direct")
+                logger.info(
+                    "sigml-direct fallback succeeded: %s",
+                    sigml_rationale[:200],
+                )
+                return GenerateResult(
+                    hamnosys=normalized,
+                    validation=vr,
+                    used_llm_fallback=True,
+                    llm_fallback_fields=fallback_fields,
+                    confidence=0.6,
+                    errors=errors_out,
+                    last_candidate=normalized,
+                )
+            errors_out.append(
+                f"sigml-direct produced invalid HamNoSys: {vr.summary()}"
+            )
+        else:
+            errors_out.append(f"sigml-direct gave up: {sigml_rationale}")
+        # Fall through to the legacy slot-by-slot LLM path so we still
+        # have a chance to recover when SiGML-direct can't produce a
+        # validator-clean string.
+
+    # ---- Legacy LLM path: per-slot resolution (kept as backup) -----
     for piece in unresolved:
         if client is None:
             errors_out.append(
                 f"no LLM client available to resolve {piece.field_name!r} "
                 f"(term={piece.term!r})"
             )
+            continue
+        if piece.resolved:
             continue
         chunk, conf, rationale = _llm_resolve_slot(
             piece, client=client, request_id=rid
@@ -804,42 +853,8 @@ def generate(
             rationale,
         )
 
-    # If any slot is still unresolved, try the whole-sign emergency
-    # fallback before giving up — the LLM may know an idiomatic codepoint
-    # for a slot the deterministic composer and the per-slot resolver
-    # both missed.
     still_missing = [p for p in pieces if not p.resolved]
     if still_missing:
-        if client is not None:
-            whole, why = _llm_whole_sign(
-                parameters,
-                pieces,
-                client=client,
-                request_id=rid,
-                previous_errors=errors_out,
-                prose=prose,
-                gloss=gloss,
-                sign_language=sign_language,
-            )
-            if whole:
-                normalized = normalize(whole)
-                wvr = validate(normalized)
-                if wvr.ok:
-                    fallback_fields.append("_whole_sign")
-                    return GenerateResult(
-                        hamnosys=normalized,
-                        validation=wvr,
-                        used_llm_fallback=True,
-                        llm_fallback_fields=fallback_fields,
-                        confidence=0.5,
-                        errors=errors_out,
-                        last_candidate=normalized,
-                    )
-                errors_out.append(
-                    f"whole-sign LLM produced invalid string: {wvr.summary()}"
-                )
-            else:
-                errors_out.append(f"whole-sign LLM gave up: {why}")
         candidate = _assemble(pieces)
         vr = validate(candidate) if candidate else ValidationResult(
             ok=False,
@@ -860,7 +875,43 @@ def generate(
     candidate = normalize(_assemble(pieces))
     vr = validate(candidate)
 
-    # Second pass — whole-string repair loop.
+    # ---- Validation failure recovery: SiGML-direct, then repair ----
+    if not vr.ok and client is not None:
+        from .sigml_direct import generate_sigml_direct
+
+        sigml_hamnosys, _sigml_xml, sigml_rationale = generate_sigml_direct(
+            parameters=parameters,
+            client=client,
+            request_id=rid,
+            prose=prose,
+            gloss=gloss,
+            sign_language=sign_language,
+            previous_errors=list(errors_out) + [vr.summary()],
+        )
+        if sigml_hamnosys:
+            normalized = normalize(sigml_hamnosys)
+            wvr = validate(normalized)
+            if wvr.ok:
+                fallback_fields.append("_sigml_direct")
+                logger.info(
+                    "sigml-direct recovery succeeded post-validation-failure"
+                )
+                return GenerateResult(
+                    hamnosys=normalized,
+                    validation=wvr,
+                    used_llm_fallback=True,
+                    llm_fallback_fields=fallback_fields,
+                    confidence=0.5,
+                    errors=errors_out,
+                    last_candidate=normalized,
+                )
+            errors_out.append(
+                f"sigml-direct produced invalid HamNoSys: {wvr.summary()}"
+            )
+        else:
+            errors_out.append(f"sigml-direct gave up: {sigml_rationale}")
+
+    # Legacy repair loop kept as a final safety net.
     for attempt in range(_MAX_VALIDATION_RETRIES):
         if vr.ok:
             break
@@ -890,43 +941,6 @@ def generate(
             vr.ok,
             rationale,
         )
-
-    # If repair could not save the slot-composed string, try the
-    # whole-sign emergency LLM as a last resort.
-    if not vr.ok and client is not None:
-        prior = list(errors_out) + [vr.summary()]
-        whole, why = _llm_whole_sign(
-            parameters,
-            pieces,
-            client=client,
-            request_id=rid,
-            previous_errors=prior,
-            prose=prose,
-            gloss=gloss,
-            sign_language=sign_language,
-        )
-        if whole:
-            normalized = normalize(whole)
-            wvr = validate(normalized)
-            if wvr.ok:
-                fallback_fields.append("_whole_sign")
-                return GenerateResult(
-                    hamnosys=normalized,
-                    validation=wvr,
-                    used_llm_fallback=True,
-                    llm_fallback_fields=fallback_fields,
-                    confidence=0.4,
-                    errors=errors_out,
-                    last_candidate=normalized,
-                )
-            errors_out.append(
-                f"whole-sign LLM produced invalid string: {wvr.summary()}"
-            )
-            # Record the rejected whole-sign candidate so the caller can
-            # show the contributor what the LLM tried.
-            candidate = normalized
-        else:
-            errors_out.append(f"whole-sign LLM gave up: {why}")
 
     if not vr.ok:
         return GenerateResult(

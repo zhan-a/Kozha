@@ -64,6 +64,7 @@ class FakeLLMClient:
         *,
         request_id: str,
         prompt_metadata: Any = None,
+        reasoning_effort: str | None = None,
     ) -> ChatResult:
         self.calls.append(
             {
@@ -72,6 +73,7 @@ class FakeLLMClient:
                 "temperature": temperature,
                 "request_id": request_id,
                 "prompt_metadata": prompt_metadata,
+                "reasoning_effort": reasoning_effort,
             }
         )
         if not self._queue:
@@ -246,10 +248,29 @@ def _repair_payload(hex_tokens: str, rationale: str = "repair") -> str:
     return json.dumps({"hamnosys_hex": hex_tokens, "rationale": rationale})
 
 
+def _sigml_fail_payload() -> str:
+    """A sigml-direct response that's well-formed JSON but yields no SiGML.
+
+    The new ``generate()`` calls SiGML-direct before the slot-by-slot
+    LLM fallback. Tests that assert legacy behavior should prepend this
+    so the SiGML-direct pre-flight cleanly returns "no result" and the
+    legacy slot/repair path runs as the test intends. Returning empty
+    ``sigml_xml`` is the well-defined "give up" path in
+    :mod:`generator.sigml_direct`.
+    """
+    return json.dumps({"sigml_xml": "", "rationale": "skip for legacy test"})
+
+
+def _sigml_payload(sigml_xml: str, rationale: str = "ok") -> str:
+    return json.dumps({"sigml_xml": sigml_xml, "rationale": rationale})
+
+
 def test_llm_fallback_resolves_missing_slot():
     # An unknown handshape term — the LLM should be asked to pick a
     # codepoint; we return E001 (flat) which is a valid handshape base.
-    client = FakeLLMClient([_slot_payload("E001", confidence=0.8)])
+    client = FakeLLMClient(
+        [_sigml_fail_payload(), _slot_payload("E001", confidence=0.8)]
+    )
     params = _basic_params(handshape_dominant="mystery_shape")
     result = generate(params, client=client, request_id="test-fallback")
 
@@ -257,15 +278,17 @@ def test_llm_fallback_resolves_missing_slot():
     assert result.used_llm_fallback is True
     assert "handshape_dominant" in result.llm_fallback_fields
     assert result.confidence == pytest.approx(0.8)
-    # Request id propagated to the fallback call.
-    assert len(client.calls) == 1
-    assert client.calls[0]["request_id"].startswith("test-fallback:fallback:")
+    # SiGML-direct call (queue index 0) + slot fallback call (queue index 1).
+    assert len(client.calls) == 2
+    assert client.calls[1]["request_id"].startswith("test-fallback:fallback:")
 
 
 def test_llm_fallback_rejects_wrong_class_codepoint():
     # Return an ext-finger codepoint for a handshape slot — the generator
     # must reject it and leave the slot unresolved.
-    client = FakeLLMClient([_slot_payload("E020", confidence=0.9)])
+    client = FakeLLMClient(
+        [_sigml_fail_payload(), _slot_payload("E020", confidence=0.9)]
+    )
     params = _basic_params(handshape_dominant="mystery_shape")
     result = generate(params, client=client, request_id="test-wrongclass")
 
@@ -275,7 +298,9 @@ def test_llm_fallback_rejects_wrong_class_codepoint():
 
 
 def test_llm_fallback_rejects_unknown_codepoint():
-    client = FakeLLMClient([_slot_payload("E7FF", confidence=1.0)])
+    client = FakeLLMClient(
+        [_sigml_fail_payload(), _slot_payload("E7FF", confidence=1.0)]
+    )
     params = _basic_params(handshape_dominant="mystery_shape")
     result = generate(params, client=client, request_id="test-unknown")
 
@@ -284,7 +309,7 @@ def test_llm_fallback_rejects_unknown_codepoint():
 
 
 def test_llm_fallback_invalid_json_unresolved():
-    client = FakeLLMClient(["not json at all"])
+    client = FakeLLMClient([_sigml_fail_payload(), "not json at all"])
     params = _basic_params(handshape_dominant="mystery_shape")
     result = generate(params, client=client, request_id="test-badjson")
 
@@ -304,6 +329,7 @@ def test_llm_fallback_fields_ordered_by_slot_sequence():
     # in the order the composer visited them.
     client = FakeLLMClient(
         [
+            _sigml_fail_payload(),                  # SiGML-direct opt-out
             _slot_payload("E001", confidence=0.7),  # handshape
             _slot_payload("E04A", confidence=0.8),  # location
         ]
@@ -349,7 +375,10 @@ def test_repair_loop_succeeds_within_two_attempts(monkeypatch):
     monkeypatch.setattr(mod, "_assemble", broken_assemble)
 
     client = FakeLLMClient(
-        [_repair_payload("E001 E020 E03A E052", rationale="drop garbage")]
+        [
+            _sigml_fail_payload(),  # SiGML-direct opt-out so repair runs
+            _repair_payload("E001 E020 E03A E052", rationale="drop garbage"),
+        ]
     )
     params = _basic_params()
     result = generate(params, client=client, request_id="test-repair")
@@ -363,13 +392,14 @@ def test_repair_loop_gives_up_after_max_attempts(monkeypatch):
     from generator import params_to_hamnosys as mod
 
     monkeypatch.setattr(mod, "_assemble", lambda pieces: "ABC")
-    # Both repair attempts return strings that still fail validation, and
-    # the whole-sign emergency fallback likewise produces invalid hex.
+    # SiGML-direct gives up first, then both repair attempts return
+    # strings that still fail validation. The whole-sign emergency
+    # fallback was retired in favour of SiGML-direct.
     client = FakeLLMClient(
         [
+            _sigml_fail_payload(),  # SiGML-direct: skip
             _repair_payload("ABCD"),
             _repair_payload("DEFG"),
-            _repair_payload("0123"),
         ]
     )
 
@@ -378,7 +408,7 @@ def test_repair_loop_gives_up_after_max_attempts(monkeypatch):
 
     assert result.hamnosys is None
     assert not result.validation.ok
-    # Two repair calls + one whole-sign emergency call.
+    # SiGML-direct (1) + two repair attempts (2) = 3 calls.
     assert len(client.calls) == 3
 
 

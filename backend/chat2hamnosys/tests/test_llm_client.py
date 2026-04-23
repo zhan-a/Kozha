@@ -396,6 +396,7 @@ def test_budget_exceeded_blocks_call_before_network(
     stub = MagicMock()
     tiny_budget = BudgetGuard(max_usd_per_session=0.00001)
     client = LLMClient(
+        model="gpt-4o",
         budget=tiny_budget,
         telemetry=TelemetryLogger(log_dir=tmp_path / "llm"),
         client=stub,
@@ -507,7 +508,12 @@ def test_telemetry_includes_content_when_flag_on(
     monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
     telemetry = TelemetryLogger(log_dir=tmp_path / "llm", log_content=True)
     stub = _stub_client([_mock_response(content="loud answer")])
+    # Pin to a non-reasoning model so the call goes through Chat
+    # Completions and the chat-completions stub is exercised — the
+    # default model now routes reasoning-capable ids to the Responses
+    # API, which would need a separate stub on `responses.create`.
     client = LLMClient(
+        model="gpt-4o",
         budget=BudgetGuard(max_usd_per_session=10.0),
         telemetry=telemetry,
         client=stub,

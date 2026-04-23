@@ -125,6 +125,24 @@
           }
         }
         state.symbolsByHex = map;
+        // Backfill the per-glyph short_name labels now that we know
+        // them. The renderer fell back to the hex code while the table
+        // was still in flight; replace those with canonical names so
+        // reviewers see a readable transliteration even when the font
+        // is missing.
+        var labels = els.display && els.display.querySelectorAll
+          ? els.display.querySelectorAll('.notation-glyph-name')
+          : [];
+        for (var j = 0; j < labels.length; j++) {
+          var parent = labels[j].parentNode;
+          var hex = parent && parent.getAttribute
+            ? parent.getAttribute('data-hex')
+            : '';
+          var sym = lookupSymbol(hex);
+          if (sym && sym.short_name) {
+            labels[j].textContent = sym.short_name;
+          }
+        }
         if (state.activeGlyphEl) {
           updateLegendForHex(state.activeGlyphEl.getAttribute('data-hex'));
         }
@@ -177,6 +195,32 @@
     while (el.firstChild) el.removeChild(el.firstChild);
   }
 
+  // Detected once at init: does the user's browser actually have the
+  // bundled HamNoSys font available? When the binary is missing
+  // (corporate proxies, fresh deploys, fonts.check() reports false), we
+  // toggle a class on the display so each glyph renders its short-name
+  // underneath as a transliteration. Reviewers can still read the
+  // notation even with no font installed.
+  var fontCheckFamily = "1em 'bgHamNoSysUnicode'";
+  function hasHamnosysFont() {
+    if (!document.fonts || typeof document.fonts.check !== 'function') {
+      return false;
+    }
+    try {
+      // U+E001 hamflathand — universally present in any real HamNoSys
+      // 4.0 font; if the family loaded at all, this glyph exists.
+      return document.fonts.check(fontCheckFamily, '');
+    } catch (_e) {
+      return false;
+    }
+  }
+
+  function applyFontFallbackClass() {
+    if (!els.display) return;
+    var ok = hasHamnosysFont();
+    els.display.classList.toggle('is-font-missing', !ok);
+  }
+
   function renderHamnosysString(s) {
     clearChildren(els.display);
     state.activeGlyphEl = null;
@@ -186,6 +230,7 @@
       return;
     }
     els.display.classList.remove('is-empty');
+    applyFontFallbackClass();
     // Array.from iterates by code point, which matters for any
     // non-BMP codepoint (HamNoSys is PUA in the BMP today but the
     // helper keeps the code future-proof).
@@ -196,11 +241,26 @@
         els.display.appendChild(document.createTextNode(ch));
         continue;
       }
+      var hex = hexFor(ch);
       var span = document.createElement('span');
       span.className = 'notation-glyph';
-      span.textContent = ch;
-      span.setAttribute('data-hex', hexFor(ch));
+      span.setAttribute('data-hex', hex);
       span.setAttribute('tabindex', '0');
+      // Glyph + transliteration: the glyph shows the PUA character (the
+      // Hamburg font renders it shaped); the transliteration shows the
+      // canonical short_name. Either alone is readable; both together
+      // are unmistakable. The transliteration is shown by default and
+      // CSS hides it when the bundled font loaded successfully.
+      var glyph = document.createElement('span');
+      glyph.className = 'notation-glyph-glyph';
+      glyph.textContent = ch;
+      glyph.setAttribute('aria-hidden', 'true');
+      var label = document.createElement('span');
+      label.className = 'notation-glyph-name';
+      var sym = lookupSymbol(hex);
+      label.textContent = sym ? sym.short_name : hex;
+      span.appendChild(glyph);
+      span.appendChild(label);
       span.addEventListener('mouseenter', onGlyphActivate);
       span.addEventListener('focus', onGlyphActivate);
       span.addEventListener('click', onGlyphActivate);
@@ -817,6 +877,14 @@
     });
     resetLegend();
     loadSymbolTable();
+    // Initial guess + re-check once the page's fonts settle. document.fonts.ready
+    // resolves after every @font-face has either loaded or failed, so this is
+    // the right moment to flip the .is-font-missing class on or off without
+    // a polling loop.
+    applyFontFallbackClass();
+    if (document.fonts && document.fonts.ready && typeof document.fonts.ready.then === 'function') {
+      document.fonts.ready.then(applyFontFallbackClass).catch(function () {});
+    }
     CTX.subscribe(onSnapshot);
     onSnapshot(CTX.getState());
   }

@@ -981,11 +981,80 @@ select.field-input { cursor: pointer; }
   color: var(--kozha-color-ink);
   word-break: break-word;
   overflow-x: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--kozha-space-2);
+  align-items: flex-end;
 }
 .notation-hamnosys-display:focus-visible {
   border-color: var(--kozha-color-accent);
   box-shadow: var(--kozha-shadow-focus-ring);
   outline: 0;
+}
+/* Each PUA codepoint renders as a two-row "chip": the shaped glyph on
+   top (when the bgHamNoSysUnicode font is loaded), the canonical
+   short_name underneath. Two visual layers so HamNoSys is readable
+   whether or not the user has the font installed. */
+.notation-glyph {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2px;
+  padding: var(--kozha-space-1) var(--kozha-space-2);
+  border: 1px solid transparent;
+  border-radius: var(--kozha-radius-sm);
+  cursor: pointer;
+  text-align: center;
+  transition: background var(--kozha-duration-base) var(--kozha-ease-standard),
+              border-color var(--kozha-duration-base) var(--kozha-ease-standard);
+}
+.notation-glyph:hover,
+.notation-glyph:focus-visible,
+.notation-glyph.is-active {
+  background: var(--kozha-color-accent-light);
+  border-color: var(--kozha-color-border-accent);
+  outline: 0;
+}
+.notation-glyph-glyph {
+  font-family: 'bgHamNoSysUnicode', 'HamNoSysUnicode', var(--kozha-font-mono);
+  font-size: 28px;
+  line-height: 1;
+  color: var(--kozha-color-ink);
+}
+/* Transliteration: small monospaced short_name beneath the glyph. */
+.notation-glyph-name {
+  font-family: var(--kozha-font-mono);
+  font-size: 10px;
+  line-height: 1.2;
+  color: var(--kozha-color-ink-3);
+  text-transform: lowercase;
+  letter-spacing: 0;
+  max-width: 12ch;
+  overflow-wrap: anywhere;
+}
+/* When the bundled HamNoSys font loaded successfully the glyph alone
+   is enough — collapse the redundant transliteration label to a hover
+   reveal. Reviewers who explicitly want the canonical name still get
+   it via the legend strip beneath the display. */
+.notation-hamnosys-display:not(.is-font-missing) .notation-glyph-name {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+/* Font-missing mode: hide the (unrenderable) glyph row so the chip is
+   just the short_name. Keeps the layout from showing rows of empty
+   replacement boxes. */
+.notation-hamnosys-display.is-font-missing .notation-glyph-glyph {
+  display: none;
+}
+.notation-hamnosys-display.is-font-missing .notation-glyph-name {
+  font-size: 12px;
+  color: var(--kozha-color-ink-2);
 }
 .notation-errors { margin-top: var(--kozha-space-2); }
 .notation-fallback {

@@ -44,6 +44,7 @@ import contextvars
 import json
 import os
 import random
+import re
 import time
 from dataclasses import dataclass, field
 from typing import Any, AsyncIterator, Iterable
@@ -145,6 +146,24 @@ _BUILTIN_DEFAULT_FALLBACK_MODEL = "gpt-4o"
 # loop (``max_retries=0``) so :meth:`_invoke_with_retry` is the single
 # owner of retry policy and the model-unavailable fallback path.
 _OPENAI_REQUEST_TIMEOUT_S = 30.0
+# Reasoning-capable models go through the Responses API rather than the
+# legacy Chat Completions endpoint. The Responses API is OpenAI's
+# recommended surface for gpt-5.x and the o-series — it accepts
+# ``reasoning.effort``, returns reasoning summaries, and uses the
+# correct ``max_output_tokens`` parameter. The legacy chat endpoint
+# rejects some of those and silently degrades others, which surfaced as
+# the BadRequestError storm in the contribute pipeline. Match anything
+# that looks like a reasoning model so additions like ``gpt-5.4-pro``
+# or ``o4-mini`` route correctly without further touch.
+_REASONING_MODEL_RE = re.compile(
+    r"^(?:gpt-5(?:\.\d+)?(?:-mini|-nano|-pro)?|o[1-4](?:-mini|-pro)?)(?:-\d+.*)?$",
+    re.IGNORECASE,
+)
+
+
+def is_reasoning_model(name: str) -> bool:
+    """Return True if ``name`` is a reasoning-capable OpenAI model."""
+    return bool(name) and bool(_REASONING_MODEL_RE.match(name))
 
 
 def _default_model() -> str:
@@ -390,9 +409,23 @@ class LLMClient:
         *,
         request_id: str,
         prompt_metadata: Any = None,
+        reasoning_effort: str | None = None,
     ) -> ChatResult:
         if not request_id:
             raise LLMConfigError("request_id is required and must be non-empty")
+
+        # Reasoning models go through the Responses API. We translate to
+        # the legacy ChatResult so every caller stays unchanged.
+        if is_reasoning_model(self.model) and tools is None:
+            return self._respond(
+                messages=messages,
+                response_format=response_format,
+                max_output_tokens=max_tokens,
+                request_id=request_id,
+                prompt_metadata=prompt_metadata,
+                reasoning_effort=reasoning_effort,
+                temperature=temperature,
+            )
 
         approx_input = _approx_input_tokens(messages, tools)
         self.budget.estimate_and_check(
@@ -483,6 +516,242 @@ class LLMClient:
             fallback_used=fallback_used,
         )
         return result
+
+    # -- Responses API path (reasoning models) -----------------------------
+
+    def _respond(
+        self,
+        *,
+        messages: list[dict],
+        response_format: dict | None,
+        max_output_tokens: int,
+        request_id: str,
+        prompt_metadata: Any,
+        reasoning_effort: str | None,
+        temperature: float,
+    ) -> ChatResult:
+        """Reasoning-model path via the Responses API.
+
+        Translates the legacy ``messages`` + ``response_format`` shape
+        used elsewhere in this codebase to the Responses API's
+        ``instructions`` + ``input`` + ``text.format`` shape, runs the
+        call, and returns a :class:`ChatResult` so the caller can stay
+        completely API-agnostic.
+
+        Reasoning effort defaults to ``medium`` for structured-output
+        calls (the slot resolver, the SiGML-direct generator) and to
+        ``low`` otherwise — the bias is toward correctness on the paths
+        that actually need to follow a schema, with one cache miss
+        amortised across the response. Pass an explicit
+        ``reasoning_effort`` to override.
+        """
+        # Split out the system prompt as ``instructions`` — every call
+        # site in this codebase uses at most one system message at the
+        # start. Anything else stays in the input array as-is.
+        instructions: str | None = None
+        input_items: list[dict] = []
+        for msg in messages:
+            role = msg.get("role")
+            if role == "system" and instructions is None:
+                instructions = msg.get("content") or ""
+                continue
+            input_items.append({"role": role or "user", "content": msg.get("content") or ""})
+
+        approx_input = _approx_input_tokens(messages, None)
+        self.budget.estimate_and_check(
+            model=self.model,
+            estimated_input_tokens=approx_input,
+            max_output_tokens=max_output_tokens,
+        )
+
+        effort = reasoning_effort or ("medium" if response_format else "low")
+        emit_event(
+            _evs.LLM_CALL_STARTED,
+            request_id=request_id,
+            model=self.model,
+            temperature=temperature,
+            approx_input_tokens=approx_input,
+            max_output_tokens=max_output_tokens,
+        )
+
+        # The Responses API moves structured output under ``text.format``
+        # with the schema fields hoisted to top level — Chat Completions
+        # nests them inside ``json_schema``. Translate so call sites can
+        # pass either shape interchangeably.
+        text_format: dict[str, Any] | None = None
+        if response_format and response_format.get("type") == "json_schema":
+            schema_block = response_format.get("json_schema") or {}
+            text_format = {
+                "format": {
+                    "type": "json_schema",
+                    "name": schema_block.get("name") or "response",
+                    "strict": bool(schema_block.get("strict", True)),
+                    "schema": schema_block.get("schema") or {},
+                }
+            }
+
+        kwargs: dict[str, Any] = {
+            "model": self.model,
+            "input": input_items,
+            "max_output_tokens": max(int(max_output_tokens) + 4096, 8192),
+            "reasoning": {"effort": effort},
+        }
+        if instructions:
+            kwargs["instructions"] = instructions
+        if text_format is not None:
+            kwargs["text"] = text_format
+
+        last_exc: Exception | None = None
+        response: Any = None
+        model_used = self.model
+        latency_ms = 0
+        fallback_used = False
+        for attempt in range(self.max_retries):
+            start = time.perf_counter()
+            try:
+                response = self._client.responses.create(**kwargs)
+                latency_ms = int((time.perf_counter() - start) * 1000)
+                break
+            except Exception as exc:
+                if _is_model_unavailable(exc) and self.fallback_model != self.model:
+                    # Fall back to the legacy chat completions API on
+                    # the fallback model — that path doesn't require
+                    # reasoning support.
+                    return self._respond_via_chat_fallback(
+                        messages=messages,
+                        response_format=response_format,
+                        max_output_tokens=max_output_tokens,
+                        request_id=request_id,
+                        prompt_metadata=prompt_metadata,
+                        temperature=temperature,
+                    )
+                if not _is_retryable(exc):
+                    self._log_failure(
+                        request_id, self.model, temperature, exc, prompt_metadata
+                    )
+                    emit_event(
+                        _evs.LLM_CALL_FAILED,
+                        request_id=request_id,
+                        model=self.model,
+                        error_class=type(exc).__name__,
+                        temperature=temperature,
+                    )
+                    _metrics.llm_calls_total.inc(self.model, "failure")
+                    raise
+                last_exc = exc
+                if attempt < self.max_retries - 1:
+                    emit_event(
+                        _evs.LLM_CALL_RETRIED,
+                        request_id=request_id,
+                        model=self.model,
+                        attempt=attempt + 1,
+                        error_class=type(exc).__name__,
+                    )
+                    time.sleep(self._backoff(attempt))
+        if response is None:
+            assert last_exc is not None
+            self._log_failure(
+                request_id, self.model, temperature, last_exc, prompt_metadata
+            )
+            raise last_exc
+
+        # Extract the textual content (Responses API exposes it as
+        # ``output_text`` for convenience). Reasoning items are skipped
+        # — the caller only sees the model's final message.
+        content = (getattr(response, "output_text", None) or "").strip()
+        usage = getattr(response, "usage", None)
+        input_tokens = int(getattr(usage, "input_tokens", 0) or 0)
+        output_tokens = int(getattr(usage, "output_tokens", 0) or 0)
+        total_tokens = int(
+            getattr(usage, "total_tokens", input_tokens + output_tokens) or 0
+        )
+        cost = compute_cost(model_used, input_tokens, output_tokens)
+        result = ChatResult(
+            content=content,
+            tool_calls=[],
+            model_used=model_used,
+            input_tokens=input_tokens,
+            output_tokens=output_tokens,
+            total_tokens=total_tokens,
+            cost_usd=cost,
+            latency_ms=latency_ms,
+            request_id=request_id,
+            fallback_used=fallback_used,
+            raw=response,
+        )
+
+        prompt_fields = _prompt_fields(prompt_metadata)
+        self.budget.record(result.cost_usd)
+        self.telemetry.log_call(
+            request_id=request_id,
+            model=result.model_used,
+            prompt_tokens=result.input_tokens,
+            completion_tokens=result.output_tokens,
+            latency_ms=result.latency_ms,
+            cost_usd=result.cost_usd,
+            temperature=temperature,
+            success=True,
+            fallback_used=False,
+            prompt_content=messages if self.telemetry.log_content else None,
+            completion_content=result.content if self.telemetry.log_content else None,
+            **prompt_fields,
+        )
+        _metrics.llm_calls_total.inc(result.model_used, "success")
+        _metrics.llm_call_latency_ms.observe(
+            result.model_used, value=float(result.latency_ms)
+        )
+        _metrics.llm_call_cost_usd.observe(value=float(result.cost_usd))
+        _metrics.daily_cost_usd.observe(value=float(result.cost_usd))
+        emit_event(
+            _evs.LLM_CALL_SUCCEEDED,
+            request_id=request_id,
+            model=result.model_used,
+            latency_ms=result.latency_ms,
+            cost_usd=result.cost_usd,
+            input_tokens=result.input_tokens,
+            output_tokens=result.output_tokens,
+            fallback_used=False,
+        )
+        return result
+
+    def _respond_via_chat_fallback(
+        self,
+        *,
+        messages: list[dict],
+        response_format: dict | None,
+        max_output_tokens: int,
+        request_id: str,
+        prompt_metadata: Any,
+        temperature: float,
+    ) -> ChatResult:
+        """Last-resort: route the call through Chat Completions on the
+        fallback model. Used when the primary reasoning model isn't
+        available on the active API key (404 model_not_found etc.)."""
+        kwargs = self._build_kwargs(
+            messages, None, response_format, temperature, max_output_tokens
+        )
+        start = time.perf_counter()
+        try:
+            response = self._client.chat.completions.create(
+                model=self.fallback_model, **kwargs
+            )
+        except Exception as exc:
+            self._log_failure(
+                request_id,
+                self.fallback_model,
+                temperature,
+                exc,
+                prompt_metadata,
+            )
+            raise
+        latency_ms = int((time.perf_counter() - start) * 1000)
+        return self._build_result(
+            response=response,
+            model_used=self.fallback_model,
+            latency_ms=latency_ms,
+            request_id=request_id,
+            fallback_used=True,
+        )
 
     async def stream_chat(
         self,

@@ -193,12 +193,19 @@ def test_notation_panel_renders_glyphs_breakdown_and_copy(c2h_server: str) -> No
             )
 
             # (2) One span per codepoint, tagged with the correct hex.
+            #
+            # The glyph chip wraps two children: ``.notation-glyph-glyph``
+            # holds the PUA codepoint (font-rendered when available) and
+            # ``.notation-glyph-name`` holds the canonical short_name as
+            # a font-fallback transliteration. Assert the codepoint on
+            # the inner glyph element so the assertion is unaffected by
+            # whether the symbol table has populated the label yet.
             glyphs = page.locator("#hamnosysDisplay .notation-glyph")
             expect(glyphs).to_have_count(len(HAMNOSYS_CODEPOINTS))
             for idx, (hex_code, ch) in enumerate(HAMNOSYS_CODEPOINTS):
                 g = glyphs.nth(idx)
                 expect(g).to_have_attribute("data-hex", hex_code)
-                expect(g).to_have_text(ch)
+                expect(g.locator(".notation-glyph-glyph")).to_have_text(ch)
 
             # (3) Phonological breakdown reads the partial parameters.
             expect(page.locator("#breakdownHandshape")).to_have_text("flat")
