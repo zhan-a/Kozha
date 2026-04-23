@@ -99,6 +99,7 @@
     fallbackMsg:     document.getElementById('avatarFallbackMsg'),
     fallbackDetail:  document.getElementById('avatarFallbackDetail'),
     fallbackRetry:   document.getElementById('avatarFallbackRetry'),
+    fallbackDiag:    document.getElementById('avatarFallbackDiag'),
     status:          document.getElementById('avatarStatus'),
     controls:        null, // resolved in init()
     playBtn:         document.getElementById('avatarPlayBtn'),
@@ -198,17 +199,24 @@
     if (state.initStarted) return;
     state.initStarted = true;
 
+    DEBUG.log('preview: initCWASA start', {
+      cwasaPresent: !!window.CWASA,
+      webglProbe: probeWebGL(),
+    });
+
     if (!probeWebGL()) {
       markRenderFailed('webgl_unavailable');
       return;
     }
 
     waitForCWASA().then(function (ok) {
+      DEBUG.log('preview: waitForCWASA result', { ok: ok, cwasaPresent: !!window.CWASA });
       if (!ok || !window.CWASA) {
         markRenderFailed('cwasa_missing');
         return;
       }
       try {
+        DEBUG.log('preview: calling CWASA.init');
         window.CWASA.init({
           useClientConfig: false,
           useCwaConfig:    true,
@@ -233,6 +241,7 @@
         });
       } catch (e) {
         if (window.console) console.error('[contribute-preview] CWASA.init threw', e);
+        DEBUG.error('preview: CWASA.init threw', { message: String(e), stack: e && e.stack ? String(e.stack).slice(0, 800) : undefined });
         markRenderFailed('cwasa_init_threw');
         return;
       }
@@ -241,12 +250,16 @@
 
       if (window.CWASA.ready && typeof window.CWASA.ready.then === 'function') {
         window.CWASA.ready.then(function () {
+          DEBUG.log('preview: CWASA.ready resolved');
           state.cwasaReady = true;
           applyReadyState();
           maybePlayPending();
-        }).catch(function () {
+        }).catch(function (err) {
+          DEBUG.error('preview: CWASA.ready rejected', { error: String(err) });
           markRenderFailed('cwasa_ready_rejected');
         });
+      } else {
+        DEBUG.warn('preview: CWASA exposes no .ready promise — relying on avatarready hook');
       }
     });
   }
@@ -258,6 +271,7 @@
 
     // Avatar model finished loading — the pane can show a resting pose.
     window.CWASA.addHook('avatarready', function () {
+      DEBUG.log('preview: hook avatarready');
       state.cwasaReady = true;
       applyReadyState();
       maybePlayPending();
@@ -449,18 +463,27 @@
   // ---------- play / pause / loop / speed ----------
 
   function doPlay() {
-    if (state.renderFailed) return;
+    if (state.renderFailed) {
+      DEBUG.log('preview: doPlay skipped (renderFailed)');
+      return;
+    }
     if (!state.cwasaReady) {
+      DEBUG.log('preview: doPlay deferred (cwasaReady=false) — pendingPlay=true');
       state.pendingPlay = true;
       return;
     }
-    if (!state.currentSigml) return;
+    if (!state.currentSigml) {
+      DEBUG.log('preview: doPlay skipped (no currentSigml)');
+      return;
+    }
     try {
+      DEBUG.log('preview: CWASA.playSiGMLText', { sigmlLen: state.currentSigml.length });
       window.CWASA.playSiGMLText(state.currentSigml, 0);
       state.playing = true;
       state.loopPending = false;
     } catch (e) {
       if (window.console) console.error('[contribute-preview] playSiGMLText threw', e);
+      DEBUG.error('preview: playSiGMLText threw', { message: String(e) });
       markRenderFailed('play_threw');
       return;
     }
@@ -534,6 +557,13 @@
     }
     var firstSeen = !state.playedSigml[sigml];
     var changed = sigml !== state.currentSigml;
+    DEBUG.log('preview: applyNewSigml', {
+      sigmlLen: sigml.length,
+      changed: changed,
+      firstSeen: firstSeen,
+      cwasaReady: state.cwasaReady,
+      renderFailed: state.renderFailed,
+    });
     state.currentSigml = sigml;
 
     if (!changed) return;
@@ -702,6 +732,14 @@
     });
     if (els.fallbackRetry) {
       els.fallbackRetry.addEventListener('click', retryPreview);
+    }
+    if (els.fallbackDiag) {
+      els.fallbackDiag.addEventListener('click', function () {
+        if (window.KOZHA_CONTRIB_DEBUG && typeof window.KOZHA_CONTRIB_DEBUG.download === 'function') {
+          DEBUG.log('preview: diagnostics download requested');
+          window.KOZHA_CONTRIB_DEBUG.download();
+        }
+      });
     }
     for (var i = 0; i < els.speedBtns.length; i++) {
       els.speedBtns[i].addEventListener('click', onSpeedClick);

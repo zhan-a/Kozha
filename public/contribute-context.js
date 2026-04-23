@@ -357,6 +357,9 @@
   // which fields each panel reads.
   function applyEnvelope(env) {
     if (!env) return;
+    var prevState = state.sessionState;
+    var prevHam = state.hamnosys;
+    var prevSigml = state.sigml;
     var patch = {
       sessionState:     env.state || state.sessionState,
       gloss:            env.gloss || state.gloss,
@@ -378,6 +381,15 @@
     if (typeof env.description_prose === 'string') {
       patch.descriptionProse = env.description_prose;
     }
+    DEBUG.log('ctx: applyEnvelope', {
+      prevState: prevState, newState: patch.sessionState,
+      hamChanged: patch.hamnosys !== prevHam,
+      sigmlChanged: patch.sigml !== prevSigml,
+      hamLen: (patch.hamnosys || '').length,
+      sigmlLen: (patch.sigml || '').length,
+      pendingQs: patch.pendingQuestions.length,
+      errors: patch.generationErrors.slice(0, 3),
+    });
     setState(patch);
   }
 
@@ -506,6 +518,17 @@
     var body = { raw_text: rawText };
     if (typeof opts.targetTimeMs === 'number') body.target_time_ms = opts.targetTimeMs;
     if (opts.targetRegion) body.target_region = opts.targetRegion;
+    var beforeSigml = state.sigml;
+    var beforeHam = state.hamnosys;
+    DEBUG.log('ctx: POST /correct', {
+      sessionId: state.sessionId,
+      textLen: (rawText || '').length,
+      targetTimeMs: opts.targetTimeMs,
+      targetRegion: opts.targetRegion,
+      beforeSigmlLen: (beforeSigml || '').length,
+      beforeHamLen:   (beforeHam || '').length,
+    });
+    var t0 = Date.now();
     return fetchWithTimeout(API_BASE + '/sessions/' + encodeURIComponent(state.sessionId) + '/correct', {
       method: 'POST',
       headers: {
@@ -517,8 +540,24 @@
     })
       .then(jsonOr)
       .then(function (env) {
+        var sum = envSummary(env);
+        sum.latencyMs = Date.now() - t0;
+        sum.sigmlChanged = !!(env && env.sigml) && env.sigml !== beforeSigml;
+        sum.hamChanged   = !!(env && env.hamnosys) && env.hamnosys !== beforeHam;
+        DEBUG.log('ctx: /correct ok', sum);
+        if (!sum.sigmlChanged && !sum.hamChanged) {
+          DEBUG.warn('ctx: /correct did NOT change sigml/hamnosys — server returned the same notation. The interpreter may have classified this correction as VAGUE / ELABORATE / CONTRADICTION (no regen). Check correction_outcome in server logs.', {
+            beforeHam: (beforeHam || '').slice(0, 60),
+            afterHam:  (env && env.hamnosys || '').slice(0, 60),
+            state:     env && env.state,
+          });
+        }
         applyEnvelope(env);
         return env;
+      })
+      .catch(function (err) {
+        DEBUG.error('ctx: /correct failed in ' + (Date.now() - t0) + 'ms', { status: err && err.status, body: err && err.body });
+        throw err;
       });
   }
 

@@ -1,40 +1,51 @@
-/* Contribute page — shared debug log + drawer.
+/* Contribute page — shared debug log + downloadable drawer.
  *
  * What it does
  * ------------
- * - Exposes ``window.KOZHA_CONTRIB_DEBUG`` with a tiny ``log(msg, data?)``
- *   API every contribute-page module calls when something interesting
- *   happens (an LLM call started/retried/failed, the CWASA bundle
- *   loaded, a snapshot arrived, etc.).
- * - Holds the last 200 entries in memory.
- * - Renders a fixed-position toggle button at the bottom-right of the
- *   screen (only when debug mode is on) that opens a slide-up drawer
- *   showing the live log.
- * - Debug mode is enabled by ``?debug=1`` in the URL or by setting
- *   ``localStorage.kozha_debug = '1'``. Once enabled it persists across
- *   reloads of the same browser; ``?debug=0`` clears it.
+ * - Exposes ``window.KOZHA_CONTRIB_DEBUG.log(msg, data?)`` which every
+ *   contribute-page module calls at every interesting moment (LLM call
+ *   start/retry/fail, envelope arrived, CWASA boot stage, snapshot,
+ *   correction submitted, font detection result, …). Logging is
+ *   ALWAYS-ON regardless of whether the drawer is visible — the
+ *   in-memory ring buffer captures the last 500 entries and is
+ *   downloadable as a text file even if the user never opened debug
+ *   mode beforehand. This is the user's "send me a log file" path.
+ * - Renders a small fixed pill at the bottom-right that opens the
+ *   drawer. The pill is hidden until either ``?debug=1`` is in the URL,
+ *   ``localStorage.kozha_debug='1'`` is set, OR a hard error fires
+ *   (auto-reveal so the contributor can grab the log without knowing
+ *   the URL trick).
+ * - Drawer header has Clear, Copy, and Download buttons. Download
+ *   produces ``kozha-contrib-log-YYYY-MM-DD-HHMMSS.txt`` with full
+ *   user-agent, URL, and timestamped entries.
  *
  * Why it exists
  * -------------
- * The contribute pipeline is multi-step and crosses the LLM boundary in
- * several places (clarification, slot resolution, SiGML-direct, repair,
- * preview). When something goes wrong, the contributor gets a single
- * vague "AI had trouble" message; the developer needs to see the chain
- * of API calls + envelopes + CWASA boot states to diagnose. This panel
- * is that view, opt-in so it never clutters the default UX.
+ * The contribute pipeline crosses the LLM boundary in several places
+ * (clarification, slot resolution, SiGML-direct, repair, preview).
+ * When something goes wrong the contributor sees a vague "AI had
+ * trouble" message; the developer needs to see the chain of API calls
+ * + envelopes + CWASA boot states to diagnose. Always-on capture +
+ * downloadable export makes that chain shippable in a bug report.
  */
 (function () {
   'use strict';
 
-  var MAX_ENTRIES = 200;
+  var MAX_ENTRIES = 500;
   var STORAGE_KEY = 'kozha_debug';
 
-  var enabled = computeEnabled();
   var entries = [];
   var listeners = [];
   var drawer = null;
+  // Pill visibility is opt-in; the log itself is always captured.
+  var drawerEnabled = computeDrawerEnabled();
+  // Auto-reveal the pill once any module records a hard error.
+  var autoRevealed = false;
+  // Capture the page session start so the downloaded log carries
+  // wall-clock context.
+  var sessionStartedAt = new Date();
 
-  function computeEnabled() {
+  function computeDrawerEnabled() {
     try {
       var url = new URL(window.location.href);
       var p = url.searchParams.get('debug');
@@ -54,14 +65,23 @@
     }
   }
 
-  function timestamp() {
-    var now = new Date();
+  function timestamp(d) {
+    d = d || new Date();
     var pad = function (n, w) { var s = String(n); while (s.length < w) s = '0' + s; return s; };
     return (
-      pad(now.getHours(), 2) + ':' +
-      pad(now.getMinutes(), 2) + ':' +
-      pad(now.getSeconds(), 2) + '.' +
-      pad(now.getMilliseconds(), 3)
+      pad(d.getHours(), 2) + ':' +
+      pad(d.getMinutes(), 2) + ':' +
+      pad(d.getSeconds(), 2) + '.' +
+      pad(d.getMilliseconds(), 3)
+    );
+  }
+
+  function downloadStamp(d) {
+    d = d || new Date();
+    var pad = function (n) { var s = String(n); while (s.length < 2) s = '0' + s; return s; };
+    return (
+      d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()) +
+      '-' + pad(d.getHours()) + pad(d.getMinutes()) + pad(d.getSeconds())
     );
   }
 
@@ -70,12 +90,10 @@
     if (value === null) return 'null';
     if (typeof value === 'string') return value;
     try {
-      // Truncate very long strings inside the payload so an envelope
-      // dump doesn't blow up the drawer.
       var seen = [];
       return JSON.stringify(value, function (_k, v) {
-        if (typeof v === 'string' && v.length > 800) {
-          return v.slice(0, 800) + '… (' + v.length + ' chars total)';
+        if (typeof v === 'string' && v.length > 1500) {
+          return v.slice(0, 1500) + '… (' + v.length + ' chars total)';
         }
         if (v && typeof v === 'object') {
           if (seen.indexOf(v) >= 0) return '[circular]';
@@ -88,19 +106,35 @@
     }
   }
 
-  function log(message, data) {
+  function log(message, data, opts) {
     var entry = {
-      at:   timestamp(),
-      msg:  String(message || ''),
-      data: data === undefined ? null : data,
+      at:    timestamp(),
+      atMs:  Date.now(),
+      level: (opts && opts.level) || 'info',
+      msg:   String(message || ''),
+      data:  data === undefined ? null : data,
     };
     entries.push(entry);
     if (entries.length > MAX_ENTRIES) entries.splice(0, entries.length - MAX_ENTRIES);
     notify();
+    // Mirror to the browser console so the developer who already has
+    // devtools open sees the live stream too.
     if (window.console && typeof window.console.debug === 'function') {
-      window.console.debug('[contrib-debug]', entry.msg, data === undefined ? '' : data);
+      var cons = entry.level === 'error' ? window.console.error
+              : entry.level === 'warn'  ? window.console.warn
+              : window.console.debug;
+      try { cons.call(window.console, '[contrib-debug]', entry.msg, data === undefined ? '' : data); } catch (_e) {}
+    }
+    // Auto-reveal the pill on errors so a contributor who hit a hard
+    // failure can find + download the log without the URL trick.
+    if (entry.level === 'error' && !autoRevealed) {
+      autoRevealed = true;
+      ensureDrawer();
     }
   }
+
+  function logError(message, data) { log(message, data, { level: 'error' }); }
+  function logWarn(message, data)  { log(message, data, { level: 'warn'  }); }
 
   function notify() {
     for (var i = 0; i < listeners.length; i++) {
@@ -109,15 +143,52 @@
   }
 
   function snapshot() { return entries.slice(); }
-
   function clear() { entries = []; notify(); }
 
-  function isEnabled() { return enabled; }
+  function exportText() {
+    var head = [
+      '# Bridgn / Kozha contribute debug log',
+      '# session started ' + sessionStartedAt.toISOString(),
+      '# exported       ' + new Date().toISOString(),
+      '# url            ' + window.location.href,
+      '# user agent     ' + (navigator.userAgent || '<unknown>'),
+      '# entries        ' + entries.length + ' (cap ' + MAX_ENTRIES + ')',
+      '',
+    ].join('\n');
+    var body = entries.map(function (e) {
+      var line = '[' + e.at + '] ' + (e.level !== 'info' ? e.level.toUpperCase() + ' ' : '') + e.msg;
+      if (e.data !== null) {
+        line += '\n  ' + safeStringify(e.data).split('\n').join('\n  ');
+      }
+      return line;
+    }).join('\n');
+    return head + body + '\n';
+  }
+
+  function downloadLog() {
+    var text = exportText();
+    var blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'kozha-contrib-log-' + downloadStamp() + '.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
 
   // ---------- drawer UI ----------
 
   function ensureDrawer() {
-    if (drawer || !enabled) return drawer;
+    if (drawer) return drawer;
+    if (!drawerEnabled && !autoRevealed) return null;
+    if (!document.body) {
+      // Body not ready yet — defer to DOMContentLoaded.
+      document.addEventListener('DOMContentLoaded', ensureDrawer, { once: true });
+      return null;
+    }
+
     var btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'kz-debug-toggle';
@@ -138,7 +209,7 @@
     head.className = 'kz-debug-head';
     var title = document.createElement('span');
     title.className = 'kz-debug-title';
-    title.textContent = 'Debug log';
+    title.textContent = 'Debug log (' + entries.length + ')';
     var clearBtn = document.createElement('button');
     clearBtn.type = 'button';
     clearBtn.className = 'kz-debug-action';
@@ -149,13 +220,16 @@
     copyBtn.className = 'kz-debug-action';
     copyBtn.textContent = 'Copy';
     copyBtn.addEventListener('click', function () {
-      var text = entries.map(function (e) {
-        return '[' + e.at + '] ' + e.msg + (e.data === null ? '' : '\n  ' + safeStringify(e.data));
-      }).join('\n');
+      var text = exportText();
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).catch(function () {});
       }
     });
+    var dlBtn = document.createElement('button');
+    dlBtn.type = 'button';
+    dlBtn.className = 'kz-debug-action';
+    dlBtn.textContent = 'Download';
+    dlBtn.addEventListener('click', downloadLog);
     var closeBtn = document.createElement('button');
     closeBtn.type = 'button';
     closeBtn.className = 'kz-debug-action';
@@ -165,6 +239,7 @@
     head.appendChild(title);
     head.appendChild(clearBtn);
     head.appendChild(copyBtn);
+    head.appendChild(dlBtn);
     head.appendChild(closeBtn);
     panel.appendChild(head);
 
@@ -183,20 +258,19 @@
     });
 
     function render() {
-      // Render in newest-first order; cap to MAX_ENTRIES (already
-      // bounded but defensive against future tweaks).
+      title.textContent = 'Debug log (' + entries.length + ')';
       while (body.firstChild) body.removeChild(body.firstChild);
       var rows = entries.slice().reverse();
       for (var i = 0; i < rows.length; i++) {
         var e = rows[i];
         var row = document.createElement('div');
-        row.className = 'kz-debug-row';
+        row.className = 'kz-debug-row is-level-' + e.level;
         var ts = document.createElement('span');
         ts.className = 'kz-debug-ts';
         ts.textContent = e.at;
         var msg = document.createElement('span');
         msg.className = 'kz-debug-msg';
-        msg.textContent = e.msg;
+        msg.textContent = (e.level !== 'info' ? '[' + e.level + '] ' : '') + e.msg;
         row.appendChild(ts);
         row.appendChild(msg);
         if (e.data !== null) {
@@ -209,33 +283,64 @@
       }
     }
 
-    listeners.push(function () { if (!panel.hidden) render(); });
+    listeners.push(function () {
+      title.textContent = 'Debug log (' + entries.length + ')';
+      if (!panel.hidden) render();
+    });
 
-    drawer = { btn: btn, panel: panel, render: render };
+    drawer = { btn: btn, panel: panel, render: render, setOpen: setOpen };
     return drawer;
   }
+
+  function reveal() {
+    autoRevealed = true;
+    ensureDrawer();
+  }
+
+  // ---------- error capture (window-level) ----------
+
+  window.addEventListener('error', function (ev) {
+    if (!ev) return;
+    logError('window: error', {
+      message: ev.message,
+      filename: ev.filename,
+      lineno: ev.lineno,
+      colno: ev.colno,
+      stack: ev.error && ev.error.stack ? String(ev.error.stack).slice(0, 2000) : undefined,
+    });
+  });
+  window.addEventListener('unhandledrejection', function (ev) {
+    var r = ev && ev.reason;
+    logError('window: unhandled promise rejection', {
+      reason: r && r.message ? r.message : String(r),
+      stack: r && r.stack ? String(r.stack).slice(0, 2000) : undefined,
+    });
+  });
 
   // ---------- public surface ----------
 
   window.KOZHA_CONTRIB_DEBUG = {
-    log:        enabled ? log : function () { /* no-op when disabled */ },
-    isEnabled:  isEnabled,
-    snapshot:   snapshot,
-    clear:      clear,
-    // Always-on emergency log: lets a module record an event regardless
-    // of whether the toggle is enabled. Useful for hard errors we want
-    // to capture even if the user later switches debug on.
-    forceLog:   log,
+    // Logging is always-on. Pill / drawer visibility is the only thing
+    // gated by the opt-in flag.
+    log:       log,
+    warn:      logWarn,
+    error:     logError,
+    forceLog:  log,
+    snapshot:  snapshot,
+    clear:     clear,
+    download:  downloadLog,
+    exportText: exportText,
+    reveal:    reveal,
+    isEnabled: function () { return drawerEnabled || autoRevealed; },
     enable: function () {
-      enabled = true;
+      drawerEnabled = true;
       try { localStorage.setItem(STORAGE_KEY, '1'); } catch (_e) {}
-      window.KOZHA_CONTRIB_DEBUG.log = log;
       ensureDrawer();
     },
     disable: function () {
-      enabled = false;
+      drawerEnabled = false;
+      autoRevealed = false;
       try { localStorage.removeItem(STORAGE_KEY); } catch (_e) {}
-      window.KOZHA_CONTRIB_DEBUG.log = function () {};
       if (drawer) {
         drawer.btn.remove();
         drawer.panel.remove();
@@ -244,8 +349,14 @@
     },
   };
 
-  function init() { if (enabled) ensureDrawer(); }
+  // First baseline entry — useful as the anchor in any downloaded log.
+  log('debug: page session started', {
+    url: window.location.href,
+    userAgent: navigator.userAgent,
+    drawerEnabled: drawerEnabled,
+  });
 
+  function init() { if (drawerEnabled) ensureDrawer(); }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {

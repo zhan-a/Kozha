@@ -1522,6 +1522,12 @@ select.field-input { cursor: pointer; }
   margin-top: var(--kozha-space-1);
   align-self: center;
 }
+.avatar-fallback-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--kozha-space-2);
+  justify-content: center;
+}
 
 /* ===========================================================
  * Debug drawer (opt-in via ?debug=1 or localStorage flag)
