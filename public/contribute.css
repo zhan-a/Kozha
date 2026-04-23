@@ -819,6 +819,16 @@ select.field-input { cursor: pointer; }
   width: 100%;
   height: 100%;
 }
+.CWASAAvatar.av0 canvas {
+  /* CWASA renders at the avSettings native resolution (we now request
+     720x540 in contribute-preview.js — large enough that the canvas
+     fills the contribute stage at typical desktop widths without
+     upscaling artefacts). object-fit: contain keeps the avatar
+     proportions when the stage is wider/taller than the native ratio. */
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain;
+}
 .avatar-regions {
   position: absolute;
   inset: 0;

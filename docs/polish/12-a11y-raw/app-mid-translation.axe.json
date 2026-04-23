@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-23T01:42:45.930Z",
-  "url": "http://127.0.0.1:58287/app.html",
+  "timestamp": "2026-04-23T02:45:27.917Z",
+  "url": "http://127.0.0.1:59854/app.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -595,27 +595,6 @@
       "description": "Ensure the scope attribute is used correctly on tables",
       "help": "scope attribute should be used correctly",
       "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/scope-attr-valid?application=axe-puppeteer",
-      "nodes": []
-    },
-    {
-      "id": "scrollable-region-focusable",
-      "impact": null,
-      "tags": [
-        "cat.keyboard",
-        "wcag2a",
-        "wcag211",
-        "wcag213",
-        "TTv5",
-        "TT4.a",
-        "EN-301-549",
-        "EN-9.2.1.1",
-        "EN-9.2.1.3",
-        "RGAAv4",
-        "RGAA-7.3.2"
-      ],
-      "description": "Ensure elements that have scrollable content are accessible by keyboard in Safari",
-      "help": "Scrollable region must have keyboard access",
-      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/scrollable-region-focusable?application=axe-puppeteer",
       "nodes": []
     },
     {
@@ -15914,7 +15893,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"CWASAAvatar av0\"><div class=\"divAv av0\">\n<canvas class=\"canvasAv av0\" ondragstart=\"return false\" width=\"300\" height=\"150\"></canvas>\n</div>  <!--class=\"divAv av0\"--></div>",
+          "html": "<div class=\"CWASAAvatar av0\"><div class=\"divAv av0\">\n<canvas class=\"canvasAv av0\" ondragstart=\"return false\" width=\"374\" height=\"209\"></canvas>\n</div>  <!--class=\"divAv av0\"--></div>",
           "target": [
             ".CWASAAvatar"
           ]
@@ -15934,7 +15913,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"divAv av0\">\n<canvas class=\"canvasAv av0\" ondragstart=\"return false\" width=\"300\" height=\"150\"></canvas>\n</div>",
+          "html": "<div class=\"divAv av0\">\n<canvas class=\"canvasAv av0\" ondragstart=\"return false\" width=\"374\" height=\"209\"></canvas>\n</div>",
           "target": [
             ".divAv"
           ]
@@ -15954,7 +15933,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<canvas class=\"canvasAv av0\" ondragstart=\"return false\" width=\"300\" height=\"150\"></canvas>",
+          "html": "<canvas class=\"canvasAv av0\" ondragstart=\"return false\" width=\"374\" height=\"209\"></canvas>",
           "target": [
             "canvas"
           ]
@@ -17403,6 +17382,46 @@
       ]
     },
     {
+      "id": "scrollable-region-focusable",
+      "impact": null,
+      "tags": [
+        "cat.keyboard",
+        "wcag2a",
+        "wcag211",
+        "wcag213",
+        "TTv5",
+        "TT4.a",
+        "EN-301-549",
+        "EN-9.2.1.1",
+        "EN-9.2.1.3",
+        "RGAAv4",
+        "RGAA-7.3.2"
+      ],
+      "description": "Ensure elements that have scrollable content are accessible by keyboard in Safari",
+      "help": "Scrollable region must have keyboard access",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/scrollable-region-focusable?application=axe-puppeteer",
+      "nodes": [
+        {
+          "any": [
+            {
+              "id": "focusable-content",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element contains focusable elements"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<body>",
+          "target": [
+            "body"
+          ]
+        }
+      ]
+    },
+    {
       "id": "select-name",
       "impact": null,
       "tags": [
@@ -17673,6 +17692,17 @@
         {
           "any": [
             {
+              "id": "target-size",
+              "data": {
+                "minSize": 24,
+                "width": 60.3,
+                "height": 34.5
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Control has sufficient size (60.3px by 34.5px, should be at least 24px by 24px)"
+            },
+            {
               "id": "target-offset",
               "data": {
                 "closestOffset": 24,
@@ -17693,6 +17723,17 @@
         },
         {
           "any": [
+            {
+              "id": "target-size",
+              "data": {
+                "minSize": 24,
+                "width": 71.9,
+                "height": 34.5
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Control has sufficient size (71.9px by 34.5px, should be at least 24px by 24px)"
+            },
             {
               "id": "target-offset",
               "data": {
@@ -17715,6 +17756,17 @@
         {
           "any": [
             {
+              "id": "target-size",
+              "data": {
+                "minSize": 24,
+                "width": 57,
+                "height": 34.5
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Control has sufficient size (57px by 34.5px, should be at least 24px by 24px)"
+            },
+            {
               "id": "target-offset",
               "data": {
                 "closestOffset": 24,
@@ -17735,6 +17787,17 @@
         },
         {
           "any": [
+            {
+              "id": "target-size",
+              "data": {
+                "minSize": 24,
+                "width": 40.7,
+                "height": 34.5
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Control has sufficient size (40.7px by 34.5px, should be at least 24px by 24px)"
+            },
             {
               "id": "target-offset",
               "data": {
@@ -18763,7 +18826,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<canvas class=\"canvasAv av0\" ondragstart=\"return false\" width=\"300\" height=\"150\"></canvas>",
+                  "html": "<canvas class=\"canvasAv av0\" ondragstart=\"return false\" width=\"374\" height=\"209\"></canvas>",
                   "target": [
                     "canvas"
                   ]

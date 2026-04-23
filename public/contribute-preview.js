@@ -213,8 +213,13 @@
           useClientConfig: false,
           useCwaConfig:    true,
           avSettings: [{
-            width:           384,
-            height:          320,
+            // 720x540 native render — large enough that the avatar
+            // fills the contribute preview stage on desktop without
+            // upscaling. CSS (.CWASAAvatar.av0 rule below in
+            // contribute.css) scales the canvas to fill the stage
+            // with object-fit: contain to preserve proportions.
+            width:           720,
+            height:          540,
             avList:          'avs',
             initAv:          'luna',
             ambIdle:         true,

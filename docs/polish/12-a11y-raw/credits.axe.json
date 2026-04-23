@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-23T01:42:50.338Z",
-  "url": "http://127.0.0.1:58287/credits.html",
+  "timestamp": "2026-04-23T02:45:32.348Z",
+  "url": "http://127.0.0.1:59854/credits.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -34048,6 +34048,17 @@
         {
           "any": [
             {
+              "id": "target-size",
+              "data": {
+                "minSize": 24,
+                "width": 60.3,
+                "height": 34.5
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Control has sufficient size (60.3px by 34.5px, should be at least 24px by 24px)"
+            },
+            {
               "id": "target-offset",
               "data": {
                 "closestOffset": 24,
@@ -34068,6 +34079,17 @@
         },
         {
           "any": [
+            {
+              "id": "target-size",
+              "data": {
+                "minSize": 24,
+                "width": 71.9,
+                "height": 34.5
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Control has sufficient size (71.9px by 34.5px, should be at least 24px by 24px)"
+            },
             {
               "id": "target-offset",
               "data": {
@@ -34090,6 +34112,17 @@
         {
           "any": [
             {
+              "id": "target-size",
+              "data": {
+                "minSize": 24,
+                "width": 57,
+                "height": 34.5
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Control has sufficient size (57px by 34.5px, should be at least 24px by 24px)"
+            },
+            {
               "id": "target-offset",
               "data": {
                 "closestOffset": 24,
@@ -34110,6 +34143,17 @@
         },
         {
           "any": [
+            {
+              "id": "target-size",
+              "data": {
+                "minSize": 24,
+                "width": 40.7,
+                "height": 34.5
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Control has sufficient size (40.7px by 34.5px, should be at least 24px by 24px)"
+            },
             {
               "id": "target-offset",
               "data": {

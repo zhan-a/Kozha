@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-23T01:42:37.366Z",
-  "url": "http://127.0.0.1:58287/",
+  "timestamp": "2026-04-23T02:45:19.069Z",
+  "url": "http://127.0.0.1:59854/",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -4242,6 +4242,56 @@
           "html": "<a href=\"/contribute.html\" data-i18n=\"common.nav_contribute\">Contribute</a>",
           "target": [
             ".kz-footer__col:nth-child(1) > ul > li:nth-child(2) > a[data-i18n=\"common.nav_contribute\"][href$=\"contribute.html\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#1a1612",
+                "bgColor": "#f5f1eb",
+                "contrastRatio": 15.98,
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 15.98"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<h2 class=\"kz-footer__col-title\" data-i18n=\"common.footer_col_project\">Project</h2>",
+          "target": [
+            "h2[data-i18n=\"common.footer_col_project\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#3d3630",
+                "bgColor": "#f5f1eb",
+                "contrastRatio": 10.55,
+                "fontSize": "9.8pt (13px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 10.55"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<a href=\"/progress\" data-i18n=\"common.nav_progress\">Progress</a>",
+          "target": [
+            "li:nth-child(1) > a[href$=\"progress\"][data-i18n=\"common.nav_progress\"]"
           ]
         },
         {
@@ -12003,18 +12053,13 @@
             {
               "id": "target-size",
               "data": {
-                "messageKey": "obscured"
+                "minSize": 24,
+                "width": 50.3,
+                "height": 29
               },
-              "relatedNodes": [
-                {
-                  "html": "<nav class=\"kz-footer__cols\" aria-label=\"Footer\">",
-                  "target": [
-                    "nav"
-                  ]
-                }
-              ],
+              "relatedNodes": [],
               "impact": "serious",
-              "message": "Control is ignored because it is fully obscured and thus not clickable"
+              "message": "Control has sufficient size (50.3px by 29px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -12040,18 +12085,13 @@
             {
               "id": "target-size",
               "data": {
-                "messageKey": "obscured"
+                "minSize": 24,
+                "width": 60.3,
+                "height": 34.5
               },
-              "relatedNodes": [
-                {
-                  "html": "<nav class=\"kz-footer__cols\" aria-label=\"Footer\">",
-                  "target": [
-                    "nav"
-                  ]
-                }
-              ],
+              "relatedNodes": [],
               "impact": "serious",
-              "message": "Control is ignored because it is fully obscured and thus not clickable"
+              "message": "Control has sufficient size (60.3px by 34.5px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -12077,18 +12117,13 @@
             {
               "id": "target-size",
               "data": {
-                "messageKey": "obscured"
+                "minSize": 24,
+                "width": 71.9,
+                "height": 34.5
               },
-              "relatedNodes": [
-                {
-                  "html": "<nav class=\"kz-footer__cols\" aria-label=\"Footer\">",
-                  "target": [
-                    "nav"
-                  ]
-                }
-              ],
+              "relatedNodes": [],
               "impact": "serious",
-              "message": "Control is ignored because it is fully obscured and thus not clickable"
+              "message": "Control has sufficient size (71.9px by 34.5px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -12114,30 +12149,13 @@
             {
               "id": "target-size",
               "data": {
-                "messageKey": "obscured"
+                "minSize": 24,
+                "width": 57,
+                "height": 34.5
               },
-              "relatedNodes": [
-                {
-                  "html": "<nav class=\"kz-footer__cols\" aria-label=\"Footer\">",
-                  "target": [
-                    "nav"
-                  ]
-                },
-                {
-                  "html": "<div class=\"kz-footer__col\">",
-                  "target": [
-                    ".kz-footer__col:nth-child(3)"
-                  ]
-                },
-                {
-                  "html": "<ul>\n            <li><a href=\"https://github.com/zhan-a/Kozha\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a></li>\n            <li><a href=\"mailto:deaf-feedback@kozha.dev\">deaf-feedback@kozha.dev</a></li>\n          </ul>",
-                  "target": [
-                    ".kz-footer__col:nth-child(3) > ul"
-                  ]
-                }
-              ],
+              "relatedNodes": [],
               "impact": "serious",
-              "message": "Control is ignored because it is fully obscured and thus not clickable"
+              "message": "Control has sufficient size (57px by 34.5px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -12163,18 +12181,13 @@
             {
               "id": "target-size",
               "data": {
-                "messageKey": "obscured"
+                "minSize": 24,
+                "width": 40.7,
+                "height": 34.5
               },
-              "relatedNodes": [
-                {
-                  "html": "<nav class=\"kz-footer__cols\" aria-label=\"Footer\">",
-                  "target": [
-                    "nav"
-                  ]
-                }
-              ],
+              "relatedNodes": [],
               "impact": "serious",
-              "message": "Control is ignored because it is fully obscured and thus not clickable"
+              "message": "Control has sufficient size (40.7px by 34.5px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -12510,12 +12523,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 349.6,
+                "width": 278.7,
                 "height": 29
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (349.6px by 29px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (278.7px by 29px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -12820,38 +12833,6 @@
           "html": "<em>Bridgn</em>",
           "target": [
             "#features > .section-title > em"
-          ],
-          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
-        },
-        {
-          "any": [
-            {
-              "id": "color-contrast",
-              "data": {
-                "contrastRatio": 0,
-                "fontSize": "9.8pt (13px)",
-                "fontWeight": "normal",
-                "messageKey": "elmPartiallyObscured",
-                "expectedContrastRatio": "4.5:1"
-              },
-              "relatedNodes": [
-                {
-                  "html": "<body>",
-                  "target": [
-                    "body"
-                  ]
-                }
-              ],
-              "impact": "serious",
-              "message": "Element's background color could not be determined because it's partially obscured by another element"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": "serious",
-          "html": "<a href=\"/progress\" data-i18n=\"common.nav_progress\">Progress</a>",
-          "target": [
-            "li:nth-child(1) > a[href$=\"progress\"][data-i18n=\"common.nav_progress\"]"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
         }

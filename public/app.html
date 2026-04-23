@@ -50,7 +50,17 @@
       --sidebar: 260px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    /* Box-sizing reset only — the universal "* { padding: 0 }" was
+       wiping the unified .kz-header's padding (components.css uses
+       :where() for zero specificity), pulling the logo to the left
+       edge and clipping the rightmost link. Element-typed margin/
+       padding resets do the same job without trampling design-
+       system rules. */
+    *, *::before, *::after { box-sizing: border-box; }
+    body, h1, h2, h3, h4, p, ul, ol, dl, dd, figure, blockquote {
+      margin: 0;
+    }
+    ul, ol { padding-left: 0; list-style: none; }
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--paper);
@@ -426,10 +436,14 @@
       justify-content: center;
     }
     .CWASAAvatar.av0 canvas {
-      max-width: 100%;
-      max-height: 100%;
-      width: auto !important;
-      height: auto !important;
+      /* CWASA renders at the avSettings native resolution (we now
+         request 720x540 below — large enough that the canvas fills
+         the translator stage at typical desktop widths without
+         upscaling artefacts). object-fit: contain keeps the avatar
+         proportions when the stage is wider/taller than 4:3. */
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: contain;
     }
     .divCtrlPanel { display: none; }
     .menuAv { display: none; }
@@ -1749,8 +1763,13 @@
       useClientConfig: false,
       useCwaConfig: true,
       avSettings: [{
-        width: 384,
-        height: 320,
+        // 720x540 native render: the translator stage is ~600px wide
+        // at desktop widths, so the canvas never has to upscale. CSS
+        // (avatar canvas rule above) still scales to fill the stage
+        // with object-fit: contain so the avatar grows proportionally
+        // on wider viewports without pixellation.
+        width: 720,
+        height: 540,
         avList: 'avs',
         initAv: 'luna',
         ambIdle: true,

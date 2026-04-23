@@ -19,7 +19,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
   <meta name="theme-color" content="#f5f1eb" />
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    /* Box-sizing reset only — universal "padding: 0" wiped the
+       unified .kz-header padding (components.css uses :where() for
+       zero specificity). Element-typed resets keep the design-
+       system rules intact. */
+    *, *::before, *::after { box-sizing: border-box; }
+    body, h1, h2, h3, h4, p, ul, ol, dl, dd, figure, blockquote {
+      margin: 0;
+    }
+    ul, ol { padding-left: 0; list-style: none; }
 
     html { scroll-behavior: smooth; }
 

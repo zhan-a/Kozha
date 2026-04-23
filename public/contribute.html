@@ -18,9 +18,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/contribute.css">
-
+  <!-- CWASA's stylesheet sets html, body { background-color: #eee }
+       which conflicts with our warm paper background. Load it *before*
+       contribute.css so the page-specific rules (body bg, avatar
+       stage, etc.) win. -->
   <link rel="stylesheet" href="/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="/contribute.css">
   <script defer src="/i18n.js"></script>
   <script>
     // CWASA avatar bundle is ~4.6 MB — inject it on first user interaction
