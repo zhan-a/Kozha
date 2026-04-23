@@ -6,6 +6,7 @@ let isAutoCaption = false;
 let currentCaptionLang = "";
 let theaterObservers = [];
 let isWindowTranslating = false;
+let pendingInit = null;
 
 var SEGMENT_THRESHOLD = 200;
 var WINDOW_SIZE = 100;
@@ -24,7 +25,8 @@ function isWatchPage() {
   }
 }
 
-function isLiveStream() {
+function getPlayerResponseFromScripts() {
+  var vid = getVideoId();
   var scripts = document.querySelectorAll("script");
   for (var i = 0; i < scripts.length; i++) {
     var text = scripts[i].textContent;
@@ -32,27 +34,65 @@ function isLiveStream() {
     if (!match) continue;
     try {
       var data = JSON.parse(match[1]);
-      var details = data?.videoDetails;
-      if (details && details.isLiveContent && details.isLive) return true;
-    } catch (e) {}
-  }
-  return false;
-}
-
-function extractCaptionTracks() {
-  var scripts = document.querySelectorAll("script");
-  for (var i = 0; i < scripts.length; i++) {
-    var text = scripts[i].textContent;
-    var match = text.match(/ytInitialPlayerResponse\s*=\s*(\{.+?\});/s);
-    if (!match) continue;
-    try {
-      var data = JSON.parse(match[1]);
-      var tracks =
-        data?.captions?.playerCaptionsTracklistRenderer?.captionTracks;
-      if (tracks) return tracks;
+      if (vid && data.videoDetails && data.videoDetails.videoId !== vid) continue;
+      return data;
     } catch (e) {}
   }
   return null;
+}
+
+function getPlayerResponseFromPage() {
+  return new Promise(function(resolve) {
+    var eid = "kozha-" + Math.random().toString(36).slice(2);
+    var handled = false;
+    function done(val) {
+      if (handled) return;
+      handled = true;
+      resolve(val);
+    }
+    window.addEventListener(eid, function h(e) {
+      window.removeEventListener(eid, h);
+      try { done(JSON.parse(e.detail)); } catch(x) { done(null); }
+    });
+    var s = document.createElement("script");
+    s.textContent = '!function(){try{window.dispatchEvent(new CustomEvent("' + eid + '",{detail:JSON.stringify(window.ytInitialPlayerResponse||null)}))}catch(e){window.dispatchEvent(new CustomEvent("' + eid + '",{detail:"null"}))}}()';
+    document.documentElement.appendChild(s);
+    s.remove();
+    setTimeout(function() { done(null); }, 1000);
+  });
+}
+
+async function getPlayerResponse(retries) {
+  var vid = getVideoId();
+  for (var attempt = 0; attempt <= retries; attempt++) {
+    if (attempt > 0) {
+      setStatus("Waiting for page data...");
+      await new Promise(function(r) { setTimeout(r, attempt * 800); });
+    }
+
+    var data = getPlayerResponseFromScripts();
+    if (data && (!vid || !data.videoDetails || data.videoDetails.videoId === vid)) {
+      return data;
+    }
+
+    data = await getPlayerResponseFromPage();
+    if (data && (!vid || !data.videoDetails || data.videoDetails.videoId === vid)) {
+      return data;
+    }
+  }
+  return null;
+}
+
+function extractTracksFromResponse(data) {
+  if (!data) return null;
+  var tracks = data && data.captions && data.captions.playerCaptionsTracklistRenderer &&
+    data.captions.playerCaptionsTracklistRenderer.captionTracks;
+  return tracks && tracks.length > 0 ? tracks : null;
+}
+
+function isLiveFromResponse(data) {
+  if (!data || !data.videoDetails) return false;
+  return !!(data.videoDetails.isLiveContent && data.videoDetails.isLive);
 }
 
 function pickBestTrack(tracks) {
@@ -108,7 +148,7 @@ async function translateSegments(segs, sourceLang, videoId) {
             return;
           }
           if (resp && resp.ok) resolve(resp.data);
-          else reject(new Error(resp?.error || "Translation failed"));
+          else reject(new Error(resp && resp.error ? resp.error : "Translation failed"));
         }
       );
     });
@@ -216,7 +256,8 @@ function removeVideoListeners() {
 }
 
 function startVideoSync() {
-  var video = document.querySelector("video");
+  var video = document.querySelector("#movie_player video") ||
+    document.querySelector("video");
   if (!video) return;
   var useWindow = segments.length > SEGMENT_THRESHOLD;
 
@@ -243,6 +284,7 @@ function startVideoSync() {
 
   addVideoListener(video, "pause", function() {
     Kozha.stopAvatar();
+    setStatus("Paused");
   });
 
   addVideoListener(video, "seeking", function() {
@@ -252,6 +294,7 @@ function startVideoSync() {
 
   addVideoListener(video, "play", function() {
     currentSegmentIndex = -1;
+    setStatus(isAutoCaption ? "Synced (auto captions)" : "Synced");
   });
 }
 
@@ -314,19 +357,21 @@ async function init() {
 
   Kozha.injectPanel();
   Kozha.setSubtitle("Loading captions...");
-  setStatus("Initializing");
+  setStatus("Extracting captions...");
   observeTheaterAndFullscreen();
 
-  if (isLiveStream()) {
-    setStatus("Live streams not supported");
+  var playerResponse = await getPlayerResponse(2);
+
+  if (isLiveFromResponse(playerResponse)) {
+    setStatus("Live — not supported");
     Kozha.setSubtitle("Live streams are not supported");
     return;
   }
 
-  var tracks = extractCaptionTracks();
+  var tracks = extractTracksFromResponse(playerResponse);
 
-  if (!tracks || tracks.length === 0) {
-    setStatus("No captions available");
+  if (!tracks) {
+    setStatus("No captions found");
     Kozha.setSubtitle("This video has no captions");
     return;
   }
@@ -405,26 +450,23 @@ function cleanup() {
   Kozha.removePanel();
 }
 
-var lastUrl = location.href;
-var navObserver = new MutationObserver(function() {
-  if (location.href !== lastUrl) {
-    lastUrl = location.href;
-    cleanup();
-    if (isWatchPage()) {
-      setTimeout(init, 500);
-    }
+function onNavigate() {
+  if (location.href === lastUrl) return;
+  lastUrl = location.href;
+  if (pendingInit) clearTimeout(pendingInit);
+  cleanup();
+  if (isWatchPage()) {
+    pendingInit = setTimeout(function() {
+      pendingInit = null;
+      init();
+    }, 500);
   }
-});
+}
+
+var lastUrl = location.href;
+var navObserver = new MutationObserver(onNavigate);
 navObserver.observe(document.body, { childList: true, subtree: true });
 
-document.addEventListener("yt-navigate-finish", function() {
-  if (location.href !== lastUrl) {
-    lastUrl = location.href;
-    cleanup();
-    if (isWatchPage()) {
-      setTimeout(init, 500);
-    }
-  }
-});
+document.addEventListener("yt-navigate-finish", onNavigate);
 
 init();
