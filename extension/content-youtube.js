@@ -107,13 +107,17 @@ function pickBestTrack(tracks) {
 async function fetchTranscript(track) {
   var url = track.baseUrl;
   var jsonUrl = url + (url.indexOf("?") >= 0 ? "&" : "?") + "fmt=json3";
+  console.log("[Kozha YT] fetching transcript from:", jsonUrl.substring(0, 150));
   var resp = await fetch(jsonUrl);
+  console.log("[Kozha YT] transcript response:", resp.status, resp.headers.get("content-type"));
   var text = await resp.text();
+  console.log("[Kozha YT] response length:", text.length, "first 200 chars:", text.substring(0, 200));
 
   if (text.trim().charAt(0) === "{") {
     try {
       var data = JSON.parse(text);
       var events = data.events || [];
+      console.log("[Kozha YT] json events:", events.length);
       var segments = [];
       for (var i = 0; i < events.length; i++) {
         var ev = events[i];
@@ -127,12 +131,13 @@ async function fetchTranscript(track) {
         });
       }
       if (segments.length > 0) return segments;
-    } catch (e) {}
+    } catch (e) { console.error("[Kozha YT] json parse failed:", e); }
   }
 
   var parser = new DOMParser();
   var doc = parser.parseFromString(text, "text/xml");
   var nodes = doc.querySelectorAll("text, p");
+  console.log("[Kozha YT] xml fallback nodes found:", nodes.length);
   return Array.from(nodes).map(function(node) {
     var start = node.getAttribute("start") || node.getAttribute("t");
     var dur = node.getAttribute("dur") || node.getAttribute("d") || "0";
