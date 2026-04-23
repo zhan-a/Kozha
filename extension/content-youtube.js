@@ -315,6 +315,9 @@ function startRealtimeTextTrackSync(sourceLang) {
 var captionObserver = null;
 var captionDebounceTimer = null;
 var lastSignedText = "";
+var lastAvatarSendTime = 0;
+var AVATAR_SEND_COOLDOWN_MS = 1000;
+var LAST_TEXT_MAX_LEN = 300;
 
 function dedupeDoubledText(text) {
   if (!text || text.length < 20) return text;
@@ -363,21 +366,49 @@ function emitCaption(sourceLang) {
   var newPart = diffNewWords(lastSignedText, text);
   if (!newPart || newPart.length < 3) return;
 
-  lastSignedText = text;
+  var now = Date.now();
+  if (now - lastAvatarSendTime < AVATAR_SEND_COOLDOWN_MS) return;
+  lastAvatarSendTime = now;
+
+  lastSignedText = text.length > LAST_TEXT_MAX_LEN ? text.slice(-LAST_TEXT_MAX_LEN) : text;
   console.log("[Kozha YT] new caption part:", newPart);
   Kozha.setSubtitle(text);
   translateAndSign(newPart, sourceLang);
 }
 
+function findCaptionTarget() {
+  return document.querySelector(".ytp-caption-window-container") ||
+         document.querySelector("#movie_player .caption-window") ||
+         document.querySelector("#movie_player");
+}
+
 function startCaptionDomObserver(sourceLang) {
-  var target = document.querySelector("#movie_player") || document.body;
+  var target = findCaptionTarget();
+  if (!target) {
+    setTimeout(function() { startCaptionDomObserver(sourceLang); }, 1000);
+    return;
+  }
   if (captionObserver) captionObserver.disconnect();
+  var isNarrow = target.classList && (target.classList.contains("ytp-caption-window-container") || target.classList.contains("caption-window"));
   captionObserver = new MutationObserver(function() {
     if (captionDebounceTimer) clearTimeout(captionDebounceTimer);
     captionDebounceTimer = setTimeout(function() { emitCaption(sourceLang); }, 800);
   });
-  captionObserver.observe(target, { childList: true, subtree: true, characterData: true });
-  console.log("[Kozha YT] MutationObserver attached to", target.id || target.tagName);
+  captionObserver.observe(target, {
+    childList: true,
+    subtree: true,
+    characterData: isNarrow,
+  });
+  console.log("[Kozha YT] MutationObserver attached to", target.className || target.id, "narrow:", isNarrow);
+
+  if (!isNarrow) {
+    setTimeout(function() {
+      var narrow = findCaptionTarget();
+      if (narrow && narrow !== target && (narrow.classList.contains("ytp-caption-window-container") || narrow.classList.contains("caption-window"))) {
+        startCaptionDomObserver(sourceLang);
+      }
+    }, 3000);
+  }
 }
 
 function translateAndSign(text, sourceLang) {
@@ -606,12 +637,18 @@ function cleanup() {
   Kozha.removeDocListeners();
   theaterObservers.forEach(function(obs) { obs.disconnect(); });
   theaterObservers = [];
+  if (captionObserver) { captionObserver.disconnect(); captionObserver = null; }
+  if (captionDebounceTimer) { clearTimeout(captionDebounceTimer); captionDebounceTimer = null; }
   currentSegmentIndex = -1;
   translationCache = {};
   segments = [];
   isAutoCaption = false;
   currentCaptionLang = "";
   isWindowTranslating = false;
+  realtimeActive = false;
+  lastRealtimeText = "";
+  lastSignedText = "";
+  lastAvatarSendTime = 0;
   Kozha.avatarReady = false;
   Kozha.dbReady = false;
   Kozha.cwasaFailed = false;
