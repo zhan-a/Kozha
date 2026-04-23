@@ -800,13 +800,17 @@ def generate(
                     "sigml-direct fallback succeeded: %s",
                     sigml_rationale[:200],
                 )
+                # Drop any in-progress retry traces — the success
+                # path is what the contributor sees, and lingering
+                # "missing palm_direction" / "invalid json" notices
+                # next to a working sign is confusing noise.
                 return GenerateResult(
                     hamnosys=normalized,
                     validation=vr,
                     used_llm_fallback=True,
                     llm_fallback_fields=fallback_fields,
                     confidence=0.6,
-                    errors=errors_out,
+                    errors=[],
                     last_candidate=normalized,
                 )
             errors_out.append(
@@ -896,13 +900,18 @@ def generate(
                 logger.info(
                     "sigml-direct recovery succeeded post-validation-failure"
                 )
+                # Drop in-progress retry traces — see the equivalent
+                # success-path comment in the unresolved-slots branch
+                # above. The contributor sees a working sign without
+                # stale "missing palm_direction" / "invalid json"
+                # noise next to it.
                 return GenerateResult(
                     hamnosys=normalized,
                     validation=wvr,
                     used_llm_fallback=True,
                     llm_fallback_fields=fallback_fields,
                     confidence=0.5,
-                    errors=errors_out,
+                    errors=[],
                     last_candidate=normalized,
                 )
             errors_out.append(
@@ -953,13 +962,17 @@ def generate(
             last_candidate=candidate,
         )
 
+    # Successful slot/repair path. Drop accumulated retry traces from
+    # the SiGML-direct attempts and the per-slot fallback failures —
+    # we have a working HamNoSys, the in-progress notes are stale.
+    # Surface them only on the failure return paths above.
     return GenerateResult(
         hamnosys=candidate,
         validation=vr,
         used_llm_fallback=used_llm_fallback,
         llm_fallback_fields=fallback_fields,
         confidence=running_confidence,
-        errors=errors_out,
+        errors=[],
         last_candidate=candidate,
     )
 

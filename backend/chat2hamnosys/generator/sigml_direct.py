@@ -72,6 +72,25 @@ _LOCATION_CLASSES = frozenset({
 })
 
 
+# Movement-primary classes: each is a head-of-action tag. CWASA's
+# Ham4HMLGen.g grammar accepts at most one primary per signing block —
+# more than one in a row makes ``SigningAvatar.playSiGMLText`` look up
+# a null movement node and crash with
+# ``Cannot read properties of null (reading 'getName')``. The model
+# occasionally emits two primaries when the contributor's prose
+# describes two actions ("move outward and waving"); this set lets
+# the slot-completeness check spot it before we ship to CWASA.
+_MOVEMENT_PRIMARY_CLASSES = frozenset({
+    SymClass.MOVE_STRAIGHT,
+    SymClass.MOVE_CIRCLE,
+    SymClass.MOVE_ACTION,
+    SymClass.MOVE_CLOCK,
+    SymClass.MOVE_ARC,
+    SymClass.MOVE_WAVY,
+    SymClass.MOVE_ELLIPSE,
+})
+
+
 def _missing_required_slots(hamnosys: str) -> list[str]:
     """Return the list of required slot names absent from ``hamnosys``.
 
@@ -106,6 +125,30 @@ def _missing_required_slots(hamnosys: str) -> list[str]:
     if not has_palm:       missing.append("palm_direction")
     if not has_location:   missing.append("location")
     return missing
+
+
+def _has_multi_movement_primary(hamnosys: str) -> bool:
+    """Return True if the HamNoSys carries more than one movement-primary
+    tag (e.g. ``hammoveo`` followed by ``hamswinging``).
+
+    CWASA's grammar treats each movement-primary as the head of an
+    action block; chaining two without an explicit grouping bracket
+    (``hampar``, ``hamfusion``, ``hamseq``) crashes
+    ``SigningAvatar.playSiGMLText`` with
+    ``Cannot read properties of null (reading 'getName')``. The
+    HamNoSys symbol-level validator doesn't catch this, so we check
+    here. The retry loop then asks the model to keep one primary
+    movement plus modifiers (``hamsmallmod``, ``hamfastmod``, etc.)
+    instead of stacking primaries.
+    """
+    primary_count = 0
+    for ch in hamnosys:
+        cls = classify(ch)
+        if cls in _MOVEMENT_PRIMARY_CLASSES:
+            primary_count += 1
+            if primary_count > 1:
+                return True
+    return False
 
 from .sigml_examples import few_shot_examples, render_few_shot
 
@@ -417,6 +460,16 @@ def _generate_sigml_direct_once(
             ". CWASA needs each of [handshape, ext_finger, palm, location] "
             "before any movement tag — re-emit the SiGML with all four "
             "present, in canonical order."
+        )
+
+    if _has_multi_movement_primary(normalized):
+        return "", "", (
+            "the SiGML carries more than one movement-primary tag "
+            "(e.g. <hammoveo/> followed by <hamswinging/>). CWASA's "
+            "grammar accepts only one primary movement per signing "
+            "block — re-emit with a single movement primary plus its "
+            "modifiers (e.g. <hammoveo/><hamsmallmod/>), or use a "
+            "<hamfusion>/<hampar> bracket if you genuinely need two."
         )
 
     # Re-emit canonical SiGML through to_sigml so the renderer always

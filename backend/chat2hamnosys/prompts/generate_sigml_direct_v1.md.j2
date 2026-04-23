@@ -26,6 +26,7 @@ Tag rules:
 - Order matters: `[symmetry] handshape ext_finger palm location [contact] [movement [size/speed/timing] [repeat]]`. Two-handed signs prefix the manual block with `<hamsymmpar/>` only when the contributor explicitly described both hands moving.
 - Mandatory slots: handshape, extended-finger orientation, palm orientation, location. Each appears exactly once.
 - Movement is optional but adds clarity; include at least a path tag (`<hammoveu/>`, `<hammoveo/>`, `<hamcircleu/>`, etc.) when the contributor described any motion.
+- **Exactly one movement-primary** (e.g. `<hammoveo/>`, `<hamcircleu/>`, `<hamswinging/>`, `<hamarcl/>`) per signing block. CWASA's renderer crashes on two consecutive primaries (e.g. `<hammoveo/><hamswinging/>`). If the contributor described two movements, pick the more characteristic one and convey the other through modifiers (`<hamsmallmod/>`, `<hamlargemod/>`, `<hamfastmod/>`, `<hamslowmod/>`) or `<hamrepeat/>` / `<hamrepeatfromstart/>`. Use `<hamfusion>...</hamfusion>` brackets only if both movements are genuinely simultaneous.
 
 Style:
 - Match the formatting of the reference examples (indented self-closing tags, one tag per line). XML declarations and outer `<sigml>` wrappers are NOT needed — emit only the `<hns_sign>` fragment.
