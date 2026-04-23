@@ -105,16 +105,49 @@ function pickBestTrack(tracks) {
 }
 
 async function fetchTranscript(track) {
-  var resp = await fetch(track.baseUrl);
-  var xml = await resp.text();
+  var url = track.baseUrl;
+  var jsonUrl = url + (url.indexOf("?") >= 0 ? "&" : "?") + "fmt=json3";
+  var resp = await fetch(jsonUrl);
+  var text = await resp.text();
+
+  if (text.trim().charAt(0) === "{") {
+    try {
+      var data = JSON.parse(text);
+      var events = data.events || [];
+      var segments = [];
+      for (var i = 0; i < events.length; i++) {
+        var ev = events[i];
+        if (!ev.segs) continue;
+        var txt = ev.segs.map(function(s) { return s.utf8 || ""; }).join("").trim();
+        if (!txt) continue;
+        segments.push({
+          text: txt,
+          start: (ev.tStartMs || 0) / 1000,
+          duration: (ev.dDurationMs || 0) / 1000,
+        });
+      }
+      if (segments.length > 0) return segments;
+    } catch (e) {}
+  }
+
   var parser = new DOMParser();
-  var doc = parser.parseFromString(xml, "text/xml");
-  var nodes = doc.querySelectorAll("text");
+  var doc = parser.parseFromString(text, "text/xml");
+  var nodes = doc.querySelectorAll("text, p");
   return Array.from(nodes).map(function(node) {
+    var start = node.getAttribute("start") || node.getAttribute("t");
+    var dur = node.getAttribute("dur") || node.getAttribute("d") || "0";
+    var startSec = parseFloat(start);
+    if (start && start.length > 5 && !isNaN(startSec)) {
+      if (startSec > 100000) startSec = startSec / 1000;
+    }
+    var durSec = parseFloat(dur);
+    if (dur && dur.length > 5 && !isNaN(durSec)) {
+      if (durSec > 100000) durSec = durSec / 1000;
+    }
     return {
       text: node.textContent.replace(/&amp;/g, "&").replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">"),
-      start: parseFloat(node.getAttribute("start")),
-      duration: parseFloat(node.getAttribute("dur") || "0"),
+      start: startSec,
+      duration: durSec,
     };
   });
 }
