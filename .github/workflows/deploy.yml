@@ -120,6 +120,28 @@ jobs:
             echo "[deploy] OPENAI_API_KEY secret not set — leaving /etc/kozha.env as-is. Contributors can still use the BYO-key field on contribute.html."
           fi
 
+          # Sync the nginx site config when the repo template differs
+          # from the live file. Gated on diff so we don't reload nginx
+          # on every deploy. ``nginx -t`` validates before reload; on
+          # any failure the existing config stays in place. The 60s
+          # default proxy_read_timeout used to kill /correct mid-LLM
+          # generation with a 504 — the template now bumps the
+          # describe/answer/correct/generate locations to 600s.
+          if [ -f ../deploy/nginx/kozha.conf ]; then
+            NGINX_LIVE=/etc/nginx/sites-available/kozha
+            if ! sudo cmp -s ../deploy/nginx/kozha.conf "\$NGINX_LIVE" 2>/dev/null; then
+              echo "[deploy] nginx config changed — syncing and reloading"
+              sudo install -o root -g root -m 644 ../deploy/nginx/kozha.conf "\$NGINX_LIVE"
+              if sudo nginx -t; then
+                sudo systemctl reload nginx
+                echo "[deploy] nginx reloaded with updated proxy timeouts"
+              else
+                echo "[deploy] nginx -t failed — restoring previous config"
+                sudo cp "\$NGINX_LIVE.bak" "\$NGINX_LIVE" 2>/dev/null || true
+              fi
+            fi
+          fi
+
           sudo systemctl daemon-reload
           sudo systemctl restart kozha.service
           sudo systemctl --no-pager status kozha.service

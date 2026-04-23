@@ -74,6 +74,7 @@
     get GENERATION_FAILED_DEBUG()      { return tr('contribute.chat.generation_failed_debug', 'Generator detail: '); },
     get RETRY_BUTTON()                 { return tr('contribute.chat.retry', 'Try again'); },
     get CORRECTION_WORKING()           { return tr('contribute.chat.correction_working', 'Working on your correction — the avatar will update once the new sign is ready.'); },
+    get GATEWAY_TIMEOUT_PATIENCE()     { return tr('contribute.chat.gateway_timeout_patience', 'The model is still thinking — the request took longer than the proxy allows. The new sign will appear here automatically when it lands. You can keep using the page.'); },
     get GENERATION_CANDIDATE_LABEL()   { return tr('contribute.chat.generation_candidate_label', 'Tried candidate: '); },
     get GENERATION_PATH_LABEL()        { return tr('contribute.chat.generation_path_label', 'Generation path: '); },
     get ERROR_RATE_LIMITED()           { return tr('contribute.chat.error_rate_limited', "You're sending requests faster than the server can process. Wait a moment and try again."); },
@@ -498,11 +499,27 @@
   function handleError(err) {
     if (window.console) console.error('[contribute-chat] action failed:', err);
     var code = parseErrorCode(err);
+    var status = err && err.status;
     DEBUG.log('chat: action failed (after retry)', {
-      status: err && err.status,
+      status: status,
       code:   code,
       body:   err && (err.body || err.message),
     });
+
+    // 504 from the nginx proxy means our request hit the proxy's
+    // ceiling, but the FastAPI worker is almost certainly still
+    // running the LLM call. The SSE stream (contribute-notation.js)
+    // will deliver the new envelope when generation completes — show
+    // a patient notice instead of a hard error, and let the
+    // background completion light up the preview when it's ready.
+    if (status === 504) {
+      DEBUG.log('chat: 504 from proxy — likely still generating server-side, awaiting SSE');
+      appendMessage({ kind: 'system', text: COPY.GATEWAY_TIMEOUT_PATIENCE });
+      // Don't surface the hard error and don't fire the auto-retry
+      // (which would just re-time-out at the proxy). Keep the chat
+      // in non-error state so the SSE delivery flows in cleanly.
+      return;
+    }
 
     // No-key situation: the panel-opening UX from contribute.js's
     // describe-failure path is just as relevant here. Pop the BYO-key
