@@ -143,6 +143,10 @@
     // Last successfully-dispatched answer or correction; the "Try
     // again" button replays this when the previous attempt errored.
     lastAction: null,
+    // True after maybeSurfaceGenerationError fired its silent
+    // /generate auto-retry. Reset on resetChat() (session swap or
+    // discard) so a fresh authoring round still gets one auto-retry.
+    autoRetriedGen: false,
   };
 
   // ---------- log + options rendering ----------
@@ -636,6 +640,7 @@
     chat.inError = false;
     chat.inFlight = false;
     chat.lastSurfacedGenerationError = null;
+    chat.autoRetriedGen = false;
     els.errorActions.hidden = true;
     els.options.hidden = true;
     els.progress.hidden = true;
@@ -656,6 +661,7 @@
     var s = snap.sessionState;
     if (s === 'generating' || s === 'applying_correction') return;
     if (snap.hamnosys) return;
+
     // Include the generation path and candidate in the signature so a
     // contributor who retries and gets a different failure sees the
     // fresh debug trail.
@@ -664,6 +670,42 @@
     var sig = errs.join('|') + '::' + path + '::' + cand;
     if (sig === chat.lastSurfacedGenerationError) return;
     chat.lastSurfacedGenerationError = sig;
+
+    // Auto-recover: the most common cause of a clean error envelope on
+    // /answer's response is a transient LLM stumble (rate-limit blip,
+    // BadRequestError on a freshly-warmed model, etc.). The exact
+    // pattern the user sees today is "first attempt fails, refresh
+    // produces the sign" — refresh works because resume + a saved
+    // GENERATING state replays the generator with the answers
+    // intact. Calling /generate here does the same thing without the
+    // user noticing: keep a "Generating…" notice in the chat, fire
+    // the request, and only surface the hard error if the retry also
+    // fails. The auto-retry runs once per snapshot signature so a
+    // truly broken pipeline doesn't loop forever.
+    if (CTX && typeof CTX.forceGenerate === 'function' && !chat.autoRetriedGen) {
+      chat.autoRetriedGen = true;
+      DEBUG.log('chat: auto-retrying generation after error envelope', {
+        firstErr: errs[0],
+        path: path,
+      });
+      appendMessage({ kind: 'system', text: COPY.GENERATING_MSG });
+      setInFlight(true);
+      CTX.forceGenerate()
+        .catch(function (retryErr) {
+          DEBUG.error('chat: auto-retry /generate also failed', {
+            status: retryErr && retryErr.status,
+          });
+          chat.inError = true;
+          appendMessage({ kind: 'error', text: COPY.ERROR_MSG });
+          appendMessage({ kind: 'notice', text: COPY.GENERATION_FAILED_DEBUG + errs[0] });
+          if (path) appendMessage({ kind: 'notice', text: COPY.GENERATION_PATH_LABEL + path });
+          if (cand) appendMessage({ kind: 'notice', text: COPY.GENERATION_CANDIDATE_LABEL + cand });
+          els.errorActions.hidden = false;
+        })
+        .then(function () { setInFlight(false); });
+      return;
+    }
+
     chat.inError = true;
     appendMessage({ kind: 'error', text: COPY.ERROR_MSG });
     appendMessage({ kind: 'notice', text: COPY.GENERATION_FAILED_DEBUG + errs[0] });

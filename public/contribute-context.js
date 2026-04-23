@@ -510,6 +510,39 @@
     };
   }
 
+  // Force a fresh generation pass on the current params. Used by the
+  // chat panel as a recovery path: when /answer returns an envelope
+  // with generation_errors and no SiGML (the LLM had a transient
+  // failure mid-pipeline), we POST /generate to ask the server to
+  // re-run the generator. The session must already be past the
+  // describe/clarify phase (server enforces this with a 4xx if not).
+  function forceGenerate() {
+    if (!state.sessionId || !state.sessionToken) {
+      return Promise.reject(new Error('no active session'));
+    }
+    DEBUG.log('ctx: POST /generate', { sessionId: state.sessionId });
+    var t0 = Date.now();
+    return fetchWithTimeout(API_BASE + '/sessions/' + encodeURIComponent(state.sessionId) + '/generate', {
+      method: 'POST',
+      headers: {
+        'Accept':          'application/json',
+        'X-Session-Token': state.sessionToken,
+      },
+    })
+      .then(jsonOr)
+      .then(function (env) {
+        var sum = envSummary(env);
+        sum.latencyMs = Date.now() - t0;
+        DEBUG.log('ctx: /generate ok', sum);
+        applyEnvelope(env);
+        return env;
+      })
+      .catch(function (err) {
+        DEBUG.error('ctx: /generate failed in ' + (Date.now() - t0) + 'ms', { status: err && err.status, body: err && err.body });
+        throw err;
+      });
+  }
+
   function correct(rawText, opts) {
     opts = opts || {};
     if (!state.sessionId || !state.sessionToken) {
@@ -673,6 +706,7 @@
     describe:             describe,
     answer:               answer,
     correct:              correct,
+    forceGenerate:        forceGenerate,
     resumeSession:        resumeSession,
     abandonSession:       abandonSession,
     clearSession:         clearSession,

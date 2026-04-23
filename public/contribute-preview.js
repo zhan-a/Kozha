@@ -541,7 +541,13 @@
       state.loopPending = false;
     } catch (e) {
       if (window.console) console.error('[contribute-preview] playSiGMLText threw', e);
-      DEBUG.error('preview: playSiGMLText threw', { message: String(e) });
+      DEBUG.error('preview: playSiGMLText threw', {
+        message: e && e.message ? String(e.message) : String(e),
+        name:    e && e.name,
+        stack:   e && e.stack ? String(e.stack).slice(0, 1500) : undefined,
+        sigmlHead: String(state.currentSigml).slice(0, 400),
+        sigmlTail: String(state.currentSigml).slice(-200),
+      });
       markRenderFailed('play_threw');
       return;
     }
