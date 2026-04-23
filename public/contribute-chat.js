@@ -188,6 +188,22 @@
     while (els.log.firstChild) els.log.removeChild(els.log.firstChild);
   }
 
+  // Walk back from the end of the chat log and return the text of the
+  // most recent ``chat-msg-system`` entry. Used to dedupe a pending
+  // clarification question whose text was already replayed via the
+  // envelope's clarifications history.
+  function lastSystemMessageText() {
+    if (!els.log) return '';
+    for (var n = els.log.lastChild; n; n = n.previousSibling) {
+      if (n.nodeType !== 1) continue;
+      if (n.classList && n.classList.contains('chat-msg-system')) {
+        var t = n.querySelector ? n.querySelector('.chat-msg-text') : null;
+        return ((t && t.textContent) || n.textContent || '').trim();
+      }
+    }
+    return '';
+  }
+
   function renderOptions(question) {
     while (els.options.firstChild) els.options.removeChild(els.options.firstChild);
     if (!question || !question.options || !question.options.length) {
@@ -533,7 +549,18 @@
       : null;
 
     if (nextField && nextField !== prevField) {
-      appendMessage({ kind: 'system', text: nextQ.text });
+      // Text-level dedupe: when an envelope replays the clarification
+      // history *and* carries the same question still pending, the
+      // history loop renders the question once and applyState would
+      // render it a second time. Compare against the last system
+      // message text and skip if identical.
+      var lastSystemText = lastSystemMessageText();
+      var nextText = (nextQ.text || '').trim();
+      if (nextText && nextText === lastSystemText) {
+        DEBUG.log('chat: dedupe — pending question already in log', { field: nextField });
+      } else {
+        appendMessage({ kind: 'system', text: nextQ.text });
+      }
       chat.currentQuestion = nextQ;
       renderOptions(nextQ);
     } else if (!nextField && chat.currentQuestion) {

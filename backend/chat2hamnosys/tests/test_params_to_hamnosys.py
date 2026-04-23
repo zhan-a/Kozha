@@ -268,8 +268,14 @@ def _sigml_payload(sigml_xml: str, rationale: str = "ok") -> str:
 def test_llm_fallback_resolves_missing_slot():
     # An unknown handshape term — the LLM should be asked to pick a
     # codepoint; we return E001 (flat) which is a valid handshape base.
+    # SiGML-direct now retries once on failure, so feed two opt-outs
+    # before the slot path runs.
     client = FakeLLMClient(
-        [_sigml_fail_payload(), _slot_payload("E001", confidence=0.8)]
+        [
+            _sigml_fail_payload(),
+            _sigml_fail_payload(),
+            _slot_payload("E001", confidence=0.8),
+        ]
     )
     params = _basic_params(handshape_dominant="mystery_shape")
     result = generate(params, client=client, request_id="test-fallback")
@@ -278,16 +284,20 @@ def test_llm_fallback_resolves_missing_slot():
     assert result.used_llm_fallback is True
     assert "handshape_dominant" in result.llm_fallback_fields
     assert result.confidence == pytest.approx(0.8)
-    # SiGML-direct call (queue index 0) + slot fallback call (queue index 1).
-    assert len(client.calls) == 2
-    assert client.calls[1]["request_id"].startswith("test-fallback:fallback:")
+    # SiGML-direct (2 attempts) + slot fallback (1) = 3 calls.
+    assert len(client.calls) == 3
+    assert client.calls[2]["request_id"].startswith("test-fallback:fallback:")
 
 
 def test_llm_fallback_rejects_wrong_class_codepoint():
     # Return an ext-finger codepoint for a handshape slot — the generator
     # must reject it and leave the slot unresolved.
     client = FakeLLMClient(
-        [_sigml_fail_payload(), _slot_payload("E020", confidence=0.9)]
+        [
+            _sigml_fail_payload(),
+            _sigml_fail_payload(),
+            _slot_payload("E020", confidence=0.9),
+        ]
     )
     params = _basic_params(handshape_dominant="mystery_shape")
     result = generate(params, client=client, request_id="test-wrongclass")
@@ -299,7 +309,11 @@ def test_llm_fallback_rejects_wrong_class_codepoint():
 
 def test_llm_fallback_rejects_unknown_codepoint():
     client = FakeLLMClient(
-        [_sigml_fail_payload(), _slot_payload("E7FF", confidence=1.0)]
+        [
+            _sigml_fail_payload(),
+            _sigml_fail_payload(),
+            _slot_payload("E7FF", confidence=1.0),
+        ]
     )
     params = _basic_params(handshape_dominant="mystery_shape")
     result = generate(params, client=client, request_id="test-unknown")
@@ -309,7 +323,13 @@ def test_llm_fallback_rejects_unknown_codepoint():
 
 
 def test_llm_fallback_invalid_json_unresolved():
-    client = FakeLLMClient([_sigml_fail_payload(), "not json at all"])
+    client = FakeLLMClient(
+        [
+            _sigml_fail_payload(),
+            _sigml_fail_payload(),
+            "not json at all",
+        ]
+    )
     params = _basic_params(handshape_dominant="mystery_shape")
     result = generate(params, client=client, request_id="test-badjson")
 
@@ -329,7 +349,8 @@ def test_llm_fallback_fields_ordered_by_slot_sequence():
     # in the order the composer visited them.
     client = FakeLLMClient(
         [
-            _sigml_fail_payload(),                  # SiGML-direct opt-out
+            _sigml_fail_payload(),                  # SiGML-direct attempt 1
+            _sigml_fail_payload(),                  # SiGML-direct attempt 2
             _slot_payload("E001", confidence=0.7),  # handshape
             _slot_payload("E04A", confidence=0.8),  # location
         ]
@@ -376,7 +397,13 @@ def test_repair_loop_succeeds_within_two_attempts(monkeypatch):
 
     client = FakeLLMClient(
         [
-            _sigml_fail_payload(),  # SiGML-direct opt-out so repair runs
+            # SiGML-direct fires once on the unresolved-slot path (no
+            # unresolved slots here so it's skipped) and once on the
+            # validation-failure path; the second pass also retries
+            # internally. Feed three opt-outs to cover the worst case
+            # before the repair payload runs.
+            _sigml_fail_payload(),
+            _sigml_fail_payload(),
             _repair_payload("E001 E020 E03A E052", rationale="drop garbage"),
         ]
     )
@@ -392,12 +419,14 @@ def test_repair_loop_gives_up_after_max_attempts(monkeypatch):
     from generator import params_to_hamnosys as mod
 
     monkeypatch.setattr(mod, "_assemble", lambda pieces: "ABC")
-    # SiGML-direct gives up first, then both repair attempts return
-    # strings that still fail validation. The whole-sign emergency
-    # fallback was retired in favour of SiGML-direct.
+    # SiGML-direct (with internal retry) gives up across two attempts,
+    # then both repair attempts return strings that still fail
+    # validation. The whole-sign emergency fallback was retired in
+    # favour of SiGML-direct's self-correction loop.
     client = FakeLLMClient(
         [
-            _sigml_fail_payload(),  # SiGML-direct: skip
+            _sigml_fail_payload(),  # SiGML-direct attempt 1
+            _sigml_fail_payload(),  # SiGML-direct attempt 2
             _repair_payload("ABCD"),
             _repair_payload("DEFG"),
         ]
@@ -408,8 +437,8 @@ def test_repair_loop_gives_up_after_max_attempts(monkeypatch):
 
     assert result.hamnosys is None
     assert not result.validation.ok
-    # SiGML-direct (1) + two repair attempts (2) = 3 calls.
-    assert len(client.calls) == 3
+    # SiGML-direct (2) + two repair attempts (2) = 4 calls.
+    assert len(client.calls) == 4
 
 
 def test_no_client_and_invalid_string_returns_none(monkeypatch):

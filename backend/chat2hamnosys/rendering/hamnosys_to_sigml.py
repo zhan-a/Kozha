@@ -159,6 +159,26 @@ def to_sigml(
     if not gloss or not gloss.strip():
         raise ValueError("gloss must be a non-empty string")
 
+    # Defensive: catch the regression where a non-string slips into the
+    # call (a Pydantic model, a dict, a JS object proxied through the
+    # API). The Hamburg renderer's grammar treats a literal
+    # ``[object Object]`` as a parse error
+    # ("Ham4HMLGen.g: node from line 0:0 mismatched input
+    # '[object Object]' expecting MICFG2"), which is invisible until
+    # play time. Reject early at the source so the calling code (the
+    # generator's repair loop, or the SiGML-direct retry) sees a
+    # named exception it can act on.
+    if not isinstance(hamnosys, str):
+        raise HamNoSysConversionError(
+            f"hamnosys must be a string, got {type(hamnosys).__name__}"
+        )
+    if "[object Object]" in hamnosys:
+        raise HamNoSysConversionError(
+            "hamnosys contains the literal '[object Object]' — a "
+            "JS-side variable was stringified into the codepoint "
+            "stream upstream. The generator should retry."
+        )
+
     root = etree.Element("sigml")
     sign = etree.SubElement(root, "hns_sign", gloss=gloss)
 

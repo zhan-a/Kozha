@@ -185,6 +185,13 @@ def _build_prompt(
     return system, user
 
 
+# Number of times we retry the LLM with the explicit failure reason
+# fed back in as a previous_error. One retry is usually enough — most
+# shape failures (object-literal leak, unknown ham tag, missing manual
+# block) recover when the prompt sees its own previous bad output.
+_SIGML_DIRECT_MAX_ATTEMPTS = 2
+
+
 def generate_sigml_direct(
     *,
     parameters: PartialSignParameters,
@@ -206,14 +213,65 @@ def generate_sigml_direct(
     readable diagnostic text suitable for the chat panel — the
     model's one-line explanation on success, or the failure reason on
     error.
+
+    Self-correction loop
+    --------------------
+    On the first attempt, validation failures (object-literal leak,
+    invalid ham tag, missing manual block, validator-reject HamNoSys)
+    are fed back into ``previous_errors`` and the model is re-prompted
+    once. The retry typically succeeds because the prompt now contains
+    the failure reason verbatim — the model treats it as a constraint
+    violation to repair rather than a fresh request.
     """
     errors_list = list(previous_errors or [])
+    last_failure_reason = ""
+    for attempt in range(_SIGML_DIRECT_MAX_ATTEMPTS):
+        ham, sigml_xml, rationale = _generate_sigml_direct_once(
+            parameters=parameters,
+            client=client,
+            request_id=f"{request_id}:attempt{attempt}",
+            prose=prose,
+            gloss=gloss,
+            sign_language=sign_language,
+            previous_errors=errors_list,
+            reasoning_effort=reasoning_effort,
+        )
+        if ham:
+            return ham, sigml_xml, rationale
+        last_failure_reason = rationale or "unknown failure"
+        # Feed the failure verbatim into the next attempt's prompt so
+        # the model sees the exact constraint to satisfy.
+        errors_list = errors_list + [
+            f"previous attempt #{attempt + 1} failed: {last_failure_reason}"
+        ]
+        logger.info(
+            "sigml-direct attempt %d failed (%s) — retrying with "
+            "explicit error context",
+            attempt + 1,
+            last_failure_reason,
+        )
+    return "", "", last_failure_reason
+
+
+def _generate_sigml_direct_once(
+    *,
+    parameters: PartialSignParameters,
+    client: LLMClient,
+    request_id: str,
+    prose: str,
+    gloss: str,
+    sign_language: str,
+    previous_errors: list[str],
+    reasoning_effort: str,
+) -> tuple[str, str, str]:
+    """Single LLM round — see :func:`generate_sigml_direct` for the
+    retry loop wrapper. Returns the same tuple shape."""
     system, user = _build_prompt(
         parameters=parameters,
         prose=prose,
         gloss=gloss or "",
         sign_language=sign_language or "bsl",
-        previous_errors=errors_list,
+        previous_errors=previous_errors,
     )
     messages = [
         {"role": "system", "content": system},
@@ -255,6 +313,16 @@ def generate_sigml_direct(
     rationale = (payload.get("rationale") or "").strip()
     if not sigml_fragment:
         return "", "", "llm returned empty sigml_xml"
+
+    # The Hamburg renderer's grammar treats a literal "[object Object]"
+    # as a parse error ("Ham4HMLGen.g: node from line 0:0 mismatched
+    # input '[object Object]' expecting MICFG2"). The model occasionally
+    # leaks this when its prompt context contained an unfilled JS object
+    # placeholder. Reject the fragment up front so the caller can
+    # repair (typically by re-running with a fresh prompt) instead of
+    # shipping broken SiGML to CWASA.
+    if "[object Object]" in sigml_fragment:
+        return "", "", "llm sigml contains '[object Object]' literal — repair needed"
 
     # Strip any accidental <?xml ...?> declaration or outer <sigml>
     # wrapper so the fragment slots straight into to_sigml's output.

@@ -1,6 +1,6 @@
 {
   "documentTitle": "Bridgn — Translator",
-  "pageUrl": "http://127.0.0.1:60493/app.html",
+  "pageUrl": "http://127.0.0.1:61230/app.html",
   "issues": [
     {
       "code": "WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206",
@@ -117,7 +117,7 @@
       "type": "warning",
       "typeCode": 2,
       "message": "This select element does not have a value available to an accessibility API.",
-      "context": "<select id=\"avatarSelect\"><option value=\"anna\">Anna</opti...</select>",
+      "context": "<select id=\"avatarSelect\">\n              <option value=\"l...</select>",
       "selector": "#avatarSelect",
       "runner": "htmlcs",
       "runnerExtras": {}
@@ -127,7 +127,7 @@
       "type": "warning",
       "typeCode": 2,
       "message": "If this selection list contains groups of related options, they should be grouped with optgroup.",
-      "context": "<select id=\"avatarSelect\"><option value=\"anna\">Anna</opti...</select>",
+      "context": "<select id=\"avatarSelect\">\n              <option value=\"l...</select>",
       "selector": "#avatarSelect",
       "runner": "htmlcs",
       "runnerExtras": {}

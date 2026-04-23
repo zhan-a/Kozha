@@ -355,6 +355,15 @@
       case 'avatar_load_timeout':
         return tr('contribute.preview.fail_avatar_load',
           'The avatar took too long to download. Reload to retry on a stable connection.');
+      case 'sigml_invalid_object-literal-in-xml':
+        return tr('contribute.preview.fail_sigml_obj',
+          'The generated SiGML contains a [object Object] string — the upstream pipeline emitted a JS object where text was expected. The pipeline will retry on the next correction, or click Retry preview after submitting another correction.');
+      case 'sigml_invalid_empty-or-non-string':
+        return tr('contribute.preview.fail_sigml_empty',
+          'The generated SiGML is empty. Send a correction or reload to ask the model again.');
+      case 'sigml_invalid_missing-sigml-root':
+        return tr('contribute.preview.fail_sigml_root',
+          'The generated SiGML is missing its <sigml> wrapper. The pipeline will retry on the next correction.');
       default:
         return '';
     }
@@ -462,6 +471,27 @@
 
   // ---------- play / pause / loop / speed ----------
 
+  // Pre-flight SiGML check: catches the `[object Object]` regression
+  // (a JS-side variable getting stringified into the SiGML stream)
+  // before CWASA's grammar parser barfs with "Ham4HMLGen.g: node from
+  // line 0:0 mismatched input '[object Object]' expecting MICFG2".
+  // When detected we suppress the play, log loudly so the issue is
+  // visible in the downloaded debug log, and ask the store for a
+  // re-generation rather than leaving the user staring at a frozen
+  // preview.
+  function sigmlLooksValid(s) {
+    if (typeof s !== 'string' || !s.trim()) {
+      return { ok: false, reason: 'empty-or-non-string' };
+    }
+    if (s.indexOf('[object Object]') !== -1) {
+      return { ok: false, reason: 'object-literal-in-xml' };
+    }
+    if (s.indexOf('<sigml') === -1 && s.indexOf('<hns_sign') === -1) {
+      return { ok: false, reason: 'missing-sigml-root' };
+    }
+    return { ok: true };
+  }
+
   function doPlay() {
     if (state.renderFailed) {
       DEBUG.log('preview: doPlay skipped (renderFailed)');
@@ -474,6 +504,19 @@
     }
     if (!state.currentSigml) {
       DEBUG.log('preview: doPlay skipped (no currentSigml)');
+      return;
+    }
+    var v = sigmlLooksValid(state.currentSigml);
+    if (!v.ok) {
+      DEBUG.error('preview: refusing to play malformed SiGML', {
+        reason: v.reason,
+        sample: String(state.currentSigml).slice(0, 200),
+      });
+      // Surface the failure visually so the contributor knows the
+      // sign needs another generation pass; the chat panel shows a
+      // recoverable error and the preview stays at the resting pose
+      // rather than the (broken) attempt.
+      markRenderFailed('sigml_invalid_' + v.reason);
       return;
     }
     try {
