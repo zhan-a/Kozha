@@ -42,12 +42,17 @@ from pathlib import Path
 from typing import Any, AsyncIterator, Optional
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, Header, Request
+from fastapi import APIRouter, BackgroundTasks, Depends, Header, Request
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from slowapi import Limiter
 from slowapi.util import get_remote_address
 
 from clarify import Question, apply_answer, generate_questions
+from llm.client import (
+    _REQUEST_OPENAI_API_KEY,
+    reset_request_openai_api_key,
+    set_request_openai_api_key,
+)
 from hamnosys.symbols import SYMBOLS, SymClass
 from correct import (
     Correction as _InterpCorrection,
@@ -423,6 +428,122 @@ _SYMBOLS_ETAG: str = f'"hamnosys-4-0-{_SYMBOLS_PAYLOAD["count"]}"'
 router = APIRouter(tags=["chat2hamnosys"])
 
 
+# ---------------------------------------------------------------------------
+# Background-task helpers for long-running LLM work
+# ---------------------------------------------------------------------------
+#
+# ``/correct`` and — on the GENERATING branch — ``/answer`` previously
+# ran ``run_generation`` synchronously inside the request handler. With
+# gpt-5.4 reasoning that can take several minutes, which reliably blew
+# through nginx's ``proxy_read_timeout`` (60s by default) and surfaced
+# to the contributor as ``504 Gateway Time-out``. The fix: do the
+# *fast* bits inline (apply the diff / apply the answer, move the
+# session into APPLYING_CORRECTION or GENERATING, save), then schedule
+# ``run_generation`` as a FastAPI BackgroundTask and return the
+# envelope immediately. The SSE stream at ``/events`` picks up the new
+# history entries (``GeneratedEvent``, ``CorrectionAppliedEvent``) as
+# the background task saves the session, and the frontend lights up
+# the preview when they land. No client-visible timeout path.
+
+
+def _run_correction_async(
+    *,
+    session_id: UUID,
+    session_store: SessionStore,
+    generate_fn,
+    to_sigml_fn,
+    render_fn,
+    correction: "_InterpCorrection",
+    byo_key: str,
+) -> None:
+    """Background task: interpret the correction + apply + regenerate.
+
+    Loads the session fresh from the store (the in-memory session from
+    the request handler is stale by the time this runs). Threads the
+    contributor's BYO OpenAI key through the ``_REQUEST_OPENAI_API_KEY``
+    contextvar for the duration of the task so ``LLMClient`` picks it
+    up the same way the request handler would. Catches every
+    exception and writes a ``generation_errors`` entry on the draft —
+    the task should never crash the worker.
+    """
+    token = set_request_openai_api_key(byo_key or "")
+    try:
+        session = session_store.get(session_id)
+        if session is None:
+            logger.warning("background correct: session %s vanished", session_id)
+            return
+        try:
+            plan = interpret_correction(session, correction)
+            outcome = apply_correction(
+                session,
+                plan,
+                generate_fn=generate_fn,
+                to_sigml_fn=to_sigml_fn,
+                render_fn=render_fn,
+            )
+            session = outcome.session
+        except Exception as exc:  # noqa: BLE001 — never crash the worker
+            logger.exception(
+                "background correction failed for session %s: %s",
+                session_id,
+                exc,
+            )
+            # Park the draft so the SSE subscriber sees a terminal
+            # non-LLM error instead of an indefinite APPLYING state.
+            session = session.with_draft(
+                generation_errors=[
+                    "background correction crashed: "
+                    + f"{type(exc).__name__}: {exc}"
+                ],
+            ).with_state(SessionState.AWAITING_CORRECTION)
+        session_store.save(session)
+    finally:
+        reset_request_openai_api_key(token)
+
+
+def _run_generation_async(
+    *,
+    session_id: UUID,
+    session_store: SessionStore,
+    generate_fn,
+    to_sigml_fn,
+    render_fn,
+    byo_key: str,
+) -> None:
+    """Background task: run generation for a session already moved to
+    GENERATING. Used by ``/answer`` when the last clarification answer
+    exhausts the gaps.
+    """
+    token = set_request_openai_api_key(byo_key or "")
+    try:
+        session = session_store.get(session_id)
+        if session is None:
+            logger.warning("background generate: session %s vanished", session_id)
+            return
+        try:
+            session = run_generation(
+                session,
+                generate_fn=generate_fn,
+                to_sigml_fn=to_sigml_fn,
+                render_fn=render_fn,
+            )
+        except Exception as exc:  # noqa: BLE001 — never crash the worker
+            logger.exception(
+                "background generation failed for session %s: %s",
+                session_id,
+                exc,
+            )
+            session = session.with_draft(
+                generation_errors=[
+                    "background generation crashed: "
+                    + f"{type(exc).__name__}: {exc}"
+                ],
+            ).with_state(SessionState.AWAITING_DESCRIPTION)
+        session_store.save(session)
+    finally:
+        reset_request_openai_api_key(token)
+
+
 @router.get(
     "/hamnosys/symbols",
     summary="Full HamNoSys 4.0 symbol table with plain-English class labels",
@@ -571,6 +692,7 @@ def post_answer(
     request: Request,
     session_id: UUID,
     body: AnswerRequest,
+    background_tasks: BackgroundTasks,
     x_session_token: Optional[str] = Header(default=None),
     session_store: SessionStore = Depends(get_session_store),
     token_store: TokenStore = Depends(get_token_store),
@@ -602,13 +724,25 @@ def post_answer(
         apply_fn=apply_fn,
         question_fn=question_fn,
     )
+    # If the orchestrator transitioned us into GENERATING (the last
+    # clarification has been answered), move the long-running
+    # generator call into a background task. See ``_run_generation_async``
+    # for rationale; same motivation as ``/correct``: never block the
+    # HTTP response on a multi-minute reasoning call, let SSE deliver
+    # the result.
     if session.state == SessionState.GENERATING:
-        session = run_generation(
-            session,
+        session_store.save(session)
+        byo_key = _REQUEST_OPENAI_API_KEY.get("") or ""
+        background_tasks.add_task(
+            _run_generation_async,
+            session_id=session.id,
+            session_store=session_store,
             generate_fn=generate_fn,
             to_sigml_fn=to_sigml_fn,
             render_fn=render_fn,
+            byo_key=byo_key,
         )
+        return _envelope(session, request)
     session_store.save(session)
     return _envelope(session, request)
 
@@ -714,6 +848,7 @@ def post_correct(
     request: Request,
     session_id: UUID,
     body: CorrectRequest,
+    background_tasks: BackgroundTasks,
     x_session_token: Optional[str] = Header(default=None),
     session_store: SessionStore = Depends(get_session_store),
     token_store: TokenStore = Depends(get_token_store),
@@ -739,17 +874,25 @@ def post_correct(
         target_time_ms=body.target_time_ms,
         target_region=target_region,
     )
+    # Move the session into APPLYING_CORRECTION inline so the envelope
+    # the contributor receives immediately shows "applying correction"
+    # state. The interpret + generate work runs in the background —
+    # the response returns the moment the state transition is saved,
+    # which guarantees we don't burn through nginx's 60s proxy ceiling
+    # while the LLM thinks.
     session = on_correction(session, correction)
-    plan = interpret_correction(session, correction)
-    outcome = apply_correction(
-        session,
-        plan,
+    session_store.save(session)
+    byo_key = _REQUEST_OPENAI_API_KEY.get("") or ""
+    background_tasks.add_task(
+        _run_correction_async,
+        session_id=session.id,
+        session_store=session_store,
         generate_fn=generate_fn,
         to_sigml_fn=to_sigml_fn,
         render_fn=render_fn,
+        correction=correction,
+        byo_key=byo_key,
     )
-    session = outcome.session
-    session_store.save(session)
     return _envelope(session, request)
 
 
@@ -1012,10 +1155,14 @@ async def get_events(
     session_store: SessionStore = Depends(get_session_store),
     token_store: TokenStore = Depends(get_token_store),
 ):
+    # EventSource can't send custom headers, so accept the session
+    # token via a query-param fallback too. Header still wins when
+    # both are present (matches every other authenticated route).
+    token = x_session_token or request.query_params.get("token")
     _load_session(
         session_id,
         store=session_store,
-        x_session_token=x_session_token,
+        x_session_token=token,
         token_store=token_store,
     )
     start_after = _parse_last_event_id(last_event_id)

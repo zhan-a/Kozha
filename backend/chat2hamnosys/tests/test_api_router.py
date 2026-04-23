@@ -290,7 +290,12 @@ def test_describe_with_gap_then_answer_advances_to_rendered(client_factory):
     assert len(env["next_action"]["questions"]) == 1
     assert env["next_action"]["questions"][0]["field"] == "orientation_extended_finger"
 
-    # answer → GENERATING → RENDERED (auto-run in the router)
+    # answer → GENERATING (response returns immediately). The
+    # actual run_generation now runs in a FastAPI BackgroundTask so
+    # the HTTP response can return well under nginx's proxy ceiling
+    # even when reasoning takes minutes. TestClient runs background
+    # tasks synchronously after the response body is captured, so
+    # a follow-up GET sees the final RENDERED state.
     r = client.post(
         f"/sessions/{sid}/answer",
         json={
@@ -299,6 +304,12 @@ def test_describe_with_gap_then_answer_advances_to_rendered(client_factory):
         },
         headers=auth,
     )
+    assert r.status_code == 200, r.text
+    env = r.json()
+    assert env["state"] == "generating"
+    # Background task has run by the time TestClient returns; fetch
+    # the settled session to confirm the generation landed.
+    r = client.get(f"/sessions/{sid}", headers=auth)
     assert r.status_code == 200, r.text
     env = r.json()
     assert env["state"] == "rendered"

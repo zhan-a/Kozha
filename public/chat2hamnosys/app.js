@@ -1046,7 +1046,11 @@
     // we pass it as a query string. The router additionally supports the
     // header via the load helper; if SSE auth fails, the stream simply
     // closes and the REST flow remains usable.
-    const url = `${API_BASE}/sessions/${state.sessionId}/events`;
+    // Attach the session token as a query-param — EventSource can't
+    // send custom headers, but the /events endpoint now honours the
+    // ``token`` query as a header-fallback.
+    const url = `${API_BASE}/sessions/${state.sessionId}/events`
+      + (state.sessionToken ? `?token=${encodeURIComponent(state.sessionToken)}` : '');
     let es;
     try { es = new EventSource(url, { withCredentials: false }); }
     catch (_e) { return; }

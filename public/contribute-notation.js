@@ -939,20 +939,44 @@
     if (eventId !== null && eventId !== '') {
       state.sseLastEventId = eventId;
     }
-    if (evName !== 'generated' || !data) return;
+    // Events that can change the sign or state: ``generated`` (new
+    // HamNoSys from run_generation), ``correction_applied``
+    // (correction interpreter committed a diff), ``sign_accepted``.
+    // Each triggers a full session refetch so the store sees the
+    // authoritative envelope (pending questions, state transition,
+    // generation errors, the new sigml). Individual event payloads
+    // don't always carry the complete envelope, so a GET is the
+    // simplest source of truth.
+    if (!data) return;
     if (state.rememberedSessionId !== sessionId) return;
     var payload;
     try { payload = JSON.parse(data); }
     catch (_e) { return; }
-    if (!payload || payload.type !== 'generated') return;
-    // Short-circuit: the POST /answer (etc.) responses already call
-    // applyEnvelope via the context store. Only fire the crossfade when
-    // this frame delivers notation the store hasn't observed yet.
+    if (!payload) return;
+    var isChange = evName === 'generated' ||
+                   evName === 'correction_applied' ||
+                   evName === 'clarification_answered' ||
+                   evName === 'clarification_asked' ||
+                   payload.type === 'generated' ||
+                   payload.type === 'correction_applied' ||
+                   payload.type === 'clarification_answered' ||
+                   payload.type === 'clarification_asked';
+    if (!isChange) return;
+    // Fast path when the event payload already has the sign itself —
+    // applies immediately and spares a round-trip.
     if (payload.hamnosys && payload.hamnosys !== state.lastHamnosys) {
       CTX.setState({
         hamnosys:         payload.hamnosys,
         sigml:            payload.sigml || null,
         generationErrors: payload.errors || [],
+      });
+      return;
+    }
+    // Otherwise refetch the session to pick up the post-event state
+    // (new pending question, state=rendered, generation_errors).
+    if (CTX && typeof CTX.resumeSession === 'function' && state.sseSessionToken) {
+      CTX.resumeSession(sessionId, state.sseSessionToken).catch(function () {
+        /* non-fatal; the next event will trigger another try */
       });
     }
   }

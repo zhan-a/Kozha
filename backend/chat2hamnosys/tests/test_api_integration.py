@@ -194,6 +194,15 @@ def test_full_authoring_flow_persists_sign_entry(integration_client):
     )
     assert r.status_code == 200, r.text
     env = r.json()
+    # ``/answer`` now kicks ``run_generation`` into a BackgroundTask
+    # so the HTTP response returns fast even when reasoning takes
+    # minutes; the envelope we see here is the mid-transition one.
+    # The TestClient drains background tasks before returning, so a
+    # follow-up GET sees the settled post-generation state.
+    assert env["state"] == "generating"
+    r = client.get(f"/sessions/{sid}", headers=auth)
+    assert r.status_code == 200, r.text
+    env = r.json()
     assert env["state"] == "rendered"
     assert env["hamnosys"]
     # SiGML is a well-formed XML document.

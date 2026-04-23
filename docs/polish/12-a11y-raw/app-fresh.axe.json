@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-23T16:35:45.995Z",
-  "url": "http://127.0.0.1:51434/app.html",
+  "timestamp": "2026-04-23T17:28:06.413Z",
+  "url": "http://127.0.0.1:52389/app.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -11718,6 +11718,24 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<option value=\"kk\">Kazakh / Қазақша</option>",
+          "target": [
+            "option[value=\"kk\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "no-focusable-content",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element does not have focusable descendants"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<option value=\"ko\">Korean</option>",
           "target": [
             "option[value=\"ko\"]"
@@ -14018,6 +14036,26 @@
           "html": "<option value=\"ja\">Japanese</option>",
           "target": [
             "option[value=\"ja\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<option value=\"kk\">Kazakh / Қазақша</option>",
+          "target": [
+            "option[value=\"kk\"]"
           ]
         },
         {
