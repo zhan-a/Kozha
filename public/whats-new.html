@@ -44,12 +44,26 @@
       margin: 0 0 var(--kozha-space-8);
       max-width: 62ch;
     }
+    /* Each release section is grouped into a card so the page reads as
+       a sequence of digestible sections rather than one long prose
+       column. The h2 sits flush at the top of each card with an
+       eyebrow-style underline for visual rhythm. */
+    main.whats-new section.release-section {
+      background: var(--kozha-color-white);
+      border: 1px solid var(--kozha-color-border);
+      border-radius: var(--kozha-radius);
+      padding: var(--kozha-space-6) var(--kozha-space-8);
+      margin: var(--kozha-space-6) 0 0;
+    }
     main.whats-new h2 {
       font-family: var(--kozha-font-serif);
       font-size: var(--kozha-text-contribute-h2);
       font-weight: var(--kozha-weight-regular);
+      letter-spacing: var(--kozha-tracking-tight);
       color: var(--kozha-color-ink);
-      margin: var(--kozha-space-10) 0 var(--kozha-space-3);
+      margin: 0 0 var(--kozha-space-4);
+      padding-bottom: var(--kozha-space-3);
+      border-bottom: 1px solid var(--kozha-color-border);
     }
     main.whats-new p,
     main.whats-new li {
@@ -59,19 +73,56 @@
       max-width: 62ch;
     }
     main.whats-new ul {
-      list-style: disc outside;
-      padding-left: var(--kozha-space-6);
-      margin: 0 0 var(--kozha-space-4);
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--kozha-space-4);
     }
     main.whats-new li {
-      margin: 0 0 var(--kozha-space-3);
+      position: relative;
+      padding-left: calc(var(--kozha-space-6) + var(--kozha-space-1));
+      margin: 0;
+    }
+    main.whats-new li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: calc(var(--kozha-space-3) + 2px);
+      width: 6px;
+      height: 6px;
+      border-radius: var(--kozha-radius-circle);
+      background: var(--kozha-color-accent);
     }
     main.whats-new strong { color: var(--kozha-color-ink); }
-    main.whats-new a { color: var(--kozha-color-accent); }
+    main.whats-new a {
+      color: var(--kozha-color-accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--kozha-color-border-accent);
+      transition: border-color var(--kozha-duration-base) var(--kozha-ease-standard);
+    }
+    main.whats-new a:hover,
+    main.whats-new a:focus-visible {
+      border-bottom-color: currentColor;
+    }
+    main.whats-new code {
+      font-family: var(--kozha-font-mono);
+      font-size: 0.92em;
+      background: var(--kozha-color-paper-2);
+      color: var(--kozha-color-ink);
+      padding: 1px 6px;
+      border-radius: var(--kozha-radius-sm);
+      border: 1px solid var(--kozha-color-border);
+    }
     main.whats-new .meta {
+      margin: var(--kozha-space-10) 0 0;
+      padding: var(--kozha-space-4) var(--kozha-space-5);
+      background: var(--kozha-color-paper-2);
+      border: 1px solid var(--kozha-color-border);
+      border-radius: var(--kozha-radius-sm);
       font-size: var(--kozha-text-body);
       color: var(--kozha-color-ink-3);
-      margin: var(--kozha-space-8) 0 0;
     }
     @media (max-width: 1099px) {
       main.whats-new {
@@ -108,6 +159,7 @@
       Plain-language summary of the April 2026 polish release. This page is a shortened, user-facing version of the full changelog; the source-of-truth record lives in the repository at <code>docs/polish/14-changelog.md</code>.
     </p>
 
+    <section class="release-section">
     <h2>Fixed</h2>
     <ul>
       <li>
@@ -120,6 +172,9 @@
       </li>
     </ul>
 
+    </section>
+
+    <section class="release-section">
     <h2>New</h2>
     <ul>
       <li>
@@ -144,6 +199,9 @@
       </li>
     </ul>
 
+    </section>
+
+    <section class="release-section">
     <h2>Improved</h2>
     <ul>
       <li>
@@ -159,6 +217,9 @@
       </li>
     </ul>
 
+    </section>
+
+    <section class="release-section">
     <h2>Honest limitations we ship with</h2>
     <ul>
       <li>
@@ -171,6 +232,8 @@
         The HamNoSys notation font (<code>bgHamNoSysUnicode.ttf</code>) is referenced by the CSS but the binary is not yet committed. When the file is missing the browser falls back to the system monospace font; the page never errors. Getting the binary shipped through IDGS's distribution terms is on the post-launch punch list.
       </li>
     </ul>
+
+    </section>
 
     <p class="meta">
       Release date: 2026-04-22 &middot; Full technical notes in
