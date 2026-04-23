@@ -192,6 +192,32 @@ _RESTART_PATTERNS: tuple[re.Pattern[str], ...] = (
 )
 
 
+# Deterministic "regenerate" detector. The user is reporting that the
+# generated sign looks wrong / broken / has bad syntax / doesn't play,
+# without naming a specific phonological slot to change. Without this
+# fast-path the LLM interpreter classifies these as ``VAGUE`` and the
+# session sits frozen on the broken sign forever — the user clicks
+# "Send" and nothing visible changes. We treat it as APPLY_DIFF with
+# the same params, which forces ``run_generation`` to fire a fresh
+# round of SiGML-direct (which now self-corrects via the
+# slot-completeness check + retry loop in generator/sigml_direct.py).
+_REGENERATE_PATTERNS: tuple[re.Pattern[str], ...] = (
+    re.compile(r"\bfix\s+(the|this|it)\b", re.IGNORECASE),
+    re.compile(r"\b(re\s*-?\s*generate|regenerate|try\s+again|retry)\b", re.IGNORECASE),
+    re.compile(r"\b(syntax|grammar)\b.*\b(wrong|bad|error|broken|invalid)\b", re.IGNORECASE),
+    re.compile(r"\b(broken|doesn'?t\s+(play|work)|won'?t\s+(play|work))\b", re.IGNORECASE),
+    re.compile(r"\b(error|errored|errors)\b", re.IGNORECASE),
+    re.compile(r"^\s*(fix|regen|retry)\s*[.!?]*\s*$", re.IGNORECASE),
+)
+
+
+def _looks_like_regenerate(raw: str) -> bool:
+    """Match user phrasings that mean "redo the sign without changing
+    anything". Used to skip the LLM-classification round-trip and force
+    a fresh ``run_generation``."""
+    return any(p.search(raw) for p in _REGENERATE_PATTERNS)
+
+
 # ---------------------------------------------------------------------------
 # System prompt
 # ---------------------------------------------------------------------------
@@ -345,6 +371,29 @@ def interpret_correction(
         return _vague_plan(
             "No parameters are populated yet; run parse → generate first.",
             "Could you re-describe the sign so I can start from scratch?",
+        )
+
+    # Fast path: "fix the sign" / "the syntax is wrong" / "broken" /
+    # "regenerate" — return APPLY_DIFF with the same parameters so
+    # ``apply_correction`` triggers a fresh ``run_generation``. The
+    # SiGML-direct retry loop (with its slot-completeness check) gets
+    # another shot at producing valid SiGML — which is exactly what
+    # the user asked for. Without this fast-path the LLM interpreter
+    # classifies these as VAGUE and the session sits frozen on the
+    # broken sign forever.
+    if _looks_like_regenerate(raw):
+        return CorrectionPlan(
+            intent=CorrectionIntent.APPLY_DIFF,
+            field_changes=[],
+            explanation=(
+                "Re-running the generator on the current parameters — "
+                "the previous SiGML had a problem. Asking the model to "
+                "produce a fresh attempt with the slot-completeness "
+                "check enabled."
+            ),
+            needs_user_confirmation=False,
+            follow_up_question=None,
+            updated_params=params,
         )
 
     req_id = request_id or f"correct-{uuid.uuid4().hex[:12]}"

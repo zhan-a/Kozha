@@ -1,6 +1,6 @@
 {
   "documentTitle": "Submission status — Bridgn",
-  "pageUrl": "http://127.0.0.1:61230/contribute/status/sim-rejected",
+  "pageUrl": "http://127.0.0.1:61710/contribute/status/sim-rejected",
   "issues": [
     {
       "code": "WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206",

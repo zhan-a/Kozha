@@ -45,7 +45,7 @@ import logging
 import re
 from typing import Any
 
-from hamnosys import SYMBOLS, normalize, validate
+from hamnosys import SYMBOLS, SymClass, classify, normalize, validate
 from llm import ChatResult, LLMClient
 from llm.budget import BudgetExceeded
 from parser.models import PartialSignParameters
@@ -56,6 +56,56 @@ from rendering.hamnosys_to_sigml import (
     to_sigml,
     validate_sigml,
 )
+
+
+# Locations span six SymClass values (head/torso/neutral/arm/hand_zone/
+# finger); any one of them satisfies the location requirement. Palm
+# orientation is a single class. Handshape and ext-finger are the base
+# tags that must precede them.
+_LOCATION_CLASSES = frozenset({
+    SymClass.LOC_HEAD,
+    SymClass.LOC_TORSO,
+    SymClass.LOC_NEUTRAL,
+    SymClass.LOC_ARM,
+    SymClass.LOC_HAND_ZONE,
+    SymClass.LOC_FINGER,
+})
+
+
+def _missing_required_slots(hamnosys: str) -> list[str]:
+    """Return the list of required slot names absent from ``hamnosys``.
+
+    The HamNoSys grammar treats each slot as optional, but CWASA's
+    runtime needs handshape, ext-finger direction, palm direction, and
+    location all present (in that canonical order) before any movement
+    tag. A SiGML missing palm direction validates fine against the DTD
+    but blows up at play time with
+    ``TypeError: Cannot read properties of null (reading 'getName')``.
+    Surface the gap here so the SiGML-direct retry loop can ask the
+    model to add the missing tags.
+    """
+    has_handshape = False
+    has_ext_finger = False
+    has_palm = False
+    has_location = False
+    for ch in hamnosys:
+        cls = classify(ch)
+        if cls is None:
+            continue
+        if cls is SymClass.HANDSHAPE_BASE:
+            has_handshape = True
+        elif cls is SymClass.EXT_FINGER_DIR:
+            has_ext_finger = True
+        elif cls is SymClass.PALM_DIR:
+            has_palm = True
+        elif cls in _LOCATION_CLASSES:
+            has_location = True
+    missing: list[str] = []
+    if not has_handshape:  missing.append("handshape")
+    if not has_ext_finger: missing.append("ext_finger_direction")
+    if not has_palm:       missing.append("palm_direction")
+    if not has_location:   missing.append("location")
+    return missing
 
 from .sigml_examples import few_shot_examples, render_few_shot
 
@@ -346,6 +396,22 @@ def _generate_sigml_direct_once(
     vr = validate(normalized)
     if not vr.ok:
         return "", "", f"validator rejected reverse-mapped HamNoSys: {vr.summary()}"
+
+    # Phonological completeness check: the HamNoSys grammar accepts
+    # signs missing a palm-orientation tag, but CWASA's renderer needs
+    # one to compute the hand pose — without it the player throws
+    # ``TypeError: Cannot read properties of null (reading 'getName')``
+    # at play time. The user sees a SiGML that looks fine and a preview
+    # that crashes silently. Catch it here so the retry loop can ask
+    # the model to add the missing slot.
+    missing = _missing_required_slots(normalized)
+    if missing:
+        return "", "", (
+            "missing required HamNoSys slot(s): " + ", ".join(missing) +
+            ". CWASA needs each of [handshape, ext_finger, palm, location] "
+            "before any movement tag — re-emit the SiGML with all four "
+            "present, in canonical order."
+        )
 
     # Re-emit canonical SiGML through to_sigml so the renderer always
     # gets a DTD-clean document. We trust to_sigml's output over the

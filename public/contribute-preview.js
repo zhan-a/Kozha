@@ -100,6 +100,7 @@
     fallbackDetail:  document.getElementById('avatarFallbackDetail'),
     fallbackRetry:   document.getElementById('avatarFallbackRetry'),
     fallbackDiag:    document.getElementById('avatarFallbackDiag'),
+    fallbackRegen:   document.getElementById('avatarFallbackRegen'),
     status:          document.getElementById('avatarStatus'),
     controls:        null, // resolved in init()
     playBtn:         document.getElementById('avatarPlayBtn'),
@@ -405,6 +406,20 @@
     if (els.fallbackRetry) {
       var canRetry = failed && state.lastFailureReason !== 'webgl_unavailable';
       els.fallbackRetry.hidden = !canRetry;
+    }
+    // The regenerate button is shown when CWASA crashed on a SiGML
+    // we shipped — that's a server-side generation problem and
+    // re-rendering won't help; we have to ask the server for a new
+    // SiGML. Modes that warrant regen: play_threw (the avatar engine
+    // refused the markup) and any sigml_invalid_* prefix (the
+    // pre-flight pre-emptively rejected it).
+    if (els.fallbackRegen) {
+      var reason = state.lastFailureReason || '';
+      var canRegen = failed && (
+        reason === 'play_threw' ||
+        reason.indexOf('sigml_invalid_') === 0
+      );
+      els.fallbackRegen.hidden = !canRegen;
     }
 
     var interactive = state.cwasaReady && !failed;
@@ -782,6 +797,34 @@
           DEBUG.log('preview: diagnostics download requested');
           window.KOZHA_CONTRIB_DEBUG.download();
         }
+      });
+    }
+    if (els.fallbackRegen) {
+      els.fallbackRegen.addEventListener('click', function () {
+        // Send a "fix the sign" correction to the backend. The new
+        // server-side regenerate fast-path (correction_interpreter.py
+        // _looks_like_regenerate) routes this straight to
+        // run_generation, which now self-corrects via the SiGML-direct
+        // retry loop with the slot-completeness check. From the user's
+        // perspective: one click and the broken sign is replaced with
+        // a fresh attempt without re-typing a description.
+        if (!CTX || typeof CTX.correct !== 'function') return;
+        DEBUG.log('preview: regen requested via fallback button', { reason: state.lastFailureReason });
+        // Clear the failed flag optimistically so the pulse shows
+        // and the fallback card disappears the moment we POST.
+        state.cwasaFailed = false;
+        state.renderFailed = false;
+        state.lastFailureReason = null;
+        applyReadyState();
+        applyStatus();
+        CTX.correct(
+          'fix the sign — the previous SiGML failed to play in CWASA, please regenerate'
+        ).catch(function (err) {
+          DEBUG.error('preview: regen correction failed', { status: err && err.status, body: err && err.body });
+          // Surface the failure back into the preview pane so the
+          // user sees something happen.
+          markRenderFailed('regen_request_failed');
+        });
       });
     }
     for (var i = 0; i < els.speedBtns.length; i++) {
