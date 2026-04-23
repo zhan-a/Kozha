@@ -303,37 +303,55 @@ function findVideoElement() {
 function startRealtimeTextTrackSync(sourceLang) {
   var video = findVideoElement();
   if (!video) {
-    console.log("[Kozha YT] realtime: no video, retrying...");
     setTimeout(function() { startRealtimeTextTrackSync(sourceLang); }, 500);
     return;
   }
   realtimeActive = true;
-  console.log("[Kozha YT] realtime: attaching to video.textTracks, count:", video.textTracks.length);
-
-  function attachToTracks() {
-    var tracks = video.textTracks;
-    for (var i = 0; i < tracks.length; i++) {
-      var t = tracks[i];
-      if (t.mode === "disabled") t.mode = "hidden";
-      if (!t._kozhaHooked) {
-        t._kozhaHooked = true;
-        t.addEventListener("cuechange", function(e) {
-          var tt = e.target;
-          if (!tt.activeCues || tt.activeCues.length === 0) return;
-          var text = Array.from(tt.activeCues).map(function(c) { return c.text; }).join(" ").trim();
-          if (!text || text === lastRealtimeText) return;
-          lastRealtimeText = text;
-          console.log("[Kozha YT] realtime cue:", text);
-          Kozha.setSubtitle(text);
-          translateAndSign(text, sourceLang);
-        });
-      }
-    }
-  }
-
-  attachToTracks();
-  video.textTracks.addEventListener("addtrack", attachToTracks);
+  console.log("[Kozha YT] realtime: starting DOM caption observer");
   setStatus("Realtime (enable CC)");
+  startCaptionDomObserver(sourceLang);
+}
+
+var captionObserver = null;
+var lastCaptionEmit = 0;
+var captionDebounceTimer = null;
+var pendingCaptionText = "";
+
+function readCaptionText() {
+  var container = document.querySelector(".ytp-caption-window-container") ||
+                  document.querySelector(".caption-window") ||
+                  document.querySelector(".ytp-caption-segment") && document.querySelector(".ytp-caption-segment").parentElement;
+  if (!container) return "";
+  var segs = container.querySelectorAll(".ytp-caption-segment, .captions-text");
+  if (segs.length === 0) {
+    return container.textContent.trim();
+  }
+  var parts = [];
+  for (var i = 0; i < segs.length; i++) {
+    parts.push(segs[i].textContent);
+  }
+  return parts.join(" ").replace(/\s+/g, " ").trim();
+}
+
+function emitCaption(sourceLang) {
+  var text = readCaptionText();
+  if (!text || text === lastRealtimeText) return;
+  lastRealtimeText = text;
+  console.log("[Kozha YT] DOM caption:", text);
+  Kozha.setSubtitle(text);
+  translateAndSign(text, sourceLang);
+}
+
+function startCaptionDomObserver(sourceLang) {
+  var target = document.querySelector("#movie_player") || document.body;
+  if (captionObserver) captionObserver.disconnect();
+  captionObserver = new MutationObserver(function() {
+    if (captionDebounceTimer) clearTimeout(captionDebounceTimer);
+    captionDebounceTimer = setTimeout(function() { emitCaption(sourceLang); }, 200);
+  });
+  captionObserver.observe(target, { childList: true, subtree: true, characterData: true });
+  console.log("[Kozha YT] MutationObserver attached to", target.id || target.tagName);
+  setTimeout(function() { emitCaption(sourceLang); }, 500);
 }
 
 function translateAndSign(text, sourceLang) {
