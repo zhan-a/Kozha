@@ -293,6 +293,67 @@ function removeVideoListeners() {
   videoListeners = [];
 }
 
+var realtimeActive = false;
+var lastRealtimeText = "";
+
+function findVideoElement() {
+  return document.querySelector("#movie_player video") || document.querySelector("video");
+}
+
+function startRealtimeTextTrackSync(sourceLang) {
+  var video = findVideoElement();
+  if (!video) {
+    console.log("[Kozha YT] realtime: no video, retrying...");
+    setTimeout(function() { startRealtimeTextTrackSync(sourceLang); }, 500);
+    return;
+  }
+  realtimeActive = true;
+  console.log("[Kozha YT] realtime: attaching to video.textTracks, count:", video.textTracks.length);
+
+  function attachToTracks() {
+    var tracks = video.textTracks;
+    for (var i = 0; i < tracks.length; i++) {
+      var t = tracks[i];
+      if (t.mode === "disabled") t.mode = "hidden";
+      if (!t._kozhaHooked) {
+        t._kozhaHooked = true;
+        t.addEventListener("cuechange", function(e) {
+          var tt = e.target;
+          if (!tt.activeCues || tt.activeCues.length === 0) return;
+          var text = Array.from(tt.activeCues).map(function(c) { return c.text; }).join(" ").trim();
+          if (!text || text === lastRealtimeText) return;
+          lastRealtimeText = text;
+          console.log("[Kozha YT] realtime cue:", text);
+          Kozha.setSubtitle(text);
+          translateAndSign(text, sourceLang);
+        });
+      }
+    }
+  }
+
+  attachToTracks();
+  video.textTracks.addEventListener("addtrack", attachToTracks);
+  setStatus("Realtime (enable CC)");
+}
+
+function translateAndSign(text, sourceLang) {
+  chrome.runtime.sendMessage({
+    type: "translate_batch",
+    segments: [{ text: text, start: 0, duration: 3 }],
+    source_lang: sourceLang || "en",
+  }, function(resp) {
+    if (chrome.runtime.lastError || !resp || !resp.ok) {
+      console.error("[Kozha YT] realtime translate failed:", chrome.runtime.lastError || (resp && resp.error));
+      return;
+    }
+    var glosses = resp.data && resp.data.results && resp.data.results[0] && resp.data.results[0].glosses;
+    if (glosses && glosses.length > 0) {
+      console.log("[Kozha YT] realtime glosses:", glosses);
+      Kozha.sendToAvatar(glosses);
+    }
+  });
+}
+
 function startVideoSync() {
   var video = document.querySelector("#movie_player video") ||
     document.querySelector("video");
@@ -439,7 +500,14 @@ async function init() {
     console.log("[Kozha YT] fetched", segments.length, "transcript segments");
   } catch (e) {
     console.error("[Kozha YT] fetchTranscript failed:", e);
-    setStatus("Failed to load captions");
+    segments = [];
+  }
+
+  if (segments.length === 0) {
+    console.log("[Kozha YT] transcript prefetch failed, switching to realtime TextTrack mode");
+    setStatus("Realtime mode (enable CC on video)");
+    Kozha.setSubtitle("Click the CC button on the video to enable captions");
+    startRealtimeTextTrackSync(track.languageCode);
     return;
   }
 
