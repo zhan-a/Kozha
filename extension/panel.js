@@ -142,10 +142,14 @@ function loadDatabase(lang) {
     if (db.csv) loadConceptCsv(results[idx++]);
     if (db.alphabet) loadAlphabetXml(results[idx++]);
     dbLoaded = true;
+    console.log("[Kozha panel] database loaded:", lang, "signs:", glossToSign.size, "letters:", letterToSign.size);
     window.parent.postMessage({ type: "db_ready", lang: lang }, "*");
-  }).catch(function() {
+    tryPlayPending();
+  }).catch(function(err) {
+    console.error("[Kozha panel] database load failed:", err);
     dbLoaded = true;
     window.parent.postMessage({ type: "db_ready", lang: lang }, "*");
+    tryPlayPending();
   });
 }
 
@@ -260,8 +264,10 @@ function initCwasa() {
 
         CWASA.ready.then(function() {
           cwasaAvailable = true;
+          console.log("[Kozha panel] CWASA ready");
           window.parent.postMessage({ type: "cwasa_ready" }, "*");
           loadDatabase();
+          tryPlayPending();
 
           var canvas = document.querySelector("canvas");
           if (canvas) {
@@ -285,22 +291,35 @@ function initCwasa() {
 }
 
 var cwasaInitStarted = false;
+var pendingGlosses = null;
+
+function tryPlayPending() {
+  if (!pendingGlosses) return;
+  if (!cwasaAvailable || !dbLoaded) return;
+  var g = pendingGlosses;
+  pendingGlosses = null;
+  console.log("[Kozha panel] playing queued glosses:", g);
+  playGlossesWithSpeed(g);
+}
 
 window.addEventListener("message", function(e) {
   if (!e.data || !e.data.type) return;
 
   if (e.data.type === "play_glosses") {
+    console.log("[Kozha panel] received play_glosses:", e.data.glosses, "cwasaAvailable:", cwasaAvailable, "dbLoaded:", dbLoaded);
     if (!cwasaInitStarted) {
       cwasaInitStarted = true;
       initCwasa();
     }
-    if (cwasaAvailable) {
+    if (!e.data.glosses || e.data.glosses.length === 0) return;
+    if (cwasaAvailable && dbLoaded) {
       try { CWASA.stop(0); } catch(err) {}
       signQueue = [];
       playingQueue = false;
-      if (e.data.glosses && e.data.glosses.length > 0) {
-        playGlossesWithSpeed(e.data.glosses);
-      }
+      playGlossesWithSpeed(e.data.glosses);
+    } else {
+      console.log("[Kozha panel] queuing glosses until ready");
+      pendingGlosses = e.data.glosses;
     }
   }
 

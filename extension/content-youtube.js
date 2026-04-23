@@ -277,7 +277,12 @@ function startVideoSync() {
     Kozha.setSubtitle(seg.text);
 
     var cached = translationCache[idx];
-    if (cached) Kozha.sendToAvatar(cached.glosses);
+    if (cached) {
+      console.log("[Kozha YT] segment", idx, "→ glosses:", cached.glosses);
+      Kozha.sendToAvatar(cached.glosses);
+    } else {
+      console.log("[Kozha YT] segment", idx, "has no cached glosses yet");
+    }
 
     if (useWindow) ensureWindowTranslated(idx);
   });
