@@ -58,7 +58,7 @@
   }
 
   var COPY = {
-    get CLARIFICATION_LABEL()          { return tr('contribute.chat.clarification_label', 'Clarification:'); },
+    get CLARIFICATION_LABEL()          { return tr('contribute.chat.clarification_label', 'Sign wizard'); },
     get ERROR_LABEL()                  { return tr('contribute.chat.error_label', 'Error:'); },
     get NOTICE_LABEL()                 { return tr('contribute.chat.notice_label', 'Notice:'); },
     get INPUT_LABEL_ANSWER()           { return tr('contribute.chat.input_label_answer', 'Your answer'); },
@@ -73,6 +73,7 @@
     get ERROR_MSG()                    { return tr('contribute.chat.error_msg', 'The AI had trouble generating a follow-up. Your answer was saved — try rephrasing, or submit the draft as-is and let the reviewer fill any gaps.'); },
     get GENERATION_FAILED_DEBUG()      { return tr('contribute.chat.generation_failed_debug', 'Generator detail: '); },
     get RETRY_BUTTON()                 { return tr('contribute.chat.retry', 'Try again'); },
+    get CORRECTION_WORKING()           { return tr('contribute.chat.correction_working', 'Working on your correction — the avatar will update once the new sign is ready.'); },
     get GENERATION_CANDIDATE_LABEL()   { return tr('contribute.chat.generation_candidate_label', 'Tried candidate: '); },
     get GENERATION_PATH_LABEL()        { return tr('contribute.chat.generation_path_label', 'Generation path: '); },
     get ERROR_RATE_LIMITED()           { return tr('contribute.chat.error_rate_limited', "You're sending requests faster than the server can process. Wait a moment and try again."); },
@@ -436,6 +437,11 @@
     // The target applies to this one correction only — clear the pill
     // so the next correction starts fresh unless the user re-targets.
     clearCorrectionTarget();
+    // Visible "working on it" chat notice so the contributor knows
+    // the correction was received and the system is regenerating —
+    // not silently doing nothing. The notice carries a marker class
+    // so the next snapshot can swap it for the real follow-up.
+    appendMessage({ kind: 'system', text: COPY.CORRECTION_WORKING });
     withAutoRetry(function () { return CTX.correct(text, opts); })
       .catch(handleError)
       .then(function () { setInFlight(false); });

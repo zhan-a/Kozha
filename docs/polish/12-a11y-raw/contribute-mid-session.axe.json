@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-23T04:12:15.963Z",
-  "url": "http://127.0.0.1:62654/contribute.html",
+  "timestamp": "2026-04-23T04:45:43.827Z",
+  "url": "http://127.0.0.1:63165/contribute.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -8320,16 +8320,16 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#3d3630",
+                "fgColor": "#b3441b",
                 "bgColor": "#ede8e0",
-                "contrastRatio": 9.73,
+                "contrastRatio": 4.58,
                 "fontSize": "10.5pt (14px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 9.73"
+              "message": "Element has sufficient color contrast of 4.58"
             }
           ],
           "all": [],

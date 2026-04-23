@@ -184,11 +184,23 @@ _NON_MANUAL_LEAVES: frozenset[str] = frozenset(
 # Deterministic restart-phrase detector. The LLM path also returns
 # ``RESTART`` in these cases, but matching before the call saves a
 # round-trip and keeps the tests deterministic.
+#
+# The "whole|entire|everything" pattern is *narrower* than it looks:
+# we explicitly skip if the sentence contains a partial-correction
+# qualifier ("except", "but", "only", "good", "right"). The user's
+# real-world phrasing "everything is good except for the palm facing
+# the wrong direction" used to trigger restart and wipe the sign;
+# the qualifier guard (see ``_looks_like_restart``) keeps that
+# correction in the slot-edit path where it belongs.
 _RESTART_PATTERNS: tuple[re.Pattern[str], ...] = (
     re.compile(r"\b(start\s+over|start\s+again|from\s+scratch)\b", re.IGNORECASE),
     re.compile(r"\b(whole|entire|everything)\b.*\b(wrong|bad|off|incorrect)\b", re.IGNORECASE),
     re.compile(r"\b(scrap|discard|throw\s+out)\b", re.IGNORECASE),
     re.compile(r"^\s*(redo|restart|reset)\s*[.!?]*\s*$", re.IGNORECASE),
+)
+_RESTART_QUALIFIER_PATTERN: re.Pattern[str] = re.compile(
+    r"\b(except|but|only|good|right|correct(?!ly)|works|fine|nearly|almost)\b",
+    re.IGNORECASE,
 )
 
 
@@ -862,6 +874,16 @@ def _vague_plan(explanation: str, follow_up: str) -> CorrectionPlan:
 def _looks_like_restart(text: str) -> bool:
     for pat in _RESTART_PATTERNS:
         if pat.search(text):
+            # Qualifier guard: a sentence containing "except / but /
+            # only / good / right / fine / works / nearly / almost"
+            # is a partial-correction, not a restart. The user's
+            # phrasing "everything is good except for the palm
+            # facing the wrong direction" matched the
+            # everything-wrong pattern but is clearly a slot edit,
+            # not a wipe-and-start-over. Fall through to the LLM
+            # interpreter for those.
+            if _RESTART_QUALIFIER_PATTERN.search(text):
+                return False
             return True
     return False
 

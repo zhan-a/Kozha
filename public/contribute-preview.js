@@ -756,10 +756,20 @@
     if (snap.sigml && snap.sigml !== state.currentSigml) {
       applyNewSigml(snap.sigml);
     } else if (!snap.sigml && state.currentSigml) {
-      // Correction wiped the draft — stop playback and reset.
-      doPause();
-      state.currentSigml = null;
-      setCurrentTime(0);
+      // Server returned an envelope without sigml. *Don't* immediately
+      // wipe the avatar — when a correction is in flight or the
+      // server transiently parked the draft post-error, the previous
+      // sign should keep playing while the user waits. The pulse
+      // overlay (applyPulse) is the visual signal that work is in
+      // progress; the SiGML-bearing envelope that lands afterward
+      // will swap it out cleanly. Only blank the avatar when the
+      // session is in a "settled" state without sigml — i.e. the
+      // user explicitly discarded or the draft truly has nothing.
+      if (snap.sessionState === 'awaiting_description') {
+        doPause();
+        state.currentSigml = null;
+        setCurrentTime(0);
+      }
     }
 
     updateCaptions(snap);

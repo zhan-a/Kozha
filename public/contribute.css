@@ -700,8 +700,21 @@ select.field-input { cursor: pointer; }
   display: inline-block;
   font-weight: var(--kozha-weight-semibold);
   margin-right: var(--kozha-space-2);
+  color: var(--kozha-color-accent);
+  letter-spacing: var(--kozha-tracking-tight);
 }
-.chat-msg-error .chat-msg-label {
+/* Style the label as a chat-app-style speaker name: bold accent text
+   followed by a thin colon. The colon is purely cosmetic (added via
+   ::after), so screen readers announce the label name without an
+   awkward "colon" word. */
+.chat-msg-label::after {
+  content: ':';
+  color: var(--kozha-color-ink-3);
+  font-weight: var(--kozha-weight-regular);
+  margin-left: 1px;
+}
+.chat-msg-error .chat-msg-label,
+.chat-msg-error .chat-msg-label::after {
   color: var(--kozha-color-error, #b3441b);
 }
 .chat-msg-text {
