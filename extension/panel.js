@@ -43,6 +43,7 @@ var SIGN_LANG_DB = {
   isl:      { sigml: ['/data/Indian_SL.sigml'], csv: null, alphabet: null },
   kurdish:  { sigml: ['/data/Kurdish_SL.sigml'], csv: null, alphabet: null },
   vsl:      { sigml: ['/data/Vietnamese_SL.sigml'], csv: null, alphabet: null },
+  ksl:      { sigml: [], csv: null, alphabet: null },
 };
 
 var SIGN_LANG_LABELS = {
@@ -50,6 +51,7 @@ var SIGN_LANG_LABELS = {
   pjm: "PJM (Polish)", gsl: "GSL (Greek)", ngt: "NGT (Dutch)",
   algerian: "Algerian SL", bangla: "Bangla SL", fsl: "Filipino SL",
   isl: "Indian SL", kurdish: "Kurdish SL", vsl: "Vietnamese SL",
+  ksl: "KSL (Kazakh)",
 };
 
 function glossBase(gloss) {

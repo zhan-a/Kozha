@@ -1424,6 +1424,7 @@
                   <option value="id">Indonesian</option>
                   <option value="it">Italian</option>
                   <option value="ja">Japanese</option>
+                  <option value="kk">Kazakh / Қазақша</option>
                   <option value="ko">Korean</option>
                   <option value="lv">Latvian</option>
                   <option value="lt">Lithuanian</option>
@@ -2091,7 +2092,7 @@
       bsl: 'en', asl: 'en', dgs: 'en', lsf: 'fr',
       lse: 'es', pjm: 'pl', gsl: 'el', rsl: 'ru',
       algerian: null, bangla: 'en', ngt: 'nl', fsl: null,
-      isl: 'en', kurdish: 'ku', vsl: 'en'
+      isl: 'en', kurdish: 'ku', vsl: 'en', ksl: 'kk'
     };
 
     const SIGN_LANG_DB = {
@@ -2110,6 +2111,7 @@
       isl:      { sigml: ['/data/Indian_SL.sigml'], csv: null, alphabet: null },
       kurdish:  { sigml: ['/data/Kurdish_SL.sigml'], csv: null, alphabet: null },
       vsl:      { sigml: ['/data/Vietnamese_SL.sigml'], csv: null, alphabet: null },
+      ksl:      { sigml: [], csv: null, alphabet: null },
     };
 
     function extractEmbeddedAlphabet() {
@@ -2169,7 +2171,7 @@
       bsl: 'BSL', asl: 'ASL', dgs: 'DGS', lsf: 'LSF', lse: 'LSE',
       pjm: 'PJM', gsl: 'GSL', rsl: 'RSL', algerian: 'Algerian SL',
       bangla: 'Bangla SL', ngt: 'NGT', fsl: 'FSL', isl: 'ISL',
-      kurdish: 'Kurdish SL', vsl: 'VSL'
+      kurdish: 'Kurdish SL', vsl: 'VSL', ksl: 'KSL'
     };
 
     const SIGN_LANG_DISPLAY = {
@@ -2177,7 +2179,8 @@
       lsf: 'LSF (French)', lse: 'LSE (Spanish)', pjm: 'PJM (Polish)',
       gsl: 'GSL (Greek)', rsl: 'RSL (Russian)', algerian: 'Algerian SL',
       bangla: 'Bangla SL', ngt: 'NGT (Dutch)', fsl: 'FSL (Filipino)',
-      isl: 'ISL (Indian)', kurdish: 'Kurdish SL', vsl: 'VSL (Vietnamese)'
+      isl: 'ISL (Indian)', kurdish: 'Kurdish SL', vsl: 'VSL (Vietnamese)',
+      ksl: 'KSL (Kazakh)'
     };
 
     // Coverage per sign language — source: docs/polish/01-database-inventory.md
@@ -2185,7 +2188,7 @@
     const SIGN_LANG_COVERAGE = {
       bsl: 881, asl: 881, dgs: 1914, lsf: 381, lse: 0,
       pjm: 1932, gsl: 889, rsl: 0, algerian: 418, bangla: 81,
-      ngt: 39, fsl: 0, isl: 763, kurdish: 558, vsl: 3564
+      ngt: 39, fsl: 0, isl: 763, kurdish: 558, vsl: 3564, ksl: 0
     };
 
     // Corpus attribution per sign language — surfaced as per-sign provenance
@@ -2205,7 +2208,8 @@
       fsl: 'Filipino SL',
       isl: 'ISL dataset',
       kurdish: 'KurdishBLARK',
-      vsl: 'VSL dataset'
+      vsl: 'VSL dataset',
+      ksl: 'Fingerspelling only'
     };
 
     const BASE_LANG_NAMES = {
@@ -2219,7 +2223,7 @@
       lv: 'Latvian', lt: 'Lithuanian', ms: 'Malay', no: 'Norwegian',
       fa: 'Persian', ro: 'Romanian', sr: 'Serbian', sk: 'Slovak',
       sl: 'Slovenian', sv: 'Swedish', th: 'Thai', uk: 'Ukrainian',
-      ur: 'Urdu', vi: 'Vietnamese', ku: 'Kurdish'
+      ur: 'Urdu', vi: 'Vietnamese', ku: 'Kurdish', kk: 'Kazakh'
     };
 
     // Argos translate packages actually available via server._ensure_argos.
