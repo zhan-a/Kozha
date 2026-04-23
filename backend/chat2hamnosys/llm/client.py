@@ -138,14 +138,24 @@ _DEFAULT_FALLBACK_MODEL_ENV = "CHAT2HAMNOSYS_FALLBACK_MODEL"
 _BUILTIN_DEFAULT_MODEL = "gpt-5.4"
 _BUILTIN_DEFAULT_FALLBACK_MODEL = "gpt-4o"
 
-# Per-request timeout in seconds for the OpenAI SDK. A single hanging
-# chat completion must not be allowed to tie up the /answer endpoint —
-# the generator's slot-resolver and repair loops each issue several
-# LLM calls, and OpenAI's default (600s) made the page appear dead
-# when a model id was unavailable. We also disable the SDK's own retry
-# loop (``max_retries=0``) so :meth:`_invoke_with_retry` is the single
-# owner of retry policy and the model-unavailable fallback path.
-_OPENAI_REQUEST_TIMEOUT_S = 30.0
+# Per-request timeout in seconds for the OpenAI SDK. The previous 30s
+# cap was a hard ceiling tuned for plain chat completions — it
+# routinely cut off ``gpt-5.4`` reasoning mid-thought, surfacing as
+# the user-visible "AI had trouble generating a follow-up" error that
+# disappeared as soon as the page was reloaded (the retry on resume
+# completed within the new, generous budget). Reasoning models can
+# legitimately think for several minutes on a complex SiGML emit —
+# 5 minutes per call is the right ceiling: enough that "think hard
+# and produce a good sign" wins, low enough that a genuinely hung
+# request still surfaces as an error before the contributor leaves.
+# Override at deploy time with ``CHAT2HAMNOSYS_REQUEST_TIMEOUT_S`` if
+# the model needs even more rope. We still disable the SDK's own
+# retry loop (``max_retries=0``) so ``_invoke_with_retry`` is the
+# single owner of retry policy and the model-unavailable fallback
+# path.
+_OPENAI_REQUEST_TIMEOUT_S: float = float(
+    os.environ.get("CHAT2HAMNOSYS_REQUEST_TIMEOUT_S", "300.0")
+)
 # Reasoning-capable models go through the Responses API rather than the
 # legacy Chat Completions endpoint. The Responses API is OpenAI's
 # recommended surface for gpt-5.x and the o-series — it accepts
@@ -590,10 +600,19 @@ class LLMClient:
                 }
             }
 
+        # Reasoning models burn output tokens on the hidden chain-of-
+        # thought before they emit a single visible character — the
+        # OpenAI guide recommends reserving "at least 25,000 tokens"
+        # per request when starting out. We pick a roomy floor of
+        # 32,768 plus the caller-requested visible budget so the model
+        # never gets cut off mid-thought, which was the silent cause
+        # of the "AI had trouble generating a follow-up" errors that
+        # vanished after a reload (the resume call ran with fresh
+        # budget and finished cleanly).
         kwargs: dict[str, Any] = {
             "model": self.model,
             "input": input_items,
-            "max_output_tokens": max(int(max_output_tokens) + 4096, 8192),
+            "max_output_tokens": max(int(max_output_tokens) + 4096, 32768),
             "reasoning": {"effort": effort},
         }
         if instructions:

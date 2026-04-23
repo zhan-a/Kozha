@@ -332,7 +332,13 @@ def _generate_sigml_direct_once(
             messages=messages,
             response_format=_SIGML_DIRECT_SCHEMA,
             temperature=0.2,
-            max_tokens=2400,
+            # Generous visible-output budget — the SiGML response
+            # plus rationale can run a few hundred tokens, but the
+            # reasoning model also benefits from headroom so its
+            # internal chain-of-thought isn't squeezed against the
+            # ceiling. The Responses API path bumps this further
+            # with a 32k-token reasoning floor (see llm/client.py).
+            max_tokens=8192,
             request_id=f"{request_id}:sigml_direct",
             prompt_metadata=load_prompt(PROMPT_ID_SIGML_DIRECT).metadata,
             reasoning_effort=reasoning_effort,

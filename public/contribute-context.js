@@ -55,12 +55,18 @@
 
   var API_BASE = '/api/chat2hamnosys';
 
-  // Client-side watchdog: if a /describe, /answer, or /correct request
-  // takes longer than this, abort so the chat panel can show an error
-  // instead of spinning forever. The backend bounds generation at
-  // ~30s per LLM call x a handful of calls, so 150s covers the
-  // worst-case happy path with headroom.
-  var REQUEST_TIMEOUT_MS = 150000;
+  // Client-side watchdog. Bumped to 10 minutes from the prior 150s
+  // because reasoning models (gpt-5.4 et al.) can legitimately think
+  // for several minutes on a complex SiGML emit, and the backend now
+  // gives each OpenAI call up to 5 minutes (CHAT2HAMNOSYS_REQUEST_
+  // TIMEOUT_S defaults to 300s) with the SiGML-direct path optionally
+  // running 2 attempts. The 150s ceiling was the silent cause of the
+  // "AI had trouble generating a follow-up" errors that vanished on
+  // reload (the resume + run-generation path always finished cleanly
+  // because no request-level timer was running). 10 minutes is high
+  // enough that a real hang still surfaces, low enough that an idle
+  // tab eventually cleans up.
+  var REQUEST_TIMEOUT_MS = 600000;
 
   function fetchWithTimeout(url, opts, timeoutMs) {
     opts = opts || {};

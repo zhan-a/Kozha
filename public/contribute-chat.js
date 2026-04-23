@@ -524,6 +524,52 @@
       }
     }
 
+    // Silent recovery: the user's "the sign only appears after
+    // reloading" reports are this exact case. The /answer call hits a
+    // transient LLM stumble, but the answer was already saved
+    // server-side. A reload triggers a fresh /sessions GET +
+    // run_generation that finishes cleanly. Doing the same thing here
+    // — POST /generate to re-run the generator with the saved state —
+    // gives the contributor the same "reload fixes it" outcome
+    // without any reload. Skip on hard error classes that retry
+    // wouldn't help (no key, rate limit, budget, model unavailable,
+    // injection rejected).
+    var hardError = (
+      code === 'llm_config_error' ||
+      code === 'llm_no_key' ||
+      code === 'rate_limited' ||
+      code === 'injection_rejected' ||
+      code === 'budget_exceeded' ||
+      code === 'daily_budget_exceeded' ||
+      code === 'cost_cap_exceeded' ||
+      code === 'model_unavailable'
+    );
+    if (!hardError &&
+        CTX && typeof CTX.forceGenerate === 'function' &&
+        !chat.autoRetriedGen &&
+        chat.lastAction) {
+      chat.autoRetriedGen = true;
+      DEBUG.log('chat: /answer or /correct failed — auto-retrying via /generate', {
+        kind: chat.lastAction.kind,
+        code: code,
+      });
+      appendMessage({ kind: 'system', text: COPY.GENERATING_MSG });
+      setInFlight(true);
+      CTX.forceGenerate()
+        .catch(function (retryErr) {
+          DEBUG.error('chat: auto-retry /generate also failed', {
+            status: retryErr && retryErr.status,
+          });
+          surfaceFinalError(err);
+        })
+        .then(function () { setInFlight(false); });
+      return;
+    }
+
+    surfaceFinalError(err);
+  }
+
+  function surfaceFinalError(err) {
     chat.inError = true;
     var picked = pickErrorMessage(err);
     appendMessage({ kind: 'error', text: picked.text });
