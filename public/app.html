@@ -515,20 +515,25 @@
        hidden behind a toggle. Speed is a segmented control. The
        scrubber uses a native range input styled to match. The time
        display uses a monospace font so digits don't jitter. */
+    /* Flex + wrap so the right cluster (speed + time) drops to a
+       second line when the translator's right column is too narrow
+       to hold everything in one row. The scrubber is the flexible
+       child that absorbs available width on the buttons row. */
     .playback-controls {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
+      display: flex;
+      flex-wrap: wrap;
       align-items: center;
-      gap: 12px;
+      gap: var(--kozha-space-3, 12px);
       background: var(--kozha-color-white, white);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
-      padding: 8px 12px;
+      padding: var(--kozha-space-2, 8px) var(--kozha-space-3, 12px);
     }
     .playback-buttons {
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: var(--kozha-space-1, 4px);
+      flex: 0 0 auto;
     }
     .playback-btn {
       width: 44px;
@@ -569,7 +574,9 @@
       display: flex;
       flex-direction: column;
       gap: 4px;
-      min-width: 0;
+      min-width: 100px;
+      /* Greedy: take all remaining space on the buttons row. */
+      flex: 1 1 100px;
     }
     .playback-scrub {
       width: 100%;
@@ -581,34 +588,36 @@
       appearance: none;
     }
     .playback-scrub::-webkit-slider-runnable-track {
-      height: 4px;
-      border-radius: 2px;
-      background: var(--paper-2);
+      height: 6px;
+      border-radius: 999px;
+      /* paper-2 was nearly invisible against the white control card —
+         a deeper paper-3 reads as a proper track on the surface. */
+      background: var(--kozha-color-paper-3, #e4ddd3);
     }
     .playback-scrub::-moz-range-track {
-      height: 4px;
-      border-radius: 2px;
-      background: var(--paper-2);
+      height: 6px;
+      border-radius: 999px;
+      background: var(--kozha-color-paper-3, #e4ddd3);
     }
     .playback-scrub::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 14px;
-      height: 14px;
+      width: 16px;
+      height: 16px;
       border-radius: 999px;
       background: var(--kozha-color-accent, var(--accent));
       border: 2px solid var(--kozha-color-white, white);
-      box-shadow: 0 1px 2px rgba(26, 22, 18, 0.2);
+      box-shadow: 0 1px 3px rgba(26, 22, 18, 0.25);
       margin-top: -5px;
       cursor: pointer;
     }
     .playback-scrub::-moz-range-thumb {
-      width: 14px;
-      height: 14px;
+      width: 16px;
+      height: 16px;
       border-radius: 999px;
       background: var(--kozha-color-accent, var(--accent));
       border: 2px solid var(--kozha-color-white, white);
-      box-shadow: 0 1px 2px rgba(26, 22, 18, 0.2);
+      box-shadow: 0 1px 3px rgba(26, 22, 18, 0.25);
       cursor: pointer;
     }
     .playback-scrub:focus-visible {
@@ -619,19 +628,23 @@
     .playback-time {
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: var(--kozha-space-1, 4px);
       font-family: ui-monospace, 'Menlo', 'DM Sans', monospace;
       font-variant-numeric: tabular-nums;
-      font-size: 12px;
-      color: var(--kozha-color-ink-3, var(--ink-3));
-      min-width: 74px;
+      font-size: 13px;
+      color: var(--kozha-color-ink-2, var(--ink-2));
+      min-width: 76px;
       justify-content: flex-end;
+    }
+    .playback-time [aria-hidden="true"] {
+      color: var(--kozha-color-ink-3, var(--ink-3));
+      padding: 0 2px;
     }
     .playback-speed {
       display: inline-flex;
       align-items: center;
       gap: 0;
-      background: var(--paper-2);
+      background: var(--kozha-color-paper-2, var(--paper-2));
       border-radius: var(--radius-sm);
       padding: 3px;
     }
@@ -661,7 +674,13 @@
     .playback-right {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: var(--kozha-space-3, 12px);
+      flex: 1 1 auto;
+      justify-content: space-between;
+      /* When the controls wrap, the right cluster needs to span the
+         full row so the speed group sits at the left and the time
+         readout at the right of its own line. */
+      min-width: 0;
     }
 
     /* Prompt-polish 10 §7: inline error recovery panel replaces the
@@ -701,17 +720,25 @@
     .kb-hint-strip {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 8px 12px;
+      gap: var(--kozha-space-3, 12px);
+      padding: var(--kozha-space-2, 8px) var(--kozha-space-4, 16px);
       background: var(--kozha-color-accent-light, var(--accent-light));
       border: 1px solid var(--kozha-color-border-accent, rgba(201,106,46,0.2));
       border-radius: var(--radius-sm);
       font-family: 'DM Sans', sans-serif;
       font-size: 12px;
+      line-height: 1.6;
       color: var(--kozha-color-accent, var(--accent));
     }
     .kb-hint-strip[hidden] { display: none; }
-    .kb-hint-text { flex: 1; min-width: 0; }
+    .kb-hint-text {
+      flex: 1;
+      min-width: 0;
+      /* Keep each "kbd · phrase" chunk on one line so the arrow keys
+         never split across a wrap. The text inside is short — the
+         strip wraps cleanly between chunks separated by ` · `. */
+      word-spacing: 0.05em;
+    }
     .kb-hint-text kbd {
       background: var(--kozha-color-white, white);
       border: 1px solid var(--kozha-color-border-accent, rgba(201,106,46,0.2));
@@ -721,7 +748,9 @@
       font-size: 11px;
       color: var(--kozha-color-accent, var(--accent));
       margin: 0 2px;
+      white-space: nowrap;
     }
+    .kb-hint-chunk { white-space: nowrap; }
     .kb-hint-close {
       background: transparent;
       border: 0;
@@ -1592,8 +1621,9 @@
              Hidden on subsequent visits. -->
         <div class="kb-hint-strip" id="kbHintStrip" role="note" hidden>
           <span class="kb-hint-text">
-            <kbd>Enter</kbd> to translate · <kbd>Space</kbd> to play/pause ·
-            <kbd>←</kbd> <kbd>→</kbd> to scrub
+            <span class="kb-hint-chunk"><kbd>Enter</kbd> to translate</span> ·
+            <span class="kb-hint-chunk"><kbd>Space</kbd> to play/pause</span> ·
+            <span class="kb-hint-chunk"><kbd>←</kbd> <kbd>→</kbd> to scrub</span>
           </span>
           <button type="button" class="kb-hint-close" id="kbHintClose" aria-label="Dismiss keyboard shortcut hint">×</button>
         </div>
@@ -1608,7 +1638,7 @@
              id="avatarStage"
              role="img"
              tabindex="0"
-             aria-label="Sign language avatar animation. Ready when you are."
+             aria-label="Sign language avatar"
              aria-live="polite">
           <div class="CWASAAvatar av0"></div>
           <div class="CWASAGUI av0" style="display:none" aria-hidden="true"></div>
@@ -1621,7 +1651,12 @@
         <!-- Prompt-polish 10 §6: caption strip — gloss large, source small.
              Synced with the playback sequencer so it never lags. -->
         <div class="caption-strip" role="status" aria-live="polite" aria-label="Current sign and source word">
-          <div class="caption-gloss placeholder" id="captionGloss">—</div>
+          <!-- Empty-state shows just the source-line placeholder; the
+               gloss line stays empty so the caption strip doesn't lead
+               with an orphaned em-dash. The placeholder class on
+               #captionGloss preserves the JS contract that swaps
+               between '—' and an actual gloss. -->
+          <div class="caption-gloss placeholder" id="captionGloss"></div>
           <div class="caption-source placeholder" id="captionSource">Translate to see captions</div>
         </div>
 
@@ -1786,6 +1821,12 @@
 
     CWASA.addHook('avatarready', function() {
       _avatarReady = true;
+      // The static idle pose now occupies the stage — the "Ready when
+      // you are." placeholder text would otherwise overlap the
+      // avatar's body. Hide it as soon as the avatar is visible; the
+      // status badge already communicates "Ready".
+      var ph = document.getElementById('avatarPlaceholder');
+      if (ph) ph.hidden = true;
       checkAllReady();
     }, 0);
   }

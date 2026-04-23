@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-23T03:41:50.769Z",
-  "url": "http://127.0.0.1:61710/app.html",
+  "timestamp": "2026-04-23T03:52:24.115Z",
+  "url": "http://127.0.0.1:62048/app.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -1317,7 +1317,7 @@
             }
           ],
           "impact": null,
-          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar animation. Ready when you are.\" aria-live=\"polite\">",
+          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar\" aria-live=\"polite\">",
           "target": [
             "#avatarStage"
           ]
@@ -1350,7 +1350,7 @@
             }
           ],
           "impact": null,
-          "html": "<div class=\"caption-strip\" role=\"status\" aria-live=\"polite\" aria-label=\"Current sign and source word\">\n          <div class=\"caption-gloss placeholder\" id=\"captionGloss\">—</div>\n          <div class=\"caption-source placeholder\" id=\"captionSource\">Translate to see captions</div>\n        </div>",
+          "html": "<div class=\"caption-strip\" role=\"status\" aria-live=\"polite\" aria-label=\"Current sign and source word\">",
           "target": [
             ".caption-strip"
           ]
@@ -2056,7 +2056,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar animation. Ready when you are.\" aria-live=\"polite\">",
+          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar\" aria-live=\"polite\">",
           "target": [
             "#avatarStage"
           ]
@@ -2074,7 +2074,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"caption-strip\" role=\"status\" aria-live=\"polite\" aria-label=\"Current sign and source word\">\n          <div class=\"caption-gloss placeholder\" id=\"captionGloss\">—</div>\n          <div class=\"caption-source placeholder\" id=\"captionSource\">Translate to see captions</div>\n        </div>",
+          "html": "<div class=\"caption-strip\" role=\"status\" aria-live=\"polite\" aria-label=\"Current sign and source word\">",
           "target": [
             ".caption-strip"
           ]
@@ -2488,7 +2488,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar animation. Ready when you are.\" aria-live=\"polite\">",
+          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar\" aria-live=\"polite\">",
           "target": [
             "#avatarStage"
           ]
@@ -2506,7 +2506,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"caption-strip\" role=\"status\" aria-live=\"polite\" aria-label=\"Current sign and source word\">\n          <div class=\"caption-gloss placeholder\" id=\"captionGloss\">—</div>\n          <div class=\"caption-source placeholder\" id=\"captionSource\">Translate to see captions</div>\n        </div>",
+          "html": "<div class=\"caption-strip\" role=\"status\" aria-live=\"polite\" aria-label=\"Current sign and source word\">",
           "target": [
             ".caption-strip"
           ]
@@ -2902,7 +2902,7 @@
             }
           ],
           "impact": null,
-          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar animation. Ready when you are.\" aria-live=\"polite\">",
+          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar\" aria-live=\"polite\">",
           "target": [
             "#avatarStage"
           ]
@@ -2920,7 +2920,7 @@
             }
           ],
           "impact": null,
-          "html": "<div class=\"caption-strip\" role=\"status\" aria-live=\"polite\" aria-label=\"Current sign and source word\">\n          <div class=\"caption-gloss placeholder\" id=\"captionGloss\">—</div>\n          <div class=\"caption-source placeholder\" id=\"captionSource\">Translate to see captions</div>\n        </div>",
+          "html": "<div class=\"caption-strip\" role=\"status\" aria-live=\"polite\" aria-label=\"Current sign and source word\">",
           "target": [
             ".caption-strip"
           ]
@@ -3260,7 +3260,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"avatar-placeholder\" id=\"avatarPlaceholder\" aria-hidden=\"true\">\n            <span class=\"avatar-placeholder-icon\" aria-hidden=\"true\">🤟</span>\n            <span>Ready when you are.</span>\n          </div>",
+          "html": "<div class=\"avatar-placeholder\" id=\"avatarPlaceholder\" aria-hidden=\"true\" hidden=\"\">\n            <span class=\"avatar-placeholder-icon\" aria-hidden=\"true\">🤟</span>\n            <span>Ready when you are.</span>\n          </div>",
           "target": [
             "#avatarPlaceholder"
           ]
@@ -3662,7 +3662,7 @@
             }
           ],
           "impact": null,
-          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar animation. Ready when you are.\" aria-live=\"polite\">",
+          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar\" aria-live=\"polite\">",
           "target": [
             "#avatarStage"
           ]
@@ -3680,7 +3680,7 @@
             }
           ],
           "impact": null,
-          "html": "<div class=\"caption-strip\" role=\"status\" aria-live=\"polite\" aria-label=\"Current sign and source word\">\n          <div class=\"caption-gloss placeholder\" id=\"captionGloss\">—</div>\n          <div class=\"caption-source placeholder\" id=\"captionSource\">Translate to see captions</div>\n        </div>",
+          "html": "<div class=\"caption-strip\" role=\"status\" aria-live=\"polite\" aria-label=\"Current sign and source word\">",
           "target": [
             ".caption-strip"
           ]
@@ -4040,7 +4040,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar animation. Ready when you are.\" aria-live=\"polite\">",
+          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar\" aria-live=\"polite\">",
           "target": [
             "#avatarStage"
           ]
@@ -4058,7 +4058,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"caption-strip\" role=\"status\" aria-live=\"polite\" aria-label=\"Current sign and source word\">\n          <div class=\"caption-gloss placeholder\" id=\"captionGloss\">—</div>\n          <div class=\"caption-source placeholder\" id=\"captionSource\">Translate to see captions</div>\n        </div>",
+          "html": "<div class=\"caption-strip\" role=\"status\" aria-live=\"polite\" aria-label=\"Current sign and source word\">",
           "target": [
             ".caption-strip"
           ]
@@ -4358,7 +4358,7 @@
             }
           ],
           "impact": null,
-          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar animation. Ready when you are.\" aria-live=\"polite\">",
+          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar\" aria-live=\"polite\">",
           "target": [
             "#avatarStage"
           ]
@@ -4390,7 +4390,7 @@
             }
           ],
           "impact": null,
-          "html": "<div class=\"caption-strip\" role=\"status\" aria-live=\"polite\" aria-label=\"Current sign and source word\">\n          <div class=\"caption-gloss placeholder\" id=\"captionGloss\">—</div>\n          <div class=\"caption-source placeholder\" id=\"captionSource\">Translate to see captions</div>\n        </div>",
+          "html": "<div class=\"caption-strip\" role=\"status\" aria-live=\"polite\" aria-label=\"Current sign and source word\">",
           "target": [
             ".caption-strip"
           ]
@@ -5080,7 +5080,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar animation. Ready when you are.\" aria-live=\"polite\">",
+          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar\" aria-live=\"polite\">",
           "target": [
             "#avatarStage"
           ]
@@ -5112,7 +5112,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"caption-strip\" role=\"status\" aria-live=\"polite\" aria-label=\"Current sign and source word\">\n          <div class=\"caption-gloss placeholder\" id=\"captionGloss\">—</div>\n          <div class=\"caption-source placeholder\" id=\"captionSource\">Translate to see captions</div>\n        </div>",
+          "html": "<div class=\"caption-strip\" role=\"status\" aria-live=\"polite\" aria-label=\"Current sign and source word\">",
           "target": [
             ".caption-strip"
           ]
@@ -5898,7 +5898,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar animation. Ready when you are.\" aria-live=\"polite\">",
+          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar\" aria-live=\"polite\">",
           "target": [
             "#avatarStage"
           ]
@@ -5916,7 +5916,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"caption-strip\" role=\"status\" aria-live=\"polite\" aria-label=\"Current sign and source word\">\n          <div class=\"caption-gloss placeholder\" id=\"captionGloss\">—</div>\n          <div class=\"caption-source placeholder\" id=\"captionSource\">Translate to see captions</div>\n        </div>",
+          "html": "<div class=\"caption-strip\" role=\"status\" aria-live=\"polite\" aria-label=\"Current sign and source word\">",
           "target": [
             ".caption-strip"
           ]
@@ -7679,9 +7679,34 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span class=\"kb-hint-text\">\n            <kbd>Enter</kbd> to translate · <kbd>Space</kbd> to play/pause ·\n            <kbd>←</kbd> <kbd>→</kbd> to scrub\n          </span>",
+          "html": "<span class=\"kb-hint-text\">\n            <span class=\"kb-hint-chunk\"><kbd>Enter</kbd> to translate</span> ·\n            <span class=\"kb-hint-chunk\"><kbd>Space</kbd> to play/pause</span> ·\n            <span class=\"kb-hint-chunk\"><kbd>←</kbd> <kbd>→</kbd> to scrub</span>\n          </span>",
           "target": [
             ".kb-hint-text"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#b3441b",
+                "bgColor": "#faeee0",
+                "contrastRatio": 4.88,
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 4.88"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"kb-hint-chunk\"><kbd>Enter</kbd> to translate</span>",
+          "target": [
+            ".kb-hint-chunk:nth-child(1)"
           ]
         },
         {
@@ -7706,7 +7731,32 @@
           "impact": null,
           "html": "<kbd>Enter</kbd>",
           "target": [
-            "kbd:nth-child(1)"
+            ".kb-hint-chunk:nth-child(1) > kbd"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#b3441b",
+                "bgColor": "#faeee0",
+                "contrastRatio": 4.88,
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 4.88"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"kb-hint-chunk\"><kbd>Space</kbd> to play/pause</span>",
+          "target": [
+            ".kb-hint-chunk:nth-child(2)"
           ]
         },
         {
@@ -7731,7 +7781,32 @@
           "impact": null,
           "html": "<kbd>Space</kbd>",
           "target": [
-            "kbd:nth-child(2)"
+            ".kb-hint-chunk:nth-child(2) > kbd"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#b3441b",
+                "bgColor": "#faeee0",
+                "contrastRatio": 4.88,
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 4.88"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"kb-hint-chunk\"><kbd>←</kbd> <kbd>→</kbd> to scrub</span>",
+          "target": [
+            ".kb-hint-chunk:nth-child(3)"
           ]
         },
         {
@@ -8064,16 +8139,16 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#5e5c57",
+                "fgColor": "#3d3630",
                 "bgColor": "#ffffff",
-                "contrastRatio": 6.67,
-                "fontSize": "9.0pt (12px)",
+                "contrastRatio": 11.87,
+                "fontSize": "9.8pt (13px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 6.67"
+              "message": "Element has sufficient color contrast of 11.87"
             }
           ],
           "all": [],
@@ -8082,6 +8157,31 @@
           "html": "<span id=\"playbackCurrent\">0:00</span>",
           "target": [
             "#playbackCurrent"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#3d3630",
+                "bgColor": "#ffffff",
+                "contrastRatio": 11.87,
+                "fontSize": "9.8pt (13px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 11.87"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span id=\"playbackTotal\">0:00</span>",
+          "target": [
+            "#playbackTotal"
           ]
         },
         {
@@ -12266,7 +12366,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar animation. Ready when you are.\" aria-live=\"polite\">",
+          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar\" aria-live=\"polite\">",
           "target": [
             "#avatarStage"
           ]
@@ -14955,7 +15055,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span class=\"kb-hint-text\">\n            <kbd>Enter</kbd> to translate · <kbd>Space</kbd> to play/pause ·\n            <kbd>←</kbd> <kbd>→</kbd> to scrub\n          </span>",
+          "html": "<span class=\"kb-hint-text\">\n            <span class=\"kb-hint-chunk\"><kbd>Enter</kbd> to translate</span> ·\n            <span class=\"kb-hint-chunk\"><kbd>Space</kbd> to play/pause</span> ·\n            <span class=\"kb-hint-chunk\"><kbd>←</kbd> <kbd>→</kbd> to scrub</span>\n          </span>",
           "target": [
             ".kb-hint-text"
           ]
@@ -14975,9 +15075,49 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<span class=\"kb-hint-chunk\"><kbd>Enter</kbd> to translate</span>",
+          "target": [
+            ".kb-hint-chunk:nth-child(1)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<kbd>Enter</kbd>",
           "target": [
-            "kbd:nth-child(1)"
+            ".kb-hint-chunk:nth-child(1) > kbd"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"kb-hint-chunk\"><kbd>Space</kbd> to play/pause</span>",
+          "target": [
+            ".kb-hint-chunk:nth-child(2)"
           ]
         },
         {
@@ -14997,7 +15137,27 @@
           "impact": null,
           "html": "<kbd>Space</kbd>",
           "target": [
-            "kbd:nth-child(2)"
+            ".kb-hint-chunk:nth-child(2) > kbd"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"kb-hint-chunk\"><kbd>←</kbd> <kbd>→</kbd> to scrub</span>",
+          "target": [
+            ".kb-hint-chunk:nth-child(3)"
           ]
         },
         {
@@ -15017,7 +15177,7 @@
           "impact": null,
           "html": "<kbd>←</kbd>",
           "target": [
-            "kbd:nth-child(3)"
+            ".kb-hint-chunk:nth-child(3) > kbd:nth-child(1)"
           ]
         },
         {
@@ -15037,7 +15197,7 @@
           "impact": null,
           "html": "<kbd>→</kbd>",
           "target": [
-            "kbd:nth-child(4)"
+            "kbd:nth-child(2)"
           ]
         },
         {
@@ -15075,7 +15235,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar animation. Ready when you are.\" aria-live=\"polite\">",
+          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar\" aria-live=\"polite\">",
           "target": [
             "#avatarStage"
           ]
@@ -15155,7 +15315,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"caption-strip\" role=\"status\" aria-live=\"polite\" aria-label=\"Current sign and source word\">\n          <div class=\"caption-gloss placeholder\" id=\"captionGloss\">—</div>\n          <div class=\"caption-source placeholder\" id=\"captionSource\">Translate to see captions</div>\n        </div>",
+          "html": "<div class=\"caption-strip\" role=\"status\" aria-live=\"polite\" aria-label=\"Current sign and source word\">",
           "target": [
             ".caption-strip"
           ]
@@ -15175,7 +15335,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"caption-gloss placeholder\" id=\"captionGloss\">—</div>",
+          "html": "<div class=\"caption-gloss placeholder\" id=\"captionGloss\"></div>",
           "target": [
             "#captionGloss"
           ]
@@ -16496,7 +16656,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar animation. Ready when you are.\" aria-live=\"polite\">",
+          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar\" aria-live=\"polite\">",
           "target": [
             "#avatarStage"
           ]
@@ -16728,7 +16888,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar animation. Ready when you are.\" aria-live=\"polite\">",
+          "html": "<div class=\"avatar-stage\" id=\"avatarStage\" role=\"img\" tabindex=\"0\" aria-label=\"Sign language avatar\" aria-live=\"polite\">",
           "target": [
             "#avatarStage"
           ]
@@ -17782,7 +17942,7 @@
           "impact": "serious",
           "html": "<kbd>←</kbd>",
           "target": [
-            "kbd:nth-child(3)"
+            ".kb-hint-chunk:nth-child(3) > kbd:nth-child(1)"
           ],
           "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
         },
@@ -17803,73 +17963,9 @@
           "impact": "serious",
           "html": "<kbd>→</kbd>",
           "target": [
-            "kbd:nth-child(4)"
+            "kbd:nth-child(2)"
           ],
           "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
-        },
-        {
-          "any": [
-            {
-              "id": "color-contrast",
-              "data": {
-                "contrastRatio": 0,
-                "fontSize": "9.8pt (13px)",
-                "fontWeight": "normal",
-                "messageKey": "imgNode",
-                "expectedContrastRatio": "4.5:1"
-              },
-              "relatedNodes": [
-                {
-                  "html": "<canvas class=\"canvasAv av0\" ondragstart=\"return false\" width=\"374\" height=\"209\"></canvas>",
-                  "target": [
-                    "canvas"
-                  ]
-                }
-              ],
-              "impact": "serious",
-              "message": "Element's background color could not be determined because element contains an image node"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": "serious",
-          "html": "<span>Ready when you are.</span>",
-          "target": [
-            "#avatarPlaceholder > span:nth-child(2)"
-          ],
-          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because element contains an image node"
-        },
-        {
-          "any": [
-            {
-              "id": "color-contrast",
-              "data": {
-                "contrastRatio": 0,
-                "fontSize": "9.0pt (12px)",
-                "fontWeight": "normal",
-                "messageKey": "elmPartiallyObscured",
-                "expectedContrastRatio": "4.5:1"
-              },
-              "relatedNodes": [
-                {
-                  "html": "<div class=\"playback-controls\" id=\"playbackControls\" aria-label=\"Playback controls\">",
-                  "target": [
-                    "#playbackControls"
-                  ]
-                }
-              ],
-              "impact": "serious",
-              "message": "Element's background color could not be determined because it's partially obscured by another element"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": "serious",
-          "html": "<span id=\"playbackTotal\">0:00</span>",
-          "target": [
-            "#playbackTotal"
-          ],
-          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
         }
       ]
     }
