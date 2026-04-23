@@ -258,7 +258,12 @@ function removeVideoListeners() {
 function startVideoSync() {
   var video = document.querySelector("#movie_player video") ||
     document.querySelector("video");
-  if (!video) return;
+  if (!video) {
+    console.log("[Kozha YT] no video element found, retrying in 500ms");
+    setTimeout(startVideoSync, 500);
+    return;
+  }
+  console.log("[Kozha YT] startVideoSync attached to video. segments:", segments.length, "cached:", Object.keys(translationCache).length, "video currentTime:", video.currentTime);
   var useWindow = segments.length > SEGMENT_THRESHOLD;
 
   addVideoListener(video, "timeupdate", function() {
@@ -346,7 +351,8 @@ window.addEventListener("message", function(e) {
 });
 
 async function init() {
-  if (!isWatchPage()) return;
+  if (!isWatchPage()) { console.log("[Kozha YT] not a watch page, skipping init"); return; }
+  console.log("[Kozha YT] init starting for:", window.location.href);
 
   currentSegmentIndex = -1;
   translationCache = {};
@@ -374,6 +380,7 @@ async function init() {
   }
 
   var tracks = extractTracksFromResponse(playerResponse);
+  console.log("[Kozha YT] caption tracks found:", tracks ? tracks.length : 0);
 
   if (!tracks) {
     setStatus("No captions found");
@@ -391,7 +398,9 @@ async function init() {
 
   try {
     segments = await fetchTranscript(track);
+    console.log("[Kozha YT] fetched", segments.length, "transcript segments");
   } catch (e) {
+    console.error("[Kozha YT] fetchTranscript failed:", e);
     setStatus("Failed to load captions");
     return;
   }
@@ -402,10 +411,13 @@ async function init() {
   try {
     if (segments.length > SEGMENT_THRESHOLD) {
       var initialEnd = Math.min(WINDOW_SIZE, segments.length);
+      console.log("[Kozha YT] translating initial window 0-" + initialEnd);
       await translateSlice(0, initialEnd, track.languageCode);
     } else {
       var videoId = segments.length <= BATCH_SIZE ? getVideoId() : null;
+      console.log("[Kozha YT] translating all", segments.length, "segments");
       var result = await translateSegments(segments, track.languageCode, videoId);
+      console.log("[Kozha YT] translation returned", result.results.length, "results");
       result.results.forEach(function(r, i) {
         translationCache[i] = r;
       });
@@ -420,10 +432,12 @@ async function init() {
         }
       }
     }
+    console.log("[Kozha YT] translationCache has", Object.keys(translationCache).length, "entries");
     setStatus(Kozha.dbReady
       ? (isAutoCaption ? "Ready (auto captions)" : "Ready")
       : "Loading signs...");
   } catch (e) {
+    console.error("[Kozha YT] translation error:", e);
     if (isOfflineError(e.message)) {
       setStatus("Cannot reach server");
       Kozha.setSubtitle("Check your internet connection and try again");
