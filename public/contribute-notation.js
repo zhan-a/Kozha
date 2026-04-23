@@ -60,6 +60,11 @@
     copyHamConfirm:  document.getElementById('copyHamnosysConfirm'),
     sigmlDisplay:    document.getElementById('sigmlDisplay'),
     sigmlCode:       document.getElementById('sigmlCode'),
+    sigmlEditor:     document.getElementById('sigmlEditor'),
+    sigmlEditError:  document.getElementById('sigmlEditError'),
+    sigmlEditBtn:    document.getElementById('sigmlEditBtn'),
+    sigmlApplyBtn:   document.getElementById('sigmlApplyBtn'),
+    sigmlCancelBtn:  document.getElementById('sigmlCancelBtn'),
     copySig:         document.getElementById('copySigmlBtn'),
     copySigConfirm:  document.getElementById('copySigmlConfirm'),
     downloadSig:     document.getElementById('downloadSigmlBtn'),
@@ -557,6 +562,100 @@
     }).catch(function () { /* silent */ });
   }
 
+  // ---------- advanced: hand-edit the SiGML XML ----------
+  //
+  // Power-user escape hatch. The contributor can paste their own
+  // hand-fixed SiGML (e.g. change ``hampalmr`` to ``hampalmd`` without
+  // round-tripping through an LLM correction) and apply it directly
+  // to the session store. The edit is validated client-side for
+  // well-formed XML + presence of ``<hns_sign>`` before commit; an
+  // invalid edit keeps the textarea open with an inline error. No
+  // backend round-trip — the store update lights up the preview via
+  // the normal snapshot subscriber.
+
+  function onEnterSigmlEdit() {
+    if (!state.lastSigml) return;
+    DEBUG.log('notation: entering SiGML edit mode', { sigmlLen: state.lastSigml.length });
+    els.sigmlDisplay.hidden = true;
+    if (els.sigmlEditError) els.sigmlEditError.hidden = true;
+    els.sigmlEditor.value = state.lastSigml;
+    els.sigmlEditor.hidden = false;
+    els.sigmlEditor.focus();
+    els.sigmlEditBtn.hidden = true;
+    els.sigmlApplyBtn.hidden = false;
+    els.sigmlCancelBtn.hidden = false;
+    if (els.copySig) els.copySig.disabled = true;
+    if (els.downloadSig) els.downloadSig.disabled = true;
+  }
+
+  function onCancelSigmlEdit() {
+    DEBUG.log('notation: canceled SiGML edit');
+    els.sigmlEditor.value = '';
+    els.sigmlEditor.hidden = true;
+    els.sigmlDisplay.hidden = false;
+    if (els.sigmlEditError) els.sigmlEditError.hidden = true;
+    els.sigmlEditBtn.hidden = false;
+    els.sigmlApplyBtn.hidden = true;
+    els.sigmlCancelBtn.hidden = true;
+    if (els.copySig) els.copySig.disabled = !state.lastSigml;
+    if (els.downloadSig) els.downloadSig.disabled = !state.lastSigml;
+  }
+
+  function onApplySigmlEdit() {
+    var edited = (els.sigmlEditor.value || '').trim();
+    if (!edited) {
+      showSigmlEditError('Paste or type a SiGML document before applying.');
+      return;
+    }
+    if (edited.indexOf('[object Object]') !== -1) {
+      showSigmlEditError('The input contains "[object Object]" — that would crash the player. Replace the literal with a real tag before applying.');
+      return;
+    }
+    if (edited.indexOf('<hns_sign') === -1) {
+      showSigmlEditError('Missing <hns_sign> element — the SiGML must contain one <hns_sign gloss="…"> block.');
+      return;
+    }
+    if (typeof DOMParser !== 'function') {
+      showSigmlEditError('This browser does not support client-side XML validation. Download the file, validate externally, and re-paste.');
+      return;
+    }
+    try {
+      var doc = new DOMParser().parseFromString(edited, 'application/xml');
+      var parseErr = doc.getElementsByTagName('parsererror');
+      if (parseErr && parseErr.length) {
+        showSigmlEditError('XML parse error: ' + (parseErr[0].textContent || 'unknown').slice(0, 200));
+        return;
+      }
+    } catch (e) {
+      showSigmlEditError('XML parse error: ' + (e && e.message ? e.message : String(e)));
+      return;
+    }
+    DEBUG.log('notation: applying edited SiGML', { sigmlLen: edited.length });
+    // Push the edited SiGML into the context store; preview / download
+    // / copy all subscribe to the same state so they update cleanly.
+    CTX.setState({ sigml: edited });
+    state.lastSigml = edited;
+    // Swap the display back to read-only with the new content.
+    els.sigmlEditor.hidden = true;
+    els.sigmlDisplay.hidden = false;
+    if (els.sigmlEditError) els.sigmlEditError.hidden = true;
+    els.sigmlEditBtn.hidden = false;
+    els.sigmlApplyBtn.hidden = true;
+    els.sigmlCancelBtn.hidden = true;
+    if (els.copySig) els.copySig.disabled = false;
+    if (els.downloadSig) els.downloadSig.disabled = false;
+    // Re-render the now-current sigml through the tokeniser so line
+    // numbers and syntax highlighting match the applied content.
+    renderSigml(edited);
+  }
+
+  function showSigmlEditError(msg) {
+    if (!els.sigmlEditError) return;
+    els.sigmlEditError.textContent = msg;
+    els.sigmlEditError.hidden = false;
+    DEBUG.warn('notation: SiGML edit rejected', { reason: msg });
+  }
+
   function downloadFilename() {
     var snap = CTX.getState();
     var gloss = (snap.gloss || 'sign').toLowerCase().replace(/[^a-z0-9_-]+/g, '_').replace(/^_+|_+$/g, '') || 'sign';
@@ -629,6 +728,7 @@
     els.copyHam.disabled = true;
     els.copySig.disabled = true;
     els.downloadSig.disabled = true;
+    if (els.sigmlEditBtn) els.sigmlEditBtn.disabled = true;
     els.display.setAttribute('aria-label', 'HamNoSys notation (not yet generated)');
     setActiveTab('hamnosys');
   }
@@ -666,6 +766,7 @@
       els.copyHam.disabled = !newHam;
       els.copySig.disabled = !newSig;
       els.downloadSig.disabled = !newSig;
+      if (els.sigmlEditBtn) els.sigmlEditBtn.disabled = !newSig;
       renderValidationErrors(snap.generationErrors, newHam);
       state.lastHamnosys = newHam;
       state.lastSigml = newSig;
@@ -890,6 +991,15 @@
     els.copyHam.addEventListener('click', onCopyHam);
     els.copySig.addEventListener('click', onCopySig);
     els.downloadSig.addEventListener('click', onDownloadSig);
+    if (els.sigmlEditBtn) {
+      els.sigmlEditBtn.addEventListener('click', onEnterSigmlEdit);
+    }
+    if (els.sigmlApplyBtn) {
+      els.sigmlApplyBtn.addEventListener('click', onApplySigmlEdit);
+    }
+    if (els.sigmlCancelBtn) {
+      els.sigmlCancelBtn.addEventListener('click', onCancelSigmlEdit);
+    }
     els.display.addEventListener('mouseleave', function () {
       // Leaving the display entirely clears the legend selection —
       // clicking a glyph re-sticks it.

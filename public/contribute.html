@@ -481,6 +481,20 @@
             role="region"
             aria-label="SiGML source code"
             tabindex="0"><code id="sigmlCode"></code></pre>
+          <!-- Advanced: hand-edit the SiGML XML. Hidden behind the
+               "Edit manually" toggle so the default view stays
+               read-only. ``Apply`` validates the edit client-side
+               before swapping it into the live session; ``Cancel``
+               reverts. -->
+          <textarea
+            class="notation-sigml-editor"
+            id="sigmlEditor"
+            aria-label="Edit SiGML source"
+            spellcheck="false"
+            autocomplete="off"
+            autocapitalize="off"
+            hidden></textarea>
+          <p class="notation-sigml-edit-error field-error" id="sigmlEditError" role="alert" hidden></p>
           <p class="notation-sigml-summary field-hint">
             This file contains one <code>&lt;hns_sign&gt;</code> element with the HamNoSys above, in the Kozha canonical format. Your renderer will accept it as-is.
           </p>
@@ -488,6 +502,9 @@
             <button type="button" class="btn btn-secondary notation-copy-btn" id="copySigmlBtn" data-i18n="contribute.notation.copy_sigml" disabled>Copy SiGML</button>
             <span class="notation-copy-confirm field-hint" id="copySigmlConfirm" role="status" aria-live="polite" data-i18n="common.copied" hidden>copied</span>
             <button type="button" class="btn btn-secondary notation-download-btn" id="downloadSigmlBtn" data-i18n="contribute.notation.download_sigml" disabled>Download .sigml</button>
+            <button type="button" class="btn btn-secondary notation-edit-btn" id="sigmlEditBtn" data-i18n="contribute.notation.edit_sigml" disabled>Edit manually</button>
+            <button type="button" class="btn btn-primary notation-apply-btn" id="sigmlApplyBtn" hidden>Apply</button>
+            <button type="button" class="btn btn-secondary notation-cancel-btn" id="sigmlCancelBtn" hidden>Cancel</button>
           </div>
         </div>
       </section>

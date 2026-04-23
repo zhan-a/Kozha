@@ -75,6 +75,7 @@
     get RETRY_BUTTON()                 { return tr('contribute.chat.retry', 'Try again'); },
     get CORRECTION_WORKING()           { return tr('contribute.chat.correction_working', 'Working on your correction — the avatar will update once the new sign is ready.'); },
     get GATEWAY_TIMEOUT_PATIENCE()     { return tr('contribute.chat.gateway_timeout_patience', 'The model is still thinking — the request took longer than the proxy allows. The new sign will appear here automatically when it lands. You can keep using the page.'); },
+    get DESCRIBE_THINKING()            { return tr('contribute.chat.describe_thinking', 'Reading your description and preparing the first clarification — reasoning models take ~20–60 s on the first call.'); },
     get GENERATION_CANDIDATE_LABEL()   { return tr('contribute.chat.generation_candidate_label', 'Tried candidate: '); },
     get GENERATION_PATH_LABEL()        { return tr('contribute.chat.generation_path_label', 'Generation path: '); },
     get ERROR_RATE_LIMITED()           { return tr('contribute.chat.error_rate_limited', "You're sending requests faster than the server can process. Wait a moment and try again."); },
@@ -126,6 +127,11 @@
     // Once-per-session guards for the two transition messages.
     shownGeneratingMsg: false,
     shownReadyMsg: false,
+    // Fires once when /describe is in flight and the chat log is
+    // empty — gives the user an immediate "the app is working"
+    // signal before the first clarification lands. Reset on session
+    // swap alongside the other guards.
+    shownDescribeThinking: false,
     // True while a fetch is outstanding.
     inFlight: false,
     // Timer id for the "Thinking…" → "Contacting the AI…" upgrade;
@@ -717,7 +723,37 @@
       });
     }
 
+    // Empty-log thinking notice: right after the session is created
+    // and /describe is still running, the chat panel would otherwise
+    // sit completely blank for 20–60 seconds while the reasoning
+    // model spins. Drop a single "thinking" system message so the
+    // contributor has a clear "the app is working" signal. Fires
+    // only when log is empty AND no pending questions have arrived
+    // yet AND we haven't already shown it this session.
+    var awaitingFirstQuestion =
+      snapshot.sessionId &&
+      !els.log.firstChild &&
+      !clarifications.length &&
+      !(snapshot.pendingQuestions || []).length &&
+      (snapshot.sessionState === 'awaiting_description' ||
+       snapshot.sessionState === 'clarifying');
+    if (awaitingFirstQuestion && !chat.shownDescribeThinking) {
+      appendMessage({ kind: 'system', text: COPY.DESCRIBE_THINKING });
+      chat.shownDescribeThinking = true;
+      setInFlight(true);
+    }
+
     applyState(snapshot.sessionState, snapshot.pendingQuestions || []);
+
+    // If a real question (or generation) just landed, clear the
+    // "reading your description" placeholder's in-flight indicator.
+    if (chat.shownDescribeThinking &&
+        ((snapshot.pendingQuestions || []).length ||
+         snapshot.hamnosys ||
+         (snapshot.generationErrors || []).length)) {
+      setInFlight(false);
+    }
+
     maybeSurfaceGenerationError(snapshot);
     updateInputMode(snapshot);
   }
@@ -728,6 +764,7 @@
     chat.lastObservedState = null;
     chat.shownGeneratingMsg = false;
     chat.shownReadyMsg = false;
+    chat.shownDescribeThinking = false;
     chat.inError = false;
     chat.inFlight = false;
     chat.lastSurfacedGenerationError = null;

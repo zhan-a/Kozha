@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-23T06:04:27.450Z",
-  "url": "http://127.0.0.1:65135/contribute.html",
+  "timestamp": "2026-04-23T16:36:04.081Z",
+  "url": "http://127.0.0.1:51434/contribute.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -1236,12 +1236,45 @@
           "target": [
             ".kz-footer__cols"
           ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-allowed-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attributes are used correctly for the defined role"
+            },
+            {
+              "id": "aria-allowed-attr-elm",
+              "data": null,
+              "relatedNodes": [],
+              "message": "ARIA attributes are allowed for this element",
+              "impact": "critical"
+            }
+          ],
+          "none": [
+            {
+              "id": "aria-unsupported-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute is supported"
+            }
+          ],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"kz-debug-toggle\" aria-label=\"Open debug log\" aria-expanded=\"false\">Debug</button>",
+          "target": [
+            ".kz-debug-toggle"
+          ]
         }
       ]
     },
     {
       "id": "aria-allowed-role",
-      "impact": null,
+      "impact": "minor",
       "tags": [
         "cat.aria",
         "best-practice"
@@ -1749,6 +1782,24 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<p class=\"notation-sigml-edit-error field-error\" id=\"sigmlEditError\" role=\"alert\" hidden=\"\"></p>",
+          "target": [
+            "#sigmlEditError"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-allowed-role",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is allowed for given element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<span class=\"notation-copy-confirm field-hint\" id=\"copySigmlConfirm\" role=\"status\" aria-live=\"polite\" data-i18n=\"common.copied\" hidden=\"\">copied</span>",
           "target": [
             "#copySigmlConfirm"
@@ -2112,6 +2163,24 @@
           "html": "<nav class=\"kz-footer__cols\" aria-label=\"Footer\">",
           "target": [
             ".kz-footer__cols"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-conditional-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"kz-debug-toggle\" aria-label=\"Open debug log\" aria-expanded=\"false\">Debug</button>",
+          "target": [
+            ".kz-debug-toggle"
           ]
         }
       ]
@@ -3021,6 +3090,24 @@
           "target": [
             ".kz-footer__cols"
           ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "aria-prohibited-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"kz-debug-toggle\" aria-label=\"Open debug log\" aria-expanded=\"false\">Debug</button>",
+          "target": [
+            ".kz-debug-toggle"
+          ]
         }
       ]
     },
@@ -3659,6 +3746,38 @@
           "target": [
             ".kz-footer__cols"
           ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-valid-attr-value",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute values are valid"
+            },
+            {
+              "id": "aria-errormessage",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-errormessage exists and references elements visible to screen readers that use a supported aria-errormessage technique"
+            },
+            {
+              "id": "aria-level",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-level values are valid"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"kz-debug-toggle\" aria-label=\"Open debug log\" aria-expanded=\"false\">Debug</button>",
+          "target": [
+            ".kz-debug-toggle"
+          ]
         }
       ]
     },
@@ -3893,6 +4012,24 @@
           "target": [
             ".kz-footer__cols"
           ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-valid-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute name is valid"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"kz-debug-toggle\" aria-label=\"Open debug log\" aria-expanded=\"false\">Debug</button>",
+          "target": [
+            ".kz-debug-toggle"
+          ]
         }
       ]
     },
@@ -4038,6 +4175,31 @@
           "html": "<button type=\"button\" class=\"hint-close\" id=\"hintClose\" aria-label=\"Dismiss hint\">×</button>",
           "target": [
             "#hintClose"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "button-has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Element has inner text that is visible to screen readers"
+            },
+            {
+              "id": "aria-label",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-label attribute exists and is not empty"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"kz-debug-toggle\" aria-label=\"Open debug log\" aria-expanded=\"false\">Debug</button>",
+          "target": [
+            ".kz-debug-toggle"
           ]
         }
       ]
@@ -4792,6 +4954,26 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<textarea class=\"notation-sigml-editor\" id=\"sigmlEditor\" aria-label=\"Edit SiGML source\" spellcheck=\"false\" autocomplete=\"off\" autocapitalize=\"off\" hidden=\"\"></textarea>",
+          "target": [
+            "#sigmlEditor"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "messageKey": "hidden"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element is hidden"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<input type=\"text\" id=\"confirmationUrl\" class=\"field-input confirmation-link-input\" readonly=\"\">",
           "target": [
             "#confirmationUrl"
@@ -5420,6 +5602,31 @@
           "html": "<a href=\"https://github.com/zhan-a/Kozha\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>",
           "target": [
             ".kz-footer__os > a[target=\"_blank\"][rel=\"noopener noreferrer\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#f7f3ee",
+                "bgColor": "#3c3936",
+                "contrastRatio": 10.38,
+                "fontSize": "9.8pt (13px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 10.38"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"kz-debug-toggle\" aria-label=\"Open debug log\" aria-expanded=\"false\">Debug</button>",
+          "target": [
+            ".kz-debug-toggle"
           ]
         }
       ]
@@ -7864,6 +8071,24 @@
           "target": [
             "#hintClose"
           ]
+        },
+        {
+          "any": [
+            {
+              "id": "no-focusable-content",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element does not have focusable descendants"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"kz-debug-toggle\" aria-label=\"Open debug log\" aria-expanded=\"false\">Debug</button>",
+          "target": [
+            ".kz-debug-toggle"
+          ]
         }
       ]
     },
@@ -9837,6 +10062,26 @@
           "target": [
             ".kz-footer__os > a[target=\"_blank\"][rel=\"noopener noreferrer\"]"
           ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"kz-debug-toggle\" aria-label=\"Open debug log\" aria-expanded=\"false\">Debug</button>",
+          "target": [
+            ".kz-debug-toggle"
+          ]
         }
       ]
     },
@@ -10317,6 +10562,22 @@
         {
           "any": [
             {
+              "id": "target-size",
+              "data": {
+                "messageKey": "obscured"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<button type=\"button\" class=\"kz-debug-toggle\" aria-label=\"Open debug log\" aria-expanded=\"false\">Debug</button>",
+                  "target": [
+                    ".kz-debug-toggle"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Control is ignored because it is fully obscured and thus not clickable"
+            },
+            {
               "id": "target-offset",
               "data": {
                 "closestOffset": 24,
@@ -10534,11 +10795,77 @@
           "target": [
             "li:nth-child(2) > a[href=\"mailto:deaf-feedback@kozha.dev\"]"
           ]
+        },
+        {
+          "any": [
+            {
+              "id": "target-size",
+              "data": {
+                "minSize": 24,
+                "width": 73.7,
+                "height": 31
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Control has sufficient size (73.7px by 31px, should be at least 24px by 24px)"
+            },
+            {
+              "id": "target-offset",
+              "data": {
+                "closestOffset": 24,
+                "minOffset": 24
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Target has sufficient space from its closest neighbors. Safe clickable space has a diameter of 24px which is at least 24px."
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"kz-debug-toggle\" aria-label=\"Open debug log\" aria-expanded=\"false\">Debug</button>",
+          "target": [
+            ".kz-debug-toggle"
+          ]
         }
       ]
     }
   ],
   "incomplete": [
+    {
+      "id": "aria-allowed-role",
+      "impact": "minor",
+      "tags": [
+        "cat.aria",
+        "best-practice"
+      ],
+      "description": "Ensure role attribute has an appropriate value for the element",
+      "help": "ARIA role should be appropriate for the element",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-allowed-role?application=axe-puppeteer",
+      "nodes": [
+        {
+          "any": [
+            {
+              "id": "aria-allowed-role",
+              "data": [
+                "log"
+              ],
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role log must be removed when the element is made visible, as it is not allowed for the element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "minor",
+          "html": "<aside class=\"kz-debug-panel\" aria-label=\"Debug log\" role=\"log\" aria-live=\"polite\" hidden=\"\">",
+          "target": [
+            "aside"
+          ],
+          "failureSummary": "Fix any of the following:\n  ARIA role log must be removed when the element is made visible, as it is not allowed for the element"
+        }
+      ]
+    },
     {
       "id": "aria-prohibited-attr",
       "impact": "serious",

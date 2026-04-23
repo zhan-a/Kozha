@@ -1224,6 +1224,43 @@ select.field-input { cursor: pointer; }
   color: var(--kozha-color-accent);
 }
 
+/* Advanced-option textarea: the SiGML <pre> flips to this editor
+   when the contributor clicks "Edit manually". Shape + font matches
+   the read-only display so the swap is visually quiet. */
+.notation-sigml-editor {
+  width: 100%;
+  min-height: 240px;
+  max-height: 480px;
+  resize: vertical;
+  font-family: var(--kozha-font-mono);
+  font-size: var(--kozha-text-body-sm);
+  line-height: var(--kozha-leading-relaxed);
+  padding: var(--kozha-space-4);
+  background: var(--kozha-color-white);
+  border: 1px solid var(--kozha-color-accent);
+  border-radius: var(--kozha-radius-sm);
+  color: var(--kozha-color-ink);
+  margin: 0 0 var(--kozha-space-3);
+  white-space: pre;
+  tab-size: 2;
+  outline: none;
+  box-shadow: 0 0 0 3px var(--kozha-color-accent-light);
+}
+.notation-sigml-editor:focus {
+  box-shadow: 0 0 0 3px var(--kozha-color-focus-ring);
+}
+.notation-sigml-edit-error {
+  margin: 0 0 var(--kozha-space-3);
+  font-family: var(--kozha-font-mono);
+  font-size: var(--kozha-text-body-sm);
+  color: var(--kozha-color-danger);
+  background: var(--kozha-color-danger-light);
+  border: 1px solid rgba(192, 57, 43, 0.3);
+  border-radius: var(--kozha-radius-sm);
+  padding: var(--kozha-space-2) var(--kozha-space-3);
+  white-space: pre-wrap;
+}
+
 /* ==================================================================
  * Submission panel
  * ================================================================== */

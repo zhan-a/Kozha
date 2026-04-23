@@ -37,32 +37,39 @@
   var entries = [];
   var listeners = [];
   var drawer = null;
-  // Pill visibility is opt-in; the log itself is always captured.
+  // Pill is always visible — the user asked for "log accessible all
+  // the time" after hitting several opaque stalls. Opt-out via
+  // ``?debug=0`` or ``localStorage.kozha_debug='0'`` stays available
+  // for the rare operator who wants a clean screenshot.
   var drawerEnabled = computeDrawerEnabled();
-  // Auto-reveal the pill once any module records a hard error.
+  // Auto-reveal hook kept for external callers (e.g. the
+  // window-level error listener), but now functionally equivalent
+  // to drawerEnabled being true: the drawer always mounts.
   var autoRevealed = false;
   // Capture the page session start so the downloaded log carries
   // wall-clock context.
   var sessionStartedAt = new Date();
 
   function computeDrawerEnabled() {
+    // Default-on: every contributor needs the Download button in
+    // reach the moment something stalls. Only ``?debug=0`` or
+    // ``localStorage.kozha_debug='0'`` opts out.
     try {
       var url = new URL(window.location.href);
       var p = url.searchParams.get('debug');
-      if (p === '1' || p === 'true') {
-        try { localStorage.setItem(STORAGE_KEY, '1'); } catch (_e) {}
-        return true;
-      }
       if (p === '0' || p === 'false') {
-        try { localStorage.removeItem(STORAGE_KEY); } catch (_e) {}
+        try { localStorage.setItem(STORAGE_KEY, '0'); } catch (_e) {}
         return false;
+      }
+      if (p === '1' || p === 'true') {
+        try { localStorage.removeItem(STORAGE_KEY); } catch (_e) {}
+        return true;
       }
     } catch (_e) { /* ignore — bad URL parse */ }
     try {
-      return localStorage.getItem(STORAGE_KEY) === '1';
-    } catch (_e) {
-      return false;
-    }
+      if (localStorage.getItem(STORAGE_KEY) === '0') return false;
+    } catch (_e) { /* ignore */ }
+    return true;
   }
 
   function timestamp(d) {

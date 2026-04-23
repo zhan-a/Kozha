@@ -1,6 +1,6 @@
 {
   "documentTitle": "Contribute a sign — Bridgn",
-  "pageUrl": "http://127.0.0.1:65135/contribute.html",
+  "pageUrl": "http://127.0.0.1:51434/contribute.html",
   "issues": [
     {
       "code": "WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206",
@@ -103,6 +103,16 @@
       "runnerExtras": {}
     },
     {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.F68.HiddenAttr",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This form field is intended to be hidden (using the \"hidden\" attribute), but is also labelled in some way. There should be no need to label a hidden form field.",
+      "context": "<textarea class=\"notation-sigml-editor\" id=\"sigmlEditor\" aria-label=\"Edit SiGML source\" spellcheck=\"false\" autocomplete=\"off\" autocapitalize=\"off\" hidden=\"\"></textarea>",
+      "selector": "#sigmlEditor",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
       "code": "WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206",
       "type": "warning",
       "typeCode": 2,
@@ -129,6 +139,26 @@
       "message": "This element has \"position: fixed\". This may require scrolling in two dimensions, which is considered a failure of this Success Criterion.",
       "context": "<div class=\"hint-strip\" id=\"hintStrip\" role=\"status\" hidden=\"\">\n    <span class=\"hint-strip-bo...</div>",
       "selector": "#hintStrip",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element has \"position: fixed\". This may require scrolling in two dimensions, which is considered a failure of this Success Criterion.",
+      "context": "<button type=\"button\" class=\"kz-debug-toggle\" aria-label=\"Open debug log\" aria-expanded=\"false\">Debug</button>",
+      "selector": "html > body > button",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element has \"position: fixed\". This may require scrolling in two dimensions, which is considered a failure of this Success Criterion.",
+      "context": "<aside class=\"kz-debug-panel\" aria-label=\"Debug log\" role=\"log\" aria-live=\"polite\" hidden=\"\"><header class=\"kz-debug-head\"><...</aside>",
+      "selector": "html > body > aside",
       "runner": "htmlcs",
       "runnerExtras": {}
     }

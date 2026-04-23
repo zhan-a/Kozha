@@ -183,15 +183,22 @@ def test_chat_panel_renders_two_questions_then_generating(c2h_server: str) -> No
             # Chat panel mounts after the session is created.
             expect(page.locator("#chatPanel")).to_be_visible(timeout=5000)
 
-            # /describe was called with the prose payload.
-            page.wait_for_function("() => document.querySelectorAll('#chatLog .chat-msg-system').length >= 1")
+            # /describe was called with the prose payload. The chat
+            # shows an immediate "reading your description" notice
+            # before the first question lands; wait for at least 2
+            # system messages (notice + first question).
+            page.wait_for_function("() => document.querySelectorAll('#chatLog .chat-msg-system').length >= 2")
             assert describe_calls, "expected /describe to be called"
             assert describe_calls[0].get("prose") == DESCRIPTION, describe_calls
 
-            # First question: text + three option buttons render.
-            first_msg = page.locator("#chatLog .chat-msg-system").first
-            expect(first_msg.locator(".chat-msg-text")).to_have_text(q1["text"])
-            expect(first_msg.locator(".chat-msg-label")).to_have_text("Clarification:")
+            # First real question is the second system message
+            # (index 1); index 0 is the describe-thinking placeholder.
+            # The label was renamed from "Clarification:" to "Sign
+            # wizard"; the ::after CSS appends a visual colon that's
+            # not part of textContent, so assert the text form here.
+            first_question_msg = page.locator("#chatLog .chat-msg-system").nth(1)
+            expect(first_question_msg.locator(".chat-msg-text")).to_have_text(q1["text"])
+            expect(first_question_msg.locator(".chat-msg-label")).to_have_text("Sign wizard")
             options_now = page.locator("#chatOptions .chat-option-btn")
             expect(options_now).to_have_count(3)
             expect(options_now.nth(0)).to_have_text("Up")
@@ -204,7 +211,7 @@ def test_chat_panel_renders_two_questions_then_generating(c2h_server: str) -> No
             options_now.nth(0).click()
 
             page.wait_for_function(
-                "() => document.querySelectorAll('#chatLog .chat-msg-system').length >= 2"
+                "() => document.querySelectorAll('#chatLog .chat-msg-system').length >= 3"
             )
             assert len(answer_calls) == 1, answer_calls
             assert answer_calls[0] == {
@@ -217,9 +224,10 @@ def test_chat_panel_renders_two_questions_then_generating(c2h_server: str) -> No
             expect(you_msgs).to_have_count(1)
             expect(you_msgs.first.locator(".chat-msg-text")).to_have_text("Up")
 
-            # Second question + its two options now render.
-            second_msg = page.locator("#chatLog .chat-msg-system").nth(1)
-            expect(second_msg.locator(".chat-msg-text")).to_have_text(q2["text"])
+            # Second question + its two options now render. Index 0
+            # is the describe-thinking notice, 1 is q1, 2 is q2.
+            second_question_msg = page.locator("#chatLog .chat-msg-system").nth(2)
+            expect(second_question_msg.locator(".chat-msg-text")).to_have_text(q2["text"])
             options_now = page.locator("#chatOptions .chat-option-btn")
             expect(options_now).to_have_count(2)
             expect(options_now.nth(0)).to_have_text("Once")
