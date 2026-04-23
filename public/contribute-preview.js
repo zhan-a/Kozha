@@ -38,6 +38,13 @@
     return;
   }
 
+  // Optional debug logger — see contribute-debug.js. No-op when the
+  // user hasn't enabled debug mode, so this stays free of overhead in
+  // the default flow.
+  var DEBUG = (window.KOZHA_CONTRIB_DEBUG && window.KOZHA_CONTRIB_DEBUG.log)
+    ? window.KOZHA_CONTRIB_DEBUG
+    : { log: function () {}, forceLog: function () {} };
+
   // ---------- constants ----------
 
   var DEFAULT_DURATION_MS = 1400;
@@ -89,6 +96,9 @@
     regions:         document.getElementById('avatarRegions'),
     pulse:           document.getElementById('avatarPulse'),
     fallback:        document.getElementById('avatarFallback'),
+    fallbackMsg:     document.getElementById('avatarFallbackMsg'),
+    fallbackDetail:  document.getElementById('avatarFallbackDetail'),
+    fallbackRetry:   document.getElementById('avatarFallbackRetry'),
     status:          document.getElementById('avatarStatus'),
     controls:        null, // resolved in init()
     playBtn:         document.getElementById('avatarPlayBtn'),
@@ -110,6 +120,10 @@
     // Lifecycle flags.
     cwasaReady:          false,
     cwasaFailed:         false,
+    // The reason ``markRenderFailed`` was last invoked with — kept on
+    // state so ``applyReadyState`` can render an actionable detail
+    // line and the debug log can replay it on retry.
+    lastFailureReason:   null,
     webglOk:             null,  // null = not yet probed
     initStarted:         false,
     renderFailed:        false,
@@ -293,9 +307,50 @@
   function markRenderFailed(reason) {
     state.cwasaFailed = true;
     state.renderFailed = true;
+    state.lastFailureReason = reason;
     if (window.console) console.warn('[contribute-preview] falling back to text:', reason);
+    DEBUG.log('preview: render failed', { reason: reason });
     applyReadyState();
     applyStatus();
+  }
+
+  // Human-readable, actionable explanation for each failure reason. The
+  // generic "Preview unavailable in this environment" is a polite
+  // shrug; this gives the contributor (and any debug-mode reader) the
+  // specific cause and what they can do about it.
+  function failureDetailFor(reason) {
+    switch (reason) {
+      case 'webgl_unavailable':
+        return tr('contribute.preview.fail_webgl',
+          'WebGL is disabled or unavailable in this browser. Try Chrome or Firefox with hardware acceleration enabled.');
+      case 'cwasa_missing':
+        return tr('contribute.preview.fail_cwasa_missing',
+          'The signing-avatar bundle did not load (network blocked, ad-blocker, or strict CSP). Reload to retry, or check the browser console for /cwa/allcsa.js.');
+      case 'cwasa_init_threw':
+      case 'cwasa_ready_rejected':
+        return tr('contribute.preview.fail_cwasa_init',
+          'The signing-avatar engine could not start. Reload to retry — if this persists, your browser may not support the player.');
+      case 'play_threw':
+        return tr('contribute.preview.fail_play',
+          'The player rejected this SiGML. Reload and try again, or submit as-is so a reviewer can play it server-side.');
+      case 'avatar_load_timeout':
+        return tr('contribute.preview.fail_avatar_load',
+          'The avatar took too long to download. Reload to retry on a stable connection.');
+      default:
+        return '';
+    }
+  }
+
+  function retryPreview() {
+    DEBUG.log('preview: manual retry requested', { previousReason: state.lastFailureReason });
+    state.cwasaFailed = false;
+    state.renderFailed = false;
+    state.cwasaReady = false;
+    state.initStarted = false;
+    state.lastFailureReason = null;
+    applyReadyState();
+    applyStatus();
+    initCWASA();
   }
 
   function applyReadyState() {
@@ -304,6 +359,25 @@
     els.stage.classList.toggle('is-failed', !!failed);
     els.canvas.setAttribute('aria-hidden', failed ? 'true' : 'false');
     els.regions.setAttribute('aria-hidden', failed ? 'true' : 'false');
+
+    if (failed && els.fallbackDetail) {
+      var detail = failureDetailFor(state.lastFailureReason);
+      if (detail) {
+        els.fallbackDetail.textContent = detail;
+        els.fallbackDetail.hidden = false;
+      } else {
+        els.fallbackDetail.hidden = true;
+      }
+    } else if (els.fallbackDetail) {
+      els.fallbackDetail.hidden = true;
+    }
+    // The retry button is shown for failure modes a reload won't fix
+    // automatically (notably cwasa_missing, init/play threw). For
+    // webgl_unavailable retry won't help, so hide it there.
+    if (els.fallbackRetry) {
+      var canRetry = failed && state.lastFailureReason !== 'webgl_unavailable';
+      els.fallbackRetry.hidden = !canRetry;
+    }
 
     var interactive = state.cwasaReady && !failed;
     els.playBtn.disabled = !interactive;
@@ -621,6 +695,9 @@
     els.loopInput.addEventListener('change', function () {
       if (!els.loopInput.checked) state.loopPending = false;
     });
+    if (els.fallbackRetry) {
+      els.fallbackRetry.addEventListener('click', retryPreview);
+    }
     for (var i = 0; i < els.speedBtns.length; i++) {
       els.speedBtns[i].addEventListener('click', onSpeedClick);
     }

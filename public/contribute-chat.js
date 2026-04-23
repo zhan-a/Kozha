@@ -34,6 +34,14 @@
     return;
   }
 
+  // Optional debug-log shim: contribute-debug.js loads first and exposes
+  // .log() when ?debug=1 is on; we fall back to a no-op so this module
+  // works in any load order. Contributors only see the live drawer when
+  // they explicitly opt in.
+  var DEBUG = (window.KOZHA_CONTRIB_DEBUG && window.KOZHA_CONTRIB_DEBUG.log)
+    ? window.KOZHA_CONTRIB_DEBUG
+    : { log: function () {}, forceLog: function () {} };
+
   // ---------- exact copy (no variation, per spec) ----------
   //
   // Source of truth: strings.en.json under contribute.chat.*. The fallbacks
@@ -64,6 +72,7 @@
     get READY_MSG()                    { return tr('contribute.chat.ready_msg', 'Draft is ready. Review the preview below and either submit or describe a correction.'); },
     get ERROR_MSG()                    { return tr('contribute.chat.error_msg', 'The AI had trouble generating a follow-up. Your answer was saved — try rephrasing, or submit the draft as-is and let the reviewer fill any gaps.'); },
     get GENERATION_FAILED_DEBUG()      { return tr('contribute.chat.generation_failed_debug', 'Generator detail: '); },
+    get RETRY_BUTTON()                 { return tr('contribute.chat.retry', 'Try again'); },
     get GENERATION_CANDIDATE_LABEL()   { return tr('contribute.chat.generation_candidate_label', 'Tried candidate: '); },
     get GENERATION_PATH_LABEL()        { return tr('contribute.chat.generation_path_label', 'Generation path: '); },
     get ERROR_RATE_LIMITED()           { return tr('contribute.chat.error_rate_limited', "You're sending requests faster than the server can process. Wait a moment and try again."); },
@@ -90,6 +99,7 @@
     input:         document.getElementById('chatInput'),
     sendBtn:       document.getElementById('chatSendBtn'),
     errorActions:  document.getElementById('chatErrorActions'),
+    retryBtn:      document.getElementById('chatRetryBtn'),
     submitAsIs:    document.getElementById('chatSubmitAsIsBtn'),
     discardBtn:    document.getElementById('chatDiscardBtn'),
     targetPill:    document.getElementById('chatTargetPill'),
@@ -130,6 +140,9 @@
     // Cleared once a correction is submitted or the user dismisses the
     // pill. Null means "no target — send correction un-targeted."
     correctionTarget: null,
+    // Last successfully-dispatched answer or correction; the "Try
+    // again" button replays this when the previous attempt errored.
+    lastAction: null,
   };
 
   // ---------- log + options rendering ----------
@@ -340,10 +353,49 @@
     return /\?\s*$/.test(text);
   }
 
+  // Auto-retry policy for /answer and /correct: a single second attempt
+  // after a 600ms backoff, but only for errors we believe are transient
+  // (network failure, 5xx, generic LLM hiccup). Hard errors — rate
+  // limited, injection rejected, budget exhausted, model unavailable —
+  // surface immediately because retrying won't change anything and the
+  // contributor needs to see what to do next. The reload-and-it-worked
+  // pattern is the symptom of skipping this retry, so this is the most
+  // impactful single change to smooth out the experience.
+  function isTransientError(err) {
+    if (!err) return true;
+    var code = parseErrorCode(err);
+    if (code === 'rate_limited' ||
+        code === 'injection_rejected' ||
+        code === 'budget_exceeded' ||
+        code === 'daily_budget_exceeded' ||
+        code === 'cost_cap_exceeded' ||
+        code === 'llm_config_error' ||
+        code === 'model_unavailable') {
+      return false;
+    }
+    var status = err.status || 0;
+    if (status === 429 || status === 401 || status === 403 || status === 422) {
+      return false;
+    }
+    return true;
+  }
+
+  function withAutoRetry(thunk) {
+    return thunk().catch(function (err) {
+      if (!isTransientError(err)) {
+        return Promise.reject(err);
+      }
+      DEBUG.log('chat: transient call failed, retrying once', { status: err && err.status });
+      return new Promise(function (resolve) { setTimeout(resolve, 600); })
+        .then(function () { return thunk(); });
+    });
+  }
+
   function sendAnswer(field, answerText) {
     setInFlight(true);
     clearError();
-    CTX.answer(field, answerText)
+    chat.lastAction = { kind: 'answer', field: field, text: answerText };
+    withAutoRetry(function () { return CTX.answer(field, answerText); })
       .catch(handleError)
       .then(function () { setInFlight(false); });
   }
@@ -360,12 +412,23 @@
         opts.targetRegion = chat.correctionTarget.region;
       }
     }
+    chat.lastAction = { kind: 'correction', text: text, opts: opts };
     // The target applies to this one correction only — clear the pill
     // so the next correction starts fresh unless the user re-targets.
     clearCorrectionTarget();
-    CTX.correct(text, opts)
+    withAutoRetry(function () { return CTX.correct(text, opts); })
       .catch(handleError)
       .then(function () { setInFlight(false); });
+  }
+
+  function retryLastAction() {
+    var last = chat.lastAction;
+    if (!last) return;
+    if (last.kind === 'answer') {
+      sendAnswer(last.field, last.text);
+    } else if (last.kind === 'correction') {
+      sendCorrection(last.text);
+    }
   }
 
   function parseErrorCode(err) {
@@ -408,10 +471,22 @@
 
   function handleError(err) {
     if (window.console) console.error('[contribute-chat] action failed:', err);
+    DEBUG.log('chat: action failed (after retry)', {
+      status:  err && err.status,
+      code:    parseErrorCode(err),
+      body:    err && (err.body || err.message),
+    });
     chat.inError = true;
     var picked = pickErrorMessage(err);
     appendMessage({ kind: 'error', text: picked.text });
-    els.errorActions.hidden = !picked.offerSubmitAsIs;
+    // The error actions strip is shown when *anything* useful sits in
+    // it. Retry is offered whenever we have a lastAction to replay
+    // (i.e. the failure came from a /answer or /correct call); the
+    // submit-as-is escape hatch follows pickErrorMessage's verdict.
+    var hasRetryTarget = !!chat.lastAction;
+    if (els.retryBtn) els.retryBtn.hidden = !hasRetryTarget;
+    if (els.submitAsIs) els.submitAsIs.hidden = !picked.offerSubmitAsIs;
+    els.errorActions.hidden = !(hasRetryTarget || picked.offerSubmitAsIs);
   }
 
   function clearError() {
@@ -661,6 +736,12 @@
     els.input.addEventListener('keydown', onKeyDown);
     els.sendBtn.addEventListener('click', onSendClick);
     els.submitAsIs.addEventListener('click', onSubmitAsIs);
+    if (els.retryBtn) {
+      els.retryBtn.addEventListener('click', function () {
+        clearError();
+        retryLastAction();
+      });
+    }
     if (els.discardBtn) {
       els.discardBtn.addEventListener('click', onDiscardClick);
     }

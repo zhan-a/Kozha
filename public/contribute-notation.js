@@ -201,8 +201,31 @@
   // toggle a class on the display so each glyph renders its short-name
   // underneath as a transliteration. Reviewers can still read the
   // notation even with no font installed.
+  // Optional debug logger. Same shim as the chat / preview modules use.
+  var DEBUG = (window.KOZHA_CONTRIB_DEBUG && window.KOZHA_CONTRIB_DEBUG.log)
+    ? window.KOZHA_CONTRIB_DEBUG
+    : { log: function () {}, forceLog: function () {} };
+
   var fontCheckFamily = "1em 'bgHamNoSysUnicode'";
   function hasHamnosysFont() {
+    // Canvas width-comparison: render a HamNoSys PUA codepoint with
+    // the bundled family vs. with a guaranteed system fallback. If the
+    // widths match, the bundled font isn't really active (the @font-face
+    // declared the family but the .ttf 404'd or never rendered glyph
+    // shapes). This is more reliable than document.fonts.check(), which
+    // returns true on declaration alone.
+    try {
+      var canvas = document.createElement('canvas');
+      var ctx = canvas.getContext && canvas.getContext('2d');
+      if (ctx) {
+        var probe = String.fromCharCode(0xE001);
+        ctx.font = "32px 'bgHamNoSysUnicode', monospace";
+        var withFont = ctx.measureText(probe).width;
+        ctx.font = "32px monospace";
+        var fallback = ctx.measureText(probe).width;
+        if (Math.abs(withFont - fallback) > 1) return true;
+      }
+    } catch (_e) { /* fall through to FontFaceSet */ }
     if (!document.fonts || typeof document.fonts.check !== 'function') {
       return false;
     }
@@ -219,6 +242,7 @@
     if (!els.display) return;
     var ok = hasHamnosysFont();
     els.display.classList.toggle('is-font-missing', !ok);
+    DEBUG.log('notation: font detection', { hamnosysFontPresent: ok });
   }
 
   function renderHamnosysString(s) {

@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-23T01:04:06.060Z",
-  "url": "http://127.0.0.1:57543/contribute.html",
+  "timestamp": "2026-04-23T01:43:00.677Z",
+  "url": "http://127.0.0.1:58287/contribute.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -2072,7 +2072,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"avatar-fallback\" id=\"avatarFallback\" role=\"status\" aria-live=\"polite\" data-i18n=\"contribute.preview.fallback\" hidden=\"\">Preview unavailable in this environment. The sign can still be submitted; the HamNoSys below is what the reviewer will evaluate.</div>",
+          "html": "<div class=\"avatar-fallback\" id=\"avatarFallback\" role=\"status\" aria-live=\"polite\" hidden=\"\">",
           "target": [
             "#avatarFallback"
           ]

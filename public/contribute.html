@@ -295,6 +295,7 @@
           <button type="button" class="btn btn-primary chat-send" id="chatSendBtn" data-i18n="contribute.chat.send" disabled>Send</button>
         </div>
         <div class="chat-error-actions" id="chatErrorActions" hidden>
+          <button type="button" class="btn btn-primary chat-retry" id="chatRetryBtn" data-i18n="contribute.chat.retry">Try again</button>
           <button type="button" class="btn btn-secondary chat-submit-as-is" id="chatSubmitAsIsBtn" data-i18n="contribute.chat.submit_as_is">Submit as-is</button>
         </div>
         <p class="chat-footer-actions">
@@ -330,8 +331,12 @@
             <polygon class="avatar-region" data-region="torso"                points="58,58 102,58 102,82 58,82" />
           </svg>
           <div class="avatar-pulse" id="avatarPulse" aria-hidden="true" hidden></div>
-          <div class="avatar-fallback" id="avatarFallback" role="status" aria-live="polite" data-i18n="contribute.preview.fallback" hidden>
-            Preview unavailable in this environment. The sign can still be submitted; the HamNoSys below is what the reviewer will evaluate.
+          <div class="avatar-fallback" id="avatarFallback" role="status" aria-live="polite" hidden>
+            <p class="avatar-fallback-msg" id="avatarFallbackMsg" data-i18n="contribute.preview.fallback">
+              Preview unavailable in this environment. The sign can still be submitted; the HamNoSys below is what the reviewer will evaluate.
+            </p>
+            <p class="avatar-fallback-detail" id="avatarFallbackDetail" hidden></p>
+            <button type="button" class="btn btn-secondary avatar-fallback-retry" id="avatarFallbackRetry" hidden data-i18n="contribute.preview.retry">Retry preview</button>
           </div>
         </div>
 
@@ -628,6 +633,7 @@
 
   <!-- byokey.js must load first: it monkey-patches window.fetch to
        inject X-OpenAI-Api-Key before any pipeline module fires a call. -->
+  <script src="/contribute-debug.js"></script>
   <script src="/contribute-byokey.js"></script>
   <script src="/contribute-context.js"></script>
   <script src="/contribute-chat.js"></script>

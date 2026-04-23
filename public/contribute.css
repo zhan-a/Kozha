@@ -861,6 +861,22 @@ select.field-input { cursor: pointer; }
   line-height: var(--kozha-leading-relaxed);
 }
 
+/* When the stage flips to failed, hide every layer that would
+   otherwise crowd the fallback message — the canvas placeholder, the
+   region overlay, and the pulse — so the explanatory card sits alone
+   centered in the 16:9 frame instead of floating off to one side over
+   a blue/grey backdrop. */
+.avatar-stage.is-failed .CWASAAvatar,
+.avatar-stage.is-failed .avatar-regions,
+.avatar-stage.is-failed .avatar-pulse {
+  display: none;
+}
+.avatar-stage.is-failed .avatar-backdrop {
+  /* Quiet the warm avatar-grey so the white fallback card reads as
+     the focal element. */
+  background: var(--kozha-color-paper);
+}
+
 .avatar-status {
   margin: 0;
   min-height: var(--kozha-space-5);
@@ -1033,28 +1049,23 @@ select.field-input { cursor: pointer; }
   max-width: 12ch;
   overflow-wrap: anywhere;
 }
-/* When the bundled HamNoSys font loaded successfully the glyph alone
-   is enough — collapse the redundant transliteration label to a hover
-   reveal. Reviewers who explicitly want the canonical name still get
-   it via the legend strip beneath the display. */
-.notation-hamnosys-display:not(.is-font-missing) .notation-glyph-name {
-  position: absolute;
-  width: 1px; height: 1px;
-  margin: -1px; padding: 0;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  border: 0;
-}
-/* Font-missing mode: hide the (unrenderable) glyph row so the chip is
-   just the short_name. Keeps the layout from showing rows of empty
-   replacement boxes. */
+/* The transliteration is always visible — the bgHamNoSysUnicode font
+   isn't shipped with the deploy (license/distribution constraints),
+   so almost every visitor sees just the .notdef boxes from the glyph
+   row. Keeping the canonical short_name underneath every chip means
+   the notation is readable regardless of which (if any) HamNoSys font
+   is locally installed. The glyph row stays so a reviewer who *does*
+   have the font sees both the shaped symbol and its name at once. */
 .notation-hamnosys-display.is-font-missing .notation-glyph-glyph {
+  /* Only hide the glyph row when we're confident the font isn't there;
+     otherwise we keep it because the glyph adds spatial information
+     (curve direction, finger arrangement) that the short_name can't. */
   display: none;
 }
 .notation-hamnosys-display.is-font-missing .notation-glyph-name {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--kozha-color-ink-2);
+  font-weight: var(--kozha-weight-medium);
 }
 .notation-errors { margin-top: var(--kozha-space-2); }
 .notation-fallback {
@@ -1457,6 +1468,167 @@ select.field-input { cursor: pointer; }
     animation-duration: 0ms !important;
     transition-duration: 0ms !important;
   }
+}
+
+/* ===========================================================
+ * Preview-failure stack: detail line + retry button
+ * =========================================================== */
+
+.avatar-fallback {
+  /* Consolidates the earlier fallback card (line ~854) with the new
+     vertical stack: msg → detail → retry button. The card sits inside
+     the now-empty .avatar-stage (canvas/regions/pulse hidden via the
+     `.is-failed` rules above) and is centered automatically by the
+     parent's flex alignment. */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--kozha-space-3);
+  padding: var(--kozha-space-6);
+  text-align: center;
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--kozha-color-white);
+  border: 1px solid var(--kozha-color-border);
+  border-radius: var(--kozha-radius);
+  color: var(--kozha-color-ink-2);
+  line-height: var(--kozha-leading-relaxed);
+}
+.avatar-fallback-msg {
+  margin: 0;
+  font-size: var(--kozha-text-body-lg);
+  line-height: var(--kozha-leading-relaxed);
+  color: var(--kozha-color-ink-2);
+}
+.avatar-fallback-detail {
+  margin: 0;
+  font-size: var(--kozha-text-body-sm);
+  line-height: var(--kozha-leading-relaxed);
+  color: var(--kozha-color-ink-3);
+  font-style: italic;
+}
+.avatar-fallback-retry {
+  margin-top: var(--kozha-space-1);
+  align-self: center;
+}
+
+/* ===========================================================
+ * Debug drawer (opt-in via ?debug=1 or localStorage flag)
+ * =========================================================== */
+
+.kz-debug-toggle {
+  position: fixed;
+  right: var(--kozha-space-4);
+  bottom: var(--kozha-space-4);
+  z-index: var(--kozha-z-toast);
+  background: var(--kozha-color-ink);
+  color: var(--kozha-color-paper);
+  font-family: var(--kozha-font-mono);
+  font-size: var(--kozha-text-body-sm);
+  font-weight: var(--kozha-weight-semibold);
+  letter-spacing: var(--kozha-tracking-wide);
+  text-transform: uppercase;
+  border: none;
+  border-radius: var(--kozha-radius-pill);
+  padding: var(--kozha-space-2) var(--kozha-space-4);
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(26, 22, 18, 0.25);
+  opacity: 0.85;
+  transition: opacity var(--kozha-duration-base) var(--kozha-ease-standard);
+}
+.kz-debug-toggle:hover,
+.kz-debug-toggle:focus-visible {
+  opacity: 1;
+  outline: 2px solid var(--kozha-color-accent);
+  outline-offset: 2px;
+}
+.kz-debug-panel {
+  position: fixed;
+  right: var(--kozha-space-4);
+  bottom: calc(var(--kozha-space-4) + 44px);
+  z-index: var(--kozha-z-toast);
+  width: min(560px, calc(100vw - var(--kozha-space-8)));
+  max-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--kozha-color-white);
+  border: 1px solid var(--kozha-color-border);
+  border-radius: var(--kozha-radius);
+  box-shadow: 0 16px 48px rgba(26, 22, 18, 0.18);
+  overflow: hidden;
+}
+.kz-debug-head {
+  display: flex;
+  align-items: center;
+  gap: var(--kozha-space-2);
+  padding: var(--kozha-space-3) var(--kozha-space-4);
+  border-bottom: 1px solid var(--kozha-color-border);
+  background: var(--kozha-color-paper);
+}
+.kz-debug-title {
+  flex: 1;
+  font-family: var(--kozha-font-sans);
+  font-size: var(--kozha-text-body);
+  font-weight: var(--kozha-weight-semibold);
+  color: var(--kozha-color-ink);
+}
+.kz-debug-action {
+  background: transparent;
+  border: 1px solid var(--kozha-color-border);
+  border-radius: var(--kozha-radius-sm);
+  padding: 2px 10px;
+  font-family: var(--kozha-font-mono);
+  font-size: var(--kozha-text-caption-lg);
+  color: var(--kozha-color-ink-2);
+  cursor: pointer;
+  transition: background var(--kozha-duration-base) var(--kozha-ease-standard);
+}
+.kz-debug-action:hover {
+  background: var(--kozha-color-paper-2);
+}
+.kz-debug-action:focus-visible {
+  outline: 2px solid var(--kozha-color-accent);
+  outline-offset: 2px;
+}
+.kz-debug-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--kozha-space-2) var(--kozha-space-3);
+  font-family: var(--kozha-font-mono);
+  font-size: var(--kozha-text-caption-lg);
+  line-height: 1.5;
+  background: var(--kozha-color-white);
+}
+.kz-debug-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--kozha-space-1) 0;
+  border-bottom: 1px dashed var(--kozha-color-border);
+}
+.kz-debug-row:last-child { border-bottom: none; }
+.kz-debug-ts {
+  color: var(--kozha-color-ink-3);
+  font-size: 10px;
+  letter-spacing: 0;
+}
+.kz-debug-msg {
+  color: var(--kozha-color-ink);
+  font-weight: var(--kozha-weight-medium);
+}
+.kz-debug-data {
+  margin: 2px 0 0;
+  padding: var(--kozha-space-1) var(--kozha-space-2);
+  background: var(--kozha-color-paper);
+  border: 1px solid var(--kozha-color-border);
+  border-radius: var(--kozha-radius-sm);
+  font-size: 10px;
+  color: var(--kozha-color-ink-2);
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 /* ===========================================================

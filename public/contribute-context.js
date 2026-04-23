@@ -38,6 +38,15 @@
 (function () {
   'use strict';
 
+  // Optional debug logger from contribute-debug.js. Each cross-network
+  // hop and each envelope mirror is timestamped through it so a
+  // contributor in debug mode can see exactly which call timed out,
+  // which envelope landed when, and what state the context store was
+  // in at each point. No-op when debug mode is off.
+  var DEBUG = (window.KOZHA_CONTRIB_DEBUG && window.KOZHA_CONTRIB_DEBUG.log)
+    ? window.KOZHA_CONTRIB_DEBUG
+    : { log: function () {}, forceLog: function () {} };
+
   var STORAGE_KEY = 'kozha.contribute.context';
   // Prompt 3 wrote the active language to this key directly. Read it as a
   // fallback during hydration so the selector doesn't blank out for users
@@ -420,6 +429,8 @@
     }
     var body = { prose: prose };
     if (gloss) body.gloss = gloss;
+    DEBUG.log('ctx: POST /describe', { sessionId: state.sessionId, gloss: gloss, proseLen: (prose || '').length });
+    var t0 = Date.now();
     return fetchWithTimeout(API_BASE + '/sessions/' + encodeURIComponent(state.sessionId) + '/describe', {
       method: 'POST',
       headers: {
@@ -431,8 +442,13 @@
     })
       .then(jsonOr)
       .then(function (env) {
+        DEBUG.log('ctx: /describe ok in ' + (Date.now() - t0) + 'ms', envSummary(env));
         applyEnvelope(env);
         return env;
+      })
+      .catch(function (err) {
+        DEBUG.log('ctx: /describe failed in ' + (Date.now() - t0) + 'ms', { status: err && err.status, body: err && err.body });
+        throw err;
       });
   }
 
@@ -444,6 +460,8 @@
       return Promise.reject(new Error('question field required'));
     }
     var body = { question_id: questionField, answer: answerText };
+    DEBUG.log('ctx: POST /answer', { sessionId: state.sessionId, field: questionField, answerLen: (answerText || '').length });
+    var t0 = Date.now();
     return fetchWithTimeout(API_BASE + '/sessions/' + encodeURIComponent(state.sessionId) + '/answer', {
       method: 'POST',
       headers: {
@@ -455,9 +473,29 @@
     })
       .then(jsonOr)
       .then(function (env) {
+        DEBUG.log('ctx: /answer ok in ' + (Date.now() - t0) + 'ms', envSummary(env));
         applyEnvelope(env);
         return env;
+      })
+      .catch(function (err) {
+        DEBUG.log('ctx: /answer failed in ' + (Date.now() - t0) + 'ms', { status: err && err.status, body: err && err.body });
+        throw err;
       });
+  }
+
+  // Compact summary of an envelope for debug logs — enough to diagnose
+  // a "what state did the server return" question without dumping the
+  // entire payload (which can include the full SiGML XML).
+  function envSummary(env) {
+    if (!env || typeof env !== 'object') return env;
+    return {
+      state:        env.state,
+      gloss:        env.gloss,
+      hasHamnosys:  !!env.hamnosys,
+      hasSigml:     !!env.sigml,
+      pendingQs:    (env.pending_questions || []).length,
+      errors:       env.generation_errors || [],
+    };
   }
 
   function correct(rawText, opts) {
