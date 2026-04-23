@@ -259,6 +259,7 @@ function initCwasa() {
             ambIdle: true,
             allowFrameSteps: false,
             allowSiGMLText: false,
+            initSpeed: 3,
           }],
         });
 

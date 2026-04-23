@@ -208,6 +208,25 @@ function stopPageReader() {
   Kozha.setSubtitle("");
 }
 
+var CHUNK_SIZE = 300;
+
+function splitIntoChunks(text, maxChars) {
+  var sentences = text.split(/(?<=[.!?])\s+/);
+  var chunks = [];
+  var current = "";
+  for (var i = 0; i < sentences.length; i++) {
+    var s = sentences[i];
+    if ((current + " " + s).length > maxChars && current) {
+      chunks.push(current.trim());
+      current = s;
+    } else {
+      current = current ? current + " " + s : s;
+    }
+  }
+  if (current.trim()) chunks.push(current.trim());
+  return chunks;
+}
+
 function signText(text, sourceLang) {
   if (!text || !text.trim()) {
     Kozha.injectPanel();
@@ -221,30 +240,39 @@ function signText(text, sourceLang) {
     text = text.substring(0, MAX_SELECTION_LENGTH);
   }
 
-  if (_kozhaSigningAbort) {
-    _kozhaSigningAbort.aborted = true;
-  }
+  if (_kozhaSigningAbort) _kozhaSigningAbort.aborted = true;
   var session = { aborted: false };
   _kozhaSigningAbort = session;
 
   var lang = sourceLang || detectLanguage(window.getSelection().anchorNode) || "en";
+  var chunks = splitIntoChunks(text, CHUNK_SIZE);
 
   Kozha.stopAvatar();
   Kozha.injectPanel();
   Kozha.showPanel();
-  Kozha.setSubtitle(text);
-  Kozha.setStatus("Translating...");
+  Kozha.setSubtitle(text.length > 200 ? text.substring(0, 200) + "…" : text);
+  Kozha.setStatus(chunks.length > 1 ? "Processing chunk 1/" + chunks.length : "Translating...");
+
+  signChunksSequentially(chunks, 0, lang, session);
+}
+
+function signChunksSequentially(chunks, idx, lang, session) {
+  if (session.aborted || idx >= chunks.length) {
+    if (!session.aborted) Kozha.setStatus("Done");
+    return;
+  }
+
+  if (chunks.length > 1) {
+    Kozha.setStatus("Processing chunk " + (idx + 1) + "/" + chunks.length);
+    Kozha.setSubtitle(chunks[idx]);
+  }
 
   chrome.runtime.sendMessage(
-    { type: "translate", text: text, source_lang: lang },
+    { type: "translate", text: chunks[idx], source_lang: lang },
     function(resp) {
       if (session.aborted) return;
 
-      if (chrome.runtime.lastError) {
-        Kozha.setStatus("Connection error");
-        return;
-      }
-
+      if (chrome.runtime.lastError) { Kozha.setStatus("Connection error"); return; }
       if (!resp || !resp.ok) {
         var errMsg = (resp && resp.error) || "Translation failed";
         if (errMsg === "Request timed out" || errMsg === "Failed to fetch" ||
@@ -257,13 +285,12 @@ function signText(text, sourceLang) {
       }
 
       var glosses = resp.data && resp.data.glosses;
-      if (!glosses || glosses.length === 0) {
-        Kozha.setStatus("No signs found");
-        return;
-      }
+      if (glosses && glosses.length > 0) Kozha.sendToAvatar(glosses);
 
-      Kozha.sendToAvatar(glosses);
-      Kozha.setStatus(Kozha.dbReady ? "Signing" : "Loading signs...");
+      var delay = glosses ? Math.min(glosses.length * 800, 8000) : 500;
+      setTimeout(function() {
+        signChunksSequentially(chunks, idx + 1, lang, session);
+      }, delay);
     }
   );
 }
@@ -271,8 +298,19 @@ function signText(text, sourceLang) {
 if (!window._kozhaUniversalInit) {
   window._kozhaUniversalInit = true;
 
+  window._kozhaLastSelection = null;
+
+  window._kozhaManualRetry = function() {
+    if (window._kozhaLastSelection) {
+      signText(window._kozhaLastSelection);
+    } else {
+      Kozha.setStatus("No previous text to retry");
+    }
+  };
+
   chrome.runtime.onMessage.addListener(function(msg) {
     if (msg.type === "sign_selection") {
+      window._kozhaLastSelection = msg.text;
       signText(msg.text);
     }
   });

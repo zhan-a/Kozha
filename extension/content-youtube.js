@@ -638,4 +638,32 @@ navObserver.observe(document.body, { childList: true, subtree: true });
 
 document.addEventListener("yt-navigate-finish", onNavigate);
 
+window._kozhaManualRetry = function() {
+  if (pendingInit) clearTimeout(pendingInit);
+  cleanup();
+  if (captionObserver) { captionObserver.disconnect(); captionObserver = null; }
+  lastRealtimeText = "";
+  lastSignedText = "";
+  realtimeActive = false;
+  if (isWatchPage()) init();
+};
+
+function watchForAdEnd() {
+  var video = findVideoElement();
+  if (!video) { setTimeout(watchForAdEnd, 1000); return; }
+  var lastVideoId = null;
+  setInterval(function() {
+    if (!isWatchPage()) return;
+    if (realtimeActive) return;
+    var currentVid = getVideoId();
+    if (!currentVid) return;
+    if (lastVideoId !== currentVid && document.querySelector(".ytp-caption-segment")) {
+      lastVideoId = currentVid;
+      console.log("[Kozha YT] captions appeared, triggering retry");
+      window._kozhaManualRetry();
+    }
+  }, 2000);
+}
+watchForAdEnd();
+
 init();

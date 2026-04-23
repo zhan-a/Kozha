@@ -138,6 +138,19 @@ if (!window.Kozha) {
       readBtn.id = "kozha-read-btn";
       readBtn.textContent = "\u25B6";
       readBtn.title = "Read page";
+
+      var retryBtn = document.createElement("button");
+      retryBtn.id = "kozha-retry-btn";
+      retryBtn.className = "kozha-ctrl-btn";
+      retryBtn.textContent = "\u21BB";
+      retryBtn.title = "Retry caption detection";
+      retryBtn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        if (typeof window._kozhaManualRetry === "function") {
+          Kozha.setStatus("Retrying...");
+          window._kozhaManualRetry();
+        }
+      });
       readBtn.addEventListener("click", function(e) {
         e.stopPropagation();
         if (typeof startPageReader === "function") {
@@ -177,6 +190,7 @@ if (!window.Kozha) {
       });
 
       controls.appendChild(readBtn);
+      controls.appendChild(retryBtn);
       controls.appendChild(settingsBtn);
       controls.appendChild(minBtn);
       controls.appendChild(closeBtn);
