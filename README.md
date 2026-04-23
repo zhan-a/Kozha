@@ -109,6 +109,7 @@ kozha/
 │   ├── content-shared.js
 │   ├── content-youtube.js
 │   ├── content-universal.js
+│   ├── cwa/                    (bundled CWASA avatar engine)
 │   └── icons/
 ├── server/
 │   ├── server.py
