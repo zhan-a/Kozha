@@ -787,13 +787,32 @@ def post_generate(
         x_session_token=x_session_token,
         token_store=token_store,
     )
-    if session.state == SessionState.CLARIFYING:
+    # Accept CLARIFYING and the two recovery states (AWAITING_DESCRIPTION
+    # and AWAITING_CORRECTION) when the session already has populated
+    # parameters. run_generation lands the session in AWAITING_DESCRIPTION
+    # on a first-pass failure and AWAITING_CORRECTION on a correction-apply
+    # failure; both are "retry points" that the frontend's auto-retry
+    # leans on after a transient LLM stumble. Without this relaxation
+    # /generate 409s and the contributor only gets the sign back by
+    # reloading the page, which is exactly what the auto-retry was
+    # introduced to avoid.
+    retry_entry_states = (
+        SessionState.CLARIFYING,
+        SessionState.AWAITING_DESCRIPTION,
+        SessionState.AWAITING_CORRECTION,
+    )
+    if session.state in retry_entry_states:
         if session.draft.parameters_partial is None:
             raise InvalidTransition(
                 "no parameters populated yet; describe first",
                 details={"state": session.state.value},
             )
-        session = session.with_state(SessionState.GENERATING)
+        next_state = (
+            SessionState.APPLYING_CORRECTION
+            if session.state == SessionState.AWAITING_CORRECTION
+            else SessionState.GENERATING
+        )
+        session = session.with_state(next_state)
     if session.state not in (SessionState.GENERATING, SessionState.APPLYING_CORRECTION):
         raise InvalidTransition(
             f"cannot force generation from state {session.state.value!r}",

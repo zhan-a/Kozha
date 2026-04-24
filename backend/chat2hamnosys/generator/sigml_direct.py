@@ -278,11 +278,15 @@ def _build_prompt(
     return system, user
 
 
-# Number of times we retry the LLM with the explicit failure reason
-# fed back in as a previous_error. One retry is usually enough — most
-# shape failures (object-literal leak, unknown ham tag, missing manual
-# block) recover when the prompt sees its own previous bad output.
-_SIGML_DIRECT_MAX_ATTEMPTS = 2
+# Number of LLM rounds before we give up. Two used to be enough for
+# common-case repairs (object-literal leak, unknown ham tag) but the
+# mandatory-slot check (missing palm_direction in particular) is
+# genuinely harder for reasoning models to self-correct on — they drop
+# the tag, see the "missing palm_direction" error, and still drop it
+# on the retry because palm direction isn't salient in everyday sign
+# descriptions. Three attempts gives us one more shot with the error
+# context accumulating, which clears the tail of the failure curve.
+_SIGML_DIRECT_MAX_ATTEMPTS = 3
 
 
 def generate_sigml_direct(

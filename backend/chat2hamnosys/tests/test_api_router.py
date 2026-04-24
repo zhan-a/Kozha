@@ -379,6 +379,67 @@ def test_accept_before_rendered_returns_409(client_factory):
     assert body["error"]["code"] == "invalid_transition"
 
 
+def test_generate_retry_from_awaiting_description(client_factory):
+    # When run_generation fails on the first pass the session lands in
+    # AWAITING_DESCRIPTION with parameters_partial still populated. The
+    # frontend's chat panel then fires POST /generate to retry — this
+    # test locks the transport behaviour in: /generate must accept the
+    # retry and re-enter GENERATING (same treatment as CLARIFYING).
+    # Regression: previously returned 409 invalid_transition and the
+    # contributor could only recover by refreshing the page.
+    from session.orchestrator import start_session, on_description
+    from session.state import SessionState
+    from api.dependencies import get_session_store, get_token_store
+
+    parse_fn = _StubParser(
+        ParseResult(parameters=_solid_partial(), gaps=[], raw_response="{}")
+    )
+    question_fn = _StubQuestioner([])
+    client = client_factory(parse_fn=parse_fn, question_fn=question_fn)
+
+    # Create a session, describe, then force it into the post-failure
+    # AWAITING_DESCRIPTION shape by writing through the SessionStore.
+    r = client.post("/sessions", json={"signer_id": "alice", "gloss": "TEMPLE"})
+    sid = r.json()["session_id"]
+    auth = {"X-Session-Token": r.json()["session_token"]}
+
+    from api.dependencies import get_session_store as _real_store
+    from uuid import UUID
+    session_store = _real_store()
+    stored = session_store.get(UUID(sid))
+    assert stored is not None
+    # Populate params + force the failure-recovery state.
+    stored = stored.with_draft(
+        parameters_partial=_solid_partial(),
+        description_prose="fist at temple moving down",
+        generation_errors=["sigml-direct gave up: missing palm_direction"],
+    ).with_state(SessionState.AWAITING_DESCRIPTION)
+    session_store.save(stored)
+
+    r = client.post(f"/sessions/{sid}/generate", headers=auth)
+    assert r.status_code == 200, r.text
+    # Background-task run_generation finishes; fetch settled envelope.
+    r = client.get(f"/sessions/{sid}", headers=auth)
+    assert r.status_code == 200
+    env = r.json()
+    assert env["state"] == "rendered"
+    assert env["hamnosys"] == SOLID_HAMNOSYS
+
+
+def test_generate_from_awaiting_description_without_params_still_409(client_factory):
+    # The relaxation must not paper over the "never described" case.
+    # /generate with no parameters_partial populated still belongs on
+    # the 409 branch — the retry entry is only valid when we have
+    # something to generate FROM.
+    client = client_factory()
+    r = client.post("/sessions", json={"signer_id": "alice"})
+    sid = r.json()["session_id"]
+    auth = {"X-Session-Token": r.json()["session_token"]}
+    r = client.post(f"/sessions/{sid}/generate", headers=auth)
+    assert r.status_code == 409
+    assert r.json()["error"]["code"] == "invalid_transition"
+
+
 def test_describe_with_empty_prose_returns_422(client_factory):
     client = client_factory()
     r = client.post("/sessions", json={"signer_id": "alice"})
