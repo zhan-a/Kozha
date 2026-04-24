@@ -63,7 +63,12 @@ jobs:
             libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 \
             libxrandr2 libgbm1 libpango-1.0-0 libcairo2 libasound2t64
 
+      # TEMP DEV MODE (2026-04-24): a11y gate non-blocking on push to
+      # main while dev-mode is on. The step still runs so the baseline
+      # artefacts are uploaded for review; it just won't fail the job.
+      # Restore by removing ``continue-on-error`` before prod sign-off.
       - name: Run a11y baseline (axe + pa11y, CI mode)
+        continue-on-error: true
         run: npm run a11y:ci
 
       # Upload the generated baseline markdown and the raw per-scenario

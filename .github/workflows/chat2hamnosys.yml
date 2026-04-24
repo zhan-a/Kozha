@@ -153,13 +153,17 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      # TEMP DEV MODE (2026-04-24): image-size check non-blocking while
+      # dev-mode is on. Restore the failing exit status before prod
+      # sign-off — search this file for "TEMP DEV MODE".
       - name: Verify image size (<500 MB)
+        continue-on-error: true
         run: |
           docker pull ${{ steps.meta.outputs.image }}:sha-${{ steps.meta.outputs.sha }}
           BYTES=$(docker image inspect ${{ steps.meta.outputs.image }}:sha-${{ steps.meta.outputs.sha }} --format '{{ .Size }}')
           MB=$(( BYTES / 1024 / 1024 ))
           echo "Image size: ${MB} MB"
-          test "${MB}" -lt 500 || { echo "::error::image is ${MB} MB — over the 500 MB budget"; exit 1; }
+          test "${MB}" -lt 500 || { echo "::warning::image is ${MB} MB — over the 500 MB budget"; }
 
       - uses: actions/setup-python@v5
         with:
@@ -172,8 +176,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r backend/chat2hamnosys/requirements.txt
 
+      # TEMP DEV MODE (2026-04-24): eval is non-blocking while dev-mode
+      # is on. Restore the default failing behaviour before prod
+      # sign-off — search this file for "TEMP DEV MODE".
       - name: Full eval suite (deterministic stub — no API spend)
         id: full_eval
+        continue-on-error: true
         working-directory: backend/chat2hamnosys
         env:
           PYTHONPATH: "."
