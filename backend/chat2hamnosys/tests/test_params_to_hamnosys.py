@@ -23,8 +23,6 @@ import pytest
 from generator import VOCAB, GenerateResult, generate
 from generator.params_to_hamnosys import (
     _compose_pieces,
-    _llm_repair,
-    _llm_resolve_slot,
     _Piece,
 )
 from hamnosys import SymClass, validate
@@ -230,229 +228,67 @@ def test_unresolved_slot_without_client_returns_none():
 
 
 # ---------------------------------------------------------------------------
-# 2. LLM fallback mechanics
+# 2. LLM fallback mechanics — SiGML-direct is the only LLM path
 # ---------------------------------------------------------------------------
-
-
-def _slot_payload(hex_cp: str, confidence: float = 0.9) -> str:
-    return json.dumps(
-        {
-            "codepoint_hex": hex_cp,
-            "confidence": confidence,
-            "rationale": "test",
-        }
-    )
-
-
-def _repair_payload(hex_tokens: str, rationale: str = "repair") -> str:
-    return json.dumps({"hamnosys_hex": hex_tokens, "rationale": rationale})
+#
+# Earlier revisions of this file exercised ``_llm_resolve_slot`` (per-
+# slot codepoint pick) and ``_llm_repair`` (rewrite a HamNoSys string).
+# Both paths asked the model to emit HamNoSys PUA codepoints directly
+# — per the user's feedback, unreliable. ("Make sure it generates
+# written SiGML and only then maybe converts to regular HamNoSys.")
+# Those paths are gone. The only LLM path now is
+# ``generate_sigml_direct`` (tested in ``test_sigml_direct.py``); the
+# tests below cover the non-LLM and integration behaviour of
+# ``generate``.
 
 
 def _sigml_fail_payload() -> str:
-    """A sigml-direct response that's well-formed JSON but yields no SiGML.
-
-    The new ``generate()`` calls SiGML-direct before the slot-by-slot
-    LLM fallback. Tests that assert legacy behavior should prepend this
-    so the SiGML-direct pre-flight cleanly returns "no result" and the
-    legacy slot/repair path runs as the test intends. Returning empty
-    ``sigml_xml`` is the well-defined "give up" path in
-    :mod:`generator.sigml_direct`.
-    """
-    return json.dumps({"sigml_xml": "", "rationale": "skip for legacy test"})
+    """A sigml-direct response that's well-formed JSON but yields no
+    SiGML. Two of these in a row exhaust the SiGML-direct retry loop."""
+    return json.dumps({"sigml_xml": "", "rationale": "skip for test"})
 
 
-def _sigml_payload(sigml_xml: str, rationale: str = "ok") -> str:
-    return json.dumps({"sigml_xml": sigml_xml, "rationale": rationale})
-
-
-def test_llm_fallback_resolves_missing_slot():
-    # An unknown handshape term — the LLM should be asked to pick a
-    # codepoint; we return E001 (flat) which is a valid handshape base.
-    # SiGML-direct now retries once on failure, so feed two opt-outs
-    # before the slot path runs.
-    client = FakeLLMClient(
-        [
-            _sigml_fail_payload(),
-            _sigml_fail_payload(),
-            _slot_payload("E001", confidence=0.8),
-        ]
-    )
+def test_sigml_direct_failure_surfaces_unresolved_slots():
+    # SiGML-direct exhausts its 2-attempt internal retry; the
+    # generator falls through and returns a failure envelope listing
+    # each still-unresolved slot by name so the chat panel can show
+    # the contributor what was left open.
+    client = FakeLLMClient([_sigml_fail_payload(), _sigml_fail_payload()])
     params = _basic_params(handshape_dominant="mystery_shape")
-    result = generate(params, client=client, request_id="test-fallback")
-
-    assert result.hamnosys == "\uE001\uE020\uE03A\uE052"
-    assert result.used_llm_fallback is True
-    assert "handshape_dominant" in result.llm_fallback_fields
-    assert result.confidence == pytest.approx(0.8)
-    # SiGML-direct (2 attempts) + slot fallback (1) = 3 calls.
-    assert len(client.calls) == 3
-    assert client.calls[2]["request_id"].startswith("test-fallback:fallback:")
-
-
-def test_llm_fallback_rejects_wrong_class_codepoint():
-    # Return an ext-finger codepoint for a handshape slot — the generator
-    # must reject it and leave the slot unresolved.
-    client = FakeLLMClient(
-        [
-            _sigml_fail_payload(),
-            _sigml_fail_payload(),
-            _slot_payload("E020", confidence=0.9),
-        ]
-    )
-    params = _basic_params(handshape_dominant="mystery_shape")
-    result = generate(params, client=client, request_id="test-wrongclass")
-
+    result = generate(params, client=client, request_id="test-unresolved")
     assert result.hamnosys is None
     assert result.confidence == 0.0
-    assert any("not valid for slot" in e for e in result.errors)
-
-
-def test_llm_fallback_rejects_unknown_codepoint():
-    client = FakeLLMClient(
-        [
-            _sigml_fail_payload(),
-            _sigml_fail_payload(),
-            _slot_payload("E7FF", confidence=1.0),
-        ]
-    )
-    params = _basic_params(handshape_dominant="mystery_shape")
-    result = generate(params, client=client, request_id="test-unknown")
-
-    assert result.hamnosys is None
-    assert any("unknown codepoint" in e for e in result.errors)
-
-
-def test_llm_fallback_invalid_json_unresolved():
-    client = FakeLLMClient(
-        [
-            _sigml_fail_payload(),
-            _sigml_fail_payload(),
-            "not json at all",
-        ]
-    )
-    params = _basic_params(handshape_dominant="mystery_shape")
-    result = generate(params, client=client, request_id="test-badjson")
-
-    assert result.hamnosys is None
-    assert any("invalid json" in e for e in result.errors)
+    assert any("handshape_dominant" in e for e in result.errors)
 
 
 def test_budget_exceeded_bubbles_up():
+    # BudgetExceeded fires on the first SiGML-direct LLM call; it must
+    # propagate rather than being swallowed by the retry loop.
     client = FakeLLMClient([BudgetExceeded(spent=1.0, would_add=0.5, cap=1.0)])
     params = _basic_params(handshape_dominant="mystery_shape")
     with pytest.raises(BudgetExceeded):
         generate(params, client=client, request_id="test-budget")
 
 
-def test_llm_fallback_fields_ordered_by_slot_sequence():
-    # Two unknown slots in different positions — both should be logged
-    # in the order the composer visited them.
-    client = FakeLLMClient(
-        [
-            _sigml_fail_payload(),                  # SiGML-direct attempt 1
-            _sigml_fail_payload(),                  # SiGML-direct attempt 2
-            _slot_payload("E001", confidence=0.7),  # handshape
-            _slot_payload("E04A", confidence=0.8),  # location
-        ]
-    )
-    params = _basic_params(
-        handshape_dominant="unknown_hs",
-        location="unknown_loc",
-    )
-    result = generate(params, client=client, request_id="test-order")
-    assert result.llm_fallback_fields == ["handshape_dominant", "location"]
-    # Product of confidences.
-    assert result.confidence == pytest.approx(0.56, abs=0.01)
-
-
 # ---------------------------------------------------------------------------
-# 3. Validation repair loop
+# 3. Graceful degrade without a client
 # ---------------------------------------------------------------------------
 
 
-class _AlwaysInvalidComposeClient(FakeLLMClient):
-    """A client that returns repair candidates which still fail validation.
-
-    Used to verify the generator gives up after ``_MAX_VALIDATION_RETRIES``
-    repair attempts rather than looping forever.
-    """
-
-
-def test_repair_loop_succeeds_within_two_attempts(monkeypatch):
-    # Force the composer to emit an invalid string and let the first
-    # repair attempt fix it. We do this by patching ``_assemble`` to
-    # inject garbage, then letting the client return the correct string.
+def test_no_client_and_unresolved_slot_returns_none(monkeypatch):
     from generator import params_to_hamnosys as mod
 
-    real_assemble = mod._assemble
-    fake_invocations: list[int] = []
-
-    def broken_assemble(pieces):
-        fake_invocations.append(1)
-        if len(fake_invocations) == 1:
-            return "ABC"
-        return real_assemble(pieces)
-
-    monkeypatch.setattr(mod, "_assemble", broken_assemble)
-
-    client = FakeLLMClient(
-        [
-            # SiGML-direct fires once on the unresolved-slot path (no
-            # unresolved slots here so it's skipped) and once on the
-            # validation-failure path; the second pass also retries
-            # internally. Feed three opt-outs to cover the worst case
-            # before the repair payload runs.
-            _sigml_fail_payload(),
-            _sigml_fail_payload(),
-            _repair_payload("E001 E020 E03A E052", rationale="drop garbage"),
-        ]
-    )
-    params = _basic_params()
-    result = generate(params, client=client, request_id="test-repair")
-
-    assert result.hamnosys == "\uE001\uE020\uE03A\uE052"
-    assert result.used_llm_fallback is True
-    assert "_repair" in result.llm_fallback_fields
-
-
-def test_repair_loop_gives_up_after_max_attempts(monkeypatch):
-    from generator import params_to_hamnosys as mod
-
-    monkeypatch.setattr(mod, "_assemble", lambda pieces: "ABC")
-    # SiGML-direct (with internal retry) gives up across two attempts,
-    # then both repair attempts return strings that still fail
-    # validation. The whole-sign emergency fallback was retired in
-    # favour of SiGML-direct's self-correction loop.
-    client = FakeLLMClient(
-        [
-            _sigml_fail_payload(),  # SiGML-direct attempt 1
-            _sigml_fail_payload(),  # SiGML-direct attempt 2
-            _repair_payload("ABCD"),
-            _repair_payload("DEFG"),
-        ]
-    )
-
-    params = _basic_params()
-    result = generate(params, client=client, request_id="test-repair-give-up")
-
-    assert result.hamnosys is None
-    assert not result.validation.ok
-    # SiGML-direct (2) + two repair attempts (2) = 4 calls.
-    assert len(client.calls) == 4
-
-
-def test_no_client_and_invalid_string_returns_none(monkeypatch):
-    from generator import params_to_hamnosys as mod
-
-    monkeypatch.setattr(mod, "_assemble", lambda pieces: "ABC")
-    # Force the auto-construct path to return None regardless of whether
-    # the developer's shell has OPENAI_API_KEY set — this test covers the
-    # graceful-degrade branch.
+    # Force the auto-construct path to return None regardless of
+    # whether the developer's shell has OPENAI_API_KEY set — this
+    # test covers the graceful-degrade branch when no LLM client is
+    # available. The composer leaves a slot unresolved (zebra
+    # handshape isn't in VOCAB) and ``generate`` must return None
+    # with an actionable error, not raise.
     monkeypatch.setattr(mod, "_maybe_construct_client", lambda c: None)
-    params = _basic_params()
+    params = _basic_params(handshape_dominant="zebra_handshape")
     result = generate(params)  # no client
     assert result.hamnosys is None
-    assert any("no LLM client available to repair" in e for e in result.errors)
+    assert any("no LLM client available" in e for e in result.errors)
 
 
 # ---------------------------------------------------------------------------

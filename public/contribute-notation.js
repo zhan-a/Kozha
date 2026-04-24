@@ -843,9 +843,21 @@
 
   function startSse(sessionId, token) {
     stopSse();
-    if (!sessionId || !token) return;
-    if (typeof AbortController === 'undefined') return;
-    if (typeof TextDecoder === 'undefined') return;
+    if (!sessionId || !token) {
+      DEBUG.log('sse: start skipped — missing session or token', {
+        hasSession: !!sessionId, hasToken: !!token,
+      });
+      return;
+    }
+    if (typeof AbortController === 'undefined') {
+      DEBUG.warn('sse: start skipped — AbortController unavailable');
+      return;
+    }
+    if (typeof TextDecoder === 'undefined') {
+      DEBUG.warn('sse: start skipped — TextDecoder unavailable');
+      return;
+    }
+    DEBUG.log('sse: starting stream', { sessionId: sessionId });
     state.sseSessionId = sessionId;
     state.sseSessionToken = token;
     state.sseLastEventId = null;
@@ -869,29 +881,41 @@
     if (state.sseLastEventId !== null && state.sseLastEventId !== undefined) {
       headers['Last-Event-ID'] = String(state.sseLastEventId);
     }
-    fetch(API_BASE + '/sessions/' + encodeURIComponent(sessionId) + '/events', {
-      method: 'GET',
-      headers: headers,
-      signal: ctrl.signal,
-    })
+    // Also attach the token as a query-param so EventSource-style
+    // proxies + the ``?token=`` fallback route in api/router.py both
+    // accept the stream. The explicit header still takes precedence
+    // server-side when both are present.
+    var url = API_BASE + '/sessions/' + encodeURIComponent(sessionId) +
+              '/events?token=' + encodeURIComponent(token);
+    DEBUG.log('sse: opening connection', { sessionId: sessionId });
+    fetch(url, { method: 'GET', headers: headers, signal: ctrl.signal })
       .then(function (r) {
+        DEBUG.log('sse: connection response', { status: r.status, ok: r.ok });
         if (!r.ok || !r.body) {
           // 4xx with a body usually means the session was rejected or
           // forbidden — reconnecting won't fix either, so stop.
-          if (r.status >= 400 && r.status < 500) return;
+          if (r.status >= 400 && r.status < 500) {
+            DEBUG.warn('sse: aborting stream on 4xx', { status: r.status });
+            return;
+          }
           scheduleSseReconnect();
           return;
         }
         return consumeEventStream(r.body, sessionId).then(function () {
           // Clean stream end (server said timeout / closed). Reconnect so
           // events emitted after the next poll round still reach us.
+          DEBUG.log('sse: stream ended cleanly — reconnecting');
           if (state.sseSessionId === sessionId) scheduleSseReconnect();
         });
       })
       .catch(function (err) {
         // AbortController-triggered abort surfaces as AbortError; that's
         // intentional stoppage, not a network drop.
-        if (err && err.name === 'AbortError') return;
+        if (err && err.name === 'AbortError') {
+          DEBUG.log('sse: aborted (expected on session swap / teardown)');
+          return;
+        }
+        DEBUG.error('sse: fetch failed', { error: String(err) });
         scheduleSseReconnect();
       });
   }
@@ -939,6 +963,11 @@
     if (eventId !== null && eventId !== '') {
       state.sseLastEventId = eventId;
     }
+    DEBUG.log('sse: frame received', {
+      event: evName,
+      eventId: eventId,
+      dataLen: (data || '').length,
+    });
     // Events that can change the sign or state: ``generated`` (new
     // HamNoSys from run_generation), ``correction_applied``
     // (correction interpreter committed a diff), ``sign_accepted``.

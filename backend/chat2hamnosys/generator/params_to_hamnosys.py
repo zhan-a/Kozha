@@ -771,14 +771,24 @@ def generate(
     errors_out: list[str] = []
     running_confidence = 1.0
 
-    # ---- LLM path: SiGML-direct ------------------------------------
-    # When the deterministic composer left any slot unresolved, skip
-    # the slot-by-slot HamNoSys dance and ask the model for a complete
-    # SiGML fragment grounded in BSL few-shot examples. Reverse-mapping
-    # SiGML → HamNoSys is loss-free, so the rest of the pipeline
-    # (storage, validator, renderer) sees the same PUA shape it always
-    # has. This eliminates the per-slot BadRequestError storm and makes
-    # the whole sign succeed-or-fail as one transactional call.
+    # ---- LLM path: SiGML-first (one-shot) --------------------------
+    #
+    # The generator used to have three LLM paths that emitted
+    # HamNoSys PUA codepoints directly (``_llm_resolve_slot``,
+    # ``_llm_repair``, ``_llm_whole_sign``). All three were brittle:
+    # models routinely hallucinated non-existent codepoints or mixed
+    # in decimal hex, and every attempt was one more fragile
+    # parse-coerce round-trip. The user's own instruction crystallised
+    # the issue: "make sure it generates written SiGML and only then
+    # maybe converts to regular HamNoSys" — because the XML tag names
+    # are concrete, named, easy to validate, and grounded in real
+    # few-shot BSL examples.
+    #
+    # So the only LLM path now is ``generate_sigml_direct``, which
+    # asks the model for a complete ``<hns_sign>...</hns_sign>``
+    # fragment and reverse-maps it to HamNoSys PUA via the symbol
+    # table. Failure → we surface errors; we do NOT fall back to
+    # slot-by-slot LLM.
     if unresolved and client is not None:
         from .sigml_direct import generate_sigml_direct
 
@@ -800,10 +810,6 @@ def generate(
                     "sigml-direct fallback succeeded: %s",
                     sigml_rationale[:200],
                 )
-                # Drop any in-progress retry traces — the success
-                # path is what the contributor sees, and lingering
-                # "missing palm_direction" / "invalid json" notices
-                # next to a working sign is confusing noise.
                 return GenerateResult(
                     hamnosys=normalized,
                     validation=vr,
@@ -818,44 +824,11 @@ def generate(
             )
         else:
             errors_out.append(f"sigml-direct gave up: {sigml_rationale}")
-        # Fall through to the legacy slot-by-slot LLM path so we still
-        # have a chance to recover when SiGML-direct can't produce a
-        # validator-clean string.
-
-    # ---- Legacy LLM path: per-slot resolution (kept as backup) -----
-    for piece in unresolved:
-        if client is None:
-            errors_out.append(
-                f"no LLM client available to resolve {piece.field_name!r} "
-                f"(term={piece.term!r})"
-            )
-            continue
-        if piece.resolved:
-            continue
-        chunk, conf, rationale = _llm_resolve_slot(
-            piece, client=client, request_id=rid
-        )
-        if not chunk:
-            errors_out.append(
-                f"LLM fallback could not resolve {piece.field_name!r} "
-                f"(term={piece.term!r}): {rationale}"
-            )
-            continue
-        piece.chunk = chunk
-        piece.resolved = True
-        piece.via_llm = True
-        piece.confidence = conf
-        fallback_fields.append(piece.field_name)
-        used_llm_fallback = True
-        running_confidence *= max(conf, 0.0)
-        logger.info(
-            "llm fallback resolved %s term=%r → U+%04X (conf=%.2f): %s",
-            piece.field_name,
-            piece.term,
-            ord(chunk[0]),
-            conf,
-            rationale,
-        )
+        # SiGML-direct exhausted its internal retry loop. Fall through
+        # to report the combined failure — the deterministic composer
+        # may have resolved enough pieces that an approximate sign is
+        # still worth handing back, but we don't make up the missing
+        # slots via LLM-codepoint-pick.
 
     still_missing = [p for p in pieces if not p.resolved]
     if still_missing:
@@ -866,13 +839,24 @@ def generate(
             warnings=[],
             tree=None,
         )
+        # Surface each still-unresolved slot by name so the chat panel
+        # can show the contributor what was left open. SiGML-direct
+        # (if it ran) already added its own failure reason to
+        # errors_out; append the per-slot names on top.
+        missing_msgs = [
+            f"no LLM client available to resolve {p.field_name!r} "
+            f"(term={p.term!r})"
+            if client is None
+            else f"slot {p.field_name!r} unresolved (term={p.term!r})"
+            for p in still_missing
+        ]
         return GenerateResult(
             hamnosys=None,
             validation=vr,
             used_llm_fallback=used_llm_fallback,
             llm_fallback_fields=fallback_fields,
             confidence=0.0,
-            errors=errors_out,
+            errors=errors_out + missing_msgs,
             last_candidate=candidate,
         )
 
@@ -920,37 +904,13 @@ def generate(
         else:
             errors_out.append(f"sigml-direct gave up: {sigml_rationale}")
 
-    # Legacy repair loop kept as a final safety net.
-    for attempt in range(_MAX_VALIDATION_RETRIES):
-        if vr.ok:
-            break
-        if client is None:
-            errors_out.append(
-                f"validation failed and no LLM client available to repair: "
-                f"{vr.summary()}"
-            )
-            break
-        repaired, rationale = _llm_repair(
-            candidate, vr, client=client, request_id=rid, attempt=attempt
-        )
-        if not repaired:
-            errors_out.append(
-                f"LLM repair attempt {attempt} returned no candidate: {rationale}"
-            )
-            break
-        used_llm_fallback = True
-        fallback_fields.append("_repair")
-        # Heuristic: repair confidence decays per attempt.
-        running_confidence *= 0.7
-        candidate = normalize(repaired)
-        vr = validate(candidate)
-        logger.info(
-            "llm repair attempt=%d ok=%s rationale=%s",
-            attempt,
-            vr.ok,
-            rationale,
-        )
-
+    # The legacy ``_llm_repair`` loop asked the model to rewrite a
+    # HamNoSys codepoint string — the same kind of fragile LLM-picks-
+    # PUA-hex path that the user asked us to kill. Removed. If SiGML-
+    # direct couldn't rescue a validator failure, the caller surfaces
+    # the error and offers Submit-as-is or a manual edit on the SiGML
+    # tab. That's both simpler and more reliable than round-tripping
+    # the model through a broken HamNoSys string.
     if not vr.ok:
         return GenerateResult(
             hamnosys=None,

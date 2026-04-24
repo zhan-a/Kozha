@@ -465,7 +465,14 @@ def _run_correction_async(
     up the same way the request handler would. Catches every
     exception and writes a ``generation_errors`` entry on the draft —
     the task should never crash the worker.
+
+    Always appends a history event (``GeneratedEvent`` on failure, or
+    whatever ``apply_correction`` wrote on success) so the SSE stream
+    at ``/events`` has something to deliver. The frontend subscribes
+    to both ``generated`` and ``correction_applied`` event types and
+    refetches the session on either.
     """
+    from session.state import GeneratedEvent
     token = set_request_openai_api_key(byo_key or "")
     try:
         session = session_store.get(session_id)
@@ -488,14 +495,19 @@ def _run_correction_async(
                 session_id,
                 exc,
             )
-            # Park the draft so the SSE subscriber sees a terminal
-            # non-LLM error instead of an indefinite APPLYING state.
+            err = f"background correction crashed: {type(exc).__name__}: {exc}"
+            # 1. Park the draft in a recoverable state with the error
+            #    surfaced on ``generation_errors`` so the chat panel's
+            #    maybeSurfaceGenerationError path picks it up.
             session = session.with_draft(
-                generation_errors=[
-                    "background correction crashed: "
-                    + f"{type(exc).__name__}: {exc}"
-                ],
+                generation_errors=[err],
             ).with_state(SessionState.AWAITING_CORRECTION)
+            # 2. Emit a GeneratedEvent so SSE delivers a ``generated``
+            #    frame — the frontend SSE subscriber refetches the
+            #    session on that event and sees the new state + error.
+            session = session.append_event(
+                GeneratedEvent(success=False, errors=[err])
+            )
         session_store.save(session)
     finally:
         reset_request_openai_api_key(token)
@@ -513,7 +525,13 @@ def _run_generation_async(
     """Background task: run generation for a session already moved to
     GENERATING. Used by ``/answer`` when the last clarification answer
     exhausts the gaps.
+
+    ``run_generation`` already appends a ``GeneratedEvent`` to session
+    history on both success and internal failure. We add a second
+    GeneratedEvent on hard exceptions so the SSE stream delivers
+    something even when ``run_generation`` itself crashed.
     """
+    from session.state import GeneratedEvent
     token = set_request_openai_api_key(byo_key or "")
     try:
         session = session_store.get(session_id)
@@ -533,12 +551,13 @@ def _run_generation_async(
                 session_id,
                 exc,
             )
+            err = f"background generation crashed: {type(exc).__name__}: {exc}"
             session = session.with_draft(
-                generation_errors=[
-                    "background generation crashed: "
-                    + f"{type(exc).__name__}: {exc}"
-                ],
+                generation_errors=[err],
             ).with_state(SessionState.AWAITING_DESCRIPTION)
+            session = session.append_event(
+                GeneratedEvent(success=False, errors=[err])
+            )
         session_store.save(session)
     finally:
         reset_request_openai_api_key(token)
