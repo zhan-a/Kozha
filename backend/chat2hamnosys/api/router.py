@@ -42,7 +42,7 @@ from pathlib import Path
 from typing import Any, AsyncIterator, Optional
 from uuid import UUID
 
-from fastapi import APIRouter, BackgroundTasks, Depends, Header, Request
+from fastapi import APIRouter, BackgroundTasks, Depends, Header, Query, Request
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from slowapi import Limiter
 from slowapi.util import get_remote_address
@@ -943,6 +943,15 @@ def post_accept(
     request: Request,
     session_id: UUID,
     x_session_token: Optional[str] = Header(default=None),
+    force: bool = Query(
+        default=False,
+        description=(
+            "Submit-as-is escape hatch: when true, accept the draft even "
+            "if generation failed. Draft is saved with status=\"draft\" "
+            "and a placeholder HamNoSys so the reviewer can complete it "
+            "manually from the description prose."
+        ),
+    ),
     session_store: SessionStore = Depends(get_session_store),
     token_store: TokenStore = Depends(get_token_store),
     sign_store: SQLiteSignStore = Depends(get_sign_store),
@@ -954,6 +963,64 @@ def post_accept(
         x_session_token=x_session_token,
         token_store=token_store,
     )
+    if force:
+        # Submit-as-is path: relax the RENDERED requirement and patch
+        # the draft with a placeholder HamNoSys if generation failed.
+        # The contributor explicitly chose to hand this to the
+        # reviewer incomplete — we persist whatever we've got so the
+        # reviewer can complete it from the description prose, rather
+        # than losing the draft entirely.
+        if session.state in (SessionState.FINALIZED, SessionState.ABANDONED):
+            raise InvalidTransition(
+                "cannot submit an already-closed session",
+                details={"state": session.state.value},
+            )
+        if not session.draft.gloss:
+            raise InvalidTransition(
+                "submit-as-is requires a gloss on the draft",
+                details={"state": session.state.value},
+            )
+        if not session.draft.hamnosys:
+            # Minimal placeholder so ``to_sign_entry`` succeeds.
+            # hamflathand (U+E001) + hamextfingeru (U+E020) +
+            # hampalmd (U+E03C) + hamneutralspace (U+E05F) — four
+            # mandatory slots, canonical order. Reviewers see a
+            # "generation failed; please complete" note in the
+            # description_prose and the bland flat-hand placeholder.
+            placeholder_hs = chr(0xE001)
+            placeholder_ext = chr(0xE020)
+            placeholder_palm = chr(0xE03C)
+            placeholder_loc = chr(0xE05F)
+            placeholder = placeholder_hs + placeholder_ext + placeholder_palm + placeholder_loc
+            # ``_build_sign_parameters`` also requires slot_codepoints
+            # for each of the four mandatory slots; populate them
+            # directly so ``to_sign_entry`` doesn't raise.
+            existing_slots = dict(session.draft.slot_codepoints or {})
+            existing_slots.setdefault("handshape_dominant", placeholder_hs)
+            existing_slots.setdefault("orientation_extended_finger", placeholder_ext)
+            existing_slots.setdefault("orientation_palm", placeholder_palm)
+            existing_slots.setdefault("location", placeholder_loc)
+            # Clear any movement segments in the partial so
+            # ``_build_sign_parameters`` doesn't demand per-segment
+            # path codepoints we don't have.
+            from parser.models import PartialSignParameters as _PSP
+            cleaned_partial = (
+                session.draft.parameters_partial.model_copy(update={"movement": []})
+                if session.draft.parameters_partial is not None
+                else _PSP()
+            )
+            session = session.with_draft(
+                hamnosys=placeholder,
+                sigml=session.draft.sigml or "",
+                slot_codepoints=existing_slots,
+                parameters_partial=cleaned_partial,
+                preview_status="submitted_incomplete",
+                preview_message=(
+                    "Submitted without generator output; reviewer to "
+                    "complete from description prose."
+                ),
+            )
+        session = session.with_state(SessionState.RENDERED)
     session = on_accept(session, store=sign_store)
     session_store.save(session)
     from session.state import AcceptedEvent

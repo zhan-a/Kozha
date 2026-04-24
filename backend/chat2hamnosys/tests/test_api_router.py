@@ -426,6 +426,67 @@ def test_generate_retry_from_awaiting_description(client_factory):
     assert env["hamnosys"] == SOLID_HAMNOSYS
 
 
+def test_accept_force_from_awaiting_description_saves_placeholder(client_factory):
+    # Submit-as-is path: the contributor gave up on the generator and
+    # wants the reviewer to finish the sign. /accept?force=true should
+    # succeed even from AWAITING_DESCRIPTION with no hamnosys — a
+    # placeholder is injected so the draft persists and the reviewer
+    # sees the description prose.
+    from session.state import SessionState
+    from api.dependencies import get_session_store as _real_store
+    from uuid import UUID
+
+    client = client_factory()
+    r = client.post("/sessions", json={"signer_id": "alice", "gloss": "HELLO"})
+    sid = r.json()["session_id"]
+    auth = {"X-Session-Token": r.json()["session_token"]}
+
+    # Put the session in the failed-generation shape (no hamnosys, but
+    # description + gloss present).
+    store = _real_store()
+    stored = store.get(UUID(sid))
+    assert stored is not None
+    stored = stored.with_draft(
+        description_prose="hand at forehead moving outward",
+        generation_errors=["sigml-direct gave up: missing palm_direction"],
+    ).with_state(SessionState.AWAITING_DESCRIPTION)
+    store.save(stored)
+
+    r = client.post(f"/sessions/{sid}/accept?force=true", headers=auth)
+    assert r.status_code == 200, r.text
+    body = r.json()
+    assert body["session"]["state"] == "finalized"
+    assert body["sign_entry"]["gloss"] == "HELLO"
+    # Placeholder is the four-slot bland-hand: E001 + E020 + E03C + E05F.
+    assert body["sign_entry"]["hamnosys"]
+    assert chr(0xE001) in body["sign_entry"]["hamnosys"]  # handshape
+    assert chr(0xE03C) in body["sign_entry"]["hamnosys"]  # palm
+
+
+def test_accept_force_without_gloss_still_409(client_factory):
+    # Submit-as-is still requires a gloss — without one there's no
+    # way for the reviewer to route the draft. The relaxation applies
+    # to the RENDERED-state gate only.
+    from session.state import SessionState
+    from api.dependencies import get_session_store as _real_store
+    from uuid import UUID
+
+    client = client_factory()
+    r = client.post("/sessions", json={"signer_id": "alice"})
+    sid = r.json()["session_id"]
+    auth = {"X-Session-Token": r.json()["session_token"]}
+
+    store = _real_store()
+    stored = store.get(UUID(sid))
+    assert stored is not None
+    stored = stored.with_state(SessionState.AWAITING_DESCRIPTION)
+    store.save(stored)
+
+    r = client.post(f"/sessions/{sid}/accept?force=true", headers=auth)
+    assert r.status_code == 409
+    assert r.json()["error"]["code"] == "invalid_transition"
+
+
 def test_generate_from_awaiting_description_without_params_still_409(client_factory):
     # The relaxation must not paper over the "never described" case.
     # /generate with no parameters_partial populated still belongs on

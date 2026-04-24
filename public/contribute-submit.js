@@ -242,13 +242,30 @@
   }
 
   function onSubmitClick() {
+    submitDraft({ force: false });
+  }
+
+  // Submit-as-is escape hatch: the chat panel dispatches
+  // ``kozha:submit-as-is`` when the contributor gives up on the
+  // generator and wants the reviewer to finish the sign. Same /accept
+  // call, but the ``isSignValid`` gate is skipped — the draft may be
+  // in a failure state (no hamnosys, errors populated, state still
+  // awaiting_description) and the review queue accepts that as a
+  // "reviewer-completes" submission. Without a listener the button
+  // appeared to do nothing.
+  function onSubmitAsIsEvent() {
+    submitDraft({ force: true });
+  }
+
+  function submitDraft(opts) {
+    var force = !!(opts && opts.force);
     if (submitInFlight) return;
     var snap = CTX.getState();
     if (!snap.sessionId || !snap.sessionToken) {
       showError(tr('contribute.submission.submit_error_no_session', 'This draft does not have an active session. Refresh and try again.'));
       return;
     }
-    if (!isSignValid(snap)) {
+    if (!force && !isSignValid(snap)) {
       showError(tr('contribute.submission.submit_error_not_ready', 'The generated sign needs to be ready before you can submit.'));
       return;
     }
@@ -257,7 +274,9 @@
     showError('');
     refreshSubmitEnabled(snap);
 
-    fetch(API_BASE + '/sessions/' + encodeURIComponent(snap.sessionId) + '/accept', {
+    var acceptUrl = API_BASE + '/sessions/' + encodeURIComponent(snap.sessionId) + '/accept';
+    if (force) acceptUrl += '?force=true';
+    fetch(acceptUrl, {
       method: 'POST',
       headers: {
         'Accept':          'application/json',
@@ -483,6 +502,7 @@
   els.confirmCopyBtn.addEventListener('click', onCopyUrlClick);
   els.confirmAnotherBtn.addEventListener('click', onAnotherClick);
   els.confirmChangeLangBtn.addEventListener('click', onChangeLanguageClick);
+  document.addEventListener('kozha:submit-as-is', onSubmitAsIsEvent);
 
   CTX.subscribe(onStateChange);
   onStateChange(CTX.getState());

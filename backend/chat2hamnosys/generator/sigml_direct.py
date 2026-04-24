@@ -127,6 +127,89 @@ def _missing_required_slots(hamnosys: str) -> list[str]:
     return missing
 
 
+# Best-effort defaults for missing slots. Used by ``_repair_missing_slots``
+# when the LLM keeps dropping a slot the renderer needs but the
+# contributor's prose doesn't constrain. The choices are deliberately
+# bland — palm-down, finger-up, flat hand, neutral space — so the
+# resulting sign is mechanically playable but obviously generic enough
+# that a Deaf reviewer will catch it. Better than handing the user a
+# blank preview and a 5-line error message.
+_DEFAULT_HANDSHAPE_CP = chr(0xE001)   # hamflathand
+_DEFAULT_EXT_FINGER_CP = chr(0xE020)  # hamextfingeru (pointing up)
+_DEFAULT_PALM_CP = chr(0xE03C)        # hampalmd (palm down - most common)
+_DEFAULT_LOCATION_CP = chr(0xE05F)    # hamneutralspace
+
+
+def _repair_missing_slots(hamnosys: str) -> tuple[str, list[str]]:
+    """Patch a HamNoSys string by inserting defaults for any of the four
+    mandatory slots the LLM dropped.
+
+    Returns ``(repaired, injected_slot_names)``. The returned string is
+    the original with default codepoints inserted at the canonical
+    position so the slot order ``handshape → ext_finger → palm →
+    location`` is satisfied. Empty list of injected slots means the
+    string already had everything; in that case the input is returned
+    unchanged.
+
+    Used as a last-resort fallback after the LLM's retry loop fails to
+    produce a complete SiGML. The contributor sees a working preview
+    plus a notice that the auto-fill kicked in, instead of a hard
+    error and a blank preview. Reviewers can then correct the
+    auto-filled slot if it's wrong.
+
+    Note: never injects movement, non-manuals, contact, or repetition
+    — those are genuinely contributor-driven and a bad default is
+    worse than no movement at all.
+    """
+    missing = _missing_required_slots(hamnosys)
+    if not missing:
+        return hamnosys, []
+
+    # Categorise existing characters so we can compute insertion points.
+    chars = list(hamnosys)
+    classes: list[SymClass | None] = [classify(c) for c in chars]
+
+    # The canonical order is:
+    #   [symmetry?] handshape ext_finger palm location ...
+    # We find the index of the FIRST char belonging to each later slot
+    # and insert ahead of it. If nothing later exists, append at end.
+    def _first_index_in(target_classes: set[SymClass]) -> int:
+        for i, c in enumerate(classes):
+            if c in target_classes:
+                return i
+        return len(chars)
+
+    # Order of insertion matters: insert from rightmost slot first so
+    # earlier insertions don't shift later indices.
+    injected: list[str] = []
+    if "location" in missing:
+        # Insert at end (or before the first movement primary if any).
+        insert_at = _first_index_in(_MOVEMENT_PRIMARY_CLASSES)
+        chars.insert(insert_at, _DEFAULT_LOCATION_CP)
+        classes.insert(insert_at, classify(_DEFAULT_LOCATION_CP))
+        injected.append("location")
+    if "palm_direction" in missing:
+        # Palm goes right before location.
+        insert_at = _first_index_in(_LOCATION_CLASSES)
+        chars.insert(insert_at, _DEFAULT_PALM_CP)
+        classes.insert(insert_at, classify(_DEFAULT_PALM_CP))
+        injected.append("palm_direction")
+    if "ext_finger_direction" in missing:
+        # Ext-finger goes right before palm.
+        insert_at = _first_index_in({SymClass.PALM_DIR})
+        chars.insert(insert_at, _DEFAULT_EXT_FINGER_CP)
+        classes.insert(insert_at, classify(_DEFAULT_EXT_FINGER_CP))
+        injected.append("ext_finger_direction")
+    if "handshape" in missing:
+        # Handshape goes at the very front (after any symmetry tags).
+        insert_at = _first_index_in({SymClass.EXT_FINGER_DIR})
+        chars.insert(insert_at, _DEFAULT_HANDSHAPE_CP)
+        classes.insert(insert_at, classify(_DEFAULT_HANDSHAPE_CP))
+        injected.append("handshape")
+
+    return "".join(chars), injected
+
+
 def _has_multi_movement_primary(hamnosys: str) -> bool:
     """Return True if the HamNoSys carries more than one movement-primary
     tag (e.g. ``hammoveo`` followed by ``hamswinging``).
@@ -459,11 +542,36 @@ def _generate_sigml_direct_once(
     # the model to add the missing slot.
     missing = _missing_required_slots(normalized)
     if missing:
-        return "", "", (
-            "missing required HamNoSys slot(s): " + ", ".join(missing) +
-            ". CWASA needs each of [handshape, ext_finger, palm, location] "
-            "before any movement tag — re-emit the SiGML with all four "
-            "present, in canonical order."
+        # Slot-injection fallback: insert default codepoints for the
+        # missing slots and continue with the repaired HamNoSys. The
+        # retry loop caller sees this as a successful generation
+        # (with an ``auto-filled`` annotation in the rationale) so the
+        # contributor gets a playable preview instead of a blank
+        # screen — the reviewer can correct the auto-filled slot in
+        # the chat. Without this the failure was terminal for any
+        # sign whose prose didn't mention palm orientation; reasoning
+        # models drop palm_direction ~30-40% of the time because
+        # everyday descriptions don't encode it ("hand at forehead"
+        # doesn't say whether the palm faces in or down).
+        repaired, injected = _repair_missing_slots(normalized)
+        rvr = validate(repaired)
+        if not (rvr.ok and not _missing_required_slots(repaired)):
+            # Repair somehow produced an invalid string — bail out
+            # as before so the retry loop re-prompts the model.
+            return "", "", (
+                "missing required HamNoSys slot(s): " + ", ".join(missing) +
+                ". CWASA needs each of [handshape, ext_finger, palm, location] "
+                "before any movement tag — re-emit the SiGML with all four "
+                "present, in canonical order."
+            )
+        logger.info(
+            "sigml-direct: auto-filled missing slot(s) %s with defaults",
+            ", ".join(injected),
+        )
+        normalized = repaired
+        rationale = (
+            (rationale + " " if rationale else "") +
+            "(auto-filled missing slot(s): " + ", ".join(injected) + ")"
         )
 
     if _has_multi_movement_primary(normalized):

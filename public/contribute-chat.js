@@ -456,11 +456,33 @@
 
   function retryLastAction() {
     var last = chat.lastAction;
-    if (!last) return;
-    if (last.kind === 'answer') {
-      sendAnswer(last.field, last.text);
-    } else if (last.kind === 'correction') {
-      sendCorrection(last.text);
+    if (last) {
+      if (last.kind === 'answer') {
+        sendAnswer(last.field, last.text);
+        return;
+      } else if (last.kind === 'correction') {
+        sendCorrection(last.text);
+        return;
+      }
+    }
+    // No replayable action — the failure happened during /describe or
+    // during a server-side background generation. The right recovery
+    // is to ask the server to re-run the generator on the already-
+    // stored params. Without this branch "Try again" silently did
+    // nothing whenever the user hit a direct describe → generate →
+    // fail path (which is the most common stuck state).
+    if (CTX && typeof CTX.forceGenerate === 'function') {
+      chat.autoRetriedGen = false;
+      appendMessage({ kind: 'system', text: COPY.GENERATING_MSG });
+      setInFlight(true);
+      CTX.forceGenerate()
+        .catch(function (err) {
+          DEBUG.error('chat: manual retry /generate failed', {
+            status: err && err.status,
+          });
+          surfaceFinalError(err);
+        })
+        .then(function () { setInFlight(false); });
     }
   }
 
@@ -596,11 +618,21 @@
     chat.inError = true;
     var picked = pickErrorMessage(err);
     appendMessage({ kind: 'error', text: picked.text });
-    // The error actions strip is shown when *anything* useful sits in
-    // it. Retry is offered whenever we have a lastAction to replay
-    // (i.e. the failure came from a /answer or /correct call); the
-    // submit-as-is escape hatch follows pickErrorMessage's verdict.
-    var hasRetryTarget = !!chat.lastAction;
+    // The error actions strip is shown when *anything* useful sits
+    // in it. Retry is offered whenever we can replay a chat action
+    // OR call forceGenerate to re-run the server-side generator on
+    // the already-stored params (the describe → generate failure
+    // path has no lastAction but the session has enough state for a
+    // /generate retry). Submit-as-is follows pickErrorMessage's
+    // verdict.
+    var snap = CTX.getState();
+    var canForceGenerate = !!(
+      snap.sessionId &&
+      snap.sessionState &&
+      snap.sessionState !== 'finalized' &&
+      snap.sessionState !== 'abandoned'
+    );
+    var hasRetryTarget = !!chat.lastAction || canForceGenerate;
     if (els.retryBtn) els.retryBtn.hidden = !hasRetryTarget;
     if (els.submitAsIs) els.submitAsIs.hidden = !picked.offerSubmitAsIs;
     els.errorActions.hidden = !(hasRetryTarget || picked.offerSubmitAsIs);
@@ -828,6 +860,10 @@
           appendMessage({ kind: 'notice', text: COPY.GENERATION_FAILED_DEBUG + errs[0] });
           if (path) appendMessage({ kind: 'notice', text: COPY.GENERATION_PATH_LABEL + path });
           if (cand) appendMessage({ kind: 'notice', text: COPY.GENERATION_CANDIDATE_LABEL + cand });
+          // Expose both Retry (manual forceGenerate) and Submit-as-is
+          // since an accepted draft is the only remaining escape.
+          if (els.retryBtn) els.retryBtn.hidden = false;
+          if (els.submitAsIs) els.submitAsIs.hidden = false;
           els.errorActions.hidden = false;
         })
         .then(function () { setInFlight(false); });
@@ -843,6 +879,12 @@
     if (cand) {
       appendMessage({ kind: 'notice', text: COPY.GENERATION_CANDIDATE_LABEL + cand });
     }
+    // Same as the auto-retry failure path: both Retry and
+    // Submit-as-is apply here, since the user can either re-run the
+    // generator manually or submit the draft for the reviewer to
+    // finish.
+    if (els.retryBtn) els.retryBtn.hidden = false;
+    if (els.submitAsIs) els.submitAsIs.hidden = false;
     els.errorActions.hidden = false;
   }
 

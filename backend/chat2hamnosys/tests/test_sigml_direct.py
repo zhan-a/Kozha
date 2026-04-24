@@ -210,3 +210,80 @@ def test_generate_sigml_direct_strips_xml_declaration():
     # declaration, so the result includes one — the model's wrapper
     # was stripped before reverse-mapping.
     assert "<?xml" in sigml_xml
+
+
+def test_generate_sigml_direct_autofills_missing_palm_direction():
+    # The LLM emits SiGML with handshape + ext-finger + location +
+    # movement but no palm tag — the slot-repair fallback should
+    # inject ``<hampalmd/>`` (default) so the contributor gets a
+    # playable preview instead of a hard "missing palm_direction"
+    # error and a blank screen. Regression: this failure mode was
+    # the #1 stuck state reported by contributors and used to be
+    # terminal after 3 retries.
+    from parser.models import PartialSignParameters
+
+    fragment = (
+        "<hns_sign gloss=\"X\">"
+        "<hamnosys_manual>"
+        "<hamflathand/><hamextfingeru/><hamhead/><hammoveo/>"
+        "</hamnosys_manual>"
+        "</hns_sign>"
+    )
+    client = _StubClient(
+        json.dumps({"sigml_xml": fragment, "rationale": "flat at head"})
+    )
+    params = PartialSignParameters(
+        handshape_dominant="flat", orientation_extended_finger="up",
+        location="head",
+    )
+    hamnosys, sigml_xml, rationale = generate_sigml_direct(
+        parameters=params,
+        client=client,
+        request_id="test-autofill",
+        prose="flat hand at head moving outward",
+        gloss="X",
+        sign_language="bsl",
+    )
+    # Generation succeeds because the fallback patches the missing slot.
+    assert hamnosys
+    assert sigml_xml
+    # Rationale annotates which slot was auto-filled so the chat can
+    # surface the info to the reviewer.
+    assert "auto-filled" in rationale
+    assert "palm_direction" in rationale
+    # Default palm tag is hampalmd (U+E03C).
+    assert chr(0xE03C) in hamnosys
+
+
+def test_generate_sigml_direct_autofills_multiple_slots():
+    # Two slots missing (palm + ext-finger). Both should get defaults
+    # and the rationale should mention both. A sign with only a
+    # handshape and a location isn't a great sign, but it's better to
+    # hand the reviewer a visible draft they can correct than a 500.
+    from parser.models import PartialSignParameters
+
+    fragment = (
+        "<hns_sign gloss=\"X\">"
+        "<hamnosys_manual>"
+        "<hamflathand/><hamhead/>"
+        "</hamnosys_manual>"
+        "</hns_sign>"
+    )
+    client = _StubClient(
+        json.dumps({"sigml_xml": fragment, "rationale": "flat at head"})
+    )
+    params = PartialSignParameters(handshape_dominant="flat", location="head")
+    hamnosys, _, rationale = generate_sigml_direct(
+        parameters=params,
+        client=client,
+        request_id="test-autofill-multi",
+        prose="flat hand at head",
+        gloss="X",
+        sign_language="bsl",
+    )
+    assert hamnosys
+    assert "auto-filled" in rationale
+    assert "palm_direction" in rationale
+    assert "ext_finger_direction" in rationale
+    assert chr(0xE020) in hamnosys  # hamextfingeru
+    assert chr(0xE03C) in hamnosys  # hampalmd
