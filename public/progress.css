@@ -12,7 +12,15 @@
  * one representation at a time.
  * ------------------------------------------------------------------ */
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+/* Box-sizing reset only — universal "padding: 0" wiped the unified
+   .kz-header padding (components.css uses :where() for zero
+   specificity). Element-typed resets keep the design-system rules
+   intact across every sub-page. */
+*, *::before, *::after { box-sizing: border-box; }
+body, h1, h2, h3, h4, p, ul, ol, dl, dd, figure, blockquote {
+  margin: 0;
+}
+ul, ol { padding-left: 0; list-style: none; }
 
 html { scroll-behavior: smooth; }
 
@@ -99,23 +107,18 @@ body.progress-body {
 .progress-main {
   max-width: var(--kozha-layout-page-max);
   margin: 0 auto;
-  padding: calc(var(--kozha-layout-nav-h) + var(--kozha-space-12))
-           var(--kozha-space-12) var(--kozha-space-16);
+  /* Match governance / whats-new / credits padding: clears the
+     fixed .kz-header and gives the breadcrumb the same top breathing
+     room as the other sub-pages. */
+  padding: calc(var(--kozha-layout-nav-h) + var(--kozha-space-8))
+           var(--kozha-space-8)
+           var(--kozha-space-16);
 }
 
-.progress-hero { max-width: 720px; margin: 0 auto var(--kozha-space-12); text-align: center; }
-.progress-eyebrow {
-  display: inline-block;
-  font-size: var(--kozha-text-caption-lg);
-  font-weight: var(--kozha-weight-semibold);
-  text-transform: uppercase;
-  letter-spacing: var(--kozha-tracking-widest);
-  color: var(--kozha-color-accent);
-  background: var(--kozha-color-accent-light);
-  padding: 6px 14px;
-  border-radius: var(--kozha-radius-pill);
-  margin-bottom: var(--kozha-space-6);
-}
+/* Top panel now mirrors the sub-page pattern: breadcrumb → left-
+   aligned serif h1 → lede → timestamp. The prior centered "hero"
+   with an accent-pill eyebrow and a hero-sized H1 didn't sit next
+   to the rest of the site — it read as a separate brand. */
 .progress-h1 {
   font-family: var(--kozha-font-serif);
   font-size: var(--kozha-text-hero-h1);
@@ -123,20 +126,21 @@ body.progress-body {
   letter-spacing: var(--kozha-tracking-tightest);
   line-height: var(--kozha-leading-tight);
   color: var(--kozha-color-ink);
-  margin-bottom: var(--kozha-space-4);
+  margin: 0 0 var(--kozha-space-4);
 }
 .progress-lede {
   font-size: var(--kozha-text-hero-sub);
   line-height: var(--kozha-leading-loose);
   color: var(--kozha-color-ink-2);
-  max-width: 640px;
-  margin: 0 auto var(--kozha-space-4);
+  max-width: 62ch;
+  margin: 0 0 var(--kozha-space-3);
 }
 .progress-dash { color: var(--kozha-color-accent); font-weight: var(--kozha-weight-semibold); }
 .progress-generated {
   font-size: var(--kozha-text-caption-lg);
   color: var(--kozha-color-ink-3);
   font-variant-numeric: tabular-nums;
+  margin: 0 0 var(--kozha-space-8);
 }
 
 /* ===== Section scaffold ===== */

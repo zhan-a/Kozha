@@ -3,30 +3,30 @@
   "_locale": "en",
 
   "landing": {
-    "title": "Bridgn — Text and speech to sign language",
-    "meta_description": "Bridgn translates typed text, recorded speech, and uploaded video into sign-language animations. Free and open-source.",
-    "og_title": "Bridgn — Text and speech to sign language",
+    "title": "Kozha — Text and speech to sign language",
+    "meta_description": "Kozha translates typed text, recorded speech, and uploaded video into sign-language animations. Free and open-source.",
+    "og_title": "Kozha — Text and speech to sign language",
     "og_description": "Translate typed text, recorded speech, and uploaded video into sign-language animations.",
-    "site_name": "Bridgn",
+    "site_name": "Kozha",
     "nav_open_translator": "Open translator",
     "nav_contribute_sign": "Contribute a sign",
     "hero_heading": "Text and speech to sign language.",
-    "hero_body": "Bridgn translates typed text, recorded speech, and uploaded video into sign-language animations — entirely in your browser, free and open-source.",
+    "hero_body": "Kozha translates typed text, recorded speech, and uploaded video into sign-language animations — entirely in your browser, free and open-source.",
     "hero_cta_open_translator": "Open translator",
     "hero_cta_contribute": "Contribute a sign",
     "credits_heading": "Credits",
-    "credits_lead": "Bridgn builds on work released by Deaf research institutions, linguists, and open-source contributors. Full attributions and licence terms are in the {{readme_link}}.",
+    "credits_lead": "Kozha builds on work released by Deaf research institutions, linguists, and open-source contributors. Full attributions and licence terms are in the {{readme_link}}.",
     "credits_readme_link_text": "project README",
     "credits_cwasa": "CWASA — 3D avatar engine, Virtual Humans Group, University of East Anglia.",
     "credits_hamnosys": "HamNoSys — notation system, Institute of German Sign Language, Universität Hamburg.",
     "credits_databases": "Sign-language databases: DictaSign (BSL, GSL/LSF), SignAvatars (DGS, PJM), SignLanguageSynthesis (NGT), algerianSignLanguage-avatar, bdsl-3d-animation (Bangla), Text-to-Sign-Language and text_to_isl (Indian), KurdishSignLanguage, VSL (Vietnamese), syntheticfsl and signtyper (Filipino). See the README for each author and licence.",
-    "footer_copyright": "© 2025–2026 Bridgn. Open-source research project.",
+    "footer_copyright": "© 2025–2026 Kozha. Open-source research project.",
     "footer_governance_link": "Governance"
   },
 
   "common": {
     "skip_to_main": "Skip to main content",
-    "site_name": "Bridgn",
+    "site_name": "Kozha",
     "nav_translate": "Translate",
     "nav_contribute": "Contribute",
     "nav_progress": "Progress",
@@ -54,8 +54,8 @@
   },
 
   "contribute": {
-    "page_title": "Contribute a sign — Bridgn",
-    "meta_description": "Contribute a single sign to the Bridgn dictionary. Pick a sign language, describe the sign, review the notation, submit for Deaf review.",
+    "page_title": "Contribute a sign — Kozha",
+    "meta_description": "Contribute a single sign to the Kozha dictionary. Pick a sign language, describe the sign, review the notation, submit for Deaf review.",
     "heading": "Contribute a sign",
 
     "language_picker": {
@@ -270,7 +270,7 @@
       "nav_label": "What next",
       "another_sign": "Contribute another sign",
       "change_language": "Change language",
-      "back_to_bridgn": "Back to Bridgn"
+      "back_to_bridgn": "Back to Kozha"
     },
 
     "copy_session_success_with_session": "Copied session URL",
@@ -292,8 +292,8 @@
   },
 
   "status": {
-    "page_title": "Submission status — Bridgn",
-    "meta_description": "View the status of a sign you submitted to the Bridgn dictionary.",
+    "page_title": "Submission status — Kozha",
+    "meta_description": "View the status of a sign you submitted to the Kozha dictionary.",
     "heading": "Submission status",
     "loading": "Loading status…",
     "section_your_description": "Your description",
@@ -350,13 +350,13 @@
   },
 
   "governance": {
-    "page_title": "Governance — Bridgn",
-    "meta_description": "How contributions to Bridgn are reviewed: who reviews, the Deaf advisory board, what happens to your submission, evaluation criteria, and how to raise a concern.",
+    "page_title": "Governance — Kozha",
+    "meta_description": "How contributions to Kozha are reviewed: who reviews, the Deaf advisory board, what happens to your submission, evaluation criteria, and how to raise a concern.",
     "heading": "Governance",
     "lede": "This page describes who reviews the signs you submit, what happens to them, and how to raise a concern about a sign already published. It is short on purpose. Everything below is a factual description of how review works — or, where something is not yet in place, a plain statement of that.",
 
     "reviewers_heading": "Who reviews signs",
-    "reviewers_body_1": "Every submission is reviewed by Deaf signers of the language it was submitted in. A sign is validated only after two reviewers of that language approve it. For each sign language Bridgn supports, at least one of the two reviewers must be a Deaf native signer of that language. Non-native reviewers may second an approval, but they cannot approve alone, and any non-native approval requires written justification that the Deaf native reviewer can later override.",
+    "reviewers_body_1": "Every submission is reviewed by Deaf signers of the language it was submitted in. A sign is validated only after two reviewers of that language approve it. For each sign language Kozha supports, at least one of the two reviewers must be a Deaf native signer of that language. Non-native reviewers may second an approval, but they cannot approve alone, and any non-native approval requires written justification that the Deaf native reviewer can later override.",
     "reviewers_body_2": "Reviewers are onboarded individually and listed here by name, affiliation, and the language(s) they are accredited to review. If a language does not yet have Deaf native-signer reviewers, submissions in that language are saved as drafts and do not enter the review queue until reviewers are seated. We do not route signs to reviewers who do not sign the language natively.",
     "reviewers_loading": "Loading reviewer roster…",
     "reviewers_empty": "No reviewers are onboarded yet. Submissions are being accepted and saved as drafts, but the review queue is paused until the Deaf advisory board seats the first reviewers.",

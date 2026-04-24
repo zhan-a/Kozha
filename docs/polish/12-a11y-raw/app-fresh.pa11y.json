@@ -1,6 +1,6 @@
 {
-  "documentTitle": "Bridgn — Translator",
-  "pageUrl": "http://127.0.0.1:57133/app.html",
+  "documentTitle": "Kozha — Translator",
+  "pageUrl": "http://127.0.0.1:57853/app.html",
   "issues": [
     {
       "code": "WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206",
@@ -17,7 +17,7 @@
       "type": "warning",
       "typeCode": 2,
       "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
-      "context": "<a href=\"/\" class=\"kz-header__logo\">Bridg<span>n</span></a>",
+      "context": "<a href=\"/\" class=\"kz-header__logo\">Koz<span>ha</span></a>",
       "selector": "html > body > header > a",
       "runner": "htmlcs",
       "runnerExtras": {}
@@ -27,7 +27,7 @@
       "type": "warning",
       "typeCode": 2,
       "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
-      "context": "<span>n</span>",
+      "context": "<span>ha</span>",
       "selector": "html > body > header > a > span",
       "runner": "htmlcs",
       "runnerExtras": {}

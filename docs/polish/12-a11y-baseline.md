@@ -1,6 +1,6 @@
 # A11y baseline — polish prompt 12
 
-Captured by `scripts/a11y/run.mjs` on 2026-04-24 18:19:46 UTC.
+Captured by `scripts/a11y/run.mjs` on 2026-04-24 18:33:59 UTC.
 
 Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best-practice`) and pa11y (HTML_CodeSniffer, `WCAG2AA`) against each scenario below. Raw JSON per scenario is in `12-a11y-raw/`. Screen-reader, keyboard-live, and device-matrix results live in sibling `12-sr-findings.md` and `12-lighthouse-audit.md`.
 
@@ -13,20 +13,20 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 | progress | Progress dashboard /progress | 0 | 0 | 0 | 0 | 0 | 35 |
 | credits | Credits /credits | 0 | 0 | 0 | 0 | 0 | 7 |
 | not-found | 404 page | 0 | 0 | 0 | 0 | 0 | 7 |
-| contribute-empty | Contribute — empty state, language picker | 0 | 0 | 0 | 0 | 0 | 16 |
+| contribute-empty | Contribute — empty state, language picker | 0 | 0 | 0 | 0 | 0 | 17 |
 | contribute-after-language | Contribute — language selected, empty authoring area | 0 | 0 | 0 | 0 | 0 | 0 |
 | contribute-mid-session | Contribute — mid-session (chat + preview + notation + submit visible) | 0 | 0 | 0 | 0 | 0 | 0 |
-| governance | Governance page | 0 | 0 | 0 | 0 | 0 | 6 |
-| status-draft | Submission status — draft | 0 | 0 | 0 | 0 | 0 | 7 |
-| status-pending_review | Submission status — pending_review | 0 | 0 | 0 | 0 | 0 | 7 |
-| status-under_review | Submission status — under_review | 0 | 0 | 0 | 0 | 0 | 7 |
-| status-validated | Submission status — validated | 0 | 0 | 0 | 0 | 0 | 7 |
-| status-rejected | Submission status — rejected | 0 | 0 | 0 | 0 | 0 | 7 |
-| status-quarantined | Submission status — quarantined | 0 | 0 | 0 | 0 | 0 | 7 |
+| governance | Governance page | 0 | 0 | 0 | 0 | 0 | 7 |
+| status-draft | Submission status — draft | 0 | 0 | 0 | 0 | 0 | 8 |
+| status-pending_review | Submission status — pending_review | 0 | 0 | 0 | 0 | 0 | 8 |
+| status-under_review | Submission status — under_review | 0 | 0 | 0 | 0 | 0 | 8 |
+| status-validated | Submission status — validated | 0 | 0 | 0 | 0 | 0 | 8 |
+| status-rejected | Submission status — rejected | 0 | 0 | 0 | 0 | 0 | 8 |
+| status-quarantined | Submission status — quarantined | 0 | 0 | 0 | 0 | 0 | 8 |
 
 ## Landing page / (index.html)
 
-- URL: `http://127.0.0.1:57133/`
+- URL: `http://127.0.0.1:57853/`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 21 warning
 
@@ -56,7 +56,7 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Translator /app — fresh load
 
-- URL: `http://127.0.0.1:57133/app.html`
+- URL: `http://127.0.0.1:57853/app.html`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 15 warning
 
@@ -86,13 +86,13 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Translator /app — mid-translation (captions, token list, controls active)
 
-- URL: `http://127.0.0.1:57133/app.html`
+- URL: `http://127.0.0.1:57853/app.html`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 0 warning
 
 ## Progress dashboard /progress
 
-- URL: `http://127.0.0.1:57133/progress.html`
+- URL: `http://127.0.0.1:57853/progress.html`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 35 warning
 
@@ -122,7 +122,7 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Credits /credits
 
-- URL: `http://127.0.0.1:57133/credits.html`
+- URL: `http://127.0.0.1:57853/credits.html`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 7 warning
 
@@ -145,7 +145,7 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## 404 page
 
-- URL: `http://127.0.0.1:57133/404.html`
+- URL: `http://127.0.0.1:57853/404.html`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 7 warning
 
@@ -168,9 +168,9 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Contribute — empty state, language picker
 
-- URL: `http://127.0.0.1:57133/contribute.html`
+- URL: `http://127.0.0.1:57853/contribute.html`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
-- pa11y: 0 error, 16 warning
+- pa11y: 0 error, 17 warning
 
 ### pa11y issues
 
@@ -178,6 +178,8 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
   - `html > body > header`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
   - `html > body > header > a`
+- **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
+  - `html > body > header > a > span`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
   - `html > body > header > ul > li:nth-child(1) > a`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
@@ -192,27 +194,25 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
   - `#pickerSelect`
 - **warning** `WCAG2AA.Principle1.Guideline1_3.1_3_1.H85.2` — If this selection list contains groups of related options, they should be grouped with optgroup.
   - `#pickerSelect`
-- **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206` — Preformatted text may require scrolling in two dimensions, which is considered a failure of this Success Criterion.
-  - ``
-- …and 6 more (see raw)
+- …and 7 more (see raw)
 
 ## Contribute — language selected, empty authoring area
 
-- URL: `http://127.0.0.1:57133/contribute.html`
+- URL: `http://127.0.0.1:57853/contribute.html`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 0 warning
 
 ## Contribute — mid-session (chat + preview + notation + submit visible)
 
-- URL: `http://127.0.0.1:57133/contribute.html`
+- URL: `http://127.0.0.1:57853/contribute.html`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 0 warning
 
 ## Governance page
 
-- URL: `http://127.0.0.1:57133/governance.html`
+- URL: `http://127.0.0.1:57853/governance.html`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
-- pa11y: 0 error, 6 warning
+- pa11y: 0 error, 7 warning
 
 ### pa11y issues
 
@@ -220,6 +220,8 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
   - `html > body > header`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
   - `html > body > header > a`
+- **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
+  - `html > body > header > a > span`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
   - `html > body > header > ul > li:nth-child(1) > a`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
@@ -231,9 +233,9 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Submission status — draft
 
-- URL: `http://127.0.0.1:57133/contribute/status/sim-draft`
+- URL: `http://127.0.0.1:57853/contribute/status/sim-draft`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
-- pa11y: 0 error, 7 warning
+- pa11y: 0 error, 8 warning
 
 ### pa11y issues
 
@@ -241,6 +243,8 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
   - `html > body > header`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
   - `html > body > header > a`
+- **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
+  - `html > body > header > a > span`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
   - `html > body > header > ul > li:nth-child(1) > a`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
@@ -254,9 +258,9 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Submission status — pending_review
 
-- URL: `http://127.0.0.1:57133/contribute/status/sim-pending_review`
+- URL: `http://127.0.0.1:57853/contribute/status/sim-pending_review`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
-- pa11y: 0 error, 7 warning
+- pa11y: 0 error, 8 warning
 
 ### pa11y issues
 
@@ -264,6 +268,8 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
   - `html > body > header`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
   - `html > body > header > a`
+- **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
+  - `html > body > header > a > span`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
   - `html > body > header > ul > li:nth-child(1) > a`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
@@ -277,9 +283,9 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Submission status — under_review
 
-- URL: `http://127.0.0.1:57133/contribute/status/sim-under_review`
+- URL: `http://127.0.0.1:57853/contribute/status/sim-under_review`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
-- pa11y: 0 error, 7 warning
+- pa11y: 0 error, 8 warning
 
 ### pa11y issues
 
@@ -287,6 +293,8 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
   - `html > body > header`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
   - `html > body > header > a`
+- **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
+  - `html > body > header > a > span`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
   - `html > body > header > ul > li:nth-child(1) > a`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
@@ -300,9 +308,9 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Submission status — validated
 
-- URL: `http://127.0.0.1:57133/contribute/status/sim-validated`
+- URL: `http://127.0.0.1:57853/contribute/status/sim-validated`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
-- pa11y: 0 error, 7 warning
+- pa11y: 0 error, 8 warning
 
 ### pa11y issues
 
@@ -310,6 +318,8 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
   - `html > body > header`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
   - `html > body > header > a`
+- **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
+  - `html > body > header > a > span`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
   - `html > body > header > ul > li:nth-child(1) > a`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
@@ -323,9 +333,9 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Submission status — rejected
 
-- URL: `http://127.0.0.1:57133/contribute/status/sim-rejected`
+- URL: `http://127.0.0.1:57853/contribute/status/sim-rejected`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
-- pa11y: 0 error, 7 warning
+- pa11y: 0 error, 8 warning
 
 ### pa11y issues
 
@@ -333,6 +343,8 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
   - `html > body > header`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
   - `html > body > header > a`
+- **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
+  - `html > body > header > a > span`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
   - `html > body > header > ul > li:nth-child(1) > a`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
@@ -346,9 +358,9 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Submission status — quarantined
 
-- URL: `http://127.0.0.1:57133/contribute/status/sim-quarantined`
+- URL: `http://127.0.0.1:57853/contribute/status/sim-quarantined`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
-- pa11y: 0 error, 7 warning
+- pa11y: 0 error, 8 warning
 
 ### pa11y issues
 
@@ -356,6 +368,8 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
   - `html > body > header`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
   - `html > body > header > a`
+- **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
+  - `html > body > header > a > span`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.
   - `html > body > header > ul > li:nth-child(1) > a`
 - **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha` — This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.

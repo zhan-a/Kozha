@@ -154,7 +154,7 @@
 
   function exportText() {
     var head = [
-      '# Bridgn / Kozha contribute debug log',
+      '# Kozha / Kozha contribute debug log',
       '# session started ' + sessionStartedAt.toISOString(),
       '# exported       ' + new Date().toISOString(),
       '# url            ' + window.location.href,

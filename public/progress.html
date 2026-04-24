@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Progress — Bridgn</title>
-  <meta name="description" content="Live progress numbers for Bridgn's sign-language databases: per-language coverage, Deaf-native review status, and recent validations.">
-  <meta property="og:title" content="Progress — Bridgn">
-  <meta property="og:description" content="Live progress numbers for Bridgn's sign-language databases.">
+  <title>Progress — Kozha</title>
+  <meta name="description" content="Live progress numbers for Kozha's sign-language databases: per-language coverage, Deaf-native review status, and recent validations.">
+  <meta property="og:title" content="Progress — Kozha">
+  <meta property="og:description" content="Live progress numbers for Kozha's sign-language databases.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kozha-translate.com/progress">
   <meta name="twitter:card" content="summary">
@@ -25,7 +25,7 @@
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <header class="kz-header" aria-label="Main navigation">
-    <a href="/" class="kz-header__logo">Bridg<span>n</span></a>
+    <a href="/" class="kz-header__logo">Koz<span>ha</span></a>
     <ul class="kz-header__nav">
       <li><a href="/app.html" class="kz-header__link">Translate</a></li>
       <li><a href="/contribute.html" class="kz-header__link">Contribute</a></li>
@@ -38,15 +38,21 @@
   </header>
 
   <main id="main-content" class="progress-main" role="main">
-    <header class="progress-hero">
-      <div class="progress-eyebrow">Transparency</div>
-      <h1 class="progress-h1">Progress.</h1>
-      <p class="progress-lede">
-        Live numbers from the Bridgn databases. Deaf-native review status, coverage per language, recent validations. If something cannot be computed honestly, it is marked
-        <span class="progress-dash" aria-label="em dash">—</span> rather than zero.
-      </p>
-      <p class="progress-generated" id="progressGenerated" aria-live="polite">Loading…</p>
-    </header>
+    <!-- Match the sub-page top panel used on governance / whats-new /
+         credits / contribute-status: breadcrumb → serif h1 → lede
+         paragraph. The old ``progress-hero`` carried its own eyebrow
+         chip + hero H1 style that made the page read as a separate
+         brand, not a section of the site. -->
+    <ol class="kz-breadcrumbs" aria-label="Breadcrumb">
+      <li><a href="/">Home</a></li>
+      <li aria-current="page">Progress</li>
+    </ol>
+    <h1 class="progress-h1">Progress</h1>
+    <p class="progress-lede">
+      Live numbers from the Kozha databases. Deaf-native review status, coverage per language, recent validations. If something cannot be computed honestly, it is marked
+      <span class="progress-dash" aria-label="em dash">—</span> rather than zero.
+    </p>
+    <p class="progress-generated" id="progressGenerated" aria-live="polite">Loading…</p>
 
     <section class="progress-section" aria-labelledby="topLineHeading">
       <h2 id="topLineHeading" class="progress-section-title">At a glance</h2>
@@ -153,7 +159,7 @@
   <footer class="kz-footer" role="contentinfo">
     <div class="kz-footer__inner">
       <div class="kz-footer__brand">
-        <a href="/" class="kz-footer__logo">Bridg<span>n</span></a>
+        <a href="/" class="kz-footer__logo">Koz<span>ha</span></a>
         <p class="kz-footer__mission">Open-source translator from text and speech into sign language. Built with the Deaf community.</p>
       </div>
       <nav class="kz-footer__cols" aria-label="Footer">
@@ -182,7 +188,7 @@
         </div>
       </nav>
       <div class="kz-footer__meta">
-        <p class="kz-footer__copy">© 2025–2026 Bridgn. Open-source research project.</p>
+        <p class="kz-footer__copy">© 2025–2026 Kozha. Open-source research project.</p>
         <p class="kz-footer__os">Open source on <a href="https://github.com/zhan-a/Kozha" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
       </div>
     </div>

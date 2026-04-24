@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>What's new — Bridgn</title>
+  <title>What's new — Kozha</title>
   <meta name="description" content="Plain-language changelog of the April 2026 polish release: translator bug fixes, new progress dashboard, expanded credits, and a11y improvements.">
-  <meta property="og:title" content="What's new — Bridgn">
+  <meta property="og:title" content="What's new — Kozha">
   <meta property="og:description" content="Plain-language changelog of the April 2026 polish release.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kozha-translate.com/whats-new">
@@ -72,7 +72,12 @@
       color: var(--kozha-color-ink-2);
       max-width: 62ch;
     }
-    main.whats-new ul {
+    /* Scope bullet styling to release-section only. Targeting bare
+       ``main.whats-new ul`` leaked the accent dots into the breadcrumb
+       (``<ol class="kz-breadcrumbs">``) which lives inside
+       ``main.whats-new`` too — you'd see a stray orange dot before
+       "Home". */
+    main.whats-new .release-section ul {
       list-style: none;
       padding-left: 0;
       margin: 0;
@@ -80,12 +85,12 @@
       flex-direction: column;
       gap: var(--kozha-space-4);
     }
-    main.whats-new li {
+    main.whats-new .release-section li {
       position: relative;
       padding-left: calc(var(--kozha-space-6) + var(--kozha-space-1));
       margin: 0;
     }
-    main.whats-new li::before {
+    main.whats-new .release-section li::before {
       content: '';
       position: absolute;
       left: 0;
@@ -137,7 +142,7 @@
   <a href="#main" class="skip-link kz-skip-link">Skip to main content</a>
 
   <header class="kz-header" aria-label="Main navigation">
-    <a href="/" class="kz-header__logo">Bridg<span>n</span></a>
+    <a href="/" class="kz-header__logo">Koz<span>ha</span></a>
     <ul class="kz-header__nav">
       <li><a href="/app.html" class="kz-header__link">Translate</a></li>
       <li><a href="/contribute.html" class="kz-header__link">Contribute</a></li>
@@ -244,7 +249,7 @@
   <footer class="kz-footer" role="contentinfo">
     <div class="kz-footer__inner">
       <div class="kz-footer__brand">
-        <a href="/" class="kz-footer__logo">Bridg<span>n</span></a>
+        <a href="/" class="kz-footer__logo">Koz<span>ha</span></a>
         <p class="kz-footer__mission">Open-source translator from text and speech into sign language. Built with the Deaf community.</p>
       </div>
       <nav class="kz-footer__cols" aria-label="Footer">
@@ -273,7 +278,7 @@
         </div>
       </nav>
       <div class="kz-footer__meta">
-        <p class="kz-footer__copy">© 2025–2026 Bridgn. Open-source research project.</p>
+        <p class="kz-footer__copy">© 2025–2026 Kozha. Open-source research project.</p>
         <p class="kz-footer__os">Open source on <a href="https://github.com/zhan-a/Kozha" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
       </div>
     </div>

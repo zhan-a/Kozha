@@ -86,7 +86,7 @@
 
   // Small public hook so tests / console can see what's active without
   // touching localStorage keys by name.
-  window.BridgnByoKey = {
+  window.KozhaByoKey = {
     has: function () { return !!readKey(); },
     clear: function () { writeKey(''); }
   };

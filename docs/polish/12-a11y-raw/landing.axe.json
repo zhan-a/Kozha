@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-24T18:18:49.427Z",
-  "url": "http://127.0.0.1:57133/",
+  "timestamp": "2026-04-24T18:33:11.418Z",
+  "url": "http://127.0.0.1:57853/",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -2591,7 +2591,7 @@
                   ]
                 },
                 {
-                  "html": "<h2 class=\"section-title\">What <em>Bridgn</em> does.</h2>",
+                  "html": "<h2 class=\"section-title\">What <em>Kozha</em> does.</h2>",
                   "target": [
                     "#features > .section-title"
                   ]
@@ -2694,7 +2694,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-header__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-header__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-header__logo"
           ]
@@ -2719,7 +2719,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span>n</span>",
+          "html": "<span>ha</span>",
           "target": [
             ".kz-header__logo > span"
           ]
@@ -2894,7 +2894,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"hero-sub fade-up delay-3\" data-i18n=\"landing.hero_body\">Bridgn translates typed text, recorded speech, and uploaded video into sign-language animations — entirely in your browser, free and open-source.</p>",
+          "html": "<p class=\"hero-sub fade-up delay-3\" data-i18n=\"landing.hero_body\">Kozha translates typed text, recorded speech, and uploaded video into sign-language animations — entirely in your browser, free and open-source.</p>",
           "target": [
             ".hero-sub"
           ]
@@ -3539,7 +3539,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"feature-body\">Upload a recorded video. Bridgn extracts the audio track, transcribes it, and generates the corresponding sign sequence.</p>",
+          "html": "<p class=\"feature-body\">Upload a recorded video. Kozha extracts the audio track, transcribes it, and generates the corresponding sign sequence.</p>",
           "target": [
             ".feature-card.kz-card:nth-child(3) > .feature-body"
           ]
@@ -4064,7 +4064,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Bridgn's sign database has limited vocabulary and needs help. If you know sign language, work in accessibility, or can code, you can add signs, improve translations, or fix bugs.</p>",
+          "html": "<p>Kozha's sign database has limited vocabulary and needs help. If you know sign language, work in accessibility, or can code, you can add signs, improve translations, or fix bugs.</p>",
           "target": [
             ".contribute-text > p"
           ]
@@ -4114,7 +4114,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-footer__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-footer__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-footer__logo"
           ]
@@ -4139,7 +4139,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span>n</span>",
+          "html": "<span>ha</span>",
           "target": [
             ".kz-footer__logo > span"
           ]
@@ -4464,7 +4464,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"kz-footer__copy\" data-i18n=\"landing.footer_copyright\">© 2025–2026 Bridgn. Open-source research project.</p>",
+          "html": "<p class=\"kz-footer__copy\" data-i18n=\"landing.footer_copyright\">© 2025–2026 Kozha. Open-source research project.</p>",
           "target": [
             ".kz-footer__copy"
           ]
@@ -4656,7 +4656,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h2 class=\"section-title\">What <em>Bridgn</em> does.</h2>",
+          "html": "<h2 class=\"section-title\">What <em>Kozha</em> does.</h2>",
           "target": [
             "#features > .section-title"
           ]
@@ -4921,7 +4921,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h2 class=\"section-title\">What <em>Bridgn</em> does.</h2>",
+          "html": "<h2 class=\"section-title\">What <em>Kozha</em> does.</h2>",
           "target": [
             "#features > .section-title"
           ]
@@ -5693,7 +5693,7 @@
             }
           ],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-header__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-header__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-header__logo"
           ]
@@ -5953,7 +5953,7 @@
             }
           ],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-footer__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-footer__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-footer__logo"
           ]
@@ -7848,7 +7848,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-header__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-header__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-header__logo"
           ]
@@ -7868,7 +7868,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span>n</span>",
+          "html": "<span>ha</span>",
           "target": [
             ".kz-header__logo > span"
           ]
@@ -8168,7 +8168,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"hero-sub fade-up delay-3\" data-i18n=\"landing.hero_body\">Bridgn translates typed text, recorded speech, and uploaded video into sign-language animations — entirely in your browser, free and open-source.</p>",
+          "html": "<p class=\"hero-sub fade-up delay-3\" data-i18n=\"landing.hero_body\">Kozha translates typed text, recorded speech, and uploaded video into sign-language animations — entirely in your browser, free and open-source.</p>",
           "target": [
             ".hero-sub"
           ]
@@ -10148,7 +10148,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h2 class=\"section-title\">What <em>Bridgn</em> does.</h2>",
+          "html": "<h2 class=\"section-title\">What <em>Kozha</em> does.</h2>",
           "target": [
             "#features > .section-title"
           ]
@@ -10168,7 +10168,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<em>Bridgn</em>",
+          "html": "<em>Kozha</em>",
           "target": [
             "#features > .section-title > em"
           ]
@@ -10328,7 +10328,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"feature-card kz-card\">\n        <div class=\"feature-title\">Video Input</div>\n        <p class=\"feature-body\">Upload a recorded video. Bridgn extracts the audio track, transcribes it, and generates the corresponding sign sequence.</p>\n      </div>",
+          "html": "<div class=\"feature-card kz-card\">\n        <div class=\"feature-title\">Video Input</div>\n        <p class=\"feature-body\">Upload a recorded video. Kozha extracts the audio track, transcribes it, and generates the corresponding sign sequence.</p>\n      </div>",
           "target": [
             ".feature-card.kz-card:nth-child(3)"
           ]
@@ -10368,7 +10368,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"feature-body\">Upload a recorded video. Bridgn extracts the audio track, transcribes it, and generates the corresponding sign sequence.</p>",
+          "html": "<p class=\"feature-body\">Upload a recorded video. Kozha extracts the audio track, transcribes it, and generates the corresponding sign sequence.</p>",
           "target": [
             ".feature-card.kz-card:nth-child(3) > .feature-body"
           ]
@@ -10988,7 +10988,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"contribute-text\">\n        <h2>Contribute to the project.</h2>\n        <p>Bridgn's sign database has limited vocabulary and needs help. If you know sign language, work in accessibility, or can code, you can add signs, improve translations, or fix bugs.</p>\n      </div>",
+          "html": "<div class=\"contribute-text\">\n        <h2>Contribute to the project.</h2>\n        <p>Kozha's sign database has limited vocabulary and needs help. If you know sign language, work in accessibility, or can code, you can add signs, improve translations, or fix bugs.</p>\n      </div>",
           "target": [
             ".contribute-text"
           ]
@@ -11028,7 +11028,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Bridgn's sign database has limited vocabulary and needs help. If you know sign language, work in accessibility, or can code, you can add signs, improve translations, or fix bugs.</p>",
+          "html": "<p>Kozha's sign database has limited vocabulary and needs help. If you know sign language, work in accessibility, or can code, you can add signs, improve translations, or fix bugs.</p>",
           "target": [
             ".contribute-text > p"
           ]
@@ -11128,7 +11128,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"kz-footer__brand\">\n        <a href=\"/\" class=\"kz-footer__logo\">Bridg<span>n</span></a>\n        <p class=\"kz-footer__mission\" data-i18n=\"common.footer_mission\">Open-source translator from text and speech into sign language. Built with the Deaf community.</p>\n      </div>",
+          "html": "<div class=\"kz-footer__brand\">\n        <a href=\"/\" class=\"kz-footer__logo\">Koz<span>ha</span></a>\n        <p class=\"kz-footer__mission\" data-i18n=\"common.footer_mission\">Open-source translator from text and speech into sign language. Built with the Deaf community.</p>\n      </div>",
           "target": [
             ".kz-footer__brand"
           ]
@@ -11148,7 +11148,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-footer__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-footer__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-footer__logo"
           ]
@@ -11168,7 +11168,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span>n</span>",
+          "html": "<span>ha</span>",
           "target": [
             ".kz-footer__logo > span"
           ]
@@ -11748,7 +11748,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"kz-footer__copy\" data-i18n=\"landing.footer_copyright\">© 2025–2026 Bridgn. Open-source research project.</p>",
+          "html": "<p class=\"kz-footer__copy\" data-i18n=\"landing.footer_copyright\">© 2025–2026 Kozha. Open-source research project.</p>",
           "target": [
             ".kz-footer__copy"
           ]
@@ -12054,12 +12054,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 50.3,
+                "width": 45.3,
                 "height": 29
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (50.3px by 29px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (45.3px by 29px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -12075,7 +12075,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-header__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-header__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-header__logo"
           ]
@@ -12544,7 +12544,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-footer__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-footer__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-footer__logo"
           ]
@@ -12798,7 +12798,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<h2 class=\"section-title\">What <em>Bridgn</em> does.</h2>",
+          "html": "<h2 class=\"section-title\">What <em>Kozha</em> does.</h2>",
           "target": [
             "#features > .section-title"
           ],
@@ -12830,7 +12830,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<em>Bridgn</em>",
+          "html": "<em>Kozha</em>",
           "target": [
             "#features > .section-title > em"
           ],

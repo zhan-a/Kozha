@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-24T18:19:24.009Z",
-  "url": "http://127.0.0.1:57133/contribute.html",
+  "timestamp": "2026-04-24T18:33:39.029Z",
+  "url": "http://127.0.0.1:57853/contribute.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -7862,9 +7862,34 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-header__logo\" data-i18n=\"common.site_name\">Bridgn</a>",
+          "html": "<a href=\"/\" class=\"kz-header__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-header__logo"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#b3441b",
+                "bgColor": "#f5f1eb",
+                "contrastRatio": 4.96,
+                "fontSize": "16.5pt (22px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 4.96"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span>ha</span>",
+          "target": [
+            ".kz-header__logo > span"
           ]
         },
         {
@@ -9562,7 +9587,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-footer__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-footer__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-footer__logo"
           ]
@@ -9587,7 +9612,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span>n</span>",
+          "html": "<span>ha</span>",
           "target": [
             ".kz-footer__logo > span"
           ]
@@ -9912,7 +9937,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"kz-footer__copy\" data-i18n=\"landing.footer_copyright\">© 2025–2026 Bridgn. Open-source research project.</p>",
+          "html": "<p class=\"kz-footer__copy\" data-i18n=\"landing.footer_copyright\">© 2025–2026 Kozha. Open-source research project.</p>",
           "target": [
             ".kz-footer__copy"
           ]
@@ -12164,7 +12189,7 @@
             }
           ],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-header__logo\" data-i18n=\"common.site_name\">Bridgn</a>",
+          "html": "<a href=\"/\" class=\"kz-header__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-header__logo"
           ]
@@ -12294,7 +12319,7 @@
             }
           ],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-footer__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-footer__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-footer__logo"
           ]
@@ -13557,9 +13582,29 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-header__logo\" data-i18n=\"common.site_name\">Bridgn</a>",
+          "html": "<a href=\"/\" class=\"kz-header__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-header__logo"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span>ha</span>",
+          "target": [
+            ".kz-header__logo > span"
           ]
         },
         {
@@ -16397,7 +16442,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"kz-footer__brand\">\n        <a href=\"/\" class=\"kz-footer__logo\">Bridg<span>n</span></a>\n        <p class=\"kz-footer__mission\" data-i18n=\"common.footer_mission\">Open-source translator from text and speech into sign language. Built with the Deaf community.</p>\n      </div>",
+          "html": "<div class=\"kz-footer__brand\">\n        <a href=\"/\" class=\"kz-footer__logo\">Koz<span>ha</span></a>\n        <p class=\"kz-footer__mission\" data-i18n=\"common.footer_mission\">Open-source translator from text and speech into sign language. Built with the Deaf community.</p>\n      </div>",
           "target": [
             ".kz-footer__brand"
           ]
@@ -16417,7 +16462,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-footer__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-footer__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-footer__logo"
           ]
@@ -16437,7 +16482,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span>n</span>",
+          "html": "<span>ha</span>",
           "target": [
             ".kz-footer__logo > span"
           ]
@@ -17017,7 +17062,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"kz-footer__copy\" data-i18n=\"landing.footer_copyright\">© 2025–2026 Bridgn. Open-source research project.</p>",
+          "html": "<p class=\"kz-footer__copy\" data-i18n=\"landing.footer_copyright\">© 2025–2026 Kozha. Open-source research project.</p>",
           "target": [
             ".kz-footer__copy"
           ]
@@ -17373,12 +17418,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 50.3,
+                "width": 45.3,
                 "height": 33
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (50.3px by 33px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (45.3px by 33px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -17394,7 +17439,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-header__logo\" data-i18n=\"common.site_name\">Bridgn</a>",
+          "html": "<a href=\"/\" class=\"kz-header__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-header__logo"
           ]
@@ -17984,7 +18029,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-footer__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-footer__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-footer__logo"
           ]

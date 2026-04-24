@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Static sitemap listing Bridgn's indexable public routes. Dynamic
+<!-- Static sitemap listing Kozha's indexable public routes. Dynamic
      per-submission URLs (/contribute/status/<id>) and /contribute/me are
      excluded: the former are non-indexable by design (they carry a
      session-id path segment), and the latter is a per-browser page with

@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-24T18:19:06.762Z",
-  "url": "http://127.0.0.1:57133/progress.html",
+  "timestamp": "2026-04-24T18:33:23.347Z",
+  "url": "http://127.0.0.1:57853/progress.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -880,7 +880,7 @@
           "impact": null,
           "html": "<header class=\"kz-header\" aria-label=\"Main navigation\">",
           "target": [
-            ".kz-header"
+            "header"
           ]
         },
         {
@@ -913,7 +913,73 @@
           "impact": null,
           "html": "<a href=\"/progress\" class=\"kz-header__link is-active\" aria-current=\"page\">Progress</a>",
           "target": [
-            "a[aria-current=\"page\"]"
+            ".is-active[href$=\"progress\"][aria-current=\"page\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-allowed-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attributes are used correctly for the defined role"
+            },
+            {
+              "id": "aria-allowed-attr-elm",
+              "data": null,
+              "relatedNodes": [],
+              "message": "ARIA attributes are allowed for this element",
+              "impact": "critical"
+            }
+          ],
+          "none": [
+            {
+              "id": "aria-unsupported-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute is supported"
+            }
+          ],
+          "impact": null,
+          "html": "<ol class=\"kz-breadcrumbs\" aria-label=\"Breadcrumb\">\n      <li><a href=\"/\">Home</a></li>\n      <li aria-current=\"page\">Progress</li>\n    </ol>",
+          "target": [
+            "ol"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-allowed-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attributes are used correctly for the defined role"
+            },
+            {
+              "id": "aria-allowed-attr-elm",
+              "data": null,
+              "relatedNodes": [],
+              "message": "ARIA attributes are allowed for this element",
+              "impact": "critical"
+            }
+          ],
+          "none": [
+            {
+              "id": "aria-unsupported-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute is supported"
+            }
+          ],
+          "impact": null,
+          "html": "<li aria-current=\"page\">Progress</li>",
+          "target": [
+            "li[aria-current=\"page\"]"
           ]
         },
         {
@@ -2090,7 +2156,7 @@
           "impact": null,
           "html": "<header class=\"kz-header\" aria-label=\"Main navigation\">",
           "target": [
-            ".kz-header"
+            "header"
           ]
         },
         {
@@ -2108,7 +2174,43 @@
           "impact": null,
           "html": "<a href=\"/progress\" class=\"kz-header__link is-active\" aria-current=\"page\">Progress</a>",
           "target": [
-            "a[aria-current=\"page\"]"
+            ".is-active[href$=\"progress\"][aria-current=\"page\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-conditional-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<ol class=\"kz-breadcrumbs\" aria-label=\"Breadcrumb\">\n      <li><a href=\"/\">Home</a></li>\n      <li aria-current=\"page\">Progress</li>\n    </ol>",
+          "target": [
+            "ol"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-conditional-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<li aria-current=\"page\">Progress</li>",
+          "target": [
+            "li[aria-current=\"page\"]"
           ]
         },
         {
@@ -3348,7 +3450,7 @@
           "impact": null,
           "html": "<header class=\"kz-header\" aria-label=\"Main navigation\">",
           "target": [
-            ".kz-header"
+            "header"
           ]
         },
         {
@@ -3366,7 +3468,43 @@
           "impact": null,
           "html": "<a href=\"/progress\" class=\"kz-header__link is-active\" aria-current=\"page\">Progress</a>",
           "target": [
-            "a[aria-current=\"page\"]"
+            ".is-active[href$=\"progress\"][aria-current=\"page\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "aria-prohibited-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "impact": null,
+          "html": "<ol class=\"kz-breadcrumbs\" aria-label=\"Breadcrumb\">\n      <li><a href=\"/\">Home</a></li>\n      <li aria-current=\"page\">Progress</li>\n    </ol>",
+          "target": [
+            "ol"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "aria-prohibited-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "impact": null,
+          "html": "<li aria-current=\"page\">Progress</li>",
+          "target": [
+            "li[aria-current=\"page\"]"
           ]
         },
         {
@@ -4174,7 +4312,7 @@
           "impact": null,
           "html": "<header class=\"kz-header\" aria-label=\"Main navigation\">",
           "target": [
-            ".kz-header"
+            "header"
           ]
         },
         {
@@ -4206,7 +4344,71 @@
           "impact": null,
           "html": "<a href=\"/progress\" class=\"kz-header__link is-active\" aria-current=\"page\">Progress</a>",
           "target": [
-            "a[aria-current=\"page\"]"
+            ".is-active[href$=\"progress\"][aria-current=\"page\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-valid-attr-value",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute values are valid"
+            },
+            {
+              "id": "aria-errormessage",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-errormessage exists and references elements visible to screen readers that use a supported aria-errormessage technique"
+            },
+            {
+              "id": "aria-level",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-level values are valid"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<ol class=\"kz-breadcrumbs\" aria-label=\"Breadcrumb\">\n      <li><a href=\"/\">Home</a></li>\n      <li aria-current=\"page\">Progress</li>\n    </ol>",
+          "target": [
+            "ol"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-valid-attr-value",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute values are valid"
+            },
+            {
+              "id": "aria-errormessage",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-errormessage exists and references elements visible to screen readers that use a supported aria-errormessage technique"
+            },
+            {
+              "id": "aria-level",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-level values are valid"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<li aria-current=\"page\">Progress</li>",
+          "target": [
+            "li[aria-current=\"page\"]"
           ]
         },
         {
@@ -5266,7 +5468,7 @@
           "impact": null,
           "html": "<header class=\"kz-header\" aria-label=\"Main navigation\">",
           "target": [
-            ".kz-header"
+            "header"
           ]
         },
         {
@@ -5284,7 +5486,43 @@
           "impact": null,
           "html": "<a href=\"/progress\" class=\"kz-header__link is-active\" aria-current=\"page\">Progress</a>",
           "target": [
-            "a[aria-current=\"page\"]"
+            ".is-active[href$=\"progress\"][aria-current=\"page\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-valid-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute name is valid"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<ol class=\"kz-breadcrumbs\" aria-label=\"Breadcrumb\">\n      <li><a href=\"/\">Home</a></li>\n      <li aria-current=\"page\">Progress</li>\n    </ol>",
+          "target": [
+            "ol"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-valid-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute name is valid"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<li aria-current=\"page\">Progress</li>",
+          "target": [
+            "li[aria-current=\"page\"]"
           ]
         },
         {
@@ -6122,7 +6360,7 @@
               "data": null,
               "relatedNodes": [
                 {
-                  "html": "<h1 class=\"progress-h1\">Progress.</h1>",
+                  "html": "<h1 class=\"progress-h1\">Progress</h1>",
                   "target": [
                     "h1"
                   ]
@@ -6255,7 +6493,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-header__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-header__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-header__logo"
           ]
@@ -6280,7 +6518,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span>n</span>",
+          "html": "<span>ha</span>",
           "target": [
             ".kz-header__logo > span"
           ]
@@ -6357,7 +6595,7 @@
           "impact": null,
           "html": "<a href=\"/progress\" class=\"kz-header__link is-active\" aria-current=\"page\">Progress</a>",
           "target": [
-            "a[aria-current=\"page\"]"
+            ".is-active[href$=\"progress\"][aria-current=\"page\"]"
           ]
         },
         {
@@ -6390,24 +6628,49 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#b3441b",
-                "bgColor": "#faeee0",
-                "contrastRatio": 4.88,
-                "fontSize": "9.0pt (12px)",
+                "fgColor": "#3d3630",
+                "bgColor": "#f5f1eb",
+                "contrastRatio": 10.55,
+                "fontSize": "9.8pt (13px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 4.88"
+              "message": "Element has sufficient color contrast of 10.55"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"progress-eyebrow\">Transparency</div>",
+          "html": "<a href=\"/\">Home</a>",
           "target": [
-            ".progress-eyebrow"
+            "li:nth-child(1) > a[href=\"/\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#5e5c57",
+                "bgColor": "#f5f1eb",
+                "contrastRatio": 5.93,
+                "fontSize": "9.8pt (13px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 5.93"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<li aria-current=\"page\">Progress</li>",
+          "target": [
+            "li[aria-current=\"page\"]"
           ]
         },
         {
@@ -6430,7 +6693,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h1 class=\"progress-h1\">Progress.</h1>",
+          "html": "<h1 class=\"progress-h1\">Progress</h1>",
           "target": [
             "h1"
           ]
@@ -6455,7 +6718,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"progress-lede\">\n        Live numbers from the Bridgn databases. Deaf-native review status, coverage per language, recent validations. If something cannot be computed honestly, it is marked\n        <span class=\"progress-dash\" aria-label=\"em dash\">—</span> rather than zero.\n      </p>",
+          "html": "<p class=\"progress-lede\">\n      Live numbers from the Kozha databases. Deaf-native review status, coverage per language, recent validations. If something cannot be computed honestly, it is marked\n      <span class=\"progress-dash\" aria-label=\"em dash\">—</span> rather than zero.\n    </p>",
           "target": [
             ".progress-lede"
           ]
@@ -7830,7 +8093,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-footer__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-footer__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-footer__logo"
           ]
@@ -7855,7 +8118,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span>n</span>",
+          "html": "<span>ha</span>",
           "target": [
             ".kz-footer__logo > span"
           ]
@@ -8180,7 +8443,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"kz-footer__copy\">© 2025–2026 Bridgn. Open-source research project.</p>",
+          "html": "<p class=\"kz-footer__copy\">© 2025–2026 Kozha. Open-source research project.</p>",
           "target": [
             ".kz-footer__copy"
           ]
@@ -8480,7 +8743,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h1 class=\"progress-h1\">Progress.</h1>",
+          "html": "<h1 class=\"progress-h1\">Progress</h1>",
           "target": [
             "h1"
           ]
@@ -8897,31 +9160,13 @@
                 "headingOrder": [
                   {
                     "ancestry": [
-                      "html > body > main:nth-child(3) > header:nth-child(1) > h1:nth-child(2)"
+                      "html > body > main:nth-child(3) > h1:nth-child(2)"
                     ],
                     "level": 1
                   },
                   {
                     "ancestry": [
-                      "html > body > main:nth-child(3) > section:nth-child(2) > h2:nth-child(1)"
-                    ],
-                    "level": 2
-                  },
-                  {
-                    "ancestry": [
-                      "html > body > main:nth-child(3) > section:nth-child(3) > div:nth-child(1) > h2:nth-child(1)"
-                    ],
-                    "level": 2
-                  },
-                  {
-                    "ancestry": [
-                      "html > body > main:nth-child(3) > section:nth-child(4) > div:nth-child(1) > h2:nth-child(1)"
-                    ],
-                    "level": 2
-                  },
-                  {
-                    "ancestry": [
-                      "html > body > main:nth-child(3) > section:nth-child(5) > div:nth-child(1) > h2:nth-child(1)"
+                      "html > body > main:nth-child(3) > section:nth-child(5) > h2:nth-child(1)"
                     ],
                     "level": 2
                   },
@@ -8933,13 +9178,31 @@
                   },
                   {
                     "ancestry": [
-                      "html > body > main:nth-child(3) > section:nth-child(6) > div:nth-child(2) > div:nth-child(1) > h3:nth-child(1)"
+                      "html > body > main:nth-child(3) > section:nth-child(7) > div:nth-child(1) > h2:nth-child(1)"
+                    ],
+                    "level": 2
+                  },
+                  {
+                    "ancestry": [
+                      "html > body > main:nth-child(3) > section:nth-child(8) > div:nth-child(1) > h2:nth-child(1)"
+                    ],
+                    "level": 2
+                  },
+                  {
+                    "ancestry": [
+                      "html > body > main:nth-child(3) > section:nth-child(9) > div:nth-child(1) > h2:nth-child(1)"
+                    ],
+                    "level": 2
+                  },
+                  {
+                    "ancestry": [
+                      "html > body > main:nth-child(3) > section:nth-child(9) > div:nth-child(2) > div:nth-child(1) > h3:nth-child(1)"
                     ],
                     "level": 3
                   },
                   {
                     "ancestry": [
-                      "html > body > main:nth-child(3) > section:nth-child(6) > div:nth-child(2) > div:nth-child(2) > h3:nth-child(1)"
+                      "html > body > main:nth-child(3) > section:nth-child(9) > div:nth-child(2) > div:nth-child(2) > h3:nth-child(1)"
                     ],
                     "level": 3
                   },
@@ -8971,7 +9234,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h1 class=\"progress-h1\">Progress.</h1>",
+          "html": "<h1 class=\"progress-h1\">Progress</h1>",
           "target": [
             "h1"
           ]
@@ -9264,7 +9527,7 @@
           "impact": null,
           "html": "<header class=\"kz-header\" aria-label=\"Main navigation\">",
           "target": [
-            ".kz-header"
+            "header"
           ]
         }
       ]
@@ -9361,7 +9624,7 @@
           "impact": null,
           "html": "<header class=\"kz-header\" aria-label=\"Main navigation\">",
           "target": [
-            ".kz-header"
+            "header"
           ]
         }
       ]
@@ -9495,7 +9758,7 @@
           "impact": null,
           "html": "<header class=\"kz-header\" aria-label=\"Main navigation\">",
           "target": [
-            ".kz-header"
+            "header"
           ]
         },
         {
@@ -9804,7 +10067,7 @@
             }
           ],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-header__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-header__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-header__logo"
           ]
@@ -9884,7 +10147,7 @@
           "impact": null,
           "html": "<a href=\"/progress\" class=\"kz-header__link is-active\" aria-current=\"page\">Progress</a>",
           "target": [
-            "a[aria-current=\"page\"]"
+            ".is-active[href$=\"progress\"][aria-current=\"page\"]"
           ]
         },
         {
@@ -9911,6 +10174,32 @@
           "html": "<a href=\"/credits\" class=\"kz-header__link\">About</a>",
           "target": [
             ".kz-header__link[href$=\"credits\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [
+            {
+              "id": "focusable-no-name",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element is not in tab order or has accessible text"
+            }
+          ],
+          "impact": null,
+          "html": "<a href=\"/\">Home</a>",
+          "target": [
+            "li:nth-child(1) > a[href=\"/\"]"
           ]
         },
         {
@@ -10033,7 +10322,7 @@
             }
           ],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-footer__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-footer__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-footer__logo"
           ]
@@ -10321,6 +10610,24 @@
             }
           ],
           "impact": null,
+          "html": "<ol class=\"kz-breadcrumbs\" aria-label=\"Breadcrumb\">\n      <li><a href=\"/\">Home</a></li>\n      <li aria-current=\"page\">Progress</li>\n    </ol>",
+          "target": [
+            "ol"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "only-listitems",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "List element only has direct children that are allowed inside <li> elements"
+            }
+          ],
+          "impact": null,
           "html": "<ul class=\"progress-recent-list\" id=\"progressRecent\"><li class=\"progress-recent-empty\">No recent validations to show yet. New signs will appear here as they clear review.</li></ul>",
           "target": [
             "#progressRecent"
@@ -10504,6 +10811,42 @@
           "html": "<li><a href=\"/credits\" class=\"kz-header__link\">About</a></li>",
           "target": [
             ".kz-header__nav > li:nth-child(4)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "listitem",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "List item has a <ul>, <ol> or role=\"list\" parent element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<li><a href=\"/\">Home</a></li>",
+          "target": [
+            "ol > li:nth-child(1)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "listitem",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "List item has a <ul>, <ol> or role=\"list\" parent element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<li aria-current=\"page\">Progress</li>",
+          "target": [
+            "li[aria-current=\"page\"]"
           ]
         },
         {
@@ -10975,7 +11318,7 @@
               "data": null,
               "relatedNodes": [
                 {
-                  "html": "<h1 class=\"progress-h1\">Progress.</h1>",
+                  "html": "<h1 class=\"progress-h1\">Progress</h1>",
                   "target": [
                     "h1"
                   ]
@@ -11044,7 +11387,7 @@
           "impact": null,
           "html": "<header class=\"kz-header\" aria-label=\"Main navigation\">",
           "target": [
-            ".kz-header"
+            "header"
           ]
         },
         {
@@ -11062,7 +11405,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-header__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-header__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-header__logo"
           ]
@@ -11082,7 +11425,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span>n</span>",
+          "html": "<span>ha</span>",
           "target": [
             ".kz-header__logo > span"
           ]
@@ -11224,7 +11567,7 @@
           "impact": null,
           "html": "<a href=\"/progress\" class=\"kz-header__link is-active\" aria-current=\"page\">Progress</a>",
           "target": [
-            "a[aria-current=\"page\"]"
+            ".is-active[href$=\"progress\"][aria-current=\"page\"]"
           ]
         },
         {
@@ -11302,9 +11645,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<header class=\"progress-hero\">",
+          "html": "<ol class=\"kz-breadcrumbs\" aria-label=\"Breadcrumb\">\n      <li><a href=\"/\">Home</a></li>\n      <li aria-current=\"page\">Progress</li>\n    </ol>",
           "target": [
-            ".progress-hero"
+            "ol"
           ]
         },
         {
@@ -11322,9 +11665,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"progress-eyebrow\">Transparency</div>",
+          "html": "<li><a href=\"/\">Home</a></li>",
           "target": [
-            ".progress-eyebrow"
+            "ol > li:nth-child(1)"
           ]
         },
         {
@@ -11342,7 +11685,47 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h1 class=\"progress-h1\">Progress.</h1>",
+          "html": "<a href=\"/\">Home</a>",
+          "target": [
+            "li:nth-child(1) > a[href=\"/\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<li aria-current=\"page\">Progress</li>",
+          "target": [
+            "li[aria-current=\"page\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<h1 class=\"progress-h1\">Progress</h1>",
           "target": [
             "h1"
           ]
@@ -11362,7 +11745,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"progress-lede\">\n        Live numbers from the Bridgn databases. Deaf-native review status, coverage per language, recent validations. If something cannot be computed honestly, it is marked\n        <span class=\"progress-dash\" aria-label=\"em dash\">—</span> rather than zero.\n      </p>",
+          "html": "<p class=\"progress-lede\">\n      Live numbers from the Kozha databases. Deaf-native review status, coverage per language, recent validations. If something cannot be computed honestly, it is marked\n      <span class=\"progress-dash\" aria-label=\"em dash\">—</span> rather than zero.\n    </p>",
           "target": [
             ".progress-lede"
           ]
@@ -14082,7 +14465,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"kz-footer__brand\">\n        <a href=\"/\" class=\"kz-footer__logo\">Bridg<span>n</span></a>\n        <p class=\"kz-footer__mission\">Open-source translator from text and speech into sign language. Built with the Deaf community.</p>\n      </div>",
+          "html": "<div class=\"kz-footer__brand\">\n        <a href=\"/\" class=\"kz-footer__logo\">Koz<span>ha</span></a>\n        <p class=\"kz-footer__mission\">Open-source translator from text and speech into sign language. Built with the Deaf community.</p>\n      </div>",
           "target": [
             ".kz-footer__brand"
           ]
@@ -14102,7 +14485,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-footer__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-footer__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-footer__logo"
           ]
@@ -14122,7 +14505,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span>n</span>",
+          "html": "<span>ha</span>",
           "target": [
             ".kz-footer__logo > span"
           ]
@@ -14682,7 +15065,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"kz-footer__meta\">\n        <p class=\"kz-footer__copy\">© 2025–2026 Bridgn. Open-source research project.</p>\n        <p class=\"kz-footer__os\">Open source on <a href=\"https://github.com/zhan-a/Kozha\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>.</p>\n      </div>",
+          "html": "<div class=\"kz-footer__meta\">\n        <p class=\"kz-footer__copy\">© 2025–2026 Kozha. Open-source research project.</p>\n        <p class=\"kz-footer__os\">Open source on <a href=\"https://github.com/zhan-a/Kozha\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>.</p>\n      </div>",
           "target": [
             ".kz-footer__meta"
           ]
@@ -14702,7 +15085,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"kz-footer__copy\">© 2025–2026 Bridgn. Open-source research project.</p>",
+          "html": "<p class=\"kz-footer__copy\">© 2025–2026 Kozha. Open-source research project.</p>",
           "target": [
             ".kz-footer__copy"
           ]
@@ -15201,12 +15584,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 50.3,
+                "width": 45.3,
                 "height": 33
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (50.3px by 33px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (45.3px by 33px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -15222,13 +15605,24 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-header__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-header__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-header__logo"
           ]
         },
         {
           "any": [
+            {
+              "id": "target-size",
+              "data": {
+                "minSize": 24,
+                "width": 60.3,
+                "height": 34.5
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Control has sufficient size (60.3px by 34.5px, should be at least 24px by 24px)"
+            },
             {
               "id": "target-offset",
               "data": {
@@ -15251,6 +15645,17 @@
         {
           "any": [
             {
+              "id": "target-size",
+              "data": {
+                "minSize": 24,
+                "width": 71.9,
+                "height": 34.5
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Control has sufficient size (71.9px by 34.5px, should be at least 24px by 24px)"
+            },
+            {
               "id": "target-offset",
               "data": {
                 "closestOffset": 24,
@@ -15272,6 +15677,17 @@
         {
           "any": [
             {
+              "id": "target-size",
+              "data": {
+                "minSize": 24,
+                "width": 57,
+                "height": 34.5
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Control has sufficient size (57px by 34.5px, should be at least 24px by 24px)"
+            },
+            {
               "id": "target-offset",
               "data": {
                 "closestOffset": 24,
@@ -15287,11 +15703,22 @@
           "impact": null,
           "html": "<a href=\"/progress\" class=\"kz-header__link is-active\" aria-current=\"page\">Progress</a>",
           "target": [
-            "a[aria-current=\"page\"]"
+            ".is-active[href$=\"progress\"][aria-current=\"page\"]"
           ]
         },
         {
           "any": [
+            {
+              "id": "target-size",
+              "data": {
+                "minSize": 24,
+                "width": 40.7,
+                "height": 34.5
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Control has sufficient size (40.7px by 34.5px, should be at least 24px by 24px)"
+            },
             {
               "id": "target-offset",
               "data": {
@@ -15314,15 +15741,36 @@
         {
           "any": [
             {
+              "id": "target-offset",
+              "data": {
+                "closestOffset": 24,
+                "minOffset": 24
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Target has sufficient space from its closest neighbors. Safe clickable space has a diameter of 24px which is at least 24px."
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<a href=\"/\">Home</a>",
+          "target": [
+            "li:nth-child(1) > a[href=\"/\"]"
+          ]
+        },
+        {
+          "any": [
+            {
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 140.9,
+                "width": 147.9,
                 "height": 46
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (140.9px by 46px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (147.9px by 46px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -15349,12 +15797,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 117.6,
+                "width": 121.6,
                 "height": 46
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (117.6px by 46px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (121.6px by 46px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -15445,12 +15893,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 168.6,
+                "width": 179,
                 "height": 64
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (168.6px by 64px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (179px by 64px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -15509,12 +15957,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 100.7,
+                "width": 105.1,
                 "height": 64
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (100.7px by 64px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (105.1px by 64px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -15541,12 +15989,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 131.1,
+                "width": 137.1,
                 "height": 64
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (131.1px by 64px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (137.1px by 64px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -15668,7 +16116,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-footer__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-footer__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-footer__logo"
           ]

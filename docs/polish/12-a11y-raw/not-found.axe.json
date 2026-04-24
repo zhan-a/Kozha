@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-24T18:19:13.909Z",
-  "url": "http://127.0.0.1:57133/404.html",
+  "timestamp": "2026-04-24T18:33:30.406Z",
+  "url": "http://127.0.0.1:57853/404.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -1102,7 +1102,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<main class=\"not-found\" id=\"main\" role=\"main\">\n    <p class=\"not-found__eyebrow\">404</p>\n    <h1 class=\"not-found__h1\">Page not found.</h1>\n    <p class=\"not-found__body\">That page doesn't exist.</p>\n    <a href=\"/\" class=\"kz-btn-primary\">Return to Bridgn</a>\n  </main>",
+          "html": "<main class=\"not-found\" id=\"main\" role=\"main\">\n    <p class=\"not-found__eyebrow\">404</p>\n    <h1 class=\"not-found__h1\">Page not found.</h1>\n    <p class=\"not-found__body\">That page doesn't exist.</p>\n    <a href=\"/\" class=\"kz-btn-primary\">Return to Kozha</a>\n  </main>",
           "target": [
             "#main"
           ]
@@ -1210,7 +1210,7 @@
             }
           ],
           "impact": null,
-          "html": "<main class=\"not-found\" id=\"main\" role=\"main\">\n    <p class=\"not-found__eyebrow\">404</p>\n    <h1 class=\"not-found__h1\">Page not found.</h1>\n    <p class=\"not-found__body\">That page doesn't exist.</p>\n    <a href=\"/\" class=\"kz-btn-primary\">Return to Bridgn</a>\n  </main>",
+          "html": "<main class=\"not-found\" id=\"main\" role=\"main\">\n    <p class=\"not-found__eyebrow\">404</p>\n    <h1 class=\"not-found__h1\">Page not found.</h1>\n    <p class=\"not-found__body\">That page doesn't exist.</p>\n    <a href=\"/\" class=\"kz-btn-primary\">Return to Kozha</a>\n  </main>",
           "target": [
             "#main"
           ]
@@ -1408,7 +1408,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<main class=\"not-found\" id=\"main\" role=\"main\">\n    <p class=\"not-found__eyebrow\">404</p>\n    <h1 class=\"not-found__h1\">Page not found.</h1>\n    <p class=\"not-found__body\">That page doesn't exist.</p>\n    <a href=\"/\" class=\"kz-btn-primary\">Return to Bridgn</a>\n  </main>",
+          "html": "<main class=\"not-found\" id=\"main\" role=\"main\">\n    <p class=\"not-found__eyebrow\">404</p>\n    <h1 class=\"not-found__h1\">Page not found.</h1>\n    <p class=\"not-found__body\">That page doesn't exist.</p>\n    <a href=\"/\" class=\"kz-btn-primary\">Return to Kozha</a>\n  </main>",
           "target": [
             "#main"
           ]
@@ -1476,7 +1476,7 @@
             }
           ],
           "impact": null,
-          "html": "<main class=\"not-found\" id=\"main\" role=\"main\">\n    <p class=\"not-found__eyebrow\">404</p>\n    <h1 class=\"not-found__h1\">Page not found.</h1>\n    <p class=\"not-found__body\">That page doesn't exist.</p>\n    <a href=\"/\" class=\"kz-btn-primary\">Return to Bridgn</a>\n  </main>",
+          "html": "<main class=\"not-found\" id=\"main\" role=\"main\">\n    <p class=\"not-found__eyebrow\">404</p>\n    <h1 class=\"not-found__h1\">Page not found.</h1>\n    <p class=\"not-found__body\">That page doesn't exist.</p>\n    <a href=\"/\" class=\"kz-btn-primary\">Return to Kozha</a>\n  </main>",
           "target": [
             "#main"
           ]
@@ -1717,7 +1717,7 @@
               "data": null,
               "relatedNodes": [
                 {
-                  "html": "<main class=\"not-found\" id=\"main\" role=\"main\">\n    <p class=\"not-found__eyebrow\">404</p>\n    <h1 class=\"not-found__h1\">Page not found.</h1>\n    <p class=\"not-found__body\">That page doesn't exist.</p>\n    <a href=\"/\" class=\"kz-btn-primary\">Return to Bridgn</a>\n  </main>",
+                  "html": "<main class=\"not-found\" id=\"main\" role=\"main\">\n    <p class=\"not-found__eyebrow\">404</p>\n    <h1 class=\"not-found__h1\">Page not found.</h1>\n    <p class=\"not-found__body\">That page doesn't exist.</p>\n    <a href=\"/\" class=\"kz-btn-primary\">Return to Kozha</a>\n  </main>",
                   "target": [
                     "#main"
                   ]
@@ -1776,7 +1776,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-header__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-header__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-header__logo"
           ]
@@ -1801,7 +1801,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span>n</span>",
+          "html": "<span>ha</span>",
           "target": [
             ".kz-header__logo > span"
           ]
@@ -2001,7 +2001,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-btn-primary\">Return to Bridgn</a>",
+          "html": "<a href=\"/\" class=\"kz-btn-primary\">Return to Kozha</a>",
           "target": [
             ".kz-btn-primary"
           ]
@@ -2026,7 +2026,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-footer__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-footer__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-footer__logo"
           ]
@@ -2051,7 +2051,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span>n</span>",
+          "html": "<span>ha</span>",
           "target": [
             ".kz-footer__logo > span"
           ]
@@ -2376,7 +2376,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"kz-footer__copy\">© 2025–2026 Bridgn. Open-source research project.</p>",
+          "html": "<p class=\"kz-footer__copy\">© 2025–2026 Kozha. Open-source research project.</p>",
           "target": [
             ".kz-footer__copy"
           ]
@@ -2839,7 +2839,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<main class=\"not-found\" id=\"main\" role=\"main\">\n    <p class=\"not-found__eyebrow\">404</p>\n    <h1 class=\"not-found__h1\">Page not found.</h1>\n    <p class=\"not-found__body\">That page doesn't exist.</p>\n    <a href=\"/\" class=\"kz-btn-primary\">Return to Bridgn</a>\n  </main>",
+          "html": "<main class=\"not-found\" id=\"main\" role=\"main\">\n    <p class=\"not-found__eyebrow\">404</p>\n    <h1 class=\"not-found__h1\">Page not found.</h1>\n    <p class=\"not-found__body\">That page doesn't exist.</p>\n    <a href=\"/\" class=\"kz-btn-primary\">Return to Kozha</a>\n  </main>",
           "target": [
             "#main"
           ]
@@ -2932,7 +2932,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<main class=\"not-found\" id=\"main\" role=\"main\">\n    <p class=\"not-found__eyebrow\">404</p>\n    <h1 class=\"not-found__h1\">Page not found.</h1>\n    <p class=\"not-found__body\">That page doesn't exist.</p>\n    <a href=\"/\" class=\"kz-btn-primary\">Return to Bridgn</a>\n  </main>",
+          "html": "<main class=\"not-found\" id=\"main\" role=\"main\">\n    <p class=\"not-found__eyebrow\">404</p>\n    <h1 class=\"not-found__h1\">Page not found.</h1>\n    <p class=\"not-found__body\">That page doesn't exist.</p>\n    <a href=\"/\" class=\"kz-btn-primary\">Return to Kozha</a>\n  </main>",
           "target": [
             "#main"
           ]
@@ -2958,7 +2958,7 @@
               "data": null,
               "relatedNodes": [
                 {
-                  "html": "<main class=\"not-found\" id=\"main\" role=\"main\">\n    <p class=\"not-found__eyebrow\">404</p>\n    <h1 class=\"not-found__h1\">Page not found.</h1>\n    <p class=\"not-found__body\">That page doesn't exist.</p>\n    <a href=\"/\" class=\"kz-btn-primary\">Return to Bridgn</a>\n  </main>",
+                  "html": "<main class=\"not-found\" id=\"main\" role=\"main\">\n    <p class=\"not-found__eyebrow\">404</p>\n    <h1 class=\"not-found__h1\">Page not found.</h1>\n    <p class=\"not-found__body\">That page doesn't exist.</p>\n    <a href=\"/\" class=\"kz-btn-primary\">Return to Kozha</a>\n  </main>",
                   "target": [
                     "#main"
                   ]
@@ -3025,7 +3025,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<main class=\"not-found\" id=\"main\" role=\"main\">\n    <p class=\"not-found__eyebrow\">404</p>\n    <h1 class=\"not-found__h1\">Page not found.</h1>\n    <p class=\"not-found__body\">That page doesn't exist.</p>\n    <a href=\"/\" class=\"kz-btn-primary\">Return to Bridgn</a>\n  </main>",
+          "html": "<main class=\"not-found\" id=\"main\" role=\"main\">\n    <p class=\"not-found__eyebrow\">404</p>\n    <h1 class=\"not-found__h1\">Page not found.</h1>\n    <p class=\"not-found__body\">That page doesn't exist.</p>\n    <a href=\"/\" class=\"kz-btn-primary\">Return to Kozha</a>\n  </main>",
           "target": [
             "#main"
           ]
@@ -3189,7 +3189,7 @@
             }
           ],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-header__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-header__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-header__logo"
           ]
@@ -3319,7 +3319,7 @@
             }
           ],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-btn-primary\">Return to Bridgn</a>",
+          "html": "<a href=\"/\" class=\"kz-btn-primary\">Return to Kozha</a>",
           "target": [
             ".kz-btn-primary"
           ]
@@ -3345,7 +3345,7 @@
             }
           ],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-footer__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-footer__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-footer__logo"
           ]
@@ -4084,7 +4084,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-header__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-header__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-header__logo"
           ]
@@ -4104,7 +4104,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span>n</span>",
+          "html": "<span>ha</span>",
           "target": [
             ".kz-header__logo > span"
           ]
@@ -4304,7 +4304,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<main class=\"not-found\" id=\"main\" role=\"main\">\n    <p class=\"not-found__eyebrow\">404</p>\n    <h1 class=\"not-found__h1\">Page not found.</h1>\n    <p class=\"not-found__body\">That page doesn't exist.</p>\n    <a href=\"/\" class=\"kz-btn-primary\">Return to Bridgn</a>\n  </main>",
+          "html": "<main class=\"not-found\" id=\"main\" role=\"main\">\n    <p class=\"not-found__eyebrow\">404</p>\n    <h1 class=\"not-found__h1\">Page not found.</h1>\n    <p class=\"not-found__body\">That page doesn't exist.</p>\n    <a href=\"/\" class=\"kz-btn-primary\">Return to Kozha</a>\n  </main>",
           "target": [
             "#main"
           ]
@@ -4384,7 +4384,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-btn-primary\">Return to Bridgn</a>",
+          "html": "<a href=\"/\" class=\"kz-btn-primary\">Return to Kozha</a>",
           "target": [
             ".kz-btn-primary"
           ]
@@ -4444,7 +4444,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"kz-footer__brand\">\n        <a href=\"/\" class=\"kz-footer__logo\">Bridg<span>n</span></a>\n        <p class=\"kz-footer__mission\">Open-source translator from text and speech into sign language. Built with the Deaf community.</p>\n      </div>",
+          "html": "<div class=\"kz-footer__brand\">\n        <a href=\"/\" class=\"kz-footer__logo\">Koz<span>ha</span></a>\n        <p class=\"kz-footer__mission\">Open-source translator from text and speech into sign language. Built with the Deaf community.</p>\n      </div>",
           "target": [
             ".kz-footer__brand"
           ]
@@ -4464,7 +4464,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-footer__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-footer__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-footer__logo"
           ]
@@ -4484,7 +4484,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span>n</span>",
+          "html": "<span>ha</span>",
           "target": [
             ".kz-footer__logo > span"
           ]
@@ -5044,7 +5044,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"kz-footer__meta\">\n        <p class=\"kz-footer__copy\">© 2025–2026 Bridgn. Open-source research project.</p>\n        <p class=\"kz-footer__os\">Open source on <a href=\"https://github.com/zhan-a/Kozha\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>.</p>\n      </div>",
+          "html": "<div class=\"kz-footer__meta\">\n        <p class=\"kz-footer__copy\">© 2025–2026 Kozha. Open-source research project.</p>\n        <p class=\"kz-footer__os\">Open source on <a href=\"https://github.com/zhan-a/Kozha\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>.</p>\n      </div>",
           "target": [
             ".kz-footer__meta"
           ]
@@ -5064,7 +5064,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"kz-footer__copy\">© 2025–2026 Bridgn. Open-source research project.</p>",
+          "html": "<p class=\"kz-footer__copy\">© 2025–2026 Kozha. Open-source research project.</p>",
           "target": [
             ".kz-footer__copy"
           ]
@@ -5194,12 +5194,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 50.3,
+                "width": 45.3,
                 "height": 29
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (50.3px by 29px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (45.3px by 29px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -5215,7 +5215,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-header__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-header__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-header__logo"
           ]
@@ -5354,12 +5354,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 181,
+                "width": 176.8,
                 "height": 49
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (181px by 49px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (176.8px by 49px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -5375,7 +5375,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-btn-primary\">Return to Bridgn</a>",
+          "html": "<a href=\"/\" class=\"kz-btn-primary\">Return to Kozha</a>",
           "target": [
             ".kz-btn-primary"
           ]
@@ -5407,7 +5407,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/\" class=\"kz-footer__logo\">Bridg<span>n</span></a>",
+          "html": "<a href=\"/\" class=\"kz-footer__logo\">Koz<span>ha</span></a>",
           "target": [
             ".kz-footer__logo"
           ]

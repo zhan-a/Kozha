@@ -436,7 +436,7 @@
     // #s/<id> fragment (sessionStorage keeps id + token).
     var snap = CTX.getState();
     if (!snap.sessionId) return;
-    // Navigate back to Bridgn so the user actually leaves; the /
+    // Navigate back to Kozha so the user actually leaves; the /
     // landing page is the obvious place.
     window.location.href = '/';
   }
