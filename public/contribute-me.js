@@ -117,9 +117,20 @@
   }
 
   function fetchStatus(sessionId, token) {
-    var url = API_BASE + '/sessions/' + encodeURIComponent(sessionId) + '/status';
+    // Prefer the stateless ``/signs/by-token/<token>`` endpoint when a
+    // token is available — Option A from
+    // ``docs/contrib-fix/01-audit.md`` § 6 makes the token sufficient
+    // by itself. The token is in the URL path so we don't add an
+    // ``X-Session-Token`` header on this branch. Fall back to the
+    // session-id path for entries written before this code shipped
+    // (no token recorded in localStorage).
+    var url;
     var headers = { 'Accept': 'application/json' };
-    if (token) headers['X-Session-Token'] = token;
+    if (token) {
+      url = API_BASE + '/signs/by-token/' + encodeURIComponent(token);
+    } else {
+      url = API_BASE + '/sessions/' + encodeURIComponent(sessionId) + '/status';
+    }
     return fetch(url, { method: 'GET', headers: headers })
       .then(function (resp) {
         return resp.text().then(function (body) {

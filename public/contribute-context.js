@@ -52,6 +52,74 @@
   // fallback during hydration so the selector doesn't blank out for users
   // who had it set before this file shipped.
   var LEGACY_LANGUAGE_KEY = 'kozha.contribute.activeLanguage';
+  // Prompt 06 (Option A — see docs/contrib-fix/01-audit.md § 6). The
+  // contribute UI mints its session UUID client-side via
+  // ``crypto.randomUUID()`` and parks ``{ uuid, token, lastUpdated }``
+  // in localStorage so the URL fragment ``#s/<uuid>`` is meaningful
+  // before the create round-trip lands. The server uses this UUID as
+  // the session id (see backend ``CreateSessionRequest.session_id``),
+  // which is why one identifier is enough — the persisted ``uuid`` is
+  // both the client-side resume key and the server-side session row.
+  var LOCAL_SESSION_KEY = 'kozha.contrib.session';
+
+  function mintClientUuid() {
+    if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+      return crypto.randomUUID();
+    }
+    // crypto.randomUUID lacks IE / pre-2021 Safari support; fall back to a
+    // 16-byte buffer if getRandomValues is available, then to Math.random
+    // as a last resort. The fallback only runs on browsers that wouldn't
+    // be running this app anyway, so the entropy ceiling is fine.
+    try {
+      var bytes = new Uint8Array(16);
+      crypto.getRandomValues(bytes);
+      bytes[6] = (bytes[6] & 0x0f) | 0x40; // version 4
+      bytes[8] = (bytes[8] & 0x3f) | 0x80; // variant 10
+      var hex = [];
+      for (var i = 0; i < 16; i++) hex.push((bytes[i] + 0x100).toString(16).slice(1));
+      return (
+        hex.slice(0, 4).join('') + '-' +
+        hex.slice(4, 6).join('') + '-' +
+        hex.slice(6, 8).join('') + '-' +
+        hex.slice(8, 10).join('') + '-' +
+        hex.slice(10, 16).join('')
+      );
+    } catch (_e) { /* fall through */ }
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      var r = (Math.random() * 16) | 0;
+      var v = c === 'x' ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    });
+  }
+
+  function readLocalSession() {
+    try {
+      var raw = localStorage.getItem(LOCAL_SESSION_KEY);
+      if (!raw) return null;
+      var parsed = JSON.parse(raw);
+      if (!parsed || typeof parsed !== 'object') return null;
+      if (typeof parsed.uuid !== 'string' || !parsed.uuid) return null;
+      return {
+        uuid:        parsed.uuid,
+        token:       typeof parsed.token === 'string' ? parsed.token : null,
+        lastUpdated: typeof parsed.lastUpdated === 'number' ? parsed.lastUpdated : 0,
+      };
+    } catch (_e) { return null; }
+  }
+
+  function writeLocalSession(uuid, token) {
+    try {
+      if (!uuid || !token) {
+        localStorage.removeItem(LOCAL_SESSION_KEY);
+        return;
+      }
+      localStorage.setItem(LOCAL_SESSION_KEY, JSON.stringify({
+        uuid:        uuid,
+        token:       token,
+        lastUpdated: Date.now(),
+      }));
+    } catch (_e) { /* storage blocked — sessionStorage mirror still has it */ }
+  }
 
   var API_BASE = '/api/chat2hamnosys';
 
@@ -408,7 +476,15 @@
   function createSession(opts) {
     opts = opts || {};
     if (!state.language) return Promise.reject(new Error('no language selected'));
-    var body = { sign_language: state.language };
+    // Client-mint the session UUID so the URL fragment is meaningful
+    // before the create round-trip lands, and so the localStorage
+    // pointer ``{ uuid, token, lastUpdated }`` carries one identifier
+    // (the same value the server stores as its session id).
+    var clientUuid = mintClientUuid();
+    var body = {
+      sign_language: state.language,
+      session_id:    clientUuid,
+    };
     if (opts.gloss) body.gloss = opts.gloss;
     // The checkbox is optional on the form — only forward the flag when
     // the caller actually set it, so unchecked stays null (not false) and
@@ -436,6 +512,10 @@
           patch.authorIsDeafNative = opts.authorIsDeafNative;
         }
         setState(patch);
+        // Persist resume info to localStorage per Option A. ``uuid`` is
+        // the same UUID we minted client-side and the server echoed
+        // back as ``session_id``.
+        writeLocalSession(created.session_id, created.session_token);
         // Mirror nested envelope fields too so subscribers see a fully
         // populated snapshot before the chained /describe (if any) fires.
         if (created.session) applyEnvelope(created.session);
@@ -631,6 +711,7 @@
           sessionId:    env.session_id,
           sessionToken: token,
         });
+        writeLocalSession(env.session_id, token);
         applyEnvelope(env);
         pushSessionFragment();
         return env;
@@ -643,6 +724,7 @@
     if (!id || !token) {
       reset();
       clearSessionFragment();
+      writeLocalSession(null, null);
       return Promise.resolve();
     }
     return fetch(API_BASE + '/sessions/' + encodeURIComponent(id) + '/reject', {
@@ -661,6 +743,7 @@
       .then(function () {
         reset();
         clearSessionFragment();
+        writeLocalSession(null, null);
       });
   }
 
@@ -691,6 +774,7 @@
       descriptionProse:   '',
     });
     clearSessionFragment();
+    writeLocalSession(null, null);
     if (!id || !token) return Promise.resolve();
     return fetch(API_BASE + '/sessions/' + encodeURIComponent(id) + '/reject', {
       method: 'POST',
@@ -728,6 +812,28 @@
       };
     }
   }
+  // localStorage takes precedence over sessionStorage when both are set,
+  // because Option A makes localStorage the canonical resume pointer
+  // (sessionStorage is the legacy mirror). The URL fragment is the
+  // tiebreaker — if it carries a `#s/<uuid>` and the localStorage uuid
+  // matches, that's the session we're resuming. A mismatch means the
+  // user pasted someone else's URL into a browser that has its own
+  // draft; park theirs as the stashed session and let the URL win.
+  var local = readLocalSession();
+  var fragmentUuid = parseFragment();
+  if (local && local.uuid && local.token) {
+    if (!fragmentUuid || fragmentUuid === local.uuid) {
+      stashedSession = {
+        sessionId:    local.uuid,
+        sessionToken: local.token,
+        language:     (stashedSession && stashedSession.language) || state.language,
+      };
+    } else if (fragmentUuid && fragmentUuid !== local.uuid) {
+      // The URL points at a draft this browser doesn't have a token
+      // for. The page-level UI will offer to start fresh; our
+      // stashedSession stays whatever the legacy persistence gave us.
+    }
+  }
 
   function getStashedSession() {
     return stashedSession ? {
@@ -752,6 +858,9 @@
         }
       }
     } catch (_e) { /* storage blocked */ }
+    // Wipe the Option-A localStorage pointer too so a hard reload
+    // doesn't replay a stale token over the new draft.
+    writeLocalSession(null, null);
   }
 
   window.KOZHA_CONTRIB_CONTEXT = {

@@ -73,6 +73,29 @@ class TokenStore:
             ).fetchone()
         return row["token"] if row else None
 
+    def find_session_by_token(self, token: Optional[str]) -> Optional[UUID]:
+        """Return the session id this token belongs to, or ``None``.
+
+        Reverse lookup used by the stateless ``GET /signs/by-token/<token>``
+        endpoint. The token has ~192 bits of entropy so a linear scan
+        with case-sensitive equality is unguessable in practice; we still
+        verify with :func:`secrets.compare_digest` to keep the timing
+        behavior consistent with :meth:`verify`.
+        """
+        if not token:
+            return None
+        with self._connect() as conn:
+            rows = conn.execute(
+                "SELECT session_id, token FROM session_tokens"
+            ).fetchall()
+        for row in rows:
+            if secrets.compare_digest(row["token"], token):
+                try:
+                    return UUID(row["session_id"])
+                except ValueError:
+                    return None
+        return None
+
     def delete(self, session_id: UUID) -> bool:
         with self._connect() as conn:
             cur = conn.execute(

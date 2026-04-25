@@ -46,6 +46,7 @@ import uuid
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Any, Callable, Optional
+from uuid import UUID
 
 from clarify import AnswerParseError, Question, apply_answer, generate_questions
 from generator import GenerateResult, VOCAB, generate
@@ -142,12 +143,19 @@ def start_session(
     is_deaf_native: Optional[bool] = None,
     display_name: Optional[str] = None,
     domain: Optional[str] = None,
+    session_id: Optional[UUID] = None,
 ) -> AuthoringSession:
     """Create a fresh AWAITING_DESCRIPTION session.
 
     ``signer_id`` is required up front so finalization later can build
     a valid :class:`AuthorInfo`. The other fields are optional and can
     be set at any time before acceptance.
+
+    ``session_id``: when supplied, the session is created with this id
+    instead of a server-minted one. The contribute UI mints its UUID
+    client-side (per the §6 audit verdict, "Option A") so the URL
+    fragment `#s/<uuid>` is meaningful before the create round-trip
+    completes.
     """
     if not signer_id:
         raise ValueError("signer_id must be a non-empty string")
@@ -159,7 +167,11 @@ def start_session(
         author_is_deaf_native=is_deaf_native,
         author_display_name=display_name,
     )
-    session = AuthoringSession(draft=draft)
+    session = (
+        AuthoringSession(draft=draft, id=session_id)
+        if session_id is not None
+        else AuthoringSession(draft=draft)
+    )
     emit_event(
         _evs.SESSION_CREATED,
         session_id=str(session.id),

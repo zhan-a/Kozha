@@ -673,6 +673,17 @@ def create_session(
             signer_id = hash_signer_id(raw_signer, salt=cfg.signer_id_salt)
         else:
             signer_id = raw_signer
+    # Reject a client-supplied session_id that collides with an existing
+    # row — otherwise ``start_session`` would silently overwrite a draft
+    # the previous owner is mid-edit on. The contribute UI uses
+    # ``crypto.randomUUID()`` so a collision here is effectively zero,
+    # but a malicious client could try one and we should not honour it.
+    if body.session_id is not None and session_store.get(body.session_id) is not None:
+        raise ApiError(
+            f"session id {body.session_id} already exists",
+            status_code=409,
+            code="session_id_conflict",
+        )
     session = start_session(
         signer_id=signer_id,
         display_name=body.display_name,
@@ -680,6 +691,7 @@ def create_session(
         sign_language=body.sign_language,
         domain=body.domain,
         gloss=body.gloss,
+        session_id=body.session_id,
     )
     if body.regional_variant is not None:
         session = session.with_draft(regional_variant=body.regional_variant)
@@ -1171,38 +1183,21 @@ def post_accept(
     )
 
 
-@router.get(
-    "/sessions/{session_id}/status",
-    response_model=StatusResponse,
-    summary="Token-optional submission status for the contributor-facing URL",
-)
-def get_status(
-    session_id: UUID,
-    x_session_token: Optional[str] = Header(default=None),
-    session_store: SessionStore = Depends(get_session_store),
-    token_store: TokenStore = Depends(get_token_store),
-    sign_store: SQLiteSignStore = Depends(get_sign_store),
+def _status_response(
+    *,
+    session: AuthoringSession,
+    sign_store: SQLiteSignStore,
+    has_token: bool,
 ) -> StatusResponse:
-    """Public read path for ``/contribute/status/<session_id>``.
+    """Build the StatusResponse for a session that has produced a SignEntry.
 
-    Unlike :func:`get_session`, this endpoint does not 403 on a missing
-    token — the status URL is designed to be shareable. With a valid
-    ``X-Session-Token`` the response folds in the contributor's prose
-    description and reviewer comments; without one, only the public
-    envelope is returned.
+    Shared between :func:`get_status` (session-id path) and
+    :func:`get_signs_by_token` (token path) so the public/private
+    field-gating policy stays in one place. The caller is responsible
+    for the 404s on "session missing" and "session not yet submitted".
     """
     from session.state import AcceptedEvent
 
-    session = session_store.get(session_id)
-    if session is None:
-        raise ApiError(
-            f"session {session_id} not found",
-            status_code=404,
-            code="session_not_found",
-        )
-    has_token = bool(x_session_token) and token_store.verify(
-        session_id, x_session_token
-    )
     accepted = [e for e in session.history if isinstance(e, AcceptedEvent)]
     if not accepted:
         raise ApiError(
@@ -1212,7 +1207,6 @@ def get_status(
         )
     entry = sign_store.get(accepted[-1].sign_entry_id)
     is_validated = entry.status == "validated"
-
     # The contributor can always see the sign they submitted — token or
     # not — because they already pasted the URL somewhere. Before
     # validation, only the contributor (with the token) should see the
@@ -1244,7 +1238,7 @@ def get_status(
             )
 
     return StatusResponse(
-        session_id=session_id,
+        session_id=session.id,
         sign_id=entry.id,
         gloss=entry.gloss,
         sign_language=entry.sign_language,
@@ -1259,6 +1253,86 @@ def get_status(
         has_token=has_token,
         created_at=entry.created_at,
         updated_at=entry.updated_at,
+    )
+
+
+@router.get(
+    "/sessions/{session_id}/status",
+    response_model=StatusResponse,
+    summary="Token-optional submission status for the contributor-facing URL",
+)
+def get_status(
+    session_id: UUID,
+    x_session_token: Optional[str] = Header(default=None),
+    session_store: SessionStore = Depends(get_session_store),
+    token_store: TokenStore = Depends(get_token_store),
+    sign_store: SQLiteSignStore = Depends(get_sign_store),
+) -> StatusResponse:
+    """Public read path for ``/contribute/status/<session_id>``.
+
+    Unlike :func:`get_session`, this endpoint does not 403 on a missing
+    token — the status URL is designed to be shareable. With a valid
+    ``X-Session-Token`` the response folds in the contributor's prose
+    description and reviewer comments; without one, only the public
+    envelope is returned.
+    """
+    session = session_store.get(session_id)
+    if session is None:
+        raise ApiError(
+            f"session {session_id} not found",
+            status_code=404,
+            code="session_not_found",
+        )
+    has_token = bool(x_session_token) and token_store.verify(
+        session_id, x_session_token
+    )
+    return _status_response(
+        session=session, sign_store=sign_store, has_token=has_token
+    )
+
+
+@router.get(
+    "/signs/by-token/{token}",
+    response_model=StatusResponse,
+    summary="Stateless lookup of the sign entry a session token last produced",
+)
+def get_signs_by_token(
+    token: str,
+    session_store: SessionStore = Depends(get_session_store),
+    token_store: TokenStore = Depends(get_token_store),
+    sign_store: SQLiteSignStore = Depends(get_sign_store),
+) -> StatusResponse:
+    """Resolve a session token directly to the SignEntry it produced.
+
+    Per ``docs/contrib-fix/01-audit.md`` § 6 (Option A): the contribute
+    UI persists ``{ uuid, token, lastUpdated }`` to localStorage so a
+    contributor's status / dashboard pages can fetch their submission
+    without remembering the server-side session id. Token presence
+    is itself the authorization grant — ``has_token`` is always
+    ``True`` on the response, and the ``description_prose`` and
+    reviewer comments come back populated. 404 on either an unknown
+    token or a session that has not yet emitted an ``AcceptedEvent``.
+    The 404 envelope matches the existing ``error.code`` shape
+    (``token_not_found`` / ``not_submitted``) so the client renderer
+    in ``contribute-me.js`` and ``contribute-status.js`` can branch
+    on it.
+    """
+    session_id = token_store.find_session_by_token(token)
+    if session_id is None:
+        raise ApiError(
+            "no session is bound to this token",
+            status_code=404,
+            code="token_not_found",
+        )
+    session = session_store.get(session_id)
+    if session is None:
+        raise ApiError(
+            f"session {session_id} not found",
+            status_code=404,
+            code="session_not_found",
+        )
+    return _status_response(
+        session=session, sign_store=sign_store, has_token=True
     )
 
 

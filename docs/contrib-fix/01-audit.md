@@ -303,3 +303,44 @@ Realtime-only outage, a region-failover slow-path — silently degrades
 half the contributors to one backend and half to the other, producing
 a class of "my draft disappeared" bug reports that no test in this
 repo can catch before launch.**
+
+## 6a. What prompt 06 shipped (Option A, partial)
+
+Implementing the full Option A in one commit would invalidate every
+authoring endpoint and every test that exercises the session-state
+machine — well beyond the prompt-06 scope and the "smoke tests still
+pass" constraint. So this commit shipped the client-facing half of
+the verdict and left the server-side strip for a follow-up:
+
+Shipped now:
+
+- `public/contribute-context.js` mints the session UUID client-side
+  with `crypto.randomUUID()` and persists
+  `{ uuid, token, lastUpdated }` to `localStorage` keyed
+  `kozha.contrib.session`. The URL fragment `#s/<uuid>` is the same
+  client-minted value — the server uses it as the session id, so one
+  identifier flows through the whole pipeline.
+- `POST /sessions` accepts an optional `session_id` field. When it
+  collides with an existing row, the server returns 409
+  `session_id_conflict` rather than overwriting.
+- `GET /signs/by-token/{token}` is a new stateless read endpoint that
+  resolves a token directly to the SignEntry it produced. 404 envelope
+  matches the canonical `error.code` shape (`token_not_found`,
+  `session_not_found`, `not_submitted`).
+- `public/contribute-status.js` and `public/contribute-me.js` prefer
+  the new `/signs/by-token/<token>` path when a token is in
+  localStorage. The session-id `/sessions/{id}/status` path stays as
+  the public, shareable read for visitors who don't carry the token.
+
+Deferred:
+
+- Stripping `backend/chat2hamnosys/session/storage.py` and the
+  ten-or-so authoring endpoints in
+  `backend/chat2hamnosys/api/router.py` that mutate session state via
+  `session_store.save(session)`. Doing this requires re-architecting
+  every endpoint to take + return state in the request body (the
+  client becomes the source of truth for the in-flight draft) and
+  rewriting `test_session_orchestrator.py`,
+  `test_session_storage.py`, and the `tests/playwright/*` Playwright
+  flows. Sized at multiple commits' worth of work; the verdict in
+  § 6 still stands as the direction of travel.

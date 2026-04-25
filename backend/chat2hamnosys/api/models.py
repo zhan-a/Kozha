@@ -27,7 +27,14 @@ from pydantic import BaseModel, ConfigDict, Field
 
 
 class CreateSessionRequest(BaseModel):
-    """Body for ``POST /sessions`` (all fields optional)."""
+    """Body for ``POST /sessions`` (all fields optional).
+
+    ``session_id``: when present, the server uses this UUID as the
+    session id instead of minting one. The contribute UI sends a
+    ``crypto.randomUUID()`` value here so the URL fragment
+    (``#s/<uuid>``) is set before the create round-trip completes —
+    see ``docs/contrib-fix/01-audit.md`` § 6 (Option A).
+    """
 
     model_config = ConfigDict(extra="forbid")
 
@@ -38,6 +45,7 @@ class CreateSessionRequest(BaseModel):
     regional_variant: Optional[str] = None
     domain: Optional[str] = None
     gloss: Optional[str] = None
+    session_id: Optional[UUID] = None
 
 
 class DescribeRequest(BaseModel):

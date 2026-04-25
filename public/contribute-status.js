@@ -23,6 +23,12 @@
 
   var API_BASE = '/api/chat2hamnosys';
   var STORAGE_KEY = 'kozha.contribute.context';
+  // Prompt 06 (Option A — see docs/contrib-fix/01-audit.md § 6).
+  // contribute-context.js writes ``{ uuid, token, lastUpdated }`` here
+  // on every create/resume; we read it to fast-path through the new
+  // ``GET /signs/by-token/<token>`` endpoint, which is stateless on
+  // the URL — no session id required.
+  var LOCAL_SESSION_KEY = 'kozha.contrib.session';
   var PATH_PREFIX = '/contribute/status/';
 
   function tr(key, fallback, vars) {
@@ -112,6 +118,20 @@
   }
 
   function readStoredToken(sessionId) {
+    // Option A — localStorage is canonical. Match on uuid; fall back to
+    // the sessionStorage mirror so users with sessions started before
+    // this code shipped still resolve.
+    try {
+      var rawLocal = localStorage.getItem(LOCAL_SESSION_KEY);
+      if (rawLocal) {
+        var parsedLocal = JSON.parse(rawLocal);
+        if (parsedLocal && typeof parsedLocal === 'object'
+            && parsedLocal.token
+            && (!parsedLocal.uuid || parsedLocal.uuid === sessionId)) {
+          return parsedLocal.token;
+        }
+      }
+    } catch (_e) { /* fall through to legacy mirror */ }
     try {
       var raw = sessionStorage.getItem(STORAGE_KEY);
       if (!raw) return null;
@@ -123,6 +143,17 @@
   }
 
   function writeStoredToken(sessionId, token, language) {
+    // Mirror the unlock to BOTH stores so a subsequent visit on this
+    // browser fast-paths through ``/signs/by-token``. localStorage is
+    // the Option-A canonical store; sessionStorage stays as the
+    // language-mirror legacy store (until the strip in a follow-up).
+    try {
+      localStorage.setItem(LOCAL_SESSION_KEY, JSON.stringify({
+        uuid:        sessionId,
+        token:       token,
+        lastUpdated: Date.now(),
+      }));
+    } catch (_e) { /* storage blocked */ }
     try {
       var raw = sessionStorage.getItem(STORAGE_KEY);
       var parsed = raw ? JSON.parse(raw) : {};
@@ -147,9 +178,18 @@
   }
 
   function fetchStatus(sessionId, token) {
-    var url = API_BASE + '/sessions/' + encodeURIComponent(sessionId) + '/status';
+    // Option A: when a token is on hand, hit the stateless
+    // ``/signs/by-token/<token>`` endpoint — the token alone resolves
+    // to the SignEntry, so the response shape matches and ``has_token``
+    // comes back true. The session-id path remains the public,
+    // shareable read for visitors who don't carry the token.
+    var url;
     var headers = { 'Accept': 'application/json' };
-    if (token) headers['X-Session-Token'] = token;
+    if (token) {
+      url = API_BASE + '/signs/by-token/' + encodeURIComponent(token);
+    } else {
+      url = API_BASE + '/sessions/' + encodeURIComponent(sessionId) + '/status';
+    }
     return fetch(url, { method: 'GET', headers: headers })
       .then(function (resp) {
         return resp.text().then(function (body) {
