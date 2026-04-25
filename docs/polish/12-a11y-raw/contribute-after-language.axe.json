@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-25T03:08:22.094Z",
-  "url": "http://127.0.0.1:63497/contribute.html",
+  "timestamp": "2026-04-25T04:44:04.393Z",
+  "url": "http://127.0.0.1:65092/contribute.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -922,7 +922,7 @@
             }
           ],
           "impact": null,
-          "html": "<ul class=\"c2-hero__stats\" aria-label=\"At a glance\">\n          <li><strong>15</strong><span>sign languages</span></li>\n          <li><strong>Plain English</strong><span>no notation expertise</span></li>\n          <li><strong>Deaf-reviewed</strong><span>before it goes live</span></li>\n        </ul>",
+          "html": "<ul class=\"c2-hero__stats\" aria-label=\"At a glance\">\n          <li><strong>15</strong><span>sign languages</span></li>\n          <li><strong>Plain language</strong><span>no notation expertise</span></li>\n          <li><strong>Deaf-reviewed</strong><span>before it goes live</span></li>\n        </ul>",
           "target": [
             ".c2-hero__stats"
           ]
@@ -2168,6 +2168,60 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<div class=\"c2-viz-4__avatar c2-viz-4__cwasa CWASAAvatar av0\" id=\"walkAvatarMount\" role=\"img\" aria-label=\"HAMBURG sign — CWASA avatar demo\">",
+          "target": [
+            "#walkAvatarMount"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-allowed-role",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is allowed for given element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"c2-viz-4__chips\" role=\"group\" id=\"walkChipStrip\" aria-label=\"HAMBURG SiGML tags. Tab to cycle, Enter to inspect.\">",
+          "target": [
+            "#walkChipStrip"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-allowed-role",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is allowed for given element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<aside class=\"c2-viz-4__inspector\" id=\"walkInspector\" role=\"region\" aria-live=\"polite\" aria-label=\"SiGML tag inspector\" hidden=\"\">",
+          "target": [
+            "#walkInspector"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-allowed-role",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is allowed for given element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<section class=\"contribute-offline card kz-card\" id=\"contributeOffline\" role=\"status\" aria-live=\"polite\">\n      <p class=\"contribute-offline-body\">Contribution backend is currently offline. You can save a draft locally, and we'll upload it when the backend is available.</p>\n    </section>",
           "target": [
             "#contributeOffline"
@@ -2978,7 +3032,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<ul class=\"c2-hero__stats\" aria-label=\"At a glance\">\n          <li><strong>15</strong><span>sign languages</span></li>\n          <li><strong>Plain English</strong><span>no notation expertise</span></li>\n          <li><strong>Deaf-reviewed</strong><span>before it goes live</span></li>\n        </ul>",
+          "html": "<ul class=\"c2-hero__stats\" aria-label=\"At a glance\">\n          <li><strong>15</strong><span>sign languages</span></li>\n          <li><strong>Plain language</strong><span>no notation expertise</span></li>\n          <li><strong>Deaf-reviewed</strong><span>before it goes live</span></li>\n        </ul>",
           "target": [
             ".c2-hero__stats"
           ]
@@ -4374,9 +4428,73 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<figure class=\"c2-walk__viz c2-viz-4\" aria-hidden=\"true\">",
+          "html": "<div class=\"c2-viz-4__avatar-poster\" aria-hidden=\"true\">",
           "target": [
-            ".c2-viz-4"
+            ".c2-viz-4__avatar-poster"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<span aria-hidden=\"true\">↻</span>",
+          "target": [
+            "#walkReplayBtn > span[aria-hidden=\"true\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"hamnosys c2-viz-4__glyph-row\" lang=\"zxx\" aria-hidden=\"true\"></span>",
+          "target": [
+            ".c2-viz-4__glyph-row"
           ]
         },
         {
@@ -5438,7 +5556,7 @@
             }
           ],
           "impact": null,
-          "html": "<ul class=\"c2-hero__stats\" aria-label=\"At a glance\">\n          <li><strong>15</strong><span>sign languages</span></li>\n          <li><strong>Plain English</strong><span>no notation expertise</span></li>\n          <li><strong>Deaf-reviewed</strong><span>before it goes live</span></li>\n        </ul>",
+          "html": "<ul class=\"c2-hero__stats\" aria-label=\"At a glance\">\n          <li><strong>15</strong><span>sign languages</span></li>\n          <li><strong>Plain language</strong><span>no notation expertise</span></li>\n          <li><strong>Deaf-reviewed</strong><span>before it goes live</span></li>\n        </ul>",
           "target": [
             ".c2-hero__stats"
           ]
@@ -7344,7 +7462,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<ul class=\"c2-hero__stats\" aria-label=\"At a glance\">\n          <li><strong>15</strong><span>sign languages</span></li>\n          <li><strong>Plain English</strong><span>no notation expertise</span></li>\n          <li><strong>Deaf-reviewed</strong><span>before it goes live</span></li>\n        </ul>",
+          "html": "<ul class=\"c2-hero__stats\" aria-label=\"At a glance\">\n          <li><strong>15</strong><span>sign languages</span></li>\n          <li><strong>Plain language</strong><span>no notation expertise</span></li>\n          <li><strong>Deaf-reviewed</strong><span>before it goes live</span></li>\n        </ul>",
           "target": [
             ".c2-hero__stats"
           ]
@@ -8490,7 +8608,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<ul class=\"c2-hero__stats\" aria-label=\"At a glance\">\n          <li><strong>15</strong><span>sign languages</span></li>\n          <li><strong>Plain English</strong><span>no notation expertise</span></li>\n          <li><strong>Deaf-reviewed</strong><span>before it goes live</span></li>\n        </ul>",
+          "html": "<ul class=\"c2-hero__stats\" aria-label=\"At a glance\">\n          <li><strong>15</strong><span>sign languages</span></li>\n          <li><strong>Plain language</strong><span>no notation expertise</span></li>\n          <li><strong>Deaf-reviewed</strong><span>before it goes live</span></li>\n        </ul>",
           "target": [
             ".c2-hero__stats"
           ]
@@ -9598,7 +9716,7 @@
               "data": null,
               "relatedNodes": [
                 {
-                  "html": "<h1 class=\"c2-hero__title contribute-h1\" id=\"c2-hero-title\">\n          Add a sign.<br>\n          <em>Help someone be understood.</em>\n        </h1>",
+                  "html": "<h1 class=\"c2-hero__title contribute-h1\" id=\"c2-hero-title\">\n          Add a sign.<br>\n          <em>Close a gap in the dictionary.</em>\n        </h1>",
                   "target": [
                     "#c2-hero-title"
                   ]
@@ -9906,7 +10024,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h1 class=\"c2-hero__title contribute-h1\" id=\"c2-hero-title\">\n          Add a sign.<br>\n          <em>Help someone be understood.</em>\n        </h1>",
+          "html": "<h1 class=\"c2-hero__title contribute-h1\" id=\"c2-hero-title\">\n          Add a sign.<br>\n          <em>Close a gap in the dictionary.</em>\n        </h1>",
           "target": [
             "#c2-hero-title"
           ]
@@ -9931,7 +10049,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<em>Help someone be understood.</em>",
+          "html": "<em>Close a gap in the dictionary.</em>",
           "target": [
             "#c2-hero-title > em"
           ]
@@ -10106,7 +10224,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<strong>Plain English</strong>",
+          "html": "<strong>Plain language</strong>",
           "target": [
             "li:nth-child(2) > strong"
           ]
@@ -10281,7 +10399,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"c2-why__body\">Describe a sign in plain English. Kozha drafts the HamNoSys for you, and a Deaf native signer reviews it before it goes live.</p>",
+          "html": "<p class=\"c2-why__body\">Describe a sign in plain language. Kozha drafts the HamNoSys for you, and a Deaf native signer reviews it before it goes live.</p>",
           "target": [
             ".c2-why__item:nth-child(2) > .c2-why__body"
           ]
@@ -12196,7 +12314,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h1 class=\"c2-hero__title contribute-h1\" id=\"c2-hero-title\">\n          Add a sign.<br>\n          <em>Help someone be understood.</em>\n        </h1>",
+          "html": "<h1 class=\"c2-hero__title contribute-h1\" id=\"c2-hero-title\">\n          Add a sign.<br>\n          <em>Close a gap in the dictionary.</em>\n        </h1>",
           "target": [
             "#c2-hero-title"
           ]
@@ -12893,7 +13011,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h1 class=\"c2-hero__title contribute-h1\" id=\"c2-hero-title\">\n          Add a sign.<br>\n          <em>Help someone be understood.</em>\n        </h1>",
+          "html": "<h1 class=\"c2-hero__title contribute-h1\" id=\"c2-hero-title\">\n          Add a sign.<br>\n          <em>Close a gap in the dictionary.</em>\n        </h1>",
           "target": [
             "#c2-hero-title"
           ]
@@ -13268,7 +13386,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h1 class=\"c2-hero__title contribute-h1\" id=\"c2-hero-title\">\n          Add a sign.<br>\n          <em>Help someone be understood.</em>\n        </h1>",
+          "html": "<h1 class=\"c2-hero__title contribute-h1\" id=\"c2-hero-title\">\n          Add a sign.<br>\n          <em>Close a gap in the dictionary.</em>\n        </h1>",
           "target": [
             "#c2-hero-title"
           ]
@@ -14808,7 +14926,7 @@
             }
           ],
           "impact": null,
-          "html": "<ul class=\"c2-hero__stats\" aria-label=\"At a glance\">\n          <li><strong>15</strong><span>sign languages</span></li>\n          <li><strong>Plain English</strong><span>no notation expertise</span></li>\n          <li><strong>Deaf-reviewed</strong><span>before it goes live</span></li>\n        </ul>",
+          "html": "<ul class=\"c2-hero__stats\" aria-label=\"At a glance\">\n          <li><strong>15</strong><span>sign languages</span></li>\n          <li><strong>Plain language</strong><span>no notation expertise</span></li>\n          <li><strong>Deaf-reviewed</strong><span>before it goes live</span></li>\n        </ul>",
           "target": [
             ".c2-hero__stats"
           ]
@@ -15042,7 +15160,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li><strong>Plain English</strong><span>no notation expertise</span></li>",
+          "html": "<li><strong>Plain language</strong><span>no notation expertise</span></li>",
           "target": [
             ".c2-hero__stats > li:nth-child(2)"
           ]
@@ -15912,7 +16030,7 @@
               "data": null,
               "relatedNodes": [
                 {
-                  "html": "<h1 class=\"c2-hero__title contribute-h1\" id=\"c2-hero-title\">\n          Add a sign.<br>\n          <em>Help someone be understood.</em>\n        </h1>",
+                  "html": "<h1 class=\"c2-hero__title contribute-h1\" id=\"c2-hero-title\">\n          Add a sign.<br>\n          <em>Close a gap in the dictionary.</em>\n        </h1>",
                   "target": [
                     "#c2-hero-title"
                   ]
@@ -16299,7 +16417,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h1 class=\"c2-hero__title contribute-h1\" id=\"c2-hero-title\">\n          Add a sign.<br>\n          <em>Help someone be understood.</em>\n        </h1>",
+          "html": "<h1 class=\"c2-hero__title contribute-h1\" id=\"c2-hero-title\">\n          Add a sign.<br>\n          <em>Close a gap in the dictionary.</em>\n        </h1>",
           "target": [
             "#c2-hero-title"
           ]
@@ -16339,7 +16457,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<em>Help someone be understood.</em>",
+          "html": "<em>Close a gap in the dictionary.</em>",
           "target": [
             "#c2-hero-title > em"
           ]
@@ -16459,7 +16577,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<ul class=\"c2-hero__stats\" aria-label=\"At a glance\">\n          <li><strong>15</strong><span>sign languages</span></li>\n          <li><strong>Plain English</strong><span>no notation expertise</span></li>\n          <li><strong>Deaf-reviewed</strong><span>before it goes live</span></li>\n        </ul>",
+          "html": "<ul class=\"c2-hero__stats\" aria-label=\"At a glance\">\n          <li><strong>15</strong><span>sign languages</span></li>\n          <li><strong>Plain language</strong><span>no notation expertise</span></li>\n          <li><strong>Deaf-reviewed</strong><span>before it goes live</span></li>\n        </ul>",
           "target": [
             ".c2-hero__stats"
           ]
@@ -16539,7 +16657,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li><strong>Plain English</strong><span>no notation expertise</span></li>",
+          "html": "<li><strong>Plain language</strong><span>no notation expertise</span></li>",
           "target": [
             ".c2-hero__stats > li:nth-child(2)"
           ]
@@ -16559,7 +16677,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<strong>Plain English</strong>",
+          "html": "<strong>Plain language</strong>",
           "target": [
             "li:nth-child(2) > strong"
           ]
@@ -16799,7 +16917,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"c2-why__body\">Describe a sign in plain English. Kozha drafts the HamNoSys for you, and a Deaf native signer reviews it before it goes live.</p>",
+          "html": "<p class=\"c2-why__body\">Describe a sign in plain language. Kozha drafts the HamNoSys for you, and a Deaf native signer reviews it before it goes live.</p>",
           "target": [
             ".c2-why__item:nth-child(2) > .c2-why__body"
           ]
@@ -22166,7 +22284,7 @@
           "impact": "serious",
           "html": "<span class=\"hamnosys\" lang=\"zxx\" aria-hidden=\"true\"></span>",
           "target": [
-            ".hamnosys[lang=\"zxx\"][aria-hidden=\"true\"]"
+            ".c2-hero__card-glyphs > .hamnosys[lang=\"zxx\"][aria-hidden=\"true\"]"
           ],
           "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
         },

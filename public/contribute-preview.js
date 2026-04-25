@@ -793,6 +793,11 @@
         renderFailed:  state.renderFailed,
       };
     },
+    // Walkthrough demo (contribute-walkthrough.js) needs CWASA up before
+    // a session exists so the HAMBURG hero plays on step view. Without
+    // this hook, initCWASA only runs from onSnapshot and the walkthrough
+    // would be silent until the user starts authoring.
+    ensureCWASA: function () { initCWASA(); },
   };
 
   // ---------- init ----------

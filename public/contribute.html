@@ -158,11 +158,13 @@
           <span class="c2-hero__card-state">live</span>
         </div>
         <div class="c2-hero__card-stage">
-          <div class="c2-hero__avatar">
-            <span class="c2-hero__avatar-head"></span>
-            <span class="c2-hero__avatar-torso"></span>
-            <span class="c2-hero__avatar-arm c2-hero__avatar-arm--a"></span>
-            <span class="c2-hero__avatar-arm c2-hero__avatar-arm--b"></span>
+          <div class="c2-hero__avatar c2-hero__cwasa CWASAAvatar av0" id="heroAvatarMount" aria-hidden="true">
+            <svg class="c2-hero__cwasa-poster" viewBox="0 0 160 160" aria-hidden="true" focusable="false">
+              <circle class="c2-cwasa-poster-head"  cx="80" cy="44" r="22"/>
+              <path   class="c2-cwasa-poster-torso" d="M40 134 Q40 88 80 88 Q120 88 120 134 Z"/>
+              <rect   class="c2-cwasa-poster-arm-a" x="32"  y="80" width="22" height="58" rx="11" transform="rotate(20 43 109)"/>
+              <rect   class="c2-cwasa-poster-arm-b" x="106" y="80" width="22" height="58" rx="11" transform="rotate(-12 117 109)"/>
+            </svg>
           </div>
           <div class="c2-hero__pulse" aria-hidden="true"></div>
         </div>
@@ -338,26 +340,52 @@
                 <li>Each glyph below is one phonological slot of the sign. Click any to inspect or swap.</li>
               </ul>
             </div>
-            <figure class="c2-walk__viz c2-viz-4" aria-hidden="true">
-              <div class="c2-viz-4__avatar">
-                <span class="c2-viz-4__avatar-head"></span>
-                <span class="c2-viz-4__avatar-torso"></span>
-                <span class="c2-viz-4__avatar-arm c2-viz-4__avatar-arm--a"></span>
-                <span class="c2-viz-4__avatar-arm c2-viz-4__avatar-arm--b"></span>
-                <button type="button" class="c2-viz-4__play" tabindex="-1" aria-hidden="true">
-                  <span>▶</span>
+            <figure class="c2-walk__viz c2-viz-4">
+              <div class="c2-viz-4__avatar c2-viz-4__cwasa CWASAAvatar av0"
+                   id="walkAvatarMount"
+                   role="img"
+                   aria-label="HAMBURG sign — CWASA avatar demo">
+                <div class="c2-viz-4__avatar-poster" aria-hidden="true">
+                  <svg viewBox="0 0 160 140" focusable="false">
+                    <circle class="c2-cwasa-poster-head"  cx="80"  cy="34" r="18"/>
+                    <path   class="c2-cwasa-poster-torso" d="M48 116 Q48 76 80 76 Q112 76 112 116 Z"/>
+                    <rect   class="c2-cwasa-poster-arm-a" x="38"  y="68" width="16" height="44" rx="8" transform="rotate(20 46 90)"/>
+                    <rect   class="c2-cwasa-poster-arm-b" x="106" y="68" width="16" height="44" rx="8" transform="rotate(-15 114 90)"/>
+                  </svg>
+                  <span class="c2-viz-4__avatar-poster-label">avatar loads on first interaction</span>
+                </div>
+              </div>
+              <div class="c2-viz-4__controls">
+                <button type="button"
+                        class="c2-viz-4__replay"
+                        id="walkReplayBtn"
+                        aria-label="Replay HAMBURG demo">
+                  <span aria-hidden="true">↻</span> Replay
                 </button>
+                <span class="c2-viz-4__caption" id="walkAvatarCaption">HAMBURG · DGS reference example</span>
               </div>
               <div class="c2-viz-4__glyphs">
                 <span class="c2-viz-4__glyph-label">HamNoSys · DGS · HAMBURG</span>
-                <span class="hamnosys c2-viz-4__glyph-row" lang="zxx">&#xE00A;&#xE00E;&#xE010;&#xE027;&#xE03D;&#xE042;&#xE059;&#xE0D0;&#xE0E2;&#xE082;&#xE0AA;&#xE007;&#xE010;&#xE0E3;</span>
+                <span class="hamnosys c2-viz-4__glyph-row" lang="zxx" aria-hidden="true">&#xE00A;&#xE00E;&#xE010;&#xE027;&#xE03D;&#xE042;&#xE059;&#xE0D0;&#xE0E2;&#xE082;&#xE0AA;&#xE007;&#xE010;&#xE0E3;</span>
               </div>
-              <div class="c2-viz-4__tags">
-                <span class="c2-viz-4__tag">handshape</span>
-                <span class="c2-viz-4__tag">orientation</span>
-                <span class="c2-viz-4__tag c2-viz-4__tag--active">location</span>
-                <span class="c2-viz-4__tag">movement</span>
-              </div>
+              <div class="c2-viz-4__chips"
+                   role="group"
+                   id="walkChipStrip"
+                   aria-label="HAMBURG SiGML tags. Tab to cycle, Enter to inspect."></div>
+              <aside class="c2-viz-4__inspector"
+                     id="walkInspector"
+                     role="region"
+                     aria-live="polite"
+                     aria-label="SiGML tag inspector"
+                     hidden>
+                <button type="button"
+                        class="c2-viz-4__inspector-close"
+                        data-walk-inspector-close
+                        aria-label="Close inspector">×</button>
+                <p class="c2-viz-4__inspector-tag"  data-walk-inspector-tag></p>
+                <p class="c2-viz-4__inspector-cat"  data-walk-inspector-cat></p>
+                <p class="c2-viz-4__inspector-role" data-walk-inspector-role></p>
+              </aside>
             </figure>
           </article>
 
@@ -1148,6 +1176,7 @@
   <script src="/contribute-notation.js"></script>
   <script src="/contribute-sigml-edit.js"></script>
   <script src="/contribute-preview.js"></script>
+  <script src="/contribute-walkthrough.js"></script>
   <script src="/contribute-submit.js"></script>
   <script src="/contribute.js"></script>
 

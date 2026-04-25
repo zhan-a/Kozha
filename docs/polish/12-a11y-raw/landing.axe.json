@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-25T03:07:57.788Z",
-  "url": "http://127.0.0.1:63497/",
+  "timestamp": "2026-04-25T04:43:42.924Z",
+  "url": "http://127.0.0.1:65092/",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -3295,7 +3295,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"stat-label\">Always for educators</div>",
+          "html": "<div class=\"stat-label\">for educators, always</div>",
           "target": [
             ".stat-item:nth-child(3) > .stat-label"
           ]
@@ -3615,7 +3615,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"feature-title\">Voice-to-Sign</div>",
+          "html": "<div class=\"feature-title\">Speech input</div>",
           "target": [
             ".feature-card.kz-card:nth-child(1) > .feature-title"
           ]
@@ -8830,7 +8830,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"stat-item\">\n          <div class=\"stat-num\">Free</div>\n          <div class=\"stat-label\">Always for educators</div>\n        </div>",
+          "html": "<div class=\"stat-item\">\n          <div class=\"stat-num\">Free</div>\n          <div class=\"stat-label\">for educators, always</div>\n        </div>",
           "target": [
             ".stat-item:nth-child(3)"
           ]
@@ -8870,7 +8870,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"stat-label\">Always for educators</div>",
+          "html": "<div class=\"stat-label\">for educators, always</div>",
           "target": [
             ".stat-item:nth-child(3) > .stat-label"
           ]
@@ -10650,7 +10650,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"feature-card kz-card\">\n        <div class=\"feature-title\">Voice-to-Sign</div>\n        <p class=\"feature-body\">Record speech in your browser. Transcription uses your device's built-in speech recognition — no audio leaves your machine.</p>\n      </div>",
+          "html": "<div class=\"feature-card kz-card\">\n        <div class=\"feature-title\">Speech input</div>\n        <p class=\"feature-body\">Record speech in your browser. Transcription uses your device's built-in speech recognition — no audio leaves your machine.</p>\n      </div>",
           "target": [
             ".feature-card.kz-card:nth-child(1)"
           ]
@@ -10670,7 +10670,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"feature-title\">Voice-to-Sign</div>",
+          "html": "<div class=\"feature-title\">Speech input</div>",
           "target": [
             ".feature-card.kz-card:nth-child(1) > .feature-title"
           ]

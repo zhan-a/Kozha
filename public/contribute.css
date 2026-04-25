@@ -2981,39 +2981,33 @@ select.field-input { cursor: pointer; }
   width: 160px;
   height: 160px;
 }
-.c2-hero__avatar-head {
-  position: absolute;
-  top: 10px; left: 50%;
-  transform: translateX(-50%);
-  width: 44px; height: 44px;
-  border-radius: 50%;
-  background: linear-gradient(145deg, var(--kozha-color-ink-2), var(--kozha-color-ink));
+/* CWASA mount on the hero card. The poster SVG below stays visible until
+   the CWASA bundle resolves and contribute-walkthrough.js claims the
+   canvas to the walkthrough stage. */
+.c2-hero__cwasa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
-.c2-hero__avatar-torso {
-  position: absolute;
-  top: 56px; left: 50%;
-  transform: translateX(-50%);
-  width: 80px; height: 78px;
-  border-radius: 28px 28px 18px 18px;
-  background: linear-gradient(170deg, var(--kozha-color-ink-2), var(--kozha-color-ink));
+.c2-hero__cwasa canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
-.c2-hero__avatar-arm {
-  position: absolute;
-  width: 22px; height: 62px;
-  border-radius: 12px;
-  background: linear-gradient(180deg, var(--kozha-color-ink-2), var(--kozha-color-accent));
-  transform-origin: top center;
+.c2-hero__cwasa-poster {
+  width: 100%;
+  height: 100%;
 }
-.c2-hero__avatar-arm--a {
-  top: 64px; left: 26px;
-  transform: rotate(22deg);
-  animation: c2-arm-a 3.6s cubic-bezier(0.45, 0, 0.2, 1) infinite;
-}
-.c2-hero__avatar-arm--b {
-  top: 64px; right: 26px;
-  transform: rotate(-12deg);
-  animation: c2-arm-b 3.6s cubic-bezier(0.45, 0, 0.2, 1) infinite;
-}
+/* Shared poster-fill rules so both hero and walkthrough fallback SVGs
+   read from the design tokens. SVG presentation attributes don't accept
+   var(), so the fill comes from CSS. */
+.c2-cwasa-poster-head  { fill: var(--kozha-color-ink-2); }
+.c2-cwasa-poster-torso { fill: var(--kozha-color-ink); }
+.c2-cwasa-poster-arm-a { fill: var(--kozha-color-accent); }
+.c2-cwasa-poster-arm-b { fill: var(--kozha-color-ink-2); }
+/* Hide the poster the moment CWASA injects a canvas inside the mount. */
+.c2-hero__cwasa:has(canvas) .c2-hero__cwasa-poster { display: none; }
 .c2-hero__pulse {
   position: absolute;
   top: 24px; right: 34px;
@@ -3540,12 +3534,12 @@ select.field-input { cursor: pointer; }
 .c2-viz-3__dots span:nth-child(2) { animation-delay: 0.15s; }
 .c2-viz-3__dots span:nth-child(3) { animation-delay: 0.3s; }
 
-/* ----- Step 4 visual: avatar + HamNoSys glyphs + tags ----- */
+/* ----- Step 4 visual: real CWASA avatar + chip strip + inspector ----- */
 .c2-viz-4__avatar {
   position: relative;
-  height: 140px;
+  height: 220px;
   background:
-    radial-gradient(circle at 50% 40%, rgba(201, 106, 46, 0.08), transparent 60%),
+    radial-gradient(circle at 50% 35%, rgba(201, 106, 46, 0.08), transparent 60%),
     var(--kozha-color-white);
   border: 1px solid var(--kozha-color-border);
   border-radius: 12px;
@@ -3554,54 +3548,75 @@ select.field-input { cursor: pointer; }
   justify-content: center;
   overflow: hidden;
 }
-.c2-viz-4__avatar-head {
-  position: absolute;
-  top: 14px; left: 50%;
-  transform: translateX(-50%);
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  background: var(--kozha-color-ink-2);
+.c2-viz-4__cwasa canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
-.c2-viz-4__avatar-torso {
-  position: absolute;
-  top: 44px; left: 50%;
-  transform: translateX(-50%);
-  width: 62px; height: 60px;
-  border-radius: 22px 22px 14px 14px;
-  background: var(--kozha-color-ink);
-}
-.c2-viz-4__avatar-arm {
-  position: absolute;
-  width: 18px; height: 48px;
-  border-radius: 10px;
-  background: linear-gradient(180deg, var(--kozha-color-ink-2), var(--kozha-color-accent));
-  transform-origin: top center;
-}
-.c2-viz-4__avatar-arm--a {
-  top: 48px; left: calc(50% - 44px);
-  animation: c2-arm-a 3s cubic-bezier(0.45, 0, 0.2, 1) infinite;
-}
-.c2-viz-4__avatar-arm--b {
-  top: 48px; right: calc(50% - 44px);
-  animation: c2-arm-b 3s cubic-bezier(0.45, 0, 0.2, 1) infinite;
-}
-.c2-viz-4__play {
-  position: absolute;
-  bottom: 10px; right: 10px;
-  width: 28px; height: 28px;
-  border-radius: 50%;
-  border: 0;
-  background: var(--kozha-color-accent);
-  color: var(--kozha-color-white);
-  font-size: 10px;
+.c2-viz-4__avatar-poster {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  cursor: default;
-  pointer-events: none;
-  box-shadow: 0 4px 12px rgba(201, 106, 46, 0.4);
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  padding: 14px;
+  box-sizing: border-box;
 }
-.c2-viz-4__play span { transform: translateX(1px); }
+.c2-viz-4__avatar-poster svg {
+  flex: 1 1 auto;
+  width: auto;
+  max-height: 140px;
+  opacity: 0.55;
+}
+.c2-viz-4__avatar-poster-label {
+  font-family: var(--kozha-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--kozha-color-ink-3);
+}
+.c2-viz-4__cwasa:has(canvas) .c2-viz-4__avatar-poster { display: none; }
+
+.c2-viz-4__controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--kozha-space-3);
+  margin-top: 10px;
+}
+.c2-viz-4__replay {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--kozha-font-sans);
+  font-size: 12px;
+  font-weight: var(--kozha-weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--kozha-color-accent);
+  background: transparent;
+  border: 1px solid var(--kozha-color-accent);
+  border-radius: 999px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+.c2-viz-4__replay:hover {
+  background: var(--kozha-color-accent-light);
+  transform: translateY(-1px);
+}
+.c2-viz-4__replay:focus-visible {
+  outline: 2px solid var(--kozha-color-accent);
+  outline-offset: 2px;
+}
+.c2-viz-4__caption {
+  font-family: var(--kozha-font-mono);
+  font-size: 10px;
+  color: var(--kozha-color-ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
 
 .c2-viz-4__glyphs {
   padding: 12px 14px;
@@ -3628,30 +3643,111 @@ select.field-input { cursor: pointer; }
   letter-spacing: 0.04em;
   word-break: break-all;
 }
-.c2-viz-4__tags {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+
+/* Chip strip — one chip per <ham*/> tag in HAMBURG SiGML. Each chip is
+   keyboard-focusable; Enter/Space opens the read-only inspector below. */
+.c2-viz-4__chips {
+  display: flex;
+  flex-wrap: wrap;
   gap: 6px;
+  padding: 10px;
+  background: var(--kozha-color-paper-2);
+  border: 1px solid var(--kozha-color-border);
+  border-radius: 10px;
+  max-height: 158px;
+  overflow-y: auto;
 }
-.c2-viz-4__tag {
-  font-family: var(--kozha-font-mono);
-  font-size: 10px;
-  font-weight: var(--kozha-weight-semibold);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--kozha-color-ink-3);
+.c2-viz-4__chip {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  padding: 5px 9px;
   background: var(--kozha-color-white);
   border: 1px solid var(--kozha-color-border);
   border-radius: 6px;
-  padding: 6px 8px;
-  text-align: center;
-  transition: all 0.15s ease;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--kozha-font-sans);
+  font-size: 11px;
+  color: var(--kozha-color-ink);
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
 }
-.c2-viz-4__tag--active {
-  background: var(--kozha-color-accent);
-  color: var(--kozha-color-white);
+.c2-viz-4__chip:hover {
   border-color: var(--kozha-color-accent);
-  animation: c2-tag-pulse 2.4s ease-in-out infinite;
+  transform: translateY(-1px);
+}
+.c2-viz-4__chip:focus-visible {
+  outline: 2px solid var(--kozha-color-accent);
+  outline-offset: 2px;
+  background: var(--kozha-color-accent-light);
+  border-color: var(--kozha-color-accent);
+}
+.c2-viz-4__chip-name {
+  font-family: var(--kozha-font-mono);
+  font-weight: var(--kozha-weight-semibold);
+  font-size: 11px;
+  color: var(--kozha-color-ink);
+}
+.c2-viz-4__chip-cat {
+  font-family: var(--kozha-font-mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--kozha-color-ink-3);
+}
+
+/* Read-only inspector. Click-to-swap is prompt 05's job; this surface
+   only displays the focused tag's tag name, category, and semantic role
+   from hamnosys-sigml-reference.md § 1. */
+.c2-viz-4__inspector {
+  position: relative;
+  margin-top: 10px;
+  padding: 12px 40px 12px 14px;
+  background: var(--kozha-color-paper);
+  border: 1px solid var(--kozha-color-accent);
+  border-radius: 10px;
+}
+.c2-viz-4__inspector-close {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--kozha-color-ink-3);
+}
+.c2-viz-4__inspector-close:hover { color: var(--kozha-color-ink); }
+.c2-viz-4__inspector-close:focus-visible {
+  outline: 2px solid var(--kozha-color-accent);
+  outline-offset: 2px;
+}
+.c2-viz-4__inspector-tag {
+  margin: 0 0 4px;
+  font-family: var(--kozha-font-mono);
+  font-size: 13px;
+  font-weight: var(--kozha-weight-semibold);
+  color: var(--kozha-color-ink);
+}
+.c2-viz-4__inspector-cat {
+  margin: 0 0 6px;
+  font-family: var(--kozha-font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--kozha-color-accent);
+}
+.c2-viz-4__inspector-role {
+  margin: 0;
+  font-family: var(--kozha-font-sans);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--kozha-color-ink);
 }
 
 /* ----- Step 5 visual: review timeline ----- */
@@ -4118,14 +4214,11 @@ select.field-input { cursor: pointer; }
 @media (prefers-reduced-motion: reduce) {
   .c2-hero,
   .c2-hero__eyebrow-dot,
-  .c2-hero__avatar-arm,
   .c2-hero__pulse,
   .c2-walk__panel.is-active,
   .c2-viz-1__typed,
   .c2-viz-1__caret,
   .c2-viz-3__dots span,
-  .c2-viz-4__avatar-arm,
-  .c2-viz-4__tag--active,
   .c2-viz-5__timeline li.is-current::before {
     animation: none !important;
   }

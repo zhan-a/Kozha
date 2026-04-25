@@ -1,6 +1,6 @@
 {
   "documentTitle": "Credits — Kozha",
-  "pageUrl": "http://127.0.0.1:63497/credits.html",
+  "pageUrl": "http://127.0.0.1:65092/credits.html",
   "issues": [
     {
       "code": "WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206",
@@ -69,6 +69,896 @@
       "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
       "context": "<a href=\"/credits\" class=\"kz-header__link is-active\" aria-current=\"page\">About</a>",
       "selector": "html > body > header > ul > li:nth-child(4) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-eyebrow\">Attribution &amp; provenance</span>",
+      "selector": "#main-content > header > div > span",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 3:1.",
+      "context": "<h1 class=\"cr-h1\">Built on the work of <em>Deaf r...</h1>",
+      "selector": "#main-content > header > div > h1",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 3:1.",
+      "context": "<em>Deaf research, linguists, and o...</em>",
+      "selector": "#main-content > header > div > h1 > em",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<p class=\"cr-lede\">\n          Every corpus, notati...</p>",
+      "selector": "#main-content > header > div > p",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 3:1.",
+      "context": "<span class=\"cr-stat__value\">17</span>",
+      "selector": "#main-content > header > div > ul > li:nth-child(1) > span:nth-child(1)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-stat__label\">Sources</span>",
+      "selector": "#main-content > header > div > ul > li:nth-child(1) > span:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 3:1.",
+      "context": "<span class=\"cr-stat__value\">12</span>",
+      "selector": "#main-content > header > div > ul > li:nth-child(2) > span:nth-child(1)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-stat__label\">Sign languages</span>",
+      "selector": "#main-content > header > div > ul > li:nth-child(2) > span:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 3:1.",
+      "context": "<span class=\"cr-stat__value\">11k</span>",
+      "selector": "#main-content > header > div > ul > li:nth-child(3) > span:nth-child(1)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-stat__label\">Signs ingested</span>",
+      "selector": "#main-content > header > div > ul > li:nth-child(3) > span:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 3:1.",
+      "context": "<span class=\"cr-stat__value\">7</span>",
+      "selector": "#main-content > header > div > ul > li:nth-child(4) > span:nth-child(1)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-stat__label\">License families</span>",
+      "selector": "#main-content > header > div > ul > li:nth-child(4) > span:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--restricted\" title=\"Creative Commons Attribution-NoDerivatives\">CC BY-ND</span>",
+      "selector": "#avatar > div > article > div:nth-child(1) > span",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H48",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "If this element contains a navigation section, it is recommended that it be marked up as a list.",
+      "context": "<div class=\"cr-links\">\n            <a href=\"https://v...</div>",
+      "selector": "#avatar > div > article > div:nth-child(5)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--open\" title=\"Creative Commons Attribution 4.0\">CC BY 4.0</span>",
+      "selector": "#notation > div > article:nth-child(1) > div:nth-child(1) > span",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H48",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "If this element contains a navigation section, it is recommended that it be marked up as a list.",
+      "context": "<div class=\"cr-links\">\n            <a href=\"https://w...</div>",
+      "selector": "#notation > div > article:nth-child(1) > div:nth-child(5)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--academic\" title=\"IDGS distribution terms\">Academic</span>",
+      "selector": "#notation > div > article:nth-child(2) > div:nth-child(1) > span",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H48",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "If this element contains a navigation section, it is recommended that it be marked up as a list.",
+      "context": "<div class=\"cr-links\">\n            <a href=\"/fonts/bg...</div>",
+      "selector": "#notation > div > article:nth-child(2) > div:nth-child(5)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.NoCaption",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "If this table is a data table, consider using a caption element to the table element to identify this table.",
+      "context": "<table class=\"cr-summary__table\">\n          <thead>\n            ...</table>",
+      "selector": "#corpora > div:nth-child(2) > table",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--academic\">CC BY-NC-SA 3.0</span>",
+      "selector": "#corpora > div:nth-child(2) > table > tbody > tr:nth-child(1) > td:nth-child(4) > span",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--academic\">Per-entry</span>",
+      "selector": "#corpora > div:nth-child(2) > table > tbody > tr:nth-child(2) > td:nth-child(4) > span",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--academic\">CC BY-NC-SA 3.0</span>",
+      "selector": "#corpora > div:nth-child(2) > table > tbody > tr:nth-child(3) > td:nth-child(4) > span",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--academic\">CC BY-NC-SA 3.0</span>",
+      "selector": "#corpora > div:nth-child(2) > table > tbody > tr:nth-child(4) > td:nth-child(4) > span",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--academic\">Academic</span>",
+      "selector": "#corpora > div:nth-child(2) > table > tbody > tr:nth-child(5) > td:nth-child(4) > span",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--unclear\">Unclear</span>",
+      "selector": "#corpora > div:nth-child(2) > table > tbody > tr:nth-child(6) > td:nth-child(4) > span",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--unclear\">Unclear</span>",
+      "selector": "#corpora > div:nth-child(2) > table > tbody > tr:nth-child(7) > td:nth-child(4) > span",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--unclear\">Unclear</span>",
+      "selector": "#corpora > div:nth-child(2) > table > tbody > tr:nth-child(8) > td:nth-child(4) > span",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--unclear\">Unclear</span>",
+      "selector": "#corpora > div:nth-child(2) > table > tbody > tr:nth-child(9) > td:nth-child(4) > span",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--unclear\">Unclear</span>",
+      "selector": "#corpora > div:nth-child(2) > table > tbody > tr:nth-child(10) > td:nth-child(4) > span",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--unclear\">Unclear</span>",
+      "selector": "#corpora > div:nth-child(2) > table > tbody > tr:nth-child(11) > td:nth-child(4) > span",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--unclear\">Unclear</span>",
+      "selector": "#corpora > div:nth-child(2) > table > tbody > tr:nth-child(12) > td:nth-child(4) > span",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--academic\">CC BY-NC-SA 3.0</span>",
+      "selector": "#bsl > div:nth-child(1) > div:nth-child(2) > span:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H48",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "If this element contains a navigation section, it is recommended that it be marked up as a list.",
+      "context": "<div class=\"cr-links\">\n            <a href=\"https://w...</div>",
+      "selector": "#bsl > div:nth-child(5)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--academic\">Per-entry</span>",
+      "selector": "#dgs > div:nth-child(1) > div:nth-child(2) > span:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H48",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "If this element contains a navigation section, it is recommended that it be marked up as a list.",
+      "context": "<div class=\"cr-links\">\n            <a href=\"https://w...</div>",
+      "selector": "#dgs > div:nth-child(6)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--academic\">CC BY-NC-SA 3.0</span>",
+      "selector": "#lsf > div:nth-child(1) > div:nth-child(2) > span:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H48",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "If this element contains a navigation section, it is recommended that it be marked up as a list.",
+      "context": "<div class=\"cr-links\">\n            <a href=\"https://w...</div>",
+      "selector": "#lsf > div:nth-child(5)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--academic\">CC BY-NC-SA 3.0</span>",
+      "selector": "#gsl > div:nth-child(1) > div:nth-child(2) > span:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H48",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "If this element contains a navigation section, it is recommended that it be marked up as a list.",
+      "context": "<div class=\"cr-links\">\n            <a href=\"https://w...</div>",
+      "selector": "#gsl > div:nth-child(5)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--academic\">Academic</span>",
+      "selector": "#pjm > div:nth-child(1) > div:nth-child(2) > span:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H48",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "If this element contains a navigation section, it is recommended that it be marked up as a list.",
+      "context": "<div class=\"cr-links\">\n            <a href=\"https://s...</div>",
+      "selector": "#pjm > div:nth-child(6)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<h3 class=\"cr-card__title\">SignLanguageSynthesis</h3>",
+      "selector": "#ngt > div:nth-child(1) > div:nth-child(1) > h3",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<p class=\"cr-card__sub\">Lyke Esselink · community contr...</p>",
+      "selector": "#ngt > div:nth-child(1) > div:nth-child(1) > p",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--unclear\">Unclear</span>",
+      "selector": "#ngt > div:nth-child(1) > div:nth-child(2) > span:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<p class=\"cr-card__body\">\n            Dutch Sign Languag...</p>",
+      "selector": "#ngt > p:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<p class=\"cr-license-detail cr-license-detail--unclear\">\n            <strong>No license...</p>",
+      "selector": "#ngt > p:nth-child(4)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<strong>No license declared in the upst...</strong>",
+      "selector": "#ngt > p:nth-child(4) > strong",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<h3 class=\"cr-card__title\">algerianSignLanguage-avatar</h3>",
+      "selector": "#algerian > div:nth-child(1) > div:nth-child(1) > h3",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<p class=\"cr-card__sub\">Taha Zerrouki · community contr...</p>",
+      "selector": "#algerian > div:nth-child(1) > div:nth-child(1) > p",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--unclear\">Unclear</span>",
+      "selector": "#algerian > div:nth-child(1) > div:nth-child(2) > span:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<p class=\"cr-card__body\">\n            Algerian Sign Lang...</p>",
+      "selector": "#algerian > p:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<p class=\"cr-license-detail cr-license-detail--unclear\">\n            <strong>No license...</p>",
+      "selector": "#algerian > p:nth-child(4)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<strong>No license declared in the upst...</strong>",
+      "selector": "#algerian > p:nth-child(4) > strong",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<h3 class=\"cr-card__title\">bdsl-3d-animation</h3>",
+      "selector": "#bangla > div:nth-child(1) > div:nth-child(1) > h3",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<p class=\"cr-card__sub\">Devr Arif Khan · community cont...</p>",
+      "selector": "#bangla > div:nth-child(1) > div:nth-child(1) > p",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--unclear\">Unclear</span>",
+      "selector": "#bangla > div:nth-child(1) > div:nth-child(2) > span:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<p class=\"cr-card__body\">\n            Bangla Sign Langua...</p>",
+      "selector": "#bangla > p:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<p class=\"cr-license-detail cr-license-detail--unclear\">\n            <strong>No license...</p>",
+      "selector": "#bangla > p:nth-child(4)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<strong>No license declared in the upst...</strong>",
+      "selector": "#bangla > p:nth-child(4) > strong",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<h3 class=\"cr-card__title\">Text-to-Sign-Language &amp; tex...</h3>",
+      "selector": "#isl > div:nth-child(1) > div:nth-child(1) > h3",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<p class=\"cr-card__sub\">Divanshu &amp; Shoebham · commu...</p>",
+      "selector": "#isl > div:nth-child(1) > div:nth-child(1) > p",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--unclear\">Unclear</span>",
+      "selector": "#isl > div:nth-child(1) > div:nth-child(2) > span:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<p class=\"cr-card__body\">\n            Indian Sign Langua...</p>",
+      "selector": "#isl > p:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<p class=\"cr-license-detail cr-license-detail--unclear\">\n            <strong>No license...</p>",
+      "selector": "#isl > p:nth-child(4)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<strong>No license declared in either u...</strong>",
+      "selector": "#isl > p:nth-child(4) > strong",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H48",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "If this element contains a navigation section, it is recommended that it be marked up as a list.",
+      "context": "<div class=\"cr-links\">\n            <a href=\"https://g...</div>",
+      "selector": "#isl > div:nth-child(6)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<h3 class=\"cr-card__title\">KurdishSignLanguage</h3>",
+      "selector": "#kurdish > div:nth-child(1) > div:nth-child(1) > h3",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<p class=\"cr-card__sub\">KurdishBLARK organisation</p>",
+      "selector": "#kurdish > div:nth-child(1) > div:nth-child(1) > p",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--unclear\">Unclear</span>",
+      "selector": "#kurdish > div:nth-child(1) > div:nth-child(2) > span:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<p class=\"cr-card__body\">\n            Kurdish Sign Langu...</p>",
+      "selector": "#kurdish > p:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<p class=\"cr-license-detail cr-license-detail--unclear\">\n            <strong>No license...</p>",
+      "selector": "#kurdish > p:nth-child(4)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<strong>No license declared in the upst...</strong>",
+      "selector": "#kurdish > p:nth-child(4) > strong",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<h3 class=\"cr-card__title\">VSL</h3>",
+      "selector": "#vsl > div:nth-child(1) > div:nth-child(1) > h3",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<p class=\"cr-card__sub\">Raian Rido · community contribu...</p>",
+      "selector": "#vsl > div:nth-child(1) > div:nth-child(1) > p",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--unclear\">Unclear</span>",
+      "selector": "#vsl > div:nth-child(1) > div:nth-child(2) > span:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<p class=\"cr-card__body\">\n            Vietnamese Sign La...</p>",
+      "selector": "#vsl > p:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<p class=\"cr-license-detail cr-license-detail--unclear\">\n            <strong>No license...</p>",
+      "selector": "#vsl > p:nth-child(4)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<strong>No license declared in the upst...</strong>",
+      "selector": "#vsl > p:nth-child(4) > strong",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<h3 class=\"cr-card__title\">syntheticfsl &amp; signtyper</h3>",
+      "selector": "#fsl > div:nth-child(1) > div:nth-child(1) > h3",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<p class=\"cr-card__sub\">Jennie Ablog · community contri...</p>",
+      "selector": "#fsl > div:nth-child(1) > div:nth-child(1) > p",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--unclear\">Unclear</span>",
+      "selector": "#fsl > div:nth-child(1) > div:nth-child(2) > span:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<p class=\"cr-card__body\">\n            Filipino Sign Lang...</p>",
+      "selector": "#fsl > p:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<p class=\"cr-license-detail cr-license-detail--unclear\">\n            <strong>No license...</p>",
+      "selector": "#fsl > p:nth-child(4)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<strong>No license declared in the upst...</strong>",
+      "selector": "#fsl > p:nth-child(4) > strong",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H48",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "If this element contains a navigation section, it is recommended that it be marked up as a list.",
+      "context": "<div class=\"cr-links\">\n            <a href=\"https://g...</div>",
+      "selector": "#fsl > div:nth-child(6)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--open\">MIT</span>",
+      "selector": "#translation > div > article:nth-child(1) > div:nth-child(1) > span",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H48",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "If this element contains a navigation section, it is recommended that it be marked up as a list.",
+      "context": "<div class=\"cr-links\">\n            <a href=\"https://g...</div>",
+      "selector": "#translation > div > article:nth-child(1) > div:nth-child(5)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"cr-license cr-license--open\">MIT</span>",
+      "selector": "#translation > div > article:nth-child(2) > div:nth-child(1) > span",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_3.1_3_1.H48",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "If this element contains a navigation section, it is recommended that it be marked up as a list.",
+      "context": "<div class=\"cr-links\">\n            <a href=\"https://s...</div>",
+      "selector": "#translation > div > article:nth-child(2) > div:nth-child(5)",
       "runner": "htmlcs",
       "runnerExtras": {}
     }

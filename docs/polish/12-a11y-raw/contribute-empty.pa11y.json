@@ -1,6 +1,6 @@
 {
   "documentTitle": "Contribute a sign — Kozha",
-  "pageUrl": "http://127.0.0.1:63497/contribute.html",
+  "pageUrl": "http://127.0.0.1:65092/contribute.html",
   "issues": [
     {
       "code": "WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206",
@@ -119,6 +119,116 @@
       "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
       "context": "<span class=\"c2-walk__tab-dur\">30 s</span>",
       "selector": "#c2-tab-1 > span:nth-child(3)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<button type=\"button\" class=\"c2-viz-4__chip\" tabindex=\"0\" data-tag=\"hamceeall\" data-role=\"C-shape using all fingers\" data-category=\"handshape\" aria-label=\"<hamceeall/>: C-shape using all fingers (handshape). Press Enter to inspect.\"><span class=\"c2-v...",
+      "selector": "#walkChipStrip > button:nth-child(1)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<button type=\"button\" class=\"c2-viz-4__chip\" tabindex=\"0\" data-tag=\"hamthumbopenmod\" data-role=\"Thumb away from fingers (open)\" data-category=\"modifier\" aria-label=\"<hamthumbopenmod/>: Thumb away from fingers (open) (modifier). Press Enter to inspect...",
+      "selector": "#walkChipStrip > button:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<button type=\"button\" class=\"c2-viz-4__chip\" tabindex=\"0\" data-tag=\"hamfingerstraightmod\" data-role=\"Fingers fully straight\" data-category=\"modifier\" aria-label=\"<hamfingerstraightmod/>: Fingers fully straight (modifier). Press Enter to inspect.\"><sp...",
+      "selector": "#walkChipStrip > button:nth-child(3)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<button type=\"button\" class=\"c2-viz-4__chip\" tabindex=\"0\" data-tag=\"hamextfingerul\" data-role=\"Fingers point up-left\" data-category=\"finger dir.\" aria-label=\"<hamextfingerul/>: Fingers point up-left (finger dir.). Press Enter to inspect.\"><span class...",
+      "selector": "#walkChipStrip > button:nth-child(4)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<button type=\"button\" class=\"c2-viz-4__chip\" tabindex=\"0\" data-tag=\"hamlrat\" data-role=\"Locative qualifier (proximity: at the location)\" data-category=\"location mod.\" aria-label=\"<hamlrat/>: Locative qualifier (proximity: at the location) (location m...",
+      "selector": "#walkChipStrip > button:nth-child(7)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<button type=\"button\" class=\"c2-viz-4__chip\" tabindex=\"0\" data-tag=\"hamclose\" data-role=\"Contact: close to the locative surface\" data-category=\"movement mod.\" aria-label=\"<hamclose/>: Contact: close to the locative surface (movement mod.). Press Ente...",
+      "selector": "#walkChipStrip > button:nth-child(8)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<button type=\"button\" class=\"c2-viz-4__chip\" tabindex=\"0\" data-tag=\"hamparbegin\" data-role=\"Parallel-action group: begin\" data-category=\"movement\" aria-label=\"<hamparbegin/>: Parallel-action group: begin (movement). Press Enter to inspect.\"><span cla...",
+      "selector": "#walkChipStrip > button:nth-child(9)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<button type=\"button\" class=\"c2-viz-4__chip\" tabindex=\"0\" data-tag=\"hamreplace\" data-role=\"Replace handshape mid-sign\" data-category=\"movement\" aria-label=\"<hamreplace/>: Replace handshape mid-sign (movement). Press Enter to inspect.\"><span class=\"c2...",
+      "selector": "#walkChipStrip > button:nth-child(11)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<button type=\"button\" class=\"c2-viz-4__chip\" tabindex=\"0\" data-tag=\"hampinchall\" data-role=\"All fingers pinched together with thumb\" data-category=\"handshape\" aria-label=\"<hampinchall/>: All fingers pinched together with thumb (handshape). Press Ente...",
+      "selector": "#walkChipStrip > button:nth-child(12)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<button type=\"button\" class=\"c2-viz-4__chip\" tabindex=\"0\" data-tag=\"hamfingerstraightmod\" data-role=\"Fingers fully straight\" data-category=\"modifier\" aria-label=\"<hamfingerstraightmod/>: Fingers fully straight (modifier). Press Enter to inspect.\"><sp...",
+      "selector": "#walkChipStrip > button:nth-child(13)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle2.Guideline2_5.2_5_3.F96",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.",
+      "context": "<button type=\"button\" class=\"c2-viz-4__chip\" tabindex=\"0\" data-tag=\"hamparend\" data-role=\"Parallel-action group: end\" data-category=\"movement\" aria-label=\"<hamparend/>: Parallel-action group: end (movement). Press Enter to inspect.\"><span class=\"c2-v...",
+      "selector": "#walkChipStrip > button:nth-child(14)",
       "runner": "htmlcs",
       "runnerExtras": {}
     },
