@@ -3642,21 +3642,30 @@
     // one warm pipeline; failed loads clear the in-flight promise so a
     // retry click recovers.
     //
-    // We use ``@huggingface/transformers`` v3 (the renamed and
-    // re-packaged successor to ``@xenova/transformers`` v2). v3 ships
-    // a real browser ESM bundle at ``dist/transformers.web.js`` which
-    // jsDelivr resolves automatically via the package's ``module``
-    // field. v2 served the raw source — which left bare imports
-    // (``onnxruntime-web``, the model architecture class files) only
-    // partially resolved. The user-visible symptom of the v2 path was
-    // ``Unsupported model type: whisper`` at pipeline-call time, even
-    // though the model files downloaded fine: the architecture
-    // registrations failed silently while ``pipeline()`` still
-    // exported. v3 fixes that by being properly browser-bundled.
+    // Two pinned versions:
+    //   * ``@huggingface/transformers@4.2.0`` — the renamed v3+ successor
+    //     to ``@xenova/transformers``. v4.2 ships a real browser ESM
+    //     bundle at ``dist/transformers.web.js`` and the
+    //     ``ort-wasm-simd-threaded.jsep.mjs`` JSEP loader; jsDelivr
+    //     resolves the bare URL through ``exports[default]``.
+    //   * ``onnxruntime-web@1.26.0-dev...`` — the exact ORT version
+    //     that transformers 4.2.0 declares as a runtime dependency.
+    //     We pin ``wasmPaths`` to its dist/ on jsDelivr because
+    //     ORT-Web's auto-path resolution from a CDN-loaded bundle
+    //     misfires: it can't find the .wasm files at the resolved
+    //     path, then mis-reports the failure as "WebAssembly SIMD is
+    //     not supported in the current environment" rather than
+    //     "WASM not reachable". Pinning the path makes the actual
+    //     SIMD-enabled WASM (the only variant ORT 1.20+ ships)
+    //     reachable, the load succeeds, and the misleading SIMD
+    //     error goes away on every modern browser.
     async function getPipeline(){
       if (window.__transformersPipeline) return window.__transformersPipeline;
       if (!window.__transformersPipelinePromise) {
-        var TRANSFORMERS_URL = 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.0.2';
+        var TRANSFORMERS_VERSION = '4.2.0';
+        var ORT_VERSION = '1.26.0-dev.20260416-b7804b056c';
+        var TRANSFORMERS_URL = 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@' + TRANSFORMERS_VERSION;
+
         window.__transformersPipelinePromise = import(TRANSFORMERS_URL)
           .then(function (mod) {
             // Defensive check — if a future packaging change breaks
@@ -3672,6 +3681,17 @@
               // Cache model weights in IndexedDB so a return visit
               // doesn't re-download 50+ MB.
               mod.env.useBrowserCache = true;
+              // Pin the ORT-Web WASM path to the exact version
+              // transformers ships against — see comment block above.
+              if (mod.env.backends && mod.env.backends.onnx && mod.env.backends.onnx.wasm) {
+                mod.env.backends.onnx.wasm.wasmPaths =
+                  'https://cdn.jsdelivr.net/npm/onnxruntime-web@' + ORT_VERSION + '/dist/';
+                // Single-thread mode avoids the SharedArrayBuffer
+                // requirement, which needs COOP/COEP headers we
+                // don't ship. ORT's SIMD WASM still runs perfectly
+                // on one thread.
+                mod.env.backends.onnx.wasm.numThreads = 1;
+              }
             }
             window.__transformersPipeline = mod.pipeline;
             return mod.pipeline;
@@ -3684,6 +3704,25 @@
           });
       }
       return window.__transformersPipelinePromise;
+    }
+
+    // Wrap the SIMD/no-backend error class with a clear browser-version
+    // hint. The bare ORT-Web message ("WebAssembly SIMD is not
+    // supported in the current environment") points at the symptom
+    // rather than the actual minimum browser versions, so we surface
+    // those plus the underlying error for diagnosis.
+    function explainAsrError(err) {
+      var msg = (err && err.message) || String(err);
+      if (msg.indexOf('SIMD is not supported') !== -1 ||
+          msg.indexOf('no available backend') !== -1 ||
+          msg.indexOf('Aborted(CompileError') !== -1) {
+        return new Error(
+          'Your browser does not support the WebAssembly features the ' +
+          'speech model needs. Update to Chrome 91+, Edge 91+, Firefox 89+, ' +
+          'or Safari 16.4+ — or use the text input above. (' + msg + ')'
+        );
+      }
+      return err instanceof Error ? err : new Error(msg);
     }
 
     async function ensureASR(){
@@ -3768,8 +3807,9 @@
         textIn.value = translated;
         if (!micTranslationExpected || translated !== rawText) { micStatus.textContent = 'Done ✓'; micStatus.className = 'status-badge ready'; }
       }catch(e){
-        const msg = (e && e.message) ? e.message : String(e);
-        micStatus.textContent = 'Transcription failed: ' + msg.slice(0, 120);
+        const explained = explainAsrError(e);
+        const msg = (explained && explained.message) ? explained.message : String(explained);
+        micStatus.textContent = 'Transcription failed: ' + msg.slice(0, 240);
         micStatus.className = 'status-badge';
       }
     });
@@ -3931,8 +3971,9 @@
         videoStatus.textContent = 'Ready to render ✓'; videoStatus.className = 'status-badge ready';
         videoToSignBtn.disabled = false;
       }catch(e){
-        const msg = (e && e.message) ? e.message : String(e);
-        showVideoError('Could not process the file: ' + msg.slice(0, 200));
+        const explained = explainAsrError(e);
+        const msg = (explained && explained.message) ? explained.message : String(explained);
+        showVideoError('Could not process the file: ' + msg.slice(0, 280));
         videoToSignBtn.disabled = false;
       }
     });

@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-25T02:41:03.971Z",
-  "url": "http://127.0.0.1:62806/contribute.html",
+  "timestamp": "2026-04-25T03:08:18.501Z",
+  "url": "http://127.0.0.1:63497/contribute.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -710,25 +710,6 @@
       "nodes": []
     },
     {
-      "id": "summary-name",
-      "impact": null,
-      "tags": [
-        "cat.name-role-value",
-        "wcag2a",
-        "wcag412",
-        "section508",
-        "section508.22.a",
-        "TTv5",
-        "TT6.a",
-        "EN-301-549",
-        "EN-9.4.1.2"
-      ],
-      "description": "Ensure summary elements have discernible text",
-      "help": "Summary elements must have discernible text",
-      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/summary-name?application=axe-puppeteer",
-      "nodes": []
-    },
-    {
       "id": "svg-img-alt",
       "impact": null,
       "tags": [
@@ -982,39 +963,6 @@
           "html": "<header class=\"c2-hero\" aria-labelledby=\"c2-hero-title\">",
           "target": [
             ".c2-hero"
-          ]
-        },
-        {
-          "any": [],
-          "all": [
-            {
-              "id": "aria-allowed-attr",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "ARIA attributes are used correctly for the defined role"
-            },
-            {
-              "id": "aria-allowed-attr-elm",
-              "data": null,
-              "relatedNodes": [],
-              "message": "ARIA attributes are allowed for this element",
-              "impact": "critical"
-            }
-          ],
-          "none": [
-            {
-              "id": "aria-unsupported-attr",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "ARIA attribute is supported"
-            }
-          ],
-          "impact": null,
-          "html": "<button type=\"button\" class=\"btn btn-primary c2-hero__cta\" id=\"contributeOpenBtn\" aria-controls=\"contributeWorkspace\" aria-expanded=\"false\">\n            <span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">＋</span>\n            Open the contribution form\n          </button>",
-          "target": [
-            "#contributeOpenBtn"
           ]
         },
         {
@@ -1477,6 +1425,72 @@
           "html": "<section class=\"contribute-offline card kz-card\" id=\"contributeOffline\" role=\"status\" aria-live=\"polite\">\n      <p class=\"contribute-offline-body\">Contribution backend is currently offline. You can save a draft locally, and we'll upload it when the backend is available.</p>\n    </section>",
           "target": [
             "#contributeOffline"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-allowed-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attributes are used correctly for the defined role"
+            },
+            {
+              "id": "aria-allowed-attr-elm",
+              "data": null,
+              "relatedNodes": [],
+              "message": "ARIA attributes are allowed for this element",
+              "impact": "critical"
+            }
+          ],
+          "none": [
+            {
+              "id": "aria-unsupported-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute is supported"
+            }
+          ],
+          "impact": null,
+          "html": "<section class=\"qs\" id=\"c2-quickstart\" aria-labelledby=\"qs-heading\">",
+          "target": [
+            "#c2-quickstart"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-allowed-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attributes are used correctly for the defined role"
+            },
+            {
+              "id": "aria-allowed-attr-elm",
+              "data": null,
+              "relatedNodes": [],
+              "message": "ARIA attributes are allowed for this element",
+              "impact": "critical"
+            }
+          ],
+          "none": [
+            {
+              "id": "aria-unsupported-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute is supported"
+            }
+          ],
+          "impact": null,
+          "html": "<div class=\"qs__chips\" role=\"group\" aria-label=\"Choose a sign language\">",
+          "target": [
+            "div[aria-label=\"Choose a sign language\"]"
           ]
         },
         {
@@ -2507,24 +2521,6 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" class=\"btn btn-primary c2-hero__cta\" id=\"contributeOpenBtn\" aria-controls=\"contributeWorkspace\" aria-expanded=\"false\">\n            <span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">＋</span>\n            Open the contribution form\n          </button>",
-          "target": [
-            "#contributeOpenBtn"
-          ]
-        },
-        {
-          "any": [],
-          "all": [
-            {
-              "id": "aria-conditional-attr",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "ARIA attribute is allowed"
-            }
-          ],
-          "none": [],
-          "impact": null,
           "html": "<ul class=\"c2-hero__stats\" aria-label=\"At a glance\">\n          <li><strong>15</strong><span>sign languages</span></li>\n          <li><strong>Plain English</strong><span>no notation expertise</span></li>\n          <li><strong>Deaf-reviewed</strong><span>before it goes live</span></li>\n        </ul>",
           "target": [
             ".c2-hero__stats"
@@ -2777,6 +2773,42 @@
           ],
           "none": [],
           "impact": null,
+          "html": "<section class=\"qs\" id=\"c2-quickstart\" aria-labelledby=\"qs-heading\">",
+          "target": [
+            "#c2-quickstart"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-conditional-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"qs__chips\" role=\"group\" aria-label=\"Choose a sign language\">",
+          "target": [
+            "div[aria-label=\"Choose a sign language\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-conditional-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "none": [],
+          "impact": null,
           "html": "<nav class=\"kz-footer__cols\" aria-label=\"Footer\">",
           "target": [
             ".kz-footer__cols"
@@ -2993,6 +3025,24 @@
             }
           ],
           "impact": null,
+          "html": "<div class=\"qs__chips\" role=\"group\" aria-label=\"Choose a sign language\">",
+          "target": [
+            "div[aria-label=\"Choose a sign language\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "deprecatedrole",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is not deprecated"
+            }
+          ],
+          "impact": null,
           "html": "<footer class=\"kz-footer\" role=\"contentinfo\">",
           "target": [
             ".kz-footer"
@@ -3147,7 +3197,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">＋</span>",
+          "html": "<span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">→</span>",
           "target": [
             ".c2-hero__cta-icon"
           ]
@@ -4499,24 +4549,6 @@
             }
           ],
           "impact": null,
-          "html": "<button type=\"button\" class=\"btn btn-primary c2-hero__cta\" id=\"contributeOpenBtn\" aria-controls=\"contributeWorkspace\" aria-expanded=\"false\">\n            <span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">＋</span>\n            Open the contribution form\n          </button>",
-          "target": [
-            "#contributeOpenBtn"
-          ]
-        },
-        {
-          "any": [],
-          "all": [],
-          "none": [
-            {
-              "id": "aria-prohibited-attr",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "ARIA attribute is allowed"
-            }
-          ],
-          "impact": null,
           "html": "<ul class=\"c2-hero__stats\" aria-label=\"At a glance\">\n          <li><strong>15</strong><span>sign languages</span></li>\n          <li><strong>Plain English</strong><span>no notation expertise</span></li>\n          <li><strong>Deaf-reviewed</strong><span>before it goes live</span></li>\n        </ul>",
           "target": [
             ".c2-hero__stats"
@@ -4769,6 +4801,42 @@
             }
           ],
           "impact": null,
+          "html": "<section class=\"qs\" id=\"c2-quickstart\" aria-labelledby=\"qs-heading\">",
+          "target": [
+            "#c2-quickstart"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "aria-prohibited-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "impact": null,
+          "html": "<div class=\"qs__chips\" role=\"group\" aria-label=\"Choose a sign language\">",
+          "target": [
+            "div[aria-label=\"Choose a sign language\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "aria-prohibited-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "impact": null,
           "html": "<nav class=\"kz-footer__cols\" aria-label=\"Footer\">",
           "target": [
             ".kz-footer__cols"
@@ -4970,6 +5038,24 @@
           "html": "<section class=\"contribute-offline card kz-card\" id=\"contributeOffline\" role=\"status\" aria-live=\"polite\">\n      <p class=\"contribute-offline-body\">Contribution backend is currently offline. You can save a draft locally, and we'll upload it when the backend is available.</p>\n    </section>",
           "target": [
             "#contributeOffline"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-required-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "All required ARIA attributes are present"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"qs__chips\" role=\"group\" aria-label=\"Choose a sign language\">",
+          "target": [
+            "div[aria-label=\"Choose a sign language\"]"
           ]
         },
         {
@@ -5467,6 +5553,38 @@
             }
           ],
           "impact": null,
+          "html": "<div class=\"qs__chips\" role=\"group\" aria-label=\"Choose a sign language\">",
+          "target": [
+            "div[aria-label=\"Choose a sign language\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "invalidrole",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA role is valid"
+            },
+            {
+              "id": "abstractrole",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Abstract roles are not used"
+            },
+            {
+              "id": "unsupportedrole",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA role is supported"
+            }
+          ],
+          "impact": null,
           "html": "<footer class=\"kz-footer\" role=\"contentinfo\">",
           "target": [
             ".kz-footer"
@@ -5584,38 +5702,6 @@
           "html": "<header class=\"c2-hero\" aria-labelledby=\"c2-hero-title\">",
           "target": [
             ".c2-hero"
-          ]
-        },
-        {
-          "any": [],
-          "all": [
-            {
-              "id": "aria-valid-attr-value",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "ARIA attribute values are valid"
-            },
-            {
-              "id": "aria-errormessage",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "aria-errormessage exists and references elements visible to screen readers that use a supported aria-errormessage technique"
-            },
-            {
-              "id": "aria-level",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "aria-level values are valid"
-            }
-          ],
-          "none": [],
-          "impact": null,
-          "html": "<button type=\"button\" class=\"btn btn-primary c2-hero__cta\" id=\"contributeOpenBtn\" aria-controls=\"contributeWorkspace\" aria-expanded=\"false\">\n            <span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">＋</span>\n            Open the contribution form\n          </button>",
-          "target": [
-            "#contributeOpenBtn"
           ]
         },
         {
@@ -6064,6 +6150,70 @@
           "html": "<section class=\"contribute-offline card kz-card\" id=\"contributeOffline\" role=\"status\" aria-live=\"polite\">\n      <p class=\"contribute-offline-body\">Contribution backend is currently offline. You can save a draft locally, and we'll upload it when the backend is available.</p>\n    </section>",
           "target": [
             "#contributeOffline"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-valid-attr-value",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute values are valid"
+            },
+            {
+              "id": "aria-errormessage",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-errormessage exists and references elements visible to screen readers that use a supported aria-errormessage technique"
+            },
+            {
+              "id": "aria-level",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-level values are valid"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<section class=\"qs\" id=\"c2-quickstart\" aria-labelledby=\"qs-heading\">",
+          "target": [
+            "#c2-quickstart"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-valid-attr-value",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute values are valid"
+            },
+            {
+              "id": "aria-errormessage",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-errormessage exists and references elements visible to screen readers that use a supported aria-errormessage technique"
+            },
+            {
+              "id": "aria-level",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-level values are valid"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"qs__chips\" role=\"group\" aria-label=\"Choose a sign language\">",
+          "target": [
+            "div[aria-label=\"Choose a sign language\"]"
           ]
         },
         {
@@ -6215,24 +6365,6 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" class=\"btn btn-primary c2-hero__cta\" id=\"contributeOpenBtn\" aria-controls=\"contributeWorkspace\" aria-expanded=\"false\">\n            <span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">＋</span>\n            Open the contribution form\n          </button>",
-          "target": [
-            "#contributeOpenBtn"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "aria-valid-attr",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "ARIA attribute name is valid"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
           "html": "<ul class=\"c2-hero__stats\" aria-label=\"At a glance\">\n          <li><strong>15</strong><span>sign languages</span></li>\n          <li><strong>Plain English</strong><span>no notation expertise</span></li>\n          <li><strong>Deaf-reviewed</strong><span>before it goes live</span></li>\n        </ul>",
           "target": [
             ".c2-hero__stats"
@@ -6485,6 +6617,42 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<section class=\"qs\" id=\"c2-quickstart\" aria-labelledby=\"qs-heading\">",
+          "target": [
+            "#c2-quickstart"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-valid-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute name is valid"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"qs__chips\" role=\"group\" aria-label=\"Choose a sign language\">",
+          "target": [
+            "div[aria-label=\"Choose a sign language\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-valid-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute name is valid"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<nav class=\"kz-footer__cols\" aria-label=\"Footer\">",
           "target": [
             ".kz-footer__cols"
@@ -6531,24 +6699,6 @@
       "help": "Buttons must have discernible text",
       "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axe-puppeteer",
       "nodes": [
-        {
-          "any": [
-            {
-              "id": "button-has-visible-text",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "Element has inner text that is visible to screen readers"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<button type=\"button\" class=\"btn btn-primary c2-hero__cta\" id=\"contributeOpenBtn\" aria-controls=\"contributeWorkspace\" aria-expanded=\"false\">\n            <span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">＋</span>\n            Open the contribution form\n          </button>",
-          "target": [
-            "#contributeOpenBtn"
-          ]
-        },
         {
           "any": [
             {
@@ -6697,6 +6847,78 @@
               "relatedNodes": [],
               "impact": "critical",
               "message": "Element has inner text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"bsl\">",
+          "target": [
+            "button[data-lang=\"bsl\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "button-has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Element has inner text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"asl\">",
+          "target": [
+            "button[data-lang=\"asl\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "button-has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Element has inner text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"dgs\">",
+          "target": [
+            "button[data-lang=\"dgs\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "button-has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Element has inner text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"lsf\">",
+          "target": [
+            "button[data-lang=\"lsf\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "button-has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Element has inner text that is visible to screen readers"
             },
             {
               "id": "aria-label",
@@ -6783,6 +7005,12 @@
                   "html": "<h3 class=\"c2-walk__copy-title\">Pick a language. Pick a word.</h3>",
                   "target": [
                     "#c2-panel-1 > .c2-walk__copy > .c2-walk__copy-title"
+                  ]
+                },
+                {
+                  "html": "<h2 class=\"qs__heading\" id=\"qs-heading\">Which sign language<br>are you contributing to?</h2>",
+                  "target": [
+                    "#qs-heading"
                   ]
                 },
                 {
@@ -7146,7 +7374,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" class=\"btn btn-primary c2-hero__cta\" id=\"contributeOpenBtn\" aria-controls=\"contributeWorkspace\" aria-expanded=\"false\">\n            <span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">＋</span>\n            Open the contribution form\n          </button>",
+          "html": "<a href=\"#c2-quickstart\" class=\"btn btn-primary c2-hero__cta\" id=\"contributeOpenBtn\">\n            <span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">→</span>\n            Pick a language to start\n          </a>",
           "target": [
             "#contributeOpenBtn"
           ]
@@ -9101,24 +9329,6 @@
           "any": [
             {
               "id": "duplicate-id-aria",
-              "data": "contributeWorkspace",
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<div id=\"contributeWorkspace\" class=\"contribute-workspace\">",
-          "target": [
-            "#contributeWorkspace"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "duplicate-id-aria",
               "data": "qs-heading",
               "relatedNodes": [],
               "impact": "critical",
@@ -9699,6 +9909,24 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<h2 class=\"qs__heading\" id=\"qs-heading\">Which sign language<br>are you contributing to?</h2>",
+          "target": [
+            "#qs-heading"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "Element has text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<h2 class=\"kz-footer__col-title\" data-i18n=\"common.footer_col_use\">Use</h2>",
           "target": [
             "h2[data-i18n=\"common.footer_col_use\"]"
@@ -9794,6 +10022,12 @@
                       "html > body > main:nth-child(3) > section:nth-child(3) > div:nth-child(2) > div:nth-child(2) > article:nth-child(1) > div:nth-child(1) > h3:nth-child(2)"
                     ],
                     "level": 3
+                  },
+                  {
+                    "ancestry": [
+                      "html > body > main:nth-child(3) > div:nth-child(7) > section:nth-child(1) > div > h2:nth-child(2)"
+                    ],
+                    "level": 2
                   },
                   {
                     "ancestry": [
@@ -9916,6 +10150,24 @@
           "html": "<h3 class=\"c2-walk__copy-title\">Pick a language. Pick a word.</h3>",
           "target": [
             "#c2-panel-1 > .c2-walk__copy > .c2-walk__copy-title"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "heading-order",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "Heading order valid"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<h2 class=\"qs__heading\" id=\"qs-heading\">Which sign language<br>are you contributing to?</h2>",
+          "target": [
+            "#qs-heading"
           ]
         },
         {
@@ -10389,6 +10641,27 @@
             {
               "id": "landmark-is-unique",
               "data": {
+                "role": "region",
+                "accessibleText": "which sign language are you contributing to?"
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "Landmarks must have a unique role or role/label/title (i.e. accessible name) combination"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<section class=\"qs\" id=\"c2-quickstart\" aria-labelledby=\"qs-heading\">",
+          "target": [
+            "#c2-quickstart"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "landmark-is-unique",
+              "data": {
                 "role": "contentinfo",
                 "accessibleText": null
               },
@@ -10650,6 +10923,58 @@
           "html": "<a href=\"/credits\" class=\"kz-header__link\" data-i18n=\"common.nav_about\">About</a>",
           "target": [
             "a[data-i18n=\"common.nav_about\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [
+            {
+              "id": "focusable-no-name",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element is not in tab order or has accessible text"
+            }
+          ],
+          "impact": null,
+          "html": "<a href=\"#c2-quickstart\" class=\"btn btn-primary c2-hero__cta\" id=\"contributeOpenBtn\">\n            <span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">→</span>\n            Pick a language to start\n          </a>",
+          "target": [
+            "#contributeOpenBtn"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [
+            {
+              "id": "focusable-no-name",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element is not in tab order or has accessible text"
+            }
+          ],
+          "impact": null,
+          "html": "<a href=\"/progress\" class=\"qs__coverage-link\" data-i18n=\"contribute.language_picker.see_all_languages\">See coverage →</a>",
+          "target": [
+            ".qs__coverage-link"
           ]
         },
         {
@@ -11535,24 +11860,6 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" class=\"btn btn-primary c2-hero__cta\" id=\"contributeOpenBtn\" aria-controls=\"contributeWorkspace\" aria-expanded=\"false\">\n            <span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">＋</span>\n            Open the contribution form\n          </button>",
-          "target": [
-            "#contributeOpenBtn"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "no-focusable-content",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Element does not have focusable descendants"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
           "html": "<button type=\"button\" class=\"c2-walk__tab is-active\" role=\"tab\" data-step=\"1\" id=\"c2-tab-1\" aria-selected=\"true\" aria-controls=\"c2-panel-1\" tabindex=\"0\">",
           "target": [
             "#c2-tab-1"
@@ -11664,6 +11971,96 @@
           "html": "<button type=\"button\" class=\"c2-walk__nav c2-walk__nav--next\" id=\"c2-walk-next\" aria-label=\"Next step\">Next →</button>",
           "target": [
             "#c2-walk-next"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "no-focusable-content",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element does not have focusable descendants"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"bsl\">",
+          "target": [
+            "button[data-lang=\"bsl\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "no-focusable-content",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element does not have focusable descendants"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"asl\">",
+          "target": [
+            "button[data-lang=\"asl\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "no-focusable-content",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element does not have focusable descendants"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"dgs\">",
+          "target": [
+            "button[data-lang=\"dgs\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "no-focusable-content",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element does not have focusable descendants"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"lsf\">",
+          "target": [
+            "button[data-lang=\"lsf\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "no-focusable-content",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element does not have focusable descendants"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<summary class=\"byo-key-summary\">\n            <span class=\"byo-key-summary-text\">Advanced: use your own OpenAI API key (optional)</span>\n          </summary>",
+          "target": [
+            ".byo-key-summary"
           ]
         },
         {
@@ -12212,7 +12609,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" class=\"btn btn-primary c2-hero__cta\" id=\"contributeOpenBtn\" aria-controls=\"contributeWorkspace\" aria-expanded=\"false\">\n            <span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">＋</span>\n            Open the contribution form\n          </button>",
+          "html": "<a href=\"#c2-quickstart\" class=\"btn btn-primary c2-hero__cta\" id=\"contributeOpenBtn\">\n            <span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">→</span>\n            Pick a language to start\n          </a>",
           "target": [
             "#contributeOpenBtn"
           ]
@@ -13612,6 +14009,586 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<div id=\"contributeWorkspace\" class=\"contribute-workspace\">",
+          "target": [
+            "#contributeWorkspace"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<section class=\"qs\" id=\"c2-quickstart\" aria-labelledby=\"qs-heading\">",
+          "target": [
+            "#c2-quickstart"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"qs__inner\">",
+          "target": [
+            ".qs__inner"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"qs__kicker\">Pick a language to begin</p>",
+          "target": [
+            ".qs__kicker"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<h2 class=\"qs__heading\" id=\"qs-heading\">Which sign language<br>are you contributing to?</h2>",
+          "target": [
+            "#qs-heading"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<br>",
+          "target": [
+            "#qs-heading > br"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"qs__lede\">Tap a language — we'll take you straight into drafting.</p>",
+          "target": [
+            ".qs__lede"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"qs__chips\" role=\"group\" aria-label=\"Choose a sign language\">",
+          "target": [
+            "div[aria-label=\"Choose a sign language\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"bsl\">",
+          "target": [
+            "button[data-lang=\"bsl\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"qs__chip-body\">\n              <span class=\"qs__chip-code\">BSL</span>\n              <span class=\"qs__chip-name\">British Sign Language</span>\n            </span>",
+          "target": [
+            "button[data-lang=\"bsl\"] > .qs__chip-body"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"qs__chip-code\">BSL</span>",
+          "target": [
+            "button[data-lang=\"bsl\"] > .qs__chip-body > .qs__chip-code"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"qs__chip-name\">British Sign Language</span>",
+          "target": [
+            "button[data-lang=\"bsl\"] > .qs__chip-body > .qs__chip-name"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"asl\">",
+          "target": [
+            "button[data-lang=\"asl\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"qs__chip-body\">\n              <span class=\"qs__chip-code\">ASL</span>\n              <span class=\"qs__chip-name\">American Sign Language</span>\n            </span>",
+          "target": [
+            "button[data-lang=\"asl\"] > .qs__chip-body"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"qs__chip-code\">ASL</span>",
+          "target": [
+            "button[data-lang=\"asl\"] > .qs__chip-body > .qs__chip-code"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"qs__chip-name\">American Sign Language</span>",
+          "target": [
+            "button[data-lang=\"asl\"] > .qs__chip-body > .qs__chip-name"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"dgs\">",
+          "target": [
+            "button[data-lang=\"dgs\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"qs__chip-body\">\n              <span class=\"qs__chip-code\">DGS</span>\n              <span class=\"qs__chip-name\">Deutsche Gebärdensprache</span>\n            </span>",
+          "target": [
+            "button[data-lang=\"dgs\"] > .qs__chip-body"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"qs__chip-code\">DGS</span>",
+          "target": [
+            "button[data-lang=\"dgs\"] > .qs__chip-body > .qs__chip-code"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"qs__chip-name\">Deutsche Gebärdensprache</span>",
+          "target": [
+            "button[data-lang=\"dgs\"] > .qs__chip-body > .qs__chip-name"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"lsf\">",
+          "target": [
+            "button[data-lang=\"lsf\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"qs__chip-body\">\n              <span class=\"qs__chip-code\">LSF</span>\n              <span class=\"qs__chip-name\">Langue des Signes Française</span>\n            </span>",
+          "target": [
+            "button[data-lang=\"lsf\"] > .qs__chip-body"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"qs__chip-code\">LSF</span>",
+          "target": [
+            "button[data-lang=\"lsf\"] > .qs__chip-body > .qs__chip-code"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"qs__chip-name\">Langue des Signes Française</span>",
+          "target": [
+            "button[data-lang=\"lsf\"] > .qs__chip-body > .qs__chip-name"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"qs__footer\">",
+          "target": [
+            ".qs__footer"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<a href=\"/progress\" class=\"qs__coverage-link\" data-i18n=\"contribute.language_picker.see_all_languages\">See coverage →</a>",
+          "target": [
+            ".qs__coverage-link"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<details class=\"byo-key qs__byo\">",
+          "target": [
+            ".byo-key"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<summary class=\"byo-key-summary\">\n            <span class=\"byo-key-summary-text\">Advanced: use your own OpenAI API key (optional)</span>\n          </summary>",
+          "target": [
+            ".byo-key-summary"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"byo-key-summary-text\">Advanced: use your own OpenAI API key (optional)</span>",
+          "target": [
+            ".byo-key-summary-text"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<footer class=\"kz-footer\" role=\"contentinfo\">",
           "target": [
             ".kz-footer"
@@ -14433,6 +15410,44 @@
       ]
     },
     {
+      "id": "summary-name",
+      "impact": null,
+      "tags": [
+        "cat.name-role-value",
+        "wcag2a",
+        "wcag412",
+        "section508",
+        "section508.22.a",
+        "TTv5",
+        "TT6.a",
+        "EN-301-549",
+        "EN-9.4.1.2"
+      ],
+      "description": "Ensure summary elements have discernible text",
+      "help": "Summary elements must have discernible text",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/summary-name?application=axe-puppeteer",
+      "nodes": [
+        {
+          "any": [
+            {
+              "id": "has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<summary class=\"byo-key-summary\">\n            <span class=\"byo-key-summary-text\">Advanced: use your own OpenAI API key (optional)</span>\n          </summary>",
+          "target": [
+            ".byo-key-summary"
+          ]
+        }
+      ]
+    },
+    {
       "id": "tabindex",
       "impact": null,
       "tags": [
@@ -14745,12 +15760,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 298.2,
-                "height": 52
+                "width": 265.9,
+                "height": 54
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (298.2px by 52px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (265.9px by 54px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -14766,7 +15781,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" class=\"btn btn-primary c2-hero__cta\" id=\"contributeOpenBtn\" aria-controls=\"contributeWorkspace\" aria-expanded=\"false\">\n            <span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">＋</span>\n            Open the contribution form\n          </button>",
+          "html": "<a href=\"#c2-quickstart\" class=\"btn btn-primary c2-hero__cta\" id=\"contributeOpenBtn\">\n            <span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">→</span>\n            Pick a language to start\n          </a>",
           "target": [
             "#contributeOpenBtn"
           ]
@@ -14961,6 +15976,187 @@
           "html": "<button type=\"button\" class=\"c2-walk__nav c2-walk__nav--next\" id=\"c2-walk-next\" aria-label=\"Next step\">Next →</button>",
           "target": [
             "#c2-walk-next"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "target-size",
+              "data": {
+                "minSize": 24,
+                "width": 471,
+                "height": 84.9
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Control has sufficient size (471px by 84.9px, should be at least 24px by 24px)"
+            },
+            {
+              "id": "target-offset",
+              "data": {
+                "closestOffset": 24,
+                "minOffset": 24
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Target has sufficient space from its closest neighbors. Safe clickable space has a diameter of 24px which is at least 24px."
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"bsl\">",
+          "target": [
+            "button[data-lang=\"bsl\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "target-size",
+              "data": {
+                "minSize": 24,
+                "width": 471,
+                "height": 84.9
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Control has sufficient size (471px by 84.9px, should be at least 24px by 24px)"
+            },
+            {
+              "id": "target-offset",
+              "data": {
+                "closestOffset": 24,
+                "minOffset": 24
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Target has sufficient space from its closest neighbors. Safe clickable space has a diameter of 24px which is at least 24px."
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"asl\">",
+          "target": [
+            "button[data-lang=\"asl\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "target-size",
+              "data": {
+                "minSize": 24,
+                "width": 471,
+                "height": 84.9
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Control has sufficient size (471px by 84.9px, should be at least 24px by 24px)"
+            },
+            {
+              "id": "target-offset",
+              "data": {
+                "closestOffset": 24,
+                "minOffset": 24
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Target has sufficient space from its closest neighbors. Safe clickable space has a diameter of 24px which is at least 24px."
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"dgs\">",
+          "target": [
+            "button[data-lang=\"dgs\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "target-size",
+              "data": {
+                "minSize": 24,
+                "width": 471,
+                "height": 84.9
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Control has sufficient size (471px by 84.9px, should be at least 24px by 24px)"
+            },
+            {
+              "id": "target-offset",
+              "data": {
+                "closestOffset": 24,
+                "minOffset": 24
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Target has sufficient space from its closest neighbors. Safe clickable space has a diameter of 24px which is at least 24px."
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"lsf\">",
+          "target": [
+            "button[data-lang=\"lsf\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "target-offset",
+              "data": {
+                "closestOffset": 24,
+                "minOffset": 24
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Target has sufficient space from its closest neighbors. Safe clickable space has a diameter of 24px which is at least 24px."
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<a href=\"/progress\" class=\"qs__coverage-link\" data-i18n=\"contribute.language_picker.see_all_languages\">See coverage →</a>",
+          "target": [
+            ".qs__coverage-link"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "target-size",
+              "data": {
+                "minSize": 24,
+                "width": 954,
+                "height": 38
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Control has sufficient size (954px by 38px, should be at least 24px by 24px)"
+            },
+            {
+              "id": "target-offset",
+              "data": {
+                "closestOffset": 24,
+                "minOffset": 24
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Target has sufficient space from its closest neighbors. Safe clickable space has a diameter of 24px which is at least 24px."
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<summary class=\"byo-key-summary\">\n            <span class=\"byo-key-summary-text\">Advanced: use your own OpenAI API key (optional)</span>\n          </summary>",
+          "target": [
+            ".byo-key-summary"
           ]
         },
         {
@@ -15385,32 +16581,21 @@
             {
               "id": "color-contrast",
               "data": {
-                "contrastRatio": 0,
-                "fontSize": "12.8pt (17px)",
-                "fontWeight": "normal",
-                "messageKey": "shortTextContent",
-                "expectedContrastRatio": "4.5:1"
+                "messageKey": "nonBmp"
               },
-              "relatedNodes": [
-                {
-                  "html": "<span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">＋</span>",
-                  "target": [
-                    ".c2-hero__cta-icon"
-                  ]
-                }
-              ],
+              "relatedNodes": [],
               "impact": "serious",
-              "message": "Element content is too short to determine if it is actual text content"
+              "message": "Element content contains only non-text characters"
             }
           ],
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">＋</span>",
+          "html": "<span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">→</span>",
           "target": [
             ".c2-hero__cta-icon"
           ],
-          "failureSummary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+          "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
         },
         {
           "any": [
@@ -15873,6 +17058,493 @@
             "#c2-walk-next"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"qs__inner\">",
+                  "target": [
+                    ".qs__inner"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<p class=\"qs__kicker\">Pick a language to begin</p>",
+          "target": [
+            ".qs__kicker"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "42.0pt (56px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"qs__inner\">",
+                  "target": [
+                    ".qs__inner"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<h2 class=\"qs__heading\" id=\"qs-heading\">Which sign language<br>are you contributing to?</h2>",
+          "target": [
+            "#qs-heading"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "13.5pt (18px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"qs__inner\">",
+                  "target": [
+                    ".qs__inner"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<p class=\"qs__lede\">Tap a language — we'll take you straight into drafting.</p>",
+          "target": [
+            ".qs__lede"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "15.0pt (20px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"bsl\">",
+                  "target": [
+                    "button[data-lang=\"bsl\"]"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"qs__chip-code\">BSL</span>",
+          "target": [
+            "button[data-lang=\"bsl\"] > .qs__chip-body > .qs__chip-code"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "9.8pt (13px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"bsl\">",
+                  "target": [
+                    "button[data-lang=\"bsl\"]"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"qs__chip-name\">British Sign Language</span>",
+          "target": [
+            "button[data-lang=\"bsl\"] > .qs__chip-body > .qs__chip-name"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "messageKey": "nonBmp"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element content contains only non-text characters"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"qs__chip-arrow\" aria-hidden=\"true\">→</span>",
+          "target": [
+            "button[data-lang=\"bsl\"] > .qs__chip-arrow[aria-hidden=\"true\"]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "15.0pt (20px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"asl\">",
+                  "target": [
+                    "button[data-lang=\"asl\"]"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"qs__chip-code\">ASL</span>",
+          "target": [
+            "button[data-lang=\"asl\"] > .qs__chip-body > .qs__chip-code"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "9.8pt (13px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"asl\">",
+                  "target": [
+                    "button[data-lang=\"asl\"]"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"qs__chip-name\">American Sign Language</span>",
+          "target": [
+            "button[data-lang=\"asl\"] > .qs__chip-body > .qs__chip-name"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "messageKey": "nonBmp"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element content contains only non-text characters"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"qs__chip-arrow\" aria-hidden=\"true\">→</span>",
+          "target": [
+            "button[data-lang=\"asl\"] > .qs__chip-arrow[aria-hidden=\"true\"]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "15.0pt (20px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"dgs\">",
+                  "target": [
+                    "button[data-lang=\"dgs\"]"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"qs__chip-code\">DGS</span>",
+          "target": [
+            "button[data-lang=\"dgs\"] > .qs__chip-body > .qs__chip-code"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "9.8pt (13px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"dgs\">",
+                  "target": [
+                    "button[data-lang=\"dgs\"]"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"qs__chip-name\">Deutsche Gebärdensprache</span>",
+          "target": [
+            "button[data-lang=\"dgs\"] > .qs__chip-body > .qs__chip-name"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "messageKey": "nonBmp"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element content contains only non-text characters"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"qs__chip-arrow\" aria-hidden=\"true\">→</span>",
+          "target": [
+            "button[data-lang=\"dgs\"] > .qs__chip-arrow[aria-hidden=\"true\"]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "15.0pt (20px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"lsf\">",
+                  "target": [
+                    "button[data-lang=\"lsf\"]"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"qs__chip-code\">LSF</span>",
+          "target": [
+            "button[data-lang=\"lsf\"] > .qs__chip-body > .qs__chip-code"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "9.8pt (13px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"lsf\">",
+                  "target": [
+                    "button[data-lang=\"lsf\"]"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"qs__chip-name\">Langue des Signes Française</span>",
+          "target": [
+            "button[data-lang=\"lsf\"] > .qs__chip-body > .qs__chip-name"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "messageKey": "nonBmp"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element content contains only non-text characters"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"qs__chip-arrow\" aria-hidden=\"true\">→</span>",
+          "target": [
+            "button[data-lang=\"lsf\"] > .qs__chip-arrow[aria-hidden=\"true\"]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "9.8pt (13px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"qs__inner\">",
+                  "target": [
+                    ".qs__inner"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<a href=\"/progress\" class=\"qs__coverage-link\" data-i18n=\"contribute.language_picker.see_all_languages\">See coverage →</a>",
+          "target": [
+            ".qs__coverage-link"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"qs__inner\">",
+                  "target": [
+                    ".qs__inner"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"byo-key-summary-text\">Advanced: use your own OpenAI API key (optional)</span>",
+          "target": [
+            ".byo-key-summary-text"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
         }
       ]
     }
