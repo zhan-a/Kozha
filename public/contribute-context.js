@@ -170,6 +170,12 @@
 
   var state = defaultState();
   var subscribers = [];
+  // Holds the previous session's id+token when the user lands on
+  // /contribute.html without a #s/<id> fragment. The contribute.js
+  // resume-banner uses this to offer a manual "Resume previous draft"
+  // path instead of silently re-hydrating the session id (which used
+  // to lock the chat panel into a perma-spinner).
+  var stashedSession = null;
 
   // ----- persistence -----
 
@@ -689,12 +695,54 @@
   }
 
   // ----- hydrate + export -----
-
+  //
+  // Bootstrap rule: pull language out of storage so the picker stays
+  // sticky across navigations, but DO NOT auto-restore session
+  // id/token. The session URL fragment (#s/<id>) is the canonical
+  // resume mechanism; a plain visit to /contribute.html is "start
+  // fresh". Auto-restoring the session id used to put the chat panel
+  // in "Reading your description… / Contacting the AI…" forever,
+  // because the in-memory snapshot reported a sessionId in
+  // awaiting_description state with no actual API call in flight.
+  // Stash the previous id/token instead so the page can offer a
+  // "Resume previous draft" banner, and let the user opt in.
   var persisted = readPersisted();
   if (persisted) {
-    state.language     = persisted.language;
-    state.sessionId    = persisted.sessionId;
-    state.sessionToken = persisted.sessionToken;
+    state.language = persisted.language;
+    if (persisted.sessionId && persisted.sessionToken) {
+      // Park, don't hydrate. Surfaced via getStashedSession() to
+      // contribute.js, which renders the resume banner.
+      stashedSession = {
+        sessionId: persisted.sessionId,
+        sessionToken: persisted.sessionToken,
+        language: persisted.language,
+      };
+    }
+  }
+
+  function getStashedSession() {
+    return stashedSession ? {
+      sessionId: stashedSession.sessionId,
+      sessionToken: stashedSession.sessionToken,
+      language: stashedSession.language,
+    } : null;
+  }
+
+  function clearStashedSession() {
+    stashedSession = null;
+    // Also wipe the persisted session id/token so a subsequent reload
+    // doesn't re-stash. The language stays.
+    try {
+      var raw = sessionStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        var parsed = JSON.parse(raw);
+        if (parsed && (parsed.sessionId || parsed.sessionToken)) {
+          delete parsed.sessionId;
+          delete parsed.sessionToken;
+          sessionStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+        }
+      }
+    } catch (_e) { /* storage blocked */ }
   }
 
   window.KOZHA_CONTRIB_CONTEXT = {
@@ -716,5 +764,7 @@
     resumeSession:        resumeSession,
     abandonSession:       abandonSession,
     clearSession:         clearSession,
+    getStashedSession:    getStashedSession,
+    clearStashedSession:  clearStashedSession,
   };
 })();

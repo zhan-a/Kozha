@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-24T18:33:36.328Z",
-  "url": "http://127.0.0.1:57853/contribute.html",
+  "timestamp": "2026-04-25T00:50:02.719Z",
+  "url": "http://127.0.0.1:59942/contribute.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -1371,6 +1371,24 @@
           "html": "<div class=\"lang-strip\" role=\"group\" aria-label=\"Signing language\">",
           "target": [
             ".lang-strip"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-allowed-role",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is allowed for given element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<section class=\"resume-banner card kz-card\" id=\"resumeBanner\" role=\"status\" hidden=\"\">",
+          "target": [
+            "#resumeBanner"
           ]
         },
         {

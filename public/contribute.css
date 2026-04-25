@@ -622,6 +622,22 @@ select.field-input { cursor: pointer; }
   margin: 0;
 }
 
+/* Resume-previous-draft banner. Sits between the language picker and
+   the authoring form when a stashed session is detected on a fresh
+   load. The action row mirrors the discard-modal layout so
+   "primary action + escape link" reads consistently across the
+   contribute surface. */
+.resume-banner-body {
+  margin: 0 0 var(--kozha-space-3);
+  color: var(--kozha-color-ink-2);
+}
+.resume-banner-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--kozha-space-4);
+  flex-wrap: wrap;
+}
+
 .authoring-summary {
   display: flex;
   justify-content: space-between;

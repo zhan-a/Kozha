@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-24T18:33:39.029Z",
-  "url": "http://127.0.0.1:57853/contribute.html",
+  "timestamp": "2026-04-25T00:50:04.384Z",
+  "url": "http://127.0.0.1:59942/contribute.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -1946,6 +1946,24 @@
           "html": "<div class=\"lang-strip\" role=\"group\" aria-label=\"Signing language\">",
           "target": [
             ".lang-strip"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-allowed-role",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is allowed for given element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<section class=\"resume-banner card kz-card\" id=\"resumeBanner\" role=\"status\" hidden=\"\">",
+          "target": [
+            "#resumeBanner"
           ]
         },
         {
@@ -11040,25 +11058,25 @@
                   },
                   {
                     "ancestry": [
-                      "html > body > main:nth-child(3) > section:nth-child(9) > section:nth-child(2) > h2:nth-child(1)"
+                      "html > body > main:nth-child(3) > section:nth-child(10) > section:nth-child(2) > h2:nth-child(1)"
                     ],
                     "level": 2
                   },
                   {
                     "ancestry": [
-                      "html > body > main:nth-child(3) > section:nth-child(9) > section:nth-child(3) > h2:nth-child(1)"
+                      "html > body > main:nth-child(3) > section:nth-child(10) > section:nth-child(3) > h2:nth-child(1)"
                     ],
                     "level": 2
                   },
                   {
                     "ancestry": [
-                      "html > body > main:nth-child(3) > section:nth-child(9) > section:nth-child(4) > h2:nth-child(1)"
+                      "html > body > main:nth-child(3) > section:nth-child(10) > section:nth-child(4) > h2:nth-child(1)"
                     ],
                     "level": 2
                   },
                   {
                     "ancestry": [
-                      "html > body > main:nth-child(3) > section:nth-child(9) > section:nth-child(5) > h2:nth-child(1)"
+                      "html > body > main:nth-child(3) > section:nth-child(10) > section:nth-child(5) > h2:nth-child(1)"
                     ],
                     "level": 2
                   },

@@ -170,6 +170,21 @@
       </div>
     </section>
 
+    <!-- Resume-previous-draft banner. Shown when the user lands on
+         /contribute.html WITHOUT a #s/<id> fragment but their browser
+         storage has a previously-active session. We don't auto-resume
+         (used to lock the chat into a perma-spinner because the chat
+         panel saw sessionId+awaiting_description and assumed a
+         describe was in flight). The banner gives the contributor a
+         clear opt-in. -->
+    <section class="resume-banner card kz-card" id="resumeBanner" role="status" hidden>
+      <p class="resume-banner-body" id="resumeBannerBody"></p>
+      <div class="resume-banner-actions">
+        <button type="button" class="btn btn-primary" id="resumeBannerResumeBtn">Resume previous draft</button>
+        <button type="button" class="kz-link" id="resumeBannerStartFreshBtn">Start fresh</button>
+      </div>
+    </section>
+
     <!-- Shown when the URL carries a session id we don't have the token
          for — minimum viable access control for resumable drafts. -->
     <section class="token-prompt card kz-card" id="tokenPrompt" aria-labelledby="tokenPromptHeading" hidden>

@@ -91,6 +91,10 @@
     tokenPromptInput:  document.getElementById('tokenPromptInput'),
     tokenPromptError:  document.getElementById('tokenPromptError'),
     tokenPromptDiscard: document.getElementById('tokenPromptDiscardBtn'),
+    resumeBanner:        document.getElementById('resumeBanner'),
+    resumeBannerBody:    document.getElementById('resumeBannerBody'),
+    resumeBannerResume:  document.getElementById('resumeBannerResumeBtn'),
+    resumeBannerStartFresh: document.getElementById('resumeBannerStartFreshBtn'),
     notice:            document.getElementById('reviewerNotice'),
     authoringRoot:     document.getElementById('authoring-root'),
     authoringForm:     document.getElementById('authoringForm'),
@@ -1026,8 +1030,63 @@
         .then(function () { return true; })
         .catch(function () { showTokenPrompt(fragId); return true; });
     }
+    // Stash check: a fresh page load doesn't auto-hydrate the session
+    // id/token (see contribute-context.js bootstrap rule), but if the
+    // URL fragment matches the stashed session we have everything we
+    // need to resume without prompting for the token.
+    var stashed = CTX.getStashedSession && CTX.getStashedSession();
+    if (stashed && stashed.sessionId === fragId && stashed.sessionToken) {
+      CTX.clearStashedSession();
+      return CTX.resumeSession(fragId, stashed.sessionToken)
+        .then(function () { return true; })
+        .catch(function () { showTokenPrompt(fragId); return true; });
+    }
     showTokenPrompt(fragId);
     return Promise.resolve(true);
+  }
+
+  function maybeShowResumeBanner() {
+    if (!els.resumeBanner) return;
+    var stashed = CTX.getStashedSession && CTX.getStashedSession();
+    if (!stashed || !stashed.sessionId) {
+      els.resumeBanner.hidden = true;
+      return;
+    }
+    // Show the previous gloss if we still have it in the per-language
+    // draft buffer; falls back to the short session id for orientation.
+    var lang = stashed.language || CTX.getState().language;
+    var prior = lang ? readDraft(lang) : null;
+    var glossLabel = prior && prior.gloss ? prior.gloss : null;
+    var langLabel = lang ? lang.toUpperCase() : '';
+    var shortId = stashed.sessionId.slice(0, 8);
+    els.resumeBannerBody.textContent = glossLabel
+      ? 'You have an unfinished draft for "' + glossLabel + '" in ' + langLabel + '. Resume it, or start fresh?'
+      : 'You have an unfinished session (' + shortId + ') from earlier. Resume it, or start fresh?';
+    els.resumeBanner.hidden = false;
+  }
+
+  function onResumeBannerResumeClick() {
+    var stashed = CTX.getStashedSession && CTX.getStashedSession();
+    if (!stashed || !stashed.sessionId || !stashed.sessionToken) {
+      els.resumeBanner.hidden = true;
+      return;
+    }
+    var id = stashed.sessionId;
+    var token = stashed.sessionToken;
+    CTX.clearStashedSession();
+    els.resumeBanner.hidden = true;
+    CTX.resumeSession(id, token)
+      .catch(function (err) {
+        // 403/404 means the stashed session is stale — quietly fall
+        // back to a fresh start. The prior draft buffer is still in
+        // the form, so the contributor doesn't lose typed content.
+        if (window.console) console.warn('[contribute] resume failed:', err);
+      });
+  }
+
+  function onResumeBannerStartFreshClick() {
+    if (CTX.clearStashedSession) CTX.clearStashedSession();
+    els.resumeBanner.hidden = true;
   }
 
   // Prompt 8 deep link: the /progress "Help wanted" chips link here with
@@ -1130,6 +1189,12 @@
     }
     var saveDraftBtn = document.getElementById('authoringSaveDraftBtn');
     if (saveDraftBtn) saveDraftBtn.addEventListener('click', onSaveDraftClick);
+    if (els.resumeBannerResume) {
+      els.resumeBannerResume.addEventListener('click', onResumeBannerResumeClick);
+    }
+    if (els.resumeBannerStartFresh) {
+      els.resumeBannerStartFresh.addEventListener('click', onResumeBannerStartFreshClick);
+    }
 
     CTX.subscribe(render);
 
@@ -1139,7 +1204,13 @@
         renderOptions();
         return hydrateFromFragment();
       }).then(function (handledFragment) {
-        if (!handledFragment) applyQueryParamPrefill();
+        if (!handledFragment) {
+          applyQueryParamPrefill();
+          // No URL fragment → offer the resume banner if storage has
+          // a previous session. Skipped when query-param prefill is
+          // ambiguous or when we already auto-resumed via stash.
+          maybeShowResumeBanner();
+        }
       }).then(function () {
         render(CTX.getState());
       }).catch(function (err) {
