@@ -288,8 +288,40 @@ def on_description(
         raise ValueError("prose must be a non-empty string")
 
     prose = prose.strip()
-    # Run the parser (effectful — the parse_fn may call an LLM).
-    parse_result = parse_fn(prose)
+    # Run the parser (effectful — the parse_fn may call an LLM). The
+    # most common failures here are LLMConfigError (no project key, no
+    # BYO key pasted) and BudgetExceeded; both are fully recoverable
+    # from the contributor's side. If we let the exception propagate,
+    # the route handler 500s before saving any history and the SSE
+    # generator has nothing to deliver — the session sits at
+    # awaiting_description with empty history, the chat panel only sees
+    # heartbeats, and the contributor has no signal that anything
+    # happened. Instead, record the prose and emit a failed
+    # GeneratedEvent so the SSE channel delivers an actionable error.
+    try:
+        parse_result = parse_fn(prose)
+    except Exception as exc:  # noqa: BLE001 — surface every parser failure
+        logger.warning(
+            "parse_fn failed for session %s (%s); emitting failed GeneratedEvent",
+            session.id,
+            type(exc).__name__,
+        )
+        err_msg = f"{type(exc).__name__}: {exc}" if str(exc) else type(exc).__name__
+        author_turn = _author_turn(prose)
+        session = session.append_event(
+            DescribedEvent(prose=prose, gaps_found=0)
+        )
+        session = session.append_event(
+            GeneratedEvent(success=False, errors=[err_msg])
+        )
+        session = session.with_draft(
+            description_prose=prose,
+            clarifications=list(session.draft.clarifications) + [author_turn],
+            generation_errors=[err_msg],
+            preview_status="generation_failed",
+            preview_message=err_msg[:500],
+        )
+        return session.with_state(SessionState.AWAITING_DESCRIPTION)
 
     emit_event(
         _evs.PARSE_DESCRIPTION_COMPLETED,

@@ -737,12 +737,37 @@ def post_describe(
         question_fn=question_fn,
     )
     if session.state == SessionState.GENERATING:
-        session = run_generation(
-            session,
-            generate_fn=generate_fn,
-            to_sigml_fn=to_sigml_fn,
-            render_fn=render_fn,
-        )
+        # ``run_generation`` already converts internal generator failures
+        # (empty hamnosys, SiGML conversion error) into a failed
+        # ``GeneratedEvent`` and a recovery state. A hard exception out
+        # of the helper itself (e.g. an unexpected RuntimeError, or a
+        # bug in a stub) would otherwise propagate past
+        # ``session_store.save`` below and leave the session at
+        # GENERATING with no SSE frame for the client. Catch it here
+        # and append a failed event so the SSE channel always delivers
+        # a ``generated`` frame the chat panel can render.
+        try:
+            session = run_generation(
+                session,
+                generate_fn=generate_fn,
+                to_sigml_fn=to_sigml_fn,
+                render_fn=render_fn,
+            )
+        except Exception as exc:  # noqa: BLE001 — never strand the session in GENERATING
+            from session.state import GeneratedEvent
+            logger.exception(
+                "post_describe: run_generation raised for session %s",
+                session.id,
+            )
+            err = f"{type(exc).__name__}: {exc}" if str(exc) else type(exc).__name__
+            session = session.append_event(
+                GeneratedEvent(success=False, errors=[err])
+            )
+            session = session.with_draft(
+                generation_errors=[err],
+                preview_status="generation_failed",
+                preview_message=err[:500],
+            ).with_state(SessionState.AWAITING_DESCRIPTION)
     session_store.save(session)
     return _envelope(session, request)
 
