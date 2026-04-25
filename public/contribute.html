@@ -69,9 +69,85 @@
 
   <main id="main-content" class="contribute-main" role="main">
     <header class="contribute-header">
-      <h1 class="contribute-h1" data-i18n="contribute.heading">Contribute a sign.</h1>
-      <p class="contribute-lede" data-i18n="contribute.lede">Help grow Kozha's sign vocabulary. Describe a sign in your own words; a Deaf reviewer validates it before it enters the translator.</p>
+      <p class="contribute-eyebrow">Open dictionary, Deaf-led</p>
+      <h1 class="contribute-h1">Add a sign. Help someone be understood.</h1>
+      <p class="contribute-lede">Most sign-language vocabularies on the web are small: a few hundred everyday words at best. The translator on Kozha can only show what the dictionary contains, so every sign you add closes one of those gaps for someone trying to read or write a translation today. Your contributions also become open data that helps advance research into sign languages.</p>
+      <ul class="contribute-impact-row" aria-label="Why this matters">
+        <li class="contribute-impact-item">
+          <span class="contribute-impact-num" aria-hidden="true">1</span>
+          <span class="contribute-impact-text">Just one sign you add can unblock a translation that would otherwise come back blank.</span>
+        </li>
+        <li class="contribute-impact-item">
+          <span class="contribute-impact-num" aria-hidden="true">2</span>
+          <span class="contribute-impact-text">You don't have to be an expert. Describe the sign in plain English, and a Deaf native signer reviews it before it goes live.</span>
+        </li>
+        <li class="contribute-impact-item">
+          <span class="contribute-impact-num" aria-hidden="true">3</span>
+          <span class="contribute-impact-text">Every approved sign becomes open data that researchers, teachers, and learners can use, and it stays free to use forever.</span>
+        </li>
+      </ul>
     </header>
+
+    <!-- Workflow demo. Five-step visual walkthrough so first-time
+         contributors can see what they're signing up for before they
+         pick a language. Each step has a micro-illustration done in
+         CSS (no external images). Hidden once a session starts so
+         the workspace isn't crowded. -->
+    <section class="contribute-demo" id="contributeDemo" aria-labelledby="demoHeading">
+      <h2 class="contribute-demo-heading" id="demoHeading">How it works in 60 seconds.</h2>
+      <ol class="contribute-demo-steps">
+        <li class="contribute-demo-step">
+          <span class="contribute-demo-step-num" aria-hidden="true">1</span>
+          <h3 class="contribute-demo-step-title">Pick a language and a word</h3>
+          <p class="contribute-demo-step-body">Choose the sign language you sign in (BSL, ASL, more coming), then type the English word you want to add. For example: <code>HELLO</code>, <code>ELECTRON</code>, <code>RAIN</code>.</p>
+          <div class="contribute-demo-step-vis" aria-hidden="true">
+            <span class="demo-chip">BSL</span>
+            <span class="demo-input">ELECTRON</span>
+          </div>
+        </li>
+        <li class="contribute-demo-step">
+          <span class="contribute-demo-step-num" aria-hidden="true">2</span>
+          <h3 class="contribute-demo-step-title">Describe the sign</h3>
+          <p class="contribute-demo-step-body">Describe the handshape, where it's signed, and how it moves, all in plain English. The more detail you give, the better the first draft.</p>
+          <div class="contribute-demo-step-vis" aria-hidden="true">
+            <span class="demo-quote">"Index finger circling at the temple, palm facing the head."</span>
+          </div>
+        </li>
+        <li class="contribute-demo-step">
+          <span class="contribute-demo-step-num" aria-hidden="true">3</span>
+          <h3 class="contribute-demo-step-title">Refine through chat</h3>
+          <p class="contribute-demo-step-body">If something is unclear, like palm direction or finger orientation, you'll get one question at a time. Answer in a sentence or pick a suggestion.</p>
+          <div class="contribute-demo-step-vis demo-chat" aria-hidden="true">
+            <p class="demo-chat-line demo-chat-bot">Which way does the palm face?</p>
+            <p class="demo-chat-line demo-chat-you">Toward the head.</p>
+          </div>
+        </li>
+        <li class="contribute-demo-step">
+          <span class="contribute-demo-step-num" aria-hidden="true">4</span>
+          <h3 class="contribute-demo-step-title">Preview the avatar</h3>
+          <p class="contribute-demo-step-body">A 3D avatar performs the sign. If something looks off, like a finger bend or a movement direction, say so in chat or click the SiGML tag and pick an alternative.</p>
+          <div class="contribute-demo-step-vis demo-preview" aria-hidden="true">
+            <span class="demo-play">▶</span><span class="demo-preview-label">avatar plays the sign</span>
+          </div>
+        </li>
+        <li class="contribute-demo-step">
+          <span class="contribute-demo-step-num" aria-hidden="true">5</span>
+          <h3 class="contribute-demo-step-title">Submit for Deaf review</h3>
+          <p class="contribute-demo-step-body">A Deaf native signer of the language reviews and validates. Once two reviewers approve, the sign goes live in the translator and stays free, forever.</p>
+          <div class="contribute-demo-step-vis demo-submit" aria-hidden="true">
+            <span class="demo-check">✓</span><span class="demo-check-label">submitted</span>
+          </div>
+        </li>
+      </ol>
+      <p class="contribute-demo-cta-row">
+        <a href="#contribute-start" class="btn btn-primary contribute-demo-cta">Start a contribution</a>
+        <span class="contribute-demo-cta-note">Takes 1–3 minutes per sign · You can save and come back later.</span>
+      </p>
+    </section>
+
+    <!-- Anchor target for the demo CTA so the scroll lands on the
+         language picker / form, not the top of the page. -->
+    <span id="contribute-start" class="kz-anchor-offset" aria-hidden="true"></span>
 
     <!-- Paused-state banner. Shown iff /governance-data.json carries
          contributions_paused: true. When paused, every other interactive
@@ -229,7 +305,7 @@
 
         <form class="authoring-form" id="authoringForm" novalidate>
           <div class="field">
-            <label class="field-label" for="glossInput" data-i18n="contribute.authoring.gloss_label">Gloss — the English word or short phrase for this sign.</label>
+            <label class="field-label" for="glossInput" data-i18n="contribute.authoring.gloss_label">Gloss: the English word or short phrase for this sign.</label>
             <input
               id="glossInput"
               name="gloss"
@@ -493,7 +569,7 @@
           <p class="notation-sigml-help field-hint">
             Each tag below is one phonological slot of the sign. Click any
             tag to see its meaning and pick a different option from the
-            same category — the preview re-renders with your choice.
+            same category, and the preview will re-render with your choice.
           </p>
           <!-- Annotated SiGML: structured view of the current SiGML where
                every <ham*/> tag is a click-to-swap chip. Populated by

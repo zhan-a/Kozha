@@ -162,7 +162,16 @@ body {
 }
 
 .contribute-header {
-  margin-bottom: var(--kozha-space-4);
+  margin-bottom: var(--kozha-space-8);
+}
+.contribute-eyebrow {
+  font-family: var(--kozha-font-sans);
+  font-size: var(--kozha-text-caption-lg);
+  font-weight: var(--kozha-weight-semibold);
+  letter-spacing: var(--kozha-tracking-widest);
+  text-transform: uppercase;
+  color: var(--kozha-color-accent);
+  margin: 0 0 var(--kozha-space-3);
 }
 .contribute-h1 {
   font-family: var(--kozha-font-serif);
@@ -177,8 +186,259 @@ body {
   font-size: var(--kozha-text-hero-sub);
   line-height: var(--kozha-leading-loose);
   color: var(--kozha-color-ink-2);
-  margin: 0;
+  margin: 0 0 var(--kozha-space-6);
   max-width: 62ch;
+}
+
+/* Three-up "why this matters" callouts under the lede. Number-led
+   so the eye reads them as a sequence and the prose stays light. */
+.contribute-impact-row {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--kozha-space-5);
+}
+.contribute-impact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--kozha-space-3);
+  padding: var(--kozha-space-3) 0 0;
+  border-top: 2px solid var(--kozha-color-accent);
+}
+.contribute-impact-num {
+  font-family: var(--kozha-font-serif);
+  font-size: var(--kozha-text-display-sm, 32px);
+  line-height: 1;
+  color: var(--kozha-color-accent);
+  font-weight: var(--kozha-weight-regular);
+  flex-shrink: 0;
+}
+.contribute-impact-text {
+  font-size: var(--kozha-text-body);
+  line-height: var(--kozha-leading-relaxed);
+  color: var(--kozha-color-ink-2);
+}
+.contribute-impact-text em {
+  font-family: var(--kozha-font-mono);
+  font-style: normal;
+  color: var(--kozha-color-accent);
+}
+
+/* ==================================================================
+ * Workflow demo — 5-step walkthrough between the header and the
+ * language picker. Stacks vertically on mobile, two-column on
+ * tablets, and lays out as a horizontal numbered timeline on
+ * desktop. Each step has a tiny inline visual that hints at what
+ * happens at that stage.
+ * ================================================================== */
+
+.contribute-demo {
+  margin: 0 0 var(--kozha-space-8);
+  padding: var(--kozha-space-8) var(--kozha-space-6);
+  background: var(--kozha-color-paper-2);
+  border-radius: var(--kozha-radius-lg);
+  border: 1px solid var(--kozha-color-border);
+}
+.contribute-demo-heading {
+  font-family: var(--kozha-font-serif);
+  font-size: var(--kozha-text-h2, 28px);
+  line-height: var(--kozha-leading-tight);
+  letter-spacing: var(--kozha-tracking-tight);
+  color: var(--kozha-color-ink);
+  margin: 0 0 var(--kozha-space-6);
+}
+.contribute-demo-steps {
+  list-style: none;
+  margin: 0 0 var(--kozha-space-6);
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--kozha-space-4);
+}
+.contribute-demo-step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--kozha-space-2);
+  padding: var(--kozha-space-4);
+  background: var(--kozha-color-white);
+  border-radius: var(--kozha-radius-md);
+  border: 1px solid var(--kozha-color-border);
+  position: relative;
+}
+.contribute-demo-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--kozha-space-7);
+  height: var(--kozha-space-7);
+  border-radius: 999px;
+  background: var(--kozha-color-accent);
+  color: var(--kozha-color-white);
+  font-family: var(--kozha-font-sans);
+  font-weight: var(--kozha-weight-semibold);
+  font-size: var(--kozha-text-body-sm);
+}
+.contribute-demo-step-title {
+  font-family: var(--kozha-font-sans);
+  font-size: var(--kozha-text-body);
+  font-weight: var(--kozha-weight-semibold);
+  color: var(--kozha-color-ink);
+  margin: 0;
+}
+.contribute-demo-step-body {
+  font-size: var(--kozha-text-body-sm);
+  line-height: var(--kozha-leading-relaxed);
+  color: var(--kozha-color-ink-2);
+  margin: 0;
+}
+.contribute-demo-step-body code {
+  font-family: var(--kozha-font-mono);
+  font-size: 0.9em;
+  background: var(--kozha-color-paper-2);
+  padding: 0 4px;
+  border-radius: var(--kozha-radius-sm);
+  color: var(--kozha-color-accent);
+}
+.contribute-demo-step-vis {
+  margin-top: auto;
+  padding-top: var(--kozha-space-3);
+  display: flex;
+  align-items: center;
+  gap: var(--kozha-space-2);
+  flex-wrap: wrap;
+  font-size: var(--kozha-text-caption-lg);
+}
+.demo-chip {
+  display: inline-block;
+  padding: 2px var(--kozha-space-2);
+  background: var(--kozha-color-accent-light);
+  color: var(--kozha-color-accent);
+  border-radius: var(--kozha-radius-pill);
+  font-family: var(--kozha-font-sans);
+  font-weight: var(--kozha-weight-medium);
+  font-size: var(--kozha-text-caption-lg);
+  letter-spacing: var(--kozha-tracking-wide);
+}
+.demo-input {
+  font-family: var(--kozha-font-mono);
+  background: var(--kozha-color-paper-2);
+  padding: 2px var(--kozha-space-2);
+  border-radius: var(--kozha-radius-sm);
+  border: 1px solid var(--kozha-color-border);
+  color: var(--kozha-color-ink);
+}
+.demo-quote {
+  font-style: italic;
+  color: var(--kozha-color-ink-2);
+}
+.demo-chat {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--kozha-space-1);
+}
+.demo-chat-line {
+  margin: 0;
+  padding: var(--kozha-space-1) var(--kozha-space-2);
+  border-radius: var(--kozha-radius-sm);
+  font-size: var(--kozha-text-caption-lg);
+}
+.demo-chat-bot {
+  background: var(--kozha-color-paper-2);
+  color: var(--kozha-color-ink-2);
+  align-self: flex-start;
+}
+.demo-chat-you {
+  background: var(--kozha-color-accent-light);
+  color: var(--kozha-color-accent);
+  align-self: flex-end;
+}
+.demo-preview {
+  background: var(--kozha-color-paper-2);
+  padding: var(--kozha-space-2) var(--kozha-space-3);
+  border-radius: var(--kozha-radius-sm);
+}
+.demo-play {
+  font-size: var(--kozha-text-body);
+  color: var(--kozha-color-accent);
+}
+.demo-preview-label,
+.demo-check-label {
+  font-size: var(--kozha-text-caption-lg);
+  color: var(--kozha-color-ink-2);
+}
+.demo-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--kozha-space-5);
+  height: var(--kozha-space-5);
+  background: var(--kozha-color-accent);
+  color: var(--kozha-color-white);
+  border-radius: 999px;
+  font-weight: var(--kozha-weight-semibold);
+}
+
+.contribute-demo-cta-row {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--kozha-space-4);
+  flex-wrap: wrap;
+}
+.contribute-demo-cta-note {
+  color: var(--kozha-color-ink-3);
+  font-size: var(--kozha-text-caption-lg);
+}
+
+/* Anchor offset so smooth-scroll lands the picker below the fixed
+   header instead of being clipped under it. */
+.kz-anchor-offset {
+  display: block;
+  height: 0;
+  margin-top: calc(var(--kozha-layout-nav-h, 64px) * -1);
+  padding-top: var(--kozha-layout-nav-h, 64px);
+  visibility: hidden;
+}
+
+/* ----- Tablet ----- */
+@media (max-width: 1023px) {
+  .contribute-impact-row {
+    grid-template-columns: 1fr;
+    gap: var(--kozha-space-4);
+  }
+  .contribute-demo-steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/* ----- Mobile ----- */
+@media (max-width: 639px) {
+  .contribute-demo {
+    padding: var(--kozha-space-5) var(--kozha-space-4);
+  }
+  .contribute-demo-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Hide the demo + impact callouts once a session is active so the
+   workspace doesn't fight the form for attention. ``contribute.js``
+   adds .has-session to <main> when a session id exists. */
+.contribute-main.has-session .contribute-demo,
+.contribute-main.has-session .contribute-impact-row {
+  display: none;
+}
+.contribute-main.has-session .contribute-h1 {
+  font-size: var(--kozha-text-h2, 28px);
+  margin-bottom: var(--kozha-space-2);
+}
+.contribute-main.has-session .contribute-lede {
+  font-size: var(--kozha-text-body);
+  margin-bottom: var(--kozha-space-4);
+}
+.contribute-main.has-session .contribute-eyebrow {
+  display: none;
 }
 
 /* ==================================================================

@@ -307,6 +307,15 @@
     // Deep-link resume flow owns the view — leave the DOM alone.
     if (!els.tokenPrompt.hidden) return;
 
+    // Toggle the .has-session class on <main> so the intro / impact /
+    // demo sections collapse once a session is active. The CSS owns
+    // the actual hide/scale rules; we just flip the class.
+    var mainEl = document.getElementById('main-content');
+    if (mainEl) {
+      if (snapshot.sessionId) mainEl.classList.add('has-session');
+      else mainEl.classList.remove('has-session');
+    }
+
     var lang = findLanguage(snapshot.language);
     if (!lang) {
       els.picker.hidden = false;

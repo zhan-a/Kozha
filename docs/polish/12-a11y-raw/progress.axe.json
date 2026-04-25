@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-25T01:09:23.447Z",
-  "url": "http://127.0.0.1:60442/progress.html",
+  "timestamp": "2026-04-25T01:18:15.742Z",
+  "url": "http://127.0.0.1:60791/progress.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -1010,39 +1010,6 @@
             }
           ],
           "impact": null,
-          "html": "<span class=\"progress-dash\" aria-label=\"em dash\">—</span>",
-          "target": [
-            ".progress-dash"
-          ]
-        },
-        {
-          "any": [],
-          "all": [
-            {
-              "id": "aria-allowed-attr",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "ARIA attributes are used correctly for the defined role"
-            },
-            {
-              "id": "aria-allowed-attr-elm",
-              "data": null,
-              "relatedNodes": [],
-              "message": "ARIA attributes are allowed for this element",
-              "impact": "critical"
-            }
-          ],
-          "none": [
-            {
-              "id": "aria-unsupported-attr",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "ARIA attribute is supported"
-            }
-          ],
-          "impact": null,
           "html": "<p class=\"progress-generated\" id=\"progressGenerated\" aria-live=\"polite\">Snapshot generated 2026-04-20T00:00:00Z</p>",
           "target": [
             "#progressGenerated"
@@ -1868,7 +1835,7 @@
             }
           ],
           "impact": null,
-          "html": "<p class=\"progress-chart-description\" id=\"progressChartDescription\" aria-live=\"polite\">Grew from 5,400 on 2026-01-01 to 7,103 on 2026-04-01 (+1,703 reviewed signs).</p>",
+          "html": "<p class=\"progress-chart-description\" id=\"progressChartDescription\" aria-live=\"polite\">Up from 5,400 on 2026-01-01 to 7,103 on 2026-04-01 (+1,703 new reviewed signs).</p>",
           "target": [
             "#progressChartDescription"
           ]
@@ -2226,24 +2193,6 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<span class=\"progress-dash\" aria-label=\"em dash\">—</span>",
-          "target": [
-            ".progress-dash"
-          ]
-        },
-        {
-          "any": [],
-          "all": [
-            {
-              "id": "aria-conditional-attr",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "ARIA attribute is allowed"
-            }
-          ],
-          "none": [],
-          "impact": null,
           "html": "<p class=\"progress-generated\" id=\"progressGenerated\" aria-live=\"polite\">Snapshot generated 2026-04-20T00:00:00Z</p>",
           "target": [
             "#progressGenerated"
@@ -2694,7 +2643,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<p class=\"progress-chart-description\" id=\"progressChartDescription\" aria-live=\"polite\">Grew from 5,400 on 2026-01-01 to 7,103 on 2026-04-01 (+1,703 reviewed signs).</p>",
+          "html": "<p class=\"progress-chart-description\" id=\"progressChartDescription\" aria-live=\"polite\">Up from 5,400 on 2026-01-01 to 7,103 on 2026-04-01 (+1,703 new reviewed signs).</p>",
           "target": [
             "#progressChartDescription"
           ]
@@ -3970,7 +3919,7 @@
             }
           ],
           "impact": null,
-          "html": "<p class=\"progress-chart-description\" id=\"progressChartDescription\" aria-live=\"polite\">Grew from 5,400 on 2026-01-01 to 7,103 on 2026-04-01 (+1,703 reviewed signs).</p>",
+          "html": "<p class=\"progress-chart-description\" id=\"progressChartDescription\" aria-live=\"polite\">Up from 5,400 on 2026-01-01 to 7,103 on 2026-04-01 (+1,703 new reviewed signs).</p>",
           "target": [
             "#progressChartDescription"
           ]
@@ -4438,38 +4387,6 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<span class=\"progress-dash\" aria-label=\"em dash\">—</span>",
-          "target": [
-            ".progress-dash"
-          ]
-        },
-        {
-          "any": [],
-          "all": [
-            {
-              "id": "aria-valid-attr-value",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "ARIA attribute values are valid"
-            },
-            {
-              "id": "aria-errormessage",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "aria-errormessage exists and references elements visible to screen readers that use a supported aria-errormessage technique"
-            },
-            {
-              "id": "aria-level",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "aria-level values are valid"
-            }
-          ],
-          "none": [],
-          "impact": null,
           "html": "<p class=\"progress-generated\" id=\"progressGenerated\" aria-live=\"polite\">Snapshot generated 2026-04-20T00:00:00Z</p>",
           "target": [
             "#progressGenerated"
@@ -5270,7 +5187,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<p class=\"progress-chart-description\" id=\"progressChartDescription\" aria-live=\"polite\">Grew from 5,400 on 2026-01-01 to 7,103 on 2026-04-01 (+1,703 reviewed signs).</p>",
+          "html": "<p class=\"progress-chart-description\" id=\"progressChartDescription\" aria-live=\"polite\">Up from 5,400 on 2026-01-01 to 7,103 on 2026-04-01 (+1,703 new reviewed signs).</p>",
           "target": [
             "#progressChartDescription"
           ]
@@ -5538,24 +5455,6 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span class=\"progress-dash\" aria-label=\"em dash\">—</span>",
-          "target": [
-            ".progress-dash"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "aria-valid-attr",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "ARIA attribute name is valid"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
           "html": "<p class=\"progress-generated\" id=\"progressGenerated\" aria-live=\"polite\">Snapshot generated 2026-04-20T00:00:00Z</p>",
           "target": [
             "#progressGenerated"
@@ -6006,7 +5905,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"progress-chart-description\" id=\"progressChartDescription\" aria-live=\"polite\">Grew from 5,400 on 2026-01-01 to 7,103 on 2026-04-01 (+1,703 reviewed signs).</p>",
+          "html": "<p class=\"progress-chart-description\" id=\"progressChartDescription\" aria-live=\"polite\">Up from 5,400 on 2026-01-01 to 7,103 on 2026-04-01 (+1,703 new reviewed signs).</p>",
           "target": [
             "#progressChartDescription"
           ]
@@ -6378,13 +6277,13 @@
                   ]
                 },
                 {
-                  "html": "<h2 id=\"chartHeading\" class=\"progress-section-title\">Growth over time</h2>",
+                  "html": "<h2 id=\"chartHeading\" class=\"progress-section-title\">How the dictionary is growing</h2>",
                   "target": [
                     "#chartHeading"
                   ]
                 },
                 {
-                  "html": "<h2 id=\"recentHeading\" class=\"progress-section-title\">Recent validations</h2>",
+                  "html": "<h2 id=\"recentHeading\" class=\"progress-section-title\">Recently approved signs</h2>",
                   "target": [
                     "#recentHeading"
                   ]
@@ -6718,7 +6617,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"progress-lede\">\n      Live numbers from the Kozha databases. Deaf-native review status, coverage per language, recent validations. If something cannot be computed honestly, it is marked\n      <span class=\"progress-dash\" aria-label=\"em dash\">—</span> rather than zero.\n    </p>",
+          "html": "<p class=\"progress-lede\">\n      Live numbers from the Kozha databases: review status, coverage by language, and recent activity. When a number cannot be calculated honestly, we leave it blank instead of writing zero.\n    </p>",
           "target": [
             ".progress-lede"
           ]
@@ -7743,7 +7642,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h2 id=\"chartHeading\" class=\"progress-section-title\">Growth over time</h2>",
+          "html": "<h2 id=\"chartHeading\" class=\"progress-section-title\">How the dictionary is growing</h2>",
           "target": [
             "#chartHeading"
           ]
@@ -7768,7 +7667,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"progress-section-note\">Total Deaf-native-reviewed signs across all languages.</p>",
+          "html": "<p class=\"progress-section-note\">Total signs reviewed by Deaf native signers, summed across every language.</p>",
           "target": [
             "section[aria-labelledby=\"chartHeading\"] > .progress-section-head > .progress-section-note"
           ]
@@ -7793,7 +7692,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"progress-chart-description\" id=\"progressChartDescription\" aria-live=\"polite\">Grew from 5,400 on 2026-01-01 to 7,103 on 2026-04-01 (+1,703 reviewed signs).</p>",
+          "html": "<p class=\"progress-chart-description\" id=\"progressChartDescription\" aria-live=\"polite\">Up from 5,400 on 2026-01-01 to 7,103 on 2026-04-01 (+1,703 new reviewed signs).</p>",
           "target": [
             "#progressChartDescription"
           ]
@@ -7818,7 +7717,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h2 id=\"recentHeading\" class=\"progress-section-title\">Recent validations</h2>",
+          "html": "<h2 id=\"recentHeading\" class=\"progress-section-title\">Recently approved signs</h2>",
           "target": [
             "#recentHeading"
           ]
@@ -7843,7 +7742,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"progress-section-note\">The last 20 signs that flipped to validated. Aggregate only — no contributor identities.</p>",
+          "html": "<p class=\"progress-section-note\">The last 20 signs that passed Deaf review. We only show the totals, never who reviewed them.</p>",
           "target": [
             "section[aria-labelledby=\"recentHeading\"] > .progress-section-head > .progress-section-note"
           ]
@@ -7868,7 +7767,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li class=\"progress-recent-empty\">No recent validations to show yet. New signs will appear here as they clear review.</li>",
+          "html": "<li class=\"progress-recent-empty\">Nothing to show yet. New signs will appear here once a Deaf reviewer signs off on them.</li>",
           "target": [
             ".progress-recent-empty"
           ]
@@ -7993,7 +7892,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li class=\"progress-help-done\">Nothing urgent — every common word has coverage here.</li>",
+          "html": "<li class=\"progress-help-done\">All caught up. Every common word has coverage here.</li>",
           "target": [
             "#helpAslList > .progress-help-done"
           ]
@@ -8068,7 +7967,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li class=\"progress-help-done\">Nothing urgent — every common word has coverage here.</li>",
+          "html": "<li class=\"progress-help-done\">All caught up. Every common word has coverage here.</li>",
           "target": [
             "#helpBslList > .progress-help-done"
           ]
@@ -8604,7 +8503,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h2 id=\"chartHeading\" class=\"progress-section-title\">Growth over time</h2>",
+          "html": "<h2 id=\"chartHeading\" class=\"progress-section-title\">How the dictionary is growing</h2>",
           "target": [
             "#chartHeading"
           ]
@@ -8640,7 +8539,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"progress-chart-description\" id=\"progressChartDescription\" aria-live=\"polite\">Grew from 5,400 on 2026-01-01 to 7,103 on 2026-04-01 (+1,703 reviewed signs).</p>",
+          "html": "<p class=\"progress-chart-description\" id=\"progressChartDescription\" aria-live=\"polite\">Up from 5,400 on 2026-01-01 to 7,103 on 2026-04-01 (+1,703 new reviewed signs).</p>",
           "target": [
             "#progressChartDescription"
           ]
@@ -8658,7 +8557,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h2 id=\"recentHeading\" class=\"progress-section-title\">Recent validations</h2>",
+          "html": "<h2 id=\"recentHeading\" class=\"progress-section-title\">Recently approved signs</h2>",
           "target": [
             "#recentHeading"
           ]
@@ -8797,7 +8696,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h2 id=\"chartHeading\" class=\"progress-section-title\">Growth over time</h2>",
+          "html": "<h2 id=\"chartHeading\" class=\"progress-section-title\">How the dictionary is growing</h2>",
           "target": [
             "#chartHeading"
           ]
@@ -8815,7 +8714,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h2 id=\"recentHeading\" class=\"progress-section-title\">Recent validations</h2>",
+          "html": "<h2 id=\"recentHeading\" class=\"progress-section-title\">Recently approved signs</h2>",
           "target": [
             "#recentHeading"
           ]
@@ -9288,7 +9187,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h2 id=\"chartHeading\" class=\"progress-section-title\">Growth over time</h2>",
+          "html": "<h2 id=\"chartHeading\" class=\"progress-section-title\">How the dictionary is growing</h2>",
           "target": [
             "#chartHeading"
           ]
@@ -9306,7 +9205,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h2 id=\"recentHeading\" class=\"progress-section-title\">Recent validations</h2>",
+          "html": "<h2 id=\"recentHeading\" class=\"progress-section-title\">Recently approved signs</h2>",
           "target": [
             "#recentHeading"
           ]
@@ -9851,7 +9750,7 @@
               "id": "landmark-is-unique",
               "data": {
                 "role": "region",
-                "accessibleText": "growth over time"
+                "accessibleText": "how the dictionary is growing"
               },
               "relatedNodes": [],
               "impact": "moderate",
@@ -9872,7 +9771,7 @@
               "id": "landmark-is-unique",
               "data": {
                 "role": "region",
-                "accessibleText": "recent validations"
+                "accessibleText": "recently approved signs"
               },
               "relatedNodes": [],
               "impact": "moderate",
@@ -10628,7 +10527,7 @@
             }
           ],
           "impact": null,
-          "html": "<ul class=\"progress-recent-list\" id=\"progressRecent\"><li class=\"progress-recent-empty\">No recent validations to show yet. New signs will appear here as they clear review.</li></ul>",
+          "html": "<ul class=\"progress-recent-list\" id=\"progressRecent\"><li class=\"progress-recent-empty\">Nothing to show yet. New signs will appear here once a Deaf reviewer signs off on them.</li></ul>",
           "target": [
             "#progressRecent"
           ]
@@ -10646,7 +10545,7 @@
             }
           ],
           "impact": null,
-          "html": "<ul class=\"progress-help-list\" id=\"helpAslList\" data-target-lang=\"asl\"><li class=\"progress-help-done\">Nothing urgent — every common word has coverage here.</li></ul>",
+          "html": "<ul class=\"progress-help-list\" id=\"helpAslList\" data-target-lang=\"asl\"><li class=\"progress-help-done\">All caught up. Every common word has coverage here.</li></ul>",
           "target": [
             "#helpAslList"
           ]
@@ -10664,7 +10563,7 @@
             }
           ],
           "impact": null,
-          "html": "<ul class=\"progress-help-list\" id=\"helpBslList\" data-target-lang=\"bsl\"><li class=\"progress-help-done\">Nothing urgent — every common word has coverage here.</li></ul>",
+          "html": "<ul class=\"progress-help-list\" id=\"helpBslList\" data-target-lang=\"bsl\"><li class=\"progress-help-done\">All caught up. Every common word has coverage here.</li></ul>",
           "target": [
             "#helpBslList"
           ]
@@ -10862,7 +10761,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li class=\"progress-recent-empty\">No recent validations to show yet. New signs will appear here as they clear review.</li>",
+          "html": "<li class=\"progress-recent-empty\">Nothing to show yet. New signs will appear here once a Deaf reviewer signs off on them.</li>",
           "target": [
             ".progress-recent-empty"
           ]
@@ -10880,7 +10779,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li class=\"progress-help-done\">Nothing urgent — every common word has coverage here.</li>",
+          "html": "<li class=\"progress-help-done\">All caught up. Every common word has coverage here.</li>",
           "target": [
             "#helpAslList > .progress-help-done"
           ]
@@ -10898,7 +10797,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li class=\"progress-help-done\">Nothing urgent — every common word has coverage here.</li>",
+          "html": "<li class=\"progress-help-done\">All caught up. Every common word has coverage here.</li>",
           "target": [
             "#helpBslList > .progress-help-done"
           ]
@@ -11745,29 +11644,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"progress-lede\">\n      Live numbers from the Kozha databases. Deaf-native review status, coverage per language, recent validations. If something cannot be computed honestly, it is marked\n      <span class=\"progress-dash\" aria-label=\"em dash\">—</span> rather than zero.\n    </p>",
+          "html": "<p class=\"progress-lede\">\n      Live numbers from the Kozha databases: review status, coverage by language, and recent activity. When a number cannot be calculated honestly, we leave it blank instead of writing zero.\n    </p>",
           "target": [
             ".progress-lede"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "region",
-              "data": {
-                "isIframe": false
-              },
-              "relatedNodes": [],
-              "impact": "moderate",
-              "message": "All page content is contained by landmarks"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<span class=\"progress-dash\" aria-label=\"em dash\">—</span>",
-          "target": [
-            ".progress-dash"
           ]
         },
         {
@@ -13465,7 +13344,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"progress-section-head\">\n        <h2 id=\"chartHeading\" class=\"progress-section-title\">Growth over time</h2>\n        <p class=\"progress-section-note\">Total Deaf-native-reviewed signs across all languages.</p>\n      </div>",
+          "html": "<div class=\"progress-section-head\">\n        <h2 id=\"chartHeading\" class=\"progress-section-title\">How the dictionary is growing</h2>\n        <p class=\"progress-section-note\">Total signs reviewed by Deaf native signers, summed across every language.</p>\n      </div>",
           "target": [
             "section[aria-labelledby=\"chartHeading\"] > .progress-section-head"
           ]
@@ -13485,7 +13364,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h2 id=\"chartHeading\" class=\"progress-section-title\">Growth over time</h2>",
+          "html": "<h2 id=\"chartHeading\" class=\"progress-section-title\">How the dictionary is growing</h2>",
           "target": [
             "#chartHeading"
           ]
@@ -13505,7 +13384,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"progress-section-note\">Total Deaf-native-reviewed signs across all languages.</p>",
+          "html": "<p class=\"progress-section-note\">Total signs reviewed by Deaf native signers, summed across every language.</p>",
           "target": [
             "section[aria-labelledby=\"chartHeading\"] > .progress-section-head > .progress-section-note"
           ]
@@ -13965,7 +13844,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"progress-chart-description\" id=\"progressChartDescription\" aria-live=\"polite\">Grew from 5,400 on 2026-01-01 to 7,103 on 2026-04-01 (+1,703 reviewed signs).</p>",
+          "html": "<p class=\"progress-chart-description\" id=\"progressChartDescription\" aria-live=\"polite\">Up from 5,400 on 2026-01-01 to 7,103 on 2026-04-01 (+1,703 new reviewed signs).</p>",
           "target": [
             "#progressChartDescription"
           ]
@@ -14005,7 +13884,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"progress-section-head\">\n        <h2 id=\"recentHeading\" class=\"progress-section-title\">Recent validations</h2>\n        <p class=\"progress-section-note\">The last 20 signs that flipped to validated. Aggregate only — no contributor identities.</p>\n      </div>",
+          "html": "<div class=\"progress-section-head\">\n        <h2 id=\"recentHeading\" class=\"progress-section-title\">Recently approved signs</h2>\n        <p class=\"progress-section-note\">The last 20 signs that passed Deaf review. We only show the totals, never who reviewed them.</p>\n      </div>",
           "target": [
             "section[aria-labelledby=\"recentHeading\"] > .progress-section-head"
           ]
@@ -14025,7 +13904,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h2 id=\"recentHeading\" class=\"progress-section-title\">Recent validations</h2>",
+          "html": "<h2 id=\"recentHeading\" class=\"progress-section-title\">Recently approved signs</h2>",
           "target": [
             "#recentHeading"
           ]
@@ -14045,7 +13924,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"progress-section-note\">The last 20 signs that flipped to validated. Aggregate only — no contributor identities.</p>",
+          "html": "<p class=\"progress-section-note\">The last 20 signs that passed Deaf review. We only show the totals, never who reviewed them.</p>",
           "target": [
             "section[aria-labelledby=\"recentHeading\"] > .progress-section-head > .progress-section-note"
           ]
@@ -14065,7 +13944,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"progress-recent kz-card\">\n        <ul class=\"progress-recent-list\" id=\"progressRecent\"><li class=\"progress-recent-empty\">No recent validations to show yet. New signs will appear here as they clear review.</li></ul>\n      </div>",
+          "html": "<div class=\"progress-recent kz-card\">\n        <ul class=\"progress-recent-list\" id=\"progressRecent\"><li class=\"progress-recent-empty\">Nothing to show yet. New signs will appear here once a Deaf reviewer signs off on them.</li></ul>\n      </div>",
           "target": [
             ".progress-recent"
           ]
@@ -14085,7 +13964,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<ul class=\"progress-recent-list\" id=\"progressRecent\"><li class=\"progress-recent-empty\">No recent validations to show yet. New signs will appear here as they clear review.</li></ul>",
+          "html": "<ul class=\"progress-recent-list\" id=\"progressRecent\"><li class=\"progress-recent-empty\">Nothing to show yet. New signs will appear here once a Deaf reviewer signs off on them.</li></ul>",
           "target": [
             "#progressRecent"
           ]
@@ -14105,7 +13984,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li class=\"progress-recent-empty\">No recent validations to show yet. New signs will appear here as they clear review.</li>",
+          "html": "<li class=\"progress-recent-empty\">Nothing to show yet. New signs will appear here once a Deaf reviewer signs off on them.</li>",
           "target": [
             ".progress-recent-empty"
           ]
@@ -14285,7 +14164,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<ul class=\"progress-help-list\" id=\"helpAslList\" data-target-lang=\"asl\"><li class=\"progress-help-done\">Nothing urgent — every common word has coverage here.</li></ul>",
+          "html": "<ul class=\"progress-help-list\" id=\"helpAslList\" data-target-lang=\"asl\"><li class=\"progress-help-done\">All caught up. Every common word has coverage here.</li></ul>",
           "target": [
             "#helpAslList"
           ]
@@ -14305,7 +14184,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li class=\"progress-help-done\">Nothing urgent — every common word has coverage here.</li>",
+          "html": "<li class=\"progress-help-done\">All caught up. Every common word has coverage here.</li>",
           "target": [
             "#helpAslList > .progress-help-done"
           ]
@@ -14385,7 +14264,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<ul class=\"progress-help-list\" id=\"helpBslList\" data-target-lang=\"bsl\"><li class=\"progress-help-done\">Nothing urgent — every common word has coverage here.</li></ul>",
+          "html": "<ul class=\"progress-help-list\" id=\"helpBslList\" data-target-lang=\"bsl\"><li class=\"progress-help-done\">All caught up. Every common word has coverage here.</li></ul>",
           "target": [
             "#helpBslList"
           ]
@@ -14405,7 +14284,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<li class=\"progress-help-done\">Nothing urgent — every common word has coverage here.</li>",
+          "html": "<li class=\"progress-help-done\">All caught up. Every common word has coverage here.</li>",
           "target": [
             "#helpBslList > .progress-help-done"
           ]
@@ -16389,32 +16268,6 @@
       "help": "Elements must only use permitted ARIA attributes",
       "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/aria-prohibited-attr?application=axe-puppeteer",
       "nodes": [
-        {
-          "any": [],
-          "all": [],
-          "none": [
-            {
-              "id": "aria-prohibited-attr",
-              "data": {
-                "role": null,
-                "nodeName": "span",
-                "messageKey": "noRoleSingular",
-                "prohibited": [
-                  "aria-label"
-                ]
-              },
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "aria-label attribute is not well supported on a span with no valid role attribute."
-            }
-          ],
-          "impact": "serious",
-          "html": "<span class=\"progress-dash\" aria-label=\"em dash\">—</span>",
-          "target": [
-            ".progress-dash"
-          ],
-          "failureSummary": "Fix all of the following:\n  aria-label attribute is not well supported on a span with no valid role attribute."
-        },
         {
           "any": [],
           "all": [],
