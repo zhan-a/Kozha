@@ -299,6 +299,12 @@
       applyReadyState();
       applyPlayButtonState();
       applyPulse();
+      // Minimum-surface signal for the e2e smoke spec
+      // (tests/contrib_e2e.spec.ts): set data-rendered="true" the first
+      // time the avatar starts playing a SiGML clip. Independent of WebGL
+      // pixel introspection — just confirms the pipeline got far enough
+      // for CWASA to begin animating.
+      try { els.canvas.setAttribute('data-rendered', 'true'); } catch (_e) { /* ignore */ }
     }, 0);
 
     window.CWASA.addHook('animidle', function () {
