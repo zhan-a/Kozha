@@ -1,8 +1,22 @@
+import mimetypes
 import os
 import sys
 import time
 from contextlib import contextmanager
 from pathlib import Path
+
+# Register web-font MIME types up-front so StaticFiles emits the right
+# Content-Type for the HamNoSys binaries served from /public/fonts/.
+# Python 3.9+ knows woff2 and ttf out of the box, but stripped-down
+# container images (e.g. python-slim without the mailcap package) can
+# ship a /etc/mime.types that lacks them — without these explicit
+# entries the response goes out as application/octet-stream, which
+# modern browsers refuse to parse as a font and the @font-face
+# silently fails to apply.
+mimetypes.add_type("font/woff2", ".woff2")
+mimetypes.add_type("font/woff", ".woff")
+mimetypes.add_type("font/ttf", ".ttf")
+mimetypes.add_type("font/otf", ".otf")
 
 # chat2hamnosys uses flat imports (``from session import ...``); make its
 # package directory importable before anything inside it is referenced.

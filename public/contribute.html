@@ -23,23 +23,37 @@
        contribute.css so the page-specific rules (body bg, avatar
        stage, etc.) win. -->
   <link rel="stylesheet" href="/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Preload the HamNoSys binaries so they're in cache before the
+       @font-face declaration in /contribute.css triggers any DOM-driven
+       request. crossorigin is required on font preload even for same-
+       origin so the cached resource matches the @font-face fetch
+       (which is always anonymous-CORS for fonts). -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/HamNoSysUnicode.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/ttf" href="/fonts/HamNoSysUnicode.ttf" crossorigin>
+
   <link rel="stylesheet" href="/contribute.css">
   <script>
-    // HamNoSysUnicode font binary is licensed by IDGS and isn't bundled
-    // in this repo. Default the page to .no-hamnosys-font so PUA glyph
-    // strings don't render as broken .notdef boxes; once the @font-face
-    // has been confirmed to actually shape glyphs (binary present), we
-    // remove the class and let .hamnosys content render normally.
+    // Detect whether the HamNoSys font actually shapes PUA codepoints.
+    // The .no-hamnosys-font fallback class is set on <html> first so
+    // there's no flash of broken .notdef boxes before detection. We
+    // then call document.fonts.load() to *force* the browser to fetch
+    // the font, independent of any DOM rendering — without this the
+    // very fallback CSS (display: none on .c2-hero__card-glyphs)
+    // would prevent the only PUA-bearing element from triggering the
+    // font request, locking the page into the fallback state forever.
+    // Once the load resolves we measure a glyph against monospace and
+    // remove the fallback class if shaping took effect.
     (function () {
       var html = document.documentElement;
       html.classList.add('no-hamnosys-font');
+
       function probe() {
         try {
           var canvas = document.createElement('canvas');
           var ctx = canvas.getContext && canvas.getContext('2d');
           if (!ctx) return;
           var ch = String.fromCharCode(0xE001);
-          ctx.font = "32px 'HamNoSysUnicode', 'bgHamNoSysUnicode', monospace";
+          ctx.font = "32px 'HamNoSysUnicode', monospace";
           var w1 = ctx.measureText(ch).width;
           ctx.font = "32px monospace";
           var w2 = ctx.measureText(ch).width;
@@ -48,8 +62,13 @@
           }
         } catch (_e) { /* keep .no-hamnosys-font on */ }
       }
-      if (document.fonts && document.fonts.ready && typeof document.fonts.ready.then === 'function') {
-        document.fonts.ready.then(probe).catch(function () {});
+
+      if (document.fonts && typeof document.fonts.load === 'function') {
+        document.fonts.load("32px 'HamNoSysUnicode'", "")
+          .then(probe)
+          .catch(probe);
+      } else if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(probe).catch(function () { probe(); });
       } else {
         window.addEventListener('load', probe);
       }

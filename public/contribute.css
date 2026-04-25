@@ -224,29 +224,47 @@ body {
  * viewport.
  * ================================================================== */
 .contribute-workspace { display: block; }
+/* Once a real session exists the marketing layer collapses so the
+   workspace owns the viewport. The quickstart card hides too: the
+   user has already picked a language (the masthead carries the
+   active selection + a "Change" affordance), so leaving the big
+   dark chip card above the form is just visual noise. */
 .contribute-main.has-session .c2-hero,
 .contribute-main.has-session .c2-why,
-.contribute-main.has-session .c2-walk {
+.contribute-main.has-session .c2-walk,
+.contribute-main.has-session .qs {
   display: none;
 }
 
 /* ==================================================================
  * Missing-font fallback
  *
- * The HamNoSysUnicode font binary is licensed by IDGS and isn't
- * shipped in this repo (see /public/fonts/HamNoSysUnicode.README.txt).
- * The inline probe in <head> adds .no-hamnosys-font to <html> by
- * default and only removes it once the font is confirmed to render
- * shaped glyphs. Until then, hide PUA glyphs that would otherwise
- * show as broken .notdef boxes; surrounding context (gloss, meta)
- * still tells the user what the card represents.
+ * The HamNoSys binaries live at /public/fonts/HamNoSysUnicode.{woff2,
+ * ttf} and are preloaded from the page <head>. The probe in <head>
+ * removes the .no-hamnosys-font class once it confirms shaping
+ * actually happened, so this fallback only kicks in when the binary
+ * really isn't reachable (operator stripped the directory, network
+ * fault, very old browser). Replace the glyph row with an inline
+ * caption rather than just hiding it, so the hero card doesn't
+ * look like something failed to load.
  * ================================================================== */
-.no-hamnosys-font .c2-hero__card-glyphs {
+.no-hamnosys-font .c2-hero__card-glyphs > .hamnosys {
   display: none;
 }
+.no-hamnosys-font .c2-hero__card-glyphs::before {
+  content: "HamNoSys preview unavailable";
+  display: block;
+  font-family: var(--kozha-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--kozha-color-ink-3);
+  text-transform: uppercase;
+  padding: 8px 0;
+  border-top: 1px dashed var(--kozha-color-border);
+  border-bottom: 1px dashed var(--kozha-color-border);
+  text-align: center;
+}
 .no-hamnosys-font .c2-hero__card {
-  /* The card is otherwise top-heavy without the glyph row; rebalance
-     the spacing so it doesn't look like something failed to load. */
   gap: var(--kozha-space-3);
 }
 
