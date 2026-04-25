@@ -6,6 +6,7 @@
 # committed — un-ignore it explicitly and ignore only its run artifacts.
 prompts/
 !backend/chat2hamnosys/prompts/
+!docs/contrib-fix/prompts/
 backend/chat2hamnosys/prompts/eval_results/
 
 # runner scripts
