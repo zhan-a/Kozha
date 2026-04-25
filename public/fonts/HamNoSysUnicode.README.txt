@@ -1,19 +1,34 @@
 HamNoSysUnicode font binaries
 =============================
 
-The Kozha contribute page ships an `@font-face` declaration for
-`HamNoSysUnicode` that expects two binaries in this directory:
+CURRENT STATE: the binaries are NOT in this directory. Real
+deployments will fall back to .notdef boxes for any HamNoSys glyphs
+unless an operator drops in `HamNoSysUnicode.woff2` (preferred) and
+`HamNoSysUnicode.ttf` (legacy fallback) themselves. The Kozha
+contribute page handles this gracefully:
+
+  - An inline probe in the page <head> measures whether HamNoSys PUA
+    codepoints render as shaped glyphs. If they don't, it adds the
+    class `no-hamnosys-font` to <html>.
+  - CSS rules under `.no-hamnosys-font` hide the decorative glyph
+    rows (e.g. `.c2-hero__card-glyphs`) so visitors never see broken
+    `.notdef` boxes.
+  - The notation panel inside the workspace uses a per-glyph chip
+    layout that always shows the canonical short_name underneath
+    each PUA codepoint (`.notation-glyph-name`), so reviewers can
+    read the notation even with no font installed.
+
+The `@font-face` declaration in `/contribute.css` expects:
 
   /fonts/HamNoSysUnicode.woff2   (preferred: smaller, modern browsers)
   /fonts/HamNoSysUnicode.ttf     (fallback for older browsers)
 
 Both are scoped to the HamNoSys 4.0 Private Use Area (U+E000–U+E0FF)
-via the `unicode-range` hint, so the rest of the page keeps using its
-regular type stack. If neither binary is present, browsers gracefully
-fall back to `bgHamNoSysUnicode` (also TTF, see the sibling
+via the `unicode-range` hint, so the rest of the page keeps using
+its regular type stack. If neither binary is present, browsers fall
+through the chain to `bgHamNoSysUnicode` (also TTF, see the sibling
 `bgHamNoSysUnicode.LICENSE.txt`) and finally to the system monospace
-font. The UI never errors; missing fonts just render the underlying
-PUA codepoints as `.notdef` boxes.
+font, and the in-page probe activates the fallback styling above.
 
 Where to get the binaries
 -------------------------
