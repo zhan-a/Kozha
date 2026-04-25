@@ -211,12 +211,12 @@
     ? window.KOZHA_CONTRIB_DEBUG
     : { log: function () {}, forceLog: function () {} };
 
-  var fontCheckFamily = "1em 'bgHamNoSysUnicode'";
+  var fontCheckFamily = "1em 'HamNoSysUnicode'";
   function hasHamnosysFont() {
     // Canvas width-comparison: render a HamNoSys PUA codepoint with
     // the bundled family vs. with a guaranteed system fallback. If the
     // widths match, the bundled font isn't really active (the @font-face
-    // declared the family but the .ttf 404'd or never rendered glyph
+    // declared the family but the binary 404'd or never rendered glyph
     // shapes). This is more reliable than document.fonts.check(), which
     // returns true on declaration alone.
     try {
@@ -224,7 +224,7 @@
       var ctx = canvas.getContext && canvas.getContext('2d');
       if (ctx) {
         var probe = String.fromCharCode(0xE001);
-        ctx.font = "32px 'bgHamNoSysUnicode', monospace";
+        ctx.font = "32px 'HamNoSysUnicode', 'bgHamNoSysUnicode', monospace";
         var withFont = ctx.measureText(probe).width;
         ctx.font = "32px monospace";
         var fallback = ctx.measureText(probe).width;
@@ -700,17 +700,14 @@
   }
 
   function shouldShowPanel(snap) {
-    if (!snap.sessionId) return false;
-    if (snap.sessionState === 'finalized' || snap.sessionState === 'abandoned') {
-      // Once finalized, the envelope still carries the notation, so
-      // surfacing it is harmless and sometimes desirable; but for the
-      // "session gone" case (abandoned), hide entirely.
-      return snap.sessionState === 'finalized' && sessionHasNotation(snap);
-    }
-    // Otherwise show as soon as any notation has landed (GENERATING
-    // has the preview shimmer in the chat panel, so the notation panel
-    // doesn't need its own spinner).
-    return sessionHasNotation(snap);
+    // The panel is always visible: contributors need to see the
+    // results-in-progress as they describe a sign, and they need to
+    // see the (empty) shape of the editor before generation kicks in
+    // so they know what to expect. The only case we hide is an
+    // abandoned session, where the workspace itself is being torn
+    // down. Empty/placeholder content is fine pre-generation.
+    if (snap.sessionState === 'abandoned') return false;
+    return true;
   }
 
   function resetForNewSession() {
@@ -782,12 +779,24 @@
   }
 
   function onSnapshot(snap) {
+    // The panel is always visible (see shouldShowPanel) so contributors
+    // see the editor surface from the moment authoring opens. Only the
+    // data side of the panel is gated by session state: with no
+    // sessionId we leave the placeholders alone and skip SSE setup.
     if (!shouldShowPanel(snap)) {
       els.panel.hidden = true;
       stopSse();
       return;
     }
     els.panel.hidden = false;
+    if (!snap.sessionId) {
+      stopSse();
+      if (state.rememberedSessionId !== null) {
+        resetForNewSession();
+        state.rememberedSessionId = null;
+      }
+      return;
+    }
     if (state.rememberedSessionId !== snap.sessionId) {
       resetForNewSession();
       state.rememberedSessionId = snap.sessionId;

@@ -1,0 +1,48 @@
+HamNoSysUnicode font binaries
+=============================
+
+The Kozha contribute page ships an `@font-face` declaration for
+`HamNoSysUnicode` that expects two binaries in this directory:
+
+  /fonts/HamNoSysUnicode.woff2   (preferred: smaller, modern browsers)
+  /fonts/HamNoSysUnicode.ttf     (fallback for older browsers)
+
+Both are scoped to the HamNoSys 4.0 Private Use Area (U+E000–U+E0FF)
+via the `unicode-range` hint, so the rest of the page keeps using its
+regular type stack. If neither binary is present, browsers gracefully
+fall back to `bgHamNoSysUnicode` (also TTF, see the sibling
+`bgHamNoSysUnicode.LICENSE.txt`) and finally to the system monospace
+font. The UI never errors; missing fonts just render the underlying
+PUA codepoints as `.notdef` boxes.
+
+Where to get the binaries
+-------------------------
+The HamNoSys 4.0 Unicode font is published by the Institute of German
+Sign Language and Communication of the Deaf (IDGS) at the University
+of Hamburg. Distribution channels:
+
+  * Upstream:  https://www.sign-lang.uni-hamburg.de/dgs-korpus/tools/hamnosys
+  * CTAN pkg:  https://ctan.org/pkg/hamnosys  (TeX `hamnosys` package
+               by Schulder & Hanke, 2022, LPPL 1.3c, which bundles
+               the TTF)
+
+To produce a WOFF2 from the TTF, use `woff2_compress` (Google's
+reference encoder) or `fonttools`:
+
+    woff2_compress HamNoSysUnicode.ttf
+    # produces HamNoSysUnicode.woff2 in the same directory
+
+License
+-------
+The font is distributed by IDGS for academic, research, and
+notation-tool use. When redistributing the binary alongside Kozha,
+ship the IDGS license file alongside it (typically as
+`HamNoSysUnicode.LICENSE.orig.txt`). Credit IDGS (University of
+Hamburg) per the project's CREDITS page.
+
+Why we self-host
+----------------
+Loading from a CDN puts third-party requests on the contribute page
+and breaks if the CDN goes down. Self-hosting keeps the contribute
+flow working under restrictive corporate proxies and avoids leaking
+contributor IPs to a third party.

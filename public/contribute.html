@@ -68,81 +68,285 @@
   </header>
 
   <main id="main-content" class="contribute-main" role="main">
-    <header class="contribute-header">
-      <p class="contribute-eyebrow">Open dictionary, Deaf-led</p>
-      <h1 class="contribute-h1">Add a sign. Help someone be understood.</h1>
-      <p class="contribute-lede">Most sign-language vocabularies on the web are small: a few hundred everyday words at best. The translator on Kozha can only show what the dictionary contains, so every sign you add closes one of those gaps for someone trying to read or write a translation today. Your contributions also become open data that helps advance research into sign languages.</p>
-      <ul class="contribute-impact-row" aria-label="Why this matters">
-        <li class="contribute-impact-item">
-          <span class="contribute-impact-num" aria-hidden="true">1</span>
-          <span class="contribute-impact-text">Just one sign you add can unblock a translation that would otherwise come back blank.</span>
-        </li>
-        <li class="contribute-impact-item">
-          <span class="contribute-impact-num" aria-hidden="true">2</span>
-          <span class="contribute-impact-text">You don't have to be an expert. Describe the sign in plain English, and a Deaf native signer reviews it before it goes live.</span>
-        </li>
-        <li class="contribute-impact-item">
-          <span class="contribute-impact-num" aria-hidden="true">3</span>
-          <span class="contribute-impact-text">Every approved sign becomes open data that researchers, teachers, and learners can use, and it stays free to use forever.</span>
-        </li>
-      </ul>
+    <!-- Redesigned contribute intro (2026-04): compact hero + interactive
+         stepper + prominent quickstart card replacing the stacked text
+         walkthrough. JS hooks for the picker, byo-key, and the
+         .has-session hide mechanism are preserved verbatim below. -->
+
+    <header class="c2-hero" aria-labelledby="c2-hero-title">
+      <div class="c2-hero__text">
+        <p class="c2-hero__eyebrow">
+          <span class="c2-hero__eyebrow-dot" aria-hidden="true"></span>
+          Open dictionary · Deaf-led
+        </p>
+        <h1 class="c2-hero__title contribute-h1" id="c2-hero-title">
+          Add a sign.<br>
+          <em>Help someone be understood.</em>
+        </h1>
+        <p class="c2-hero__lede contribute-lede">
+          Most sign-language vocabularies online cover only a few hundred everyday words.
+          Every sign you contribute unblocks a real translation — and becomes open data
+          for researchers, teachers, and learners to use <strong>free, forever</strong>.
+        </p>
+        <div class="c2-hero__actions">
+          <a href="#c2-quickstart" class="btn btn-primary c2-hero__cta">Start a contribution</a>
+          <span class="c2-hero__actions-note">1–3 min per sign · save and return any time</span>
+        </div>
+        <ul class="c2-hero__stats" aria-label="At a glance">
+          <li><strong>15</strong><span>sign languages</span></li>
+          <li><strong>Plain English</strong><span>no notation expertise</span></li>
+          <li><strong>Deaf-reviewed</strong><span>before it goes live</span></li>
+        </ul>
+      </div>
+      <aside class="c2-hero__card" aria-hidden="true">
+        <div class="c2-hero__card-head">
+          <span class="c2-hero__card-chip">BSL</span>
+          <span class="c2-hero__card-gloss">ELECTRON</span>
+          <span class="c2-hero__card-state">live</span>
+        </div>
+        <div class="c2-hero__card-stage">
+          <div class="c2-hero__avatar">
+            <span class="c2-hero__avatar-head"></span>
+            <span class="c2-hero__avatar-torso"></span>
+            <span class="c2-hero__avatar-arm c2-hero__avatar-arm--a"></span>
+            <span class="c2-hero__avatar-arm c2-hero__avatar-arm--b"></span>
+          </div>
+          <div class="c2-hero__pulse" aria-hidden="true"></div>
+        </div>
+        <div class="c2-hero__card-glyphs">
+          <span class="hamnosys" lang="zxx" aria-hidden="true">&#xE00A;&#xE00E;&#xE010;&#xE027;&#xE03D;&#xE042;&#xE059;</span>
+        </div>
+        <div class="c2-hero__card-meta">
+          <span class="c2-hero__card-dot" aria-hidden="true"></span>
+          <span>Reviewed by 2 Deaf signers</span>
+        </div>
+      </aside>
     </header>
 
-    <!-- Workflow demo. Five-step visual walkthrough so first-time
-         contributors can see what they're signing up for before they
-         pick a language. Each step has a micro-illustration done in
-         CSS (no external images). Hidden once a session starts so
-         the workspace isn't crowded. -->
-    <section class="contribute-demo" id="contributeDemo" aria-labelledby="demoHeading">
-      <h2 class="contribute-demo-heading" id="demoHeading">How it works in 60 seconds.</h2>
-      <ol class="contribute-demo-steps">
-        <li class="contribute-demo-step">
-          <span class="contribute-demo-step-num" aria-hidden="true">1</span>
-          <h3 class="contribute-demo-step-title">Pick a language and a word</h3>
-          <p class="contribute-demo-step-body">Choose the sign language you sign in (BSL, ASL, more coming), then type the English word you want to add. For example: <code>HELLO</code>, <code>ELECTRON</code>, <code>RAIN</code>.</p>
-          <div class="contribute-demo-step-vis" aria-hidden="true">
-            <span class="demo-chip">BSL</span>
-            <span class="demo-input">ELECTRON</span>
-          </div>
+    <!-- Why it matters — 3 scannable callouts. -->
+    <section class="c2-why" aria-label="Why this matters">
+      <ul class="c2-why__row">
+        <li class="c2-why__item">
+          <span class="c2-why__num" aria-hidden="true">01</span>
+          <h2 class="c2-why__title">Unblock a translation</h2>
+          <p class="c2-why__body">Kozha can only animate signs that exist in the dictionary. The word you add might be the one that stops coming back blank.</p>
         </li>
-        <li class="contribute-demo-step">
-          <span class="contribute-demo-step-num" aria-hidden="true">2</span>
-          <h3 class="contribute-demo-step-title">Describe the sign</h3>
-          <p class="contribute-demo-step-body">Describe the handshape, where it's signed, and how it moves, all in plain English. The more detail you give, the better the first draft.</p>
-          <div class="contribute-demo-step-vis" aria-hidden="true">
-            <span class="demo-quote">"Index finger circling at the temple, palm facing the head."</span>
-          </div>
+        <li class="c2-why__item">
+          <span class="c2-why__num" aria-hidden="true">02</span>
+          <h2 class="c2-why__title">No expertise required</h2>
+          <p class="c2-why__body">Describe a sign in plain English. Kozha drafts the HamNoSys for you, and a Deaf native signer reviews it before it goes live.</p>
         </li>
-        <li class="contribute-demo-step">
-          <span class="contribute-demo-step-num" aria-hidden="true">3</span>
-          <h3 class="contribute-demo-step-title">Refine through chat</h3>
-          <p class="contribute-demo-step-body">If something is unclear, like palm direction or finger orientation, you'll get one question at a time. Answer in a sentence or pick a suggestion.</p>
-          <div class="contribute-demo-step-vis demo-chat" aria-hidden="true">
-            <p class="demo-chat-line demo-chat-bot">Which way does the palm face?</p>
-            <p class="demo-chat-line demo-chat-you">Toward the head.</p>
-          </div>
+        <li class="c2-why__item">
+          <span class="c2-why__num" aria-hidden="true">03</span>
+          <h2 class="c2-why__title">Open data, forever</h2>
+          <p class="c2-why__body">Every approved sign becomes CC-licensed open data that researchers, teachers, and learners can build on. It stays free, always.</p>
         </li>
-        <li class="contribute-demo-step">
-          <span class="contribute-demo-step-num" aria-hidden="true">4</span>
-          <h3 class="contribute-demo-step-title">Preview the avatar</h3>
-          <p class="contribute-demo-step-body">A 3D avatar performs the sign. If something looks off, like a finger bend or a movement direction, say so in chat or click the SiGML tag and pick an alternative.</p>
-          <div class="contribute-demo-step-vis demo-preview" aria-hidden="true">
-            <span class="demo-play">▶</span><span class="demo-preview-label">avatar plays the sign</span>
-          </div>
-        </li>
-        <li class="contribute-demo-step">
-          <span class="contribute-demo-step-num" aria-hidden="true">5</span>
-          <h3 class="contribute-demo-step-title">Submit for Deaf review</h3>
-          <p class="contribute-demo-step-body">A Deaf native signer of the language reviews and validates. Once two reviewers approve, the sign goes live in the translator and stays free, forever.</p>
-          <div class="contribute-demo-step-vis demo-submit" aria-hidden="true">
-            <span class="demo-check">✓</span><span class="demo-check-label">submitted</span>
-          </div>
-        </li>
-      </ol>
-      <p class="contribute-demo-cta-row">
-        <a href="#contribute-start" class="btn btn-primary contribute-demo-cta">Start a contribution</a>
-        <span class="contribute-demo-cta-note">Takes 1–3 minutes per sign · You can save and come back later.</span>
-      </p>
+      </ul>
+    </section>
+
+    <!-- Interactive 5-step walkthrough. Tabs on the left, visual + copy
+         on the right. Click a tab, use arrow keys, or press Prev/Next.
+         One step rendered at a time so the page isn't a wall of text. -->
+    <section class="c2-walk" aria-labelledby="c2-walk-heading">
+      <header class="c2-walk__head">
+        <p class="c2-walk__kicker">The flow</p>
+        <h2 class="c2-walk__heading" id="c2-walk-heading">How a contribution <em>actually works.</em></h2>
+        <p class="c2-walk__sub">Step through the full flow before you start. Use the numbers below, arrow keys, or the next/prev controls.</p>
+      </header>
+
+      <div class="c2-walk__frame">
+        <nav class="c2-walk__tabs" role="tablist" aria-label="Contribution workflow steps">
+          <button type="button" class="c2-walk__tab is-active" role="tab" data-step="1" id="c2-tab-1" aria-selected="true" aria-controls="c2-panel-1" tabindex="0">
+            <span class="c2-walk__tab-num">01</span>
+            <span class="c2-walk__tab-name">Pick a language &amp; word</span>
+            <span class="c2-walk__tab-dur">30 s</span>
+          </button>
+          <button type="button" class="c2-walk__tab" role="tab" data-step="2" id="c2-tab-2" aria-selected="false" aria-controls="c2-panel-2" tabindex="-1">
+            <span class="c2-walk__tab-num">02</span>
+            <span class="c2-walk__tab-name">Describe the sign</span>
+            <span class="c2-walk__tab-dur">~1 min</span>
+          </button>
+          <button type="button" class="c2-walk__tab" role="tab" data-step="3" id="c2-tab-3" aria-selected="false" aria-controls="c2-panel-3" tabindex="-1">
+            <span class="c2-walk__tab-num">03</span>
+            <span class="c2-walk__tab-name">Refine through chat</span>
+            <span class="c2-walk__tab-dur">~1 min</span>
+          </button>
+          <button type="button" class="c2-walk__tab" role="tab" data-step="4" id="c2-tab-4" aria-selected="false" aria-controls="c2-panel-4" tabindex="-1">
+            <span class="c2-walk__tab-num">04</span>
+            <span class="c2-walk__tab-name">Preview the avatar</span>
+            <span class="c2-walk__tab-dur">instant</span>
+          </button>
+          <button type="button" class="c2-walk__tab" role="tab" data-step="5" id="c2-tab-5" aria-selected="false" aria-controls="c2-panel-5" tabindex="-1">
+            <span class="c2-walk__tab-num">05</span>
+            <span class="c2-walk__tab-name">Submit for review</span>
+            <span class="c2-walk__tab-dur">1 click</span>
+          </button>
+          <span class="c2-walk__progress" aria-hidden="true"><span class="c2-walk__progress-bar" style="--c2-progress: 20%"></span></span>
+        </nav>
+
+        <div class="c2-walk__panels">
+          <!-- Step 1 -->
+          <article class="c2-walk__panel is-active" role="tabpanel" id="c2-panel-1" data-step="1" aria-labelledby="c2-tab-1">
+            <div class="c2-walk__copy">
+              <span class="c2-walk__step-label">Step 1 of 5</span>
+              <h3 class="c2-walk__copy-title">Pick a language. Pick a word.</h3>
+              <p class="c2-walk__copy-body">Choose the sign language you sign in (BSL, ASL, DGS, LSF — and more coming), then type the English gloss you want to add. One word, one sign.</p>
+              <ul class="c2-walk__bullets">
+                <li>Uppercase gloss works best: <code>ELECTRON</code>, <code>RAIN</code>, <code>HELLO</code>.</li>
+                <li>If your language isn't listed yet, email us and we'll stand up a reviewer pool.</li>
+              </ul>
+            </div>
+            <figure class="c2-walk__viz c2-viz-1" aria-hidden="true">
+              <div class="c2-viz-1__picker">
+                <span class="c2-viz-1__label">SIGN LANGUAGE</span>
+                <span class="c2-viz-1__value">
+                  <span class="c2-viz-1__flag">🇬🇧</span>
+                  BSL — British Sign Language
+                </span>
+              </div>
+              <div class="c2-viz-1__gloss">
+                <span class="c2-viz-1__label">GLOSS</span>
+                <div class="c2-viz-1__typer">
+                  <span class="c2-viz-1__typed">ELECTRON</span>
+                  <span class="c2-viz-1__caret" aria-hidden="true"></span>
+                </div>
+              </div>
+            </figure>
+          </article>
+
+          <!-- Step 2 -->
+          <article class="c2-walk__panel" role="tabpanel" id="c2-panel-2" data-step="2" aria-labelledby="c2-tab-2" hidden>
+            <div class="c2-walk__copy">
+              <span class="c2-walk__step-label">Step 2 of 5</span>
+              <h3 class="c2-walk__copy-title">Describe it in plain English.</h3>
+              <p class="c2-walk__copy-body">Say how you'd describe the sign to a friend on the phone. Where does the hand sit? What shape is it in? How does it move? The more detail you give, the better the first draft.</p>
+              <ul class="c2-walk__bullets">
+                <li>No jargon required. Write like you speak.</li>
+                <li>Kozha drafts the HamNoSys for you — you never have to learn the notation.</li>
+              </ul>
+            </div>
+            <figure class="c2-walk__viz c2-viz-2" aria-hidden="true">
+              <blockquote class="c2-viz-2__quote">
+                <span class="c2-viz-2__mark">&ldquo;</span>
+                Index finger circles at the temple,
+                palm facing the head. Small, tight loops — <em>like a thought spinning</em>.
+                <span class="c2-viz-2__mark c2-viz-2__mark--end">&rdquo;</span>
+              </blockquote>
+              <div class="c2-viz-2__tags">
+                <span class="c2-viz-2__tag">handshape: index</span>
+                <span class="c2-viz-2__tag">location: temple</span>
+                <span class="c2-viz-2__tag">movement: circle</span>
+              </div>
+            </figure>
+          </article>
+
+          <!-- Step 3 -->
+          <article class="c2-walk__panel" role="tabpanel" id="c2-panel-3" data-step="3" aria-labelledby="c2-tab-3" hidden>
+            <div class="c2-walk__copy">
+              <span class="c2-walk__step-label">Step 3 of 5</span>
+              <h3 class="c2-walk__copy-title">Fill the gaps through chat.</h3>
+              <p class="c2-walk__copy-body">If something's ambiguous — palm direction, finger orientation, which hand — Kozha asks one question at a time. Answer in a sentence or tap a suggestion chip.</p>
+              <ul class="c2-walk__bullets">
+                <li>Three to five questions, max. Usually fewer.</li>
+                <li>You can always say &ldquo;submit as-is&rdquo; and let a reviewer finish it.</li>
+              </ul>
+            </div>
+            <figure class="c2-walk__viz c2-viz-3" aria-hidden="true">
+              <div class="c2-viz-3__log">
+                <p class="c2-viz-3__msg c2-viz-3__msg--bot">
+                  <span class="c2-viz-3__who">Kozha</span>
+                  Which way does the palm face when the hand is at the temple?
+                </p>
+                <div class="c2-viz-3__chips">
+                  <span class="c2-viz-3__chip">Toward the head</span>
+                  <span class="c2-viz-3__chip">Away from the head</span>
+                  <span class="c2-viz-3__chip">Downward</span>
+                </div>
+                <p class="c2-viz-3__msg c2-viz-3__msg--you">
+                  <span class="c2-viz-3__who">You</span>
+                  Toward the head.
+                </p>
+                <p class="c2-viz-3__msg c2-viz-3__msg--bot c2-viz-3__msg--thinking">
+                  <span class="c2-viz-3__who">Kozha</span>
+                  <span class="c2-viz-3__dots"><span></span><span></span><span></span></span>
+                </p>
+              </div>
+            </figure>
+          </article>
+
+          <!-- Step 4 -->
+          <article class="c2-walk__panel" role="tabpanel" id="c2-panel-4" data-step="4" aria-labelledby="c2-tab-4" hidden>
+            <div class="c2-walk__copy">
+              <span class="c2-walk__step-label">Step 4 of 5</span>
+              <h3 class="c2-walk__copy-title">Watch the avatar perform it.</h3>
+              <p class="c2-walk__copy-body">A 3D avatar plays the sign. Something off — finger bend, wrong direction, palm flipped? Click the SiGML tag you want to change and pick an alternative, or just tell the chat.</p>
+              <ul class="c2-walk__bullets">
+                <li>Every tag below the avatar is a click-to-swap chip.</li>
+                <li>This is what HamNoSys notation looks like — you don't write it, but you can read it.</li>
+              </ul>
+            </div>
+            <figure class="c2-walk__viz c2-viz-4" aria-hidden="true">
+              <div class="c2-viz-4__avatar">
+                <span class="c2-viz-4__avatar-head"></span>
+                <span class="c2-viz-4__avatar-torso"></span>
+                <span class="c2-viz-4__avatar-arm c2-viz-4__avatar-arm--a"></span>
+                <span class="c2-viz-4__avatar-arm c2-viz-4__avatar-arm--b"></span>
+                <button type="button" class="c2-viz-4__play" tabindex="-1" aria-hidden="true">
+                  <span>▶</span>
+                </button>
+              </div>
+              <div class="c2-viz-4__glyphs">
+                <span class="c2-viz-4__glyph-label">HamNoSys · DGS · HAMBURG</span>
+                <span class="hamnosys c2-viz-4__glyph-row" lang="zxx">&#xE00A;&#xE00E;&#xE010;&#xE027;&#xE03D;&#xE042;&#xE059;&#xE0D0;&#xE0E2;&#xE082;&#xE0AA;&#xE007;&#xE010;&#xE0E3;</span>
+              </div>
+              <div class="c2-viz-4__tags">
+                <span class="c2-viz-4__tag">handshape</span>
+                <span class="c2-viz-4__tag">orientation</span>
+                <span class="c2-viz-4__tag c2-viz-4__tag--active">location</span>
+                <span class="c2-viz-4__tag">movement</span>
+              </div>
+            </figure>
+          </article>
+
+          <!-- Step 5 -->
+          <article class="c2-walk__panel" role="tabpanel" id="c2-panel-5" data-step="5" aria-labelledby="c2-tab-5" hidden>
+            <div class="c2-walk__copy">
+              <span class="c2-walk__step-label">Step 5 of 5</span>
+              <h3 class="c2-walk__copy-title">Submit for Deaf review.</h3>
+              <p class="c2-walk__copy-body">A Deaf native signer of the language reviews and validates. Once two reviewers approve, the sign goes live in the translator — and stays there, free, forever.</p>
+              <ul class="c2-walk__bullets">
+                <li>Your submission gets a permanent link you can share.</li>
+                <li>Approved signs land in <a href="/progress" class="kz-link">/progress</a> so everyone can see the growing coverage.</li>
+              </ul>
+            </div>
+            <figure class="c2-walk__viz c2-viz-5" aria-hidden="true">
+              <div class="c2-viz-5__card">
+                <div class="c2-viz-5__head">
+                  <span class="c2-viz-5__title">ELECTRON <span>· BSL</span></span>
+                  <span class="c2-viz-5__state c2-viz-5__state--ok">submitted</span>
+                </div>
+                <ol class="c2-viz-5__timeline">
+                  <li class="is-done"><span>Draft</span></li>
+                  <li class="is-done"><span>Queued</span></li>
+                  <li class="is-current"><span>Reviewer 1</span></li>
+                  <li><span>Reviewer 2</span></li>
+                  <li><span>Live</span></li>
+                </ol>
+                <p class="c2-viz-5__perma">
+                  <span class="c2-viz-5__perma-label">permanent link</span>
+                  <span class="c2-viz-5__perma-url">kozha.dev/contribute/s/x7Q&hellip;</span>
+                </p>
+              </div>
+            </figure>
+          </article>
+        </div>
+
+        <footer class="c2-walk__controls">
+          <button type="button" class="c2-walk__nav c2-walk__nav--prev" id="c2-walk-prev" aria-label="Previous step">← Previous</button>
+          <span class="c2-walk__counter" aria-live="polite"><span id="c2-walk-current">1</span> / 5</span>
+          <button type="button" class="c2-walk__nav c2-walk__nav--next" id="c2-walk-next" aria-label="Next step">Next →</button>
+        </footer>
+      </div>
     </section>
 
     <!-- Anchor target for the demo CTA so the scroll lands on the
@@ -170,59 +374,102 @@
       <p class="contribute-offline-body">Contribution backend is currently offline. You can save a draft locally, and we'll upload it when the backend is available.</p>
     </section>
 
-    <!-- Bring-your-own OpenAI API key — fallback when the project key is
-         missing or rate-limited. Collapsed by default. -->
-    <details class="byo-key card kz-card">
-      <summary class="byo-key-summary">
-        <span class="byo-key-summary-text">Use your own OpenAI API key (optional)</span>
-      </summary>
-      <div class="byo-key-body">
-        <p class="byo-key-lede">
-          If the shared project key is unavailable or rate-limited, paste your own OpenAI key here. It stays in this browser and is sent directly to the Kozha backend on your requests only. Remove it any time.
-        </p>
-        <form class="byo-key-form" id="byoKeyForm" novalidate>
-          <label class="field-label" for="byoKeyInput">OpenAI API key</label>
-          <input
-            id="byoKeyInput"
-            type="password"
-            class="field-input byo-key-input"
-            autocomplete="off"
-            autocapitalize="off"
-            spellcheck="false"
-            placeholder="sk-…"
-            aria-describedby="byoKeyStatus byoKeyError">
-          <div class="byo-key-actions">
-            <!-- Save is type="submit" so the form has a proper submit
-                 mechanism (WCAG 3.2.2 / pa11y H32). contribute-byokey.js
-                 hooks the form submit event and calls preventDefault. -->
-            <button type="submit" class="btn btn-primary" id="byoKeySaveBtn">Save key</button>
-            <button type="button" class="btn btn-secondary" id="byoKeyClearBtn" hidden>Remove saved key</button>
-          </div>
-          <p class="byo-key-status field-hint" id="byoKeyStatus" role="status" aria-live="polite">Using the project key on the server.</p>
-          <p class="byo-key-error field-error" id="byoKeyError" role="alert" hidden></p>
-        </form>
-      </div>
-    </details>
-
-    <!-- Language selector. Mirrors app.html's three-slot strip — a single
-         <select> slot here (no source-language or route), but the class
-         structure is identical so the widget reads as the same control
-         across the translator and contribute surfaces. -->
-    <section class="language-picker card kz-card" id="languagePicker" aria-label="Sign language selection">
-      <div class="lang-strip" role="group" aria-label="Signing language">
-        <div class="lang-slot">
-          <label class="lang-slot-label" for="pickerSelect" data-i18n="contribute.language_picker.prompt">Which sign language are you contributing to?</label>
-          <select id="pickerSelect" class="field-input" aria-describedby="pickerNote"></select>
-          <div id="pickerNote" class="lang-slot-note" aria-live="polite"></div>
+    <!-- Prominent quickstart card. Wraps the existing #languagePicker and
+         #byoKeyForm markup so contribute.js and contribute-byokey.js keep
+         their DOM references; the new wrapper just gives the widget a
+         stronger visual footprint and adds language quick-select chips. -->
+    <section class="c2-quickstart" id="c2-quickstart" aria-labelledby="c2-quickstart-heading">
+      <div class="c2-quickstart__inner">
+        <div class="c2-quickstart__intro">
+          <p class="c2-quickstart__kicker">Start here</p>
+          <h2 class="c2-quickstart__heading" id="c2-quickstart-heading">Pick your sign language<br>to begin.</h2>
+          <p class="c2-quickstart__lede">You can save and come back later, resume a previous draft, or switch languages any time.</p>
+          <p class="c2-quickstart__reminder">
+            <span class="c2-quickstart__reminder-icon" aria-hidden="true">✓</span>
+            Every submission is reviewed by Deaf native signers before it goes live.
+          </p>
         </div>
-      </div>
-      <p class="lang-slot-secondary">
-        <a href="/progress" class="kz-link" data-i18n="contribute.language_picker.see_all_languages">See all languages and their coverage →</a>
-      </p>
-      <!-- Retained for JS that reads pickerOptions / pickerEmpty (kept as
-           hidden nodes for backward compat; no visual role). -->
-      <div id="pickerEmpty" hidden>
-        <ul id="pickerOptions" hidden></ul>
+
+        <div class="c2-quickstart__form">
+          <div class="c2-quickstart__chips" role="group" aria-label="Popular sign languages — click to select">
+            <button type="button" class="c2-quickstart__chip" data-lang="bsl">
+              <span class="c2-quickstart__chip-flag" aria-hidden="true">🇬🇧</span>
+              <span class="c2-quickstart__chip-code">BSL</span>
+              <span class="c2-quickstart__chip-name">British</span>
+            </button>
+            <button type="button" class="c2-quickstart__chip" data-lang="asl">
+              <span class="c2-quickstart__chip-flag" aria-hidden="true">🇺🇸</span>
+              <span class="c2-quickstart__chip-code">ASL</span>
+              <span class="c2-quickstart__chip-name">American</span>
+            </button>
+            <button type="button" class="c2-quickstart__chip" data-lang="dgs">
+              <span class="c2-quickstart__chip-flag" aria-hidden="true">🇩🇪</span>
+              <span class="c2-quickstart__chip-code">DGS</span>
+              <span class="c2-quickstart__chip-name">German</span>
+            </button>
+            <button type="button" class="c2-quickstart__chip" data-lang="lsf">
+              <span class="c2-quickstart__chip-flag" aria-hidden="true">🇫🇷</span>
+              <span class="c2-quickstart__chip-code">LSF</span>
+              <span class="c2-quickstart__chip-name">French</span>
+            </button>
+          </div>
+
+          <div class="c2-quickstart__divider" aria-hidden="true">
+            <span>or pick from the full list</span>
+          </div>
+
+          <!-- Original #languagePicker markup — contribute.js populates
+               and reacts to #pickerSelect. The outer .language-picker
+               class is kept so existing selector queries still hit it. -->
+          <section class="language-picker c2-quickstart__picker" id="languagePicker" aria-label="Sign language selection">
+            <div class="lang-strip c2-quickstart__strip" role="group" aria-label="Signing language">
+              <div class="lang-slot">
+                <label class="lang-slot-label" for="pickerSelect" data-i18n="contribute.language_picker.prompt">Which sign language are you contributing to?</label>
+                <select id="pickerSelect" class="field-input" aria-describedby="pickerNote"></select>
+                <div id="pickerNote" class="lang-slot-note" aria-live="polite"></div>
+              </div>
+            </div>
+            <p class="lang-slot-secondary">
+              <a href="/progress" class="kz-link" data-i18n="contribute.language_picker.see_all_languages">See all languages and their coverage →</a>
+            </p>
+            <!-- Retained for JS that reads pickerOptions / pickerEmpty. -->
+            <div id="pickerEmpty" hidden>
+              <ul id="pickerOptions" hidden></ul>
+            </div>
+          </section>
+
+          <!-- Bring-your-own OpenAI API key. Collapsed by default; the
+               summary reads as a subtle link inside the card. Required
+               markup preserved for contribute-byokey.js. -->
+          <details class="byo-key c2-quickstart__byo">
+            <summary class="byo-key-summary">
+              <span class="byo-key-summary-text">Use your own OpenAI API key (optional)</span>
+            </summary>
+            <div class="byo-key-body">
+              <p class="byo-key-lede">
+                If the shared project key is unavailable or rate-limited, paste your own OpenAI key here. It stays in this browser and is sent directly to the Kozha backend on your requests only. Remove it any time.
+              </p>
+              <form class="byo-key-form" id="byoKeyForm" novalidate>
+                <label class="field-label" for="byoKeyInput">OpenAI API key</label>
+                <input
+                  id="byoKeyInput"
+                  type="password"
+                  class="field-input byo-key-input"
+                  autocomplete="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                  placeholder="sk-…"
+                  aria-describedby="byoKeyStatus byoKeyError">
+                <div class="byo-key-actions">
+                  <button type="submit" class="btn btn-primary" id="byoKeySaveBtn">Save key</button>
+                  <button type="button" class="btn btn-secondary" id="byoKeyClearBtn" hidden>Remove saved key</button>
+                </div>
+                <p class="byo-key-status field-hint" id="byoKeyStatus" role="status" aria-live="polite">Using the project key on the server.</p>
+                <p class="byo-key-error field-error" id="byoKeyError" role="alert" hidden></p>
+              </form>
+            </div>
+          </details>
+        </div>
       </div>
     </section>
 
@@ -470,8 +717,11 @@
 
       <!-- Notation panel — HamNoSys (default) + SiGML tabs. The outputs
            use --kozha-font-mono at a larger size than in the previous
-           iteration (min-height 120px) per prompt 5 step 9. -->
-      <section class="notation-panel card kz-card" id="notationPanel" aria-label="Generated notation" hidden>
+           iteration (min-height 120px) per prompt 5 step 9. The panel
+           is always visible so contributors can see the results-in-
+           progress; before generation it shows placeholder dashes,
+           after generation it shows the live HamNoSys + SiGML. -->
+      <section class="notation-panel card kz-card" id="notationPanel" aria-label="Generated notation">
         <h2 class="card-title" data-i18n="contribute.notation.section_label">Notation</h2>
         <!-- Prompt-polish 6: review-status notice. Plain language, no
              legalese. Shows while the draft is pre-review and names the
@@ -605,11 +855,13 @@
               aria-label="Filter tag options">
             <ul class="sigml-picker-list" id="sigmlPickerList" role="listbox"></ul>
           </div>
-          <!-- Raw SiGML pre block (read-only). Kept for "show me the
-               source" inspection and for the existing copy/download
-               flow. The annotated view above is the primary surface. -->
-          <details class="sigml-source-details">
-            <summary class="kz-link">Show raw SiGML source</summary>
+          <!-- Raw SiGML pre block (read-only). Open by default so the
+               generated source is visible without an extra click; the
+               annotated view above remains the primary editing
+               surface. The existing copy/download flow still hangs
+               off the action bar at the bottom of this tabpanel. -->
+          <details class="sigml-source-details" open>
+            <summary class="kz-link">Raw SiGML source</summary>
             <pre
               class="notation-sigml"
               id="sigmlDisplay"
@@ -821,6 +1073,125 @@
         offline.hidden = false;
       });
     }());
+  </script>
+
+  <!-- Interactive stepper + quickstart chip wiring (contribute redesign
+       2026-04). Scoped to the .c2-* markup above; everything else in
+       contribute.js is untouched. Silently no-ops if the markup is
+       absent, so removing the redesign never breaks the page. -->
+  <script>
+    (function () {
+      var STEP_COUNT = 5;
+      var tabs = document.querySelectorAll('.c2-walk__tab');
+      var panels = document.querySelectorAll('.c2-walk__panel');
+      var progressBar = document.querySelector('.c2-walk__progress-bar');
+      var counterEl = document.getElementById('c2-walk-current');
+      var prevBtn = document.getElementById('c2-walk-prev');
+      var nextBtn = document.getElementById('c2-walk-next');
+      if (!tabs.length || !panels.length) return;
+
+      var activeStep = 1;
+
+      function activate(step, opts) {
+        step = Math.max(1, Math.min(STEP_COUNT, step));
+        activeStep = step;
+        var shouldFocus = opts && opts.focus;
+        tabs.forEach(function (tab) {
+          var on = Number(tab.dataset.step) === step;
+          tab.classList.toggle('is-active', on);
+          tab.setAttribute('aria-selected', on ? 'true' : 'false');
+          tab.setAttribute('tabindex', on ? '0' : '-1');
+          if (on && shouldFocus) {
+            try { tab.focus({ preventScroll: true }); } catch (e) { tab.focus(); }
+          }
+        });
+        panels.forEach(function (panel) {
+          var on = Number(panel.dataset.step) === step;
+          panel.classList.toggle('is-active', on);
+          panel.hidden = !on;
+        });
+        if (progressBar) {
+          progressBar.style.setProperty('--c2-progress', (step / STEP_COUNT * 100) + '%');
+        }
+        if (counterEl) counterEl.textContent = String(step);
+        if (prevBtn) prevBtn.disabled = step === 1;
+        if (nextBtn) nextBtn.disabled = step === STEP_COUNT;
+      }
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          activate(Number(tab.dataset.step));
+        });
+        tab.addEventListener('keydown', function (ev) {
+          var current = Number(tab.dataset.step);
+          if (ev.key === 'ArrowRight' || ev.key === 'ArrowDown') {
+            ev.preventDefault();
+            activate(current === STEP_COUNT ? 1 : current + 1, { focus: true });
+          } else if (ev.key === 'ArrowLeft' || ev.key === 'ArrowUp') {
+            ev.preventDefault();
+            activate(current === 1 ? STEP_COUNT : current - 1, { focus: true });
+          } else if (ev.key === 'Home') {
+            ev.preventDefault();
+            activate(1, { focus: true });
+          } else if (ev.key === 'End') {
+            ev.preventDefault();
+            activate(STEP_COUNT, { focus: true });
+          }
+        });
+      });
+
+      if (prevBtn) prevBtn.addEventListener('click', function () { activate(activeStep - 1); });
+      if (nextBtn) nextBtn.addEventListener('click', function () { activate(activeStep + 1); });
+
+      activate(1);
+    })();
+
+    // Quickstart chips: clicking a chip pre-selects that language in the
+    // existing #pickerSelect dropdown, which triggers the same change
+    // handler contribute.js binds during init. The chips are appended to
+    // the picker strip visually but hold no state themselves — single
+    // source of truth stays in the <select>.
+    (function () {
+      var chips = document.querySelectorAll('.c2-quickstart__chip[data-lang]');
+      if (!chips.length) return;
+
+      function trySelect(code) {
+        var select = document.getElementById('pickerSelect');
+        if (!select) return false;
+        for (var i = 0; i < select.options.length; i++) {
+          var opt = select.options[i];
+          if (opt.value && opt.value.toLowerCase() === code) {
+            select.value = opt.value;
+            select.dispatchEvent(new Event('change', { bubbles: true }));
+            try { select.focus({ preventScroll: false }); } catch (e) { select.focus(); }
+            return true;
+          }
+        }
+        return false;
+      }
+
+      chips.forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          var code = (chip.dataset.lang || '').toLowerCase();
+          if (!code) return;
+
+          // The picker is populated asynchronously from
+          // /contribute-languages.json on load — if the user taps a chip
+          // before that request finishes (unlikely on fast networks, but
+          // possible), retry a handful of times at 100ms cadence before
+          // giving up.
+          var attempts = 0;
+          (function tryOnce() {
+            if (trySelect(code)) return;
+            if (attempts++ > 20) return;
+            setTimeout(tryOnce, 100);
+          })();
+
+          chips.forEach(function (other) { other.classList.remove('is-active'); });
+          chip.classList.add('is-active');
+        });
+      });
+    })();
   </script>
 </body>
 </html>

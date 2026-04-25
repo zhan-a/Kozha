@@ -392,13 +392,13 @@
       var deltaSign = delta > 0 ? '+' : delta < 0 ? '' : '';
       var trend;
       if (series.length === 1) {
-        trend = 'A single data point: ' + fmtNum(last) + ' Deaf-native-reviewed signs on ' + lastPoint.date + '.';
+        trend = 'One data point so far: ' + fmtNum(last) + ' reviewed signs on ' + lastPoint.date + '.';
       } else if (delta === 0) {
-        trend = 'Flat between ' + firstPoint.date + ' and ' + lastPoint.date + ' at ' + fmtNum(last) + ' reviewed signs.';
+        trend = 'No change from ' + firstPoint.date + ' to ' + lastPoint.date + '. The total stayed at ' + fmtNum(last) + ' reviewed signs.';
       } else if (delta > 0) {
-        trend = 'Grew from ' + fmtNum(first) + ' on ' + firstPoint.date + ' to ' + fmtNum(last) + ' on ' + lastPoint.date + ' (' + deltaSign + fmtNum(delta) + ' reviewed signs).';
+        trend = 'Up from ' + fmtNum(first) + ' on ' + firstPoint.date + ' to ' + fmtNum(last) + ' on ' + lastPoint.date + ' (' + deltaSign + fmtNum(delta) + ' new reviewed signs).';
       } else {
-        trend = 'Declined from ' + fmtNum(first) + ' on ' + firstPoint.date + ' to ' + fmtNum(last) + ' on ' + lastPoint.date + ' (' + fmtNum(delta) + ' reviewed signs).';
+        trend = 'Down from ' + fmtNum(first) + ' on ' + firstPoint.date + ' to ' + fmtNum(last) + ' on ' + lastPoint.date + ' (' + fmtNum(delta) + ' reviewed signs).';
       }
       els.chartDesc.textContent = trend;
     }
@@ -409,7 +409,7 @@
   function renderRecent(events) {
     if (!els.recent) return;
     if (!Array.isArray(events) || events.length === 0) {
-      els.recent.innerHTML = '<li class="progress-recent-empty">No recent validations to show yet. New signs will appear here as they clear review.</li>';
+      els.recent.innerHTML = '<li class="progress-recent-empty">Nothing to show yet. New signs will appear here once a Deaf reviewer signs off on them.</li>';
       return;
     }
     els.recent.innerHTML = events.map(function (ev) {
@@ -429,7 +429,7 @@
   function renderHelp(list, words, targetLang) {
     if (!list) return;
     if (!Array.isArray(words) || words.length === 0) {
-      list.innerHTML = '<li class="progress-help-done">Nothing urgent — every common word has coverage here.</li>';
+      list.innerHTML = '<li class="progress-help-done">All caught up. Every common word has coverage here.</li>';
       return;
     }
     list.innerHTML = words.map(function (word) {

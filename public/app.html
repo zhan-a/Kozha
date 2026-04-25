@@ -1153,27 +1153,39 @@
     }
 
     /* ------------------------------------------------------------------
-     * Three-slot language strip (prompt 4).
+     * Language strip.
      *
-     * Colors pull from --kozha-color-accent (#b3441b — WCAG-AA safe on
-     * paper) rather than the app-local --accent (#c96a2e, which fails AA
-     * at body sizes). Tokens load from /styles/tokens.css.
+     * Two interactive slots ("You write in", "You want this signed in")
+     * lay out side-by-side using subgrid so their label / select / note
+     * rows align across the strip. The route slot then spans the full
+     * width below as a compact status banner. No fixed strip height,
+     * so the strip shrinks to the actual content rather than holding a
+     * 110px floor of dead space.
+     *
+     * Colors pull from --kozha-color-accent (#b3441b, WCAG-AA safe on
+     * paper) rather than the app-local --accent (#c96a2e, which fails
+     * AA at body sizes). Tokens load from /styles/tokens.css.
      * ------------------------------------------------------------------ */
     .lang-strip {
       display: grid;
-      grid-template-columns: 1fr 1fr 1.2fr;
-      gap: var(--kozha-space-3, 12px);
-      padding: var(--kozha-space-3, 12px);
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto auto auto;
+      column-gap: var(--kozha-space-4, 16px);
+      row-gap: 6px;
+      padding: var(--kozha-space-3, 12px) var(--kozha-space-4, 16px);
       background: var(--kozha-color-paper-2, #ede8e0);
       border: 1px solid var(--kozha-color-border, rgba(26,22,18,0.12));
       border-radius: var(--kozha-radius-sm, 10px);
       margin-bottom: 16px;
-      min-height: 110px;
+      align-items: start;
     }
-    .lang-slot {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
+    /* The two select slots share the parent's row tracks via subgrid so
+       label / select / note line up horizontally across both columns. */
+    .lang-slot:not(.route-display) {
+      display: grid;
+      grid-template-rows: subgrid;
+      grid-row: 1 / span 3;
+      gap: 6px;
       min-width: 0;
     }
     .lang-slot-label {
@@ -1183,41 +1195,89 @@
       text-transform: uppercase;
       color: var(--kozha-color-ink-3, #5e5c57);
       margin: 0;
-      min-height: 14px;
     }
     .lang-slot select {
       width: 100%;
       padding: 8px 10px;
-      font-size: 13px;
+      font-size: 14px;
+      background: var(--kozha-color-white, #fff);
+      border: 1px solid var(--kozha-color-border, rgba(26,22,18,0.16));
+      border-radius: var(--kozha-radius-sm, 8px);
+      color: var(--kozha-color-ink, #1a1612);
+      line-height: 1.3;
+    }
+    .lang-slot select:focus-visible {
+      outline: 2px solid var(--kozha-color-accent, #b3441b);
+      outline-offset: 1px;
+      border-color: var(--kozha-color-accent, #b3441b);
     }
     .lang-slot-note {
-      font-size: 11px;
+      font-size: 12px;
       color: var(--kozha-color-ink-3, #5e5c57);
       line-height: 1.4;
-      min-height: 16px;
+      margin: 0;
+      min-height: 1.4em;
     }
-    .lang-slot-note.limited { color: var(--kozha-color-accent, #b3441b); font-weight: 500; }
-    .route-display { justify-content: flex-start; }
-    .route-text {
-      font-size: 13px;
-      color: var(--kozha-color-ink-2, #3d3630);
-      line-height: 1.4;
-      padding: 8px 10px;
+    .lang-slot-note.limited {
+      color: var(--kozha-color-accent, #b3441b);
+      font-weight: 500;
+    }
+    /* Route slot: full-width compact banner on the row below the
+       selects. Eyebrow label sits inline with the route text so the
+       whole row reads as one short status sentence. */
+    .lang-slot.route-display {
+      grid-column: 1 / -1;
+      grid-row: 4;
+      display: flex;
+      align-items: baseline;
+      gap: var(--kozha-space-2, 8px);
+      padding: 8px 12px;
+      margin-top: 4px;
       background: var(--kozha-color-paper, #f5f1eb);
       border: 1px solid var(--kozha-color-border, rgba(26,22,18,0.12));
       border-radius: var(--kozha-radius-sm, 10px);
-      min-height: 52px;
-      display: flex;
-      align-items: center;
+    }
+    .route-display .lang-slot-label {
+      flex-shrink: 0;
+    }
+    .route-display .route-text {
+      font-size: 13px;
+      color: var(--kozha-color-ink-2, #3d3630);
+      line-height: 1.4;
+      background: transparent;
+      border: 0;
+      padding: 0;
+      margin: 0;
+      min-height: 0;
+      display: inline;
     }
     .route-text.warning {
       color: var(--kozha-color-accent, #b3441b);
-      background: var(--kozha-color-accent-light, #faeee0);
-      border-color: var(--kozha-color-accent, #b3441b);
       font-weight: 500;
     }
+    /* When the route text carries a warning, also tint the surrounding
+       banner so the cue is unmissable. :has() is well supported in
+       modern browsers; older browsers still get the colored text. */
+    .lang-slot.route-display:has(.route-text.warning) {
+      background: var(--kozha-color-accent-light, #faeee0);
+      border-color: var(--kozha-color-accent, #b3441b);
+    }
     @media (max-width: 700px) {
-      .lang-strip { grid-template-columns: 1fr; min-height: 0; }
+      .lang-strip {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+      }
+      .lang-slot:not(.route-display) {
+        display: flex;
+        flex-direction: column;
+        grid-template-rows: none;
+        grid-row: auto;
+      }
+      .lang-slot.route-display {
+        grid-column: 1;
+        grid-row: auto;
+        flex-wrap: wrap;
+      }
     }
 
     /* Per-sign origin overlay — the chip itself holds the provenance via
@@ -1487,7 +1547,7 @@
             </div>
 
             <div class="lang-slot route-display">
-              <div class="lang-slot-label" id="routeLabel">Translation route</div>
+              <div class="lang-slot-label" id="routeLabel">Route</div>
               <div id="translationRoute" class="route-text" role="status" aria-live="polite" aria-labelledby="routeLabel">Loading…</div>
             </div>
           </div>
@@ -2350,7 +2410,7 @@
       const note = document.getElementById('langHintNote');
       if (!sel || !note) return;
       const native = new Set(['en','de','fr','es','pl','nl','el']).has(sel.value);
-      note.textContent = native ? 'Native spaCy NLP.' : 'Will translate first, then sign.';
+      note.textContent = native ? 'Built-in support, no extra translation step.' : 'Will translate first, then sign.';
     }
 
     function updateSignLangNote() {
@@ -2364,11 +2424,11 @@
       note.classList.remove('limited');
       if (n === 0) {
         note.textContent = hasAlphabet
-          ? 'No signs yet — fingerspelling only.'
+          ? 'No signs yet, only fingerspelling.'
           : 'No signs and no fingerspelling alphabet yet.';
         note.classList.add('limited');
       } else if (n < 200) {
-        note.textContent = n + ' signs — limited, mostly fingerspelling.';
+        note.textContent = n + ' signs available, still mostly fingerspelling.';
         note.classList.add('limited');
       } else {
         note.textContent = n + ' signs available.';
@@ -2395,7 +2455,7 @@
       route.classList.remove('warning');
       if (btn) { btn.disabled = false; btn.title = ''; }
       if (src === tgtBase) {
-        route.textContent = 'Direct lookup in ' + tgtSignName + ' — no intermediate translation.';
+        route.textContent = 'Direct lookup in ' + tgtSignName + '. No intermediate translation needed.';
       } else {
         route.textContent = 'Translating ' + srcName + ' → ' + tgtBaseName + ', then looking up ' + tgtSignName + ' signs.';
       }
