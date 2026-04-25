@@ -1,11 +1,16 @@
 HamNoSysUnicode font binaries
 =============================
 
-CURRENT STATE: the binaries are NOT in this directory. Real
-deployments will fall back to .notdef boxes for any HamNoSys glyphs
-unless an operator drops in `HamNoSysUnicode.woff2` (preferred) and
-`HamNoSysUnicode.ttf` (legacy fallback) themselves. The Kozha
-contribute page handles this gracefully:
+CURRENT STATE: both `HamNoSysUnicode.woff2` (modern browsers) and
+`HamNoSysUnicode.ttf` (legacy fallback) are present in this directory,
+alongside `bgHamNoSysUnicode.ttf` (same binary, used as a second
+fallback in the CSS font stack). The font is the IDGS HamNoSys 4.0
+Unicode TTF (Aug 2003) covering PUA codepoints U+E000 .. U+E0F1 — all
+the glyphs the contribute and translator pages reference.
+
+The Kozha contribute page still includes a graceful-degradation probe
+so new operators who forget to vendor the font don't see broken glyph
+rows:
 
   - An inline probe in the page <head> measures whether HamNoSys PUA
     codepoints render as shaped glyphs. If they don't, it adds the

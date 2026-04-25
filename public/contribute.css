@@ -4225,3 +4225,1109 @@ select.field-input { cursor: pointer; }
   .c2-viz-4__tags { grid-template-columns: repeat(2, 1fr); }
   .c2-viz-4__glyph-row { font-size: 22px; }
 }
+
+/* ==================================================================
+ * Contribute workspace redesign (2026-04b) — polish pass
+ *
+ * The prior redesign fixed the intro (hero, walkthrough). This block
+ * addresses what a contributor actually uses: the quickstart picker and
+ * the session workspace. Goals:
+ *
+ *   1. Quickstart: BIG tappable chips, one click starts drafting.
+ *   2. Workspace: desktop 2-column grid so chat / preview / notation
+ *      live together instead of stacking forever.
+ *   3. Stage stepper: clear "you are here" signal across 4 stages.
+ *   4. Larger HamNoSys display and avatar stage so the notation and
+ *      preview feel like first-class outputs.
+ *   5. Tighter chat bubbles with a visible speaker bubble.
+ *   6. Submit CTA at card scale, not link scale.
+ *
+ * Everything layered on top of the existing .contribute-* rules — no
+ * original selector is removed. JS hooks (#pickerSelect, #byoKeyForm,
+ * workspace-id ids) untouched.
+ * ================================================================== */
+
+/* ---------- QS (quickstart v2) ---------- */
+.qs {
+  margin: 0 0 var(--kozha-space-12);
+  scroll-margin-top: 88px;
+}
+.qs__inner {
+  padding: var(--kozha-space-12) var(--kozha-space-10);
+  background:
+    radial-gradient(circle at 85% 10%, rgba(201, 106, 46, 0.18), transparent 50%),
+    radial-gradient(circle at 10% 90%, rgba(201, 106, 46, 0.12), transparent 50%),
+    var(--kozha-color-ink);
+  color: var(--kozha-color-paper);
+  border-radius: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.qs__inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(245, 241, 235, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245, 241, 235, 0.045) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(circle at 50% 0%, black 40%, transparent 85%);
+  -webkit-mask-image: radial-gradient(circle at 50% 0%, black 40%, transparent 85%);
+  pointer-events: none;
+}
+.qs__kicker {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--kozha-space-2);
+  margin: 0 0 var(--kozha-space-4);
+  padding: 6px 14px;
+  background: rgba(201, 106, 46, 0.18);
+  border: 1px solid rgba(201, 106, 46, 0.32);
+  color: var(--kozha-color-accent-bright);
+  border-radius: 999px;
+  font-family: var(--kozha-font-sans);
+  font-size: 12px;
+  font-weight: var(--kozha-weight-semibold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.qs__kicker::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--kozha-color-accent-bright);
+  box-shadow: 0 0 10px var(--kozha-color-accent-bright);
+}
+.qs__heading {
+  position: relative;
+  font-family: var(--kozha-font-serif);
+  font-size: clamp(34px, 4.5vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-weight: var(--kozha-weight-regular);
+  color: var(--kozha-color-paper);
+  margin: 0 0 var(--kozha-space-3);
+  max-width: 20ch;
+}
+.qs__lede {
+  position: relative;
+  margin: 0 0 var(--kozha-space-7);
+  font-size: 18px;
+  line-height: 1.55;
+  color: rgba(245, 241, 235, 0.72);
+  max-width: 52ch;
+}
+
+.qs__chips {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0 0 var(--kozha-space-5);
+}
+
+.qs__chip {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 18px;
+  align-items: center;
+  padding: 22px 22px;
+  background: rgba(245, 241, 235, 0.06);
+  border: 1px solid rgba(245, 241, 235, 0.14);
+  color: var(--kozha-color-paper);
+  border-radius: 18px;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  min-height: 84px;
+  transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+  position: relative;
+  overflow: hidden;
+}
+.qs__chip::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(201, 106, 46, 0.25), transparent 50%);
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  pointer-events: none;
+}
+.qs__chip:hover {
+  background: rgba(245, 241, 235, 0.12);
+  border-color: var(--kozha-color-accent);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.32);
+}
+.qs__chip:hover::after { opacity: 1; }
+.qs__chip:hover .qs__chip-arrow { transform: translateX(4px); color: var(--kozha-color-accent-bright); }
+.qs__chip.is-active {
+  background: var(--kozha-color-accent);
+  border-color: var(--kozha-color-accent);
+  color: var(--kozha-color-white);
+  box-shadow: 0 12px 32px rgba(201, 106, 46, 0.4);
+}
+.qs__chip.is-active .qs__chip-name { color: rgba(255, 255, 255, 0.88); }
+.qs__chip.is-active .qs__chip-arrow { color: var(--kozha-color-white); }
+.qs__chip:focus-visible {
+  outline: 2px solid var(--kozha-color-accent-bright);
+  outline-offset: 3px;
+}
+
+.qs__chip-flag {
+  font-size: 32px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  position: relative;
+  z-index: 1;
+}
+.qs__chip-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+.qs__chip-code {
+  font-family: var(--kozha-font-mono);
+  font-size: 20px;
+  font-weight: var(--kozha-weight-semibold);
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+.qs__chip-name {
+  font-size: 13px;
+  line-height: 1.3;
+  color: rgba(245, 241, 235, 0.6);
+  font-weight: var(--kozha-weight-medium);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.qs__chip-arrow {
+  font-family: var(--kozha-font-sans);
+  font-size: 22px;
+  font-weight: var(--kozha-weight-semibold);
+  color: rgba(245, 241, 235, 0.4);
+  transition: transform 0.22s ease, color 0.22s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.qs__chips--more {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: var(--kozha-space-4);
+}
+.qs__chip--small {
+  padding: 14px 16px;
+  min-height: 60px;
+  gap: 12px;
+}
+.qs__chip--small .qs__chip-flag { font-size: 22px; }
+.qs__chip--small .qs__chip-code { font-size: 15px; }
+.qs__chip--small .qs__chip-name { font-size: 11px; }
+.qs__chip--small .qs__chip-arrow { display: none; }
+
+.qs__footer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--kozha-space-4);
+  flex-wrap: wrap;
+  margin-top: var(--kozha-space-4);
+  padding-top: var(--kozha-space-4);
+  border-top: 1px solid rgba(245, 241, 235, 0.1);
+}
+.qs__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid rgba(245, 241, 235, 0.18);
+  color: rgba(245, 241, 235, 0.85);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: var(--kozha-weight-medium);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.qs__more:hover {
+  background: rgba(245, 241, 235, 0.08);
+  border-color: rgba(245, 241, 235, 0.32);
+  color: var(--kozha-color-paper);
+}
+.qs__more[aria-expanded="true"] .qs__more-plus { transform: rotate(45deg); }
+.qs__more-plus {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: var(--kozha-weight-semibold);
+  color: var(--kozha-color-accent-bright);
+  transition: transform 0.22s ease;
+}
+.qs__more-count {
+  font-family: var(--kozha-font-mono);
+  font-size: 11px;
+  color: rgba(245, 241, 235, 0.5);
+  margin-left: 4px;
+}
+.qs__coverage-link {
+  font-size: 13px;
+  color: var(--kozha-color-accent-bright);
+  text-decoration: none;
+  font-weight: var(--kozha-weight-medium);
+  opacity: 0.88;
+}
+.qs__coverage-link:hover { opacity: 1; text-decoration: underline; }
+
+/* Hide the fallback <select> widget — chips are the primary surface now,
+   but the <select> stays in the DOM so contribute.js can populate it and
+   keyboard users still reach it via the accessible flow path. */
+.qs__picker-fallback { display: none; }
+.qs__picker-fallback[data-force-show] { display: block; }
+
+.qs__byo {
+  position: relative;
+  margin-top: var(--kozha-space-4);
+  background: transparent;
+  border: 1px solid rgba(245, 241, 235, 0.12);
+  border-radius: 12px;
+  padding: 0;
+  color: rgba(245, 241, 235, 0.85);
+}
+.qs__byo > summary.byo-key-summary {
+  padding: 10px 16px;
+  color: rgba(245, 241, 235, 0.55);
+  font-size: 12px;
+  letter-spacing: 0.03em;
+}
+.qs__byo > summary.byo-key-summary:hover { color: var(--kozha-color-paper); }
+.qs__byo[open] { background: rgba(245, 241, 235, 0.04); }
+.qs__byo[open] > summary.byo-key-summary { color: var(--kozha-color-paper); }
+.qs__byo > summary::before { color: rgba(245, 241, 235, 0.4); }
+.qs__byo .byo-key-body { padding: 0 16px 16px; }
+.qs__byo .byo-key-lede,
+.qs__byo .field-label,
+.qs__byo .byo-key-status { color: rgba(245, 241, 235, 0.7); }
+.qs__byo .byo-key-input {
+  background: var(--kozha-color-paper);
+  color: var(--kozha-color-ink);
+  border-color: rgba(245, 241, 235, 0.14);
+}
+
+/* ==================================================================
+ * Stage stepper — "you are here" for the workspace
+ * ================================================================== */
+.ws-stages {
+  list-style: none;
+  margin: 0 0 var(--kozha-space-6);
+  padding: var(--kozha-space-4) var(--kozha-space-5);
+  background: var(--kozha-color-white);
+  border: 1px solid var(--kozha-color-border);
+  border-radius: var(--kozha-radius);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+  overflow: hidden;
+}
+.ws-stages::before {
+  content: '';
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 50%;
+  height: 2px;
+  background: var(--kozha-color-border);
+  z-index: 0;
+}
+.ws-stage {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: var(--kozha-color-white);
+  padding: 0 var(--kozha-space-2);
+}
+.ws-stage__dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--kozha-color-paper-2);
+  border: 2px solid var(--kozha-color-border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--kozha-font-mono);
+  font-size: 13px;
+  font-weight: var(--kozha-weight-semibold);
+  color: var(--kozha-color-ink-3);
+  transition: all 0.25s ease;
+}
+.ws-stage__label {
+  font-family: var(--kozha-font-sans);
+  font-size: 12px;
+  font-weight: var(--kozha-weight-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--kozha-color-ink-3);
+  transition: color 0.25s ease;
+}
+
+/* Pure-CSS current-stage detection. Uses :has() — falls back to stage 1
+   highlighted when :has() is unsupported. */
+/* Default: stage 1 (Describe) is current. */
+.ws-stage[data-stage="describe"] .ws-stage__dot {
+  background: var(--kozha-color-accent);
+  border-color: var(--kozha-color-accent);
+  color: var(--kozha-color-white);
+  box-shadow: 0 0 0 4px rgba(201, 106, 46, 0.15);
+}
+.ws-stage[data-stage="describe"] .ws-stage__label {
+  color: var(--kozha-color-accent);
+}
+
+/* Stage 2 becomes current once #authoringSummary is shown (session exists) */
+#authoring-root:has(#authoringSummary:not([hidden])) ~ * .ws-stage,
+.contribute-main:has(#authoringSummary:not([hidden])) .ws-stage[data-stage="describe"] .ws-stage__dot {
+  /* stage 1 becomes done */
+}
+.contribute-main:has(#authoringSummary:not([hidden])) .ws-stage[data-stage="describe"] .ws-stage__dot {
+  background: var(--kozha-color-success);
+  border-color: var(--kozha-color-success);
+  color: var(--kozha-color-white);
+  box-shadow: none;
+}
+.contribute-main:has(#authoringSummary:not([hidden])) .ws-stage[data-stage="describe"] .ws-stage__label {
+  color: var(--kozha-color-ink-3);
+}
+.contribute-main:has(#authoringSummary:not([hidden])) .ws-stage[data-stage="clarify"] .ws-stage__dot {
+  background: var(--kozha-color-accent);
+  border-color: var(--kozha-color-accent);
+  color: var(--kozha-color-white);
+  box-shadow: 0 0 0 4px rgba(201, 106, 46, 0.15);
+}
+.contribute-main:has(#authoringSummary:not([hidden])) .ws-stage[data-stage="clarify"] .ws-stage__label {
+  color: var(--kozha-color-accent);
+}
+
+/* Stage 3 becomes current once a notation display has glyphs */
+.contribute-main:has(#notationPanel:not([hidden])):has(.notation-glyph) .ws-stage[data-stage="clarify"] .ws-stage__dot {
+  background: var(--kozha-color-success);
+  border-color: var(--kozha-color-success);
+  box-shadow: none;
+}
+.contribute-main:has(#notationPanel:not([hidden])):has(.notation-glyph) .ws-stage[data-stage="clarify"] .ws-stage__label {
+  color: var(--kozha-color-ink-3);
+}
+.contribute-main:has(#notationPanel:not([hidden])):has(.notation-glyph) .ws-stage[data-stage="preview"] .ws-stage__dot {
+  background: var(--kozha-color-accent);
+  border-color: var(--kozha-color-accent);
+  color: var(--kozha-color-white);
+  box-shadow: 0 0 0 4px rgba(201, 106, 46, 0.15);
+}
+.contribute-main:has(#notationPanel:not([hidden])):has(.notation-glyph) .ws-stage[data-stage="preview"] .ws-stage__label {
+  color: var(--kozha-color-accent);
+}
+
+/* Stage 4 becomes current when #submissionSubmitBtn is enabled */
+.contribute-main:has(#submissionSubmitBtn:not([disabled])) .ws-stage[data-stage="preview"] .ws-stage__dot {
+  background: var(--kozha-color-success);
+  border-color: var(--kozha-color-success);
+  box-shadow: none;
+}
+.contribute-main:has(#submissionSubmitBtn:not([disabled])) .ws-stage[data-stage="preview"] .ws-stage__label {
+  color: var(--kozha-color-ink-3);
+}
+.contribute-main:has(#submissionSubmitBtn:not([disabled])) .ws-stage[data-stage="submit"] .ws-stage__dot {
+  background: var(--kozha-color-accent);
+  border-color: var(--kozha-color-accent);
+  color: var(--kozha-color-white);
+  box-shadow: 0 0 0 4px rgba(201, 106, 46, 0.15);
+}
+.contribute-main:has(#submissionSubmitBtn:not([disabled])) .ws-stage[data-stage="submit"] .ws-stage__label {
+  color: var(--kozha-color-accent);
+}
+
+/* ==================================================================
+ * Workspace 2-column grid (desktop)
+ * ================================================================== */
+@media (min-width: 1024px) {
+  .contribute-main.has-session #authoring-root,
+  .contribute-main.is-workspace-open #authoring-root {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas:
+      "stages   stages"
+      "authoring authoring"
+      "chat     preview"
+      "chat     notation"
+      "submit   submit";
+    gap: var(--kozha-space-5);
+    align-items: stretch;
+  }
+  .contribute-main.has-session #authoring-root > .ws-stages,
+  .contribute-main.is-workspace-open #authoring-root > .ws-stages { grid-area: stages; margin-bottom: 0; }
+  .contribute-main.has-session #authoring-root > .authoring-card,
+  .contribute-main.is-workspace-open #authoring-root > .authoring-card { grid-area: authoring; }
+  .contribute-main.has-session #authoring-root > #chatPanel,
+  .contribute-main.is-workspace-open #authoring-root > #chatPanel { grid-area: chat; min-height: 560px; }
+  .contribute-main.has-session #authoring-root > #avatarPreview,
+  .contribute-main.is-workspace-open #authoring-root > #avatarPreview { grid-area: preview; }
+  .contribute-main.has-session #authoring-root > #notationPanel,
+  .contribute-main.is-workspace-open #authoring-root > #notationPanel { grid-area: notation; }
+  .contribute-main.has-session #authoring-root > #submissionPanel,
+  .contribute-main.is-workspace-open #authoring-root > #submissionPanel { grid-area: submit; }
+  /* Once summarized, the authoring card collapses to a compact ribbon */
+  .contribute-main.has-session .authoring-card {
+    padding: var(--kozha-space-4) var(--kozha-space-5);
+  }
+}
+
+/* ==================================================================
+ * Authoring card — make the pre-session form big and inviting
+ * ================================================================== */
+.authoring-card {
+  border-radius: 20px;
+  padding: var(--kozha-space-8) var(--kozha-space-10);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(201, 106, 46, 0.06), transparent 60%),
+    var(--kozha-color-white);
+}
+.authoring-card .field-input-gloss {
+  font-family: var(--kozha-font-mono);
+  font-size: 24px;
+  font-weight: var(--kozha-weight-semibold);
+  letter-spacing: 0.08em;
+  padding: 18px 20px;
+  border-width: 2px;
+}
+.authoring-card .field-input-description {
+  font-size: 15px;
+  line-height: 1.6;
+  padding: 16px 18px;
+  border-width: 2px;
+  min-height: 140px;
+}
+.authoring-card .field-label {
+  font-size: 12px;
+  font-weight: var(--kozha-weight-semibold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--kozha-color-ink-2);
+  margin-bottom: 10px;
+}
+.authoring-card .authoring-actions {
+  margin-top: var(--kozha-space-6);
+  gap: var(--kozha-space-4);
+}
+.authoring-card .authoring-submit {
+  font-size: 16px;
+  font-weight: var(--kozha-weight-semibold);
+  padding: 14px 28px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(201, 106, 46, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.authoring-card .authoring-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(201, 106, 46, 0.32);
+}
+
+/* ==================================================================
+ * Chat panel — polished bubbles
+ * ================================================================== */
+#chatPanel.card {
+  padding: var(--kozha-space-5) var(--kozha-space-6);
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--kozha-space-3);
+}
+#chatPanel .card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  margin-bottom: var(--kozha-space-3);
+}
+#chatPanel .card-title::before {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--kozha-color-accent);
+  box-shadow: 0 0 10px var(--kozha-color-accent);
+  animation: qs-pulse 2s ease-in-out infinite;
+}
+#chatPanel .chat-log {
+  flex: 1;
+  min-height: 280px;
+  padding: var(--kozha-space-4);
+  background:
+    linear-gradient(180deg, var(--kozha-color-paper) 0%, var(--kozha-color-paper-2) 100%);
+  border-radius: 14px;
+  border: 1px solid var(--kozha-color-border);
+}
+#chatPanel .chat-msg {
+  max-width: 84%;
+  padding: 12px 16px;
+  border-radius: 16px;
+  box-shadow: 0 2px 6px rgba(26, 22, 18, 0.05);
+  margin-bottom: var(--kozha-space-3);
+}
+#chatPanel .chat-msg-system,
+#chatPanel .chat-msg-notice,
+#chatPanel .chat-message.bot,
+#chatPanel .chat-message.assistant,
+#chatPanel .chat-message.system {
+  background: var(--kozha-color-white);
+  border: 1px solid var(--kozha-color-border);
+  color: var(--kozha-color-ink-2);
+  border-bottom-left-radius: 4px;
+  margin-right: auto;
+}
+#chatPanel .chat-msg-you,
+#chatPanel .chat-message.user {
+  background: var(--kozha-color-ink);
+  color: var(--kozha-color-paper);
+  border: 1px solid var(--kozha-color-ink);
+  border-bottom-right-radius: 4px;
+  margin-left: auto;
+}
+#chatPanel .chat-msg-error {
+  background: var(--kozha-color-danger-light);
+  border: 1px solid rgba(192, 57, 43, 0.3);
+  color: var(--kozha-color-danger);
+}
+#chatPanel .chat-msg-label {
+  display: block;
+  font-family: var(--kozha-font-mono);
+  font-size: 10px;
+  font-weight: var(--kozha-weight-semibold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin-bottom: 4px;
+}
+#chatPanel .chat-msg-label::after { content: ''; }
+#chatPanel .chat-msg-you .chat-msg-label { color: var(--kozha-color-accent-bright); opacity: 0.95; }
+#chatPanel .chat-msg-text p { margin: 0; line-height: 1.55; font-size: 14px; }
+
+#chatPanel .chat-input-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--kozha-space-2);
+  align-items: end;
+}
+#chatPanel .chat-input {
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 2px solid var(--kozha-color-border);
+  font-size: 15px;
+  min-height: 52px;
+  resize: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+#chatPanel .chat-input:focus {
+  border-color: var(--kozha-color-accent);
+  box-shadow: 0 0 0 4px rgba(201, 106, 46, 0.12);
+}
+#chatPanel .chat-send {
+  padding: 14px 22px;
+  border-radius: 14px;
+  font-weight: var(--kozha-weight-semibold);
+  font-size: 15px;
+  white-space: nowrap;
+}
+#chatPanel .chat-options {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: var(--kozha-space-3);
+}
+#chatPanel .chat-option-btn {
+  font-size: 13px;
+  font-weight: var(--kozha-weight-medium);
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--kozha-color-accent-light);
+  color: var(--kozha-color-accent);
+  border: 1px solid var(--kozha-color-border-accent);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+#chatPanel .chat-option-btn:hover {
+  background: var(--kozha-color-accent);
+  color: var(--kozha-color-white);
+  transform: translateY(-1px);
+}
+
+/* ==================================================================
+ * Avatar preview — bigger, centered stage
+ * ================================================================== */
+#avatarPreview.card {
+  padding: var(--kozha-space-5) var(--kozha-space-6);
+  border-radius: 18px;
+}
+#avatarPreview .card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  margin-bottom: var(--kozha-space-4);
+}
+#avatarPreview .card-title::before {
+  content: '▶';
+  font-size: 12px;
+  color: var(--kozha-color-accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; height: 24px;
+  background: var(--kozha-color-accent-light);
+  border-radius: 50%;
+}
+#avatarPreview .avatar-stage {
+  position: relative;
+  min-height: 300px;
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(201, 106, 46, 0.08), transparent 60%),
+    var(--kozha-color-surface-avatar, #e9e6df);
+  border: 1px solid var(--kozha-color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: var(--kozha-space-3);
+}
+#avatarPreview .avatar-controls-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--kozha-space-3);
+  padding: var(--kozha-space-3);
+  background: var(--kozha-color-paper-2);
+  border-radius: 12px;
+  flex-wrap: wrap;
+  margin-bottom: var(--kozha-space-3);
+}
+#avatarPreview .avatar-play {
+  font-size: 14px;
+  font-weight: var(--kozha-weight-semibold);
+  padding: 10px 22px;
+  border-radius: 10px;
+  background: var(--kozha-color-accent);
+  color: var(--kozha-color-white);
+  border: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+#avatarPreview .avatar-play:hover:not(:disabled) {
+  background: var(--kozha-color-accent-hover);
+  transform: translateY(-1px);
+}
+#avatarPreview .avatar-play:disabled { opacity: 0.5; cursor: not-allowed; }
+#avatarPreview .avatar-speed {
+  display: inline-flex;
+  background: var(--kozha-color-white);
+  border: 1px solid var(--kozha-color-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+#avatarPreview .avatar-speed-btn {
+  background: transparent;
+  border: 0;
+  padding: 8px 12px;
+  font-family: var(--kozha-font-mono);
+  font-size: 12px;
+  font-weight: var(--kozha-weight-semibold);
+  color: var(--kozha-color-ink-3);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+#avatarPreview .avatar-speed-btn:hover { background: var(--kozha-color-paper-2); }
+#avatarPreview .avatar-speed-btn.is-active {
+  background: var(--kozha-color-accent);
+  color: var(--kozha-color-white);
+}
+#avatarPreview .avatar-captions {
+  padding: var(--kozha-space-3) var(--kozha-space-4);
+  background: var(--kozha-color-paper);
+  border-radius: 10px;
+  border-left: 3px solid var(--kozha-color-accent);
+}
+#avatarPreview .avatar-caption-gloss {
+  font-family: var(--kozha-font-mono);
+  font-size: 14px;
+  font-weight: var(--kozha-weight-semibold);
+  letter-spacing: 0.08em;
+  color: var(--kozha-color-ink);
+  margin: 0 0 2px;
+}
+#avatarPreview .avatar-caption-desc {
+  font-size: 13px;
+  color: var(--kozha-color-ink-3);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ==================================================================
+ * Notation panel — bigger HamNoSys display, cleaner tabs
+ * ================================================================== */
+#notationPanel.card {
+  padding: var(--kozha-space-5) var(--kozha-space-6);
+  border-radius: 18px;
+}
+#notationPanel .card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  margin-bottom: var(--kozha-space-3);
+}
+#notationPanel .card-title::before {
+  content: '';
+  font-family: 'HamNoSysUnicode', monospace;
+  font-size: 16px;
+  color: var(--kozha-color-accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; height: 24px;
+  background: var(--kozha-color-accent-light);
+  border-radius: 6px;
+  font-weight: bold;
+}
+#notationPanel .notation-review-status {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 14px;
+  background: var(--kozha-color-accent-light);
+  border: 1px solid var(--kozha-color-border-accent);
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--kozha-color-ink-2);
+  margin-bottom: var(--kozha-space-4);
+}
+#notationPanel .notation-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: var(--kozha-space-3);
+  padding: 4px;
+  background: var(--kozha-color-paper-2);
+  border-radius: 10px;
+  width: fit-content;
+}
+#notationPanel .notation-tab {
+  background: transparent;
+  border: 0;
+  padding: 8px 16px;
+  font-family: var(--kozha-font-mono);
+  font-size: 12px;
+  font-weight: var(--kozha-weight-semibold);
+  letter-spacing: 0.06em;
+  color: var(--kozha-color-ink-3);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+#notationPanel .notation-tab:hover { color: var(--kozha-color-ink); }
+#notationPanel .notation-tab.is-active {
+  background: var(--kozha-color-white);
+  color: var(--kozha-color-accent);
+  box-shadow: 0 2px 6px rgba(26, 22, 18, 0.06);
+}
+#notationPanel .notation-hamnosys-display {
+  min-height: 120px;
+  padding: var(--kozha-space-5) var(--kozha-space-4);
+  background:
+    repeating-linear-gradient(0deg, transparent 0, transparent 23px, rgba(26, 22, 18, 0.04) 23px, rgba(26, 22, 18, 0.04) 24px),
+    var(--kozha-color-paper);
+  border: 1px solid var(--kozha-color-border);
+  border-radius: 12px;
+  font-size: 56px;
+  line-height: 1.1;
+  gap: 10px;
+}
+#notationPanel .notation-hamnosys-display .hamnosys {
+  font-size: 56px;
+  line-height: 1.1;
+  color: var(--kozha-color-ink);
+}
+#notationPanel .notation-glyph-glyph {
+  font-size: 40px;
+}
+#notationPanel .notation-glyph-name {
+  font-size: 10px;
+  color: var(--kozha-color-ink-3);
+}
+#notationPanel .notation-legend {
+  padding: var(--kozha-space-4);
+  background: var(--kozha-color-paper-2);
+  border-radius: 12px;
+  border: 1px solid var(--kozha-color-border);
+  min-width: 180px;
+}
+#notationPanel .notation-legend-title {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  margin-bottom: 8px;
+}
+#notationPanel .notation-legend-code {
+  font-family: var(--kozha-font-mono);
+  font-size: 16px;
+  font-weight: var(--kozha-weight-semibold);
+  color: var(--kozha-color-accent);
+  margin: 0 0 2px;
+}
+#notationPanel .notation-legend-class {
+  font-size: 11px;
+  font-weight: var(--kozha-weight-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--kozha-color-ink-3);
+  margin: 0 0 6px;
+}
+#notationPanel .notation-legend-name {
+  font-size: 13px;
+  color: var(--kozha-color-ink-2);
+  line-height: 1.5;
+}
+#notationPanel .notation-breakdown {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: var(--kozha-space-4) 0;
+  padding: var(--kozha-space-4);
+  background: var(--kozha-color-paper);
+  border-radius: 10px;
+  border: 1px solid var(--kozha-color-border);
+}
+#notationPanel .notation-breakdown-row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: var(--kozha-space-3);
+  font-size: 13px;
+  line-height: 1.4;
+}
+#notationPanel .notation-breakdown-row dt {
+  font-family: var(--kozha-font-mono);
+  font-size: 10px;
+  font-weight: var(--kozha-weight-semibold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--kozha-color-ink-3);
+  padding-top: 2px;
+}
+#notationPanel .notation-breakdown-row dd {
+  margin: 0;
+  color: var(--kozha-color-ink);
+}
+#notationPanel .notation-actions {
+  display: flex;
+  gap: var(--kozha-space-2);
+  flex-wrap: wrap;
+  margin-top: var(--kozha-space-3);
+}
+#notationPanel .notation-copy-btn,
+#notationPanel .notation-download-btn,
+#notationPanel .notation-edit-btn {
+  font-size: 13px;
+  padding: 10px 16px;
+  border-radius: 10px;
+}
+
+/* ==================================================================
+ * Submission panel — big CTA, clear checklist
+ * ================================================================== */
+#submissionPanel.card {
+  padding: var(--kozha-space-6) var(--kozha-space-8);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 95% 0%, rgba(201, 106, 46, 0.08), transparent 60%),
+    var(--kozha-color-white);
+}
+#submissionPanel .card-title {
+  font-size: 24px;
+  margin-bottom: var(--kozha-space-4);
+}
+#submissionPanel .submission-checklist {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-bottom: var(--kozha-space-5);
+  padding: var(--kozha-space-4);
+  background: var(--kozha-color-paper);
+  border: 1px solid var(--kozha-color-border);
+  border-radius: 12px;
+}
+#submissionPanel .submission-item {
+  gap: 10px;
+  padding: 6px 0;
+  font-size: 13px;
+}
+#submissionPanel .submission-mark {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--kozha-color-border);
+  background: var(--kozha-color-white);
+  flex-shrink: 0;
+  display: inline-flex;
+}
+#submissionPanel .submission-item.is-complete .submission-mark {
+  background: var(--kozha-color-success);
+  border-color: var(--kozha-color-success);
+}
+#submissionPanel .submission-item.is-complete .submission-mark::after {
+  content: '';
+  position: absolute;
+  left: 6px; top: 3px;
+  width: 6px;
+  height: 11px;
+  border-right: 2px solid var(--kozha-color-white);
+  border-bottom: 2px solid var(--kozha-color-white);
+  transform: rotate(45deg);
+}
+#submissionPanel .submission-text {
+  color: var(--kozha-color-ink-2);
+  font-weight: var(--kozha-weight-medium);
+}
+#submissionPanel .submission-item.is-complete .submission-text {
+  color: var(--kozha-color-ink);
+}
+#submissionPanel .submission-gate-note,
+#submissionPanel .submission-optional-note {
+  font-size: 10px;
+  font-weight: var(--kozha-weight-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-left: auto;
+}
+#submissionPanel .submission-gate-note {
+  color: var(--kozha-color-accent);
+  background: var(--kozha-color-accent-light);
+}
+#submissionPanel .submission-optional-note {
+  color: var(--kozha-color-ink-3);
+  background: var(--kozha-color-paper-2);
+}
+#submissionPanel .submission-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--kozha-space-4);
+  flex-wrap: wrap;
+}
+#submissionPanel .submission-actions-primary {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+#submissionPanel .submission-save {
+  font-size: 14px;
+  padding: 12px 20px;
+  border-radius: 12px;
+}
+#submissionPanel .submission-submit {
+  font-size: 16px;
+  font-weight: var(--kozha-weight-semibold);
+  padding: 14px 32px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(201, 106, 46, 0.25);
+  transition: all 0.2s ease;
+}
+#submissionPanel .submission-submit:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(201, 106, 46, 0.38);
+}
+#submissionPanel .submission-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ==================================================================
+ * Language masthead refinement
+ * ================================================================== */
+#langMasthead.card {
+  padding: var(--kozha-space-5) var(--kozha-space-6);
+  border-radius: 16px;
+  background:
+    linear-gradient(135deg, var(--kozha-color-accent-light) 0%, var(--kozha-color-white) 100%);
+  border: 1px solid var(--kozha-color-border-accent);
+  margin-bottom: var(--kozha-space-5);
+}
+#langMasthead .language-badge {
+  font-size: 22px;
+}
+#langMasthead .language-badge-code {
+  font-size: 24px;
+  font-weight: var(--kozha-weight-semibold);
+}
+#langMasthead .context-state {
+  background: var(--kozha-color-accent);
+  color: var(--kozha-color-white);
+  font-weight: var(--kozha-weight-semibold);
+  padding: 4px 12px;
+}
+
+/* ==================================================================
+ * Animations
+ * ================================================================== */
+@keyframes qs-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.55; transform: scale(0.88); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .qs__chip,
+  .ws-stage__dot,
+  #chatPanel .card-title::before,
+  #avatarPreview .avatar-play,
+  #submissionPanel .submission-submit {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* ==================================================================
+ * Responsive tweaks
+ * ================================================================== */
+@media (max-width: 1023px) {
+  .qs__inner { padding: var(--kozha-space-8) var(--kozha-space-6); }
+  .qs__chips { grid-template-columns: 1fr; }
+  .qs__chips--more { grid-template-columns: repeat(2, 1fr); }
+  .ws-stages { grid-template-columns: repeat(4, auto); overflow-x: auto; }
+  #chatPanel .chat-log { min-height: 220px; }
+  #notationPanel .notation-breakdown { grid-template-columns: 1fr; }
+  #submissionPanel .submission-checklist { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 639px) {
+  .qs__inner { padding: var(--kozha-space-6) var(--kozha-space-4); border-radius: 20px; }
+  .qs__heading { font-size: clamp(28px, 8vw, 38px); }
+  .qs__lede { font-size: 15px; }
+  .qs__chip { padding: 18px; min-height: 72px; gap: 14px; }
+  .qs__chip-flag { font-size: 24px; }
+  .qs__chip-code { font-size: 18px; }
+  .qs__chips--more { grid-template-columns: 1fr; }
+  .ws-stages { padding: var(--kozha-space-3); }
+  .ws-stage__label { display: none; }
+  .authoring-card { padding: var(--kozha-space-5) var(--kozha-space-4); border-radius: 16px; }
+  .authoring-card .field-input-gloss { font-size: 18px; padding: 14px 16px; }
+  #notationPanel .notation-hamnosys-display { font-size: 36px; padding: var(--kozha-space-3); }
+  #notationPanel .notation-hamnosys-display .hamnosys { font-size: 36px; }
+  #submissionPanel.card { padding: var(--kozha-space-5) var(--kozha-space-4); }
+  #submissionPanel .submission-actions-primary { flex-direction: column; align-items: stretch; }
+  #submissionPanel .submission-submit { text-align: center; }
+}

@@ -418,98 +418,113 @@
          #byoKeyForm markup so contribute.js and contribute-byokey.js keep
          their DOM references; the new wrapper just gives the widget a
          stronger visual footprint and adds language quick-select chips. -->
-    <section class="c2-quickstart" id="c2-quickstart" aria-labelledby="c2-quickstart-heading">
-      <div class="c2-quickstart__inner">
-        <div class="c2-quickstart__intro">
-          <p class="c2-quickstart__kicker">Start here</p>
-          <h2 class="c2-quickstart__heading" id="c2-quickstart-heading">Pick your sign language<br>to begin.</h2>
-          <p class="c2-quickstart__lede">You can save and come back later, resume a previous draft, or switch languages any time.</p>
-          <p class="c2-quickstart__reminder">
-            <span class="c2-quickstart__reminder-icon" aria-hidden="true">✓</span>
-            Every submission is reviewed by Deaf native signers before it goes live.
-          </p>
+    <!-- Quickstart v2 (2026-04): single-action language picker. Big chips
+         are the primary surface; picking one dispatches change on the
+         hidden <select> (which contribute.js still listens to) and scrolls
+         the workspace into view immediately. "More languages" expands a
+         secondary row of chips rendered from /contribute-languages.json.
+         The <select> and BYO-key stay in the DOM as hidden fallbacks so
+         contribute.js / contribute-byokey.js keep working unchanged. -->
+    <section class="qs" id="c2-quickstart" aria-labelledby="qs-heading">
+      <div class="qs__inner">
+        <p class="qs__kicker">Pick a language to begin</p>
+        <h2 class="qs__heading" id="qs-heading">Which sign language<br>are you contributing to?</h2>
+        <p class="qs__lede">Tap a language — we'll take you straight into drafting.</p>
+
+        <div class="qs__chips" role="group" aria-label="Choose a sign language">
+          <button type="button" class="qs__chip" data-lang="bsl">
+            <span class="qs__chip-flag" aria-hidden="true">🇬🇧</span>
+            <span class="qs__chip-body">
+              <span class="qs__chip-code">BSL</span>
+              <span class="qs__chip-name">British Sign Language</span>
+            </span>
+            <span class="qs__chip-arrow" aria-hidden="true">→</span>
+          </button>
+          <button type="button" class="qs__chip" data-lang="asl">
+            <span class="qs__chip-flag" aria-hidden="true">🇺🇸</span>
+            <span class="qs__chip-body">
+              <span class="qs__chip-code">ASL</span>
+              <span class="qs__chip-name">American Sign Language</span>
+            </span>
+            <span class="qs__chip-arrow" aria-hidden="true">→</span>
+          </button>
+          <button type="button" class="qs__chip" data-lang="dgs">
+            <span class="qs__chip-flag" aria-hidden="true">🇩🇪</span>
+            <span class="qs__chip-body">
+              <span class="qs__chip-code">DGS</span>
+              <span class="qs__chip-name">Deutsche Gebärdensprache</span>
+            </span>
+            <span class="qs__chip-arrow" aria-hidden="true">→</span>
+          </button>
+          <button type="button" class="qs__chip" data-lang="lsf">
+            <span class="qs__chip-flag" aria-hidden="true">🇫🇷</span>
+            <span class="qs__chip-body">
+              <span class="qs__chip-code">LSF</span>
+              <span class="qs__chip-name">Langue des Signes Française</span>
+            </span>
+            <span class="qs__chip-arrow" aria-hidden="true">→</span>
+          </button>
         </div>
 
-        <div class="c2-quickstart__form">
-          <div class="c2-quickstart__chips" role="group" aria-label="Popular sign languages — click to select">
-            <button type="button" class="c2-quickstart__chip" data-lang="bsl">
-              <span class="c2-quickstart__chip-flag" aria-hidden="true">🇬🇧</span>
-              <span class="c2-quickstart__chip-code">BSL</span>
-              <span class="c2-quickstart__chip-name">British</span>
-            </button>
-            <button type="button" class="c2-quickstart__chip" data-lang="asl">
-              <span class="c2-quickstart__chip-flag" aria-hidden="true">🇺🇸</span>
-              <span class="c2-quickstart__chip-code">ASL</span>
-              <span class="c2-quickstart__chip-name">American</span>
-            </button>
-            <button type="button" class="c2-quickstart__chip" data-lang="dgs">
-              <span class="c2-quickstart__chip-flag" aria-hidden="true">🇩🇪</span>
-              <span class="c2-quickstart__chip-code">DGS</span>
-              <span class="c2-quickstart__chip-name">German</span>
-            </button>
-            <button type="button" class="c2-quickstart__chip" data-lang="lsf">
-              <span class="c2-quickstart__chip-flag" aria-hidden="true">🇫🇷</span>
-              <span class="c2-quickstart__chip-code">LSF</span>
-              <span class="c2-quickstart__chip-name">French</span>
-            </button>
-          </div>
+        <!-- Secondary chip row populated from /contribute-languages.json
+             by the quickstart JS. Hidden until the user clicks "more". -->
+        <div class="qs__chips qs__chips--more" id="qsChipsMore" role="group" aria-label="More sign languages" hidden></div>
 
-          <div class="c2-quickstart__divider" aria-hidden="true">
-            <span>or pick from the full list</span>
-          </div>
+        <div class="qs__footer">
+          <button type="button" class="qs__more" id="qsMoreBtn" aria-expanded="false" aria-controls="qsChipsMore">
+            <span class="qs__more-plus" aria-hidden="true">+</span>
+            <span class="qs__more-label">More languages</span>
+            <span class="qs__more-count" id="qsMoreCount"></span>
+          </button>
+          <a href="/progress" class="qs__coverage-link" data-i18n="contribute.language_picker.see_all_languages">See coverage →</a>
+        </div>
 
-          <!-- Original #languagePicker markup — contribute.js populates
-               and reacts to #pickerSelect. The outer .language-picker
-               class is kept so existing selector queries still hit it. -->
-          <section class="language-picker c2-quickstart__picker" id="languagePicker" aria-label="Sign language selection">
-            <div class="lang-strip c2-quickstart__strip" role="group" aria-label="Signing language">
-              <div class="lang-slot">
-                <label class="lang-slot-label" for="pickerSelect" data-i18n="contribute.language_picker.prompt">Which sign language are you contributing to?</label>
-                <select id="pickerSelect" class="field-input" aria-describedby="pickerNote"></select>
-                <div id="pickerNote" class="lang-slot-note" aria-live="polite"></div>
-              </div>
+        <!-- Hidden fallback: original #languagePicker markup — contribute.js
+             populates and reacts to #pickerSelect. Kept invisible because
+             the chip UI above is the primary affordance; a keyboard user
+             using the screen-reader label can still reach the select
+             through the qs__chip-fallback link below. -->
+        <section class="language-picker qs__picker-fallback" id="languagePicker" aria-label="Sign language selection" hidden>
+          <div class="lang-strip" role="group" aria-label="Signing language">
+            <div class="lang-slot">
+              <label class="lang-slot-label" for="pickerSelect" data-i18n="contribute.language_picker.prompt">Which sign language are you contributing to?</label>
+              <select id="pickerSelect" class="field-input" aria-describedby="pickerNote"></select>
+              <div id="pickerNote" class="lang-slot-note" aria-live="polite"></div>
             </div>
-            <p class="lang-slot-secondary">
-              <a href="/progress" class="kz-link" data-i18n="contribute.language_picker.see_all_languages">See all languages and their coverage →</a>
+          </div>
+          <div id="pickerEmpty" hidden>
+            <ul id="pickerOptions" hidden></ul>
+          </div>
+        </section>
+
+        <details class="byo-key qs__byo">
+          <summary class="byo-key-summary">
+            <span class="byo-key-summary-text">Advanced: use your own OpenAI API key (optional)</span>
+          </summary>
+          <div class="byo-key-body">
+            <p class="byo-key-lede">
+              If the shared project key is unavailable or rate-limited, paste your own OpenAI key here. It stays in this browser and is sent directly to the Kozha backend on your requests only.
             </p>
-            <!-- Retained for JS that reads pickerOptions / pickerEmpty. -->
-            <div id="pickerEmpty" hidden>
-              <ul id="pickerOptions" hidden></ul>
-            </div>
-          </section>
-
-          <!-- Bring-your-own OpenAI API key. Collapsed by default; the
-               summary reads as a subtle link inside the card. Required
-               markup preserved for contribute-byokey.js. -->
-          <details class="byo-key c2-quickstart__byo">
-            <summary class="byo-key-summary">
-              <span class="byo-key-summary-text">Use your own OpenAI API key (optional)</span>
-            </summary>
-            <div class="byo-key-body">
-              <p class="byo-key-lede">
-                If the shared project key is unavailable or rate-limited, paste your own OpenAI key here. It stays in this browser and is sent directly to the Kozha backend on your requests only. Remove it any time.
-              </p>
-              <form class="byo-key-form" id="byoKeyForm" novalidate>
-                <label class="field-label" for="byoKeyInput">OpenAI API key</label>
-                <input
-                  id="byoKeyInput"
-                  type="password"
-                  class="field-input byo-key-input"
-                  autocomplete="off"
-                  autocapitalize="off"
-                  spellcheck="false"
-                  placeholder="sk-…"
-                  aria-describedby="byoKeyStatus byoKeyError">
-                <div class="byo-key-actions">
-                  <button type="submit" class="btn btn-primary" id="byoKeySaveBtn">Save key</button>
-                  <button type="button" class="btn btn-secondary" id="byoKeyClearBtn" hidden>Remove saved key</button>
-                </div>
-                <p class="byo-key-status field-hint" id="byoKeyStatus" role="status" aria-live="polite">Using the project key on the server.</p>
-                <p class="byo-key-error field-error" id="byoKeyError" role="alert" hidden></p>
-              </form>
-            </div>
-          </details>
-        </div>
+            <form class="byo-key-form" id="byoKeyForm" novalidate>
+              <label class="field-label" for="byoKeyInput">OpenAI API key</label>
+              <input
+                id="byoKeyInput"
+                type="password"
+                class="field-input byo-key-input"
+                autocomplete="off"
+                autocapitalize="off"
+                spellcheck="false"
+                placeholder="sk-…"
+                aria-describedby="byoKeyStatus byoKeyError">
+              <div class="byo-key-actions">
+                <button type="submit" class="btn btn-primary" id="byoKeySaveBtn">Save key</button>
+                <button type="button" class="btn btn-secondary" id="byoKeyClearBtn" hidden>Remove saved key</button>
+              </div>
+              <p class="byo-key-status field-hint" id="byoKeyStatus" role="status" aria-live="polite">Using the project key on the server.</p>
+              <p class="byo-key-error field-error" id="byoKeyError" role="alert" hidden></p>
+            </form>
+          </div>
+        </details>
       </div>
     </section>
 
@@ -571,6 +586,29 @@
          notation panel, and submission panel live below and are hidden
          until the corresponding session state arrives. -->
     <section id="authoring-root" aria-label="Sign authoring workspace" hidden>
+
+      <!-- Stage stepper (2026-04 redesign). Visually communicates where
+           the contributor is in the draft flow. Pure-CSS state detection
+           via :has() — no JS hook required; falls back to "Describe"
+           highlighted when :has() is unsupported. -->
+      <ol class="ws-stages" aria-label="Contribution progress">
+        <li class="ws-stage" data-stage="describe">
+          <span class="ws-stage__dot" aria-hidden="true">1</span>
+          <span class="ws-stage__label">Describe</span>
+        </li>
+        <li class="ws-stage" data-stage="clarify">
+          <span class="ws-stage__dot" aria-hidden="true">2</span>
+          <span class="ws-stage__label">Clarify</span>
+        </li>
+        <li class="ws-stage" data-stage="preview">
+          <span class="ws-stage__dot" aria-hidden="true">3</span>
+          <span class="ws-stage__label">Preview</span>
+        </li>
+        <li class="ws-stage" data-stage="submit">
+          <span class="ws-stage__dot" aria-hidden="true">4</span>
+          <span class="ws-stage__label">Submit</span>
+        </li>
+      </ol>
 
       <!-- Pre-session form card. Holds gloss + description + Deaf-native
            checkbox + "Start authoring" submit. -->
@@ -1188,14 +1226,25 @@
       activate(1);
     })();
 
-    // Quickstart chips: clicking a chip pre-selects that language in the
-    // existing #pickerSelect dropdown, which triggers the same change
-    // handler contribute.js binds during init. The chips are appended to
-    // the picker strip visually but hold no state themselves — single
-    // source of truth stays in the <select>.
+    // Quickstart chips: clicking a chip sets the hidden #pickerSelect
+    // value and dispatches change, so contribute.js takes over from
+    // there — same path as the dropdown. After selection, scroll the
+    // authoring form into view so the user lands directly on the gloss
+    // input without an extra click. Also fetches the full language list
+    // and renders a secondary "More languages" chip row, replacing the
+    // old <select>-only UI.
     (function () {
-      var chips = document.querySelectorAll('.c2-quickstart__chip[data-lang]');
-      if (!chips.length) return;
+      var FLAGS = {
+        bsl:'🇬🇧', asl:'🇺🇸', dgs:'🇩🇪', lsf:'🇫🇷', lse:'🇪🇸',
+        pjm:'🇵🇱', gsl:'🇬🇷', rsl:'🇷🇺', ngt:'🇳🇱', fsl:'🇵🇭',
+        isl:'🇮🇳', vsl:'🇻🇳', algerian:'🇩🇿', bangla:'🇧🇩', kurdish:'🇮🇶',
+        ksl:'🇰🇿'
+      };
+      var primaryCodes = ['bsl','asl','dgs','lsf'];
+
+      function allChips() {
+        return document.querySelectorAll('.qs__chip[data-lang]');
+      }
 
       function trySelect(code) {
         var select = document.getElementById('pickerSelect');
@@ -1205,34 +1254,98 @@
           if (opt.value && opt.value.toLowerCase() === code) {
             select.value = opt.value;
             select.dispatchEvent(new Event('change', { bubbles: true }));
-            try { select.focus({ preventScroll: false }); } catch (e) { select.focus(); }
             return true;
           }
         }
         return false;
       }
 
-      chips.forEach(function (chip) {
-        chip.addEventListener('click', function () {
-          var code = (chip.dataset.lang || '').toLowerCase();
-          if (!code) return;
-
-          // The picker is populated asynchronously from
-          // /contribute-languages.json on load — if the user taps a chip
-          // before that request finishes (unlikely on fast networks, but
-          // possible), retry a handful of times at 100ms cadence before
-          // giving up.
-          var attempts = 0;
-          (function tryOnce() {
-            if (trySelect(code)) return;
-            if (attempts++ > 20) return;
-            setTimeout(tryOnce, 100);
-          })();
-
-          chips.forEach(function (other) { other.classList.remove('is-active'); });
-          chip.classList.add('is-active');
+      function scrollToForm() {
+        requestAnimationFrame(function () {
+          var target = document.getElementById('authoring-root')
+                    || document.querySelector('.authoring-card')
+                    || document.getElementById('c2-quickstart');
+          if (!target) return;
+          try { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+          catch (_e) { target.scrollIntoView(); }
+          // Focus the gloss input shortly after scroll to jumpstart typing.
+          setTimeout(function () {
+            var gloss = document.getElementById('glossInput');
+            if (gloss && !gloss.disabled) {
+              try { gloss.focus({ preventScroll: true }); } catch (_e) { gloss.focus(); }
+            }
+          }, 400);
         });
-      });
+      }
+
+      function activateChip(chip) {
+        var code = (chip.dataset.lang || '').toLowerCase();
+        if (!code) return;
+        var attempts = 0;
+        (function tryOnce() {
+          if (trySelect(code)) {
+            allChips().forEach(function (o) { o.classList.remove('is-active'); });
+            chip.classList.add('is-active');
+            scrollToForm();
+            return;
+          }
+          if (attempts++ > 20) return;
+          setTimeout(tryOnce, 100);
+        })();
+      }
+
+      function bindChip(chip) {
+        chip.addEventListener('click', function () { activateChip(chip); });
+      }
+
+      document.querySelectorAll('.qs__chip[data-lang]').forEach(bindChip);
+
+      // Render the "more languages" chip row from /contribute-languages.json.
+      // Primary chips already cover BSL/ASL/DGS/LSF — the rest land here.
+      (function loadMore() {
+        var moreHost = document.getElementById('qsChipsMore');
+        var moreBtn  = document.getElementById('qsMoreBtn');
+        var moreCnt  = document.getElementById('qsMoreCount');
+        if (!moreHost || !moreBtn) return;
+
+        fetch('/contribute-languages.json', { cache: 'no-store' }).then(function (r) {
+          if (!r.ok) throw new Error('status ' + r.status);
+          return r.json();
+        }).then(function (data) {
+          var langs = (data && data.languages) || [];
+          var secondary = langs.filter(function (l) {
+            return primaryCodes.indexOf(l.code) === -1;
+          });
+          if (!secondary.length) {
+            moreBtn.hidden = true;
+            return;
+          }
+          if (moreCnt) moreCnt.textContent = '(' + secondary.length + ')';
+          secondary.forEach(function (lang) {
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'qs__chip qs__chip--small';
+            btn.dataset.lang = lang.code;
+            btn.innerHTML =
+              '<span class="qs__chip-flag" aria-hidden="true">' + (FLAGS[lang.code] || '🏳️') + '</span>' +
+              '<span class="qs__chip-body">' +
+                '<span class="qs__chip-code">' + lang.code.toUpperCase() + '</span>' +
+                '<span class="qs__chip-name">' + (lang.english_name || lang.name || lang.code) + '</span>' +
+              '</span>';
+            moreHost.appendChild(btn);
+            bindChip(btn);
+          });
+        }).catch(function (err) {
+          console.warn('[quickstart] more-languages load failed:', err.message);
+          moreBtn.hidden = true;
+        });
+
+        moreBtn.addEventListener('click', function () {
+          var open = moreBtn.getAttribute('aria-expanded') === 'true';
+          moreBtn.setAttribute('aria-expanded', open ? 'false' : 'true');
+          moreHost.hidden = open;
+        });
+      })();
     })();
 
     // Open-the-form CTA. The workspace (quickstart picker, banners,
