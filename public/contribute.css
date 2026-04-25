@@ -1240,6 +1240,178 @@ select.field-input { cursor: pointer; }
   color: var(--kozha-color-accent);
 }
 
+/* ----- SiGML annotated editor ---------------------------------------
+   The SiGML tab now leads with click-to-swap chips instead of a raw
+   <pre>. Each chip carries the tag name + a short role label and
+   opens a category-scoped picker on click. The raw <pre> is folded
+   into a <details> so contributors who need it can still see it. */
+
+.sigml-annotated {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--kozha-space-2);
+  padding: var(--kozha-space-3);
+  background: var(--kozha-color-paper-2);
+  border: 1px solid var(--kozha-color-border);
+  border-radius: var(--kozha-radius-md);
+  margin: 0 0 var(--kozha-space-3);
+  min-height: 80px;
+}
+.sigml-annotated-empty,
+.sigml-annotated-fallback {
+  margin: 0;
+  font-family: var(--kozha-font-mono);
+  font-size: var(--kozha-text-body-sm);
+  color: var(--kozha-color-ink-2);
+  white-space: pre-wrap;
+}
+.sigml-chip {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: var(--kozha-space-2) var(--kozha-space-3);
+  background: var(--kozha-color-white);
+  border: 1px solid var(--kozha-color-border);
+  border-radius: var(--kozha-radius-sm);
+  cursor: pointer;
+  font-family: var(--kozha-font-sans);
+  text-align: left;
+  transition: border-color var(--kozha-duration-base) var(--kozha-ease-standard),
+              background var(--kozha-duration-base) var(--kozha-ease-standard),
+              transform var(--kozha-duration-fast) var(--kozha-ease-standard);
+}
+.sigml-chip:hover,
+.sigml-chip:focus-visible {
+  border-color: var(--kozha-color-accent);
+  background: var(--kozha-color-accent-light);
+  outline: none;
+}
+.sigml-chip:active { transform: translateY(1px); }
+.sigml-chip-name {
+  font-family: var(--kozha-font-mono);
+  font-size: var(--kozha-text-body-sm);
+  color: var(--kozha-color-accent);
+  font-weight: var(--kozha-weight-medium);
+}
+.sigml-chip-role {
+  font-size: var(--kozha-text-caption-lg);
+  color: var(--kozha-color-ink-2);
+}
+.sigml-chip.is-unknown .sigml-chip-name {
+  color: var(--kozha-color-danger);
+  text-decoration: underline dotted;
+}
+
+/* Picker popover. Anchored to the parent panel via inline top/left
+   set in JS; absolutely positioned so it floats over the chips. */
+.notation-tabpanel { position: relative; }
+.sigml-picker {
+  position: absolute;
+  z-index: 20;
+  width: min(360px, 92%);
+  max-height: 360px;
+  overflow: auto;
+  background: var(--kozha-color-white);
+  border: 1px solid var(--kozha-color-border);
+  border-radius: var(--kozha-radius-md);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  padding: var(--kozha-space-3);
+}
+.sigml-picker-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--kozha-space-3);
+  margin: 0 0 var(--kozha-space-2);
+}
+.sigml-picker-title {
+  font-family: var(--kozha-font-sans);
+  font-size: var(--kozha-text-body);
+  font-weight: var(--kozha-weight-semibold);
+  color: var(--kozha-color-ink);
+  margin: 0;
+}
+.sigml-picker-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--kozha-text-caption-lg);
+}
+.sigml-picker-current {
+  margin: 0 0 var(--kozha-space-2);
+  font-family: var(--kozha-font-mono);
+  font-size: var(--kozha-text-caption-lg);
+  color: var(--kozha-color-ink-2);
+}
+.sigml-picker-search {
+  width: 100%;
+  margin: 0 0 var(--kozha-space-2);
+}
+.sigml-picker-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--kozha-space-1);
+}
+.sigml-picker-item { margin: 0; }
+.sigml-picker-btn {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: var(--kozha-space-2) var(--kozha-space-3);
+  background: var(--kozha-color-white);
+  border: 1px solid transparent;
+  border-radius: var(--kozha-radius-sm);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--kozha-font-sans);
+}
+.sigml-picker-btn:hover,
+.sigml-picker-btn:focus-visible {
+  background: var(--kozha-color-accent-light);
+  border-color: var(--kozha-color-accent);
+  outline: none;
+}
+.sigml-picker-btn.is-current {
+  background: var(--kozha-color-accent-light);
+  border-color: var(--kozha-color-accent);
+}
+.sigml-picker-btn-name {
+  font-family: var(--kozha-font-mono);
+  font-size: var(--kozha-text-body-sm);
+  color: var(--kozha-color-accent);
+  font-weight: var(--kozha-weight-medium);
+}
+.sigml-picker-btn-role {
+  font-size: var(--kozha-text-caption-lg);
+  color: var(--kozha-color-ink-2);
+}
+.sigml-picker-empty {
+  padding: var(--kozha-space-2) var(--kozha-space-3);
+}
+
+.sigml-source-details {
+  margin: 0 0 var(--kozha-space-3);
+}
+.sigml-source-details > summary {
+  cursor: pointer;
+  margin-bottom: var(--kozha-space-2);
+}
+.sigml-annotated-fallback {
+  padding: var(--kozha-space-3);
+  background: var(--kozha-color-paper-2);
+  border-radius: var(--kozha-radius-sm);
+}
+
+.notation-sigml-help {
+  margin: 0 0 var(--kozha-space-2);
+}
+
 /* Advanced-option textarea: the SiGML <pre> flips to this editor
    when the contributor clicks "Edit manually". Shape + font matches
    the read-only display so the swap is visually quiet. */

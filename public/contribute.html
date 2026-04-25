@@ -414,29 +414,30 @@
           <button
             type="button"
             role="tab"
-            id="notationTabHamnosys"
+            id="notationTabSigml"
             class="notation-tab is-active"
             aria-selected="true"
-            aria-controls="notationPanelHamnosys"
-            data-tab="hamnosys"
-            data-i18n="contribute.notation.tab_hamnosys">HamNoSys</button>
+            aria-controls="notationPanelSigml"
+            data-tab="sigml"
+            data-i18n="contribute.notation.tab_sigml">SiGML</button>
           <button
             type="button"
             role="tab"
-            id="notationTabSigml"
+            id="notationTabHamnosys"
             class="notation-tab"
             aria-selected="false"
-            aria-controls="notationPanelSigml"
-            data-tab="sigml"
+            aria-controls="notationPanelHamnosys"
+            data-tab="hamnosys"
             tabindex="-1"
-            data-i18n="contribute.notation.tab_sigml">SiGML</button>
+            data-i18n="contribute.notation.tab_hamnosys">HamNoSys (raw)</button>
         </nav>
 
         <div
           class="notation-tabpanel"
           id="notationPanelHamnosys"
           role="tabpanel"
-          aria-labelledby="notationTabHamnosys">
+          aria-labelledby="notationTabHamnosys"
+          hidden>
           <div class="notation-hamnosys-layout">
             <div class="notation-hamnosys-main">
               <div
@@ -488,14 +489,58 @@
           class="notation-tabpanel"
           id="notationPanelSigml"
           role="tabpanel"
-          aria-labelledby="notationTabSigml"
-          hidden>
-          <pre
-            class="notation-sigml"
-            id="sigmlDisplay"
-            role="region"
-            aria-label="SiGML source code"
-            tabindex="0"><code id="sigmlCode"></code></pre>
+          aria-labelledby="notationTabSigml">
+          <p class="notation-sigml-help field-hint">
+            Each tag below is one phonological slot of the sign. Click any
+            tag to see its meaning and pick a different option from the
+            same category — the preview re-renders with your choice.
+          </p>
+          <!-- Annotated SiGML: structured view of the current SiGML where
+               every <ham*/> tag is a click-to-swap chip. Populated by
+               contribute-sigml-edit.js from the SiGML reference catalog
+               at /api/chat2hamnosys/reference/sigml. -->
+          <div
+            class="sigml-annotated"
+            id="sigmlAnnotated"
+            role="group"
+            aria-label="Annotated SiGML editor"
+            aria-live="polite"></div>
+          <!-- The picker popover floats over the annotated view when a
+               tag is selected. ``contribute-sigml-edit.js`` positions
+               and populates it from the catalog. -->
+          <div
+            class="sigml-picker"
+            id="sigmlPicker"
+            role="dialog"
+            aria-label="Choose alternative SiGML tag"
+            hidden>
+            <header class="sigml-picker-header">
+              <h3 class="sigml-picker-title" id="sigmlPickerTitle">Pick a tag</h3>
+              <button type="button" class="kz-link sigml-picker-close" id="sigmlPickerCloseBtn" aria-label="Close picker">close</button>
+            </header>
+            <p class="sigml-picker-current" id="sigmlPickerCurrent"></p>
+            <input
+              type="search"
+              class="sigml-picker-search field-input"
+              id="sigmlPickerSearch"
+              placeholder="Filter…"
+              autocomplete="off"
+              spellcheck="false"
+              aria-label="Filter tag options">
+            <ul class="sigml-picker-list" id="sigmlPickerList" role="listbox"></ul>
+          </div>
+          <!-- Raw SiGML pre block (read-only). Kept for "show me the
+               source" inspection and for the existing copy/download
+               flow. The annotated view above is the primary surface. -->
+          <details class="sigml-source-details">
+            <summary class="kz-link">Show raw SiGML source</summary>
+            <pre
+              class="notation-sigml"
+              id="sigmlDisplay"
+              role="region"
+              aria-label="SiGML source code"
+              tabindex="0"><code id="sigmlCode"></code></pre>
+          </details>
           <!-- Advanced: hand-edit the SiGML XML. Hidden behind the
                "Edit manually" toggle so the default view stays
                read-only. ``Apply`` validates the edit client-side
@@ -510,14 +555,11 @@
             autocapitalize="off"
             hidden></textarea>
           <p class="notation-sigml-edit-error field-error" id="sigmlEditError" role="alert" hidden></p>
-          <p class="notation-sigml-summary field-hint">
-            This file contains one <code>&lt;hns_sign&gt;</code> element with the HamNoSys above, in the Kozha canonical format. Your renderer will accept it as-is.
-          </p>
           <div class="notation-actions">
             <button type="button" class="btn btn-secondary notation-copy-btn" id="copySigmlBtn" data-i18n="contribute.notation.copy_sigml" disabled>Copy SiGML</button>
             <span class="notation-copy-confirm field-hint" id="copySigmlConfirm" role="status" aria-live="polite" data-i18n="common.copied" hidden>copied</span>
             <button type="button" class="btn btn-secondary notation-download-btn" id="downloadSigmlBtn" data-i18n="contribute.notation.download_sigml" disabled>Download .sigml</button>
-            <button type="button" class="btn btn-secondary notation-edit-btn" id="sigmlEditBtn" data-i18n="contribute.notation.edit_sigml" disabled>Edit manually</button>
+            <button type="button" class="btn btn-secondary notation-edit-btn" id="sigmlEditBtn" data-i18n="contribute.notation.edit_sigml" disabled>Edit raw XML</button>
             <button type="button" class="btn btn-primary notation-apply-btn" id="sigmlApplyBtn" hidden>Apply</button>
             <button type="button" class="btn btn-secondary notation-cancel-btn" id="sigmlCancelBtn" hidden>Cancel</button>
           </div>
@@ -677,6 +719,7 @@
   <script src="/contribute-context.js"></script>
   <script src="/contribute-chat.js"></script>
   <script src="/contribute-notation.js"></script>
+  <script src="/contribute-sigml-edit.js"></script>
   <script src="/contribute-preview.js"></script>
   <script src="/contribute-submit.js"></script>
   <script src="/contribute.js"></script>

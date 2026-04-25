@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-25T00:50:04.384Z",
-  "url": "http://127.0.0.1:59942/contribute.html",
+  "timestamp": "2026-04-25T01:09:36.848Z",
+  "url": "http://127.0.0.1:60442/contribute.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -244,6 +244,40 @@
       "description": "Ensure <blink> elements are not used",
       "help": "<blink> elements are deprecated and must not be used",
       "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/blink?application=axe-puppeteer",
+      "nodes": []
+    },
+    {
+      "id": "definition-list",
+      "impact": null,
+      "tags": [
+        "cat.structure",
+        "wcag2a",
+        "wcag131",
+        "EN-301-549",
+        "EN-9.1.3.1",
+        "RGAAv4",
+        "RGAA-9.3.3"
+      ],
+      "description": "Ensure <dl> elements are structured correctly",
+      "help": "<dl> elements must only directly contain properly-ordered <dt> and <dd> groups, <script>, <template> or <div> elements",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/definition-list?application=axe-puppeteer",
+      "nodes": []
+    },
+    {
+      "id": "dlitem",
+      "impact": null,
+      "tags": [
+        "cat.structure",
+        "wcag2a",
+        "wcag131",
+        "EN-301-549",
+        "EN-9.1.3.1",
+        "RGAAv4",
+        "RGAA-9.3.3"
+      ],
+      "description": "Ensure <dt> and <dd> elements are contained by a <dl>",
+      "help": "<dt> and <dd> elements must be contained by a <dl>",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/dlitem?application=axe-puppeteer",
       "nodes": []
     },
     {
@@ -509,6 +543,28 @@
       "description": "Ensure elements marked as presentational do not have global ARIA or tabindex so that all screen readers ignore them",
       "help": "Elements marked as presentational should be consistently ignored",
       "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/presentation-role-conflict?application=axe-puppeteer",
+      "nodes": []
+    },
+    {
+      "id": "role-img-alt",
+      "impact": null,
+      "tags": [
+        "cat.text-alternatives",
+        "wcag2a",
+        "wcag111",
+        "section508",
+        "section508.22.a",
+        "TTv5",
+        "TT7.a",
+        "EN-301-549",
+        "EN-9.1.1.1",
+        "ACT",
+        "RGAAv4",
+        "RGAA-1.1.1"
+      ],
+      "description": "Ensure [role=\"img\"] elements have alternative text",
+      "help": "[role=\"img\"] elements must have alternative text",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/role-img-alt?application=axe-puppeteer",
       "nodes": []
     },
     {
@@ -1510,40 +1566,7 @@
             }
           ],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
-          "target": [
-            "#notationTabHamnosys"
-          ]
-        },
-        {
-          "any": [],
-          "all": [
-            {
-              "id": "aria-allowed-attr",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "ARIA attributes are used correctly for the defined role"
-            },
-            {
-              "id": "aria-allowed-attr-elm",
-              "data": null,
-              "relatedNodes": [],
-              "message": "ARIA attributes are allowed for this element",
-              "impact": "critical"
-            }
-          ],
-          "none": [
-            {
-              "id": "aria-unsupported-attr",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "ARIA attribute is supported"
-            }
-          ],
-          "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
           "target": [
             "#notationTabSigml"
           ]
@@ -1576,9 +1599,9 @@
             }
           ],
           "impact": null,
-          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelHamnosys\" role=\"tabpanel\" aria-labelledby=\"notationTabHamnosys\">",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
           "target": [
-            "#notationPanelHamnosys"
+            "#notationTabHamnosys"
           ]
         },
         {
@@ -1609,9 +1632,9 @@
             }
           ],
           "impact": null,
-          "html": "<div class=\"notation-hamnosys-display is-font-missing\" id=\"hamnosysDisplay\" role=\"img\" aria-label=\"HamNoSys notation with three symbols\" aria-live=\"polite\" tabindex=\"0\"></div>",
+          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelSigml\" role=\"tabpanel\" aria-labelledby=\"notationTabSigml\">",
           "target": [
-            "#hamnosysDisplay"
+            "#notationPanelSigml"
           ]
         },
         {
@@ -1642,9 +1665,9 @@
             }
           ],
           "impact": null,
-          "html": "<div class=\"notation-legend\" id=\"notationLegend\" role=\"group\" aria-label=\"Symbol legend\">",
+          "html": "<div class=\"sigml-annotated\" id=\"sigmlAnnotated\" role=\"group\" aria-label=\"Annotated SiGML editor\" aria-live=\"polite\"><p class=\"sigml-annotated-empty field-hint\">No SiGML yet — describe the sign and the model will draft one.</p></div>",
           "target": [
-            "#notationLegend"
+            "#sigmlAnnotated"
           ]
         },
         {
@@ -2213,25 +2236,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
-          "target": [
-            "#notationTabHamnosys"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "aria-allowed-role",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "minor",
-              "message": "ARIA role is allowed for given element"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
           "target": [
             "#notationTabSigml"
           ]
@@ -2249,7 +2254,25 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelHamnosys\" role=\"tabpanel\" aria-labelledby=\"notationTabHamnosys\">",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
+          "target": [
+            "#notationTabHamnosys"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-allowed-role",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is allowed for given element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelHamnosys\" role=\"tabpanel\" aria-labelledby=\"notationTabHamnosys\" hidden=\"\">",
           "target": [
             "#notationPanelHamnosys"
           ]
@@ -2339,9 +2362,63 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelSigml\" role=\"tabpanel\" aria-labelledby=\"notationTabSigml\" hidden=\"\">",
+          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelSigml\" role=\"tabpanel\" aria-labelledby=\"notationTabSigml\">",
           "target": [
             "#notationPanelSigml"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-allowed-role",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is allowed for given element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"sigml-annotated\" id=\"sigmlAnnotated\" role=\"group\" aria-label=\"Annotated SiGML editor\" aria-live=\"polite\"><p class=\"sigml-annotated-empty field-hint\">No SiGML yet — describe the sign and the model will draft one.</p></div>",
+          "target": [
+            "#sigmlAnnotated"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-allowed-role",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is allowed for given element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"sigml-picker\" id=\"sigmlPicker\" role=\"dialog\" aria-label=\"Choose alternative SiGML tag\" hidden=\"\">",
+          "target": [
+            "#sigmlPicker"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-allowed-role",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is allowed for given element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<ul class=\"sigml-picker-list\" id=\"sigmlPickerList\" role=\"listbox\"></ul>",
+          "target": [
+            "#sigmlPickerList"
           ]
         },
         {
@@ -2969,25 +3046,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
-          "target": [
-            "#notationTabHamnosys"
-          ]
-        },
-        {
-          "any": [],
-          "all": [
-            {
-              "id": "aria-conditional-attr",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "ARIA attribute is allowed"
-            }
-          ],
-          "none": [],
-          "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
           "target": [
             "#notationTabSigml"
           ]
@@ -3005,9 +3064,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelHamnosys\" role=\"tabpanel\" aria-labelledby=\"notationTabHamnosys\">",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
           "target": [
-            "#notationPanelHamnosys"
+            "#notationTabHamnosys"
           ]
         },
         {
@@ -3023,9 +3082,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-hamnosys-display is-font-missing\" id=\"hamnosysDisplay\" role=\"img\" aria-label=\"HamNoSys notation with three symbols\" aria-live=\"polite\" tabindex=\"0\"></div>",
+          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelSigml\" role=\"tabpanel\" aria-labelledby=\"notationTabSigml\">",
           "target": [
-            "#hamnosysDisplay"
+            "#notationPanelSigml"
           ]
         },
         {
@@ -3041,9 +3100,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-legend\" id=\"notationLegend\" role=\"group\" aria-label=\"Symbol legend\">",
+          "html": "<div class=\"sigml-annotated\" id=\"sigmlAnnotated\" role=\"group\" aria-label=\"Annotated SiGML editor\" aria-live=\"polite\"><p class=\"sigml-annotated-empty field-hint\">No SiGML yet — describe the sign and the model will draft one.</p></div>",
           "target": [
-            "#notationLegend"
+            "#sigmlAnnotated"
           ]
         },
         {
@@ -3311,25 +3370,7 @@
             }
           ],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
-          "target": [
-            "#notationTabHamnosys"
-          ]
-        },
-        {
-          "any": [],
-          "all": [],
-          "none": [
-            {
-              "id": "deprecatedrole",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "minor",
-              "message": "ARIA role is not deprecated"
-            }
-          ],
-          "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
           "target": [
             "#notationTabSigml"
           ]
@@ -3347,9 +3388,9 @@
             }
           ],
           "impact": null,
-          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelHamnosys\" role=\"tabpanel\" aria-labelledby=\"notationTabHamnosys\">",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
           "target": [
-            "#notationPanelHamnosys"
+            "#notationTabHamnosys"
           ]
         },
         {
@@ -3365,9 +3406,9 @@
             }
           ],
           "impact": null,
-          "html": "<div class=\"notation-hamnosys-display is-font-missing\" id=\"hamnosysDisplay\" role=\"img\" aria-label=\"HamNoSys notation with three symbols\" aria-live=\"polite\" tabindex=\"0\"></div>",
+          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelSigml\" role=\"tabpanel\" aria-labelledby=\"notationTabSigml\">",
           "target": [
-            "#hamnosysDisplay"
+            "#notationPanelSigml"
           ]
         },
         {
@@ -3383,9 +3424,9 @@
             }
           ],
           "impact": null,
-          "html": "<div class=\"notation-legend\" id=\"notationLegend\" role=\"group\" aria-label=\"Symbol legend\">",
+          "html": "<div class=\"sigml-annotated\" id=\"sigmlAnnotated\" role=\"group\" aria-label=\"Annotated SiGML editor\" aria-live=\"polite\"><p class=\"sigml-annotated-empty field-hint\">No SiGML yet — describe the sign and the model will draft one.</p></div>",
           "target": [
-            "#notationLegend"
+            "#sigmlAnnotated"
           ]
         },
         {
@@ -4471,25 +4512,7 @@
             }
           ],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
-          "target": [
-            "#notationTabHamnosys"
-          ]
-        },
-        {
-          "any": [],
-          "all": [],
-          "none": [
-            {
-              "id": "aria-prohibited-attr",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "ARIA attribute is allowed"
-            }
-          ],
-          "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
           "target": [
             "#notationTabSigml"
           ]
@@ -4507,9 +4530,9 @@
             }
           ],
           "impact": null,
-          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelHamnosys\" role=\"tabpanel\" aria-labelledby=\"notationTabHamnosys\">",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
           "target": [
-            "#notationPanelHamnosys"
+            "#notationTabHamnosys"
           ]
         },
         {
@@ -4525,9 +4548,9 @@
             }
           ],
           "impact": null,
-          "html": "<div class=\"notation-hamnosys-display is-font-missing\" id=\"hamnosysDisplay\" role=\"img\" aria-label=\"HamNoSys notation with three symbols\" aria-live=\"polite\" tabindex=\"0\"></div>",
+          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelSigml\" role=\"tabpanel\" aria-labelledby=\"notationTabSigml\">",
           "target": [
-            "#hamnosysDisplay"
+            "#notationPanelSigml"
           ]
         },
         {
@@ -4543,9 +4566,9 @@
             }
           ],
           "impact": null,
-          "html": "<div class=\"notation-legend\" id=\"notationLegend\" role=\"group\" aria-label=\"Symbol legend\">",
+          "html": "<div class=\"sigml-annotated\" id=\"sigmlAnnotated\" role=\"group\" aria-label=\"Annotated SiGML editor\" aria-live=\"polite\"><p class=\"sigml-annotated-empty field-hint\">No SiGML yet — describe the sign and the model will draft one.</p></div>",
           "target": [
-            "#notationLegend"
+            "#sigmlAnnotated"
           ]
         },
         {
@@ -4813,25 +4836,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
-          "target": [
-            "#notationTabHamnosys"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "aria-required-attr",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "All required ARIA attributes are present"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
           "target": [
             "#notationTabSigml"
           ]
@@ -4849,9 +4854,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelHamnosys\" role=\"tabpanel\" aria-labelledby=\"notationTabHamnosys\">",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
           "target": [
-            "#notationPanelHamnosys"
+            "#notationTabHamnosys"
           ]
         },
         {
@@ -4867,9 +4872,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-hamnosys-display is-font-missing\" id=\"hamnosysDisplay\" role=\"img\" aria-label=\"HamNoSys notation with three symbols\" aria-live=\"polite\" tabindex=\"0\"></div>",
+          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelSigml\" role=\"tabpanel\" aria-labelledby=\"notationTabSigml\">",
           "target": [
-            "#hamnosysDisplay"
+            "#notationPanelSigml"
           ]
         },
         {
@@ -4885,9 +4890,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-legend\" id=\"notationLegend\" role=\"group\" aria-label=\"Symbol legend\">",
+          "html": "<div class=\"sigml-annotated\" id=\"sigmlAnnotated\" role=\"group\" aria-label=\"Annotated SiGML editor\" aria-live=\"polite\"><p class=\"sigml-annotated-empty field-hint\">No SiGML yet — describe the sign and the model will draft one.</p></div>",
           "target": [
-            "#notationLegend"
+            "#sigmlAnnotated"
           ]
         },
         {
@@ -5011,9 +5016,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
           "target": [
-            "#notationTabHamnosys"
+            "#notationTabSigml"
           ]
         },
         {
@@ -5029,9 +5034,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
           "target": [
-            "#notationTabSigml"
+            "#notationTabHamnosys"
           ]
         }
       ]
@@ -5303,39 +5308,7 @@
             }
           ],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
-          "target": [
-            "#notationTabHamnosys"
-          ]
-        },
-        {
-          "any": [],
-          "all": [],
-          "none": [
-            {
-              "id": "invalidrole",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "ARIA role is valid"
-            },
-            {
-              "id": "abstractrole",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "Abstract roles are not used"
-            },
-            {
-              "id": "unsupportedrole",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "ARIA role is supported"
-            }
-          ],
-          "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
           "target": [
             "#notationTabSigml"
           ]
@@ -5367,9 +5340,9 @@
             }
           ],
           "impact": null,
-          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelHamnosys\" role=\"tabpanel\" aria-labelledby=\"notationTabHamnosys\">",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
           "target": [
-            "#notationPanelHamnosys"
+            "#notationTabHamnosys"
           ]
         },
         {
@@ -5399,9 +5372,9 @@
             }
           ],
           "impact": null,
-          "html": "<div class=\"notation-hamnosys-display is-font-missing\" id=\"hamnosysDisplay\" role=\"img\" aria-label=\"HamNoSys notation with three symbols\" aria-live=\"polite\" tabindex=\"0\"></div>",
+          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelSigml\" role=\"tabpanel\" aria-labelledby=\"notationTabSigml\">",
           "target": [
-            "#hamnosysDisplay"
+            "#notationPanelSigml"
           ]
         },
         {
@@ -5431,9 +5404,9 @@
             }
           ],
           "impact": null,
-          "html": "<div class=\"notation-legend\" id=\"notationLegend\" role=\"group\" aria-label=\"Symbol legend\">",
+          "html": "<div class=\"sigml-annotated\" id=\"sigmlAnnotated\" role=\"group\" aria-label=\"Annotated SiGML editor\" aria-live=\"polite\"><p class=\"sigml-annotated-empty field-hint\">No SiGML yet — describe the sign and the model will draft one.</p></div>",
           "target": [
-            "#notationLegend"
+            "#sigmlAnnotated"
           ]
         },
         {
@@ -6313,39 +6286,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
-          "target": [
-            "#notationTabHamnosys"
-          ]
-        },
-        {
-          "any": [],
-          "all": [
-            {
-              "id": "aria-valid-attr-value",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "ARIA attribute values are valid"
-            },
-            {
-              "id": "aria-errormessage",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "aria-errormessage exists and references elements visible to screen readers that use a supported aria-errormessage technique"
-            },
-            {
-              "id": "aria-level",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "aria-level values are valid"
-            }
-          ],
-          "none": [],
-          "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
           "target": [
             "#notationTabSigml"
           ]
@@ -6377,9 +6318,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelHamnosys\" role=\"tabpanel\" aria-labelledby=\"notationTabHamnosys\">",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
           "target": [
-            "#notationPanelHamnosys"
+            "#notationTabHamnosys"
           ]
         },
         {
@@ -6409,9 +6350,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-hamnosys-display is-font-missing\" id=\"hamnosysDisplay\" role=\"img\" aria-label=\"HamNoSys notation with three symbols\" aria-live=\"polite\" tabindex=\"0\"></div>",
+          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelSigml\" role=\"tabpanel\" aria-labelledby=\"notationTabSigml\">",
           "target": [
-            "#hamnosysDisplay"
+            "#notationPanelSigml"
           ]
         },
         {
@@ -6441,9 +6382,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-legend\" id=\"notationLegend\" role=\"group\" aria-label=\"Symbol legend\">",
+          "html": "<div class=\"sigml-annotated\" id=\"sigmlAnnotated\" role=\"group\" aria-label=\"Annotated SiGML editor\" aria-live=\"polite\"><p class=\"sigml-annotated-empty field-hint\">No SiGML yet — describe the sign and the model will draft one.</p></div>",
           "target": [
-            "#notationLegend"
+            "#sigmlAnnotated"
           ]
         },
         {
@@ -7083,25 +7024,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
-          "target": [
-            "#notationTabHamnosys"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "aria-valid-attr",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "ARIA attribute name is valid"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
           "target": [
             "#notationTabSigml"
           ]
@@ -7119,9 +7042,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelHamnosys\" role=\"tabpanel\" aria-labelledby=\"notationTabHamnosys\">",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
           "target": [
-            "#notationPanelHamnosys"
+            "#notationTabHamnosys"
           ]
         },
         {
@@ -7137,9 +7060,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-hamnosys-display is-font-missing\" id=\"hamnosysDisplay\" role=\"img\" aria-label=\"HamNoSys notation with three symbols\" aria-live=\"polite\" tabindex=\"0\"></div>",
+          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelSigml\" role=\"tabpanel\" aria-labelledby=\"notationTabSigml\">",
           "target": [
-            "#hamnosysDisplay"
+            "#notationPanelSigml"
           ]
         },
         {
@@ -7155,9 +7078,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-legend\" id=\"notationLegend\" role=\"group\" aria-label=\"Symbol legend\">",
+          "html": "<div class=\"sigml-annotated\" id=\"sigmlAnnotated\" role=\"group\" aria-label=\"Annotated SiGML editor\" aria-live=\"polite\"><p class=\"sigml-annotated-empty field-hint\">No SiGML yet — describe the sign and the model will draft one.</p></div>",
           "target": [
-            "#notationLegend"
+            "#sigmlAnnotated"
           ]
         },
         {
@@ -7584,25 +7507,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
-          "target": [
-            "#notationTabHamnosys"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "button-has-visible-text",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "Element has inner text that is visible to screen readers"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
           "target": [
             "#notationTabSigml"
           ]
@@ -7620,9 +7525,63 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" class=\"btn btn-secondary notation-copy-btn\" id=\"copyHamnosysBtn\" data-i18n=\"contribute.notation.copy_hamnosys\" disabled=\"\">Copy HamNoSys</button>",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
           "target": [
-            "#copyHamnosysBtn"
+            "#notationTabHamnosys"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "button-has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Element has inner text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"btn btn-secondary notation-copy-btn\" id=\"copySigmlBtn\" data-i18n=\"contribute.notation.copy_sigml\" disabled=\"\">Copy SiGML</button>",
+          "target": [
+            "#copySigmlBtn"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "button-has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Element has inner text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"btn btn-secondary notation-download-btn\" id=\"downloadSigmlBtn\" data-i18n=\"contribute.notation.download_sigml\" disabled=\"\">Download .sigml</button>",
+          "target": [
+            "#downloadSigmlBtn"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "button-has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Element has inner text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"btn btn-secondary notation-edit-btn\" id=\"sigmlEditBtn\" data-i18n=\"contribute.notation.edit_sigml\" disabled=\"\">Edit raw XML</button>",
+          "target": [
+            "#sigmlEditBtn"
           ]
         },
         {
@@ -7843,7 +7802,7 @@
     },
     {
       "id": "color-contrast",
-      "impact": "serious",
+      "impact": null,
       "tags": [
         "cat.color",
         "wcag2aa",
@@ -8915,7 +8874,32 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
+          "target": [
+            "#notationTabSigml"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#5e5c57",
+                "bgColor": "#ffffff",
+                "contrastRatio": 6.67,
+                "fontSize": "9.8pt (13px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 6.67"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
           "target": [
             "#notationTabHamnosys"
           ]
@@ -8928,21 +8912,46 @@
                 "fgColor": "#5e5c57",
                 "bgColor": "#ffffff",
                 "contrastRatio": 6.67,
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 6.67"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"notation-sigml-help field-hint\">\n            Each tag below is one phonological slot of the sign. Click any\n            tag to see its meaning and pick a different option from the\n            same category — the preview re-renders with your choice.\n          </p>",
+          "target": [
+            ".notation-sigml-help"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#3d3630",
+                "bgColor": "#ede8e0",
+                "contrastRatio": 9.73,
                 "fontSize": "9.8pt (13px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 6.67"
+              "message": "Element has sufficient color contrast of 9.73"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
+          "html": "<p class=\"sigml-annotated-empty field-hint\">No SiGML yet — describe the sign and the model will draft one.</p>",
           "target": [
-            "#notationTabSigml"
+            ".sigml-annotated-empty"
           ]
         },
         {
@@ -8950,24 +8959,19 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#5e5c57",
-                "bgColor": "#f5f1eb",
-                "contrastRatio": 5.93,
-                "fontSize": "8.3pt (11px)",
-                "fontWeight": "normal",
-                "expectedContrastRatio": "4.5:1"
+                "messageKey": "hidden"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 5.93"
+              "message": "Element is hidden"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"notation-legend-title field-label\" data-i18n=\"contribute.notation.legend_title\">Symbol</p>",
+          "html": "<input type=\"search\" class=\"sigml-picker-search field-input\" id=\"sigmlPickerSearch\" placeholder=\"Filter…\" autocomplete=\"off\" spellcheck=\"false\" aria-label=\"Filter tag options\">",
           "target": [
-            ".notation-legend-title"
+            "#sigmlPickerSearch"
           ]
         },
         {
@@ -8975,124 +8979,24 @@
             {
               "id": "color-contrast",
               "data": {
-                "fgColor": "#5e5c57",
-                "bgColor": "#f5f1eb",
-                "contrastRatio": 5.93,
+                "fgColor": "#3d3630",
+                "bgColor": "#ffffff",
+                "contrastRatio": 11.87,
                 "fontSize": "9.8pt (13px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 5.93"
+              "message": "Element has sufficient color contrast of 11.87"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"notation-legend-class\" id=\"legendClass\" data-i18n=\"contribute.notation.legend_default_class\">Hover or tap a glyph</p>",
+          "html": "<summary class=\"kz-link\">Show raw SiGML source</summary>",
           "target": [
-            "#legendClass"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "color-contrast",
-              "data": {
-                "fgColor": "#5e5c57",
-                "bgColor": "#ffffff",
-                "contrastRatio": 6.67,
-                "fontSize": "9.0pt (12px)",
-                "fontWeight": "normal",
-                "expectedContrastRatio": "4.5:1"
-              },
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Element has sufficient color contrast of 6.67"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<dt data-i18n=\"contribute.notation.breakdown_handshape\">Handshape</dt>",
-          "target": [
-            ".notation-breakdown-row:nth-child(1) > dt"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "color-contrast",
-              "data": {
-                "fgColor": "#5e5c57",
-                "bgColor": "#ffffff",
-                "contrastRatio": 6.67,
-                "fontSize": "9.0pt (12px)",
-                "fontWeight": "normal",
-                "expectedContrastRatio": "4.5:1"
-              },
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Element has sufficient color contrast of 6.67"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<dt data-i18n=\"contribute.notation.breakdown_orientation\">Orientation</dt>",
-          "target": [
-            ".notation-breakdown-row:nth-child(2) > dt"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "color-contrast",
-              "data": {
-                "fgColor": "#5e5c57",
-                "bgColor": "#ffffff",
-                "contrastRatio": 6.67,
-                "fontSize": "9.0pt (12px)",
-                "fontWeight": "normal",
-                "expectedContrastRatio": "4.5:1"
-              },
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Element has sufficient color contrast of 6.67"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<dt data-i18n=\"contribute.notation.breakdown_location\">Location</dt>",
-          "target": [
-            ".notation-breakdown-row:nth-child(3) > dt"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "color-contrast",
-              "data": {
-                "fgColor": "#5e5c57",
-                "bgColor": "#ffffff",
-                "contrastRatio": 6.67,
-                "fontSize": "9.0pt (12px)",
-                "fontWeight": "normal",
-                "expectedContrastRatio": "4.5:1"
-              },
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Element has sufficient color contrast of 6.67"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<dt data-i18n=\"contribute.notation.breakdown_movement\">Movement</dt>",
-          "target": [
-            ".notation-breakdown-row:nth-child(4) > dt"
+            ".sigml-source-details > summary"
           ]
         },
         {
@@ -10038,211 +9942,6 @@
       ]
     },
     {
-      "id": "definition-list",
-      "impact": null,
-      "tags": [
-        "cat.structure",
-        "wcag2a",
-        "wcag131",
-        "EN-301-549",
-        "EN-9.1.3.1",
-        "RGAAv4",
-        "RGAA-9.3.3"
-      ],
-      "description": "Ensure <dl> elements are structured correctly",
-      "help": "<dl> elements must only directly contain properly-ordered <dt> and <dd> groups, <script>, <template> or <div> elements",
-      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/definition-list?application=axe-puppeteer",
-      "nodes": [
-        {
-          "any": [],
-          "all": [],
-          "none": [
-            {
-              "id": "structured-dlitems",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "When not empty, element has both <dt> and <dd> elements"
-            },
-            {
-              "id": "only-dlitems",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "dl element only has direct children that are allowed inside; <dt>, <dd>, or <div> elements"
-            }
-          ],
-          "impact": null,
-          "html": "<dl class=\"notation-breakdown\" id=\"notationBreakdown\">",
-          "target": [
-            "#notationBreakdown"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "dlitem",
-      "impact": null,
-      "tags": [
-        "cat.structure",
-        "wcag2a",
-        "wcag131",
-        "EN-301-549",
-        "EN-9.1.3.1",
-        "RGAAv4",
-        "RGAA-9.3.3"
-      ],
-      "description": "Ensure <dt> and <dd> elements are contained by a <dl>",
-      "help": "<dt> and <dd> elements must be contained by a <dl>",
-      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/dlitem?application=axe-puppeteer",
-      "nodes": [
-        {
-          "any": [
-            {
-              "id": "dlitem",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Description list item has a <dl> parent element"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<dt data-i18n=\"contribute.notation.breakdown_handshape\">Handshape</dt>",
-          "target": [
-            ".notation-breakdown-row:nth-child(1) > dt"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "dlitem",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Description list item has a <dl> parent element"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<dd id=\"breakdownHandshape\">—</dd>",
-          "target": [
-            "#breakdownHandshape"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "dlitem",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Description list item has a <dl> parent element"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<dt data-i18n=\"contribute.notation.breakdown_orientation\">Orientation</dt>",
-          "target": [
-            ".notation-breakdown-row:nth-child(2) > dt"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "dlitem",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Description list item has a <dl> parent element"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<dd id=\"breakdownOrientation\">—</dd>",
-          "target": [
-            "#breakdownOrientation"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "dlitem",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Description list item has a <dl> parent element"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<dt data-i18n=\"contribute.notation.breakdown_location\">Location</dt>",
-          "target": [
-            ".notation-breakdown-row:nth-child(3) > dt"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "dlitem",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Description list item has a <dl> parent element"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<dd id=\"breakdownLocation\">—</dd>",
-          "target": [
-            "#breakdownLocation"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "dlitem",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Description list item has a <dl> parent element"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<dt data-i18n=\"contribute.notation.breakdown_movement\">Movement</dt>",
-          "target": [
-            ".notation-breakdown-row:nth-child(4) > dt"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "dlitem",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Description list item has a <dl> parent element"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<dd id=\"breakdownMovement\">—</dd>",
-          "target": [
-            "#breakdownMovement"
-          ]
-        }
-      ]
-    },
-    {
       "id": "document-title",
       "impact": null,
       "tags": [
@@ -10589,24 +10288,6 @@
           "any": [
             {
               "id": "duplicate-id-aria",
-              "data": "notationTabHamnosys",
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
-          "target": [
-            "#notationTabHamnosys"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "duplicate-id-aria",
               "data": "notationTabSigml",
               "relatedNodes": [],
               "impact": "critical",
@@ -10616,9 +10297,27 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
           "target": [
             "#notationTabSigml"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "notationTabHamnosys",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
+          "target": [
+            "#notationTabHamnosys"
           ]
         },
         {
@@ -10634,7 +10333,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelHamnosys\" role=\"tabpanel\" aria-labelledby=\"notationTabHamnosys\">",
+          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelHamnosys\" role=\"tabpanel\" aria-labelledby=\"notationTabHamnosys\" hidden=\"\">",
           "target": [
             "#notationPanelHamnosys"
           ]
@@ -10652,7 +10351,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelSigml\" role=\"tabpanel\" aria-labelledby=\"notationTabSigml\" hidden=\"\">",
+          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelSigml\" role=\"tabpanel\" aria-labelledby=\"notationTabSigml\">",
           "target": [
             "#notationPanelSigml"
           ]
@@ -13129,7 +12828,7 @@
           "impact": null,
           "html": "<summary class=\"byo-key-summary\">\n        <span class=\"byo-key-summary-text\">Use your own OpenAI API key (optional)</span>\n      </summary>",
           "target": [
-            "summary"
+            ".byo-key-summary"
           ]
         },
         {
@@ -13343,25 +13042,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
-          "target": [
-            "#notationTabHamnosys"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "no-focusable-content",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Element does not have focusable descendants"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
           "target": [
             "#notationTabSigml"
           ]
@@ -13379,9 +13060,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-hamnosys-display is-font-missing\" id=\"hamnosysDisplay\" role=\"img\" aria-label=\"HamNoSys notation with three symbols\" aria-live=\"polite\" tabindex=\"0\"></div>",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
           "target": [
-            "#hamnosysDisplay"
+            "#notationTabHamnosys"
           ]
         },
         {
@@ -13397,9 +13078,63 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" class=\"btn btn-secondary notation-copy-btn\" id=\"copyHamnosysBtn\" data-i18n=\"contribute.notation.copy_hamnosys\" disabled=\"\">Copy HamNoSys</button>",
+          "html": "<summary class=\"kz-link\">Show raw SiGML source</summary>",
           "target": [
-            "#copyHamnosysBtn"
+            ".sigml-source-details > summary"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "no-focusable-content",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element does not have focusable descendants"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"btn btn-secondary notation-copy-btn\" id=\"copySigmlBtn\" data-i18n=\"contribute.notation.copy_sigml\" disabled=\"\">Copy SiGML</button>",
+          "target": [
+            "#copySigmlBtn"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "no-focusable-content",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element does not have focusable descendants"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"btn btn-secondary notation-download-btn\" id=\"downloadSigmlBtn\" data-i18n=\"contribute.notation.download_sigml\" disabled=\"\">Download .sigml</button>",
+          "target": [
+            "#downloadSigmlBtn"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "no-focusable-content",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element does not have focusable descendants"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"btn btn-secondary notation-edit-btn\" id=\"sigmlEditBtn\" data-i18n=\"contribute.notation.edit_sigml\" disabled=\"\">Edit raw XML</button>",
+          "target": [
+            "#sigmlEditBtn"
           ]
         },
         {
@@ -13942,7 +13677,7 @@
           "impact": null,
           "html": "<details class=\"byo-key card kz-card\">",
           "target": [
-            "details"
+            ".byo-key"
           ]
         },
         {
@@ -13962,7 +13697,7 @@
           "impact": null,
           "html": "<summary class=\"byo-key-summary\">\n        <span class=\"byo-key-summary-text\">Use your own OpenAI API key (optional)</span>\n      </summary>",
           "target": [
-            "summary"
+            ".byo-key-summary"
           ]
         },
         {
@@ -15280,27 +15015,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
-          "target": [
-            "#notationTabHamnosys"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "region",
-              "data": {
-                "isIframe": false
-              },
-              "relatedNodes": [],
-              "impact": "moderate",
-              "message": "All page content is contained by landmarks"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
           "target": [
             "#notationTabSigml"
           ]
@@ -15320,9 +15035,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelHamnosys\" role=\"tabpanel\" aria-labelledby=\"notationTabHamnosys\">",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
           "target": [
-            "#notationPanelHamnosys"
+            "#notationTabHamnosys"
           ]
         },
         {
@@ -15340,9 +15055,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-hamnosys-layout\">",
+          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelSigml\" role=\"tabpanel\" aria-labelledby=\"notationTabSigml\">",
           "target": [
-            ".notation-hamnosys-layout"
+            "#notationPanelSigml"
           ]
         },
         {
@@ -15360,9 +15075,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-hamnosys-main\">",
+          "html": "<p class=\"notation-sigml-help field-hint\">\n            Each tag below is one phonological slot of the sign. Click any\n            tag to see its meaning and pick a different option from the\n            same category — the preview re-renders with your choice.\n          </p>",
           "target": [
-            ".notation-hamnosys-main"
+            ".notation-sigml-help"
           ]
         },
         {
@@ -15380,9 +15095,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-hamnosys-display is-font-missing\" id=\"hamnosysDisplay\" role=\"img\" aria-label=\"HamNoSys notation with three symbols\" aria-live=\"polite\" tabindex=\"0\"></div>",
+          "html": "<div class=\"sigml-annotated\" id=\"sigmlAnnotated\" role=\"group\" aria-label=\"Annotated SiGML editor\" aria-live=\"polite\"><p class=\"sigml-annotated-empty field-hint\">No SiGML yet — describe the sign and the model will draft one.</p></div>",
           "target": [
-            "#hamnosysDisplay"
+            "#sigmlAnnotated"
           ]
         },
         {
@@ -15400,9 +15115,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-legend\" id=\"notationLegend\" role=\"group\" aria-label=\"Symbol legend\">",
+          "html": "<p class=\"sigml-annotated-empty field-hint\">No SiGML yet — describe the sign and the model will draft one.</p>",
           "target": [
-            "#notationLegend"
+            ".sigml-annotated-empty"
           ]
         },
         {
@@ -15420,9 +15135,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"notation-legend-title field-label\" data-i18n=\"contribute.notation.legend_title\">Symbol</p>",
+          "html": "<details class=\"sigml-source-details\">\n            <summary class=\"kz-link\">Show raw SiGML source</summary>\n            <pre class=\"notation-sigml\" id=\"sigmlDisplay\" role=\"region\" aria-label=\"SiGML source code\" tabindex=\"0\"><code id=\"sigmlCode\"></code></pre>\n          </details>",
           "target": [
-            ".notation-legend-title"
+            ".sigml-source-details"
           ]
         },
         {
@@ -15440,309 +15155,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"notation-legend-code\" id=\"legendCode\">—</p>",
+          "html": "<summary class=\"kz-link\">Show raw SiGML source</summary>",
           "target": [
-            "#legendCode"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "region",
-              "data": {
-                "isIframe": false
-              },
-              "relatedNodes": [],
-              "impact": "moderate",
-              "message": "All page content is contained by landmarks"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<p class=\"notation-legend-class\" id=\"legendClass\" data-i18n=\"contribute.notation.legend_default_class\">Hover or tap a glyph</p>",
-          "target": [
-            "#legendClass"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "region",
-              "data": {
-                "isIframe": false
-              },
-              "relatedNodes": [],
-              "impact": "moderate",
-              "message": "All page content is contained by landmarks"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<p class=\"notation-legend-name\" id=\"legendName\"></p>",
-          "target": [
-            "#legendName"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "region",
-              "data": {
-                "isIframe": false
-              },
-              "relatedNodes": [],
-              "impact": "moderate",
-              "message": "All page content is contained by landmarks"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<dl class=\"notation-breakdown\" id=\"notationBreakdown\">",
-          "target": [
-            "#notationBreakdown"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "region",
-              "data": {
-                "isIframe": false
-              },
-              "relatedNodes": [],
-              "impact": "moderate",
-              "message": "All page content is contained by landmarks"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<div class=\"notation-breakdown-row\">\n              <dt data-i18n=\"contribute.notation.breakdown_handshape\">Handshape</dt>\n              <dd id=\"breakdownHandshape\">—</dd>\n            </div>",
-          "target": [
-            ".notation-breakdown-row:nth-child(1)"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "region",
-              "data": {
-                "isIframe": false
-              },
-              "relatedNodes": [],
-              "impact": "moderate",
-              "message": "All page content is contained by landmarks"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<dt data-i18n=\"contribute.notation.breakdown_handshape\">Handshape</dt>",
-          "target": [
-            ".notation-breakdown-row:nth-child(1) > dt"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "region",
-              "data": {
-                "isIframe": false
-              },
-              "relatedNodes": [],
-              "impact": "moderate",
-              "message": "All page content is contained by landmarks"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<dd id=\"breakdownHandshape\">—</dd>",
-          "target": [
-            "#breakdownHandshape"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "region",
-              "data": {
-                "isIframe": false
-              },
-              "relatedNodes": [],
-              "impact": "moderate",
-              "message": "All page content is contained by landmarks"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<div class=\"notation-breakdown-row\">\n              <dt data-i18n=\"contribute.notation.breakdown_orientation\">Orientation</dt>\n              <dd id=\"breakdownOrientation\">—</dd>\n            </div>",
-          "target": [
-            ".notation-breakdown-row:nth-child(2)"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "region",
-              "data": {
-                "isIframe": false
-              },
-              "relatedNodes": [],
-              "impact": "moderate",
-              "message": "All page content is contained by landmarks"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<dt data-i18n=\"contribute.notation.breakdown_orientation\">Orientation</dt>",
-          "target": [
-            ".notation-breakdown-row:nth-child(2) > dt"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "region",
-              "data": {
-                "isIframe": false
-              },
-              "relatedNodes": [],
-              "impact": "moderate",
-              "message": "All page content is contained by landmarks"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<dd id=\"breakdownOrientation\">—</dd>",
-          "target": [
-            "#breakdownOrientation"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "region",
-              "data": {
-                "isIframe": false
-              },
-              "relatedNodes": [],
-              "impact": "moderate",
-              "message": "All page content is contained by landmarks"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<div class=\"notation-breakdown-row\">\n              <dt data-i18n=\"contribute.notation.breakdown_location\">Location</dt>\n              <dd id=\"breakdownLocation\">—</dd>\n            </div>",
-          "target": [
-            ".notation-breakdown-row:nth-child(3)"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "region",
-              "data": {
-                "isIframe": false
-              },
-              "relatedNodes": [],
-              "impact": "moderate",
-              "message": "All page content is contained by landmarks"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<dt data-i18n=\"contribute.notation.breakdown_location\">Location</dt>",
-          "target": [
-            ".notation-breakdown-row:nth-child(3) > dt"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "region",
-              "data": {
-                "isIframe": false
-              },
-              "relatedNodes": [],
-              "impact": "moderate",
-              "message": "All page content is contained by landmarks"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<dd id=\"breakdownLocation\">—</dd>",
-          "target": [
-            "#breakdownLocation"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "region",
-              "data": {
-                "isIframe": false
-              },
-              "relatedNodes": [],
-              "impact": "moderate",
-              "message": "All page content is contained by landmarks"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<div class=\"notation-breakdown-row\">\n              <dt data-i18n=\"contribute.notation.breakdown_movement\">Movement</dt>\n              <dd id=\"breakdownMovement\">—</dd>\n            </div>",
-          "target": [
-            ".notation-breakdown-row:nth-child(4)"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "region",
-              "data": {
-                "isIframe": false
-              },
-              "relatedNodes": [],
-              "impact": "moderate",
-              "message": "All page content is contained by landmarks"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<dt data-i18n=\"contribute.notation.breakdown_movement\">Movement</dt>",
-          "target": [
-            ".notation-breakdown-row:nth-child(4) > dt"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "region",
-              "data": {
-                "isIframe": false
-              },
-              "relatedNodes": [],
-              "impact": "moderate",
-              "message": "All page content is contained by landmarks"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<dd id=\"breakdownMovement\">—</dd>",
-          "target": [
-            "#breakdownMovement"
+            ".sigml-source-details > summary"
           ]
         },
         {
@@ -15762,7 +15177,7 @@
           "impact": null,
           "html": "<div class=\"notation-actions\">",
           "target": [
-            "#notationPanelHamnosys > .notation-actions"
+            "#notationPanelSigml > .notation-actions"
           ]
         },
         {
@@ -15780,9 +15195,49 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" class=\"btn btn-secondary notation-copy-btn\" id=\"copyHamnosysBtn\" data-i18n=\"contribute.notation.copy_hamnosys\" disabled=\"\">Copy HamNoSys</button>",
+          "html": "<button type=\"button\" class=\"btn btn-secondary notation-copy-btn\" id=\"copySigmlBtn\" data-i18n=\"contribute.notation.copy_sigml\" disabled=\"\">Copy SiGML</button>",
           "target": [
-            "#copyHamnosysBtn"
+            "#copySigmlBtn"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"btn btn-secondary notation-download-btn\" id=\"downloadSigmlBtn\" data-i18n=\"contribute.notation.download_sigml\" disabled=\"\">Download .sigml</button>",
+          "target": [
+            "#downloadSigmlBtn"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"btn btn-secondary notation-edit-btn\" id=\"sigmlEditBtn\" data-i18n=\"contribute.notation.edit_sigml\" disabled=\"\">Edit raw XML</button>",
+          "target": [
+            "#sigmlEditBtn"
           ]
         },
         {
@@ -17168,47 +16623,6 @@
       ]
     },
     {
-      "id": "role-img-alt",
-      "impact": null,
-      "tags": [
-        "cat.text-alternatives",
-        "wcag2a",
-        "wcag111",
-        "section508",
-        "section508.22.a",
-        "TTv5",
-        "TT7.a",
-        "EN-301-549",
-        "EN-9.1.1.1",
-        "ACT",
-        "RGAAv4",
-        "RGAA-1.1.1"
-      ],
-      "description": "Ensure [role=\"img\"] elements have alternative text",
-      "help": "[role=\"img\"] elements must have alternative text",
-      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/role-img-alt?application=axe-puppeteer",
-      "nodes": [
-        {
-          "any": [
-            {
-              "id": "aria-label",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "aria-label attribute exists and is not empty"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<div class=\"notation-hamnosys-display is-font-missing\" id=\"hamnosysDisplay\" role=\"img\" aria-label=\"HamNoSys notation with three symbols\" aria-live=\"polite\" tabindex=\"0\"></div>",
-          "target": [
-            "#hamnosysDisplay"
-          ]
-        }
-      ]
-    },
-    {
       "id": "scrollable-region-focusable",
       "impact": null,
       "tags": [
@@ -17332,7 +16746,25 @@
           "impact": null,
           "html": "<summary class=\"byo-key-summary\">\n        <span class=\"byo-key-summary-text\">Use your own OpenAI API key (optional)</span>\n      </summary>",
           "target": [
-            "summary"
+            ".byo-key-summary"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<summary class=\"kz-link\">Show raw SiGML source</summary>",
+          "target": [
+            ".sigml-source-details > summary"
           ]
         }
       ]
@@ -17361,27 +16793,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
           "target": [
-            "#notationTabSigml"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "tabindex",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Element does not have a tabindex greater than 0"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<div class=\"notation-hamnosys-display is-font-missing\" id=\"hamnosysDisplay\" role=\"img\" aria-label=\"HamNoSys notation with three symbols\" aria-live=\"polite\" tabindex=\"0\"></div>",
-          "target": [
-            "#hamnosysDisplay"
+            "#notationTabHamnosys"
           ]
         }
       ]
@@ -17619,7 +17033,7 @@
           "impact": null,
           "html": "<summary class=\"byo-key-summary\">\n        <span class=\"byo-key-summary-text\">Use your own OpenAI API key (optional)</span>\n      </summary>",
           "target": [
-            "summary"
+            ".byo-key-summary"
           ]
         },
         {
@@ -17925,12 +17339,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 99.9,
+                "width": 71.8,
                 "height": 35
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (99.9px by 35px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (71.8px by 35px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -17946,9 +17360,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
           "target": [
-            "#notationTabHamnosys"
+            "#notationTabSigml"
           ]
         },
         {
@@ -17957,12 +17371,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 70.9,
+                "width": 98.4,
                 "height": 35
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (70.9px by 35px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (98.4px by 35px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -17978,9 +17392,30 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
           "target": [
-            "#notationTabSigml"
+            "#notationTabHamnosys"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "target-offset",
+              "data": {
+                "closestOffset": 24,
+                "minOffset": 24
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Target has sufficient space from its closest neighbors. Safe clickable space has a diameter of 24px which is at least 24px."
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<summary class=\"kz-link\">Show raw SiGML source</summary>",
+          "target": [
+            ".sigml-source-details > summary"
           ]
         },
         {
@@ -18331,48 +17766,6 @@
             "#contextStrip"
           ],
           "failureSummary": "Fix all of the following:\n  aria-label attribute is not well supported on a div with no valid role attribute."
-        }
-      ]
-    },
-    {
-      "id": "color-contrast",
-      "impact": "serious",
-      "tags": [
-        "cat.color",
-        "wcag2aa",
-        "wcag143",
-        "TTv5",
-        "TT13.c",
-        "EN-301-549",
-        "EN-9.1.4.3",
-        "ACT",
-        "RGAAv4",
-        "RGAA-3.2.1"
-      ],
-      "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
-      "help": "Elements must meet minimum color contrast ratio thresholds",
-      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/color-contrast?application=axe-puppeteer",
-      "nodes": [
-        {
-          "any": [
-            {
-              "id": "color-contrast",
-              "data": {
-                "messageKey": "nonBmp"
-              },
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Element content contains only non-text characters"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": "serious",
-          "html": "<div class=\"notation-hamnosys-display is-font-missing\" id=\"hamnosysDisplay\" role=\"img\" aria-label=\"HamNoSys notation with three symbols\" aria-live=\"polite\" tabindex=\"0\"></div>",
-          "target": [
-            "#hamnosysDisplay"
-          ],
-          "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
         }
       ]
     }

@@ -420,6 +420,22 @@ _SYMBOLS_PAYLOAD: dict[str, Any] = _build_symbols_payload()
 _SYMBOLS_ETAG: str = f'"hamnosys-4-0-{_SYMBOLS_PAYLOAD["count"]}"'
 
 
+def _build_sigml_reference_payload() -> dict[str, Any]:
+    """Cached SiGML reference catalog for the contribute UI's annotated
+    editor + LLM-prompt audit. See ``generator.sigml_reference``.
+    """
+    from generator.sigml_reference import get_catalog
+    payload = get_catalog()
+    payload["schema_version"] = 1
+    return payload
+
+
+_SIGML_REFERENCE_PAYLOAD: dict[str, Any] = _build_sigml_reference_payload()
+_SIGML_REFERENCE_ETAG: str = (
+    f'"sigml-ref-1-{len(_SIGML_REFERENCE_PAYLOAD["entries"])}"'
+)
+
+
 # ---------------------------------------------------------------------------
 # Router — one APIRouter, mounted at /api/chat2hamnosys by the app layer.
 # ---------------------------------------------------------------------------
@@ -583,6 +599,35 @@ def get_hamnosys_symbols(
     if if_none_match and if_none_match.strip() == _SYMBOLS_ETAG:
         return JSONResponse(content=None, status_code=304, headers=headers)
     return JSONResponse(content=_SYMBOLS_PAYLOAD, headers=headers)
+
+
+@router.get(
+    "/reference/sigml",
+    summary="Full SiGML tag catalog with per-tag semantic roles",
+)
+def get_sigml_reference(
+    if_none_match: Optional[str] = Header(default=None, alias="If-None-Match"),
+) -> JSONResponse:
+    """Return the SiGML reference catalog the contribute UI uses for the
+    interactive annotated editor.
+
+    Each entry carries the canonical tag name, PUA codepoint, slot
+    category (handshape, palm direction, etc.), and a plain-English
+    role description. The frontend uses ``by_category`` to populate
+    the click-to-swap picker that appears next to each tag in a
+    sign's SiGML, so contributors can browse alternatives without
+    knowing the HamNoSys notation system.
+
+    Static for the life of the build — same caching as
+    ``/hamnosys/symbols``.
+    """
+    headers = {
+        "Cache-Control": "public, max-age=31536000, immutable",
+        "ETag":          _SIGML_REFERENCE_ETAG,
+    }
+    if if_none_match and if_none_match.strip() == _SIGML_REFERENCE_ETAG:
+        return JSONResponse(content=None, status_code=304, headers=headers)
+    return JSONResponse(content=_SIGML_REFERENCE_PAYLOAD, headers=headers)
 
 
 @router.post(

@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-25T00:49:59.590Z",
-  "url": "http://127.0.0.1:59942/contribute.html",
+  "timestamp": "2026-04-25T01:09:32.050Z",
+  "url": "http://127.0.0.1:60442/contribute.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -1524,25 +1524,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
-          "target": [
-            "#notationTabHamnosys"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "aria-allowed-role",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "minor",
-              "message": "ARIA role is allowed for given element"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
           "target": [
             "#notationTabSigml"
           ]
@@ -1560,7 +1542,25 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelHamnosys\" role=\"tabpanel\" aria-labelledby=\"notationTabHamnosys\">",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
+          "target": [
+            "#notationTabHamnosys"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-allowed-role",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is allowed for given element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelHamnosys\" role=\"tabpanel\" aria-labelledby=\"notationTabHamnosys\" hidden=\"\">",
           "target": [
             "#notationPanelHamnosys"
           ]
@@ -1650,9 +1650,63 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelSigml\" role=\"tabpanel\" aria-labelledby=\"notationTabSigml\" hidden=\"\">",
+          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelSigml\" role=\"tabpanel\" aria-labelledby=\"notationTabSigml\">",
           "target": [
             "#notationPanelSigml"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-allowed-role",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is allowed for given element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"sigml-annotated\" id=\"sigmlAnnotated\" role=\"group\" aria-label=\"Annotated SiGML editor\" aria-live=\"polite\"><p class=\"sigml-annotated-empty field-hint\">No SiGML yet — describe the sign and the model will draft one.</p></div>",
+          "target": [
+            "#sigmlAnnotated"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-allowed-role",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is allowed for given element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"sigml-picker\" id=\"sigmlPicker\" role=\"dialog\" aria-label=\"Choose alternative SiGML tag\" hidden=\"\">",
+          "target": [
+            "#sigmlPicker"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-allowed-role",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is allowed for given element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<ul class=\"sigml-picker-list\" id=\"sigmlPickerList\" role=\"listbox\"></ul>",
+          "target": [
+            "#sigmlPickerList"
           ]
         },
         {
@@ -4204,6 +4258,26 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<input type=\"search\" class=\"sigml-picker-search field-input\" id=\"sigmlPickerSearch\" placeholder=\"Filter…\" autocomplete=\"off\" spellcheck=\"false\" aria-label=\"Filter tag options\">",
+          "target": [
+            "#sigmlPickerSearch"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "messageKey": "hidden"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element is hidden"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<textarea class=\"notation-sigml-editor\" id=\"sigmlEditor\" aria-label=\"Edit SiGML source\" spellcheck=\"false\" autocomplete=\"off\" autocapitalize=\"off\" hidden=\"\"></textarea>",
           "target": [
             "#sigmlEditor"
@@ -5028,24 +5102,6 @@
           "any": [
             {
               "id": "duplicate-id-aria",
-              "data": "notationTabHamnosys",
-              "relatedNodes": [],
-              "impact": "critical",
-              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
-          "target": [
-            "#notationTabHamnosys"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "duplicate-id-aria",
               "data": "notationTabSigml",
               "relatedNodes": [],
               "impact": "critical",
@@ -5055,9 +5111,27 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabSigml\" class=\"notation-tab is-active\" aria-selected=\"true\" aria-controls=\"notationPanelSigml\" data-tab=\"sigml\" data-i18n=\"contribute.notation.tab_sigml\">SiGML</button>",
           "target": [
             "#notationTabSigml"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "notationTabHamnosys",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
+          "target": [
+            "#notationTabHamnosys"
           ]
         },
         {
@@ -5073,7 +5147,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelHamnosys\" role=\"tabpanel\" aria-labelledby=\"notationTabHamnosys\">",
+          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelHamnosys\" role=\"tabpanel\" aria-labelledby=\"notationTabHamnosys\" hidden=\"\">",
           "target": [
             "#notationPanelHamnosys"
           ]
@@ -5091,7 +5165,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelSigml\" role=\"tabpanel\" aria-labelledby=\"notationTabSigml\" hidden=\"\">",
+          "html": "<div class=\"notation-tabpanel\" id=\"notationPanelSigml\" role=\"tabpanel\" aria-labelledby=\"notationTabSigml\">",
           "target": [
             "#notationPanelSigml"
           ]
@@ -6806,7 +6880,7 @@
           "impact": null,
           "html": "<summary class=\"byo-key-summary\">\n        <span class=\"byo-key-summary-text\">Use your own OpenAI API key (optional)</span>\n      </summary>",
           "target": [
-            "summary"
+            ".byo-key-summary"
           ]
         },
         {
@@ -7331,7 +7405,7 @@
           "impact": null,
           "html": "<details class=\"byo-key card kz-card\">",
           "target": [
-            "details"
+            ".byo-key"
           ]
         },
         {
@@ -7351,7 +7425,7 @@
           "impact": null,
           "html": "<summary class=\"byo-key-summary\">\n        <span class=\"byo-key-summary-text\">Use your own OpenAI API key (optional)</span>\n      </summary>",
           "target": [
-            "summary"
+            ".byo-key-summary"
           ]
         },
         {
@@ -8540,7 +8614,7 @@
           "impact": null,
           "html": "<summary class=\"byo-key-summary\">\n        <span class=\"byo-key-summary-text\">Use your own OpenAI API key (optional)</span>\n      </summary>",
           "target": [
-            "summary"
+            ".byo-key-summary"
           ]
         }
       ]
@@ -8778,7 +8852,7 @@
           "impact": null,
           "html": "<summary class=\"byo-key-summary\">\n        <span class=\"byo-key-summary-text\">Use your own OpenAI API key (optional)</span>\n      </summary>",
           "target": [
-            "summary"
+            ".byo-key-summary"
           ]
         },
         {

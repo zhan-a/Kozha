@@ -338,11 +338,18 @@ def _build_prompt(
     previous_errors: list[str],
 ) -> tuple[str, str]:
     """Render the system + user message pair for the SiGML-direct call."""
+    from .sigml_reference import render_prompt_catalog
+
     meta = load_prompt(PROMPT_ID_SIGML_DIRECT)
     system = meta.render(sign_language=sign_language or "bsl")
 
     examples = few_shot_examples(gloss=gloss, n=6)
     examples_block = render_few_shot(examples) if examples else "(no examples available)"
+
+    # Cap large categories (locations 44, movements ~50) at 30 entries to
+    # stay within the prompt budget while keeping every option in the
+    # small categories (handshape 12, ext-finger 18, palm 8).
+    catalog_block = render_prompt_catalog(max_per_category=30)
 
     user_payload = {
         "gloss": gloss or "(unspecified)",
@@ -352,9 +359,16 @@ def _build_prompt(
         "previous_errors": previous_errors[:5],
     }
     user = (
-        "Reference BSL signs (use the same XML shape — self-closing "
-        "<ham*/> tags inside <hamnosys_manual>):\n\n"
+        "## Authoritative SiGML tag catalog\n\n"
+        "Every tag below is a real, validator-recognised SiGML element. "
+        "Do NOT emit tags that are not in this catalog — the renderer "
+        "will reject them. Each entry is `<tagname/> — semantic role`.\n\n"
+        f"{catalog_block}\n\n"
+        "## Reference BSL signs\n\n"
+        "Use the same XML shape as these examples — self-closing "
+        "<ham*/> tags inside <hamnosys_manual>:\n\n"
         f"{examples_block}\n\n"
+        "## Your task\n\n"
         "Now produce SiGML for the contributor's sign described below.\n"
         f"{json.dumps(user_payload, ensure_ascii=False, indent=2)}"
     )

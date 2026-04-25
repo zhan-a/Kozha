@@ -87,7 +87,7 @@
   var state = {
     symbolsByHex:        null,
     fetchingSymbols:     false,
-    activeTab:           'hamnosys',
+    activeTab:           'sigml',
     lastHamnosys:        null,
     lastSigml:           null,
     lastErrorKey:        '',
@@ -730,7 +730,7 @@
     els.downloadSig.disabled = true;
     if (els.sigmlEditBtn) els.sigmlEditBtn.disabled = true;
     els.display.setAttribute('aria-label', 'HamNoSys notation (not yet generated)');
-    setActiveTab('hamnosys');
+    setActiveTab('sigml');
   }
 
   function applySnapshot(snap) {
