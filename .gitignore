@@ -7,6 +7,7 @@
 prompts/
 !backend/chat2hamnosys/prompts/
 !docs/contrib-fix/prompts/
+!docs/translator-fix/prompts/
 backend/chat2hamnosys/prompts/eval_results/
 
 # runner scripts
