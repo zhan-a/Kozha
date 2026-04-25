@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-25T02:05:44.437Z",
-  "url": "http://127.0.0.1:61968/contribute.html",
+  "timestamp": "2026-04-25T02:30:20.463Z",
+  "url": "http://127.0.0.1:62468/contribute.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -3737,7 +3737,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<span class=\"language-badge-sep\" aria-hidden=\"true\"> — </span>",
+          "html": "<span class=\"language-badge-sep\" aria-hidden=\"true\"> · </span>",
           "target": [
             ".language-badge-sep"
           ]
@@ -6907,31 +6907,6 @@
           "html": "<button type=\"button\" class=\"btn btn-primary c2-hero__cta\" id=\"contributeOpenBtn\" aria-controls=\"contributeWorkspace\" aria-expanded=\"false\">\n            <span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">＋</span>\n            Open the contribution form\n          </button>",
           "target": [
             "#contributeOpenBtn"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "color-contrast",
-              "data": {
-                "fgColor": "#ffffff",
-                "bgColor": "#b3441b",
-                "contrastRatio": 5.58,
-                "fontSize": "12.0pt (16px)",
-                "fontWeight": "normal",
-                "expectedContrastRatio": "4.5:1"
-              },
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Element has sufficient color contrast of 5.58"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">＋</span>",
-          "target": [
-            ".c2-hero__cta-icon"
           ]
         },
         {
@@ -14510,12 +14485,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 290.2,
-                "height": 52.5
+                "width": 298.2,
+                "height": 52
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (290.2px by 52.5px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (298.2px by 52px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -15145,6 +15120,38 @@
       "help": "Elements must meet minimum color contrast ratio thresholds",
       "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/color-contrast?application=axe-puppeteer",
       "nodes": [
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.8pt (17px)",
+                "fontWeight": "normal",
+                "messageKey": "shortTextContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">＋</span>",
+                  "target": [
+                    ".c2-hero__cta-icon"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element content is too short to determine if it is actual text content"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">＋</span>",
+          "target": [
+            ".c2-hero__cta-icon"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element content is too short to determine if it is actual text content"
+        },
         {
           "any": [
             {

@@ -3635,6 +3635,35 @@
       return isMobile ? 'Xenova/whisper-tiny' : 'Xenova/whisper-small';
     }
 
+    // Lazy-load @xenova/transformers from a CDN on first transcription
+    // attempt. The bundle is ~3 MB (WASM + JS), so deferring it keeps
+    // the translator's first paint cheap. Memoised on window so the
+    // mic and audio/video panels share one warm pipeline.
+    async function getPipeline(){
+      if (window.__transformersPipeline) return window.__transformersPipeline;
+      if (!window.__transformersPipelinePromise) {
+        window.__transformersPipelinePromise = import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2')
+          .then(function (mod) {
+            // The model files are ~50–200 MB (Xenova/whisper-small).
+            // Allow remote loading from the HF hub so we don't have
+            // to host them ourselves.
+            if (mod.env) {
+              mod.env.allowRemoteModels = true;
+              mod.env.allowLocalModels = false;
+            }
+            window.__transformersPipeline = mod.pipeline;
+            return mod.pipeline;
+          })
+          .catch(function (err) {
+            // Reset the in-flight promise so a future click can retry
+            // rather than re-throwing the cached failure.
+            window.__transformersPipelinePromise = null;
+            throw new Error('Speech model bundle failed to load (' + ((err && err.message) || err) + '). Check your network connection and try again.');
+          });
+      }
+      return window.__transformersPipelinePromise;
+    }
+
     async function ensureASR(){
       const pipeline = await getPipeline();
       const model = pickAsrModel();

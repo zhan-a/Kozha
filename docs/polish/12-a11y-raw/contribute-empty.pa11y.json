@@ -1,6 +1,6 @@
 {
   "documentTitle": "Contribute a sign — Kozha",
-  "pageUrl": "http://127.0.0.1:61968/contribute.html",
+  "pageUrl": "http://127.0.0.1:62468/contribute.html",
   "issues": [
     {
       "code": "WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206",
@@ -269,6 +269,16 @@
       "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
       "context": "<span>Reviewed by 2 Deaf signers</span>",
       "selector": "#main-content > header > aside > div:nth-child(4) > span:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"c2-hero__cta-icon\" aria-hidden=\"true\">＋</span>",
+      "selector": "#contributeOpenBtn > span",
       "runner": "htmlcs",
       "runnerExtras": {}
     }
