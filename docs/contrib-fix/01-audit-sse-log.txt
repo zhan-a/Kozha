@@ -1,0 +1,101 @@
+SSE failure reproduction — audit prompt 01
+===========================================
+
+How this log was produced
+-------------------------
+Driver script: a one-shot reproducer that boots the live FastAPI sub-app
+(``api.create_app``) on a tmp SQLite DB, opens an SSE stream, then POSTs
+``/sessions/{id}/describe`` while the stream is open. No stubs. No
+``OPENAI_API_KEY`` set, no ``X-OpenAI-Api-Key`` BYO header sent — i.e.
+the same key state every contributor visits the live site under unless
+they paste a key on the contribute page first.
+
+Env at run time:
+    OPENAI_API_KEY                    unset
+    CHAT2HAMNOSYS_SESSION_DB          tmp file (so we don't touch live DB)
+    CHAT2HAMNOSYS_SIGN_DB             tmp file
+    CHAT2HAMNOSYS_TOKEN_DB            tmp file
+
+Verbatim transcript (timestamps in epoch seconds, generation server-side)
+-------------------------------------------------------------------------
+
+--- repro-nokey: server bound on http://127.0.0.1:64230 ---
+CHAT2HAMNOSYS_SIGNER_ID_SALT is unset; using built-in default. Set a per-deployment salt before handling real signer ids.
+--- POST /sessions -> 201 sid=f68c9cba-18b4-41ea-86e9-e43b47c296d4 ---
+--- SSE response status=200 ---
+[sse-frame]
+: keep-alive
+
+[sse-frame]
+: keep-alive
+
+--- POST /sessions/f68c9cba-18b4-41ea-86e9-e43b47c296d4/describe (no API key) at t=1777090677.37 ---
+[sse-frame]
+: keep-alive
+
+llm_config_error on /sessions/f68c9cba-18b4-41ea-86e9-e43b47c296d4/describe: no OpenAI API key: pass api_key= or set the OPENAI_API_KEY env var
+--- describe -> 500 in 0.06s ---
+--- describe body[:600]='{"error":{"code":"llm_config_error","message":"no OpenAI API key: pass api_key= or set the OPENAI_API_KEY env var","details":null}}' ---
+[sse-frame]
+: keep-alive
+
+[sse-frame]
+: keep-alive
+
+[sse-frame]
+: keep-alive
+
+[sse-frame]
+: keep-alive
+
+[sse-frame]
+: keep-alive
+
+[sse-frame]
+: keep-alive
+
+[sse-frame]
+: keep-alive
+
+[sse-frame]
+: keep-alive
+
+[sse-frame]
+: keep-alive
+
+[sse-frame]
+: keep-alive
+
+--- SSE deadline reached; closing ---
+--- SSE consumer finished. total frames: 13 ---
+--- DB: state=awaiting_description history=[] ---
+
+
+What this confirms
+------------------
+1. The SSE stream is open and HTTP 200 — the channel itself is healthy;
+   the server emits ``: keep-alive\n\n`` every poll interval (1.0 s) per
+   ``EVENTS_POLL_INTERVAL`` in ``backend/chat2hamnosys/api/router.py``.
+2. ``POST /sessions/<id>/describe`` returned ``500 llm_config_error`` in
+   60 ms — the parser tried to construct an ``LLMClient`` with no key
+   and ``LLMClient.__init__`` raised ``LLMConfigError`` before any
+   ``DescribedEvent`` could be appended to the session.
+3. The SQLite session row stayed at ``state=awaiting_description`` with
+   ``history=[]`` — the route handler ``post_describe`` never reached
+   its ``session_store.save`` call, so the SSE generator's next poll
+   saw no new events.
+4. Net effect on the contribute page: the chat panel shows nothing new,
+   the avatar never receives SiGML, and the only frames the SSE stream
+   carries are the 1-Hz ``: keep-alive`` comments.
+
+Cross-reference: the live ``data/chat2hamnosys/sessions.sqlite3`` shows
+110 sessions, all in ``state=awaiting_description``, all with empty
+``history`` and empty ``description_prose`` — the same fingerprint this
+reproduction produces.
+
+For comparison: the same reproducer with stubbed ``parse_fn`` /
+``question_fn`` (so the LLM is never called) advances the session to
+``state=rendered`` and emits two SSE frames within ~70 ms — ``described``
+then ``generated`` — confirming the SSE generator and orchestrator are
+otherwise wired correctly. The failure is contained to the LLM-key
+precondition tripping before any history append.
