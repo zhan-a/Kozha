@@ -3897,59 +3897,184 @@
       validatePickedFile(videoFile.files && videoFile.files[0]);
     });
 
+    // ffmpeg.wasm is lazy-loaded on first upload — the wasm payload is
+    // ~30 MB, so we don't pay the cost on first paint or for visitors who
+    // never use the audio/video tab. Pinned exact versions so a CDN
+    // republish can't silently drift the API or codec set:
+    //
+    //   @ffmpeg/ffmpeg @ 0.12.10  — ESM build exposes class FFmpeg
+    //   @ffmpeg/util   @ 0.12.1   — fetchFile/toBlobURL helpers
+    //   @ffmpeg/core   @ 0.12.6   — single-threaded ffmpeg-core (no
+    //                              SharedArrayBuffer, no COOP/COEP needed)
+    //
+    // Loaded via dynamic import of jsDelivr ESM URLs to match the same
+    // strategy used for transformers.js above. The FFmpeg class spawns a
+    // module Worker that pulls ffmpeg-core via dynamic import; jsDelivr's
+    // CORS headers permit the cross-origin module worker.
+    const FFMPEG_PKG_VERSION = '0.12.10';
+    const FFMPEG_UTIL_VERSION = '0.12.1';
+    const FFMPEG_CORE_VERSION = '0.12.6';
+
     async function ensureFFmpeg(){
-      if (!window.__ffmpeg){
-        if (typeof FFmpeg === 'undefined') {
-          await new Promise(function(resolve, reject) {
-            var s = document.createElement('script');
-            s.src = 'https://unpkg.com/@ffmpeg/ffmpeg@0.12.6/dist/ffmpeg.min.js';
-            s.onload = resolve;
-            s.onerror = function (ev) {
-              var why = (window.describeError ? window.describeError(ev) : (ev && ev.type) || 'load failed');
-              reject(new Error('fetch ' + s.src + ' failed: ' + why));
-            };
-            document.head.appendChild(s);
+      if (window.__ffmpeg) return window.__ffmpeg;
+      if (!window.__ffmpegPromise) {
+        window.__ffmpegPromise = (async () => {
+          const ffmpegBase = 'https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@' + FFMPEG_PKG_VERSION + '/dist/esm';
+          const utilBase   = 'https://cdn.jsdelivr.net/npm/@ffmpeg/util@'   + FFMPEG_UTIL_VERSION + '/dist/esm';
+          const coreBase   = 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@'   + FFMPEG_CORE_VERSION + '/dist/esm';
+
+          // Chromium rejects cross-origin module workers even when the CDN
+          // sets `Access-Control-Allow-Origin: *` (chromium bug #1058311),
+          // so the FFmpeg class's default `new Worker(crossOriginURL,
+          // { type: 'module' })` fails with a SecurityError. We work around
+          // it by fetching the worker entry and its two leaf-module imports,
+          // wrapping each in a same-origin blob: URL, and rewriting the
+          // worker source to point at those blobs. The result is a
+          // self-contained worker that the browser is happy to construct.
+          const [workerSrc, constSrc, errorsSrc] = await Promise.all([
+            fetch(ffmpegBase + '/worker.js').then(function (r) { return r.text(); }),
+            fetch(ffmpegBase + '/const.js').then(function (r) { return r.text(); }),
+            fetch(ffmpegBase + '/errors.js').then(function (r) { return r.text(); }),
+          ]);
+          const constBlobURL  = URL.createObjectURL(new Blob([constSrc],  { type: 'text/javascript' }));
+          const errorsBlobURL = URL.createObjectURL(new Blob([errorsSrc], { type: 'text/javascript' }));
+          const patchedWorker = workerSrc
+            .replace('"./const.js"',  JSON.stringify(constBlobURL))
+            .replace('"./errors.js"', JSON.stringify(errorsBlobURL));
+          const classWorkerURL = URL.createObjectURL(new Blob([patchedWorker], { type: 'text/javascript' }));
+
+          const [ffmpegMod, utilMod] = await Promise.all([
+            import(/* @vite-ignore */ ffmpegBase + '/index.js'),
+            import(/* @vite-ignore */ utilBase   + '/index.js'),
+          ]);
+          if (typeof ffmpegMod.FFmpeg !== 'function') {
+            throw new Error('ffmpeg ESM bundle is missing FFmpeg export');
+          }
+          const ffmpeg = new ffmpegMod.FFmpeg();
+          await ffmpeg.load({
+            coreURL: coreBase + '/ffmpeg-core.js',
+            wasmURL: coreBase + '/ffmpeg-core.wasm',
+            classWorkerURL: classWorkerURL,
           });
-        }
-        const { createFFmpeg, fetchFile } = FFmpeg;
-        const ffmpeg = createFFmpeg({ log: false });
-        await ffmpeg.load();
-        window.__ffmpeg = { ffmpeg, fetchFile };
+          window.__ffmpeg = { ffmpeg, fetchFile: utilMod.fetchFile };
+          return window.__ffmpeg;
+        })().catch((err) => {
+          // Drop the in-flight promise so the next click can retry.
+          window.__ffmpegPromise = null;
+          var why = window.describeError ? window.describeError(err) : ((err && err.message) || String(err));
+          throw new Error('Audio decoder failed to load (' + why + '). Check your network connection and try again.');
+        });
       }
-      return window.__ffmpeg;
+      return window.__ffmpegPromise;
+    }
+
+    // Probe the input to detect whether ffmpeg sees an audio stream. We
+    // use the standard `-i input -f null -` invocation and inspect the
+    // log for an "Audio:" stream descriptor; this avoids decoding video
+    // for files that are silent or video-only. ffmpeg.exec returns
+    // non-zero for a probe with no output mapping, which is expected.
+    async function ffmpegProbeForAudio(ffmpeg, inputName) {
+      const lines = [];
+      const collect = (entry) => {
+        if (entry && typeof entry === 'object' && typeof entry.message === 'string') {
+          lines.push(entry.message);
+        } else if (typeof entry === 'string') {
+          lines.push(entry);
+        }
+      };
+      ffmpeg.on('log', collect);
+      try {
+        await ffmpeg.exec(['-hide_banner', '-i', inputName, '-f', 'null', '-']);
+      } catch (_e) {
+        // Probe is expected to error on some inputs (no output stream
+        // mapping); the header has still been parsed and emitted to log.
+      } finally {
+        ffmpeg.off('log', collect);
+      }
+      return lines.join('\n').indexOf('Audio:') !== -1;
+    }
+
+    // Cancellation: while a decode is running, the Process button toggles
+    // to "Cancel" and the second click aborts the in-flight ffmpeg call,
+    // freeing the worker. The 60s timeout aborts via the same path.
+    let videoAbortController = null;
+    let videoProcessing = false;
+    const VIDEO_DECODE_TIMEOUT_MS = 60_000;
+    const VIDEO_PROCESS_LABEL = 'Process → Sign';
+
+    function setVideoButtonProcessing(isProcessing) {
+      videoProcessing = isProcessing;
+      videoToSignBtn.textContent = isProcessing ? 'Cancel' : VIDEO_PROCESS_LABEL;
+      videoToSignBtn.disabled = false;
     }
 
     videoToSignBtn.addEventListener('click', async () => {
+      if (videoProcessing) {
+        if (videoAbortController) videoAbortController.abort('user cancelled');
+        return;
+      }
       const file = videoFile?.files?.[0];
       if (!file){ videoStatus.textContent = 'Choose a file first.'; return; }
       // Re-validate at click time in case the file was swapped.
       const ok = await validatePickedFile(file);
       if (!ok) return;
       clearVideoError();
-      videoToSignBtn.disabled = true;
       const isAudioOnly = (file.type || '').indexOf('audio/') === 0;
-      try{
+
+      const abortCtrl = new AbortController();
+      videoAbortController = abortCtrl;
+      const timeoutId = setTimeout(function () {
+        abortCtrl.abort('decode timeout');
+      }, VIDEO_DECODE_TIMEOUT_MS);
+      setVideoButtonProcessing(true);
+
+      let ffmpegHandle = null;
+      try {
         videoStatus.textContent = 'Loading audio decoder…'; videoStatus.className = 'status-badge loading';
-        const { ffmpeg, fetchFile } = await ensureFFmpeg();
+        ffmpegHandle = await ensureFFmpeg();
+        if (abortCtrl.signal.aborted) throw new DOMException('aborted', 'AbortError');
+        const { ffmpeg, fetchFile } = ffmpegHandle;
+
         videoStatus.textContent = isAudioOnly ? 'Decoding audio…' : 'Extracting audio from video…';
-        ffmpeg.FS('writeFile', 'in', await fetchFile(file));
+        const inputName = 'in';
+        const outputName = 'out.wav';
+        await ffmpeg.writeFile(inputName, await fetchFile(file));
+
+        if (abortCtrl.signal.aborted) throw new DOMException('aborted', 'AbortError');
+        const hasAudio = await ffmpegProbeForAudio(ffmpeg, inputName);
+        if (!hasAudio) {
+          showVideoError('No audio track in this file. Try a clip that contains spoken audio.');
+          return;
+        }
+
         // -vn drops video; -ac 1 mono; -ar 16000 16kHz (whisper input rate);
         // -t cap hard-stops at the demo limit so a malformed-duration
-        // file can't run the in-browser ASR forever.
-        await ffmpeg.run('-i', 'in', '-vn', '-ac', '1', '-ar', '16000', '-t', String(MEDIA_MAX_DURATION_S), '-f', 'wav', 'out.wav');
+        // file can't run the in-browser ASR forever. AbortController is
+        // wired through ffmpeg.exec's signal option so a cancel/timeout
+        // rejects the worker call promptly.
+        await ffmpeg.exec(
+          ['-i', inputName, '-vn', '-ac', '1', '-ar', '16000', '-t', String(MEDIA_MAX_DURATION_S), '-f', 'wav', outputName],
+          -1,
+          { signal: abortCtrl.signal },
+        );
+
         let data;
-        try { data = ffmpeg.FS('readFile', 'out.wav'); }
+        try { data = await ffmpeg.readFile(outputName); }
         catch (_e) {
           showVideoError('No audio track found in the file. Try a clip that contains spoken audio.');
-          videoToSignBtn.disabled = false;
           return;
         }
-        if (!data || data.length < 1024) {
+        const byteLen = (data && (data.byteLength != null ? data.byteLength : data.length)) || 0;
+        if (!byteLen || byteLen < 1024) {
           showVideoError('Decoded audio is empty. The file may be silent or have an unsupported audio codec.');
-          videoToSignBtn.disabled = false;
           return;
         }
-        const wavBlob = new Blob([data.buffer], { type: 'audio/wav' });
+
+        // Hand the decoded WAV to the same ASR + planning path that runs
+        // for plain WAV uploads — the existing code already handles the
+        // happy path; we just produce the input it expects.
+        const wavBuffer = data.buffer ? data.buffer : data;
+        const wavBlob = new Blob([wavBuffer], { type: 'audio/wav' });
         videoStatus.textContent = 'Loading speech model…';
         const asr = await ensureASR();
         videoStatus.textContent = 'Transcribing…';
@@ -3958,7 +4083,6 @@
         transcription.value = rawText;
         if (!rawText) {
           showVideoError('No speech detected. Try a clip with clearer audio.');
-          videoToSignBtn.disabled = false;
           return;
         }
         const translated = await translateIfNeeded(rawText, (msg) => { videoStatus.textContent = msg; });
@@ -3966,15 +4090,28 @@
         if (vidTranslationExpected && translated === rawText) {
           videoStatus.textContent = 'Translation failed — try again or enter text in ' + getTargetLang().toUpperCase();
           videoStatus.className = 'status-badge';
-          videoToSignBtn.disabled = false;
           return;
         }
         videoStatus.textContent = 'Planning sign sequence…';
         textIn.value = translated;
         await doPlan('spacy', vidTranslationExpected);
         videoStatus.textContent = 'Ready to render ✓'; videoStatus.className = 'status-badge ready';
-        videoToSignBtn.disabled = false;
-      }catch(e){
+      } catch (e) {
+        if (abortCtrl.signal.aborted) {
+          const reason = abortCtrl.signal.reason;
+          if (reason === 'decode timeout') {
+            showVideoError('decode timeout — file too long for in-browser processing');
+          } else {
+            videoStatus.textContent = 'Cancelled.'; videoStatus.className = 'status-badge';
+          }
+          // After abort, the ffmpeg worker is in an unrecoverable state
+          // (the in-flight exec was rejected mid-decode); terminate and
+          // drop the cache so the next upload re-loads a fresh worker.
+          try { if (ffmpegHandle && ffmpegHandle.ffmpeg && typeof ffmpegHandle.ffmpeg.terminate === 'function') ffmpegHandle.ffmpeg.terminate(); } catch (_e) {}
+          window.__ffmpeg = null;
+          window.__ffmpegPromise = null;
+          return;
+        }
         // Prefer the SIMD/no-backend hint from explainAsrError when it
         // produced a useful (non-tag) message. Otherwise fall through to
         // describeError, which decodes Event / MediaError / MessageEvent
@@ -3985,7 +4122,10 @@
         const desc = (window.describeError ? window.describeError(e) : (e && e.message) || 'unknown error');
         const msg = isUseful ? explainedMsg : desc;
         showVideoError('Could not process the file: ' + String(msg).slice(0, 280));
-        videoToSignBtn.disabled = false;
+      } finally {
+        clearTimeout(timeoutId);
+        videoAbortController = null;
+        setVideoButtonProcessing(false);
       }
     });
   </script>

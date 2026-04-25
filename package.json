@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@axe-core/puppeteer": "^4.10.1",
-    "@playwright/test": "^1.59.1",
+    "@playwright/test": "1.59.1",
     "axe-core": "^4.10.2",
     "pa11y": "^8.0.0",
     "pixelmatch": "^6.0.0",
