@@ -120,10 +120,10 @@
           that researchers, teachers, and learners can build on <strong>free, forever</strong>.
         </p>
         <div class="c2-hero__actions">
-          <button type="button" class="btn btn-primary c2-hero__cta" id="contributeOpenBtn" aria-controls="contributeWorkspace" aria-expanded="false">
-            <span class="c2-hero__cta-icon" aria-hidden="true">＋</span>
-            Open the contribution form
-          </button>
+          <a href="#c2-quickstart" class="btn btn-primary c2-hero__cta" id="contributeOpenBtn">
+            <span class="c2-hero__cta-icon" aria-hidden="true">→</span>
+            Pick a language to start
+          </a>
           <span class="c2-hero__actions-note">1–3 min per sign · save and return any time</span>
         </div>
         <ul class="c2-hero__stats" aria-label="At a glance">
@@ -1348,57 +1348,10 @@
       })();
     })();
 
-    // Open-the-form CTA. The workspace (quickstart picker, banners,
-    // authoring root, submission) is hidden by default so the page
-    // doesn't feel crammed; the hero CTA reveals it. Auto-reveal when
-    // the user is resuming an existing session (URL fragment or
-    // sessionStorage context) so deep links land on the workspace.
-    (function () {
-      var openBtn = document.getElementById('contributeOpenBtn');
-      var workspace = document.getElementById('contributeWorkspace');
-      var mainEl = document.getElementById('main-content');
-      if (!workspace || !mainEl) return;
-
-      function openWorkspace(opts) {
-        mainEl.classList.add('is-workspace-open');
-        if (openBtn) openBtn.setAttribute('aria-expanded', 'true');
-        if (opts && opts.scroll === false) return;
-        var scrollTarget = document.getElementById('c2-quickstart') || workspace;
-        requestAnimationFrame(function () {
-          try {
-            scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          } catch (_e) { scrollTarget.scrollIntoView(); }
-          var picker = document.getElementById('pickerSelect');
-          if (picker && opts && opts.focus) {
-            try { picker.focus({ preventScroll: true }); } catch (_e) { picker.focus(); }
-          }
-        });
-      }
-
-      if (openBtn) {
-        openBtn.addEventListener('click', function () { openWorkspace({ focus: true }); });
-      }
-
-      var hasFragment = /^#s\//i.test(window.location.hash || '');
-      var hasSavedContext = false;
-      try {
-        hasSavedContext = !!sessionStorage.getItem('kozha.contribute.context');
-      } catch (_e) {}
-      if (hasFragment || hasSavedContext) {
-        openWorkspace({ scroll: false });
-      }
-
-      // contribute.js sets .has-session on <main> when a real session
-      // exists; mirror that into is-workspace-open so the workspace
-      // never disappears mid-flow if the user reloads.
-      var observer = new MutationObserver(function () {
-        if (mainEl.classList.contains('has-session')) {
-          mainEl.classList.add('is-workspace-open');
-          if (openBtn) openBtn.setAttribute('aria-expanded', 'true');
-        }
-      });
-      observer.observe(mainEl, { attributes: true, attributeFilter: ['class'] });
-    })();
+    // Hero CTA (#contributeOpenBtn) is now a plain anchor to #c2-quickstart.
+    // The pre-2026-04c gate that hid the workspace behind a class toggle
+    // made the page feel stub-like (no chips above the fold). The workspace
+    // is always visible now; the CTA just smooth-scrolls to it.
   </script>
 </body>
 </html>

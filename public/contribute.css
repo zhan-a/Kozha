@@ -215,40 +215,18 @@ body {
  *
  * The interactive form (language picker, byo-key, masthead, banners,
  * authoring root, submission, confirmation) lives inside
- * #contributeWorkspace and is hidden by default so the page lands as
- * a tight marketing surface rather than dumping the whole UI in one
- * scroll. Three reveal triggers:
- *
- *   - User clicks the hero CTA (.c2-hero__cta)
- *   - URL fragment matches #s/<id> (deep link to a session)
- *   - sessionStorage has a saved context (resuming work)
- *
- * Once revealed, .has-session takes over and hides the marketing
- * layer above so only the workspace remains.
+ * #contributeWorkspace. Pre-2026-04c builds gated the workspace behind
+ * a hero "Open the contribution form" CTA — that buried the chips and
+ * made the page look like a marketing stub with no action surface.
+ * Now the workspace is visible from first paint; the hero CTA simply
+ * scrolls the page down to it. .has-session still hides the marketing
+ * layer above once real drafting begins so the workspace owns the
+ * viewport.
  * ================================================================== */
-.contribute-workspace {
-  display: none;
-}
-.contribute-main.is-workspace-open .contribute-workspace,
-.contribute-main.has-session .contribute-workspace {
-  display: block;
-  animation: c2-fade-up 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) both;
-}
+.contribute-workspace { display: block; }
 .contribute-main.has-session .c2-hero,
 .contribute-main.has-session .c2-why,
 .contribute-main.has-session .c2-walk {
-  display: none;
-}
-
-/* When the workspace is open but no session yet (user clicked the CTA
-   but hasn't picked a language), tighten the marketing layer above it
-   so the page doesn't keep its full landing-page footprint. */
-.contribute-main.is-workspace-open:not(.has-session) .c2-hero {
-  padding-top: var(--kozha-space-5);
-  padding-bottom: var(--kozha-space-6);
-  margin-bottom: var(--kozha-space-5);
-}
-.contribute-main.is-workspace-open:not(.has-session) .c2-walk {
   display: none;
 }
 
@@ -2874,13 +2852,6 @@ select.field-input { cursor: pointer; }
   font-size: 17px;
   line-height: 1;
 }
-.contribute-main.is-workspace-open .c2-hero__cta,
-.contribute-main.is-workspace-open .c2-hero__actions-note {
-  /* Once the workspace is open the CTA has done its job; tucking it
-     away keeps the page from doubling up calls-to-action. The hero
-     stays visible above the form so the user keeps the context. */
-  display: none;
-}
 .c2-hero__actions-note {
   font-size: var(--kozha-text-body-sm);
   color: var(--kozha-color-ink-3);
@@ -4660,8 +4631,7 @@ select.field-input { cursor: pointer; }
  * Workspace 2-column grid (desktop)
  * ================================================================== */
 @media (min-width: 1024px) {
-  .contribute-main.has-session #authoring-root,
-  .contribute-main.is-workspace-open #authoring-root {
+  .contribute-main.has-session #authoring-root {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     grid-template-areas:
@@ -4673,18 +4643,12 @@ select.field-input { cursor: pointer; }
     gap: var(--kozha-space-5);
     align-items: stretch;
   }
-  .contribute-main.has-session #authoring-root > .ws-stages,
-  .contribute-main.is-workspace-open #authoring-root > .ws-stages { grid-area: stages; margin-bottom: 0; }
-  .contribute-main.has-session #authoring-root > .authoring-card,
-  .contribute-main.is-workspace-open #authoring-root > .authoring-card { grid-area: authoring; }
-  .contribute-main.has-session #authoring-root > #chatPanel,
-  .contribute-main.is-workspace-open #authoring-root > #chatPanel { grid-area: chat; min-height: 560px; }
-  .contribute-main.has-session #authoring-root > #avatarPreview,
-  .contribute-main.is-workspace-open #authoring-root > #avatarPreview { grid-area: preview; }
-  .contribute-main.has-session #authoring-root > #notationPanel,
-  .contribute-main.is-workspace-open #authoring-root > #notationPanel { grid-area: notation; }
-  .contribute-main.has-session #authoring-root > #submissionPanel,
-  .contribute-main.is-workspace-open #authoring-root > #submissionPanel { grid-area: submit; }
+  .contribute-main.has-session #authoring-root > .ws-stages { grid-area: stages; margin-bottom: 0; }
+  .contribute-main.has-session #authoring-root > .authoring-card { grid-area: authoring; }
+  .contribute-main.has-session #authoring-root > #chatPanel { grid-area: chat; min-height: 560px; }
+  .contribute-main.has-session #authoring-root > #avatarPreview { grid-area: preview; }
+  .contribute-main.has-session #authoring-root > #notationPanel { grid-area: notation; }
+  .contribute-main.has-session #authoring-root > #submissionPanel { grid-area: submit; }
   /* Once summarized, the authoring card collapses to a compact ribbon */
   .contribute-main.has-session .authoring-card {
     padding: var(--kozha-space-4) var(--kozha-space-5);
