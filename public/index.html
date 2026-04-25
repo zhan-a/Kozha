@@ -245,11 +245,59 @@
       transform: translateY(-1px);
     }
 
+    .hero-contribute-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 24px;
+      padding: 12px 18px 12px 14px;
+      background: linear-gradient(135deg, rgba(250,238,224,0.9), rgba(245,241,235,0.9));
+      border: 1px solid rgba(201,106,46,0.25);
+      border-radius: 999px;
+      text-decoration: none;
+      color: var(--ink);
+      transition: all 0.25s ease;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 6px 18px rgba(201,106,46,0.06);
+    }
+    .hero-contribute-pill:hover {
+      transform: translateY(-1px);
+      border-color: rgba(201,106,46,0.45);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 12px 28px rgba(201,106,46,0.14);
+    }
+    .hero-contribute-pill__icon {
+      width: 26px; height: 26px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .hero-contribute-pill__label {
+      display: inline-flex;
+      flex-direction: column;
+      line-height: 1.25;
+    }
+    .hero-contribute-pill__label strong {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.01em;
+    }
+    .hero-contribute-pill__label span {
+      font-size: 12px;
+      color: var(--ink-3);
+      font-weight: 400;
+    }
+
     .hero-stat {
       display: flex;
       gap: 32px;
-      margin-top: 48px;
-      padding-top: 40px;
+      margin-top: 36px;
+      padding-top: 32px;
       border-top: 1px solid var(--border);
     }
     .stat-num {
@@ -588,30 +636,197 @@
       color: rgba(245,241,235,0.75);
     }
 
-    .contribute-banner {
-      background: var(--accent-light);
+    .contribute-section {
+      position: relative;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(201,106,46,0.10), transparent 45%),
+        radial-gradient(circle at 88% 82%, rgba(201,106,46,0.07), transparent 50%),
+        var(--accent-light);
       border: 1px solid rgba(201,106,46,0.2);
-      border-radius: 24px;
-      padding: 56px 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 40px;
+      border-radius: 28px;
+      padding: 64px 64px 56px;
+      overflow: hidden;
     }
 
-    .contribute-text h2 {
+    .contribute-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(201,106,46,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,106,46,0.05) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(circle at 50% 0%, black 30%, transparent 75%);
+      -webkit-mask-image: radial-gradient(circle at 50% 0%, black 30%, transparent 75%);
+    }
+
+    .contribute-head {
+      position: relative;
+      max-width: 720px;
+      margin: 0 auto 48px;
+      text-align: center;
+    }
+
+    .contribute-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: white;
+      border: 1px solid rgba(201,106,46,0.25);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 22px;
+    }
+    .contribute-eyebrow::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .contribute-section h2 {
       font-family: 'Instrument Serif', serif;
-      font-size: 36px;
+      font-size: clamp(34px, 4.5vw, 52px);
+      line-height: 1.1;
       color: var(--ink);
-      margin-bottom: 12px;
+      margin-bottom: 18px;
       letter-spacing: -0.02em;
     }
+    .contribute-section h2 em {
+      font-style: italic;
+      color: var(--accent);
+    }
 
-    .contribute-text p {
-      font-size: 16px;
+    .contribute-lede {
+      font-size: 17px;
+      line-height: 1.65;
       color: var(--ink-2);
-      line-height: 1.6;
-      max-width: 480px;
+      max-width: 580px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+    .contribute-lede strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .contribute-paths {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .contribute-path {
+      background: white;
+      border: 1px solid rgba(26,22,18,0.08);
+      border-radius: var(--radius);
+      padding: 26px 24px 24px;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .contribute-path:hover {
+      transform: translateY(-3px);
+      border-color: rgba(201,106,46,0.35);
+      box-shadow: 0 16px 40px rgba(26,22,18,0.08);
+    }
+    .contribute-path::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-bright));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .contribute-path:hover::after {
+      transform: scaleX(1);
+    }
+
+    .contribute-path__icon {
+      width: 44px; height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--accent-light);
+      color: var(--accent);
+      border-radius: 12px;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      font-family: 'Instrument Serif', serif;
+    }
+
+    .contribute-path__title {
+      font-family: 'Instrument Serif', serif;
+      font-size: 22px;
+      color: var(--ink);
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .contribute-path__body {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--ink-3);
+      margin-bottom: 14px;
+    }
+
+    .contribute-path__time {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .contribute-path__time::before {
+      content: '◷';
+      font-size: 14px;
+    }
+
+    .contribute-actions {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .contribute-actions .btn-large {
+      box-shadow: 0 4px 16px rgba(201,106,46,0.2);
+    }
+    .contribute-actions .btn-large:hover {
+      box-shadow: 0 12px 32px rgba(201,106,46,0.35);
+    }
+
+    .contribute-note {
+      font-size: 13px;
+      color: var(--ink-3);
+      text-align: center;
+      margin-top: 18px;
+      position: relative;
+    }
+    .contribute-note a {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(201,106,46,0.3);
+    }
+    .contribute-note a:hover {
+      border-bottom-color: var(--accent);
     }
 
     footer {
@@ -698,8 +913,11 @@
       .section { padding: 64px 20px; }
       .features-grid { grid-template-columns: 1fr; }
       .steps-grid { grid-template-columns: 1fr; }
-      .contribute-banner { flex-direction: column; padding: 36px 24px; text-align: center; }
-      .contribute-text p { max-width: none; }
+      .contribute-section { padding: 44px 24px 36px; border-radius: 22px; }
+      .contribute-paths { grid-template-columns: 1fr; gap: 12px; margin-bottom: 32px; }
+      .contribute-section h2 { font-size: clamp(28px, 7vw, 38px); }
+      .contribute-lede { font-size: 15px; }
+      .hero-contribute-pill { width: 100%; justify-content: flex-start; }
       footer { padding: 32px 20px; }
       .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
       .footer-links { flex-wrap: wrap; justify-content: center; }
@@ -730,7 +948,10 @@
       .demo-lang-row { flex-direction: column; gap: 10px; }
       .section { padding: 48px 16px; }
       .how-section { padding: 48px 16px; }
-      .contribute-banner { padding: 28px 20px; }
+      .contribute-section { padding: 32px 18px 28px; }
+      .contribute-path { padding: 22px 20px; }
+      .contribute-actions { flex-direction: column; align-items: stretch; }
+      .contribute-actions .btn-large, .contribute-actions .btn-large-ghost { text-align: center; }
       footer { padding: 24px 16px; }
     }
   </style>
@@ -764,6 +985,13 @@
         <a href="/app.html" class="btn-large kz-btn-primary" data-i18n="landing.hero_cta_open_translator">Open translator</a>
         <a href="#how-it-works" class="btn-large-ghost kz-btn-secondary">How it works</a>
       </div>
+      <a href="/contribute.html" class="hero-contribute-pill fade-up delay-5" aria-label="Contribute a sign to the dictionary">
+        <span class="hero-contribute-pill__icon" aria-hidden="true">✦</span>
+        <span class="hero-contribute-pill__label">
+          <strong>Add a sign →</strong>
+          <span>The dictionary grows when you help.</span>
+        </span>
+      </a>
       <div class="hero-stat fade-up delay-5">
         <div class="stat-item">
           <div class="stat-num">15</div>
@@ -951,15 +1179,50 @@
     </div>
   </div>
 
-  <section class="section">
-    <div class="contribute-banner">
-      <div class="contribute-text">
-        <h2>Contribute to the project.</h2>
-        <p>Kozha's sign database has limited vocabulary and needs help. If you know sign language, work in accessibility, or can code, you can add signs, improve translations, or fix bugs.</p>
+  <section class="section" id="contribute">
+    <div class="contribute-section">
+      <div class="contribute-head">
+        <span class="contribute-eyebrow">The project lives on contributions</span>
+        <h2>Without contributors,<br>this dictionary <em>stays small.</em></h2>
+        <p class="contribute-lede">
+          Most sign-language vocabularies on the web cover only a few hundred everyday words.
+          Kozha can only animate what its dictionary contains — so <strong>every sign you add unblocks
+          a translation that would otherwise come back blank</strong>. This is how the project grows.
+        </p>
       </div>
-      <div style="flex-shrink:0;">
-        <a href="/contribute.html" class="btn-large kz-btn-primary" style="white-space:nowrap;" data-i18n="landing.hero_cta_contribute">Get involved</a>
+
+      <div class="contribute-paths">
+        <article class="contribute-path">
+          <div class="contribute-path__icon" aria-hidden="true">✋</div>
+          <h3 class="contribute-path__title">Add a sign</h3>
+          <p class="contribute-path__body">Describe a sign in plain language. Our editor turns it into HamNoSys/SiGML notation; a Deaf reviewer validates before it ships.</p>
+          <span class="contribute-path__time">5–10 minutes</span>
+        </article>
+
+        <article class="contribute-path">
+          <div class="contribute-path__icon" aria-hidden="true">★</div>
+          <h3 class="contribute-path__title">Review &amp; refine</h3>
+          <p class="contribute-path__body">Native signers, teachers, and learners — flag awkward translations, fix mistranslations, and help us pick the right regional variant.</p>
+          <span class="contribute-path__time">A few minutes per sign</span>
+        </article>
+
+        <article class="contribute-path">
+          <div class="contribute-path__icon" aria-hidden="true">{ }</div>
+          <h3 class="contribute-path__title">Code or report</h3>
+          <p class="contribute-path__body">Improve the planner, the avatar, or the multilingual pipeline — or just open an issue when something feels off. Every signal helps.</p>
+          <span class="contribute-path__time">Bug reports welcome</span>
+        </article>
       </div>
+
+      <div class="contribute-actions">
+        <a href="/contribute.html" class="btn-large kz-btn-primary" data-i18n="landing.hero_cta_contribute">Contribute a sign</a>
+        <a href="https://github.com/zhan-a/Kozha" class="btn-large-ghost kz-btn-secondary" target="_blank" rel="noopener noreferrer">Open on GitHub</a>
+      </div>
+
+      <p class="contribute-note">
+        Every contribution is reviewed by Deaf native signers before it ships.
+        Read the <a href="/governance.html">Deaf-led governance →</a>
+      </p>
     </div>
   </section>
   </main>
