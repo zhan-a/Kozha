@@ -36,6 +36,14 @@ from .metrics import (
     log_correction_applied,
     log_session_accepted,
 )
+from .sigml_rewrite import (
+    TagSwap,
+    apply_swap_to_session,
+    apply_tag_swap_to_hamnosys,
+    apply_tag_swap_to_sigml,
+    extract_manual_tags,
+    match_deterministic_swap,
+)
 
 __all__ = [
     "ApplyOutcome",
@@ -47,8 +55,14 @@ __all__ = [
     "FieldChange",
     "RESPONSE_SCHEMA",
     "SYSTEM_PROMPT",
+    "TagSwap",
     "apply_correction",
+    "apply_swap_to_session",
+    "apply_tag_swap_to_hamnosys",
+    "apply_tag_swap_to_sigml",
+    "extract_manual_tags",
     "interpret_correction",
     "log_correction_applied",
     "log_session_accepted",
+    "match_deterministic_swap",
 ]

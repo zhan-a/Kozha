@@ -63,6 +63,25 @@ class AnswerRequest(BaseModel):
     answer: Union[str, int]
 
 
+class SigmlSwap(BaseModel):
+    """Structured chip-swap payload for ``POST /sessions/{id}/correct``.
+
+    When present on a :class:`CorrectRequest`, the backend bypasses the
+    LLM-backed correction interpreter and applies the swap directly to
+    ``session.draft.sigml``. ``from_tag`` and ``to_tag`` are SiGML tag
+    names without angle brackets (``"hamfist"``, ``"hamflathand"``).
+    ``index`` selects the zero-based occurrence of ``from_tag`` to
+    swap; ``None`` means the first one (the common case for a
+    category that only appears once in a sign).
+    """
+
+    model_config = ConfigDict(extra="forbid")
+
+    from_tag: str = Field(min_length=1)
+    to_tag: str = Field(min_length=1)
+    index: Optional[int] = None
+
+
 class CorrectRequest(BaseModel):
     """Body for ``POST /sessions/{id}/correct``."""
 
@@ -71,6 +90,7 @@ class CorrectRequest(BaseModel):
     raw_text: str = Field(min_length=1)
     target_time_ms: Optional[int] = None
     target_region: Optional[str] = None
+    swap: Optional[SigmlSwap] = None
 
 
 class RejectRequest(BaseModel):
@@ -288,6 +308,7 @@ __all__ = [
     "RejectRequest",
     "ReviewerCommentOut",
     "SessionEnvelope",
+    "SigmlSwap",
     "SignEntryOut",
     "StatusResponse",
 ]

@@ -57,7 +57,9 @@ from hamnosys.symbols import SYMBOLS, SymClass
 from correct import (
     Correction as _InterpCorrection,
     apply_correction,
+    apply_swap_to_session,
     interpret_correction,
+    match_deterministic_swap,
 )
 from generator import GenerateResult, generate
 from models import SignEntry
@@ -496,6 +498,17 @@ def _run_correction_async(
             logger.warning("background correct: session %s vanished", session_id)
             return
         try:
+            # Deterministic SiGML-rewrite fast-path. Catches structured
+            # chip-swap payloads (target_region="swap:from:to") and
+            # common natural-language directional changes ("palm should
+            # face down") so the contributor's correction lands as a
+            # SiGML rewrite + GeneratedEvent without an LLM round-trip.
+            # Falls through to the LLM-backed interpreter on a miss.
+            swap = match_deterministic_swap(correction, session.draft.sigml)
+            if swap is not None:
+                session = apply_swap_to_session(session, swap)
+                session_store.save(session)
+                return
             plan = interpret_correction(session, correction)
             outcome = apply_correction(
                 session,
@@ -977,6 +990,16 @@ def post_correct(
         if body.target_region
         else None
     )
+    # Structured chip-swap: prefer the typed ``swap`` field (sent by the
+    # annotated SiGML editor) over a target_region encoding, but accept
+    # either. Encoding into target_region preserves backward-compat for
+    # any client that hasn't been updated to the new payload shape.
+    if body.swap is not None:
+        target_region = (
+            f"swap:{body.swap.from_tag}:{body.swap.to_tag}"
+            if body.swap.index is None
+            else f"swap:{body.swap.from_tag}:{body.swap.to_tag}:{body.swap.index}"
+        )
     correction = Correction(
         raw_text=raw_text,
         target_time_ms=body.target_time_ms,
@@ -990,6 +1013,29 @@ def post_correct(
     # while the LLM thinks.
     session = on_correction(session, correction)
     session_store.save(session)
+
+    # Deterministic SiGML rewrite fast-path: chip swaps and common
+    # natural-language directional changes don't need an LLM. Apply
+    # them inline so the response envelope already carries the new
+    # SiGML and the SSE stream gets the ``generated`` frame in the
+    # same request cycle. Falls through to the background interpret
+    # path on a miss.
+    swap_decision = match_deterministic_swap(correction, session.draft.sigml)
+    if swap_decision is not None:
+        try:
+            session = apply_swap_to_session(session, swap_decision)
+            session_store.save(session)
+            return _envelope(session, request)
+        except Exception:  # noqa: BLE001 — fall through to LLM path on rewrite failure
+            logger.exception(
+                "deterministic SiGML swap failed for session %s; falling "
+                "back to LLM interpreter",
+                session.id,
+            )
+            # Roll the session back to APPLYING_CORRECTION so the
+            # background path picks up where we left off.
+            session = session_store.get(session.id) or session
+
     byo_key = _REQUEST_OPENAI_API_KEY.get("") or ""
     background_tasks.add_task(
         _run_correction_async,

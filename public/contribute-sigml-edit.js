@@ -294,17 +294,41 @@
       closePicker();
       return;
     }
+    var fromTag = pickerCtx.tagName;
+    var toTag = newTagName;
+    var swapIndex = pickerCtx.index;
     DEBUG.log('sigml-edit: tag swap', {
-      index: pickerCtx.index,
-      from: pickerCtx.tagName,
-      to: newTagName,
+      index: swapIndex,
+      from: fromTag,
+      to: toTag,
     });
-    // Push the new SiGML through context. The preview module
-    // subscribes and re-renders automatically. We don't update
-    // hamnosys here — the next backend correction pass will
-    // reverse-map if needed.
+    // Optimistic local update: paint the new SiGML into context
+    // immediately so the avatar re-renders without waiting for the
+    // round-trip. The server response (or SSE GeneratedEvent) will
+    // overwrite this with the canonical SiGML when it lands —
+    // typically within a few hundred milliseconds because the
+    // backend handles structured chip swaps without an LLM call.
     CTX.setState({ sigml: next });
     closePicker();
+    // Persist the swap to the backend so a reload doesn't lose it,
+    // a CorrectionAppliedEvent + GeneratedEvent enter the session
+    // history (audit trail), and the SSE channel notifies any other
+    // tabs watching this session. The structured ``swap`` payload
+    // bypasses the LLM-backed correction interpreter on the server
+    // side — see backend/chat2hamnosys/correct/sigml_rewrite.py.
+    if (CTX && typeof CTX.correct === 'function') {
+      CTX.correct('chip swap: <' + fromTag + '/> → <' + toTag + '/>', {
+        swap: { from_tag: fromTag, to_tag: toTag, index: swapIndex },
+      }).catch(function (err) {
+        if (window.console) {
+          console.warn('[contribute-sigml-edit] chip swap POST failed', err);
+        }
+        DEBUG.error('sigml-edit: chip swap POST failed', {
+          status: err && err.status,
+          body:   err && err.body,
+        });
+      });
+    }
   }
 
   // -----------------------------------------------------------------

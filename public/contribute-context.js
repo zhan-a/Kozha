@@ -563,6 +563,15 @@
     var body = { raw_text: rawText };
     if (typeof opts.targetTimeMs === 'number') body.target_time_ms = opts.targetTimeMs;
     if (opts.targetRegion) body.target_region = opts.targetRegion;
+    if (opts.swap && opts.swap.from_tag && opts.swap.to_tag) {
+      body.swap = {
+        from_tag: opts.swap.from_tag,
+        to_tag: opts.swap.to_tag,
+      };
+      if (typeof opts.swap.index === 'number' && opts.swap.index >= 0) {
+        body.swap.index = opts.swap.index;
+      }
+    }
     var beforeSigml = state.sigml;
     var beforeHam = state.hamnosys;
     DEBUG.log('ctx: POST /correct', {
