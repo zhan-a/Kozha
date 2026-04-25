@@ -22,12 +22,106 @@
   <link rel="stylesheet" href="/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script defer src="/cwa/allcsa.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script defer src="/sigml-validator.js"></script>
+
+  <!-- Importmap pins onnxruntime-web @ 1.20.1 so the bare specifier
+       `onnxruntime-web` resolves identically across browsers and from
+       any sub-path the page is served from. Must precede every
+       <script type="module"> on the page. The `/wasm` entry resolves
+       to `ort.wasm.min.mjs` per the package's `exports` map (the
+       prompt's `ort.wasm.bundle.min.mjs` 404s on jsDelivr 1.20.1 —
+       see docs/translator-fix/onnxruntime-version.md). -->
+  <script type="importmap">
+  {
+    "imports": {
+      "onnxruntime-web": "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/ort.bundle.min.mjs",
+      "onnxruntime-web/wasm": "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/ort.wasm.min.mjs"
+    }
+  }
+  </script>
+
   <script type="module">
     // Bridge the ESM helper into a global so the legacy classic <script>
     // blocks below can route caught Errors / Events through it. Module
     // scripts are deferred, so this runs before any user click.
     import { describeError } from '/lib/describe-error.js';
     window.describeError = describeError;
+  </script>
+
+  <script type="module">
+    // Mic-tab speech runtime boot path (Bug B fix).
+    //
+    // Branches on `navigator.gpu`: WebGPU-capable browsers import the
+    // default ORT bundle (which packs WebGPU + WASM providers); the rest
+    // import the WASM-only build. The actual transcription still runs
+    // through transformers.js (which bundles its own ORT internally),
+    // but pre-importing through the importmap above
+    //   1. exercises the bare-specifier import path the rest of the
+    //      ecosystem uses, so module-resolution failures surface here
+    //      rather than three layers deep inside transformers.js;
+    //   2. exposes a runtime reference on `window` for the model-load
+    //      Playwright test;
+    //   3. lets us show a one-line UI hint when the WASM fallback is
+    //      taken so the user knows transcription will be slower.
+    //
+    // Lazy: triggers on first activation of #panel-microphone via a
+    // MutationObserver on the panel's class list (the classic
+    // switchPanel() toggles `.active`). Visitors who never open the
+    // mic tab pay zero bytes. Failures clear the in-flight promise so a
+    // future tab activation retries.
+    const useWebGPU = typeof navigator !== 'undefined' && !!navigator.gpu;
+    let bootPromise = null;
+
+    function showFallbackNote() {
+      const el = document.getElementById('micFallbackNote');
+      if (el) el.hidden = false;
+    }
+
+    async function bootMicRuntime() {
+      if (bootPromise) return bootPromise;
+      bootPromise = (async () => {
+        try {
+          if (useWebGPU) {
+            const ort = await import('onnxruntime-web');
+            window.ort = ort;
+            return { ort, device: 'webgpu' };
+          }
+          const ortWasm = await import('onnxruntime-web/wasm');
+          window.ortWasm = ortWasm;
+          showFallbackNote();
+          return { ort: ortWasm, device: 'wasm' };
+        } catch (err) {
+          bootPromise = null;
+          const status = document.getElementById('micStatus');
+          if (status) {
+            const why = (window.describeError && window.describeError(err))
+              || (err && err.message) || String(err);
+            status.textContent = 'Speech runtime failed to load: ' + why.slice(0, 240);
+            status.className = 'status-badge';
+          }
+          throw err;
+        }
+      })();
+      return bootPromise;
+    }
+
+    function watchMicPanel() {
+      const panel = document.getElementById('panel-microphone');
+      if (!panel) return;
+      if (panel.classList.contains('active')) { bootMicRuntime(); return; }
+      const obs = new MutationObserver(() => {
+        if (panel.classList.contains('active')) { bootMicRuntime(); }
+      });
+      obs.observe(panel, { attributes: true, attributeFilter: ['class'] });
+    }
+
+    window.__bootMicRuntime = bootMicRuntime;
+    window.__micUseWebGPU = useWebGPU;
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', watchMicPanel, { once: true });
+    } else {
+      watchMicPanel();
+    }
   </script>
   <link rel="preload" href="/data/hamnosys_bsl_version1.sigml" as="fetch" crossorigin>
   <link rel="preload" href="/cwa/cwasa.css" as="style" crossorigin="anonymous">
@@ -1599,6 +1693,7 @@
             <span id="micStatus" class="status-badge" role="status" aria-live="polite">Idle</span>
             <span id="micTimer" class="status-badge" aria-hidden="true" hidden>0:00 / 1:00</span>
           </div>
+          <p id="micFallbackNote" class="field-hint" role="note" hidden style="margin:0 0 10px;">Using the WASM speech model — WebGPU isn't available in this browser, so transcription will be slightly slower.</p>
           <label class="field-label" for="transcription">Transcription</label>
           <textarea id="transcription" placeholder="Transcription will appear here…"></textarea>
         </div>
