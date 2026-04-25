@@ -22,6 +22,13 @@
   <link rel="stylesheet" href="/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script defer src="/cwa/allcsa.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script defer src="/sigml-validator.js"></script>
+  <script type="module">
+    // Bridge the ESM helper into a global so the legacy classic <script>
+    // blocks below can route caught Errors / Events through it. Module
+    // scripts are deferred, so this runs before any user click.
+    import { describeError } from '/lib/describe-error.js';
+    window.describeError = describeError;
+  </script>
   <link rel="preload" href="/data/hamnosys_bsl_version1.sigml" as="fetch" crossorigin>
   <link rel="preload" href="/cwa/cwasa.css" as="style" crossorigin="anonymous">
 
@@ -3693,7 +3700,8 @@
             // Reset the in-flight promise so a future click can retry
             // rather than re-throwing the cached failure.
             window.__transformersPipelinePromise = null;
-            throw new Error('Speech model bundle failed to load (' + ((err && err.message) || err) + '). Check your network connection and try again.');
+            var why = window.describeError ? window.describeError(err) : ((err && err.message) || String(err));
+            throw new Error('Speech model bundle failed to load (' + why + '). Check your network connection and try again.');
           });
       }
       return window.__transformersPipelinePromise;
@@ -3896,7 +3904,10 @@
             var s = document.createElement('script');
             s.src = 'https://unpkg.com/@ffmpeg/ffmpeg@0.12.6/dist/ffmpeg.min.js';
             s.onload = resolve;
-            s.onerror = reject;
+            s.onerror = function (ev) {
+              var why = (window.describeError ? window.describeError(ev) : (ev && ev.type) || 'load failed');
+              reject(new Error('fetch ' + s.src + ' failed: ' + why));
+            };
             document.head.appendChild(s);
           });
         }
@@ -3964,9 +3975,16 @@
         videoStatus.textContent = 'Ready to render ✓'; videoStatus.className = 'status-badge ready';
         videoToSignBtn.disabled = false;
       }catch(e){
+        // Prefer the SIMD/no-backend hint from explainAsrError when it
+        // produced a useful (non-tag) message. Otherwise fall through to
+        // describeError, which decodes Event / MediaError / MessageEvent
+        // shapes into something the user can actually act on.
         const explained = explainAsrError(e);
-        const msg = (explained && explained.message) ? explained.message : String(explained);
-        showVideoError('Could not process the file: ' + msg.slice(0, 280));
+        const explainedMsg = (explained && explained.message) || '';
+        const isUseful = explainedMsg && explainedMsg.indexOf('[object ') === -1;
+        const desc = (window.describeError ? window.describeError(e) : (e && e.message) || 'unknown error');
+        const msg = isUseful ? explainedMsg : desc;
+        showVideoError('Could not process the file: ' + String(msg).slice(0, 280));
         videoToSignBtn.disabled = false;
       }
     });
