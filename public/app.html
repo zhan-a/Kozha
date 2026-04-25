@@ -40,11 +40,19 @@
   </script>
 
   <script type="module">
-    // Bridge the ESM helper into a global so the legacy classic <script>
-    // blocks below can route caught Errors / Events through it. Module
+    // Bridge the ESM helpers into globals so the legacy classic <script>
+    // blocks below can route caught Errors / Events through them. Module
     // scripts are deferred, so this runs before any user click.
+    //
+    // describeError converts the raw caught value into a developer-facing
+    // string (logged to the console). userMessageForUpload /
+    // userMessageForMic translate that string into plain-language user
+    // copy with a concrete next step.
     import { describeError } from '/lib/describe-error.js';
+    import { userMessageForUpload, userMessageForMic } from '/lib/error-copy.js';
     window.describeError = describeError;
+    window.userMessageForUpload = userMessageForUpload;
+    window.userMessageForMic = userMessageForMic;
   </script>
 
   <script type="module">
@@ -92,10 +100,13 @@
         } catch (err) {
           bootPromise = null;
           const status = document.getElementById('micStatus');
+          const why = (window.describeError && window.describeError(err))
+            || (err && err.message) || String(err);
+          console.warn('[mic]', why);
           if (status) {
-            const why = (window.describeError && window.describeError(err))
-              || (err && err.message) || String(err);
-            status.textContent = 'Speech runtime failed to load: ' + why.slice(0, 240);
+            status.textContent = window.userMessageForMic
+              ? window.userMessageForMic('speech model: ' + why)
+              : "We couldn't load the speech model. Check your connection and try again.";
             status.className = 'status-badge';
           }
           throw err;
@@ -1693,7 +1704,7 @@
             <span id="micStatus" class="status-badge" role="status" aria-live="polite">Idle</span>
             <span id="micTimer" class="status-badge" aria-hidden="true" hidden>0:00 / 1:00</span>
           </div>
-          <p id="micFallbackNote" class="field-hint" role="note" hidden style="margin:0 0 10px;">Using the WASM speech model — WebGPU isn't available in this browser, so transcription will be slightly slower.</p>
+          <p id="micFallbackNote" class="field-hint" role="note" hidden style="margin:0 0 10px; color:var(--ink-3);">Using the slower WASM speech model — WebGPU isn't available in this browser.</p>
           <label class="field-label" for="transcription">Transcription</label>
           <textarea id="transcription" placeholder="Transcription will appear here…"></textarea>
         </div>
@@ -3802,25 +3813,6 @@
       return window.__transformersPipelinePromise;
     }
 
-    // Wrap the SIMD/no-backend error class with a clear browser-version
-    // hint. The bare ORT-Web message ("WebAssembly SIMD is not
-    // supported in the current environment") points at the symptom
-    // rather than the actual minimum browser versions, so we surface
-    // those plus the underlying error for diagnosis.
-    function explainAsrError(err) {
-      var msg = (err && err.message) || String(err);
-      if (msg.indexOf('SIMD is not supported') !== -1 ||
-          msg.indexOf('no available backend') !== -1 ||
-          msg.indexOf('Aborted(CompileError') !== -1) {
-        return new Error(
-          'Your browser does not support the WebAssembly features the ' +
-          'speech model needs. Update to Chrome 91+, Edge 91+, Firefox 89+, ' +
-          'or Safari 16.4+ — or use the text input above. (' + msg + ')'
-        );
-      }
-      return err instanceof Error ? err : new Error(msg);
-    }
-
     async function ensureASR(){
       const pipeline = await getPipeline();
       const model = pickAsrModel();
@@ -3873,7 +3865,12 @@
             micTimer.textContent = fmtSec(elapsed) + ' / ' + fmtSec(MEDIA_MAX_DURATION_S);
           }, 250);
           recordAutoStopTimeout = setTimeout(function () { stopRecording('limit'); }, MEDIA_MAX_DURATION_S * 1000);
-        }catch(e){ micStatus.textContent = 'Could not access microphone — check permissions.'; micStatus.className = 'status-badge'; }
+        }catch(e){
+          var why = window.describeError ? window.describeError(e) : ((e && e.message) || String(e));
+          console.warn('[mic]', why);
+          micStatus.textContent = window.userMessageForMic(why);
+          micStatus.className = 'status-badge';
+        }
       } else {
         stopRecording('manual');
       }
@@ -3903,9 +3900,13 @@
         textIn.value = translated;
         if (!micTranslationExpected || translated !== rawText) { micStatus.textContent = 'Done ✓'; micStatus.className = 'status-badge ready'; }
       }catch(e){
-        const explained = explainAsrError(e);
-        const msg = (explained && explained.message) ? explained.message : String(explained);
-        micStatus.textContent = 'Transcription failed: ' + msg.slice(0, 240);
+        // Pass the dev string through the mic mapper. We tag the cue
+        // with "transcribe" so the catch-all on this branch resolves to
+        // the transcription copy ("Couldn't transcribe this clip…")
+        // rather than the recording-side fallback.
+        var why = window.describeError ? window.describeError(e) : ((e && e.message) || String(e));
+        console.warn('[mic]', why);
+        micStatus.textContent = window.userMessageForMic('transcribe failed: ' + why);
         micStatus.className = 'status-badge';
       }
     });
@@ -4161,7 +4162,7 @@
         }
         const byteLen = (data && (data.byteLength != null ? data.byteLength : data.length)) || 0;
         if (!byteLen || byteLen < 1024) {
-          showVideoError('Decoded audio is empty. The file may be silent or have an unsupported audio codec.');
+          showVideoError('Decoded audio is empty. Try a different file with clear spoken audio.');
           return;
         }
 
@@ -4194,10 +4195,13 @@
       } catch (e) {
         if (abortCtrl.signal.aborted) {
           const reason = abortCtrl.signal.reason;
+          const cue = reason === 'decode timeout' ? 'decode timeout' : 'operation aborted';
+          console.warn('[upload]', cue);
           if (reason === 'decode timeout') {
-            showVideoError('decode timeout — file too long for in-browser processing');
+            showVideoError(window.userMessageForUpload(cue));
           } else {
-            videoStatus.textContent = 'Cancelled.'; videoStatus.className = 'status-badge';
+            videoStatus.textContent = window.userMessageForUpload(cue);
+            videoStatus.className = 'status-badge';
           }
           // After abort, the ffmpeg worker is in an unrecoverable state
           // (the in-flight exec was rejected mid-decode); terminate and
@@ -4207,16 +4211,12 @@
           window.__ffmpegPromise = null;
           return;
         }
-        // Prefer the SIMD/no-backend hint from explainAsrError when it
-        // produced a useful (non-tag) message. Otherwise fall through to
-        // describeError, which decodes Event / MediaError / MessageEvent
-        // shapes into something the user can actually act on.
-        const explained = explainAsrError(e);
-        const explainedMsg = (explained && explained.message) || '';
-        const isUseful = explainedMsg && explainedMsg.indexOf('[object ') === -1;
+        // Route the developer-facing string through the mapper so the
+        // user sees plain-language copy with a next step. The dev string
+        // still reaches the console so debugging is unaffected.
         const desc = (window.describeError ? window.describeError(e) : (e && e.message) || 'unknown error');
-        const msg = isUseful ? explainedMsg : desc;
-        showVideoError('Could not process the file: ' + String(msg).slice(0, 280));
+        console.warn('[upload]', desc);
+        showVideoError(window.userMessageForUpload(desc));
       } finally {
         clearTimeout(timeoutId);
         videoAbortController = null;
