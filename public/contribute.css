@@ -3158,7 +3158,7 @@ select.field-input { cursor: pointer; }
 
 .c2-walk__frame {
   display: grid;
-  grid-template-columns: minmax(260px, 320px) 1fr;
+  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
   gap: var(--kozha-space-6);
 }
 
@@ -4298,6 +4298,12 @@ select.field-input { cursor: pointer; }
   .c2-walk__panel { padding: var(--kozha-space-4); }
   .c2-walk__copy-title { font-size: 22px; }
   .c2-walk__tab { flex: 0 0 200px; padding: 12px 14px; }
+  /* Drop the duration pill on phones — at 200px tab width the pill
+     squeezes the middle column and forces tab-name onto 3 lines. The
+     tab number + name are sufficient signposting at this size. */
+  .c2-walk__tab-dur { display: none; }
+  /* Bump Prev/Next to clear the 44px tap-target floor on mobile. */
+  .c2-walk__nav { padding: var(--kozha-space-3) var(--kozha-space-5); }
   .c2-walk__viz { padding: var(--kozha-space-3); min-height: 220px; }
   .c2-quickstart__inner {
     padding: var(--kozha-space-6) var(--kozha-space-4);
