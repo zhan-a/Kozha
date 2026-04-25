@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-25T01:28:18.456Z",
-  "url": "http://127.0.0.1:61129/app.html",
+  "timestamp": "2026-04-25T01:38:22.687Z",
+  "url": "http://127.0.0.1:61464/app.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -16141,7 +16141,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"CWASAAvatar av0\"><div class=\"divAv av0\">\n<canvas class=\"canvasAv av0\" ondragstart=\"return false\" width=\"374\" height=\"209\"></canvas>\n</div>  <!--class=\"divAv av0\"--></div>",
+          "html": "<div class=\"CWASAAvatar av0\"><div class=\"divAv av0\">\n<canvas class=\"canvasAv av0\" ondragstart=\"return false\" width=\"442\" height=\"247\"></canvas>\n</div>  <!--class=\"divAv av0\"--></div>",
           "target": [
             ".CWASAAvatar"
           ]
@@ -16161,7 +16161,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"divAv av0\">\n<canvas class=\"canvasAv av0\" ondragstart=\"return false\" width=\"374\" height=\"209\"></canvas>\n</div>",
+          "html": "<div class=\"divAv av0\">\n<canvas class=\"canvasAv av0\" ondragstart=\"return false\" width=\"442\" height=\"247\"></canvas>\n</div>",
           "target": [
             ".divAv"
           ]
@@ -16181,7 +16181,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<canvas class=\"canvasAv av0\" ondragstart=\"return false\" width=\"374\" height=\"209\"></canvas>",
+          "html": "<canvas class=\"canvasAv av0\" ondragstart=\"return false\" width=\"442\" height=\"247\"></canvas>",
           "target": [
             "canvas"
           ]
@@ -18071,12 +18071,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 260,
+                "width": 220,
                 "height": 50
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (260px by 50px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (220px by 50px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -18103,12 +18103,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 260,
+                "width": 220,
                 "height": 50
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (260px by 50px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (220px by 50px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -18135,12 +18135,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 260,
+                "width": 220,
                 "height": 50
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (260px by 50px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (220px by 50px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -18167,12 +18167,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 260,
+                "width": 220,
                 "height": 50
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (260px by 50px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (220px by 50px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -18199,12 +18199,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 260,
+                "width": 220,
                 "height": 50
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (260px by 50px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (220px by 50px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -18231,12 +18231,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 260,
+                "width": 220,
                 "height": 50
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (260px by 50px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (220px by 50px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -18263,12 +18263,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 121.3,
+                "width": 112.5,
                 "height": 37
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (121.3px by 37px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (112.5px by 37px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -18295,12 +18295,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 121.3,
+                "width": 112.5,
                 "height": 37
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (121.3px by 37px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (112.5px by 37px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -18327,12 +18327,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 438,
+                "width": 410,
                 "height": 80
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (438px by 80px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (410px by 80px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -18380,12 +18380,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 438,
+                "width": 410,
                 "height": 45.5
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (438px by 45.5px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (410px by 45.5px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",

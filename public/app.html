@@ -35,7 +35,9 @@
       --paper: #f5f1eb;
       --paper-2: #ede8e0;
       --paper-3: #e4ddd3;
-      /* --accent is used for primary button backgrounds, active sidebar
+      /* Tightened from 260 → 220 so the input + avatar columns share
+         more horizontal real estate. --accent is used for primary
+         button backgrounds, active sidebar
          item text, focus rings — all small text. Must pass AA 4.5:1 on
          white. #b3441b = 7.31:1 (AAA). The brighter #c96a2e is retained
          as --accent-2 for hover lift. */
@@ -47,7 +49,7 @@
       --border: rgba(26,22,18,0.12);
       --radius: 16px;
       --radius-sm: 10px;
-      --sidebar: 260px;
+      --sidebar: 220px;
     }
 
     /* Box-sizing reset only — the universal "* { padding: 0 }" was
@@ -114,13 +116,17 @@
     .app-shell {
       flex: 1;
       display: flex;
-      max-width: 1280px;
+      /* Wider shell so the avatar column has more room. The grid below
+         caps individual columns; the shell itself stretches to ultra-
+         wide monitors so the avatar can grow with the viewport. */
+      max-width: 1680px;
       width: 100%;
       margin: 0 auto;
       /* Top padding clears the fixed .kz-header so the shell doesn't slip
          under it. kozha-layout-nav-h (64px) + the 24px working gutter. */
       padding: calc(var(--kozha-layout-nav-h, 64px) + 24px) 32px 24px;
       gap: 24px;
+      align-items: flex-start;
     }
 
     .sidebar {
@@ -187,20 +193,38 @@
       margin: 8px 0;
     }
 
+    /* Input column. Capped width so the form stays scan-able instead
+       of stretching across the page; the avatar (render-panel) is the
+       primary surface and gets the rest of the row. */
     .content-area {
-      flex: 1;
+      flex: 0 1 460px;
+      width: 460px;
+      max-width: 460px;
       min-width: 0;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 16px;
     }
 
+    /* Avatar / output column. Now flexes to fill the rest of the row
+       so the avatar stage grows with the viewport (it's the focal
+       output of the whole app — bigger is better). The min-width: 0
+       prevents flex children with intrinsic widths from overflowing
+       and pushing the layout. */
     .render-panel {
-      width: 420px;
-      flex-shrink: 0;
+      flex: 1 1 0;
+      min-width: 0;
       display: flex;
       flex-direction: column;
       gap: 16px;
+    }
+    /* Avatar wrapper caps at a sensible large size so the stage doesn't
+       become silly on 4K/ultrawide monitors. */
+    .avatar-wrapper {
+      max-width: 920px;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
     }
 
     .card {
@@ -437,10 +461,12 @@
     }
     .CWASAAvatar.av0 canvas {
       /* CWASA renders at the avSettings native resolution (we now
-         request 720x540 below — large enough that the canvas fills
+         request 1024x768 below — large enough that the canvas fills
          the translator stage at typical desktop widths without
-         upscaling artefacts). object-fit: contain keeps the avatar
-         proportions when the stage is wider/taller than 4:3. */
+         upscaling artefacts; the stage itself flexes with the
+         viewport so the avatar grows on wider screens).
+         object-fit: contain keeps the avatar proportions when the
+         stage is wider/taller than 4:3. */
       width: 100% !important;
       height: 100% !important;
       object-fit: contain;
@@ -1048,7 +1074,13 @@
       .sidebar.open { max-height: 500px; }
       .sidebar-section-label { display: none; }
       .sidebar-divider { display: none; }
-      .render-panel { width: 100%; }
+      .render-panel { width: 100%; flex-basis: auto; }
+      .content-area {
+        width: 100%;
+        max-width: 100%;
+        flex-basis: auto;
+      }
+      .avatar-wrapper { max-width: none; }
       /* On mobile, the render panel stacks under the input. Avatar stage
          keeps its 16:9 aspect; the rule above handles sizing via
          aspect-ratio, so we don't stretch height here. */
@@ -1810,13 +1842,15 @@
       useClientConfig: false,
       useCwaConfig: true,
       avSettings: [{
-        // 720x540 native render: the translator stage is ~600px wide
-        // at desktop widths, so the canvas never has to upscale. CSS
-        // (avatar canvas rule above) still scales to fill the stage
-        // with object-fit: contain so the avatar grows proportionally
-        // on wider viewports without pixellation.
-        width: 720,
-        height: 540,
+        // 1024x768 native render: the translator stage now grows with
+        // the viewport (avatar column flexes after the 460px input
+        // column instead of being fixed at 420px), so the canvas
+        // wants more headroom. CSS (avatar canvas rule above) still
+        // scales to fill the stage with object-fit: contain so the
+        // avatar stays proportional on wide viewports without
+        // pixellation.
+        width: 1024,
+        height: 768,
         avList: 'avs',
         initAv: 'luna',
         ambIdle: true,

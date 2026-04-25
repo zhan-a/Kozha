@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-25T01:28:34.851Z",
-  "url": "http://127.0.0.1:61129/contribute.html",
+  "timestamp": "2026-04-25T01:38:40.288Z",
+  "url": "http://127.0.0.1:61464/contribute.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -939,6 +939,72 @@
             }
           ],
           "impact": null,
+          "html": "<section class=\"contribute-fontdemo\" id=\"contributeFontDemo\" aria-labelledby=\"fontDemoHeading\">",
+          "target": [
+            "#contributeFontDemo"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-allowed-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attributes are used correctly for the defined role"
+            },
+            {
+              "id": "aria-allowed-attr-elm",
+              "data": null,
+              "relatedNodes": [],
+              "message": "ARIA attributes are allowed for this element",
+              "impact": "critical"
+            }
+          ],
+          "none": [
+            {
+              "id": "aria-unsupported-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute is supported"
+            }
+          ],
+          "impact": null,
+          "html": "<ul class=\"contribute-fontdemo-grid\" aria-label=\"Example HamNoSys signs rendered in the HamNoSysUnicode font\">",
+          "target": [
+            ".contribute-fontdemo-grid"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-allowed-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attributes are used correctly for the defined role"
+            },
+            {
+              "id": "aria-allowed-attr-elm",
+              "data": null,
+              "relatedNodes": [],
+              "message": "ARIA attributes are allowed for this element",
+              "impact": "critical"
+            }
+          ],
+          "none": [
+            {
+              "id": "aria-unsupported-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute is supported"
+            }
+          ],
+          "impact": null,
           "html": "<section class=\"contribute-offline card kz-card\" id=\"contributeOffline\" role=\"status\" aria-live=\"polite\">\n      <p class=\"contribute-offline-body\">Contribution backend is currently offline. You can save a draft locally, and we'll upload it when the backend is available.</p>\n    </section>",
           "target": [
             "#contributeOffline"
@@ -1734,6 +1800,39 @@
           "html": "<div class=\"sigml-annotated\" id=\"sigmlAnnotated\" role=\"group\" aria-label=\"Annotated SiGML editor\" aria-live=\"polite\"><p class=\"sigml-annotated-empty field-hint\">No SiGML yet — describe the sign and the model will draft one.</p></div>",
           "target": [
             "#sigmlAnnotated"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-allowed-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attributes are used correctly for the defined role"
+            },
+            {
+              "id": "aria-allowed-attr-elm",
+              "data": null,
+              "relatedNodes": [],
+              "message": "ARIA attributes are allowed for this element",
+              "impact": "critical"
+            }
+          ],
+          "none": [
+            {
+              "id": "aria-unsupported-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute is supported"
+            }
+          ],
+          "impact": null,
+          "html": "<pre class=\"notation-sigml\" id=\"sigmlDisplay\" role=\"region\" aria-label=\"SiGML source code\" tabindex=\"0\"><code id=\"sigmlCode\"></code></pre>",
+          "target": [
+            "#sigmlDisplay"
           ]
         },
         {
@@ -2356,7 +2455,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"notation-hamnosys-display is-font-missing\" id=\"hamnosysDisplay\" role=\"img\" aria-label=\"HamNoSys notation with three symbols\" aria-live=\"polite\" tabindex=\"0\"></div>",
+          "html": "<div class=\"notation-hamnosys-display\" id=\"hamnosysDisplay\" role=\"img\" aria-label=\"HamNoSys notation with three symbols\" aria-live=\"polite\" tabindex=\"0\"></div>",
           "target": [
             "#hamnosysDisplay"
           ]
@@ -2755,6 +2854,42 @@
           "html": "<section class=\"contribute-demo\" id=\"contributeDemo\" aria-labelledby=\"demoHeading\">",
           "target": [
             "#contributeDemo"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-conditional-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<section class=\"contribute-fontdemo\" id=\"contributeFontDemo\" aria-labelledby=\"fontDemoHeading\">",
+          "target": [
+            "#contributeFontDemo"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-conditional-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<ul class=\"contribute-fontdemo-grid\" aria-label=\"Example HamNoSys signs rendered in the HamNoSysUnicode font\">",
+          "target": [
+            ".contribute-fontdemo-grid"
           ]
         },
         {
@@ -3220,6 +3355,24 @@
           ],
           "none": [],
           "impact": null,
+          "html": "<pre class=\"notation-sigml\" id=\"sigmlDisplay\" role=\"region\" aria-label=\"SiGML source code\" tabindex=\"0\"><code id=\"sigmlCode\"></code></pre>",
+          "target": [
+            "#sigmlDisplay"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-conditional-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "none": [],
+          "impact": null,
           "html": "<section class=\"submission-panel card kz-card\" id=\"submissionPanel\" aria-label=\"Submit for review\">",
           "target": [
             "#submissionPanel"
@@ -3529,6 +3682,24 @@
           "html": "<div class=\"sigml-annotated\" id=\"sigmlAnnotated\" role=\"group\" aria-label=\"Annotated SiGML editor\" aria-live=\"polite\"><p class=\"sigml-annotated-empty field-hint\">No SiGML yet — describe the sign and the model will draft one.</p></div>",
           "target": [
             "#sigmlAnnotated"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "deprecatedrole",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is not deprecated"
+            }
+          ],
+          "impact": null,
+          "html": "<pre class=\"notation-sigml\" id=\"sigmlDisplay\" role=\"region\" aria-label=\"SiGML source code\" tabindex=\"0\"><code id=\"sigmlCode\"></code></pre>",
+          "target": [
+            "#sigmlDisplay"
           ]
         },
         {
@@ -4089,6 +4260,134 @@
           "html": "<div class=\"contribute-demo-step-vis demo-submit\" aria-hidden=\"true\">\n            <span class=\"demo-check\">✓</span><span class=\"demo-check-label\">submitted</span>\n          </div>",
           "target": [
             ".demo-submit"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"hamnosys contribute-fontdemo-glyph\" lang=\"zxx\" aria-hidden=\"true\"></span>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(1) > .hamnosys.contribute-fontdemo-glyph[lang=\"zxx\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"hamnosys contribute-fontdemo-glyph\" lang=\"zxx\" aria-hidden=\"true\"></span>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(2) > .hamnosys.contribute-fontdemo-glyph[lang=\"zxx\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"hamnosys contribute-fontdemo-glyph\" lang=\"zxx\" aria-hidden=\"true\"></span>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(3) > .hamnosys.contribute-fontdemo-glyph[lang=\"zxx\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"hamnosys contribute-fontdemo-glyph\" lang=\"zxx\" aria-hidden=\"true\"></span>",
+          "target": [
+            ".contribute-fontdemo-card-wide > .hamnosys.contribute-fontdemo-glyph[lang=\"zxx\"]"
           ]
         },
         {
@@ -4738,6 +5037,42 @@
             }
           ],
           "impact": null,
+          "html": "<section class=\"contribute-fontdemo\" id=\"contributeFontDemo\" aria-labelledby=\"fontDemoHeading\">",
+          "target": [
+            "#contributeFontDemo"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "aria-prohibited-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "impact": null,
+          "html": "<ul class=\"contribute-fontdemo-grid\" aria-label=\"Example HamNoSys signs rendered in the HamNoSysUnicode font\">",
+          "target": [
+            ".contribute-fontdemo-grid"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "aria-prohibited-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "impact": null,
           "html": "<section class=\"contribute-offline card kz-card\" id=\"contributeOffline\" role=\"status\" aria-live=\"polite\">\n      <p class=\"contribute-offline-body\">Contribution backend is currently offline. You can save a draft locally, and we'll upload it when the backend is available.</p>\n    </section>",
           "target": [
             "#contributeOffline"
@@ -5170,6 +5505,24 @@
             }
           ],
           "impact": null,
+          "html": "<pre class=\"notation-sigml\" id=\"sigmlDisplay\" role=\"region\" aria-label=\"SiGML source code\" tabindex=\"0\"><code id=\"sigmlCode\"></code></pre>",
+          "target": [
+            "#sigmlDisplay"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "aria-prohibited-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "impact": null,
           "html": "<section class=\"submission-panel card kz-card\" id=\"submissionPanel\" aria-label=\"Submit for review\">",
           "target": [
             "#submissionPanel"
@@ -5479,6 +5832,24 @@
           "html": "<div class=\"sigml-annotated\" id=\"sigmlAnnotated\" role=\"group\" aria-label=\"Annotated SiGML editor\" aria-live=\"polite\"><p class=\"sigml-annotated-empty field-hint\">No SiGML yet — describe the sign and the model will draft one.</p></div>",
           "target": [
             "#sigmlAnnotated"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-required-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "All required ARIA attributes are present"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<pre class=\"notation-sigml\" id=\"sigmlDisplay\" role=\"region\" aria-label=\"SiGML source code\" tabindex=\"0\"><code id=\"sigmlCode\"></code></pre>",
+          "target": [
+            "#sigmlDisplay"
           ]
         },
         {
@@ -6022,6 +6393,38 @@
             }
           ],
           "impact": null,
+          "html": "<pre class=\"notation-sigml\" id=\"sigmlDisplay\" role=\"region\" aria-label=\"SiGML source code\" tabindex=\"0\"><code id=\"sigmlCode\"></code></pre>",
+          "target": [
+            "#sigmlDisplay"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "invalidrole",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA role is valid"
+            },
+            {
+              "id": "abstractrole",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Abstract roles are not used"
+            },
+            {
+              "id": "unsupportedrole",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA role is supported"
+            }
+          ],
+          "impact": null,
           "html": "<div class=\"submission-actions\" role=\"toolbar\" aria-label=\"Submission actions\">",
           "target": [
             ".submission-actions"
@@ -6235,6 +6638,70 @@
           "html": "<section class=\"contribute-demo\" id=\"contributeDemo\" aria-labelledby=\"demoHeading\">",
           "target": [
             "#contributeDemo"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-valid-attr-value",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute values are valid"
+            },
+            {
+              "id": "aria-errormessage",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-errormessage exists and references elements visible to screen readers that use a supported aria-errormessage technique"
+            },
+            {
+              "id": "aria-level",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-level values are valid"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<section class=\"contribute-fontdemo\" id=\"contributeFontDemo\" aria-labelledby=\"fontDemoHeading\">",
+          "target": [
+            "#contributeFontDemo"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-valid-attr-value",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute values are valid"
+            },
+            {
+              "id": "aria-errormessage",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-errormessage exists and references elements visible to screen readers that use a supported aria-errormessage technique"
+            },
+            {
+              "id": "aria-level",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-level values are valid"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<ul class=\"contribute-fontdemo-grid\" aria-label=\"Example HamNoSys signs rendered in the HamNoSysUnicode font\">",
+          "target": [
+            ".contribute-fontdemo-grid"
           ]
         },
         {
@@ -7035,6 +7502,38 @@
           "html": "<div class=\"sigml-annotated\" id=\"sigmlAnnotated\" role=\"group\" aria-label=\"Annotated SiGML editor\" aria-live=\"polite\"><p class=\"sigml-annotated-empty field-hint\">No SiGML yet — describe the sign and the model will draft one.</p></div>",
           "target": [
             "#sigmlAnnotated"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-valid-attr-value",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute values are valid"
+            },
+            {
+              "id": "aria-errormessage",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-errormessage exists and references elements visible to screen readers that use a supported aria-errormessage technique"
+            },
+            {
+              "id": "aria-level",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-level values are valid"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<pre class=\"notation-sigml\" id=\"sigmlDisplay\" role=\"region\" aria-label=\"SiGML source code\" tabindex=\"0\"><code id=\"sigmlCode\"></code></pre>",
+          "target": [
+            "#sigmlDisplay"
           ]
         },
         {
@@ -7332,6 +7831,42 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<section class=\"contribute-fontdemo\" id=\"contributeFontDemo\" aria-labelledby=\"fontDemoHeading\">",
+          "target": [
+            "#contributeFontDemo"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-valid-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute name is valid"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<ul class=\"contribute-fontdemo-grid\" aria-label=\"Example HamNoSys signs rendered in the HamNoSysUnicode font\">",
+          "target": [
+            ".contribute-fontdemo-grid"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-valid-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute name is valid"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<section class=\"contribute-offline card kz-card\" id=\"contributeOffline\" role=\"status\" aria-live=\"polite\">\n      <p class=\"contribute-offline-body\">Contribution backend is currently offline. You can save a draft locally, and we'll upload it when the backend is available.</p>\n    </section>",
           "target": [
             "#contributeOffline"
@@ -7767,6 +8302,24 @@
           "html": "<div class=\"sigml-annotated\" id=\"sigmlAnnotated\" role=\"group\" aria-label=\"Annotated SiGML editor\" aria-live=\"polite\"><p class=\"sigml-annotated-empty field-hint\">No SiGML yet — describe the sign and the model will draft one.</p></div>",
           "target": [
             "#sigmlAnnotated"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-valid-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute name is valid"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<pre class=\"notation-sigml\" id=\"sigmlDisplay\" role=\"region\" aria-label=\"SiGML source code\" tabindex=\"0\"><code id=\"sigmlCode\"></code></pre>",
+          "target": [
+            "#sigmlDisplay"
           ]
         },
         {
@@ -8449,6 +9002,12 @@
                   "html": "<h3 class=\"contribute-demo-step-title\">Submit for Deaf review</h3>",
                   "target": [
                     ".contribute-demo-step:nth-child(5) > .contribute-demo-step-title"
+                  ]
+                },
+                {
+                  "html": "<h2 class=\"contribute-fontdemo-heading\" id=\"fontDemoHeading\">What HamNoSys notation looks like</h2>",
+                  "target": [
+                    "#fontDemoHeading"
                   ]
                 },
                 {
@@ -9621,6 +10180,406 @@
             {
               "id": "color-contrast",
               "data": {
+                "fgColor": "#1a1612",
+                "bgColor": "#f5f1eb",
+                "contrastRatio": 15.98,
+                "fontSize": "21.0pt (28px)",
+                "fontWeight": "bold",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 15.98"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<h2 class=\"contribute-fontdemo-heading\" id=\"fontDemoHeading\">What HamNoSys notation looks like</h2>",
+          "target": [
+            "#fontDemoHeading"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#3d3630",
+                "bgColor": "#f5f1eb",
+                "contrastRatio": 10.55,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 10.55"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-fontdemo-lede\">HamNoSys is a written notation for sign-language phonetics: handshape, where the hand sits, which way the palm faces, how it moves. Kozha drafts it for you, but here is what the script itself reads like once it's on the page.</p>",
+          "target": [
+            ".contribute-fontdemo-lede"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#1a1612",
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.98,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 17.98"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-fontdemo-gloss\">A <span class=\"contribute-fontdemo-lang\">ASL</span></p>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(1) > .contribute-fontdemo-gloss"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#5e5c57",
+                "bgColor": "#ffffff",
+                "contrastRatio": 6.67,
+                "fontSize": "7.4pt (9.8px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 6.67"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"contribute-fontdemo-lang\">ASL</span>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(1) > .contribute-fontdemo-gloss > .contribute-fontdemo-lang"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#3d3630",
+                "bgColor": "#ffffff",
+                "contrastRatio": 11.87,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 11.87"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-fontdemo-meaning\">Closed fist, thumb out to the side, fingers pointing up, palm facing left. The fingerspelling letter A.</p>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(1) > .contribute-fontdemo-meaning"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#1a1612",
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.98,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 17.98"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-fontdemo-gloss\">B <span class=\"contribute-fontdemo-lang\">ASL</span></p>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(2) > .contribute-fontdemo-gloss"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#5e5c57",
+                "bgColor": "#ffffff",
+                "contrastRatio": 6.67,
+                "fontSize": "7.4pt (9.8px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 6.67"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"contribute-fontdemo-lang\">ASL</span>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(2) > .contribute-fontdemo-gloss > .contribute-fontdemo-lang"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#3d3630",
+                "bgColor": "#ffffff",
+                "contrastRatio": 11.87,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 11.87"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-fontdemo-meaning\">Flat hand with the thumb folded across the palm, fingers up, palm facing down. The letter B.</p>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(2) > .contribute-fontdemo-meaning"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#1a1612",
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.98,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 17.98"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-fontdemo-gloss\">C <span class=\"contribute-fontdemo-lang\">ASL</span></p>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(3) > .contribute-fontdemo-gloss"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#5e5c57",
+                "bgColor": "#ffffff",
+                "contrastRatio": 6.67,
+                "fontSize": "7.4pt (9.8px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 6.67"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"contribute-fontdemo-lang\">ASL</span>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(3) > .contribute-fontdemo-gloss > .contribute-fontdemo-lang"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#3d3630",
+                "bgColor": "#ffffff",
+                "contrastRatio": 11.87,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 11.87"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-fontdemo-meaning\">A C-shape with all fingers, pointing up, palm to the side. The letter C.</p>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(3) > .contribute-fontdemo-meaning"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#1a1612",
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.98,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 17.98"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-fontdemo-gloss\">HAMBURG <span class=\"contribute-fontdemo-lang\">DGS</span></p>",
+          "target": [
+            ".contribute-fontdemo-card-wide > .contribute-fontdemo-gloss"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#5e5c57",
+                "bgColor": "#ffffff",
+                "contrastRatio": 6.67,
+                "fontSize": "7.4pt (9.8px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 6.67"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"contribute-fontdemo-lang\">DGS</span>",
+          "target": [
+            ".contribute-fontdemo-card-wide > .contribute-fontdemo-gloss > .contribute-fontdemo-lang"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#3d3630",
+                "bgColor": "#ffffff",
+                "contrastRatio": 11.87,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 11.87"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-fontdemo-meaning\">An open C-shape at the side of the head closes into a pinch as the hand sweeps down and to the right. The German Sign Language sign for the city of Hamburg, used as the canonical worked example in the HamNoSys 4.0 manual.</p>",
+          "target": [
+            ".contribute-fontdemo-card-wide > .contribute-fontdemo-meaning"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#5e5c57",
+                "bgColor": "#f5f1eb",
+                "contrastRatio": 5.93,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 5.93"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-fontdemo-foot\">",
+          "target": [
+            ".contribute-fontdemo-foot"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fgColor": "#5e5c57",
+                "bgColor": "#ede8e0",
+                "contrastRatio": 5.47,
+                "fontSize": "10.0pt (13.3px)",
+                "fontWeight": "normal",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has sufficient color contrast of 5.47"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<code>HamNoSysUnicode</code>",
+          "target": [
+            ".contribute-fontdemo-foot > code"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
                 "fgColor": "#3d3630",
                 "bgColor": "#faeee0",
                 "contrastRatio": 10.38,
@@ -10591,7 +11550,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<summary class=\"kz-link\">Show raw SiGML source</summary>",
+          "html": "<summary class=\"kz-link\">Raw SiGML source</summary>",
           "target": [
             ".sigml-source-details > summary"
           ]
@@ -11615,6 +12574,24 @@
           "any": [
             {
               "id": "duplicate-id-aria",
+              "data": "fontDemoHeading",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<h2 class=\"contribute-fontdemo-heading\" id=\"fontDemoHeading\">What HamNoSys notation looks like</h2>",
+          "target": [
+            "#fontDemoHeading"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
               "data": "pausedHeading",
               "relatedNodes": [],
               "impact": "critical",
@@ -12195,6 +13172,24 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<h2 class=\"contribute-fontdemo-heading\" id=\"fontDemoHeading\">What HamNoSys notation looks like</h2>",
+          "target": [
+            "#fontDemoHeading"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "Element has text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<h2 class=\"card-title\" data-i18n=\"contribute.chat.section_label\">Clarification chat</h2>",
           "target": [
             "h2[data-i18n=\"contribute.chat.section_label\"]"
@@ -12516,25 +13511,31 @@
                   },
                   {
                     "ancestry": [
-                      "html > body > main:nth-child(3) > section:nth-child(12) > section:nth-child(2) > h2:nth-child(1)"
+                      "html > body > main:nth-child(3) > section:nth-child(3) > header:nth-child(1) > h2:nth-child(1)"
                     ],
                     "level": 2
                   },
                   {
                     "ancestry": [
-                      "html > body > main:nth-child(3) > section:nth-child(12) > section:nth-child(3) > h2:nth-child(1)"
+                      "html > body > main:nth-child(3) > section:nth-child(13) > section:nth-child(2) > h2:nth-child(1)"
                     ],
                     "level": 2
                   },
                   {
                     "ancestry": [
-                      "html > body > main:nth-child(3) > section:nth-child(12) > section:nth-child(4) > h2:nth-child(1)"
+                      "html > body > main:nth-child(3) > section:nth-child(13) > section:nth-child(3) > h2:nth-child(1)"
                     ],
                     "level": 2
                   },
                   {
                     "ancestry": [
-                      "html > body > main:nth-child(3) > section:nth-child(12) > section:nth-child(5) > h2:nth-child(1)"
+                      "html > body > main:nth-child(3) > section:nth-child(13) > section:nth-child(4) > h2:nth-child(1)"
+                    ],
+                    "level": 2
+                  },
+                  {
+                    "ancestry": [
+                      "html > body > main:nth-child(3) > section:nth-child(13) > section:nth-child(5) > h2:nth-child(1)"
                     ],
                     "level": 2
                   },
@@ -12677,6 +13678,24 @@
           "html": "<h3 class=\"contribute-demo-step-title\">Submit for Deaf review</h3>",
           "target": [
             ".contribute-demo-step:nth-child(5) > .contribute-demo-step-title"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "heading-order",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "Heading order valid"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<h2 class=\"contribute-fontdemo-heading\" id=\"fontDemoHeading\">What HamNoSys notation looks like</h2>",
+          "target": [
+            "#fontDemoHeading"
           ]
         },
         {
@@ -13515,6 +14534,27 @@
               "id": "landmark-is-unique",
               "data": {
                 "role": "region",
+                "accessibleText": "what hamnosys notation looks like"
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "Landmarks must have a unique role or role/label/title (i.e. accessible name) combination"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<section class=\"contribute-fontdemo\" id=\"contributeFontDemo\" aria-labelledby=\"fontDemoHeading\">",
+          "target": [
+            "#contributeFontDemo"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "landmark-is-unique",
+              "data": {
+                "role": "region",
                 "accessibleText": "active language and session"
               },
               "relatedNodes": [],
@@ -13612,6 +14652,27 @@
           "html": "<section class=\"notation-panel card kz-card\" id=\"notationPanel\" aria-label=\"Generated notation\">",
           "target": [
             "#notationPanel"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "landmark-is-unique",
+              "data": {
+                "role": "region",
+                "accessibleText": "sigml source code"
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "Landmarks must have a unique role or role/label/title (i.e. accessible name) combination"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<pre class=\"notation-sigml\" id=\"sigmlDisplay\" role=\"region\" aria-label=\"SiGML source code\" tabindex=\"0\"><code id=\"sigmlCode\"></code></pre>",
+          "target": [
+            "#sigmlDisplay"
           ]
         },
         {
@@ -14274,6 +15335,24 @@
             }
           ],
           "impact": null,
+          "html": "<ul class=\"contribute-fontdemo-grid\" aria-label=\"Example HamNoSys signs rendered in the HamNoSysUnicode font\">",
+          "target": [
+            ".contribute-fontdemo-grid"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "only-listitems",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "List element only has direct children that are allowed inside <li> elements"
+            }
+          ],
+          "impact": null,
           "html": "<ul class=\"submission-checklist\" id=\"submissionChecklist\" aria-label=\"Submission checklist\">",
           "target": [
             "#submissionChecklist"
@@ -14565,6 +15644,78 @@
           "html": "<li class=\"contribute-demo-step\">",
           "target": [
             ".contribute-demo-step:nth-child(5)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "listitem",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "List item has a <ul>, <ol> or role=\"list\" parent element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<li class=\"contribute-fontdemo-card kz-card\">",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(1)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "listitem",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "List item has a <ul>, <ol> or role=\"list\" parent element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<li class=\"contribute-fontdemo-card kz-card\">",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(2)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "listitem",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "List item has a <ul>, <ol> or role=\"list\" parent element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<li class=\"contribute-fontdemo-card kz-card\">",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(3)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "listitem",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "List item has a <ul>, <ol> or role=\"list\" parent element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<li class=\"contribute-fontdemo-card kz-card contribute-fontdemo-card-wide\">",
+          "target": [
+            ".contribute-fontdemo-card-wide"
           ]
         },
         {
@@ -15172,7 +16323,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<summary class=\"kz-link\">Show raw SiGML source</summary>",
+          "html": "<summary class=\"kz-link\">Raw SiGML source</summary>",
           "target": [
             ".sigml-source-details > summary"
           ]
@@ -16352,6 +17503,466 @@
           "html": "<span class=\"contribute-demo-cta-note\">Takes 1–3 minutes per sign · You can save and come back later.</span>",
           "target": [
             ".contribute-demo-cta-note"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<section class=\"contribute-fontdemo\" id=\"contributeFontDemo\" aria-labelledby=\"fontDemoHeading\">",
+          "target": [
+            "#contributeFontDemo"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<header class=\"contribute-fontdemo-head\">",
+          "target": [
+            ".contribute-fontdemo-head"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<h2 class=\"contribute-fontdemo-heading\" id=\"fontDemoHeading\">What HamNoSys notation looks like</h2>",
+          "target": [
+            "#fontDemoHeading"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-fontdemo-lede\">HamNoSys is a written notation for sign-language phonetics: handshape, where the hand sits, which way the palm faces, how it moves. Kozha drafts it for you, but here is what the script itself reads like once it's on the page.</p>",
+          "target": [
+            ".contribute-fontdemo-lede"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<ul class=\"contribute-fontdemo-grid\" aria-label=\"Example HamNoSys signs rendered in the HamNoSysUnicode font\">",
+          "target": [
+            ".contribute-fontdemo-grid"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<li class=\"contribute-fontdemo-card kz-card\">",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(1)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-fontdemo-gloss\">A <span class=\"contribute-fontdemo-lang\">ASL</span></p>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(1) > .contribute-fontdemo-gloss"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"contribute-fontdemo-lang\">ASL</span>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(1) > .contribute-fontdemo-gloss > .contribute-fontdemo-lang"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-fontdemo-meaning\">Closed fist, thumb out to the side, fingers pointing up, palm facing left. The fingerspelling letter A.</p>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(1) > .contribute-fontdemo-meaning"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<li class=\"contribute-fontdemo-card kz-card\">",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(2)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-fontdemo-gloss\">B <span class=\"contribute-fontdemo-lang\">ASL</span></p>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(2) > .contribute-fontdemo-gloss"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"contribute-fontdemo-lang\">ASL</span>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(2) > .contribute-fontdemo-gloss > .contribute-fontdemo-lang"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-fontdemo-meaning\">Flat hand with the thumb folded across the palm, fingers up, palm facing down. The letter B.</p>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(2) > .contribute-fontdemo-meaning"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<li class=\"contribute-fontdemo-card kz-card\">",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(3)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-fontdemo-gloss\">C <span class=\"contribute-fontdemo-lang\">ASL</span></p>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(3) > .contribute-fontdemo-gloss"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"contribute-fontdemo-lang\">ASL</span>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(3) > .contribute-fontdemo-gloss > .contribute-fontdemo-lang"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-fontdemo-meaning\">A C-shape with all fingers, pointing up, palm to the side. The letter C.</p>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(3) > .contribute-fontdemo-meaning"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<li class=\"contribute-fontdemo-card kz-card contribute-fontdemo-card-wide\">",
+          "target": [
+            ".contribute-fontdemo-card-wide"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-fontdemo-gloss\">HAMBURG <span class=\"contribute-fontdemo-lang\">DGS</span></p>",
+          "target": [
+            ".contribute-fontdemo-card-wide > .contribute-fontdemo-gloss"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"contribute-fontdemo-lang\">DGS</span>",
+          "target": [
+            ".contribute-fontdemo-card-wide > .contribute-fontdemo-gloss > .contribute-fontdemo-lang"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-fontdemo-meaning\">An open C-shape at the side of the head closes into a pinch as the hand sweeps down and to the right. The German Sign Language sign for the city of Hamburg, used as the canonical worked example in the HamNoSys 4.0 manual.</p>",
+          "target": [
+            ".contribute-fontdemo-card-wide > .contribute-fontdemo-meaning"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-fontdemo-foot\">",
+          "target": [
+            ".contribute-fontdemo-foot"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<code>HamNoSysUnicode</code>",
+          "target": [
+            ".contribute-fontdemo-foot > code"
           ]
         },
         {
@@ -17869,7 +19480,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<details class=\"sigml-source-details\">\n            <summary class=\"kz-link\">Show raw SiGML source</summary>\n            <pre class=\"notation-sigml\" id=\"sigmlDisplay\" role=\"region\" aria-label=\"SiGML source code\" tabindex=\"0\"><code id=\"sigmlCode\"></code></pre>\n          </details>",
+          "html": "<details class=\"sigml-source-details\" open=\"\">\n            <summary class=\"kz-link\">Raw SiGML source</summary>\n            <pre class=\"notation-sigml\" id=\"sigmlDisplay\" role=\"region\" aria-label=\"SiGML source code\" tabindex=\"0\"><code id=\"sigmlCode\"></code></pre>\n          </details>",
           "target": [
             ".sigml-source-details"
           ]
@@ -17889,9 +19500,49 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<summary class=\"kz-link\">Show raw SiGML source</summary>",
+          "html": "<summary class=\"kz-link\">Raw SiGML source</summary>",
           "target": [
             ".sigml-source-details > summary"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<pre class=\"notation-sigml\" id=\"sigmlDisplay\" role=\"region\" aria-label=\"SiGML source code\" tabindex=\"0\"><code id=\"sigmlCode\"></code></pre>",
+          "target": [
+            "#sigmlDisplay"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<code id=\"sigmlCode\"></code>",
+          "target": [
+            "#sigmlCode"
           ]
         },
         {
@@ -19496,7 +21147,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<summary class=\"kz-link\">Show raw SiGML source</summary>",
+          "html": "<summary class=\"kz-link\">Raw SiGML source</summary>",
           "target": [
             ".sigml-source-details > summary"
           ]
@@ -19530,6 +21181,24 @@
           "html": "<button type=\"button\" role=\"tab\" id=\"notationTabHamnosys\" class=\"notation-tab\" aria-selected=\"false\" aria-controls=\"notationPanelHamnosys\" data-tab=\"hamnosys\" tabindex=\"-1\" data-i18n=\"contribute.notation.tab_hamnosys\">HamNoSys</button>",
           "target": [
             "#notationTabHamnosys"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "tabindex",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element does not have a tabindex greater than 0"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<pre class=\"notation-sigml\" id=\"sigmlDisplay\" role=\"region\" aria-label=\"SiGML source code\" tabindex=\"0\"><code id=\"sigmlCode\"></code></pre>",
+          "target": [
+            "#sigmlDisplay"
           ]
         }
       ]
@@ -20179,7 +21848,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<summary class=\"kz-link\">Show raw SiGML source</summary>",
+          "html": "<summary class=\"kz-link\">Raw SiGML source</summary>",
           "target": [
             ".sigml-source-details > summary"
           ]
@@ -20572,6 +22241,90 @@
           "html": "<span class=\"demo-check\">✓</span>",
           "target": [
             ".demo-check"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "messageKey": "nonBmp"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element content contains only non-text characters"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"hamnosys contribute-fontdemo-glyph\" lang=\"zxx\" aria-hidden=\"true\"></span>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(1) > .hamnosys.contribute-fontdemo-glyph[lang=\"zxx\"]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "messageKey": "nonBmp"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element content contains only non-text characters"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"hamnosys contribute-fontdemo-glyph\" lang=\"zxx\" aria-hidden=\"true\"></span>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(2) > .hamnosys.contribute-fontdemo-glyph[lang=\"zxx\"]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "messageKey": "nonBmp"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element content contains only non-text characters"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"hamnosys contribute-fontdemo-glyph\" lang=\"zxx\" aria-hidden=\"true\"></span>",
+          "target": [
+            ".contribute-fontdemo-card.kz-card:nth-child(3) > .hamnosys.contribute-fontdemo-glyph[lang=\"zxx\"]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "messageKey": "nonBmp"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element content contains only non-text characters"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"hamnosys contribute-fontdemo-glyph\" lang=\"zxx\" aria-hidden=\"true\"></span>",
+          "target": [
+            ".contribute-fontdemo-card-wide > .hamnosys.contribute-fontdemo-glyph[lang=\"zxx\"]"
           ],
           "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
         }
