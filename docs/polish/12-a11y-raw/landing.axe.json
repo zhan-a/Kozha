@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-25T01:18:00.860Z",
-  "url": "http://127.0.0.1:60791/",
+  "timestamp": "2026-04-25T01:28:08.547Z",
+  "url": "http://127.0.0.1:61129/",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -879,6 +879,39 @@
             }
           ],
           "impact": null,
+          "html": "<a href=\"/contribute.html\" class=\"hero-contribute-pill fade-up delay-5\" aria-label=\"Contribute a sign to the dictionary\">",
+          "target": [
+            ".hero-contribute-pill"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-allowed-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attributes are used correctly for the defined role"
+            },
+            {
+              "id": "aria-allowed-attr-elm",
+              "data": null,
+              "relatedNodes": [],
+              "message": "ARIA attributes are allowed for this element",
+              "impact": "critical"
+            }
+          ],
+          "none": [
+            {
+              "id": "aria-unsupported-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute is supported"
+            }
+          ],
+          "impact": null,
           "html": "<button class=\"demo-translate-btn\" id=\"heroTranslateBtn\" disabled=\"\" aria-label=\"Translate to sign language\">Translate ▶</button>",
           "target": [
             "#heroTranslateBtn"
@@ -1201,6 +1234,24 @@
           ],
           "none": [],
           "impact": null,
+          "html": "<a href=\"/contribute.html\" class=\"hero-contribute-pill fade-up delay-5\" aria-label=\"Contribute a sign to the dictionary\">",
+          "target": [
+            ".hero-contribute-pill"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-conditional-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "none": [],
+          "impact": null,
           "html": "<button class=\"demo-translate-btn\" id=\"heroTranslateBtn\" disabled=\"\" aria-label=\"Translate to sign language\">Translate ▶</button>",
           "target": [
             "#heroTranslateBtn"
@@ -1485,9 +1536,137 @@
           ],
           "none": [],
           "impact": null,
+          "html": "<span class=\"hero-contribute-pill__icon\" aria-hidden=\"true\">✦</span>",
+          "target": [
+            ".hero-contribute-pill__icon"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
           "html": "<div class=\"spinner\" aria-hidden=\"true\"></div>",
           "target": [
             ".spinner"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"contribute-path__icon\" aria-hidden=\"true\">✋</div>",
+          "target": [
+            "article:nth-child(1) > .contribute-path__icon[aria-hidden=\"true\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"contribute-path__icon\" aria-hidden=\"true\">★</div>",
+          "target": [
+            "article:nth-child(2) > .contribute-path__icon[aria-hidden=\"true\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"contribute-path__icon\" aria-hidden=\"true\">{ }</div>",
+          "target": [
+            "article:nth-child(3) > .contribute-path__icon[aria-hidden=\"true\"]"
           ]
         }
       ]
@@ -1524,6 +1703,24 @@
           "html": "<header class=\"kz-header\" aria-label=\"Main navigation\">",
           "target": [
             "header"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "aria-prohibited-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "impact": null,
+          "html": "<a href=\"/contribute.html\" class=\"hero-contribute-pill fade-up delay-5\" aria-label=\"Contribute a sign to the dictionary\">",
+          "target": [
+            ".hero-contribute-pill"
           ]
         },
         {
@@ -1897,6 +2094,38 @@
           ],
           "none": [],
           "impact": null,
+          "html": "<a href=\"/contribute.html\" class=\"hero-contribute-pill fade-up delay-5\" aria-label=\"Contribute a sign to the dictionary\">",
+          "target": [
+            ".hero-contribute-pill"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-valid-attr-value",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute values are valid"
+            },
+            {
+              "id": "aria-errormessage",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-errormessage exists and references elements visible to screen readers that use a supported aria-errormessage technique"
+            },
+            {
+              "id": "aria-level",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-level values are valid"
+            }
+          ],
+          "none": [],
+          "impact": null,
           "html": "<button class=\"demo-translate-btn\" id=\"heroTranslateBtn\" disabled=\"\" aria-label=\"Translate to sign language\">Translate ▶</button>",
           "target": [
             "#heroTranslateBtn"
@@ -2096,6 +2325,24 @@
           "html": "<header class=\"kz-header\" aria-label=\"Main navigation\">",
           "target": [
             "header"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-valid-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute name is valid"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<a href=\"/contribute.html\" class=\"hero-contribute-pill fade-up delay-5\" aria-label=\"Contribute a sign to the dictionary\">",
+          "target": [
+            ".hero-contribute-pill"
           ]
         },
         {
@@ -2382,70 +2629,6 @@
           "target": [
             ".how-inner > .section-title"
           ]
-        },
-        {
-          "any": [],
-          "all": [
-            {
-              "id": "important-letter-spacing",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Letter-spacing in the style attribute is not set to !important, or meets the minimum"
-            },
-            {
-              "id": "important-word-spacing",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "word-spacing in the style attribute is not set to !important, or meets the minimum"
-            },
-            {
-              "id": "important-line-height",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "line-height in the style attribute is not set to !important, or meets the minimum"
-            }
-          ],
-          "none": [],
-          "impact": null,
-          "html": "<div style=\"flex-shrink:0;\">\n        <a href=\"/contribute.html\" class=\"btn-large kz-btn-primary\" style=\"white-space:nowrap;\" data-i18n=\"landing.hero_cta_contribute\">Contribute a sign</a>\n      </div>",
-          "target": [
-            ".contribute-banner > div:nth-child(2)"
-          ]
-        },
-        {
-          "any": [],
-          "all": [
-            {
-              "id": "important-letter-spacing",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Letter-spacing in the style attribute is not set to !important, or meets the minimum"
-            },
-            {
-              "id": "important-word-spacing",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "word-spacing in the style attribute is not set to !important, or meets the minimum"
-            },
-            {
-              "id": "important-line-height",
-              "data": null,
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "line-height in the style attribute is not set to !important, or meets the minimum"
-            }
-          ],
-          "none": [],
-          "impact": null,
-          "html": "<a href=\"/contribute.html\" class=\"btn-large kz-btn-primary\" style=\"white-space:nowrap;\" data-i18n=\"landing.hero_cta_contribute\">Contribute a sign</a>",
-          "target": [
-            "a[data-i18n=\"landing.hero_cta_contribute\"]"
-          ]
         }
       ]
     },
@@ -2603,9 +2786,27 @@
                   ]
                 },
                 {
-                  "html": "<h2>Contribute to the project.</h2>",
+                  "html": "<h2>Without contributors,<br>this dictionary <em>stays small.</em></h2>",
                   "target": [
-                    ".contribute-text > h2"
+                    ".contribute-head > h2"
+                  ]
+                },
+                {
+                  "html": "<h3 class=\"contribute-path__title\">Add a sign</h3>",
+                  "target": [
+                    "article:nth-child(1) > h3"
+                  ]
+                },
+                {
+                  "html": "<h3 class=\"contribute-path__title\">Review &amp; refine</h3>",
+                  "target": [
+                    "article:nth-child(2) > h3"
+                  ]
+                },
+                {
+                  "html": "<h3 class=\"contribute-path__title\">Code or report</h3>",
+                  "target": [
+                    "article:nth-child(3) > h3"
                   ]
                 },
                 {
@@ -2946,7 +3147,7 @@
           "impact": null,
           "html": "<a href=\"#how-it-works\" class=\"btn-large-ghost kz-btn-secondary\">How it works</a>",
           "target": [
-            ".btn-large-ghost"
+            "a[href$=\"#how-it-works\"]"
           ]
         },
         {
@@ -4025,81 +4226,6 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#1a1612",
-                "bgColor": "#faeee0",
-                "contrastRatio": 15.73,
-                "fontSize": "27.0pt (36px)",
-                "fontWeight": "bold",
-                "expectedContrastRatio": "3:1"
-              },
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Element has sufficient color contrast of 15.73"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<h2>Contribute to the project.</h2>",
-          "target": [
-            ".contribute-text > h2"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "color-contrast",
-              "data": {
-                "fgColor": "#3d3630",
-                "bgColor": "#faeee0",
-                "contrastRatio": 10.38,
-                "fontSize": "12.0pt (16px)",
-                "fontWeight": "normal",
-                "expectedContrastRatio": "4.5:1"
-              },
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Element has sufficient color contrast of 10.38"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<p>Kozha's sign database has limited vocabulary and needs help. If you know sign language, work in accessibility, or can code, you can add signs, improve translations, or fix bugs.</p>",
-          "target": [
-            ".contribute-text > p"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "color-contrast",
-              "data": {
-                "fgColor": "#ffffff",
-                "bgColor": "#b3441b",
-                "contrastRatio": 5.58,
-                "fontSize": "12.0pt (16px)",
-                "fontWeight": "normal",
-                "expectedContrastRatio": "4.5:1"
-              },
-              "relatedNodes": [],
-              "impact": "serious",
-              "message": "Element has sufficient color contrast of 5.58"
-            }
-          ],
-          "all": [],
-          "none": [],
-          "impact": null,
-          "html": "<a href=\"/contribute.html\" class=\"btn-large kz-btn-primary\" style=\"white-space:nowrap;\" data-i18n=\"landing.hero_cta_contribute\">Contribute a sign</a>",
-          "target": [
-            "a[data-i18n=\"landing.hero_cta_contribute\"]"
-          ]
-        },
-        {
-          "any": [
-            {
-              "id": "color-contrast",
-              "data": {
-                "fgColor": "#1a1612",
                 "bgColor": "#f5f1eb",
                 "contrastRatio": 15.98,
                 "fontSize": "16.5pt (22px)",
@@ -4692,9 +4818,63 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h2>Contribute to the project.</h2>",
+          "html": "<h2>Without contributors,<br>this dictionary <em>stays small.</em></h2>",
           "target": [
-            ".contribute-text > h2"
+            ".contribute-head > h2"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "Element has text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<h3 class=\"contribute-path__title\">Add a sign</h3>",
+          "target": [
+            "article:nth-child(1) > h3"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "Element has text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<h3 class=\"contribute-path__title\">Review &amp; refine</h3>",
+          "target": [
+            "article:nth-child(2) > h3"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "Element has text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<h3 class=\"contribute-path__title\">Code or report</h3>",
+          "target": [
+            "article:nth-child(3) > h3"
           ]
         },
         {
@@ -4871,9 +5051,27 @@
                   },
                   {
                     "ancestry": [
-                      "html > body > main:nth-child(4) > section:nth-child(4) > div > div:nth-child(1) > h2:nth-child(1)"
+                      "html > body > main:nth-child(4) > section:nth-child(4) > div > div:nth-child(1) > h2:nth-child(2)"
                     ],
                     "level": 2
+                  },
+                  {
+                    "ancestry": [
+                      "html > body > main:nth-child(4) > section:nth-child(4) > div > div:nth-child(2) > article:nth-child(1) > h3:nth-child(2)"
+                    ],
+                    "level": 3
+                  },
+                  {
+                    "ancestry": [
+                      "html > body > main:nth-child(4) > section:nth-child(4) > div > div:nth-child(2) > article:nth-child(2) > h3:nth-child(2)"
+                    ],
+                    "level": 3
+                  },
+                  {
+                    "ancestry": [
+                      "html > body > main:nth-child(4) > section:nth-child(4) > div > div:nth-child(2) > article:nth-child(3) > h3:nth-child(2)"
+                    ],
+                    "level": 3
                   },
                   {
                     "ancestry": [
@@ -4957,9 +5155,63 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h2>Contribute to the project.</h2>",
+          "html": "<h2>Without contributors,<br>this dictionary <em>stays small.</em></h2>",
           "target": [
-            ".contribute-text > h2"
+            ".contribute-head > h2"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "heading-order",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "Heading order valid"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<h3 class=\"contribute-path__title\">Add a sign</h3>",
+          "target": [
+            "article:nth-child(1) > h3"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "heading-order",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "Heading order valid"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<h3 class=\"contribute-path__title\">Review &amp; refine</h3>",
+          "target": [
+            "article:nth-child(2) > h3"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "heading-order",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "Heading order valid"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<h3 class=\"contribute-path__title\">Code or report</h3>",
+          "target": [
+            "article:nth-child(3) > h3"
           ]
         },
         {
@@ -5603,6 +5855,31 @@
               "data": null,
               "relatedNodes": [
                 {
+                  "html": "<p class=\"contribute-note\">\n        Every contribution is reviewed by Deaf native signers before it ships.\n        Read the <a href=\"/governance.html\">Deaf-led governance →</a>\n      </p>",
+                  "target": [
+                    ".contribute-note"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Links can be distinguished from surrounding text by visual styling"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<a href=\"/governance.html\">Deaf-led governance →</a>",
+          "target": [
+            ".contribute-note > a[href$=\"governance.html\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "link-in-text-block-style",
+              "data": null,
+              "relatedNodes": [
+                {
                   "html": "<p class=\"kz-footer__os\"><span data-i18n=\"common.footer_open_source\">Open source on</span> <a href=\"https://github.com/zhan-a/Kozha\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>.</p>",
                   "target": [
                     ".kz-footer__os"
@@ -5851,7 +6128,40 @@
           "impact": null,
           "html": "<a href=\"#how-it-works\" class=\"btn-large-ghost kz-btn-secondary\">How it works</a>",
           "target": [
-            ".btn-large-ghost"
+            "a[href$=\"#how-it-works\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has text that is visible to screen readers"
+            },
+            {
+              "id": "aria-label",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "aria-label attribute exists and is not empty"
+            }
+          ],
+          "all": [],
+          "none": [
+            {
+              "id": "focusable-no-name",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element is not in tab order or has accessible text"
+            }
+          ],
+          "impact": null,
+          "html": "<a href=\"/contribute.html\" class=\"hero-contribute-pill fade-up delay-5\" aria-label=\"Contribute a sign to the dictionary\">",
+          "target": [
+            ".hero-contribute-pill"
           ]
         },
         {
@@ -5927,9 +6237,61 @@
             }
           ],
           "impact": null,
-          "html": "<a href=\"/contribute.html\" class=\"btn-large kz-btn-primary\" style=\"white-space:nowrap;\" data-i18n=\"landing.hero_cta_contribute\">Contribute a sign</a>",
+          "html": "<a href=\"/contribute.html\" class=\"btn-large kz-btn-primary\" data-i18n=\"landing.hero_cta_contribute\">Contribute a sign</a>",
           "target": [
             "a[data-i18n=\"landing.hero_cta_contribute\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [
+            {
+              "id": "focusable-no-name",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element is not in tab order or has accessible text"
+            }
+          ],
+          "impact": null,
+          "html": "<a href=\"https://github.com/zhan-a/Kozha\" class=\"btn-large-ghost kz-btn-secondary\" target=\"_blank\" rel=\"noopener noreferrer\">Open on GitHub</a>",
+          "target": [
+            ".btn-large-ghost.kz-btn-secondary[target=\"_blank\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element has text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [
+            {
+              "id": "focusable-no-name",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element is not in tab order or has accessible text"
+            }
+          ],
+          "impact": null,
+          "html": "<a href=\"/governance.html\">Deaf-led governance →</a>",
+          "target": [
+            ".contribute-note > a[href$=\"governance.html\"]"
           ]
         },
         {
@@ -8230,7 +8592,87 @@
           "impact": null,
           "html": "<a href=\"#how-it-works\" class=\"btn-large-ghost kz-btn-secondary\">How it works</a>",
           "target": [
-            ".btn-large-ghost"
+            "a[href$=\"#how-it-works\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<a href=\"/contribute.html\" class=\"hero-contribute-pill fade-up delay-5\" aria-label=\"Contribute a sign to the dictionary\">",
+          "target": [
+            ".hero-contribute-pill"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"hero-contribute-pill__label\">\n          <strong>Add a sign →</strong>\n          <span>The dictionary grows when you help.</span>\n        </span>",
+          "target": [
+            ".hero-contribute-pill__label"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<strong>Add a sign →</strong>",
+          "target": [
+            ".hero-contribute-pill__label > strong"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span>The dictionary grows when you help.</span>",
+          "target": [
+            ".hero-contribute-pill__label > span"
           ]
         },
         {
@@ -10948,9 +11390,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<section class=\"section\">",
+          "html": "<section class=\"section\" id=\"contribute\">",
           "target": [
-            ".section:nth-child(4)"
+            "#contribute"
           ]
         },
         {
@@ -10968,9 +11410,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"contribute-banner\">",
+          "html": "<div class=\"contribute-section\">",
           "target": [
-            ".contribute-banner"
+            ".contribute-section"
           ]
         },
         {
@@ -10988,9 +11430,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"contribute-text\">\n        <h2>Contribute to the project.</h2>\n        <p>Kozha's sign database has limited vocabulary and needs help. If you know sign language, work in accessibility, or can code, you can add signs, improve translations, or fix bugs.</p>\n      </div>",
+          "html": "<div class=\"contribute-head\">",
           "target": [
-            ".contribute-text"
+            ".contribute-head"
           ]
         },
         {
@@ -11008,9 +11450,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h2>Contribute to the project.</h2>",
+          "html": "<span class=\"contribute-eyebrow\">The project lives on contributions</span>",
           "target": [
-            ".contribute-text > h2"
+            ".contribute-eyebrow"
           ]
         },
         {
@@ -11028,9 +11470,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p>Kozha's sign database has limited vocabulary and needs help. If you know sign language, work in accessibility, or can code, you can add signs, improve translations, or fix bugs.</p>",
+          "html": "<h2>Without contributors,<br>this dictionary <em>stays small.</em></h2>",
           "target": [
-            ".contribute-text > p"
+            ".contribute-head > h2"
           ]
         },
         {
@@ -11048,9 +11490,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div style=\"flex-shrink:0;\">\n        <a href=\"/contribute.html\" class=\"btn-large kz-btn-primary\" style=\"white-space:nowrap;\" data-i18n=\"landing.hero_cta_contribute\">Contribute a sign</a>\n      </div>",
+          "html": "<br>",
           "target": [
-            ".contribute-banner > div:nth-child(2)"
+            "br"
           ]
         },
         {
@@ -11068,9 +11510,409 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/contribute.html\" class=\"btn-large kz-btn-primary\" style=\"white-space:nowrap;\" data-i18n=\"landing.hero_cta_contribute\">Contribute a sign</a>",
+          "html": "<em>stays small.</em>",
+          "target": [
+            ".contribute-head > h2 > em"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-lede\">",
+          "target": [
+            ".contribute-lede"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<strong>every sign you add unblocks\n          a translation that would otherwise come back blank</strong>",
+          "target": [
+            ".contribute-lede > strong"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"contribute-paths\">",
+          "target": [
+            ".contribute-paths"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<article class=\"contribute-path\">",
+          "target": [
+            "article:nth-child(1)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<h3 class=\"contribute-path__title\">Add a sign</h3>",
+          "target": [
+            "article:nth-child(1) > h3"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-path__body\">Describe a sign in plain language. Our editor turns it into HamNoSys/SiGML notation; a Deaf reviewer validates before it ships.</p>",
+          "target": [
+            "article:nth-child(1) > .contribute-path__body"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"contribute-path__time\">5–10 minutes</span>",
+          "target": [
+            "article:nth-child(1) > .contribute-path__time"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<article class=\"contribute-path\">",
+          "target": [
+            "article:nth-child(2)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<h3 class=\"contribute-path__title\">Review &amp; refine</h3>",
+          "target": [
+            "article:nth-child(2) > h3"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-path__body\">Native signers, teachers, and learners — flag awkward translations, fix mistranslations, and help us pick the right regional variant.</p>",
+          "target": [
+            "article:nth-child(2) > .contribute-path__body"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"contribute-path__time\">A few minutes per sign</span>",
+          "target": [
+            "article:nth-child(2) > .contribute-path__time"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<article class=\"contribute-path\">",
+          "target": [
+            "article:nth-child(3)"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<h3 class=\"contribute-path__title\">Code or report</h3>",
+          "target": [
+            "article:nth-child(3) > h3"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-path__body\">Improve the planner, the avatar, or the multilingual pipeline — or just open an issue when something feels off. Every signal helps.</p>",
+          "target": [
+            "article:nth-child(3) > .contribute-path__body"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"contribute-path__time\">Bug reports welcome</span>",
+          "target": [
+            "article:nth-child(3) > .contribute-path__time"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"contribute-actions\">",
+          "target": [
+            ".contribute-actions"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<a href=\"/contribute.html\" class=\"btn-large kz-btn-primary\" data-i18n=\"landing.hero_cta_contribute\">Contribute a sign</a>",
           "target": [
             "a[data-i18n=\"landing.hero_cta_contribute\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<a href=\"https://github.com/zhan-a/Kozha\" class=\"btn-large-ghost kz-btn-secondary\" target=\"_blank\" rel=\"noopener noreferrer\">Open on GitHub</a>",
+          "target": [
+            ".btn-large-ghost.kz-btn-secondary[target=\"_blank\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"contribute-note\">\n        Every contribution is reviewed by Deaf native signers before it ships.\n        Read the <a href=\"/governance.html\">Deaf-led governance →</a>\n      </p>",
+          "target": [
+            ".contribute-note"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<a href=\"/governance.html\">Deaf-led governance →</a>",
+          "target": [
+            ".contribute-note > a[href$=\"governance.html\"]"
           ]
         },
         {
@@ -12269,7 +13111,39 @@
           "impact": null,
           "html": "<a href=\"#how-it-works\" class=\"btn-large-ghost kz-btn-secondary\">How it works</a>",
           "target": [
-            ".btn-large-ghost"
+            "a[href$=\"#how-it-works\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "target-size",
+              "data": {
+                "minSize": 24,
+                "width": 276.8,
+                "height": 57.3
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Control has sufficient size (276.8px by 57.3px, should be at least 24px by 24px)"
+            },
+            {
+              "id": "target-offset",
+              "data": {
+                "closestOffset": 24,
+                "minOffset": 24
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Target has sufficient space from its closest neighbors. Safe clickable space has a diameter of 24px which is at least 24px."
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<a href=\"/contribute.html\" class=\"hero-contribute-pill fade-up delay-5\" aria-label=\"Contribute a sign to the dictionary\">",
+          "target": [
+            ".hero-contribute-pill"
           ]
         },
         {
@@ -12512,9 +13386,41 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"/contribute.html\" class=\"btn-large kz-btn-primary\" style=\"white-space:nowrap;\" data-i18n=\"landing.hero_cta_contribute\">Contribute a sign</a>",
+          "html": "<a href=\"/contribute.html\" class=\"btn-large kz-btn-primary\" data-i18n=\"landing.hero_cta_contribute\">Contribute a sign</a>",
           "target": [
             "a[data-i18n=\"landing.hero_cta_contribute\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "target-size",
+              "data": {
+                "minSize": 24,
+                "width": 179.7,
+                "height": 51
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Control has sufficient size (179.7px by 51px, should be at least 24px by 24px)"
+            },
+            {
+              "id": "target-offset",
+              "data": {
+                "closestOffset": 24,
+                "minOffset": 24
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Target has sufficient space from its closest neighbors. Safe clickable space has a diameter of 24px which is at least 24px."
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<a href=\"https://github.com/zhan-a/Kozha\" class=\"btn-large-ghost kz-btn-secondary\" target=\"_blank\" rel=\"noopener noreferrer\">Open on GitHub</a>",
+          "target": [
+            ".btn-large-ghost.kz-btn-secondary[target=\"_blank\"]"
           ]
         },
         {
@@ -12745,6 +13651,91 @@
             {
               "id": "color-contrast",
               "data": {
+                "messageKey": "nonBmp"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element content contains only non-text characters"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"hero-contribute-pill__icon\" aria-hidden=\"true\">✦</span>",
+          "target": [
+            ".hero-contribute-pill__icon"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "9.8pt (13px)",
+                "fontWeight": "bold",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<a href=\"/contribute.html\" class=\"hero-contribute-pill fade-up delay-5\" aria-label=\"Contribute a sign to the dictionary\">",
+                  "target": [
+                    ".hero-contribute-pill"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<strong>Add a sign →</strong>",
+          "target": [
+            ".hero-contribute-pill__label > strong"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "messageKey": "bgGradient",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<a href=\"/contribute.html\" class=\"hero-contribute-pill fade-up delay-5\" aria-label=\"Contribute a sign to the dictionary\">",
+                  "target": [
+                    ".hero-contribute-pill"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a background gradient"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span>The dictionary grows when you help.</span>",
+          "target": [
+            ".hero-contribute-pill__label > span"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
                 "contrastRatio": 0,
                 "fontSize": "9.0pt (12px)",
                 "fontWeight": "normal",
@@ -12835,6 +13826,616 @@
             "#features > .section-title > em"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it's partially obscured by another element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "8.3pt (11px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"contribute-section\">",
+                  "target": [
+                    ".contribute-section"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"contribute-eyebrow\">The project lives on contributions</span>",
+          "target": [
+            ".contribute-eyebrow"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "39.0pt (52px)",
+                "fontWeight": "bold",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"contribute-section\">",
+                  "target": [
+                    ".contribute-section"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<h2>Without contributors,<br>this dictionary <em>stays small.</em></h2>",
+          "target": [
+            ".contribute-head > h2"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "39.0pt (52px)",
+                "fontWeight": "bold",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"contribute-section\">",
+                  "target": [
+                    ".contribute-section"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<em>stays small.</em>",
+          "target": [
+            ".contribute-head > h2 > em"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "12.8pt (17px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"contribute-section\">",
+                  "target": [
+                    ".contribute-section"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<p class=\"contribute-lede\">",
+          "target": [
+            ".contribute-lede"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "12.8pt (17px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"contribute-section\">",
+                  "target": [
+                    ".contribute-section"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<strong>every sign you add unblocks\n          a translation that would otherwise come back blank</strong>",
+          "target": [
+            ".contribute-lede > strong"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "16.5pt (22px)",
+                "fontWeight": "bold",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"contribute-section\">",
+                  "target": [
+                    ".contribute-section"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<h3 class=\"contribute-path__title\">Add a sign</h3>",
+          "target": [
+            "article:nth-child(1) > h3"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"contribute-section\">",
+                  "target": [
+                    ".contribute-section"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<p class=\"contribute-path__body\">Describe a sign in plain language. Our editor turns it into HamNoSys/SiGML notation; a Deaf reviewer validates before it ships.</p>",
+          "target": [
+            "article:nth-child(1) > .contribute-path__body"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "8.3pt (11px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<article class=\"contribute-path\">",
+                  "target": [
+                    "article:nth-child(1)"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"contribute-path__time\">5–10 minutes</span>",
+          "target": [
+            "article:nth-child(1) > .contribute-path__time"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "messageKey": "nonBmp"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element content contains only non-text characters"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<div class=\"contribute-path__icon\" aria-hidden=\"true\">★</div>",
+          "target": [
+            "article:nth-child(2) > .contribute-path__icon[aria-hidden=\"true\"]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "16.5pt (22px)",
+                "fontWeight": "bold",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"contribute-section\">",
+                  "target": [
+                    ".contribute-section"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<h3 class=\"contribute-path__title\">Review &amp; refine</h3>",
+          "target": [
+            "article:nth-child(2) > h3"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"contribute-section\">",
+                  "target": [
+                    ".contribute-section"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<p class=\"contribute-path__body\">Native signers, teachers, and learners — flag awkward translations, fix mistranslations, and help us pick the right regional variant.</p>",
+          "target": [
+            "article:nth-child(2) > .contribute-path__body"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "8.3pt (11px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<article class=\"contribute-path\">",
+                  "target": [
+                    "article:nth-child(2)"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"contribute-path__time\">A few minutes per sign</span>",
+          "target": [
+            "article:nth-child(2) > .contribute-path__time"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "16.5pt (22px)",
+                "fontWeight": "bold",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<article class=\"contribute-path\">",
+                  "target": [
+                    "article:nth-child(3)"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<div class=\"contribute-path__icon\" aria-hidden=\"true\">{ }</div>",
+          "target": [
+            "article:nth-child(3) > .contribute-path__icon[aria-hidden=\"true\"]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "16.5pt (22px)",
+                "fontWeight": "bold",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "3:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"contribute-section\">",
+                  "target": [
+                    ".contribute-section"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<h3 class=\"contribute-path__title\">Code or report</h3>",
+          "target": [
+            "article:nth-child(3) > h3"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"contribute-section\">",
+                  "target": [
+                    ".contribute-section"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<p class=\"contribute-path__body\">Improve the planner, the avatar, or the multilingual pipeline — or just open an issue when something feels off. Every signal helps.</p>",
+          "target": [
+            "article:nth-child(3) > .contribute-path__body"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "8.3pt (11px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<article class=\"contribute-path\">",
+                  "target": [
+                    "article:nth-child(3)"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"contribute-path__time\">Bug reports welcome</span>",
+          "target": [
+            "article:nth-child(3) > .contribute-path__time"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"contribute-section\">",
+                  "target": [
+                    ".contribute-section"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<a href=\"/contribute.html\" class=\"btn-large kz-btn-primary\" data-i18n=\"landing.hero_cta_contribute\">Contribute a sign</a>",
+          "target": [
+            "a[data-i18n=\"landing.hero_cta_contribute\"]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"contribute-section\">",
+                  "target": [
+                    ".contribute-section"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<a href=\"https://github.com/zhan-a/Kozha\" class=\"btn-large-ghost kz-btn-secondary\" target=\"_blank\" rel=\"noopener noreferrer\">Open on GitHub</a>",
+          "target": [
+            ".btn-large-ghost.kz-btn-secondary[target=\"_blank\"]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "9.8pt (13px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"contribute-section\">",
+                  "target": [
+                    ".contribute-section"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<p class=\"contribute-note\">\n        Every contribution is reviewed by Deaf native signers before it ships.\n        Read the <a href=\"/governance.html\">Deaf-led governance →</a>\n      </p>",
+          "target": [
+            ".contribute-note"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "9.8pt (13px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"contribute-section\">",
+                  "target": [
+                    ".contribute-section"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<a href=\"/governance.html\">Deaf-led governance →</a>",
+          "target": [
+            ".contribute-note > a[href$=\"governance.html\"]"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
         }
       ]
     }

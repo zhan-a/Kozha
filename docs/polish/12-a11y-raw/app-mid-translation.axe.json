@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-25T01:18:14.129Z",
-  "url": "http://127.0.0.1:60791/app.html",
+  "timestamp": "2026-04-25T01:28:18.456Z",
+  "url": "http://127.0.0.1:61129/app.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -2134,6 +2134,24 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<p class=\"field-error\" id=\"videoError\" role=\"alert\" hidden=\"\" style=\"margin-top:10px;\"></p>",
+          "target": [
+            "#videoError"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-allowed-role",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is allowed for given element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<div id=\"planLog\" class=\"log-area\" style=\"margin-bottom:14px;\" aria-live=\"polite\" role=\"log\">",
           "target": [
             "#planLog"
@@ -3371,6 +3389,38 @@
           "html": "<span class=\"hint\" id=\"shortcutHintSm\" aria-hidden=\"true\">Enter to translate · Shift+Enter for newline</span>",
           "target": [
             "#shortcutHintSm"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<span id=\"micTimer\" class=\"status-badge\" aria-hidden=\"true\" hidden=\"\">0:00 / 1:00</span>",
+          "target": [
+            "#micTimer"
           ]
         },
         {
@@ -6820,7 +6870,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"sidebar-item\" data-panel=\"video\" onclick=\"switchPanel('video', this)\">\n        <div class=\"sidebar-icon\">🎬</div>\n        Video Upload\n      </button>",
+          "html": "<button class=\"sidebar-item\" data-panel=\"video\" onclick=\"switchPanel('video', this)\">\n        <div class=\"sidebar-icon\">🎬</div>\n        Audio / Video\n      </button>",
           "target": [
             "button[data-panel=\"video\"]"
           ]
@@ -7535,7 +7585,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"sidebar-item\" data-panel=\"video\" onclick=\"switchPanel('video', this)\">\n        <div class=\"sidebar-icon\">🎬</div>\n        Video Upload\n      </button>",
+          "html": "<button class=\"sidebar-item\" data-panel=\"video\" onclick=\"switchPanel('video', this)\">\n        <div class=\"sidebar-icon\">🎬</div>\n        Audio / Video\n      </button>",
           "target": [
             "button[data-panel=\"video\"]"
           ]
@@ -8050,7 +8100,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<input type=\"file\" id=\"videoFile\" accept=\"video/*\" style=\"margin-bottom:12px;\">",
+          "html": "<input type=\"file\" id=\"videoFile\" accept=\"video/*,audio/*,.mp3,.m4a,.wav,.ogg,.webm,.mp4,.mov,.flac\" style=\"margin-bottom:8px;\">",
           "target": [
             "#videoFile"
           ]
@@ -9685,7 +9735,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<input type=\"file\" id=\"videoFile\" accept=\"video/*\" style=\"margin-bottom:12px;\">",
+          "html": "<input type=\"file\" id=\"videoFile\" accept=\"video/*,audio/*,.mp3,.m4a,.wav,.ogg,.webm,.mp4,.mov,.flac\" style=\"margin-bottom:8px;\">",
           "target": [
             "#videoFile"
           ]
@@ -11904,7 +11954,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"sidebar-item\" data-panel=\"video\" onclick=\"switchPanel('video', this)\">\n        <div class=\"sidebar-icon\">🎬</div>\n        Video Upload\n      </button>",
+          "html": "<button class=\"sidebar-item\" data-panel=\"video\" onclick=\"switchPanel('video', this)\">\n        <div class=\"sidebar-icon\">🎬</div>\n        Audio / Video\n      </button>",
           "target": [
             "button[data-panel=\"video\"]"
           ]
@@ -13871,7 +13921,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"sidebar-item\" data-panel=\"video\" onclick=\"switchPanel('video', this)\">\n        <div class=\"sidebar-icon\">🎬</div>\n        Video Upload\n      </button>",
+          "html": "<button class=\"sidebar-item\" data-panel=\"video\" onclick=\"switchPanel('video', this)\">\n        <div class=\"sidebar-icon\">🎬</div>\n        Audio / Video\n      </button>",
           "target": [
             "button[data-panel=\"video\"]"
           ]
@@ -18106,7 +18156,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"sidebar-item\" data-panel=\"video\" onclick=\"switchPanel('video', this)\">\n        <div class=\"sidebar-icon\">🎬</div>\n        Video Upload\n      </button>",
+          "html": "<button class=\"sidebar-item\" data-panel=\"video\" onclick=\"switchPanel('video', this)\">\n        <div class=\"sidebar-icon\">🎬</div>\n        Audio / Video\n      </button>",
           "target": [
             "button[data-panel=\"video\"]"
           ]

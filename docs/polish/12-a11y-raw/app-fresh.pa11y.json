@@ -1,6 +1,6 @@
 {
   "documentTitle": "Kozha — Translator",
-  "pageUrl": "http://127.0.0.1:60791/app.html",
+  "pageUrl": "http://127.0.0.1:61129/app.html",
   "issues": [
     {
       "code": "WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206",
@@ -99,6 +99,16 @@
       "message": "If this selection list contains groups of related options, they should be grouped with optgroup.",
       "context": "<select id=\"signLangSelect\" aria-describedby=\"signLangNote\"><option value=\"bsl\">BSL (Britis...</select>",
       "selector": "#signLangSelect",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3_F24.F24.FGColour",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "Check that this element has an inherited background colour or image to complement the corresponding inline foreground colour.",
+      "context": "<p class=\"field-hint\" id=\"videoFileMeta\" aria-live=\"polite\" style=\"margin:0 0 12px; font-size:12px; color:var(--ink-3);\"></p>",
+      "selector": "#videoFileMeta",
       "runner": "htmlcs",
       "runnerExtras": {}
     },

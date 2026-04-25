@@ -1,14 +1,14 @@
 # A11y baseline — polish prompt 12
 
-Captured by `scripts/a11y/run.mjs` on 2026-04-25 01:19:06 UTC.
+Captured by `scripts/a11y/run.mjs` on 2026-04-25 01:29:00 UTC.
 
 Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best-practice`) and pa11y (HTML_CodeSniffer, `WCAG2AA`) against each scenario below. Raw JSON per scenario is in `12-a11y-raw/`. Screen-reader, keyboard-live, and device-matrix results live in sibling `12-sr-findings.md` and `12-lighthouse-audit.md`.
 
 ## Summary
 | id | scenario | axe crit | axe serious | axe mod | axe minor | pa11y error | pa11y warn |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| landing | Landing page / (index.html) | 0 | 0 | 0 | 0 | 0 | 21 |
-| app-fresh | Translator /app — fresh load | 0 | 0 | 0 | 0 | 0 | 15 |
+| landing | Landing page / (index.html) | 0 | 0 | 0 | 0 | 0 | 31 |
+| app-fresh | Translator /app — fresh load | 0 | 0 | 0 | 0 | 0 | 16 |
 | app-mid-translation | Translator /app — mid-translation (captions, token list, controls active) | 0 | 0 | 0 | 0 | 0 | 0 |
 | progress | Progress dashboard /progress | 0 | 0 | 0 | 0 | 0 | 35 |
 | credits | Credits /credits | 0 | 0 | 0 | 0 | 0 | 7 |
@@ -26,9 +26,9 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Landing page / (index.html)
 
-- URL: `http://127.0.0.1:60791/`
+- URL: `http://127.0.0.1:61129/`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
-- pa11y: 0 error, 21 warning
+- pa11y: 0 error, 31 warning
 
 ### pa11y issues
 
@@ -48,17 +48,17 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
   - `html > body > header > ul > li:nth-child(4) > a`
 - **warning** `WCAG2AA.Principle1.Guideline1_3.1_3_1.H48` — If this element contains a navigation section, it is recommended that it be marked up as a list.
   - `#main-content > section:nth-child(1) > div:nth-child(1) > div:nth-child(4)`
-- **warning** `WCAG2AA.Principle1.Guideline1_3.1_3_1.H85.2` — If this selection list contains groups of related options, they should be grouped with optgroup.
-  - `#heroSignLang`
-- **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Abs` — This element is absolutely positioned and the background color can not be determined. Ensure the contrast ratio between the text and all covered parts of the background are at least 4.5:1.
-  - `#avatarLoading > span`
-- …and 11 more (see raw)
+- **warning** `WCAG2AA.Principle2.Guideline2_5.2_5_3.F96` — Accessible name for this element does not contain the visible label text. Check that for user interface components with labels that include text or images of text, the name contains the text that is presented visually.
+  - `#main-content > section:nth-child(1) > div:nth-child(1) > a`
+- **warning** `WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage` — This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.
+  - `#main-content > section:nth-child(1) > div:nth-child(1) > a > span:nth-child(2) > strong`
+- …and 21 more (see raw)
 
 ## Translator /app — fresh load
 
-- URL: `http://127.0.0.1:60791/app.html`
+- URL: `http://127.0.0.1:61129/app.html`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
-- pa11y: 0 error, 15 warning
+- pa11y: 0 error, 16 warning
 
 ### pa11y issues
 
@@ -82,17 +82,17 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
   - `#signLangSelect`
 - **warning** `WCAG2AA.Principle1.Guideline1_3.1_3_1.H85.2` — If this selection list contains groups of related options, they should be grouped with optgroup.
   - `#signLangSelect`
-- …and 5 more (see raw)
+- …and 6 more (see raw)
 
 ## Translator /app — mid-translation (captions, token list, controls active)
 
-- URL: `http://127.0.0.1:60791/app.html`
+- URL: `http://127.0.0.1:61129/app.html`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 0 warning
 
 ## Progress dashboard /progress
 
-- URL: `http://127.0.0.1:60791/progress.html`
+- URL: `http://127.0.0.1:61129/progress.html`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 35 warning
 
@@ -122,7 +122,7 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Credits /credits
 
-- URL: `http://127.0.0.1:60791/credits.html`
+- URL: `http://127.0.0.1:61129/credits.html`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 7 warning
 
@@ -145,7 +145,7 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## 404 page
 
-- URL: `http://127.0.0.1:60791/404.html`
+- URL: `http://127.0.0.1:61129/404.html`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 7 warning
 
@@ -168,7 +168,7 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Contribute — empty state, language picker
 
-- URL: `http://127.0.0.1:60791/contribute.html`
+- URL: `http://127.0.0.1:61129/contribute.html`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 17 warning
 
@@ -198,19 +198,19 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Contribute — language selected, empty authoring area
 
-- URL: `http://127.0.0.1:60791/contribute.html`
+- URL: `http://127.0.0.1:61129/contribute.html`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 0 warning
 
 ## Contribute — mid-session (chat + preview + notation + submit visible)
 
-- URL: `http://127.0.0.1:60791/contribute.html`
+- URL: `http://127.0.0.1:61129/contribute.html`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 0 warning
 
 ## Governance page
 
-- URL: `http://127.0.0.1:60791/governance.html`
+- URL: `http://127.0.0.1:61129/governance.html`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 7 warning
 
@@ -233,7 +233,7 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Submission status — draft
 
-- URL: `http://127.0.0.1:60791/contribute/status/sim-draft`
+- URL: `http://127.0.0.1:61129/contribute/status/sim-draft`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 8 warning
 
@@ -258,7 +258,7 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Submission status — pending_review
 
-- URL: `http://127.0.0.1:60791/contribute/status/sim-pending_review`
+- URL: `http://127.0.0.1:61129/contribute/status/sim-pending_review`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 8 warning
 
@@ -283,7 +283,7 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Submission status — under_review
 
-- URL: `http://127.0.0.1:60791/contribute/status/sim-under_review`
+- URL: `http://127.0.0.1:61129/contribute/status/sim-under_review`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 8 warning
 
@@ -308,7 +308,7 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Submission status — validated
 
-- URL: `http://127.0.0.1:60791/contribute/status/sim-validated`
+- URL: `http://127.0.0.1:61129/contribute/status/sim-validated`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 8 warning
 
@@ -333,7 +333,7 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Submission status — rejected
 
-- URL: `http://127.0.0.1:60791/contribute/status/sim-rejected`
+- URL: `http://127.0.0.1:61129/contribute/status/sim-rejected`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 8 warning
 
@@ -358,7 +358,7 @@ Runs axe-core (via `@axe-core/puppeteer`, tags `wcag2a/aa wcag21aa wcag22aa best
 
 ## Submission status — quarantined
 
-- URL: `http://127.0.0.1:60791/contribute/status/sim-quarantined`
+- URL: `http://127.0.0.1:61129/contribute/status/sim-quarantined`
 - axe: 0 critical, 0 serious, 0 moderate, 0 minor
 - pa11y: 0 error, 8 warning
 

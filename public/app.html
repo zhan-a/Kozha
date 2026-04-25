@@ -1347,7 +1347,7 @@
 
       <button class="sidebar-item" data-panel="video" onclick="switchPanel('video', this)">
         <div class="sidebar-icon">🎬</div>
-        Video Upload
+        Audio / Video
       </button>
 
       <hr class="sidebar-divider" />
@@ -1493,10 +1493,12 @@
       <div class="content-panel" id="panel-microphone">
         <div class="card">
           <div class="card-title"><span class="card-title-icon">🎙️</span> Microphone Input</div>
+          <p class="field-hint" style="margin:0 0 10px;">Demo limit: 60 seconds per recording so the in-browser speech model stays responsive. Stop anytime; recording auto-stops at the limit.</p>
           <div class="row" style="margin-bottom:12px;">
             <button id="recordBtn" class="btn btn-secondary">● Start recording</button>
             <button id="transcribeBtn" class="btn btn-primary">Transcribe</button>
             <span id="micStatus" class="status-badge" role="status" aria-live="polite">Idle</span>
+            <span id="micTimer" class="status-badge" aria-hidden="true" hidden>0:00 / 1:00</span>
           </div>
           <label class="field-label" for="transcription">Transcription</label>
           <textarea id="transcription" placeholder="Transcription will appear here…"></textarea>
@@ -1505,13 +1507,22 @@
 
       <div class="content-panel" id="panel-video">
         <div class="card">
-          <div class="card-title"><span class="card-title-icon">🎬</span> Video Upload → Sign</div>
-          <label class="field-label" for="videoFile">Select video file</label>
-          <input type="file" id="videoFile" accept="video/*" style="margin-bottom:12px;" />
+          <div class="card-title"><span class="card-title-icon">🎬</span> Audio / Video Upload → Sign</div>
+          <p class="field-hint" style="margin:0 0 10px;">
+            Demo limits: <strong>up to 60 seconds</strong> and <strong>50 MB</strong>. We extract the audio in your browser, transcribe it locally, then translate. Longer or larger files would freeze the tab on most laptops while the local model warms up.
+          </p>
+          <label class="field-label" for="videoFile">Select an audio or video file</label>
+          <input
+            type="file"
+            id="videoFile"
+            accept="video/*,audio/*,.mp3,.m4a,.wav,.ogg,.webm,.mp4,.mov,.flac"
+            style="margin-bottom:8px;" />
+          <p class="field-hint" id="videoFileMeta" aria-live="polite" style="margin:0 0 12px; font-size:12px; color:var(--ink-3);"></p>
           <div class="row">
-            <button id="videoToSignBtn" class="btn btn-primary">Process Video → Sign</button>
+            <button id="videoToSignBtn" class="btn btn-primary" disabled>Process → Sign</button>
             <span id="videoStatus" class="status-badge" role="status" aria-live="polite">No file selected</span>
           </div>
+          <p class="field-error" id="videoError" role="alert" hidden style="margin-top:10px;"></p>
         </div>
       </div>
 
@@ -3502,13 +3513,25 @@
   </script>
 
   <script>
+    // Demo-stage constraints — keep the in-browser ASR responsive on
+    // average laptops. Bumping these means longer model warm-ups and
+    // more memory pressure; revisit once the pipeline supports
+    // chunked / streamed transcription.
+    const MEDIA_MAX_DURATION_S = 60;
+    const MEDIA_MAX_FILE_SIZE_MB = 50;
+    const MEDIA_MAX_FILE_SIZE_BYTES = MEDIA_MAX_FILE_SIZE_MB * 1024 * 1024;
+
     const recordBtn = document.getElementById('recordBtn');
     const transcribeBtn = document.getElementById('transcribeBtn');
     const micStatus = document.getElementById('micStatus');
+    const micTimer = document.getElementById('micTimer');
     const transcription = document.getElementById('transcription');
 
     let mediaRecorder = null;
     let recordedChunks = [];
+    let recordStartedAt = 0;
+    let recordTimerInterval = null;
+    let recordAutoStopTimeout = null;
 
     function pickAsrModel(){
       const ua = navigator.userAgent||'';
@@ -3532,6 +3555,24 @@
       return opts;
     }
 
+    function fmtSec(s){ const m=Math.floor(s/60), r=Math.floor(s%60); return m + ':' + (r<10?'0':'') + r; }
+
+    function stopRecording(reason){
+      if (!mediaRecorder) return;
+      try { mediaRecorder.stop(); } catch (_e) {}
+      mediaRecorder = null;
+      if (recordTimerInterval){ clearInterval(recordTimerInterval); recordTimerInterval = null; }
+      if (recordAutoStopTimeout){ clearTimeout(recordAutoStopTimeout); recordAutoStopTimeout = null; }
+      recordBtn.textContent = '● Start recording';
+      recordBtn.classList.remove('btn-primary'); recordBtn.classList.add('btn-secondary');
+      micTimer.hidden = true;
+      const sizeMb = (recordedChunks.reduce((s,b)=>s+b.size,0)/1024/1024).toFixed(1);
+      const elapsed = (Date.now() - recordStartedAt) / 1000;
+      const note = reason === 'limit' ? ' — auto-stopped at limit' : '';
+      micStatus.textContent = 'Recorded ' + sizeMb + ' MB · ' + fmtSec(elapsed) + note;
+      micStatus.className = 'status-badge';
+    }
+
     recordBtn.addEventListener('click', async () => {
       if (!mediaRecorder){
         try{
@@ -3541,21 +3582,26 @@
           mediaRecorder.ondataavailable = (e)=>{ if(e.data.size>0) recordedChunks.push(e.data); };
           mediaRecorder.onstop = ()=>{ stream.getTracks().forEach(t=>t.stop()); };
           mediaRecorder.start();
+          recordStartedAt = Date.now();
           recordBtn.textContent = '■ Stop recording';
           recordBtn.classList.remove('btn-secondary'); recordBtn.classList.add('btn-primary');
           micStatus.textContent = 'Recording…'; micStatus.className = 'status-badge loading';
-        }catch(e){ micStatus.textContent = 'Could not access microphone'; }
+          micTimer.hidden = false;
+          micTimer.textContent = '0:00 / ' + fmtSec(MEDIA_MAX_DURATION_S);
+          recordTimerInterval = setInterval(function () {
+            const elapsed = (Date.now() - recordStartedAt) / 1000;
+            micTimer.textContent = fmtSec(elapsed) + ' / ' + fmtSec(MEDIA_MAX_DURATION_S);
+          }, 250);
+          recordAutoStopTimeout = setTimeout(function () { stopRecording('limit'); }, MEDIA_MAX_DURATION_S * 1000);
+        }catch(e){ micStatus.textContent = 'Could not access microphone — check permissions.'; micStatus.className = 'status-badge'; }
       } else {
-        mediaRecorder.stop(); mediaRecorder = null;
-        recordBtn.textContent = '● Start recording';
-        recordBtn.classList.remove('btn-primary'); recordBtn.classList.add('btn-secondary');
-        micStatus.textContent = `Recorded ${(recordedChunks.reduce((s,b)=>s+b.size,0)/1024/1024).toFixed(1)} MB`; micStatus.className = 'status-badge';
+        stopRecording('manual');
       }
     });
 
     transcribeBtn.addEventListener('click', async () => {
       if (!recordedChunks.length){ micStatus.textContent = 'Nothing recorded.'; return; }
-      micStatus.textContent = 'Preparing speech recognition…'; micStatus.className = 'status-badge loading';
+      micStatus.textContent = 'Loading speech model…'; micStatus.className = 'status-badge loading';
       try{
         const asr = await ensureASR();
         micStatus.textContent = 'Transcribing…';
@@ -3563,6 +3609,11 @@
         const result = await asr(blob, getAsrOptions());
         const rawText = (result?.text||'').trim();
         transcription.value = rawText;
+        if (!rawText) {
+          micStatus.textContent = 'No speech detected — try recording again with a clearer voice.';
+          micStatus.className = 'status-badge';
+          return;
+        }
         const translated = await translateIfNeeded(rawText, (msg) => { micStatus.textContent = msg; micStatus.className = 'status-badge loading'; });
         const micTranslationExpected = getInputLang() !== getTargetLang();
         if (micTranslationExpected && translated === rawText) {
@@ -3571,7 +3622,11 @@
         }
         textIn.value = translated;
         if (!micTranslationExpected || translated !== rawText) { micStatus.textContent = 'Done ✓'; micStatus.className = 'status-badge ready'; }
-      }catch(e){ micStatus.textContent = 'Could not transcribe audio'; micStatus.className = 'status-badge'; }
+      }catch(e){
+        const msg = (e && e.message) ? e.message : String(e);
+        micStatus.textContent = 'Transcription failed: ' + msg.slice(0, 120);
+        micStatus.className = 'status-badge';
+      }
     });
   </script>
 
@@ -3579,6 +3634,82 @@
     const videoFile = document.getElementById('videoFile');
     const videoToSignBtn = document.getElementById('videoToSignBtn');
     const videoStatus = document.getElementById('videoStatus');
+    const videoFileMeta = document.getElementById('videoFileMeta');
+    const videoError = document.getElementById('videoError');
+
+    function showVideoError(msg) {
+      videoError.textContent = msg;
+      videoError.hidden = false;
+      videoStatus.textContent = 'Cannot process — see error below';
+      videoStatus.className = 'status-badge';
+      videoToSignBtn.disabled = true;
+    }
+    function clearVideoError() {
+      videoError.textContent = '';
+      videoError.hidden = true;
+    }
+
+    // Probe duration by loading the file as an object URL into a hidden
+    // <audio> (works for both audio and video tracks — durationchange
+    // fires as soon as the metadata header is parsed). Bails out after
+    // 6s so a malformed file can't hang the UI.
+    function probeMediaDuration(file) {
+      return new Promise(function (resolve) {
+        var url;
+        try { url = URL.createObjectURL(file); }
+        catch (_e) { resolve(null); return; }
+        var media = document.createElement('audio');
+        var done = false;
+        var finish = function (val) {
+          if (done) return;
+          done = true;
+          try { URL.revokeObjectURL(url); } catch (_e) {}
+          resolve(val);
+        };
+        media.preload = 'metadata';
+        media.addEventListener('loadedmetadata', function () {
+          finish(isFinite(media.duration) ? media.duration : null);
+        });
+        media.addEventListener('error', function () { finish(null); });
+        media.src = url;
+        setTimeout(function () { finish(null); }, 6000);
+      });
+    }
+
+    async function validatePickedFile(file) {
+      clearVideoError();
+      if (!file) { videoFileMeta.textContent = ''; videoToSignBtn.disabled = true; return false; }
+      var sizeMb = file.size / 1024 / 1024;
+      if (file.size > MEDIA_MAX_FILE_SIZE_BYTES) {
+        showVideoError('File is ' + sizeMb.toFixed(1) + ' MB. Max ' + MEDIA_MAX_FILE_SIZE_MB + ' MB during the demo period — try a shorter clip or compress it first.');
+        videoFileMeta.textContent = file.name + ' · ' + sizeMb.toFixed(1) + ' MB · too large';
+        return false;
+      }
+      videoFileMeta.textContent = file.name + ' · ' + sizeMb.toFixed(1) + ' MB · checking duration…';
+      var dur = await probeMediaDuration(file);
+      if (dur == null) {
+        // Browser couldn't read the metadata (unusual codec, broken
+        // header). Allow the user to try anyway — ffmpeg will give a
+        // more specific error if it really can't read it.
+        videoFileMeta.textContent = file.name + ' · ' + sizeMb.toFixed(1) + ' MB · duration unknown';
+        videoToSignBtn.disabled = false;
+        return true;
+      }
+      if (dur > MEDIA_MAX_DURATION_S) {
+        showVideoError('Clip is ' + dur.toFixed(1) + 's long. Max ' + MEDIA_MAX_DURATION_S + 's during the demo period — try a shorter clip.');
+        videoFileMeta.textContent = file.name + ' · ' + sizeMb.toFixed(1) + ' MB · ' + dur.toFixed(1) + 's · too long';
+        return false;
+      }
+      videoFileMeta.textContent = file.name + ' · ' + sizeMb.toFixed(1) + ' MB · ' + dur.toFixed(1) + 's';
+      videoStatus.textContent = 'Ready';
+      videoStatus.className = 'status-badge ready';
+      videoToSignBtn.disabled = false;
+      return true;
+    }
+
+    videoFile.addEventListener('change', function () {
+      validatePickedFile(videoFile.files && videoFile.files[0]);
+    });
 
     async function ensureFFmpeg(){
       if (!window.__ffmpeg){
@@ -3591,40 +3722,74 @@
             document.head.appendChild(s);
           });
         }
-        const { createFFmpeg, fetchFile } = FFmpeg; const ffmpeg = createFFmpeg({ log: false }); await ffmpeg.load(); window.__ffmpeg = { ffmpeg, fetchFile };
+        const { createFFmpeg, fetchFile } = FFmpeg;
+        const ffmpeg = createFFmpeg({ log: false });
+        await ffmpeg.load();
+        window.__ffmpeg = { ffmpeg, fetchFile };
       }
       return window.__ffmpeg;
     }
 
     videoToSignBtn.addEventListener('click', async () => {
       const file = videoFile?.files?.[0];
-      if (!file){ videoStatus.textContent = 'Choose a video first.'; return; }
+      if (!file){ videoStatus.textContent = 'Choose a file first.'; return; }
+      // Re-validate at click time in case the file was swapped.
+      const ok = await validatePickedFile(file);
+      if (!ok) return;
+      clearVideoError();
+      videoToSignBtn.disabled = true;
+      const isAudioOnly = (file.type || '').indexOf('audio/') === 0;
       try{
-        videoStatus.textContent = 'Preparing…'; videoStatus.className = 'status-badge loading';
+        videoStatus.textContent = 'Loading audio decoder…'; videoStatus.className = 'status-badge loading';
         const { ffmpeg, fetchFile } = await ensureFFmpeg();
-        videoStatus.textContent = 'Extracting audio…';
+        videoStatus.textContent = isAudioOnly ? 'Decoding audio…' : 'Extracting audio from video…';
         ffmpeg.FS('writeFile', 'in', await fetchFile(file));
-        await ffmpeg.run('-i', 'in', '-vn', '-ac', '1', '-ar', '16000', '-f', 'wav', 'out.wav');
-        const data = ffmpeg.FS('readFile', 'out.wav');
+        // -vn drops video; -ac 1 mono; -ar 16000 16kHz (whisper input rate);
+        // -t cap hard-stops at the demo limit so a malformed-duration
+        // file can't run the in-browser ASR forever.
+        await ffmpeg.run('-i', 'in', '-vn', '-ac', '1', '-ar', '16000', '-t', String(MEDIA_MAX_DURATION_S), '-f', 'wav', 'out.wav');
+        let data;
+        try { data = ffmpeg.FS('readFile', 'out.wav'); }
+        catch (_e) {
+          showVideoError('No audio track found in the file. Try a clip that contains spoken audio.');
+          videoToSignBtn.disabled = false;
+          return;
+        }
+        if (!data || data.length < 1024) {
+          showVideoError('Decoded audio is empty. The file may be silent or have an unsupported audio codec.');
+          videoToSignBtn.disabled = false;
+          return;
+        }
         const wavBlob = new Blob([data.buffer], { type: 'audio/wav' });
-        videoStatus.textContent = 'Preparing speech recognition…';
+        videoStatus.textContent = 'Loading speech model…';
         const asr = await ensureASR();
         videoStatus.textContent = 'Transcribing…';
         const result = await asr(wavBlob, getAsrOptions());
         const rawText = (result?.text||'').trim();
         transcription.value = rawText;
+        if (!rawText) {
+          showVideoError('No speech detected. Try a clip with clearer audio.');
+          videoToSignBtn.disabled = false;
+          return;
+        }
         const translated = await translateIfNeeded(rawText, (msg) => { videoStatus.textContent = msg; });
         const vidTranslationExpected = getInputLang() !== getTargetLang();
         if (vidTranslationExpected && translated === rawText) {
           videoStatus.textContent = 'Translation failed — try again or enter text in ' + getTargetLang().toUpperCase();
           videoStatus.className = 'status-badge';
+          videoToSignBtn.disabled = false;
           return;
         }
-        videoStatus.textContent = 'Planning…';
+        videoStatus.textContent = 'Planning sign sequence…';
         textIn.value = translated;
         await doPlan('spacy', vidTranslationExpected);
         videoStatus.textContent = 'Ready to render ✓'; videoStatus.className = 'status-badge ready';
-      }catch(e){ videoStatus.textContent = 'Could not process video'; videoStatus.className = 'status-badge'; }
+        videoToSignBtn.disabled = false;
+      }catch(e){
+        const msg = (e && e.message) ? e.message : String(e);
+        showVideoError('Could not process the file: ' + msg.slice(0, 200));
+        videoToSignBtn.disabled = false;
+      }
     });
   </script>
 
