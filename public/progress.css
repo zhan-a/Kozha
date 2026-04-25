@@ -410,92 +410,126 @@ body.progress-body {
   border-top: 1px solid var(--kozha-color-border);
 }
 
-/* ===== Chart ===== */
+/* ===== At-a-glance hero CTA + reviewed meter ===== */
 
-.progress-chart { padding: var(--kozha-space-8); }
-.progress-chart-body {
-  width: 100%;
-  min-height: 220px;
+.progress-glance .progress-section-head {
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.progress-chart-body svg {
-  width: 100%;
-  height: auto;
-  display: block;
-  max-height: 320px;
-}
-.progress-chart-body .axis-line { stroke: var(--kozha-color-border); stroke-width: 1; }
-.progress-chart-body .axis-tick-label {
-  fill: var(--kozha-color-ink-3);
-  font-family: var(--kozha-font-sans);
-  font-size: 11px;
-  font-variant-numeric: tabular-nums;
-}
-.progress-chart-body .series-path {
-  fill: none;
-  stroke: var(--kozha-color-accent);
-  stroke-width: 2;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-}
-.progress-chart-body .series-area {
-  fill: var(--kozha-color-accent-light);
-  opacity: 0.6;
-}
-.progress-chart-body .series-point {
-  fill: var(--kozha-color-accent);
-}
-.progress-chart-empty {
-  color: var(--kozha-color-ink-3);
-  font-style: italic;
-  text-align: center;
-}
-.progress-chart-description {
-  margin-top: var(--kozha-space-4);
-  font-size: var(--kozha-text-body-sm);
-  color: var(--kozha-color-ink-3);
-  line-height: var(--kozha-leading-loose);
-}
-
-/* ===== Recent activity ===== */
-
-.progress-recent { padding: var(--kozha-space-4) var(--kozha-space-6); }
-.progress-recent-list { list-style: none; display: flex; flex-direction: column; }
-.progress-recent-list > li {
-  padding: var(--kozha-space-4) 0;
-  border-bottom: 1px solid var(--kozha-color-border);
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: var(--kozha-space-4);
   align-items: baseline;
+  justify-content: space-between;
+  gap: var(--kozha-space-4);
+  flex-wrap: wrap;
 }
-.progress-recent-list > li:last-child { border-bottom: none; }
-.progress-recent-gloss {
-  font-family: var(--kozha-font-mono);
-  font-weight: var(--kozha-weight-semibold);
-  color: var(--kozha-color-ink);
-  font-size: var(--kozha-text-body);
-  letter-spacing: var(--kozha-tracking-tight);
+.progress-glance-cta {
+  white-space: nowrap;
 }
-.progress-recent-lang {
+
+/* Reviewed-share meter on the third stat card. The bar is the
+   coverage percentage; the trailing label spells out "X% of corpus"
+   so screen readers and quick-glance users both get the meaning. */
+.progress-stat-meter {
+  margin-top: var(--kozha-space-3);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.progress-stat-meter-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--kozha-color-accent);
+  transition: width var(--kozha-duration-base, 200ms) var(--kozha-ease-standard);
+}
+.progress-stat-meter[hidden] { display: none; }
+.progress-stat[data-stat="reviewed"] {
+  position: relative;
+}
+.progress-stat[data-stat="reviewed"] > .progress-stat-meter {
+  background: var(--kozha-color-paper-2);
+  border-radius: 999px;
+  padding: 0;
+  position: relative;
+  height: 6px;
+}
+.progress-stat-meter-pct {
   font-size: var(--kozha-text-caption-lg);
   color: var(--kozha-color-ink-3);
-  text-transform: uppercase;
-  letter-spacing: var(--kozha-tracking-wide);
+  font-variant-numeric: tabular-nums;
+  margin-top: var(--kozha-space-2);
 }
-.progress-recent-meta {
-  font-size: var(--kozha-text-caption);
+
+/* ===== Per-language table — search toolbar + inline reviewed bar ===== */
+
+.progress-table-toolbar {
+  display: flex;
+  align-items: baseline;
+  gap: var(--kozha-space-3);
+  margin: 0 0 var(--kozha-space-3);
+  flex-wrap: wrap;
+}
+.progress-search-label {
+  font-family: var(--kozha-font-sans);
+  font-size: var(--kozha-text-caption-lg);
+  font-weight: var(--kozha-weight-semibold);
+  letter-spacing: var(--kozha-tracking-wide);
+  text-transform: uppercase;
+  color: var(--kozha-color-ink-3);
+}
+.progress-search {
+  flex: 1 1 280px;
+  max-width: 360px;
+  font-family: var(--kozha-font-sans);
+  font-size: var(--kozha-text-body);
+  padding: var(--kozha-space-2) var(--kozha-space-3);
+  border: 1px solid var(--kozha-color-border);
+  border-radius: var(--kozha-radius-sm);
+  background: var(--kozha-color-white);
+  color: var(--kozha-color-ink);
+}
+.progress-search:focus {
+  outline: 2px solid var(--kozha-color-accent);
+  outline-offset: 1px;
+}
+.progress-search-count {
+  font-size: var(--kozha-text-caption-lg);
   color: var(--kozha-color-ink-3);
   font-variant-numeric: tabular-nums;
 }
-.progress-recent-empty {
-  padding: var(--kozha-space-8) !important;
+
+/* Inline reviewed-share bar inside each per-language table row. The
+   number stays scan-able on the left; the share % and bar sit
+   underneath so the eye reads number → share at-a-glance. */
+.progress-reviewed-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 90px;
+}
+.progress-reviewed-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--kozha-space-2);
+  justify-content: flex-end;
+}
+.progress-reviewed-num {
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--kozha-weight-medium);
+  color: var(--kozha-color-ink);
+}
+.progress-reviewed-pct {
+  font-size: var(--kozha-text-caption-lg);
   color: var(--kozha-color-ink-3);
-  font-style: italic;
-  text-align: center;
-  grid-template-columns: 1fr !important;
+  font-variant-numeric: tabular-nums;
+}
+.progress-reviewed-bar {
+  height: 4px;
+  width: 100%;
+  background: var(--kozha-color-paper-2);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress-reviewed-bar-fill {
+  height: 100%;
+  background: var(--kozha-color-accent);
+  transition: width var(--kozha-duration-base, 200ms) var(--kozha-ease-standard);
 }
 
 /* ===== Help wanted ===== */
@@ -624,17 +658,11 @@ body.progress-body {
   .progress-stat-num { font-size: 40px; }
   .progress-table-wrap { display: none; }
   .progress-cards { display: grid; }
-  .progress-recent-list > li {
-    grid-template-columns: 1fr auto;
-    grid-template-areas:
-      "gloss lang"
-      "meta  meta";
-    row-gap: 4px;
-  }
-  .progress-recent-gloss { grid-area: gloss; }
-  .progress-recent-lang  { grid-area: lang; }
-  .progress-recent-meta  { grid-area: meta; }
   .progress-h1 { font-size: var(--kozha-text-hero-h1-mobile); }
+  .progress-glance .progress-section-head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 @media (max-width: 480px) {

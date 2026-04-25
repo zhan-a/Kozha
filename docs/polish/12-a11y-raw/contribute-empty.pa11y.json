@@ -1,6 +1,6 @@
 {
   "documentTitle": "Contribute a sign — Kozha",
-  "pageUrl": "http://127.0.0.1:61464/contribute.html",
+  "pageUrl": "http://127.0.0.1:61968/contribute.html",
   "issues": [
     {
       "code": "WCAG2AA.Principle1.Guideline1_4.1_4_10.C32,C31,C33,C38,SCR34,G206",
@@ -69,6 +69,86 @@
       "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
       "context": "<a href=\"/credits\" class=\"kz-header__link\" data-i18n=\"common.nav_about\">About</a>",
       "selector": "html > body > header > ul > li:nth-child(4) > a",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<p class=\"c2-walk__kicker\">The flow</p>",
+      "selector": "#main-content > section:nth-child(3) > header > p:nth-child(1)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 3:1.",
+      "context": "<h2 class=\"c2-walk__heading\" id=\"c2-walk-heading\">How a contribution <em>actually...</h2>",
+      "selector": "#c2-walk-heading",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 3:1.",
+      "context": "<em>actually works.</em>",
+      "selector": "#c2-walk-heading > em",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<p class=\"c2-walk__sub\">Step through the full flow befo...</p>",
+      "selector": "#main-content > section:nth-child(3) > header > p:nth-child(3)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Alpha",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text or background contains transparency. Ensure the contrast ratio between the text and background are at least 4.5:1.",
+      "context": "<span class=\"c2-walk__tab-dur\">30 s</span>",
+      "selector": "#c2-tab-1 > span:nth-child(3)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<span class=\"c2-walk__counter\" aria-live=\"polite\"><span id=\"c2-walk-current\">1</s...</span>",
+      "selector": "#main-content > section:nth-child(3) > div > footer > span",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<span id=\"c2-walk-current\">1</span>",
+      "selector": "#c2-walk-current",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<button type=\"button\" class=\"c2-walk__nav c2-walk__nav--next\" id=\"c2-walk-next\" aria-label=\"Next step\">Next →</button>",
+      "selector": "#c2-walk-next",
       "runner": "htmlcs",
       "runnerExtras": {}
     },
@@ -169,6 +249,26 @@
       "message": "This element has \"position: fixed\". This may require scrolling in two dimensions, which is considered a failure of this Success Criterion.",
       "context": "<aside class=\"kz-debug-panel\" aria-label=\"Debug log\" role=\"log\" aria-live=\"polite\" hidden=\"\"><header class=\"kz-debug-head\"><...</aside>",
       "selector": "html > body > aside",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<span class=\"c2-hero__card-gloss\">ELECTRON</span>",
+      "selector": "#main-content > header > aside > div:nth-child(1) > span:nth-child(2)",
+      "runner": "htmlcs",
+      "runnerExtras": {}
+    },
+    {
+      "code": "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.BgImage",
+      "type": "warning",
+      "typeCode": 2,
+      "message": "This element's text is placed on a background image. Ensure the contrast ratio between the text and all covered parts of the image are at least 4.5:1.",
+      "context": "<span>Reviewed by 2 Deaf signers</span>",
+      "selector": "#main-content > header > aside > div:nth-child(4) > span:nth-child(2)",
       "runner": "htmlcs",
       "runnerExtras": {}
     }

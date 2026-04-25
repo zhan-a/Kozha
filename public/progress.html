@@ -49,12 +49,18 @@
     </ol>
     <h1 class="progress-h1">Progress</h1>
     <p class="progress-lede">
-      Live numbers from the Kozha databases: review status, coverage by language, and recent activity. When a number cannot be calculated honestly, we leave it blank instead of writing zero.
+      Live numbers from the Kozha databases: review status, coverage by language, and where the next contribution helps most. When a number cannot be calculated honestly, we leave it blank instead of writing zero.
     </p>
     <p class="progress-generated" id="progressGenerated" aria-live="polite">Loading…</p>
 
-    <section class="progress-section" aria-labelledby="topLineHeading">
-      <h2 id="topLineHeading" class="progress-section-title">At a glance</h2>
+    <!-- At-a-glance stats. Promoted to a hero band with a primary
+         CTA so a first visit reads as "here's where we are, here's
+         what you can do" rather than "here's a wall of metrics." -->
+    <section class="progress-section progress-glance" aria-labelledby="topLineHeading">
+      <div class="progress-section-head">
+        <h2 id="topLineHeading" class="progress-section-title">At a glance</h2>
+        <a href="/contribute.html" class="btn btn-primary progress-glance-cta">Contribute a sign →</a>
+      </div>
       <div class="progress-stats" id="topLineStats">
         <div class="progress-stat kz-card" data-stat="signs">
           <div class="progress-stat-num" data-field="signs">—</div>
@@ -67,10 +73,41 @@
         <div class="progress-stat kz-card" data-stat="reviewed">
           <div class="progress-stat-num" data-field="reviewed">—</div>
           <div class="progress-stat-label">Deaf-native-reviewed signs</div>
+          <div class="progress-stat-meter" id="reviewedMeter" hidden>
+            <div class="progress-stat-meter-bar" id="reviewedMeterBar" style="width:0%"></div>
+            <span class="progress-stat-meter-pct" id="reviewedMeterPct"></span>
+          </div>
         </div>
         <div class="progress-stat kz-card" data-stat="awaiting">
           <div class="progress-stat-num" data-field="awaiting">—</div>
           <div class="progress-stat-label">Awaiting review</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Help wanted promoted above the language table — this is the
+         single most actionable section on the page. A reader who
+         clicks a chip lands on /contribute.html with the language and
+         gloss prefilled, ready to author. -->
+    <section class="progress-section progress-help" aria-labelledby="helpHeading">
+      <div class="progress-section-head">
+        <h2 id="helpHeading" class="progress-section-title">Help wanted — closes a gap in one click</h2>
+        <p class="progress-section-note">Common English words with coverage in one major language but not the other. Click a word to start a contribution with the language and gloss already filled in.</p>
+      </div>
+      <div class="progress-help-grid">
+        <div class="progress-help-card kz-card" aria-labelledby="helpAslHeading">
+          <h3 id="helpAslHeading" class="progress-help-h3">Missing from ASL</h3>
+          <p class="progress-help-body">These words exist in BSL but not yet in ASL.</p>
+          <ul class="progress-help-list" id="helpAslList" data-target-lang="asl">
+            <li class="progress-help-empty">Loading…</li>
+          </ul>
+        </div>
+        <div class="progress-help-card kz-card" aria-labelledby="helpBslHeading">
+          <h3 id="helpBslHeading" class="progress-help-h3">Missing from BSL</h3>
+          <p class="progress-help-body">These words exist in ASL but not yet in BSL.</p>
+          <ul class="progress-help-list" id="helpBslList" data-target-lang="bsl">
+            <li class="progress-help-empty">Loading…</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -81,6 +118,22 @@
         <p class="progress-section-note">Sortable. Click a column header to re-sort. Default order is total signs descending.</p>
       </div>
 
+      <!-- Filter input — typing narrows the table to languages whose
+           name or code contains the query. Cleaner than scrolling
+           past 20+ rows when the reader knows what they want. -->
+      <div class="progress-table-toolbar">
+        <label class="progress-search-label" for="progressSearch">Filter languages</label>
+        <input
+          id="progressSearch"
+          type="search"
+          class="progress-search"
+          placeholder="Type a language name or code…"
+          autocomplete="off"
+          spellcheck="false"
+          aria-controls="progressTableBody progressCards" />
+        <span class="progress-search-count" id="progressSearchCount" aria-live="polite"></span>
+      </div>
+
       <div class="progress-table-wrap kz-card" role="region" aria-label="Per-language coverage table">
         <table class="progress-table" id="progressTable">
           <thead>
@@ -88,7 +141,7 @@
               <th scope="col"><button type="button" class="progress-sort" data-sort="name" aria-label="Sort by language name">Language<span class="progress-sort-icon" aria-hidden="true"></span></button></th>
               <th scope="col"><button type="button" class="progress-sort" data-sort="source" aria-label="Sort by source">Source<span class="progress-sort-icon" aria-hidden="true"></span></button></th>
               <th scope="col" class="progress-col-num"><button type="button" class="progress-sort" data-sort="total" aria-label="Sort by total signs">Total<span class="progress-sort-icon" aria-hidden="true"></span></button></th>
-              <th scope="col" class="progress-col-num"><button type="button" class="progress-sort" data-sort="reviewed" aria-label="Sort by Deaf-native-reviewed count">Reviewed<span class="progress-sort-icon" aria-hidden="true"></span></button></th>
+              <th scope="col"><button type="button" class="progress-sort" data-sort="reviewed" aria-label="Sort by reviewed share">Reviewed<span class="progress-sort-icon" aria-hidden="true"></span></button></th>
               <th scope="col" class="progress-col-num"><button type="button" class="progress-sort" data-sort="community" aria-label="Sort by community-contributed pending count">Community pending<span class="progress-sort-icon" aria-hidden="true"></span></button></th>
               <th scope="col"><button type="button" class="progress-sort" data-sort="alphabet" aria-label="Sort by fingerspelling alphabet coverage">Alphabet<span class="progress-sort-icon" aria-hidden="true"></span></button></th>
               <th scope="col" class="progress-col-num"><button type="button" class="progress-sort" data-sort="top500" aria-label="Sort by top-500 English coverage percentage">Top-500<span class="progress-sort-icon" aria-hidden="true"></span></button></th>
@@ -103,54 +156,6 @@
 
       <div class="progress-cards" id="progressCards">
         <p class="progress-cards-empty">Loading…</p>
-      </div>
-    </section>
-
-    <section class="progress-section" aria-labelledby="chartHeading">
-      <div class="progress-section-head">
-        <h2 id="chartHeading" class="progress-section-title">How the dictionary is growing</h2>
-        <p class="progress-section-note">Total signs reviewed by Deaf native signers, summed across every language.</p>
-      </div>
-      <div class="progress-chart kz-card">
-        <div class="progress-chart-body" id="progressChart">
-          <p class="progress-chart-empty" id="progressChartEmpty">Loading…</p>
-        </div>
-        <p class="progress-chart-description" id="progressChartDescription" aria-live="polite"></p>
-      </div>
-    </section>
-
-    <section class="progress-section" aria-labelledby="recentHeading">
-      <div class="progress-section-head">
-        <h2 id="recentHeading" class="progress-section-title">Recently approved signs</h2>
-        <p class="progress-section-note">The last 20 signs that passed Deaf review. We only show the totals, never who reviewed them.</p>
-      </div>
-      <div class="progress-recent kz-card">
-        <ul class="progress-recent-list" id="progressRecent">
-          <li class="progress-recent-empty">Loading…</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="progress-section progress-help" aria-labelledby="helpHeading">
-      <div class="progress-section-head">
-        <h2 id="helpHeading" class="progress-section-title">Help wanted</h2>
-        <p class="progress-section-note">Common English words with coverage in one major language but not the other. If you're a native signer, a single contribution closes the gap.</p>
-      </div>
-      <div class="progress-help-grid">
-        <div class="progress-help-card kz-card" aria-labelledby="helpAslHeading">
-          <h3 id="helpAslHeading" class="progress-help-h3">Missing from ASL</h3>
-          <p class="progress-help-body">These words are in BSL but not yet in ASL.</p>
-          <ul class="progress-help-list" id="helpAslList" data-target-lang="asl">
-            <li class="progress-help-empty">Loading…</li>
-          </ul>
-        </div>
-        <div class="progress-help-card kz-card" aria-labelledby="helpBslHeading">
-          <h3 id="helpBslHeading" class="progress-help-h3">Missing from BSL</h3>
-          <p class="progress-help-body">These words are in ASL but not yet in BSL.</p>
-          <ul class="progress-help-list" id="helpBslList" data-target-lang="bsl">
-            <li class="progress-help-empty">Loading…</li>
-          </ul>
-        </div>
       </div>
     </section>
   </main>

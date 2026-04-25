@@ -4,19 +4,22 @@
  * Loads /progress_snapshot.json (produced by server/progress_snapshot.py
  * in the deploy step) and renders:
  *
- *   1. Top-line stat cards
- *   2. Sortable per-language table (desktop) / card list (mobile)
- *   3. SVG line chart of Deaf-native-reviewed growth
- *   4. Recent validations feed
- *   5. "Help wanted" coverage-gap chips that deep-link into
+ *   1. Top-line stat cards (with reviewed-share meter on the
+ *      "Deaf-native-reviewed signs" card)
+ *   2. "Help wanted" coverage-gap chips that deep-link into
  *      /contribute.html?lang=<code>&gloss=<word>
+ *   3. Sortable + filterable per-language table (desktop) /
+ *      card list (mobile), with an inline reviewed-share bar
  *
  * Honest-reporting contract: when a field is null in the snapshot, the
  * UI renders the em-dash ("—"). We never fabricate a zero for a
  * genuinely unknown value.
  *
- * No external libraries. The chart is hand-rolled SVG so the page stays
- * light (under the 2s-on-3G budget the prompt calls for).
+ * Removed (2026-04-24): "Growth over time" SVG chart and
+ * "Recent validations" feed. Both produced low signal-per-pixel and
+ * pulled the eye away from the actionable Help-wanted + per-language
+ * tables. The snapshot still ships ``progress_series`` and
+ * ``recent_activity`` for tooling that wants them.
  * ------------------------------------------------------------------ */
 (function () {
   'use strict';
@@ -26,6 +29,7 @@
   var state = {
     snapshot: null,
     sort: { key: 'total', direction: 'desc' },
+    filter: '',
   };
 
   // Keep the DOM targets in one lookup — cleaner than scattering
@@ -36,15 +40,16 @@
     statLanguages:   document.querySelector('[data-field="languages"]'),
     statReviewed:    document.querySelector('[data-field="reviewed"]'),
     statAwaiting:    document.querySelector('[data-field="awaiting"]'),
+    reviewedMeter:   document.getElementById('reviewedMeter'),
+    reviewedMeterBar: document.getElementById('reviewedMeterBar'),
+    reviewedMeterPct: document.getElementById('reviewedMeterPct'),
     tableBody:       document.getElementById('progressTableBody'),
     tableHeaders:    document.querySelectorAll('.progress-sort'),
     cards:           document.getElementById('progressCards'),
-    chart:           document.getElementById('progressChart'),
-    chartEmpty:      document.getElementById('progressChartEmpty'),
-    chartDesc:       document.getElementById('progressChartDescription'),
-    recent:          document.getElementById('progressRecent'),
     helpAslList:     document.getElementById('helpAslList'),
     helpBslList:     document.getElementById('helpBslList'),
+    search:          document.getElementById('progressSearch'),
+    searchCount:     document.getElementById('progressSearchCount'),
   };
 
   // ---------- formatting ----------
@@ -94,6 +99,23 @@
       el.textContent = fmtNum(value);
       el.classList.toggle('is-empty', value === null || value === undefined);
     });
+
+    // Reviewed-share meter on the "Deaf-native-reviewed signs" card.
+    // Shows reviewed / total as a horizontal bar so a glance reads
+    // "we're at X% of the corpus reviewed" — far more useful than
+    // two raw counts the reader has to mentally divide.
+    if (els.reviewedMeter && els.reviewedMeterBar && els.reviewedMeterPct) {
+      var reviewed = totals && totals.reviewed;
+      var total = totals && totals.signs;
+      if (typeof reviewed === 'number' && typeof total === 'number' && total > 0) {
+        var pct = Math.max(0, Math.min(100, (reviewed / total) * 100));
+        els.reviewedMeterBar.style.width = pct.toFixed(1) + '%';
+        els.reviewedMeterPct.textContent = pct.toFixed(1) + '% of corpus';
+        els.reviewedMeter.hidden = false;
+      } else {
+        els.reviewedMeter.hidden = true;
+      }
+    }
   }
 
   // ---------- source-cell helper ----------
@@ -136,7 +158,27 @@
         + escapeHtml('Review metadata is incomplete for this language; the reviewed count cannot be computed reliably.')
         + '">partial data</span>';
     }
-    return fmtNum(lang.reviewed);
+    // Number + inline share bar so a glance answers "how complete is
+    // the review pass?" without the reader doing arithmetic. Falls
+    // back to bare number when total is unknown or zero.
+    var reviewed = lang.reviewed;
+    var total = lang.total;
+    var num = fmtNum(reviewed);
+    if (typeof reviewed !== 'number' || typeof total !== 'number' || total <= 0) {
+      return '<div class="progress-reviewed-cell"><span class="progress-reviewed-num">' + num + '</span></div>';
+    }
+    var pct = Math.max(0, Math.min(100, (reviewed / total) * 100));
+    var pctLabel = pct < 0.05 && pct > 0 ? '<0.1%' : pct.toFixed(1) + '%';
+    return ''
+      + '<div class="progress-reviewed-cell">'
+        + '<div class="progress-reviewed-row">'
+          + '<span class="progress-reviewed-num">' + num + '</span>'
+          + '<span class="progress-reviewed-pct">' + pctLabel + '</span>'
+        + '</div>'
+        + '<div class="progress-reviewed-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + pct.toFixed(1) + '" aria-label="Reviewed share">'
+          + '<div class="progress-reviewed-bar-fill" style="width:' + pct.toFixed(1) + '%"></div>'
+        + '</div>'
+      + '</div>';
   }
 
   function renderCommunityCell(lang) {
@@ -176,8 +218,18 @@
 
   // ---------- table + cards ----------
 
-  function sortedLanguages() {
+  function filteredLanguages() {
     var langs = (state.snapshot && state.snapshot.languages) || [];
+    var q = (state.filter || '').trim().toLowerCase();
+    if (!q) return langs;
+    return langs.filter(function (lang) {
+      var hay = (lang.name || '').toLowerCase() + ' ' + (lang.code || '').toLowerCase();
+      return hay.indexOf(q) !== -1;
+    });
+  }
+
+  function sortedLanguages() {
+    var langs = filteredLanguages();
     var key = state.sort.key;
     var dir = state.sort.direction === 'asc' ? 1 : -1;
     var copy = langs.slice();
@@ -223,7 +275,10 @@
     if (!els.tableBody) return;
     var langs = sortedLanguages();
     if (!langs.length) {
-      els.tableBody.innerHTML = '<tr class="progress-table-empty"><td colspan="8">No languages found in the snapshot.</td></tr>';
+      var empty = state.filter && state.filter.trim()
+        ? 'No languages match "' + escapeHtml(state.filter.trim()) + '". Try a different name or code.'
+        : 'No languages found in the snapshot.';
+      els.tableBody.innerHTML = '<tr class="progress-table-empty"><td colspan="8">' + empty + '</td></tr>';
       renderCards(langs);
       return;
     }
@@ -308,120 +363,30 @@
     });
   }
 
-  // ---------- chart ----------
+  // ---------- search / filter ----------
 
-  function renderChart(series) {
-    if (!els.chart) return;
-    // Series is null → snapshot says "log file missing" → data unavailable.
-    // Series is [] → log exists but empty/invalid → also data unavailable.
-    if (!Array.isArray(series) || series.length === 0) {
-      els.chart.innerHTML = '<p class="progress-chart-empty">Growth data is not yet available. The daily log (<code>data/progress_log.jsonl</code>) will begin populating on the next scheduled snapshot.</p>';
-      if (els.chartDesc) els.chartDesc.textContent = '';
-      return;
-    }
-
-    // Tiny line chart. Intentionally no axis library — keep the dashboard
-    // light. Padding is picked so the largest Y-value gets 90% of the
-    // drawing height and the oldest/newest dates anchor the X axis.
-    var W = 640;
-    var H = 240;
-    var P = { top: 24, right: 24, bottom: 40, left: 56 };
-
-    var xs = series.map(function (p, i) { return i; });
-    var ys = series.map(function (p) { return p.reviewed; });
-    var yMin = 0;
-    var yMax = Math.max.apply(null, ys);
-    if (yMax === yMin) yMax = yMin + 1;
-    var xMax = series.length - 1;
-
-    function xCoord(i) {
-      if (xMax === 0) return P.left + (W - P.left - P.right) / 2;
-      return P.left + (i / xMax) * (W - P.left - P.right);
-    }
-    function yCoord(v) {
-      return P.top + (1 - (v - yMin) / (yMax - yMin)) * (H - P.top - P.bottom);
-    }
-
-    var pathCoords = series.map(function (p, i) {
-      return (i === 0 ? 'M' : 'L') + xCoord(i).toFixed(1) + ',' + yCoord(p.reviewed).toFixed(1);
-    }).join(' ');
-    // Close the area under the curve back to the baseline for a soft fill.
-    var areaCoords = pathCoords
-      + ' L' + xCoord(xMax).toFixed(1) + ',' + yCoord(yMin).toFixed(1)
-      + ' L' + xCoord(0).toFixed(1) + ',' + yCoord(yMin).toFixed(1) + ' Z';
-
-    var firstPoint = series[0];
-    var lastPoint = series[series.length - 1];
-    var firstLabel = escapeHtml(firstPoint.date);
-    var lastLabel = escapeHtml(lastPoint.date);
-
-    var ticks = 3;
-    var yTickSvg = [];
-    for (var t = 0; t <= ticks; t++) {
-      var v = yMin + ((yMax - yMin) * t) / ticks;
-      var y = yCoord(v);
-      yTickSvg.push(
-        '<line class="axis-line" x1="' + P.left + '" x2="' + (W - P.right) + '" y1="' + y.toFixed(1) + '" y2="' + y.toFixed(1) + '" />'
-        + '<text class="axis-tick-label" x="' + (P.left - 8) + '" y="' + (y + 4).toFixed(1) + '" text-anchor="end">' + Math.round(v).toLocaleString('en-US') + '</text>'
-      );
-    }
-
-    var pointsSvg = series.map(function (p, i) {
-      return '<circle class="series-point" cx="' + xCoord(i).toFixed(1) + '" cy="' + yCoord(p.reviewed).toFixed(1) + '" r="3" />';
-    }).join('');
-
-    els.chart.innerHTML =
-      '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-labelledby="progressChartTitle progressChartDescription">'
-        + '<title id="progressChartTitle">Deaf-native-reviewed signs over time</title>'
-        + yTickSvg.join('')
-        + '<line class="axis-line" x1="' + P.left + '" x2="' + P.left + '" y1="' + P.top + '" y2="' + (H - P.bottom) + '" />'
-        + '<line class="axis-line" x1="' + P.left + '" x2="' + (W - P.right) + '" y1="' + (H - P.bottom) + '" y2="' + (H - P.bottom) + '" />'
-        + '<path class="series-area" d="' + areaCoords + '" />'
-        + '<path class="series-path" d="' + pathCoords + '" />'
-        + pointsSvg
-        + '<text class="axis-tick-label" x="' + P.left + '" y="' + (H - 10) + '" text-anchor="start">' + firstLabel + '</text>'
-        + '<text class="axis-tick-label" x="' + (W - P.right) + '" y="' + (H - 10) + '" text-anchor="end">' + lastLabel + '</text>'
-      + '</svg>';
-
-    // Accessible text summary — required by the spec for a non-visual
-    // reading of the trend.
-    if (els.chartDesc) {
-      var first = firstPoint.reviewed;
-      var last = lastPoint.reviewed;
-      var delta = last - first;
-      var deltaSign = delta > 0 ? '+' : delta < 0 ? '' : '';
-      var trend;
-      if (series.length === 1) {
-        trend = 'One data point so far: ' + fmtNum(last) + ' reviewed signs on ' + lastPoint.date + '.';
-      } else if (delta === 0) {
-        trend = 'No change from ' + firstPoint.date + ' to ' + lastPoint.date + '. The total stayed at ' + fmtNum(last) + ' reviewed signs.';
-      } else if (delta > 0) {
-        trend = 'Up from ' + fmtNum(first) + ' on ' + firstPoint.date + ' to ' + fmtNum(last) + ' on ' + lastPoint.date + ' (' + deltaSign + fmtNum(delta) + ' new reviewed signs).';
-      } else {
-        trend = 'Down from ' + fmtNum(first) + ' on ' + firstPoint.date + ' to ' + fmtNum(last) + ' on ' + lastPoint.date + ' (' + fmtNum(delta) + ' reviewed signs).';
-      }
-      els.chartDesc.textContent = trend;
-    }
+  function attachSearchHandler() {
+    if (!els.search) return;
+    var debounce;
+    els.search.addEventListener('input', function () {
+      clearTimeout(debounce);
+      debounce = setTimeout(function () {
+        state.filter = els.search.value || '';
+        renderTable();
+        renderSearchCount();
+      }, 80);
+    });
   }
 
-  // ---------- recent activity ----------
-
-  function renderRecent(events) {
-    if (!els.recent) return;
-    if (!Array.isArray(events) || events.length === 0) {
-      els.recent.innerHTML = '<li class="progress-recent-empty">Nothing to show yet. New signs will appear here once a Deaf reviewer signs off on them.</li>';
+  function renderSearchCount() {
+    if (!els.searchCount) return;
+    var langs = filteredLanguages();
+    var total = (state.snapshot && state.snapshot.languages || []).length;
+    if (!state.filter || !state.filter.trim()) {
+      els.searchCount.textContent = '';
       return;
     }
-    els.recent.innerHTML = events.map(function (ev) {
-      var reviewerText = (typeof ev.reviewer_count === 'number' && ev.reviewer_count > 0)
-        ? ev.reviewer_count + ' reviewer' + (ev.reviewer_count === 1 ? '' : 's')
-        : 'reviewed';
-      return '<li>'
-        + '<span class="progress-recent-gloss">' + escapeHtml(ev.gloss) + '</span>'
-        + '<span class="progress-recent-lang">' + escapeHtml(ev.language) + '</span>'
-        + '<span class="progress-recent-meta">' + escapeHtml(reviewerText) + ' · ' + escapeHtml(ev.timestamp) + '</span>'
-      + '</li>';
-    }).join('');
+    els.searchCount.textContent = langs.length + ' of ' + total + ' shown';
   }
 
   // ---------- help-wanted ----------
@@ -459,12 +424,6 @@
     if (els.cards) {
       els.cards.innerHTML = '<p class="progress-cards-empty">' + escapeHtml(message) + '</p>';
     }
-    if (els.chart) {
-      els.chart.innerHTML = '<p class="progress-chart-empty">' + escapeHtml(message) + '</p>';
-    }
-    if (els.recent) {
-      els.recent.innerHTML = '<li class="progress-recent-empty">' + escapeHtml(message) + '</li>';
-    }
     [els.helpAslList, els.helpBslList].forEach(function (list) {
       if (!list) return;
       list.innerHTML = '<li class="progress-help-empty">' + escapeHtml(message) + '</li>';
@@ -483,8 +442,6 @@
         renderTopLine(snap && snap.totals);
         renderTable();
         updateSortIndicators();
-        renderChart(snap && snap.progress_series);
-        renderRecent(snap && snap.recent_activity);
         var gaps = (snap && snap.coverage_gaps) || {};
         renderHelp(els.helpAslList, gaps.bsl_missing_from_asl, 'asl');
         renderHelp(els.helpBslList, gaps.asl_missing_from_bsl, 'bsl');
@@ -498,10 +455,12 @@
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
       attachSortHandlers();
+      attachSearchHandler();
       load();
     });
   } else {
     attachSortHandlers();
+    attachSearchHandler();
     load();
   }
 })();

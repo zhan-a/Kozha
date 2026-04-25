@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-25T01:38:17.351Z",
-  "url": "http://127.0.0.1:61464/app.html",
+  "timestamp": "2026-04-25T02:05:23.919Z",
+  "url": "http://127.0.0.1:61968/app.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -1020,7 +1020,7 @@
             }
           ],
           "impact": null,
-          "html": "<div id=\"langHintNote\" class=\"lang-slot-note\" aria-live=\"polite\">Native spaCy NLP.</div>",
+          "html": "<div id=\"langHintNote\" class=\"lang-slot-note\" aria-live=\"polite\">Built-in support, no extra translation step.</div>",
           "target": [
             "#langHintNote"
           ]
@@ -1119,7 +1119,7 @@
             }
           ],
           "impact": null,
-          "html": "<div id=\"translationRoute\" class=\"route-text\" role=\"status\" aria-live=\"polite\" aria-labelledby=\"routeLabel\">Direct lookup in BSL (British) — no intermediate translation.</div>",
+          "html": "<div id=\"translationRoute\" class=\"route-text\" role=\"status\" aria-live=\"polite\" aria-labelledby=\"routeLabel\">Direct lookup in BSL (British). No intermediate translation needed.</div>",
           "target": [
             "#translationRoute"
           ]
@@ -1930,7 +1930,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div id=\"translationRoute\" class=\"route-text\" role=\"status\" aria-live=\"polite\" aria-labelledby=\"routeLabel\">Direct lookup in BSL (British) — no intermediate translation.</div>",
+          "html": "<div id=\"translationRoute\" class=\"route-text\" role=\"status\" aria-live=\"polite\" aria-labelledby=\"routeLabel\">Direct lookup in BSL (British). No intermediate translation needed.</div>",
           "target": [
             "#translationRoute"
           ]
@@ -2344,7 +2344,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div id=\"langHintNote\" class=\"lang-slot-note\" aria-live=\"polite\">Native spaCy NLP.</div>",
+          "html": "<div id=\"langHintNote\" class=\"lang-slot-note\" aria-live=\"polite\">Built-in support, no extra translation step.</div>",
           "target": [
             "#langHintNote"
           ]
@@ -2398,7 +2398,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div id=\"translationRoute\" class=\"route-text\" role=\"status\" aria-live=\"polite\" aria-labelledby=\"routeLabel\">Direct lookup in BSL (British) — no intermediate translation.</div>",
+          "html": "<div id=\"translationRoute\" class=\"route-text\" role=\"status\" aria-live=\"polite\" aria-labelledby=\"routeLabel\">Direct lookup in BSL (British). No intermediate translation needed.</div>",
           "target": [
             "#translationRoute"
           ]
@@ -2884,7 +2884,7 @@
             }
           ],
           "impact": null,
-          "html": "<div id=\"translationRoute\" class=\"route-text\" role=\"status\" aria-live=\"polite\" aria-labelledby=\"routeLabel\">Direct lookup in BSL (British) — no intermediate translation.</div>",
+          "html": "<div id=\"translationRoute\" class=\"route-text\" role=\"status\" aria-live=\"polite\" aria-labelledby=\"routeLabel\">Direct lookup in BSL (British). No intermediate translation needed.</div>",
           "target": [
             "#translationRoute"
           ]
@@ -3550,7 +3550,7 @@
             }
           ],
           "impact": null,
-          "html": "<div id=\"langHintNote\" class=\"lang-slot-note\" aria-live=\"polite\">Native spaCy NLP.</div>",
+          "html": "<div id=\"langHintNote\" class=\"lang-slot-note\" aria-live=\"polite\">Built-in support, no extra translation step.</div>",
           "target": [
             "#langHintNote"
           ]
@@ -3604,7 +3604,7 @@
             }
           ],
           "impact": null,
-          "html": "<div id=\"translationRoute\" class=\"route-text\" role=\"status\" aria-live=\"polite\" aria-labelledby=\"routeLabel\">Direct lookup in BSL (British) — no intermediate translation.</div>",
+          "html": "<div id=\"translationRoute\" class=\"route-text\" role=\"status\" aria-live=\"polite\" aria-labelledby=\"routeLabel\">Direct lookup in BSL (British). No intermediate translation needed.</div>",
           "target": [
             "#translationRoute"
           ]
@@ -4054,7 +4054,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div id=\"translationRoute\" class=\"route-text\" role=\"status\" aria-live=\"polite\" aria-labelledby=\"routeLabel\">Direct lookup in BSL (British) — no intermediate translation.</div>",
+          "html": "<div id=\"translationRoute\" class=\"route-text\" role=\"status\" aria-live=\"polite\" aria-labelledby=\"routeLabel\">Direct lookup in BSL (British). No intermediate translation needed.</div>",
           "target": [
             "#translationRoute"
           ]
@@ -4344,7 +4344,7 @@
             }
           ],
           "impact": null,
-          "html": "<div id=\"translationRoute\" class=\"route-text\" role=\"status\" aria-live=\"polite\" aria-labelledby=\"routeLabel\">Direct lookup in BSL (British) — no intermediate translation.</div>",
+          "html": "<div id=\"translationRoute\" class=\"route-text\" role=\"status\" aria-live=\"polite\" aria-labelledby=\"routeLabel\">Direct lookup in BSL (British). No intermediate translation needed.</div>",
           "target": [
             "#translationRoute"
           ]
@@ -4842,7 +4842,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div id=\"langHintNote\" class=\"lang-slot-note\" aria-live=\"polite\">Native spaCy NLP.</div>",
+          "html": "<div id=\"langHintNote\" class=\"lang-slot-note\" aria-live=\"polite\">Built-in support, no extra translation step.</div>",
           "target": [
             "#langHintNote"
           ]
@@ -4938,7 +4938,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div id=\"translationRoute\" class=\"route-text\" role=\"status\" aria-live=\"polite\" aria-labelledby=\"routeLabel\">Direct lookup in BSL (British) — no intermediate translation.</div>",
+          "html": "<div id=\"translationRoute\" class=\"route-text\" role=\"status\" aria-live=\"polite\" aria-labelledby=\"routeLabel\">Direct lookup in BSL (British). No intermediate translation needed.</div>",
           "target": [
             "#translationRoute"
           ]
@@ -5786,7 +5786,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div id=\"langHintNote\" class=\"lang-slot-note\" aria-live=\"polite\">Native spaCy NLP.</div>",
+          "html": "<div id=\"langHintNote\" class=\"lang-slot-note\" aria-live=\"polite\">Built-in support, no extra translation step.</div>",
           "target": [
             "#langHintNote"
           ]
@@ -5840,7 +5840,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div id=\"translationRoute\" class=\"route-text\" role=\"status\" aria-live=\"polite\" aria-labelledby=\"routeLabel\">Direct lookup in BSL (British) — no intermediate translation.</div>",
+          "html": "<div id=\"translationRoute\" class=\"route-text\" role=\"status\" aria-live=\"polite\" aria-labelledby=\"routeLabel\">Direct lookup in BSL (British). No intermediate translation needed.</div>",
           "target": [
             "#translationRoute"
           ]
@@ -7195,15 +7195,15 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#1a1612",
-                "bgColor": "#f5f1eb",
-                "contrastRatio": 15.98,
-                "fontSize": "9.8pt (13px)",
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.98,
+                "fontSize": "10.5pt (14px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 15.98"
+              "message": "Element has sufficient color contrast of 17.98"
             }
           ],
           "all": [],
@@ -7222,7 +7222,7 @@
                 "fgColor": "#5e5c57",
                 "bgColor": "#ede8e0",
                 "contrastRatio": 5.47,
-                "fontSize": "8.3pt (11px)",
+                "fontSize": "9.0pt (12px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
@@ -7234,7 +7234,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div id=\"langHintNote\" class=\"lang-slot-note\" aria-live=\"polite\">Native spaCy NLP.</div>",
+          "html": "<div id=\"langHintNote\" class=\"lang-slot-note\" aria-live=\"polite\">Built-in support, no extra translation step.</div>",
           "target": [
             "#langHintNote"
           ]
@@ -7270,15 +7270,15 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#1a1612",
-                "bgColor": "#f5f1eb",
-                "contrastRatio": 15.98,
-                "fontSize": "9.8pt (13px)",
+                "bgColor": "#ffffff",
+                "contrastRatio": 17.98,
+                "fontSize": "10.5pt (14px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 15.98"
+              "message": "Element has sufficient color contrast of 17.98"
             }
           ],
           "all": [],
@@ -7297,7 +7297,7 @@
                 "fgColor": "#5e5c57",
                 "bgColor": "#ede8e0",
                 "contrastRatio": 5.47,
-                "fontSize": "8.3pt (11px)",
+                "fontSize": "9.0pt (12px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
@@ -7320,21 +7320,21 @@
               "id": "color-contrast",
               "data": {
                 "fgColor": "#5e5c57",
-                "bgColor": "#ede8e0",
-                "contrastRatio": 5.47,
+                "bgColor": "#f5f1eb",
+                "contrastRatio": 5.93,
                 "fontSize": "8.3pt (11px)",
                 "fontWeight": "normal",
                 "expectedContrastRatio": "4.5:1"
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Element has sufficient color contrast of 5.47"
+              "message": "Element has sufficient color contrast of 5.93"
             }
           ],
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"lang-slot-label\" id=\"routeLabel\">Translation route</div>",
+          "html": "<div class=\"lang-slot-label\" id=\"routeLabel\">Route</div>",
           "target": [
             "#routeLabel"
           ]
@@ -7359,7 +7359,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div id=\"translationRoute\" class=\"route-text\" role=\"status\" aria-live=\"polite\" aria-labelledby=\"routeLabel\">Direct lookup in BSL (British) — no intermediate translation.</div>",
+          "html": "<div id=\"translationRoute\" class=\"route-text\" role=\"status\" aria-live=\"polite\" aria-labelledby=\"routeLabel\">Direct lookup in BSL (British). No intermediate translation needed.</div>",
           "target": [
             "#translationRoute"
           ]
@@ -8865,7 +8865,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div id=\"langHintNote\" class=\"lang-slot-note\" aria-live=\"polite\">Native spaCy NLP.</div>",
+          "html": "<div id=\"langHintNote\" class=\"lang-slot-note\" aria-live=\"polite\">Built-in support, no extra translation step.</div>",
           "target": [
             "#langHintNote"
           ]
@@ -8919,7 +8919,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"lang-slot-label\" id=\"routeLabel\">Translation route</div>",
+          "html": "<div class=\"lang-slot-label\" id=\"routeLabel\">Route</div>",
           "target": [
             "#routeLabel"
           ]
@@ -14483,7 +14483,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div id=\"langHintNote\" class=\"lang-slot-note\" aria-live=\"polite\">Native spaCy NLP.</div>",
+          "html": "<div id=\"langHintNote\" class=\"lang-slot-note\" aria-live=\"polite\">Built-in support, no extra translation step.</div>",
           "target": [
             "#langHintNote"
           ]
@@ -14903,7 +14903,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"lang-slot-label\" id=\"routeLabel\">Translation route</div>",
+          "html": "<div class=\"lang-slot-label\" id=\"routeLabel\">Route</div>",
           "target": [
             "#routeLabel"
           ]
@@ -14923,7 +14923,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div id=\"translationRoute\" class=\"route-text\" role=\"status\" aria-live=\"polite\" aria-labelledby=\"routeLabel\">Direct lookup in BSL (British) — no intermediate translation.</div>",
+          "html": "<div id=\"translationRoute\" class=\"route-text\" role=\"status\" aria-live=\"polite\" aria-labelledby=\"routeLabel\">Direct lookup in BSL (British). No intermediate translation needed.</div>",
           "target": [
             "#translationRoute"
           ]
@@ -17385,12 +17385,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 112.5,
-                "height": 37
+                "width": 180,
+                "height": 38.5
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (112.5px by 37px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (180px by 38.5px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -17417,12 +17417,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 112.5,
-                "height": 37
+                "width": 180,
+                "height": 38.5
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (112.5px by 37px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (180px by 38.5px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
