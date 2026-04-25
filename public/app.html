@@ -3642,35 +3642,33 @@
     // one warm pipeline; failed loads clear the in-flight promise so a
     // retry click recovers.
     //
-    // Two pinned versions:
-    //   * ``@huggingface/transformers@4.2.0`` — the renamed v3+ successor
-    //     to ``@xenova/transformers``. v4.2 ships a real browser ESM
-    //     bundle at ``dist/transformers.web.js`` and the
-    //     ``ort-wasm-simd-threaded.jsep.mjs`` JSEP loader; jsDelivr
-    //     resolves the bare URL through ``exports[default]``.
-    //   * ``onnxruntime-web@1.26.0-dev...`` — the exact ORT version
-    //     that transformers 4.2.0 declares as a runtime dependency.
-    //     We pin ``wasmPaths`` to its dist/ on jsDelivr because
-    //     ORT-Web's auto-path resolution from a CDN-loaded bundle
-    //     misfires: it can't find the .wasm files at the resolved
-    //     path, then mis-reports the failure as "WebAssembly SIMD is
-    //     not supported in the current environment" rather than
-    //     "WASM not reachable". Pinning the path makes the actual
-    //     SIMD-enabled WASM (the only variant ORT 1.20+ ships)
-    //     reachable, the load succeeds, and the misleading SIMD
-    //     error goes away on every modern browser.
+    // Critical: the URL must point at ``transformers.web.min.js``,
+    // NOT the bare package URL. ``package.json#jsdelivr`` declares
+    // ``./dist/transformers.min.js`` (the GENERIC build that mixes
+    // Node and browser code paths) as the default jsDelivr file.
+    // Loading that bundle from a browser exposes ``pipeline()`` but
+    // ORT-Web's WASM init fails inside Node-only code paths, surfacing
+    // as the misleading "no available backend found / WebAssembly
+    // SIMD is not supported" error.
+    //
+    // ``transformers.web.min.js`` is the *fully-bundled browser ESM*
+    // (verified: zero Node imports, ORT-Web inlined, and built-in
+    // logic that auto-sets ``env.wasm.wasmPaths`` to the matching
+    // ORT version on jsDelivr — pulling the asyncify SIMD variant,
+    // which runs single-threaded without needing SharedArrayBuffer
+    // / COOP / COEP headers we don't serve).
+    //
+    // Because the bundle handles ORT WASM path resolution itself,
+    // we do NOT override wasmPaths here — that override would race
+    // the bundle's auto-config and re-introduce the failure mode.
     async function getPipeline(){
       if (window.__transformersPipeline) return window.__transformersPipeline;
       if (!window.__transformersPipelinePromise) {
         var TRANSFORMERS_VERSION = '4.2.0';
-        var ORT_VERSION = '1.26.0-dev.20260416-b7804b056c';
-        var TRANSFORMERS_URL = 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@' + TRANSFORMERS_VERSION;
+        var TRANSFORMERS_URL = 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@' + TRANSFORMERS_VERSION + '/dist/transformers.web.min.js';
 
         window.__transformersPipelinePromise = import(TRANSFORMERS_URL)
           .then(function (mod) {
-            // Defensive check — if a future packaging change breaks
-            // the export shape, fail with something diagnosable
-            // instead of "Unsupported model type" downstream.
             if (!mod || typeof mod.pipeline !== 'function') {
               var keys = mod ? Object.keys(mod).slice(0, 6).join(', ') : '<no module>';
               throw new Error('transformers loaded but pipeline export missing (got: ' + keys + ')');
@@ -3681,15 +3679,10 @@
               // Cache model weights in IndexedDB so a return visit
               // doesn't re-download 50+ MB.
               mod.env.useBrowserCache = true;
-              // Pin the ORT-Web WASM path to the exact version
-              // transformers ships against — see comment block above.
+              // Single-thread keeps us off the SharedArrayBuffer
+              // path. The asyncify WASM variant the bundle picks
+              // by default still runs SIMD perfectly single-threaded.
               if (mod.env.backends && mod.env.backends.onnx && mod.env.backends.onnx.wasm) {
-                mod.env.backends.onnx.wasm.wasmPaths =
-                  'https://cdn.jsdelivr.net/npm/onnxruntime-web@' + ORT_VERSION + '/dist/';
-                // Single-thread mode avoids the SharedArrayBuffer
-                // requirement, which needs COOP/COEP headers we
-                // don't ship. ORT's SIMD WASM still runs perfectly
-                // on one thread.
                 mod.env.backends.onnx.wasm.numThreads = 1;
               }
             }
