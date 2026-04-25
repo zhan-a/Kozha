@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-25T02:30:27.348Z",
-  "url": "http://127.0.0.1:62468/contribute.html",
+  "timestamp": "2026-04-25T02:41:10.518Z",
+  "url": "http://127.0.0.1:62806/contribute.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -1748,9 +1748,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"c2-quickstart__chips\" role=\"group\" aria-label=\"Popular sign languages — click to select\">",
+          "html": "<div class=\"qs__chips\" role=\"group\" aria-label=\"Choose a sign language\">",
           "target": [
-            ".c2-quickstart__chips"
+            "div[aria-label=\"Choose a sign language\"]"
           ]
         },
         {
@@ -1766,7 +1766,25 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"lang-strip c2-quickstart__strip\" role=\"group\" aria-label=\"Signing language\">",
+          "html": "<div class=\"qs__chips qs__chips--more\" id=\"qsChipsMore\" role=\"group\" aria-label=\"More sign languages\" hidden=\"\"></div>",
+          "target": [
+            "#qsChipsMore"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-allowed-role",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is allowed for given element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"lang-strip\" role=\"group\" aria-label=\"Signing language\">",
           "target": [
             ".lang-strip"
           ]
@@ -3614,9 +3632,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<span class=\"c2-quickstart__reminder-icon\" aria-hidden=\"true\">✓</span>",
+          "html": "<span class=\"qs__chip-flag\" aria-hidden=\"true\">🇬🇧</span>",
           "target": [
-            ".c2-quickstart__reminder-icon"
+            "button[data-lang=\"bsl\"] > .qs__chip-flag[aria-hidden=\"true\"]"
           ]
         },
         {
@@ -3646,9 +3664,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<span class=\"c2-quickstart__chip-flag\" aria-hidden=\"true\">🇬🇧</span>",
+          "html": "<span class=\"qs__chip-arrow\" aria-hidden=\"true\">→</span>",
           "target": [
-            "button[data-lang=\"bsl\"] > .c2-quickstart__chip-flag[aria-hidden=\"true\"]"
+            "button[data-lang=\"bsl\"] > .qs__chip-arrow[aria-hidden=\"true\"]"
           ]
         },
         {
@@ -3678,9 +3696,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<span class=\"c2-quickstart__chip-flag\" aria-hidden=\"true\">🇺🇸</span>",
+          "html": "<span class=\"qs__chip-flag\" aria-hidden=\"true\">🇺🇸</span>",
           "target": [
-            "button[data-lang=\"asl\"] > .c2-quickstart__chip-flag[aria-hidden=\"true\"]"
+            "button[data-lang=\"asl\"] > .qs__chip-flag[aria-hidden=\"true\"]"
           ]
         },
         {
@@ -3710,9 +3728,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<span class=\"c2-quickstart__chip-flag\" aria-hidden=\"true\">🇩🇪</span>",
+          "html": "<span class=\"qs__chip-arrow\" aria-hidden=\"true\">→</span>",
           "target": [
-            "button[data-lang=\"dgs\"] > .c2-quickstart__chip-flag[aria-hidden=\"true\"]"
+            "button[data-lang=\"asl\"] > .qs__chip-arrow[aria-hidden=\"true\"]"
           ]
         },
         {
@@ -3742,9 +3760,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<span class=\"c2-quickstart__chip-flag\" aria-hidden=\"true\">🇫🇷</span>",
+          "html": "<span class=\"qs__chip-flag\" aria-hidden=\"true\">🇩🇪</span>",
           "target": [
-            "button[data-lang=\"lsf\"] > .c2-quickstart__chip-flag[aria-hidden=\"true\"]"
+            "button[data-lang=\"dgs\"] > .qs__chip-flag[aria-hidden=\"true\"]"
           ]
         },
         {
@@ -3774,9 +3792,105 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"c2-quickstart__divider\" aria-hidden=\"true\">\n            <span>or pick from the full list</span>\n          </div>",
+          "html": "<span class=\"qs__chip-arrow\" aria-hidden=\"true\">→</span>",
           "target": [
-            ".c2-quickstart__divider"
+            "button[data-lang=\"dgs\"] > .qs__chip-arrow[aria-hidden=\"true\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"qs__chip-flag\" aria-hidden=\"true\">🇫🇷</span>",
+          "target": [
+            "button[data-lang=\"lsf\"] > .qs__chip-flag[aria-hidden=\"true\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"qs__chip-arrow\" aria-hidden=\"true\">→</span>",
+          "target": [
+            "button[data-lang=\"lsf\"] > .qs__chip-arrow[aria-hidden=\"true\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"qs__more-plus\" aria-hidden=\"true\">+</span>",
+          "target": [
+            ".qs__more-plus"
           ]
         },
         {
@@ -3809,6 +3923,134 @@
           "html": "<span class=\"language-badge-sep\" aria-hidden=\"true\"> · </span>",
           "target": [
             ".language-badge-sep"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"ws-stage__dot\" aria-hidden=\"true\">1</span>",
+          "target": [
+            "li[data-stage=\"describe\"] > .ws-stage__dot[aria-hidden=\"true\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"ws-stage__dot\" aria-hidden=\"true\">2</span>",
+          "target": [
+            "li[data-stage=\"clarify\"] > .ws-stage__dot[aria-hidden=\"true\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"ws-stage__dot\" aria-hidden=\"true\">3</span>",
+          "target": [
+            "li[data-stage=\"preview\"] > .ws-stage__dot[aria-hidden=\"true\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"ws-stage__dot\" aria-hidden=\"true\">4</span>",
+          "target": [
+            "li[data-stage=\"submit\"] > .ws-stage__dot[aria-hidden=\"true\"]"
           ]
         },
         {
@@ -9289,7 +9531,7 @@
           "any": [
             {
               "id": "duplicate-id-aria",
-              "data": "c2-quickstart-heading",
+              "data": "qs-heading",
               "relatedNodes": [],
               "impact": "critical",
               "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
@@ -9298,9 +9540,27 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<h2 class=\"c2-quickstart__heading\" id=\"c2-quickstart-heading\">Pick your sign language<br>to begin.</h2>",
+          "html": "<h2 class=\"qs__heading\" id=\"qs-heading\">Which sign language<br>are you contributing to?</h2>",
           "target": [
-            "#c2-quickstart-heading"
+            "#qs-heading"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "qsChipsMore",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"qs__chips qs__chips--more\" id=\"qsChipsMore\" role=\"group\" aria-label=\"More sign languages\" hidden=\"\"></div>",
+          "target": [
+            "#qsChipsMore"
           ]
         },
         {
