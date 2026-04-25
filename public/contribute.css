@@ -4428,12 +4428,17 @@ select.field-input { cursor: pointer; }
     grid-template-columns: 1fr;
     gap: var(--kozha-space-5);
   }
+  /* Tabs become a horizontal scroll strip under 1024px. A right-edge
+     fade hints that there are more steps to swipe through without
+     adding a scroll-bar indicator that would fight the paper palette. */
   .c2-walk__tabs {
     flex-direction: row;
     overflow-x: auto;
-    padding-bottom: 4px;
+    padding: 0 28px 6px 0;
     scroll-snap-type: x mandatory;
     scrollbar-width: thin;
+    -webkit-mask-image: linear-gradient(90deg, black 0, black calc(100% - 24px), transparent 100%);
+            mask-image: linear-gradient(90deg, black 0, black calc(100% - 24px), transparent 100%);
   }
   .c2-walk__tab {
     flex: 0 0 220px;
