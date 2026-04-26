@@ -1929,24 +1929,51 @@
       el.appendChild(a);
     }
 
-    // Route a caught exception through describeError() (the dev string)
-    // and then through one of the /lib/error-copy.js mappers — same
-    // path the working translator at /app.html uses, so the hero
-    // produces identical plain-language copy.
+    // Map a caught exception to plain-language copy for the hero
+    // demo. The /lib/error-copy.js mappers are too aggressive for
+    // this surface — anything containing the substring "transcrib"
+    // collapses to a generic "Couldn't transcribe this clip…" copy,
+    // which then masks legitimate sub-errors like "No speech
+    // detected" once we tag them with a "transcribe failed:" prefix.
+    // We keep our own short table so a clean message we threw
+    // ourselves passes through verbatim.
     function heroPlainMicCue(err, kind) {
-      const why = (window.describeError && window.describeError(err))
-        || (err && err.message) || String(err);
-      const mapper = kind === 'transcribe'
-        ? (window.userMessageForMic || (() => "Couldn't transcribe this clip. Try again, or open the full translator."))
-        : (window.userMessageForMic || (() => 'Microphone capture failed. Reload the page and try again.'));
-      return mapper(kind === 'transcribe' ? ('transcribe failed: ' + why) : why);
+      const raw = (err && err.message) || String(err || '');
+      const m = raw.toLowerCase();
+      // Mic-permission / device errors during getUserMedia.
+      if (kind === 'record') {
+        if (m.indexOf('permission') !== -1 || m.indexOf('notallowed') !== -1 || m.indexOf('denied') !== -1) {
+          return "Microphone access was blocked. Allow mic access in your browser's site settings and reload.";
+        }
+        if (m.indexOf('notfound') !== -1 || m.indexOf('no device') !== -1 || m.indexOf('overconstrained') !== -1) {
+          return 'No microphone found. Connect a microphone and reload.';
+        }
+        return 'Microphone capture failed. Reload the page and try again.';
+      }
+      // Transcribe-time errors. Clean messages we threw ourselves
+      // pass through verbatim so the user sees the intended copy.
+      if (raw.indexOf('No speech detected') === 0) return raw;
+      if (m.indexOf('failed to fetch') !== -1 || m.indexOf('networkerror') !== -1 || m.indexOf('offline') !== -1) {
+        return 'Network problem — check your connection and try again.';
+      }
+      if (m.indexOf('413') !== -1 || m.indexOf('too large') !== -1) {
+        return 'Clip is too long for the demo. Try something under a minute.';
+      }
+      // Server-side proxy reported a non-2xx (502/503/etc.) and the
+      // local fallback also failed.
+      return "We couldn't transcribe this clip. Try again, or open the full translator.";
     }
     function heroPlainUploadCue(err) {
-      const why = (window.describeError && window.describeError(err))
-        || (err && err.message) || String(err);
-      const mapper = window.userMessageForUpload
-        || (() => "Couldn't transcribe this clip. Try again, or open the full translator.");
-      return mapper(why);
+      const raw = (err && err.message) || String(err || '');
+      const m = raw.toLowerCase();
+      if (raw.indexOf('No speech detected') === 0) return raw;
+      if (m.indexOf('413') !== -1 || m.indexOf('too large') !== -1) {
+        return 'Video is too large. Try a clip under a minute.';
+      }
+      if (m.indexOf('failed to fetch') !== -1 || m.indexOf('networkerror') !== -1 || m.indexOf('offline') !== -1) {
+        return 'Network problem — check your connection and try again.';
+      }
+      return "We couldn't process this clip. Try a different file, or open the full translator.";
     }
 
     (function() {
