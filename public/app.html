@@ -2345,14 +2345,14 @@
 
     const SIGN_LANG_DB = {
       bsl:      { sigml: ['/data/hamnosys_bsl_version1.sigml'], csv: '/data/hamnosys_bsl.csv', alphabet: '/data/bsl_alphabet_sigml.sigml' },
-      asl:      { sigml: ['/data/hamnosys_bsl_version1.sigml'], csv: '/data/hamnosys_bsl.csv', alphabet: '/data/asl_alphabet_sigml.sigml' },
+      asl:      { sigml: [], csv: null, alphabet: '/data/asl_alphabet_sigml.sigml' },
       dgs:      { sigml: ['/data/German_SL_DGS.sigml'], csv: '/data/hamnosys_dgs.csv', alphabet: '/data/dgs_alphabet_sigml.sigml' },
       lsf:      { sigml: ['/data/French_SL_LSF.sigml'], csv: '/data/hamnosys_lsf.csv', alphabet: '/data/lsf_alphabet_sigml.sigml' },
       lse:      { sigml: [], csv: null, alphabet: null },
       pjm:      { sigml: ['/data/Polish_SL_PJM.sigml'], csv: '/data/hamnosys_pjm.csv', alphabet: '/data/pjm_alphabet_sigml.sigml' },
       gsl:      { sigml: ['/data/Greek_SL_GSL.sigml'], csv: '/data/hamnosys_gsl.csv', alphabet: null },
       rsl:      { sigml: [], csv: null, alphabet: null },
-      algerian: { sigml: ['/data/Algerian_SL.sigml'], csv: null, alphabet: null },
+      algerian: { sigml: [], csv: null, alphabet: null },
       bangla:   { sigml: ['/data/Bangla_SL.sigml'], csv: null, alphabet: null },
       ngt:      { sigml: ['/data/Dutch_SL_NGT.sigml'], csv: '/data/hamnosys_ngt.csv', alphabet: '/data/ngt_alphabet_sigml.sigml' },
       fsl:      { sigml: ['/data/Filipino_SL.sigml'], csv: null, alphabet: null },
@@ -2434,8 +2434,8 @@
     // Coverage per sign language — source: docs/polish/01-database-inventory.md
     // (actual `<hns_sign gloss=*>` entries loadable by the parser).
     const SIGN_LANG_COVERAGE = {
-      bsl: 881, asl: 881, dgs: 1914, lsf: 381, lse: 0,
-      pjm: 1932, gsl: 889, rsl: 0, algerian: 418, bangla: 81,
+      bsl: 881, asl: 0, dgs: 1914, lsf: 381, lse: 0,
+      pjm: 1932, gsl: 889, rsl: 0, algerian: 0, bangla: 81,
       ngt: 39, fsl: 0, isl: 763, kurdish: 558, vsl: 3564, ksl: 0
     };
 
@@ -2443,14 +2443,14 @@
     // on the token timeline so users can see where each sign came from.
     const SIGN_LANG_CORPUS = {
       bsl: 'BSL Corpus (DictaSign)',
-      asl: 'BSL Corpus (aliased)',
+      asl: 'Fingerspelling only (corpus pending)',
       dgs: 'DGS Lexicon',
       lsf: 'DictaSign LSF',
       lse: '—',
       pjm: 'PJM Dictionary',
       gsl: 'DictaSign GSL',
       rsl: '—',
-      algerian: 'Algerian SL',
+      algerian: 'Fingerspelling only (corpus pending)',
       bangla: 'bdsl-3d-animation',
       ngt: 'NGT Synthesis',
       fsl: 'Filipino SL',

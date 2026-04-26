@@ -31,13 +31,13 @@ function loadCwasaScript(callback) {
 
 var SIGN_LANG_DB = {
   bsl:      { sigml: ['/data/hamnosys_bsl_version1.sigml'], csv: '/data/hamnosys_bsl.csv', alphabet: '/data/bsl_alphabet_sigml.sigml' },
-  asl:      { sigml: ['/data/hamnosys_bsl_version1.sigml'], csv: '/data/hamnosys_bsl.csv', alphabet: '/data/asl_alphabet_sigml.sigml' },
+  asl:      { sigml: [], csv: null, alphabet: '/data/asl_alphabet_sigml.sigml' },
   dgs:      { sigml: ['/data/German_SL_DGS.sigml'], csv: '/data/hamnosys_dgs.csv', alphabet: '/data/dgs_alphabet_sigml.sigml' },
   lsf:      { sigml: ['/data/French_SL_LSF.sigml'], csv: '/data/hamnosys_lsf.csv', alphabet: '/data/lsf_alphabet_sigml.sigml' },
   pjm:      { sigml: ['/data/Polish_SL_PJM.sigml'], csv: '/data/hamnosys_pjm.csv', alphabet: '/data/pjm_alphabet_sigml.sigml' },
   gsl:      { sigml: ['/data/Greek_SL_GSL.sigml'], csv: '/data/hamnosys_gsl.csv', alphabet: null },
   ngt:      { sigml: ['/data/Dutch_SL_NGT.sigml'], csv: '/data/hamnosys_ngt.csv', alphabet: '/data/ngt_alphabet_sigml.sigml' },
-  algerian: { sigml: ['/data/Algerian_SL.sigml'], csv: null, alphabet: null },
+  algerian: { sigml: [], csv: null, alphabet: null },
   bangla:   { sigml: ['/data/Bangla_SL.sigml'], csv: null, alphabet: null },
   fsl:      { sigml: ['/data/Filipino_SL.sigml'], csv: null, alphabet: null },
   isl:      { sigml: ['/data/Indian_SL.sigml'], csv: null, alphabet: null },
