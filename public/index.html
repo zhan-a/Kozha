@@ -1843,36 +1843,22 @@
       return ((data && data.text) || '').trim();
     }
 
+    // The hero demo on the landing page goes STRAIGHT to the server-
+    // side Gladia proxy: the in-browser Whisper pipeline is fast in
+    // the happy case but produces opaque internal errors (e.g.
+    // "e.subarray is not a function") on enough browser/codec combos
+    // that exposing them on the marketing surface erodes trust. The
+    // full translator at /app.html still tries local first — that
+    // page is the one users have already opted in to.
+    //
+    // The server returns a clean string (possibly empty for silent
+    // clips). We surface generic copy on any failure — never the
+    // underlying provider name or internal stack — and the catch
+    // handlers at the call sites add an "Open full translator →"
+    // recovery link so the user is never stuck.
     async function heroTranscribeWithFallback(blob) {
-      let localError = null;
-      try {
-        const asr = await ensureASR();
-        const result = await asr(blob, getAsrOptions());
-        const text = ((result && result.text) || '').trim();
-        if (text) return text;
-        localError = new Error('local pipeline returned empty transcript');
-      } catch (e) {
-        localError = e;
-      }
-      // Local pipeline failed — try the server-side Gladia proxy. We
-      // distinguish three sub-outcomes so the UI surfaces the right
-      // copy: a successful non-empty transcript wins; a successful
-      // EMPTY transcript means the audio has no speech (clean copy);
-      // a server error falls back to the local error so the upload-
-      // mapper hint ("model load failed", etc.) still applies.
-      let serverError = null;
-      let serverText = null;
-      try {
-        serverText = await heroTranscribeViaServer(blob);
-      } catch (e) {
-        serverError = e;
-      }
-      if (serverText) return serverText;
-      if (serverError) {
-        console.warn('[asr] both local and server transcription failed', { local: localError && localError.message, server: serverError && serverError.message });
-        throw localError;
-      }
-      // Server reached Gladia but no speech was detected.
+      const text = await heroTranscribeViaServer(blob);
+      if (text) return text;
       throw new Error('No speech detected — try recording again with a clearer voice.');
     }
 
@@ -1883,10 +1869,10 @@
       return opts;
     }
 
-    // Renders a status message with a "→ Open full translator" deep
-     // link inside it. Used on the hero mic + video tabs so a user
-     // who hits a failure on the demo widget always has a one-click
-     // route to /app.html instead of being stuck on a dead error.
+    // Renders a status message with a trailing "Open full translator
+    // →" deep link. Used on the hero mic + video tabs so a user who
+    // hits a failure on the demo widget always has a one-click route
+    // to /app.html instead of being stuck on a dead error.
     function setHeroStatusWithFallbackLink(el, message) {
       if (!el) return;
       el.textContent = '';
@@ -1897,7 +1883,39 @@
       a.style.color = 'var(--accent)';
       a.style.fontWeight = '600';
       a.style.textDecoration = 'underline';
+      a.style.whiteSpace = 'nowrap';
       el.appendChild(a);
+    }
+
+    // Hero demo error copy. The hero is a marketing surface — it
+    // must never leak internal class names, provider names, or
+    // module paths into the UI. Map any caught exception to one of
+    // a small set of plain-language hints. Recording-time errors
+    // (mic permission, no device) are distinct from transcribe-time
+    // errors (network blip, no speech, generic processing failure).
+    function heroFriendlyMicCueRecord(err) {
+      const m = String(err && err.message || err || '').toLowerCase();
+      if (m.indexOf('permission') !== -1 || m.indexOf('notallowed') !== -1 || m.indexOf('denied') !== -1) {
+        return "Microphone access was blocked. Allow mic access in your browser's site settings and reload.";
+      }
+      if (m.indexOf('notfound') !== -1 || m.indexOf('no device') !== -1 || m.indexOf('overconstrained') !== -1) {
+        return 'No microphone found. Connect a microphone and reload.';
+      }
+      return 'Microphone capture failed. Reload the page and try again.';
+    }
+    function heroFriendlyTranscribeCue(err) {
+      const m = String(err && err.message || err || '').toLowerCase();
+      if (m.indexOf('no speech detected') !== -1) {
+        // Already a clean message produced by heroTranscribeWithFallback.
+        return err.message;
+      }
+      if (m.indexOf('failed to fetch') !== -1 || m.indexOf('network') !== -1 || m.indexOf('offline') !== -1) {
+        return 'Network problem — check your connection and try again.';
+      }
+      if (m.indexOf('413') !== -1 || m.indexOf('too large') !== -1) {
+        return 'Clip is too long for the demo. Try something under a minute.';
+      }
+      return "Couldn't transcribe this clip. Try again, or open the full translator.";
     }
 
     (function() {
@@ -1922,7 +1940,8 @@
             micStatus.textContent = 'Recording…';
             if (micTranscript) micTranscript.value = '';
           } catch (e) {
-            setHeroStatusWithFallbackLink(micStatus, 'Mic error: ' + e.message + '.');
+            console.warn('[hero-mic] capture failed:', e);
+            setHeroStatusWithFallbackLink(micStatus, heroFriendlyMicCueRecord(e));
           }
         } else {
           mediaRecorder.stop();
@@ -1948,7 +1967,8 @@
             document.querySelectorAll('.demo-tab-panel').forEach(p => p.classList.remove('active'));
             document.getElementById('tab-text').classList.add('active');
           } catch (e) {
-            setHeroStatusWithFallbackLink(micStatus, 'Transcription error: ' + e.message);
+            console.warn('[hero-mic] transcribe failed:', e);
+            setHeroStatusWithFallbackLink(micStatus, heroFriendlyTranscribeCue(e));
           }
           recordBtn.textContent = '● Start recording';
           recordBtn.disabled = false;
@@ -2013,7 +2033,8 @@
           document.querySelectorAll('.demo-tab-panel').forEach(p => p.classList.remove('active'));
           document.getElementById('tab-text').classList.add('active');
         } catch (e) {
-          setHeroStatusWithFallbackLink(videoStatus, 'Error: ' + e.message);
+          console.warn('[hero-video] processing failed:', e);
+          setHeroStatusWithFallbackLink(videoStatus, heroFriendlyTranscribeCue(e));
         }
         videoBtn.disabled = false;
       });
