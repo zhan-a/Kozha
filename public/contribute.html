@@ -523,8 +523,80 @@
             <span class="qs__more-label">More languages</span>
             <span class="qs__more-count" id="qsMoreCount"></span>
           </button>
+          <button type="button" class="qs__suggest" id="qsSuggestBtn" aria-expanded="false" aria-controls="suggestLanguageForm">
+            <span class="qs__suggest-plus" aria-hidden="true">＋</span>
+            <span class="qs__suggest-label">Don't see your sign language? Suggest one →</span>
+          </button>
           <a href="/progress" class="qs__coverage-link" data-i18n="contribute.language_picker.see_all_languages">See coverage →</a>
         </div>
+
+        <!-- Inline proposal form (Prompt 02). Hidden until the user
+             clicks the "Suggest one" affordance above. Mirrors the
+             existing field-label / field-input / field-error pattern
+             so it picks up the page's existing styling without a new
+             CSS bundle. -->
+        <section
+          class="suggest-language card kz-card"
+          id="suggestLanguageCard"
+          aria-labelledby="suggestLanguageHeading"
+          hidden>
+          <h3 class="card-title" id="suggestLanguageHeading">Suggest a sign language</h3>
+          <p class="suggest-language-lede field-hint">
+            Tell us which sign language is missing — a maintainer will review your suggestion. We don't auto-add languages because every corpus needs a license and a Deaf reviewer.
+          </p>
+          <form id="suggestLanguageForm" class="suggest-language-form" novalidate>
+            <div class="suggest-language-row">
+              <label class="field-label" for="suggestNameInput">Sign language name</label>
+              <input id="suggestNameInput" name="name" class="field-input" type="text" required autocomplete="off" maxlength="200" aria-describedby="suggestNameHint">
+              <p id="suggestNameHint" class="field-hint">English name, e.g. "Vietnamese Sign Language".</p>
+            </div>
+            <div class="suggest-language-row">
+              <label class="field-label" for="suggestEndonymInput">Native / endonym <span class="field-label-optional">(optional)</span></label>
+              <input id="suggestEndonymInput" name="endonym" class="field-input" type="text" autocomplete="off" maxlength="200">
+            </div>
+            <div class="suggest-language-row">
+              <label class="field-label" for="suggestIsoInput">ISO 639-3 code of the base spoken language</label>
+              <input id="suggestIsoInput" name="iso_639_3" class="field-input" type="text" required autocomplete="off" maxlength="3" pattern="[a-zA-Z]{3}" aria-describedby="suggestIsoHint">
+              <p id="suggestIsoHint" class="field-hint">3 lowercase letters, e.g. <code>vie</code> for Vietnamese, <code>kaz</code> for Kazakh.</p>
+            </div>
+            <div class="suggest-language-row">
+              <label class="field-label" for="suggestRegionInput">Region / country <span class="field-label-optional">(optional)</span></label>
+              <input id="suggestRegionInput" name="region" class="field-input" type="text" autocomplete="off" maxlength="200">
+            </div>
+            <div class="suggest-language-row">
+              <label class="field-label" for="suggestCorpusInput">Existing corpus / dataset URL <span class="field-label-optional">(optional)</span></label>
+              <input id="suggestCorpusInput" name="corpus_url" class="field-input" type="url" autocomplete="off" maxlength="600" placeholder="https://...">
+            </div>
+            <fieldset class="suggest-language-row suggest-language-deaf">
+              <legend class="field-label">Do you identify as Deaf or hard-of-hearing? <span class="field-label-optional">(optional)</span></legend>
+              <label class="suggest-language-radio"><input type="radio" name="submitter_is_deaf" value="yes"> Yes</label>
+              <label class="suggest-language-radio"><input type="radio" name="submitter_is_deaf" value="no"> No</label>
+              <label class="suggest-language-radio"><input type="radio" name="submitter_is_deaf" value="" checked> Prefer not to say</label>
+            </fieldset>
+            <div class="suggest-language-row">
+              <label class="field-label" for="suggestMotivationInput">Why this language?</label>
+              <textarea id="suggestMotivationInput" name="motivation" class="field-input" required maxlength="1000" rows="3" aria-describedby="suggestMotivationHint"></textarea>
+              <p id="suggestMotivationHint" class="field-hint">One line is fine — what gap does this fill?</p>
+            </div>
+            <!-- Honeypot — hidden from real users, populated only by bots.
+                 Backend matches the captcha-failed envelope so a scraper
+                 can't tell the honeypot from a real failure. -->
+            <div class="suggest-language-honeypot" aria-hidden="true">
+              <label>If you're human, leave this empty:
+                <input type="text" name="website" id="suggestWebsiteInput" tabindex="-1" autocomplete="off">
+              </label>
+            </div>
+            <p class="field-error" id="suggestLanguageError" role="alert" hidden></p>
+            <div class="suggest-language-actions">
+              <button type="submit" class="btn btn-primary" id="suggestLanguageSubmit">Send suggestion</button>
+              <button type="button" class="kz-link" id="suggestLanguageCancel">Cancel</button>
+            </div>
+          </form>
+          <div class="suggest-language-thanks" id="suggestLanguageThanks" role="status" aria-live="polite" hidden>
+            <p><strong>Thanks — a maintainer will review your suggestion.</strong></p>
+            <p>We don't auto-add languages because every corpus needs a license and a Deaf reviewer. We'll reach out if we need more detail.</p>
+          </div>
+        </section>
 
         <!-- Hidden fallback: original #languagePicker markup — contribute.js
              populates and reacts to #pickerSelect. Kept invisible because
@@ -1104,6 +1176,35 @@
 
     </div><!-- /#contributeWorkspace -->
 
+    <!-- Maintainer review queue for inbound rare-SL proposals (Prompt
+         02). Hidden unless the page is loaded with ``?admin=proposals``
+         AND a board-reviewer token is supplied. The token is sent via
+         X-Reviewer-Token, matching the auth on /admin/dashboard. -->
+    <section class="proposals-admin card kz-card" id="proposalsAdmin" aria-labelledby="proposalsAdminHeading" hidden>
+      <h2 class="card-title" id="proposalsAdminHeading">Inbound language proposals</h2>
+      <p class="field-hint">Maintainers only. Accepting prints a seed-file snippet — it does not modify any file under <code>data/</code>.</p>
+      <form id="proposalsAdminAuthForm" class="proposals-admin-auth">
+        <label class="field-label" for="proposalsAdminToken">Board reviewer token</label>
+        <input id="proposalsAdminToken" class="field-input" type="password" autocomplete="off" spellcheck="false">
+        <button type="submit" class="btn btn-primary">Load queue</button>
+      </form>
+      <p class="field-error" id="proposalsAdminError" role="alert" hidden></p>
+      <div class="proposals-admin-list" id="proposalsAdminList" hidden>
+        <div class="proposals-admin-filter">
+          <label class="field-label" for="proposalsAdminStatus">Status</label>
+          <select id="proposalsAdminStatus" class="field-input">
+            <option value="pending" selected>pending</option>
+            <option value="accepted">accepted</option>
+            <option value="rejected">rejected</option>
+            <option value="dup">duplicate</option>
+            <option value="">all</option>
+          </select>
+          <button type="button" class="btn btn-secondary" id="proposalsAdminRefreshBtn">Refresh</button>
+        </div>
+        <ul class="proposals-admin-rows" id="proposalsAdminRows"></ul>
+      </div>
+    </section>
+
     <!-- Transient feedback surface, copy confirmations, brief errors. -->
     <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
   </main>
@@ -1286,7 +1387,8 @@
         bsl:'🇬🇧', asl:'🇺🇸', dgs:'🇩🇪', lsf:'🇫🇷', lse:'🇪🇸',
         pjm:'🇵🇱', gsl:'🇬🇷', rsl:'🇷🇺', ngt:'🇳🇱', fsl:'🇵🇭',
         isl:'🇮🇳', vsl:'🇻🇳', algerian:'🇩🇿', bangla:'🇧🇩', kurdish:'🇮🇶',
-        ksl:'🇰🇿'
+        ksl:'🇰🇿', usl:'🇺🇦', tid:'🇹🇷', jsl:'🇯🇵', kvk:'🇰🇷',
+        csl:'🇨🇳', arsl:'🌍', msl:'🇲🇳', zei:'🇮🇷'
       };
       var primaryCodes = ['bsl','asl','dgs','lsf'];
 
@@ -1369,20 +1471,52 @@
             return;
           }
           if (moreCnt) moreCnt.textContent = '(' + secondary.length + ')';
+
+          // Bucket secondary entries by group so rare/seed languages
+          // cluster under their own subheading. Anything without a
+          // group lands in "established" by default.
+          var groups = { established: [], rare: [] };
           secondary.forEach(function (lang) {
+            var g = lang.group === 'rare' ? 'rare' : 'established';
+            groups[g].push(lang);
+          });
+
+          function renderChip(lang) {
             var btn = document.createElement('button');
             btn.type = 'button';
             btn.className = 'qs__chip qs__chip--small';
+            if (lang.group === 'rare') btn.classList.add('qs__chip--rare');
             btn.dataset.lang = lang.code;
+            var seedTag = lang.data_completeness === 'seed'
+              ? '<span class="qs__chip-tag" aria-label="Seed language — first contributors welcome">seed</span>'
+              : '';
             btn.innerHTML =
               '<span class="qs__chip-flag" aria-hidden="true">' + (FLAGS[lang.code] || '🏳️') + '</span>' +
               '<span class="qs__chip-body">' +
                 '<span class="qs__chip-code">' + lang.code.toUpperCase() + '</span>' +
                 '<span class="qs__chip-name">' + (lang.english_name || lang.name || lang.code) + '</span>' +
-              '</span>';
-            moreHost.appendChild(btn);
-            bindChip(btn);
-          });
+              '</span>' + seedTag;
+            return btn;
+          }
+
+          if (groups.established.length) {
+            groups.established.forEach(function (lang) {
+              var btn = renderChip(lang);
+              moreHost.appendChild(btn);
+              bindChip(btn);
+            });
+          }
+          if (groups.rare.length) {
+            var heading = document.createElement('p');
+            heading.className = 'qs__chips-heading';
+            heading.textContent = 'Rare / emerging — first contributors welcome';
+            moreHost.appendChild(heading);
+            groups.rare.forEach(function (lang) {
+              var btn = renderChip(lang);
+              moreHost.appendChild(btn);
+              bindChip(btn);
+            });
+          }
         }).catch(function (err) {
           console.warn('[quickstart] more-languages load failed:', err.message);
           moreBtn.hidden = true;
@@ -1400,6 +1534,254 @@
     // The pre-2026-04c gate that hid the workspace behind a class toggle
     // made the page feel stub-like (no chips above the fold). The workspace
     // is always visible now; the CTA just smooth-scrolls to it.
+
+    // Inline "Suggest a sign language" form (Prompt 02). The chip /
+    // <select> "Suggest one →" affordances call window.KOZHA_OPEN_SUGGEST_LANGUAGE
+    // which scrolls the form into view and focuses the first input.
+    // Posts to /api/chat2hamnosys/language-proposals; on 201 swaps the
+    // form for the thank-you note. The honeypot stays in the DOM but
+    // is visually hidden via the .suggest-language-honeypot CSS rule.
+    (function () {
+      var card    = document.getElementById('suggestLanguageCard');
+      var form    = document.getElementById('suggestLanguageForm');
+      var thanks  = document.getElementById('suggestLanguageThanks');
+      var openBtn = document.getElementById('qsSuggestBtn');
+      var cancel  = document.getElementById('suggestLanguageCancel');
+      var errEl   = document.getElementById('suggestLanguageError');
+      var submit  = document.getElementById('suggestLanguageSubmit');
+      if (!card || !form) return;
+
+      function open() {
+        card.hidden = false;
+        thanks.hidden = true;
+        form.hidden = false;
+        if (openBtn) openBtn.setAttribute('aria-expanded', 'true');
+        try { card.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        catch (_e) { card.scrollIntoView(); }
+        var first = document.getElementById('suggestNameInput');
+        if (first) {
+          setTimeout(function () { try { first.focus(); } catch (_e) {} }, 250);
+        }
+      }
+      function close() {
+        card.hidden = true;
+        if (openBtn) openBtn.setAttribute('aria-expanded', 'false');
+      }
+      window.KOZHA_OPEN_SUGGEST_LANGUAGE = open;
+      if (openBtn) openBtn.addEventListener('click', open);
+      if (cancel)  cancel.addEventListener('click', close);
+
+      function setError(message) {
+        if (!errEl) return;
+        if (!message) {
+          errEl.hidden = true;
+          errEl.textContent = '';
+        } else {
+          errEl.textContent = message;
+          errEl.hidden = false;
+        }
+      }
+
+      form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        setError('');
+        var data = new FormData(form);
+        var deafRaw = (data.get('submitter_is_deaf') || '').toString();
+        var deafVal = null;
+        if (deafRaw === 'yes') deafVal = true;
+        else if (deafRaw === 'no') deafVal = false;
+        var payload = {
+          name: (data.get('name') || '').toString().trim(),
+          endonym: (data.get('endonym') || '').toString().trim(),
+          iso_639_3: (data.get('iso_639_3') || '').toString().trim().toLowerCase(),
+          region: (data.get('region') || '').toString().trim(),
+          corpus_url: (data.get('corpus_url') || '').toString().trim(),
+          submitter_is_deaf: deafVal,
+          motivation: (data.get('motivation') || '').toString().trim(),
+          website: (data.get('website') || '').toString()
+        };
+        if (!payload.name) { setError('Please enter the sign language name.'); return; }
+        if (!/^[a-z]{3}$/.test(payload.iso_639_3)) {
+          setError('ISO code must be 3 lowercase letters.');
+          return;
+        }
+        if (!payload.motivation) {
+          setError('Please share a one-line reason.');
+          return;
+        }
+        if (submit) submit.disabled = true;
+        var headers = { 'Content-Type': 'application/json' };
+        try {
+          var contribTok = localStorage.getItem('kozha_contributor_token');
+          if (contribTok) headers['X-Contributor-Token'] = contribTok;
+        } catch (_e) { /* localStorage may be unavailable in some contexts */ }
+        fetch('/api/chat2hamnosys/language-proposals', {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify(payload)
+        }).then(function (r) {
+          return r.json().then(function (body) { return { ok: r.ok, status: r.status, body: body }; });
+        }).then(function (res) {
+          if (res.ok) {
+            form.hidden = true;
+            thanks.hidden = false;
+            return;
+          }
+          var msg = (res.body && res.body.error && res.body.error.message)
+            ? res.body.error.message
+            : 'Submission failed. Please try again.';
+          if (res.status === 429) {
+            msg = "You've sent a few suggestions already — please try again in a minute.";
+          }
+          setError(msg);
+        }).catch(function () {
+          setError('Network error. Please try again.');
+        }).finally(function () {
+          if (submit) submit.disabled = false;
+        });
+      });
+    })();
+
+    // Maintainer admin tab for the language-proposal queue (Prompt 02).
+    // Shown only when the page is loaded with ``?admin=proposals`` —
+    // the URL gate keeps the auth box out of the way for ordinary
+    // contributors. The board reviewer pastes their token; we send it
+    // via X-Reviewer-Token on every admin request, mirroring
+    // /admin/dashboard auth.
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('admin') !== 'proposals') return;
+
+      var card     = document.getElementById('proposalsAdmin');
+      var authForm = document.getElementById('proposalsAdminAuthForm');
+      var tokenIn  = document.getElementById('proposalsAdminToken');
+      var listEl   = document.getElementById('proposalsAdminList');
+      var rowsEl   = document.getElementById('proposalsAdminRows');
+      var statusEl = document.getElementById('proposalsAdminStatus');
+      var refresh  = document.getElementById('proposalsAdminRefreshBtn');
+      var errEl    = document.getElementById('proposalsAdminError');
+      if (!card || !authForm) return;
+      card.hidden = false;
+
+      var token = '';
+
+      function setError(msg) {
+        if (!errEl) return;
+        if (!msg) { errEl.hidden = true; errEl.textContent = ''; return; }
+        errEl.textContent = msg;
+        errEl.hidden = false;
+      }
+
+      function escapeHtml(s) {
+        return String(s || '').replace(/[&<>"']/g, function (c) {
+          return ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' })[c];
+        });
+      }
+
+      function renderProposals(rows) {
+        rowsEl.innerHTML = '';
+        if (!rows || !rows.length) {
+          var empty = document.createElement('li');
+          empty.className = 'proposals-admin-empty';
+          empty.textContent = '(no proposals)';
+          rowsEl.appendChild(empty);
+          return;
+        }
+        rows.forEach(function (p) {
+          var li = document.createElement('li');
+          li.className = 'proposals-admin-row';
+          var triage = p.triage_unknown_iso ? ' <span class="proposals-admin-triage">unknown ISO</span>' : '';
+          var deaf = p.submitter_is_deaf === true
+            ? 'Deaf / hard-of-hearing'
+            : (p.submitter_is_deaf === false ? 'hearing' : 'unspecified');
+          li.innerHTML =
+            '<div class="proposals-admin-head">' +
+              '<strong>' + escapeHtml(p.name) + '</strong>' +
+              ' <span class="proposals-admin-iso">' + escapeHtml(p.iso_639_3) + '</span>' +
+              triage +
+              ' <span class="proposals-admin-status">[' + escapeHtml(p.status) + ']</span>' +
+            '</div>' +
+            (p.endonym ? '<div>endonym: ' + escapeHtml(p.endonym) + '</div>' : '') +
+            (p.region ? '<div>region: ' + escapeHtml(p.region) + '</div>' : '') +
+            (p.corpus_url ? '<div>corpus: <a href="' + escapeHtml(p.corpus_url) + '" rel="noopener" target="_blank">' + escapeHtml(p.corpus_url) + '</a></div>' : '') +
+            '<div>submitter: ' + escapeHtml(deaf) + '</div>' +
+            '<div>motivation: ' + escapeHtml(p.motivation) + '</div>' +
+            (p.notes ? '<div>notes: ' + escapeHtml(p.notes) + '</div>' : '') +
+            '<div class="proposals-admin-actions">' +
+              '<button type="button" data-action="accept" data-id="' + escapeHtml(p.id) + '">Accept</button>' +
+              '<button type="button" data-action="reject" data-id="' + escapeHtml(p.id) + '">Reject</button>' +
+              '<button type="button" data-action="duplicate" data-id="' + escapeHtml(p.id) + '">Mark duplicate</button>' +
+            '</div>' +
+            '<pre class="proposals-admin-snippet" data-snippet-for="' + escapeHtml(p.id) + '" hidden></pre>';
+          rowsEl.appendChild(li);
+        });
+      }
+
+      function load() {
+        if (!token) return;
+        setError('');
+        var statusFilter = statusEl.value || '';
+        var url = '/api/chat2hamnosys/admin/language-proposals' +
+          (statusFilter ? ('?status=' + encodeURIComponent(statusFilter)) : '');
+        fetch(url, { headers: { 'X-Reviewer-Token': token } })
+          .then(function (r) {
+            return r.json().then(function (body) { return { ok: r.ok, status: r.status, body: body }; });
+          })
+          .then(function (res) {
+            if (!res.ok) {
+              setError((res.body && res.body.error && res.body.error.message) || 'Failed to load.');
+              listEl.hidden = true;
+              return;
+            }
+            listEl.hidden = false;
+            renderProposals(res.body.proposals || []);
+          })
+          .catch(function () { setError('Network error.'); });
+      }
+
+      authForm.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        token = tokenIn.value.trim();
+        if (!token) return;
+        load();
+      });
+
+      if (refresh) refresh.addEventListener('click', load);
+      if (statusEl) statusEl.addEventListener('change', load);
+
+      rowsEl.addEventListener('click', function (ev) {
+        var btn = ev.target;
+        if (!btn || btn.tagName !== 'BUTTON') return;
+        var action = btn.getAttribute('data-action');
+        var id = btn.getAttribute('data-id');
+        if (!action || !id) return;
+        var notes = '';
+        if (action !== 'accept') {
+          notes = window.prompt('Notes (optional, maintainer-only):') || '';
+        }
+        var url = '/api/chat2hamnosys/admin/language-proposals/' + encodeURIComponent(id) + '/' + action;
+        fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-Reviewer-Token': token },
+          body: JSON.stringify({ notes: notes })
+        }).then(function (r) {
+          return r.json().then(function (body) { return { ok: r.ok, status: r.status, body: body }; });
+        }).then(function (res) {
+          if (!res.ok) {
+            setError((res.body && res.body.error && res.body.error.message) || 'Action failed.');
+            return;
+          }
+          if (action === 'accept' && res.body && res.body.seed_snippet) {
+            var pre = document.querySelector('[data-snippet-for="' + id + '"]');
+            if (pre) {
+              pre.textContent = res.body.seed_snippet;
+              pre.hidden = false;
+            }
+          }
+          load();
+        }).catch(function () { setError('Network error.'); });
+      });
+    })();
   </script>
 </body>
 </html>

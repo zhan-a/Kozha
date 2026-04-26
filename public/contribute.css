@@ -5412,3 +5412,150 @@ select.field-input { cursor: pointer; }
   #submissionPanel .submission-actions-primary { flex-direction: column; align-items: stretch; }
   #submissionPanel .submission-submit { text-align: center; }
 }
+
+/* ----------------------------------------------------------------------
+ * "Suggest a sign language" affordance + inline form (Prompt 02).
+ * The chip lives in .qs__footer next to the existing "More languages"
+ * button; the form panel follows the existing card aesthetic.
+ * -------------------------------------------------------------------- */
+.qs__suggest {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px dashed rgba(245, 241, 235, 0.28);
+  color: rgba(245, 241, 235, 0.85);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: var(--kozha-weight-medium);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.qs__suggest:hover {
+  background: rgba(245, 241, 235, 0.06);
+  border-style: solid;
+  color: var(--kozha-color-paper);
+}
+.qs__suggest-plus {
+  display: inline-block;
+  font-size: 14px;
+  color: var(--kozha-color-accent-bright);
+}
+
+.suggest-language { margin-top: var(--kozha-space-4); }
+.suggest-language-lede { margin-bottom: var(--kozha-space-3); }
+.suggest-language-row { margin-bottom: var(--kozha-space-3); }
+.suggest-language-deaf {
+  border: 0;
+  padding: 0;
+  margin: 0 0 var(--kozha-space-3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--kozha-space-3);
+}
+.suggest-language-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+.field-label-optional {
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 400;
+  font-size: 12px;
+}
+.suggest-language-actions {
+  display: flex;
+  gap: var(--kozha-space-3);
+  align-items: center;
+  margin-top: var(--kozha-space-3);
+}
+.suggest-language-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.suggest-language-thanks p { margin: 0 0 8px; }
+
+/* Maintainer admin tab — only visible when `?admin=proposals` is set. */
+.proposals-admin {
+  margin-top: var(--kozha-space-5);
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+}
+.proposals-admin-auth {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--kozha-space-3);
+  align-items: end;
+}
+.proposals-admin-auth .field-input { flex: 1 1 240px; }
+.proposals-admin-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: var(--kozha-space-3);
+  margin: var(--kozha-space-3) 0;
+}
+.proposals-admin-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.proposals-admin-row {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+.proposals-admin-head { font-size: 14px; margin-bottom: 4px; }
+.proposals-admin-iso {
+  font-family: var(--kozha-font-mono, ui-monospace, monospace);
+  background: rgba(0, 0, 0, 0.06);
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+.proposals-admin-status {
+  font-family: var(--kozha-font-mono, ui-monospace, monospace);
+  color: rgba(0, 0, 0, 0.55);
+}
+.proposals-admin-triage {
+  background: #fff3cd;
+  color: #6b4f00;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+}
+.proposals-admin-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+.proposals-admin-actions button {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: #fff;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.proposals-admin-snippet {
+  background: rgba(0, 0, 0, 0.04);
+  padding: 10px 12px;
+  border-radius: 4px;
+  margin-top: 8px;
+  white-space: pre-wrap;
+  font-size: 12px;
+  font-family: var(--kozha-font-mono, ui-monospace, monospace);
+}
+.proposals-admin-empty {
+  padding: 12px;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.55);
+}
+

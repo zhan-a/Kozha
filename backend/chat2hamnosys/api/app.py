@@ -35,6 +35,7 @@ from review.router import router as review_router
 from .admin import router as admin_router
 from .contributors import router as contributors_router
 from .errors import register_error_handlers
+from .proposals import router as proposals_router
 from .router import _default_rate_limit, router
 
 
@@ -145,6 +146,11 @@ def create_app(
     # mount prefix so the parent server exposes them at
     # ``/api/chat2hamnosys/metrics`` and ``/api/chat2hamnosys/health``.
     app.include_router(admin_router, prefix=api_prefix)
+    # Inbound rare-SL language proposals + maintainer review queue.
+    # The proposals router decorates its routes with the same
+    # module-level limiter as ``router.py``, keyed off the contributor
+    # token / signer-id hash via a per-decorator ``key_func``.
+    app.include_router(proposals_router, prefix=api_prefix)
 
     return app
 

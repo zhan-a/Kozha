@@ -56,6 +56,14 @@ from .models import (
     SessionEnvelope,
     SignEntryOut,
 )
+from .proposals import (
+    LanguageProposal,
+    LanguageProposalIn,
+    LanguageProposalOut,
+    ProposalsStore,
+    get_proposals_store,
+    reset_proposals_store,
+)
 from .router import DEFAULT_RATE_LIMIT, limiter, router
 from .token_store import TokenStore
 
@@ -78,9 +86,13 @@ __all__ = [
     "ErrorResponse",
     "GapOut",
     "InvalidTransition",
+    "LanguageProposal",
+    "LanguageProposalIn",
+    "LanguageProposalOut",
     "NextAction",
     "OptionOut",
     "PreviewOut",
+    "ProposalsStore",
     "QuestionOut",
     "RejectRequest",
     "SessionEnvelope",
@@ -92,6 +104,7 @@ __all__ = [
     "get_apply_fn",
     "get_generate_fn",
     "get_parse_fn",
+    "get_proposals_store",
     "get_question_fn",
     "get_render_fn",
     "get_session_store",
@@ -100,6 +113,7 @@ __all__ = [
     "get_token_store",
     "limiter",
     "register_error_handlers",
+    "reset_proposals_store",
     "reset_stores",
     "router",
 ]

@@ -1,4 +1,4 @@
-"""Tiny CLI for managing reviewers.
+"""Tiny CLI for managing reviewers and inbound rare-SL proposals.
 
 Two invocations work — pick whichever matches your shell::
 
@@ -14,12 +14,22 @@ The CLI also supports::
     python -m review.admin list-reviewers
     python -m review.admin deactivate-reviewer <id>
     python -m review.admin verify-audit
+    python -m review.admin list-proposals [--status pending|accepted|rejected|dup]
+    python -m review.admin accept-proposal <id> [--notes "..."]
+    python -m review.admin reject-proposal <id> [--notes "..."]
+    python -m review.admin mark-duplicate-proposal <id> [--notes "..."]
 
 The DB path is read from ``CHAT2HAMNOSYS_REVIEWER_DB`` (defaulting to
 ``data/chat2hamnosys/reviewers.sqlite3``); the audit log path is read
 from ``CHAT2HAMNOSYS_EXPORT_AUDIT`` (defaulting to
 ``data/chat2hamnosys/exports.jsonl``). The same vars are read by the
 HTTP layer's dependency providers, so CLI and API share one DB.
+
+Accepting a proposal **does not** modify the live language list or any
+file under ``data/`` — the CLI prints the seed-file snippet a
+maintainer pastes by hand. Skipping the auto-create step is
+deliberate: every rare-SL corpus needs a license claim and a Deaf
+reviewer, and we never want the CLI to take that step for us.
 
 Bootstrap warning
 -----------------
@@ -60,6 +70,21 @@ def _reviewer_store() -> ReviewerStore:
 def _audit_log() -> ExportAuditLog:
     log = os.environ.get("CHAT2HAMNOSYS_EXPORT_AUDIT", "").strip()
     return ExportAuditLog(log_path=Path(log) if log else DEFAULT_EXPORT_AUDIT)
+
+
+def _proposals_store():
+    """Return a fresh proposals store at the API layer's configured path.
+
+    Imported lazily so this CLI module stays usable even when the api
+    package is unimportable (e.g. running ``verify-audit`` from a
+    minimal environment).
+    """
+    from api.proposals import get_proposals_store, reset_proposals_store
+
+    # Reset the singleton so a CLI invocation doesn't reuse a stale
+    # connection from a prior in-process call (matters for tests).
+    reset_proposals_store()
+    return get_proposals_store()
 
 
 # ---------------------------------------------------------------------------
@@ -146,6 +171,104 @@ def cmd_verify_audit(args: argparse.Namespace) -> int:
 
 
 # ---------------------------------------------------------------------------
+# Language-proposal queue commands
+# ---------------------------------------------------------------------------
+
+
+def _print_proposal_row(p) -> None:
+    triage = " (unknown ISO)" if p.triage_unknown_iso else ""
+    deaf = (
+        "self-attests Deaf"
+        if p.submitter_is_deaf
+        else ("self-attests hearing" if p.submitter_is_deaf is False else "—")
+    )
+    print(f"{p.id}  [{p.status}]  {p.name}  iso={p.iso_639_3}{triage}")
+    if p.endonym:
+        print(f"    endonym:    {p.endonym}")
+    if p.region:
+        print(f"    region:     {p.region}")
+    if p.corpus_url:
+        print(f"    corpus:     {p.corpus_url}")
+    print(f"    submitter:  {deaf}  signer={p.submitter_signer_id}")
+    print(f"    motivation: {p.motivation}")
+    if p.notes:
+        print(f"    notes:      {p.notes}")
+    print(f"    submitted:  {p.created_at.isoformat()}")
+
+
+def cmd_list_proposals(args: argparse.Namespace) -> int:
+    store = _proposals_store()
+    status = args.status if args.status else None
+    rows = store.list(status=status)
+    if not rows:
+        print("(no proposals)" if status is None else f"(no proposals with status={status!r})")
+        return 0
+    for p in rows:
+        _print_proposal_row(p)
+        print()
+    return 0
+
+
+def _resolve_proposal_uuid(raw: str) -> UUID | None:
+    try:
+        return UUID(raw)
+    except ValueError:
+        print(f"error: invalid UUID {raw!r}", file=sys.stderr)
+        return None
+
+
+def cmd_accept_proposal(args: argparse.Namespace) -> int:
+    pid = _resolve_proposal_uuid(args.id)
+    if pid is None:
+        return 2
+    store = _proposals_store()
+    proposal = store.update_status(
+        pid, status="accepted", notes=(args.notes or None)
+    )
+    if proposal is None:
+        print(f"error: proposal {pid} not found", file=sys.stderr)
+        return 2
+    # Lazy-import the snippet builder so the help text doesn't pull
+    # the api package on every invocation.
+    from api.proposals import _build_seed_snippet  # noqa: WPS437 — internal helper, intentional reuse
+
+    print(f"accepted proposal {pid}")
+    print()
+    print(_build_seed_snippet(proposal))
+    return 0
+
+
+def cmd_reject_proposal(args: argparse.Namespace) -> int:
+    pid = _resolve_proposal_uuid(args.id)
+    if pid is None:
+        return 2
+    store = _proposals_store()
+    proposal = store.update_status(
+        pid, status="rejected", notes=(args.notes or None)
+    )
+    if proposal is None:
+        print(f"error: proposal {pid} not found", file=sys.stderr)
+        return 2
+    print(f"rejected proposal {pid}")
+    return 0
+
+
+def cmd_mark_duplicate_proposal(args: argparse.Namespace) -> int:
+    pid = _resolve_proposal_uuid(args.id)
+    if pid is None:
+        return 2
+    store = _proposals_store()
+    proposal = store.update_status(
+        pid, status="dup", notes=(args.notes or None)
+    )
+    if proposal is None:
+        print(f"error: proposal {pid} not found", file=sys.stderr)
+        return 2
+    print(f"marked proposal {pid} as duplicate")
+    return 0
+
+
+# ---------------------------------------------------------------------------
 # Parser
 # ---------------------------------------------------------------------------
 
@@ -198,6 +321,43 @@ def build_parser() -> argparse.ArgumentParser:
         "verify-audit", help="Verify the export audit-log hash chain."
     )
     ver.set_defaults(func=cmd_verify_audit)
+
+    # -- Language-proposal queue ------------------------------------------
+    lp = sub.add_parser(
+        "list-proposals",
+        help="List inbound rare-SL language proposals.",
+    )
+    lp.add_argument(
+        "--status",
+        choices=("pending", "accepted", "rejected", "dup"),
+        default=None,
+        help="Filter by status (default: all).",
+    )
+    lp.set_defaults(func=cmd_list_proposals)
+
+    ap = sub.add_parser(
+        "accept-proposal",
+        help=(
+            "Mark a proposal accepted and print a maintainer-pasteable "
+            "seed-file snippet. Does NOT modify any file under data/."
+        ),
+    )
+    ap.add_argument("id", help="Proposal UUID")
+    ap.add_argument("--notes", default=None, help="Optional maintainer-only notes.")
+    ap.set_defaults(func=cmd_accept_proposal)
+
+    rp = sub.add_parser("reject-proposal", help="Mark a proposal rejected.")
+    rp.add_argument("id", help="Proposal UUID")
+    rp.add_argument("--notes", default=None, help="Optional maintainer-only notes.")
+    rp.set_defaults(func=cmd_reject_proposal)
+
+    dp = sub.add_parser(
+        "mark-duplicate-proposal",
+        help="Mark a proposal as a duplicate of an existing entry.",
+    )
+    dp.add_argument("id", help="Proposal UUID")
+    dp.add_argument("--notes", default=None, help="Optional maintainer-only notes.")
+    dp.set_defaults(func=cmd_mark_duplicate_proposal)
 
     return p
 

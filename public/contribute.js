@@ -161,6 +161,13 @@
           ' (' + langOpt.coverage_count + ' signs)';
         els.pickerSelect.appendChild(opt);
       }
+      // Inbound rare-SL proposals (Prompt 02): final option opens the
+      // inline suggestion form instead of selecting a language. Use a
+      // sentinel value so onPickerSelectChange can branch on it.
+      var suggestOpt = document.createElement('option');
+      suggestOpt.value = '__suggest__';
+      suggestOpt.textContent = "Don't see your sign language? Suggest one →";
+      els.pickerSelect.appendChild(suggestOpt);
       // Sync to current state so reload / back-nav lands on the last choice.
       var currentLang = CTX.getState().language;
       if (currentLang && findLanguage(currentLang)) {
@@ -231,6 +238,17 @@
     if (!els.pickerSelect) return;
     var code = els.pickerSelect.value;
     if (!code) return;
+    if (code === '__suggest__') {
+      // Restore the previous valid selection (or the placeholder) so
+      // the dropdown doesn't stay parked on the sentinel after the
+      // user opens the suggestion form.
+      var prev = CTX.getState().language || '';
+      els.pickerSelect.value = prev;
+      if (window.KOZHA_OPEN_SUGGEST_LANGUAGE) {
+        window.KOZHA_OPEN_SUGGEST_LANGUAGE();
+      }
+      return;
+    }
     renderPickerNote();
     setLanguage(code);
   }
