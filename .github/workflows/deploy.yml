@@ -218,20 +218,6 @@ jobs:
           sudo systemctl restart kozha.service
           sudo systemctl --no-pager status kozha.service
 
-          # DEBUG (one-shot — remove once OPENAI_API_KEY is verified):
-          # confirms BOTH keys reach the gunicorn process. Counts/
-          # lengths only — secret values never reach the workflow log.
-          (
-            set +e
-            set +o pipefail
-            KOZHA_PID=\$(systemctl show -p MainPID --value kozha.service 2>/dev/null)
-            if [ -n "\$KOZHA_PID" ] && [ "\$KOZHA_PID" != "0" ]; then
-              OK_LEN=\$(sudo awk 'BEGIN{RS="\0"; n=0} /^OPENAI_API_KEY=/ {n=length(\$0)-15; exit} END{print n}' /proc/\$KOZHA_PID/environ 2>/dev/null)
-              TK_LEN=\$(sudo awk 'BEGIN{RS="\0"; n=0} /^TRANSCRIBE_KEY=/ {n=length(\$0)-15; exit} END{print n}' /proc/\$KOZHA_PID/environ 2>/dev/null)
-              echo "[deploy-debug] kozha PID=\$KOZHA_PID env: OPENAI_API_KEY length=\$OK_LEN, TRANSCRIBE_KEY length=\$TK_LEN"
-            fi
-          ) || true
-
           # Polish-13 §6: deploy receipt for ``server/alerts.py``. The
           # host-side alerter reads ``data/last_deploy.json`` to tell
           # whether the most recent deploy attempt succeeded. Written
