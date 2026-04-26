@@ -80,14 +80,8 @@
     <span class="status-text">Working…</span>
   </div>
 
-  <nav class="mobile-tabs" aria-label="Panel switcher">
-    <button class="tab is-active" data-tab="chat" aria-selected="true">Chat</button>
-    <button class="tab" data-tab="preview" aria-selected="false">Preview</button>
-    <button class="tab" data-tab="inspect" aria-selected="false">Parameters</button>
-  </nav>
-
-  <main class="layout" id="main">
-    <!-- LEFT: chat panel -->
+  <main class="layout" id="main" aria-label="Authoring workspace">
+    <!-- LEFT (desktop) / BOTTOM (mobile): chat panel -->
     <section class="panel panel-chat" data-panel="chat" aria-labelledby="chatHead">
       <header class="panel-head">
         <h1 id="chatHead">Authoring conversation</h1>
@@ -147,7 +141,7 @@
       </form>
     </section>
 
-    <!-- RIGHT TOP: avatar preview -->
+    <!-- CENTER (desktop) / MIDDLE (mobile): avatar preview -->
     <section class="panel panel-preview" data-panel="preview" aria-labelledby="previewHead">
       <header class="panel-head">
         <h2 id="previewHead">Avatar preview</h2>
@@ -309,7 +303,10 @@
       </div>
     </section>
 
-    <!-- RIGHT BOTTOM: parameters inspector -->
+    <!-- RIGHT (desktop) / TOP (mobile): parameters / status column.
+         On screens ≥ 1024 px this is the third column. On tablet and
+         mobile it folds into a collapsible disclosure so the chat and
+         avatar get the available real estate. -->
     <section class="panel panel-inspect" data-panel="inspect" aria-labelledby="inspectHead">
       <header class="panel-head">
         <h2 id="inspectHead">Sign parameters</h2>

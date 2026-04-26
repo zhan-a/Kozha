@@ -199,16 +199,10 @@ test.describe('chat2hamnosys/index.html avatar mount visibility', () => {
         waitUntil: 'domcontentloaded',
       });
 
-      // The mobile-tabs (≤ 880 px viewport) switch the preview panel to
-      // display:none until its tab is selected. Activate the Preview
-      // tab so the avatar slot is laid out at all.
-      if (vp.width <= 880) {
-        await page.locator('.mobile-tabs .tab[data-tab="preview"]').click();
-        await page.waitForFunction(() => {
-          const p = document.querySelector('.panel-preview') as HTMLElement | null;
-          return !!p && getComputedStyle(p).display !== 'none';
-        }, { timeout: 5_000 });
-      }
+      // Prompt 08 collapsed the mobile-tabs panel switcher into a
+      // single responsive grid (3-col desktop → 2-col tablet → 1-col
+      // mobile stack). All three panels are laid out at every viewport
+      // now; no tab click required to bring the preview into view.
 
       // Wait for either the CWASA slot or the snapshot fallback to be
       // visible — both are valid outcomes per the acceptance criteria.
@@ -250,9 +244,14 @@ test.describe('chat2hamnosys/index.html avatar mount visibility', () => {
       }, slotId);
       expect(intersects, `${slotId} bounding rect intersects the viewport`).toBeTruthy();
 
-      // 3. Slot meets the prompt's 320 px minimum-height floor.
-      expect(slotBox?.height ?? 0, `${slotId} hits the 320px min-height floor`)
-        .toBeGreaterThanOrEqual(320 - 2); // 1px tolerance on borders/sub-pixel rounding
+      // 3. Slot meets the minimum-height floor for its viewport class.
+      //    Desktop / tablet: the prompt-07 320 px square. Mobile (< 768
+      //    px) drops to 200 px (`.preview-mount { min-height: 200px }`
+      //    in the mobile media query from prompt 08), because the
+      //    avatar shares a 100dvh budget with the chat composer.
+      const minFloor = vp.width < 768 ? 200 : 320;
+      expect(slotBox?.height ?? 0, `${slotId} hits the ${minFloor}px min-height floor at ${vp.label}`)
+        .toBeGreaterThanOrEqual(minFloor - 2); // 1px tolerance on borders/sub-pixel rounding
 
       // 4. If the canvas mounted, it must inherit the slot's size — i.e.
       //    the percentage chain resolved against a definite parent.

@@ -40,10 +40,19 @@ body {
   font-family: 'DM Sans', system-ui, sans-serif;
   background: var(--paper);
   color: var(--ink);
-  min-height: 100vh;
+  /* Pin to the dynamic viewport so the page never grows past one screen.
+     `100dvh` collapses with the iOS Safari toolbar; `100vh` is a fallback
+     for older browsers where dvh isn't supported. */
+  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   line-height: 1.45;
+  /* The page itself does not scroll — each inner column scrolls
+     independently. See `.chat-log`, `.preview-stage`, `.inspector-body`.
+     This is the structural fix for the empty band that used to open
+     beneath the chat when one column was shorter than another. */
+  overflow: hidden;
 }
 
 /* High-contrast mode */
@@ -164,47 +173,36 @@ body.hc .badge { border: 1px solid currentColor; }
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* Mobile tabs (hidden on desktop) */
-.mobile-tabs {
-  display: none;
-  border-bottom: 1px solid var(--border);
-  padding: 0 16px;
-  background: var(--paper);
-}
-.mobile-tabs .tab {
-  appearance: none;
-  font: inherit;
-  background: transparent;
-  border: none;
-  padding: 12px 16px;
-  font-size: 14px;
-  color: var(--ink-3);
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-}
-.mobile-tabs .tab.is-active {
-  color: var(--ink);
-  border-bottom-color: var(--accent);
-  font-weight: 500;
-}
-
-/* Layout — desktop grid */
+/* Layout — desktop grid (3 columns: chat | avatar | status).
+ *
+ * `flex: 1; min-height: 0` lets the layout shrink to fit the body's
+ * remaining height without itself scrolling. Each panel uses
+ * `display: flex; flex-direction: column; min-height: 0` so its
+ * scroll-region children (.chat-log, .preview-stage, .inspector-body)
+ * own the overflow.
+ *
+ * The relative widths come from product weight, not equal thirds:
+ *   chat     1.0fr  — primary input target
+ *   preview  1.2fr  — visual centerpiece
+ *   status   0.7fr  — supporting metadata, narrower
+ */
 .layout {
   flex: 1;
+  min-height: 0;
   display: grid;
-  grid-template-columns: minmax(320px, 1fr) minmax(360px, 1.2fr);
-  grid-template-rows: minmax(0, 1fr) minmax(0, auto);
-  grid-template-areas:
-    "chat preview"
-    "chat inspect";
+  grid-template-columns:
+    minmax(320px, 1fr)
+    minmax(360px, 1.2fr)
+    minmax(260px, 0.7fr);
+  grid-template-rows: minmax(0, 1fr);
+  grid-template-areas: "chat preview inspect";
   gap: 16px;
   padding: 16px;
-  max-width: 1400px;
+  max-width: 1500px;
   width: 100%;
   margin: 0 auto;
-  min-height: calc(100vh - var(--topbar-h));
 }
-.panel-chat    { grid-area: chat;    min-height: 60vh; }
+.panel-chat    { grid-area: chat;    }
 .panel-preview { grid-area: preview; }
 .panel-inspect { grid-area: inspect; }
 
@@ -215,7 +213,13 @@ body.hc .badge { border: 1px solid currentColor; }
   display: flex;
   flex-direction: column;
   min-height: 0;
+  /* `min-width: 0` is the partner of `min-height: 0` for grid items;
+     without it long inline content (e.g. an unwrapped session id) blows
+     the column out and triggers an outer scroll. */
+  min-width: 0;
   box-shadow: var(--shadow-sm);
+  /* Each panel owns its overflow; nothing inside escapes. */
+  overflow: hidden;
 }
 
 .panel-head {
@@ -799,22 +803,99 @@ body.hc .badge { border: 1px solid currentColor; }
 .badge.inferred  { background: var(--amber-light); color: var(--amber); }
 .badge.gap       { background: var(--red-light); color: var(--red); }
 
-/* === Mobile === */
-@media (max-width: 880px) {
-  :root { --tabs-h: 44px; }
+/* === Composer is sticky to the bottom of the chat column ===
+ *
+ * .chat-log scrolls; .chat-form is the non-shrinking footer. The user
+ * never has to scroll the column to find the input — it's always
+ * pinned to the bottom of the panel.
+ *
+ * `flex-shrink: 0` is the load-bearing rule: without it, when a
+ * keyboard pops up on iOS the form would compress instead of the log
+ * scrolling. */
+.panel-head { flex-shrink: 0; }
+.chat-form { flex-shrink: 0; }
 
+/* On the narrowest mobile viewports the textarea's default 60 px floor
+   plus the gloss row + send-row footer can eat half the screen. Cap
+   the textarea so the chat-log keeps a usable scroll window. */
+@media (max-width: 600px) {
+  .chat-form textarea {
+    min-height: 48px;
+    max-height: 22dvh;
+  }
+}
+
+/* === Tablet (768 – 1023 px): two columns ===
+ *
+ * Drop the dedicated status column; fold the inspector into a
+ * single-row strip across the top so it stays visible without stealing
+ * width from chat or avatar. Inspector body is collapsed by default
+ * on this viewport (set by app.js initInspectorState()).
+ */
+@media (max-width: 1023px) {
+  .layout {
+    grid-template-columns: minmax(320px, 1fr) minmax(360px, 1.1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-areas:
+      "inspect inspect"
+      "chat    preview";
+  }
+  /* Inspector strip across the top; once collapsed it's just the
+     header (one row), so it stays out of the way. */
+  .panel-inspect {
+    max-height: 100%;
+  }
+}
+
+/* === Mobile (< 768 px): single stacked column ===
+ *
+ * Stacking order top-to-bottom: status (collapsed by default), avatar,
+ * chat. Chat sits at the bottom — iOS / messaging convention; gives
+ * the on-screen keyboard the room it expects.
+ *
+ * The grid rows are: inspect=auto (~50 px when collapsed), preview=
+ * minmax(180px, 32dvh) so the avatar gets a visible-but-compact slot
+ * (the desktop 320 px square would push chat off-screen on a 700 px
+ * tall device), chat=1fr to soak up the remainder.
+ */
+@media (max-width: 767px) {
   .topbar { padding: 0 12px; }
   .ctl-label { display: none; }
 
-  .mobile-tabs { display: flex; gap: 4px; }
   .layout {
     grid-template-columns: 1fr;
-    grid-template-rows: minmax(0, 1fr);
-    grid-template-areas: "current";
+    grid-template-rows: auto minmax(180px, 32dvh) minmax(0, 1fr);
+    grid-template-areas:
+      "inspect"
+      "preview"
+      "chat";
     padding: 12px;
-    gap: 12px;
-    min-height: calc(100vh - var(--topbar-h) - var(--tabs-h));
+    gap: 10px;
   }
-  .panel { grid-area: current; min-height: 60vh; display: none; }
-  .panel.is-active { display: flex; }
+
+  /* Mobile mount sizing. The desktop rule (`aspect-ratio: 1/1;
+     min-height: 320px`) would push the chat composer off-screen on a
+     414×896 device, so we shrink the floor to 200 px and let the
+     stage scroll if the chip + captions + controls don't fit beside
+     it. The 1:1 aspect ratio is preserved so the canvas's percentage
+     chain resolves the same way it does on desktop — the mount is
+     still a definite-sized parent for `.CWASAAvatar > .divAv >
+     .canvasAv`. */
+  .preview-mount {
+    aspect-ratio: 1 / 1;
+    min-height: 200px;
+    max-height: 38dvh;
+    width: auto;
+    margin-inline: auto;        /* center under stage padding */
+  }
+
+  /* Tighten the preview-stage padding and let it scroll internally
+     — the mount + chip + captions + controls usually overflow a
+     single mobile screen, and an internal scroll is preferable to
+     forcing the page itself to scroll. */
+  .preview-stage {
+    padding: 10px 12px;
+    gap: 8px;
+    overflow-y: auto;
+  }
 }

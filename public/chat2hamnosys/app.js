@@ -64,7 +64,6 @@
     cwasaReady: false,
     cwasaFailed: false,          // 6s timeout elapsed with no canvas
     cwasaWatchdog: null,         // timeout handle, cleared once ready
-    activeMobileTab: 'chat',
   };
 
   // CWASA load timeout. Above the lazy-injector's 8s poll ceiling for
@@ -653,7 +652,6 @@
       // Scroll the chat to the question for this field; focus the input.
       dom.chatInput.focus();
       announce(`Answer the ${field} question.`);
-      switchMobileTab('chat');
       return;
     }
     // Otherwise prime a correction targeting this slot. Inspector-row
@@ -663,7 +661,6 @@
     state.selectedRegion = { regionId: field, coords: null };
     renderCorrectionContext();
     dom.chatInput.focus();
-    switchMobileTab('chat');
     announce(`Targeting ${field} for correction.`);
   }
 
@@ -1064,7 +1061,6 @@
     state.selectedTimeMs = ms;
     renderCorrectionContext();
     dom.chatInput.focus();
-    switchMobileTab('chat');
     announce(ms != null ? `Flagged moment at ${ms} milliseconds.` : 'Flagged moment.');
   }
 
@@ -1510,33 +1506,42 @@
     try { localStorage.setItem('c2h.fs', order[idx] || ''); } catch (_e) {}
   }
 
-  function setupTabs() {
-    document.querySelectorAll('.mobile-tabs .tab').forEach((tab) => {
-      tab.addEventListener('click', () => switchMobileTab(tab.dataset.tab));
-    });
-    switchMobileTab('chat');
-  }
-
-  function switchMobileTab(name) {
-    state.activeMobileTab = name;
-    document.querySelectorAll('.mobile-tabs .tab').forEach((t) => {
-      const on = t.dataset.tab === name;
-      t.classList.toggle('is-active', on);
-      t.setAttribute('aria-selected', String(on));
-    });
-    document.querySelectorAll('.panel').forEach((p) => {
-      p.classList.toggle('is-active', p.dataset.panel === name);
-    });
-  }
-
+  // The inspector (status / parameters column) is the third grid column
+  // on desktop (≥ 1024 px). On tablet and mobile it folds into a strip
+  // above the chat / avatar — collapsed by default so its body doesn't
+  // eat the screen, with the existing toggle button as the affordance
+  // to open it.
+  //
+  // The matchMedia listener swaps the default state when the viewport
+  // crosses the breakpoint, but only as long as the user hasn't
+  // intentionally overridden it. `data-user-toggled` records the override.
   function setupInspectorToggle() {
+    const tablet = window.matchMedia('(max-width: 1023px)');
+
+    function applyDefault() {
+      if (dom.inspectorToggle.dataset.userToggled === '1') return;
+      setInspectorExpanded(!tablet.matches);
+    }
+
     dom.inspectorToggle.addEventListener('click', () => {
       const expanded = dom.inspectorToggle.getAttribute('aria-expanded') === 'true';
-      const next = !expanded;
-      dom.inspectorToggle.setAttribute('aria-expanded', String(next));
-      dom.inspectorToggle.textContent = next ? 'Collapse' : 'Expand';
-      dom.inspectorBody.hidden = !next;
+      setInspectorExpanded(!expanded);
+      dom.inspectorToggle.dataset.userToggled = '1';
     });
+
+    if (typeof tablet.addEventListener === 'function') {
+      tablet.addEventListener('change', applyDefault);
+    } else if (typeof tablet.addListener === 'function') {
+      tablet.addListener(applyDefault);
+    }
+
+    applyDefault();
+  }
+
+  function setInspectorExpanded(expanded) {
+    dom.inspectorToggle.setAttribute('aria-expanded', String(expanded));
+    dom.inspectorToggle.textContent = expanded ? 'Collapse' : 'Expand';
+    dom.inspectorBody.hidden = !expanded;
   }
 
   // -----------------------------------------------------------------------
@@ -1565,7 +1570,6 @@
     document.addEventListener('mousedown', onDocumentClickForPopover);
 
     setupTopbar();
-    setupTabs();
     setupInspectorToggle();
 
     // Submit chat with Cmd/Ctrl+Enter as a power-user shortcut.
