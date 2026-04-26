@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "language": "tid",
+  "iso_code": "tsm",
+  "display_name": "Türk İşaret Dili (Turkish Sign Language)",
+  "source": "seed — pending contributor research",
+  "source_kind": "seed",
+  "license": "unknown — pending contributor research",
+  "data_completeness": "seed",
+  "accepts_first_contributions": true,
+  "review_required": true,
+  "sigml_file": "Turkish_SL_TID.sigml",
+  "default_review": {
+    "deaf_native_reviewed": false,
+    "reviewer_count": 0,
+    "reviewer_language_match": false,
+    "review_source": null,
+    "last_reviewed": null,
+    "notes": "seed language; awaiting native Deaf contributors and reviewers"
+  },
+  "sign_count": 0,
+  "signs": {}
+}

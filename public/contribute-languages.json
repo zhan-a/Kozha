@@ -4,6 +4,7 @@
       "code": "bsl",
       "name": "British Sign Language",
       "english_name": "British Sign Language",
+      "group": "primary",
       "has_reviewers": false,
       "coverage_count": 907,
       "description_placeholder": "e.g. right hand in a 'V' shape, palm facing me, moves in a small circle near my temple."
@@ -12,6 +13,7 @@
       "code": "asl",
       "name": "American Sign Language",
       "english_name": "American Sign Language",
+      "group": "primary",
       "has_reviewers": false,
       "coverage_count": 26,
       "description_placeholder": "e.g. dominant hand in a flat 'B' shape, palm facing down, sweeps across the chest from the shoulder outward."
@@ -20,6 +22,7 @@
       "code": "dgs",
       "name": "Deutsche Gebärdensprache",
       "english_name": "German Sign Language",
+      "group": "primary",
       "has_reviewers": false,
       "coverage_count": 1940,
       "description_placeholder": "e.g. beide Hände in Faust, Daumen nach oben, vor der Brust — die Fäuste wandern abwechselnd nach vorne."
@@ -28,6 +31,7 @@
       "code": "lsf",
       "name": "Langue des Signes Française",
       "english_name": "French Sign Language",
+      "group": "primary",
       "has_reviewers": false,
       "coverage_count": 407,
       "description_placeholder": "e.g. main dominante en 'C', paume vers soi, descend depuis la tempe jusqu'au menton avec un mouvement court."
@@ -36,6 +40,7 @@
       "code": "lse",
       "name": "Lengua de Signos Española",
       "english_name": "Spanish Sign Language",
+      "group": "established",
       "has_reviewers": false,
       "coverage_count": 0,
       "description_placeholder": "e.g. mano dominante plana, palma hacia abajo, se desplaza horizontalmente desde el hombro hasta el centro del pecho."
@@ -44,6 +49,7 @@
       "code": "pjm",
       "name": "Polski Język Migowy",
       "english_name": "Polish Sign Language",
+      "group": "established",
       "has_reviewers": false,
       "coverage_count": 1958,
       "description_placeholder": "e.g. prawa dłoń w kształcie 'O', skierowana palcami do góry — porusza się małym kółkiem obok skroni."
@@ -52,6 +58,7 @@
       "code": "ngt",
       "name": "Nederlandse Gebarentaal",
       "english_name": "Dutch Sign Language",
+      "group": "established",
       "has_reviewers": false,
       "coverage_count": 65,
       "description_placeholder": "e.g. dominante hand plat, palm naar beneden, beweegt in een korte boog van het voorhoofd naar voren."
@@ -60,9 +67,122 @@
       "code": "gsl",
       "name": "Ελληνική Νοηματική Γλώσσα",
       "english_name": "Greek Sign Language",
+      "group": "established",
       "has_reviewers": false,
       "coverage_count": 889,
       "description_placeholder": "e.g. κυρίαρχο χέρι σε σχήμα '5', παλάμη προς το πρόσωπο, μικρή κυκλική κίνηση μπροστά από το στόμα."
+    },
+    {
+      "code": "ksl",
+      "name": "Қазақ ымдау тілі",
+      "english_name": "Kazakh Sign Language",
+      "group": "rare",
+      "has_reviewers": false,
+      "coverage_count": 0,
+      "data_completeness": "seed",
+      "accepts_first_contributions": true,
+      "description_placeholder": "сипаттаңыз: қол пішіні, орналасу, алақан бағыты және қозғалыс. e.g. dominant hand flat, palm facing down, moves from shoulder to chest in a short arc."
+    },
+    {
+      "code": "rsl",
+      "name": "Русский жестовый язык",
+      "english_name": "Russian Sign Language",
+      "group": "rare",
+      "has_reviewers": false,
+      "coverage_count": 0,
+      "data_completeness": "seed",
+      "accepts_first_contributions": true,
+      "description_placeholder": "опишите форму руки, расположение, направление ладони и движение."
+    },
+    {
+      "code": "usl",
+      "name": "Українська жестова мова",
+      "english_name": "Ukrainian Sign Language",
+      "group": "rare",
+      "has_reviewers": false,
+      "coverage_count": 0,
+      "data_completeness": "seed",
+      "accepts_first_contributions": true,
+      "description_placeholder": "опишіть форму руки, розташування, напрямок долоні та рух."
+    },
+    {
+      "code": "tid",
+      "name": "Türk İşaret Dili",
+      "english_name": "Turkish Sign Language",
+      "group": "rare",
+      "has_reviewers": false,
+      "coverage_count": 0,
+      "data_completeness": "seed",
+      "accepts_first_contributions": true,
+      "description_placeholder": "el şeklini, konumu, avuç içi yönünü ve hareketi tarif edin."
+    },
+    {
+      "code": "jsl",
+      "name": "日本手話",
+      "english_name": "Japanese Sign Language",
+      "group": "rare",
+      "has_reviewers": false,
+      "coverage_count": 0,
+      "data_completeness": "seed",
+      "accepts_first_contributions": true,
+      "description_placeholder": "手の形、位置、手のひらの向き、動きを説明してください。"
+    },
+    {
+      "code": "kvk",
+      "name": "한국 수화",
+      "english_name": "Korean Sign Language",
+      "group": "rare",
+      "has_reviewers": false,
+      "coverage_count": 0,
+      "data_completeness": "seed",
+      "accepts_first_contributions": true,
+      "description_placeholder": "손 모양, 위치, 손바닥 방향, 움직임을 설명해 주세요."
+    },
+    {
+      "code": "csl",
+      "name": "中国手语",
+      "english_name": "Chinese Sign Language",
+      "group": "rare",
+      "has_reviewers": false,
+      "coverage_count": 0,
+      "data_completeness": "seed",
+      "accepts_first_contributions": true,
+      "description_placeholder": "请描述手形、位置、手掌方向和动作。"
+    },
+    {
+      "code": "arsl",
+      "name": "لغة الإشارة العربية",
+      "english_name": "Arabic Sign Languages (multiple variants)",
+      "group": "rare",
+      "has_reviewers": false,
+      "coverage_count": 0,
+      "data_completeness": "seed",
+      "accepts_first_contributions": true,
+      "multi_variant": true,
+      "variant_note": "Umbrella for distinct national sign languages (Egyptian, Jordanian, Saudi, Emirati, Levantine, …). Please record your country / variant in the regional-variant field.",
+      "description_placeholder": "صف شكل اليد، الموقع، اتجاه الكف، والحركة."
+    },
+    {
+      "code": "msl",
+      "name": "Монгол дохионы хэл",
+      "english_name": "Mongolian Sign Language",
+      "group": "rare",
+      "has_reviewers": false,
+      "coverage_count": 0,
+      "data_completeness": "seed",
+      "accepts_first_contributions": true,
+      "description_placeholder": "гарын хэлбэр, байршил, алганы чиглэл, хөдөлгөөнийг тайлбарлана уу."
+    },
+    {
+      "code": "zei",
+      "name": "زبان اشاره ایرانی",
+      "english_name": "Persian Sign Language (ZEI)",
+      "group": "rare",
+      "has_reviewers": false,
+      "coverage_count": 0,
+      "data_completeness": "seed",
+      "accepts_first_contributions": true,
+      "description_placeholder": "شکل دست، محل، جهت کف دست و حرکت را شرح دهید."
     }
   ]
 }

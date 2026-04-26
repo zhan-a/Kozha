@@ -114,6 +114,9 @@
     tplMessage:      $('tplMessage'),
     tplOption:       $('tplOption'),
     tplInspectorRow: $('tplInspectorRow'),
+
+    languageSelect:  $('signLanguageSelect'),
+    languageHint:    $('signLanguageHint'),
   };
 
   // -----------------------------------------------------------------------
@@ -237,14 +240,115 @@
   }
 
   // -----------------------------------------------------------------------
+  // Sign-language picker — populated from /contribute-languages.json.
+  // The dropdown is the single source of truth for new sessions; once a
+  // session exists, switching the dropdown does nothing on its own (the
+  // hint nudges the user to refresh for a new language).
+  // -----------------------------------------------------------------------
+  async function loadLanguagesIntoSelect() {
+    const sel = dom.languageSelect;
+    if (!sel) return;
+    try {
+      const res = await fetch('/contribute-languages.json', { cache: 'no-store' });
+      if (!res.ok) throw new Error('status ' + res.status);
+      const data = await res.json();
+      const langs = (data && data.languages) || [];
+      if (!langs.length) return;
+      const prior = sel.value;
+      sel.innerHTML = '';
+      // Group order: primary → established → rare. Within each group,
+      // preserve JSON order so the maintainer controls the listing.
+      const buckets = { primary: [], established: [], rare: [] };
+      langs.forEach((l) => {
+        const g = l.group || 'established';
+        (buckets[g] || buckets.established).push(l);
+      });
+      const groupLabels = {
+        primary:     'Established',
+        established: 'Established',
+        rare:        'Rare / emerging — first contributors welcome',
+      };
+      const seen = new Set();
+      Object.keys(buckets).forEach((groupKey) => {
+        const items = buckets[groupKey];
+        if (!items.length) return;
+        // Collapse primary + established into one optgroup so the user
+        // sees a clean two-bucket list (Established vs Rare).
+        const visibleKey = groupKey === 'primary' ? 'established' : groupKey;
+        if (seen.has(visibleKey)) {
+          const og = sel.querySelector(`optgroup[label="${groupLabels[visibleKey]}"]`);
+          items.forEach((l) => og.appendChild(buildOption(l)));
+          return;
+        }
+        seen.add(visibleKey);
+        const og = document.createElement('optgroup');
+        og.label = groupLabels[visibleKey];
+        items.forEach((l) => og.appendChild(buildOption(l)));
+        sel.appendChild(og);
+      });
+      if (prior && [...sel.options].some((o) => o.value === prior)) {
+        sel.value = prior;
+      } else {
+        sel.value = 'bsl';
+      }
+      updateLanguageHint();
+    } catch (err) {
+      console.warn('[chat2hamnosys] language list fetch failed:', err.message);
+      // Leave the static <option value="bsl"> fallback in place so boot
+      // still proceeds with a sensible default.
+    }
+  }
+
+  function buildOption(lang) {
+    const opt = document.createElement('option');
+    opt.value = lang.code;
+    const label = (lang.english_name || lang.name || lang.code);
+    const tag = lang.data_completeness === 'seed' ? ' (seed)' : '';
+    opt.textContent = lang.code.toUpperCase() + ' — ' + label + tag;
+    if (lang.data_completeness) opt.dataset.completeness = lang.data_completeness;
+    return opt;
+  }
+
+  function updateLanguageHint() {
+    if (!dom.languageHint || !dom.languageSelect) return;
+    const opt = dom.languageSelect.options[dom.languageSelect.selectedIndex];
+    if (opt && opt.dataset.completeness === 'seed') {
+      dom.languageHint.textContent = 'Seed language — no Deaf reviewers assigned yet. Drafts are saved but cannot be exported until a qualified reviewer is onboarded.';
+    } else {
+      dom.languageHint.textContent = '';
+    }
+  }
+
+  function selectedSignLanguage() {
+    if (dom.languageSelect && dom.languageSelect.value) {
+      return dom.languageSelect.value;
+    }
+    return 'bsl';
+  }
+
+  // -----------------------------------------------------------------------
   // Boot
   // -----------------------------------------------------------------------
   async function boot() {
     try {
+      setStatus('Loading languages…');
+      await loadLanguagesIntoSelect();
+      if (dom.languageSelect) {
+        dom.languageSelect.addEventListener('change', updateLanguageHint);
+      }
       setStatus('Starting session…');
-      const created = await api('POST', '/sessions', { sign_language: 'bsl' });
+      const created = await api('POST', '/sessions', {
+        sign_language: selectedSignLanguage(),
+      });
       state.sessionId = created.session_id;
       state.sessionToken = created.session_token;
+      // Lock the dropdown to the session's actual language — switching
+      // mid-session would desync the avatar and the gloss store.
+      if (dom.languageSelect) {
+        dom.languageSelect.value = created.session.sign_language || selectedSignLanguage();
+        dom.languageSelect.disabled = true;
+        updateLanguageHint();
+      }
       applyEnvelope(created.session);
       subscribeEvents();
       clearStatus();

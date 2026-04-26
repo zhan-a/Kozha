@@ -41,7 +41,14 @@ class CreateSessionRequest(BaseModel):
     signer_id: Optional[str] = None
     display_name: Optional[str] = None
     author_is_deaf_native: Optional[bool] = None
-    sign_language: Literal["bsl", "asl", "dgs"] = "bsl"
+    # See :data:`models.SignLanguage` for the canonical list — kept in sync
+    # with ``public/contribute-languages.json`` so any code the contributor
+    # UI offers is accepted here.
+    sign_language: Literal[
+        "bsl", "asl", "dgs",
+        "lsf", "lse", "pjm", "ngt", "gsl",
+        "ksl", "rsl", "usl", "tid", "jsl", "kvk", "csl", "arsl", "msl", "zei",
+    ] = "bsl"
     regional_variant: Optional[str] = None
     domain: Optional[str] = None
     gloss: Optional[str] = None

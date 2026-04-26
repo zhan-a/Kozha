@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "language": "usl",
+  "iso_code": "ukl",
+  "display_name": "Ukrainian Sign Language",
+  "source": "seed — pending contributor research",
+  "source_kind": "seed",
+  "license": "unknown — pending contributor research",
+  "data_completeness": "seed",
+  "accepts_first_contributions": true,
+  "review_required": true,
+  "sigml_file": "Ukrainian_SL_USL.sigml",
+  "default_review": {
+    "deaf_native_reviewed": false,
+    "reviewer_count": 0,
+    "reviewer_language_match": false,
+    "review_source": null,
+    "last_reviewed": null,
+    "notes": "seed language; awaiting native Deaf contributors and reviewers"
+  },
+  "sign_count": 0,
+  "signs": {}
+}

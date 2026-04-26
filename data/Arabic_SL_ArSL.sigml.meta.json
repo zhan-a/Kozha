@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "language": "arsl",
+  "iso_code": "ar",
+  "display_name": "لغة الإشارة العربية (Arabic Sign Languages — multiple national variants)",
+  "source": "seed — pending contributor research",
+  "source_kind": "seed",
+  "license": "unknown — pending contributor research",
+  "data_completeness": "seed",
+  "accepts_first_contributions": true,
+  "review_required": true,
+  "multi_variant": true,
+  "variant_note": "ArSL is an umbrella term covering distinct national sign languages (Egyptian, Jordanian, Saudi, Emirati, Levantine, etc.). Contributors must declare their regional variant before signs can be exported.",
+  "sigml_file": "Arabic_SL_ArSL.sigml",
+  "default_review": {
+    "deaf_native_reviewed": false,
+    "reviewer_count": 0,
+    "reviewer_language_match": false,
+    "review_source": null,
+    "last_reviewed": null,
+    "notes": "seed language; awaiting native Deaf contributors and reviewers; regional variant required"
+  },
+  "sign_count": 0,
+  "signs": {}
+}

@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-25T04:44:01.546Z",
-  "url": "http://127.0.0.1:65092/contribute.html",
+  "timestamp": "2026-04-26T02:24:58.296Z",
+  "url": "http://127.0.0.1:53446/contribute.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -551,18 +551,6 @@
       "nodes": []
     },
     {
-      "id": "landmark-complementary-is-top-level",
-      "impact": null,
-      "tags": [
-        "cat.semantics",
-        "best-practice"
-      ],
-      "description": "Ensure the complementary landmark or aside is at top level",
-      "help": "Aside should not be contained in another landmark",
-      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/landmark-complementary-is-top-level?application=axe-puppeteer",
-      "nodes": []
-    },
-    {
       "id": "marquee",
       "impact": null,
       "tags": [
@@ -630,28 +618,6 @@
       "description": "Ensure elements marked as presentational do not have global ARIA or tabindex so that all screen readers ignore them",
       "help": "Elements marked as presentational should be consistently ignored",
       "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/presentation-role-conflict?application=axe-puppeteer",
-      "nodes": []
-    },
-    {
-      "id": "role-img-alt",
-      "impact": null,
-      "tags": [
-        "cat.text-alternatives",
-        "wcag2a",
-        "wcag111",
-        "section508",
-        "section508.22.a",
-        "TTv5",
-        "TT7.a",
-        "EN-301-549",
-        "EN-9.1.1.1",
-        "ACT",
-        "RGAAv4",
-        "RGAA-1.1.1"
-      ],
-      "description": "Ensure [role=\"img\"] elements have alternative text",
-      "help": "[role=\"img\"] elements must have alternative text",
-      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/role-img-alt?application=axe-puppeteer",
       "nodes": []
     },
     {
@@ -996,6 +962,105 @@
           "html": "<ul class=\"c2-hero__stats\" aria-label=\"At a glance\">\n          <li><strong>15</strong><span>sign languages</span></li>\n          <li><strong>Plain language</strong><span>no notation expertise</span></li>\n          <li><strong>Deaf-reviewed</strong><span>before it goes live</span></li>\n        </ul>",
           "target": [
             ".c2-hero__stats"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-allowed-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attributes are used correctly for the defined role"
+            },
+            {
+              "id": "aria-allowed-attr-elm",
+              "data": null,
+              "relatedNodes": [],
+              "message": "ARIA attributes are allowed for this element",
+              "impact": "critical"
+            }
+          ],
+          "none": [
+            {
+              "id": "aria-unsupported-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute is supported"
+            }
+          ],
+          "impact": null,
+          "html": "<aside class=\"c2-hero__card c2-snapshot-card\" aria-labelledby=\"c2-hero-card-gloss\">",
+          "target": [
+            ".c2-hero__card"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-allowed-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attributes are used correctly for the defined role"
+            },
+            {
+              "id": "aria-allowed-attr-elm",
+              "data": null,
+              "relatedNodes": [],
+              "message": "ARIA attributes are allowed for this element",
+              "impact": "critical"
+            }
+          ],
+          "none": [
+            {
+              "id": "aria-unsupported-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute is supported"
+            }
+          ],
+          "impact": null,
+          "html": "<div class=\"c2-snapshot-card__snapshot\" id=\"heroSnapshot\" role=\"img\" aria-label=\"BSL sign for 'name': index and middle fingers extended near the forehead, brushing outward.\">",
+          "target": [
+            "#heroSnapshot"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-allowed-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attributes are used correctly for the defined role"
+            },
+            {
+              "id": "aria-allowed-attr-elm",
+              "data": null,
+              "relatedNodes": [],
+              "message": "ARIA attributes are allowed for this element",
+              "impact": "critical"
+            }
+          ],
+          "none": [
+            {
+              "id": "aria-unsupported-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute is supported"
+            }
+          ],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"c2-snapshot-card__play\" id=\"heroPlayBtn\" aria-pressed=\"false\" aria-controls=\"heroAvatarMount\" data-demo-play=\"hero\">",
+          "target": [
+            "#heroPlayBtn"
           ]
         },
         {
@@ -1521,6 +1586,39 @@
             }
           ],
           "impact": null,
+          "html": "<button type=\"button\" class=\"qs__suggest\" id=\"qsSuggestBtn\" aria-expanded=\"false\" aria-controls=\"suggestLanguageForm\">",
+          "target": [
+            "#qsSuggestBtn"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-allowed-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attributes are used correctly for the defined role"
+            },
+            {
+              "id": "aria-allowed-attr-elm",
+              "data": null,
+              "relatedNodes": [],
+              "message": "ARIA attributes are allowed for this element",
+              "impact": "critical"
+            }
+          ],
+          "none": [
+            {
+              "id": "aria-unsupported-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute is supported"
+            }
+          ],
+          "impact": null,
           "html": "<nav class=\"kz-footer__cols\" aria-label=\"Footer\">",
           "target": [
             ".kz-footer__cols"
@@ -1588,6 +1686,24 @@
           "html": "<main id=\"main-content\" class=\"contribute-main\" role=\"main\">",
           "target": [
             "#main-content"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-allowed-role",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is allowed for given element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"c2-snapshot-card__snapshot\" id=\"heroSnapshot\" role=\"img\" aria-label=\"BSL sign for 'name': index and middle fingers extended near the forehead, brushing outward.\">",
+          "target": [
+            "#heroSnapshot"
           ]
         },
         {
@@ -1711,7 +1827,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"c2-viz-4__avatar c2-viz-4__cwasa CWASAAvatar av0\" id=\"walkAvatarMount\" role=\"img\" aria-label=\"HAMBURG sign — CWASA avatar demo\">",
+          "html": "<div class=\"c2-viz-4__avatar c2-...\" id=\"walkAvatarMount\" role=\"img\" data-demo-card=\"walk\" data-gloss=\"HAMBURG2^\" data-corpus=\"German_SL_DGS.sigml\" aria-label=\"DGS sign for 'Hambur...\">",
           "target": [
             "#walkAvatarMount"
           ]
@@ -1804,6 +1920,42 @@
           "html": "<div class=\"qs__chips qs__chips--more\" id=\"qsChipsMore\" role=\"group\" aria-label=\"More sign languages\" hidden=\"\"></div>",
           "target": [
             "#qsChipsMore"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-allowed-role",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is allowed for given element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"field-error\" id=\"suggestLanguageError\" role=\"alert\" hidden=\"\"></p>",
+          "target": [
+            "#suggestLanguageError"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-allowed-role",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is allowed for given element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"suggest-language-thanks\" id=\"suggestLanguageThanks\" role=\"status\" aria-live=\"polite\" hidden=\"\">",
+          "target": [
+            "#suggestLanguageThanks"
           ]
         },
         {
@@ -2431,6 +2583,24 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<p class=\"field-error\" id=\"proposalsAdminError\" role=\"alert\" hidden=\"\"></p>",
+          "target": [
+            "#proposalsAdminError"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-allowed-role",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is allowed for given element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<div class=\"toast\" id=\"toast\" role=\"status\" aria-live=\"polite\" hidden=\"\"></div>",
           "target": [
             "#toast"
@@ -2578,6 +2748,60 @@
           "html": "<ul class=\"c2-hero__stats\" aria-label=\"At a glance\">\n          <li><strong>15</strong><span>sign languages</span></li>\n          <li><strong>Plain language</strong><span>no notation expertise</span></li>\n          <li><strong>Deaf-reviewed</strong><span>before it goes live</span></li>\n        </ul>",
           "target": [
             ".c2-hero__stats"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-conditional-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<aside class=\"c2-hero__card c2-snapshot-card\" aria-labelledby=\"c2-hero-card-gloss\">",
+          "target": [
+            ".c2-hero__card"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-conditional-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"c2-snapshot-card__snapshot\" id=\"heroSnapshot\" role=\"img\" aria-label=\"BSL sign for 'name': index and middle fingers extended near the forehead, brushing outward.\">",
+          "target": [
+            "#heroSnapshot"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-conditional-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"c2-snapshot-card__play\" id=\"heroPlayBtn\" aria-pressed=\"false\" aria-controls=\"heroAvatarMount\" data-demo-play=\"hero\">",
+          "target": [
+            "#heroPlayBtn"
           ]
         },
         {
@@ -2863,6 +3087,24 @@
           ],
           "none": [],
           "impact": null,
+          "html": "<button type=\"button\" class=\"qs__suggest\" id=\"qsSuggestBtn\" aria-expanded=\"false\" aria-controls=\"suggestLanguageForm\">",
+          "target": [
+            "#qsSuggestBtn"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-conditional-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "none": [],
+          "impact": null,
           "html": "<nav class=\"kz-footer__cols\" aria-label=\"Footer\">",
           "target": [
             ".kz-footer__cols"
@@ -2920,6 +3162,24 @@
           "html": "<main id=\"main-content\" class=\"contribute-main\" role=\"main\">",
           "target": [
             "#main-content"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "deprecatedrole",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is not deprecated"
+            }
+          ],
+          "impact": null,
+          "html": "<div class=\"c2-snapshot-card__snapshot\" id=\"heroSnapshot\" role=\"img\" aria-label=\"BSL sign for 'name': index and middle fingers extended near the forehead, brushing outward.\">",
+          "target": [
+            "#heroSnapshot"
           ]
         },
         {
@@ -3283,9 +3543,137 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<aside class=\"c2-hero__card\" aria-hidden=\"true\">",
+          "html": "<span class=\"hamnosys c2-snapshot-card__glyphs\" lang=\"zxx\" aria-hidden=\"true\"></span>",
           "target": [
-            ".c2-hero__card"
+            "#heroSnapshot > .c2-snapshot-card__glyphs.hamnosys[lang=\"zxx\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<pre class=\"c2-snapshot-card__sigml\" aria-hidden=\"true\">",
+          "target": [
+            ".c2-snapshot-card__sigml"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"c2-hero__pulse\" aria-hidden=\"true\"></div>",
+          "target": [
+            ".c2-hero__pulse"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"c2-snapshot-card__play-icon\" aria-hidden=\"true\">▶</span>",
+          "target": [
+            ".c2-snapshot-card__play-icon"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"c2-hero__card-dot\" aria-hidden=\"true\"></span>",
+          "target": [
+            ".c2-hero__card-dot"
           ]
         },
         {
@@ -3539,9 +3927,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"c2-viz-4__avatar-poster\" aria-hidden=\"true\">",
+          "html": "<span class=\"hamnosys c2-snapshot-card__glyphs\" lang=\"zxx\" aria-hidden=\"true\"></span>",
           "target": [
-            ".c2-viz-4__avatar-poster"
+            ".c2-viz-4__snapshot > .c2-snapshot-card__glyphs.hamnosys[lang=\"zxx\"]"
           ]
         },
         {
@@ -3990,6 +4378,70 @@
           "html": "<span class=\"qs__more-plus\" aria-hidden=\"true\">+</span>",
           "target": [
             ".qs__more-plus"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"qs__suggest-plus\" aria-hidden=\"true\">＋</span>",
+          "target": [
+            ".qs__suggest-plus"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "focusable-modal-open",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements while a modal is open"
+            },
+            {
+              "id": "focusable-disabled",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            },
+            {
+              "id": "focusable-not-tabbable",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "No focusable elements contained within element"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"suggest-language-honeypot\" aria-hidden=\"true\">\n              <label>If you're human, leave this empty:\n                <input type=\"text\" name=\"website\" id=\"suggestWebsiteInput\" tabindex=\"-1\" autocomplete=\"off\">\n              </label>\n            </div>",
+          "target": [
+            ".suggest-language-honeypot"
           ]
         },
         {
@@ -4685,6 +5137,60 @@
             }
           ],
           "impact": null,
+          "html": "<aside class=\"c2-hero__card c2-snapshot-card\" aria-labelledby=\"c2-hero-card-gloss\">",
+          "target": [
+            ".c2-hero__card"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "aria-prohibited-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "impact": null,
+          "html": "<div class=\"c2-snapshot-card__snapshot\" id=\"heroSnapshot\" role=\"img\" aria-label=\"BSL sign for 'name': index and middle fingers extended near the forehead, brushing outward.\">",
+          "target": [
+            "#heroSnapshot"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "aria-prohibited-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"c2-snapshot-card__play\" id=\"heroPlayBtn\" aria-pressed=\"false\" aria-controls=\"heroAvatarMount\" data-demo-play=\"hero\">",
+          "target": [
+            "#heroPlayBtn"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "aria-prohibited-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "impact": null,
           "html": "<section class=\"c2-why\" aria-label=\"Why this matters\">",
           "target": [
             ".c2-why"
@@ -4955,6 +5461,24 @@
             }
           ],
           "impact": null,
+          "html": "<button type=\"button\" class=\"qs__suggest\" id=\"qsSuggestBtn\" aria-expanded=\"false\" aria-controls=\"suggestLanguageForm\">",
+          "target": [
+            "#qsSuggestBtn"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "aria-prohibited-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "ARIA attribute is allowed"
+            }
+          ],
+          "impact": null,
           "html": "<nav class=\"kz-footer__cols\" aria-label=\"Footer\">",
           "target": [
             ".kz-footer__cols"
@@ -5012,6 +5536,24 @@
           "html": "<main id=\"main-content\" class=\"contribute-main\" role=\"main\">",
           "target": [
             "#main-content"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-required-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "All required ARIA attributes are present"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"c2-snapshot-card__snapshot\" id=\"heroSnapshot\" role=\"img\" aria-label=\"BSL sign for 'name': index and middle fingers extended near the forehead, brushing outward.\">",
+          "target": [
+            "#heroSnapshot"
           ]
         },
         {
@@ -5386,6 +5928,38 @@
           "html": "<main id=\"main-content\" class=\"contribute-main\" role=\"main\">",
           "target": [
             "#main-content"
+          ]
+        },
+        {
+          "any": [],
+          "all": [],
+          "none": [
+            {
+              "id": "invalidrole",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA role is valid"
+            },
+            {
+              "id": "abstractrole",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Abstract roles are not used"
+            },
+            {
+              "id": "unsupportedrole",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA role is supported"
+            }
+          ],
+          "impact": null,
+          "html": "<div class=\"c2-snapshot-card__snapshot\" id=\"heroSnapshot\" role=\"img\" aria-label=\"BSL sign for 'name': index and middle fingers extended near the forehead, brushing outward.\">",
+          "target": [
+            "#heroSnapshot"
           ]
         },
         {
@@ -5881,6 +6455,102 @@
           ],
           "none": [],
           "impact": null,
+          "html": "<aside class=\"c2-hero__card c2-snapshot-card\" aria-labelledby=\"c2-hero-card-gloss\">",
+          "target": [
+            ".c2-hero__card"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-valid-attr-value",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute values are valid"
+            },
+            {
+              "id": "aria-errormessage",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-errormessage exists and references elements visible to screen readers that use a supported aria-errormessage technique"
+            },
+            {
+              "id": "aria-level",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-level values are valid"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"c2-snapshot-card__snapshot\" id=\"heroSnapshot\" role=\"img\" aria-label=\"BSL sign for 'name': index and middle fingers extended near the forehead, brushing outward.\">",
+          "target": [
+            "#heroSnapshot"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-valid-attr-value",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute values are valid"
+            },
+            {
+              "id": "aria-errormessage",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-errormessage exists and references elements visible to screen readers that use a supported aria-errormessage technique"
+            },
+            {
+              "id": "aria-level",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-level values are valid"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"c2-snapshot-card__play\" id=\"heroPlayBtn\" aria-pressed=\"false\" aria-controls=\"heroAvatarMount\" data-demo-play=\"hero\">",
+          "target": [
+            "#heroPlayBtn"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-valid-attr-value",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute values are valid"
+            },
+            {
+              "id": "aria-errormessage",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-errormessage exists and references elements visible to screen readers that use a supported aria-errormessage technique"
+            },
+            {
+              "id": "aria-level",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-level values are valid"
+            }
+          ],
+          "none": [],
+          "impact": null,
           "html": "<section class=\"c2-why\" aria-label=\"Why this matters\">",
           "target": [
             ".c2-why"
@@ -6332,6 +7002,38 @@
           "html": "<div class=\"qs__chips\" role=\"group\" aria-label=\"Choose a sign language\">",
           "target": [
             "div[aria-label=\"Choose a sign language\"]"
+          ]
+        },
+        {
+          "any": [],
+          "all": [
+            {
+              "id": "aria-valid-attr-value",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute values are valid"
+            },
+            {
+              "id": "aria-errormessage",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-errormessage exists and references elements visible to screen readers that use a supported aria-errormessage technique"
+            },
+            {
+              "id": "aria-level",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "aria-level values are valid"
+            }
+          ],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"qs__suggest\" id=\"qsSuggestBtn\" aria-expanded=\"false\" aria-controls=\"suggestLanguageForm\">",
+          "target": [
+            "#qsSuggestBtn"
           ]
         },
         {
@@ -6501,6 +7203,60 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<aside class=\"c2-hero__card c2-snapshot-card\" aria-labelledby=\"c2-hero-card-gloss\">",
+          "target": [
+            ".c2-hero__card"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-valid-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute name is valid"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"c2-snapshot-card__snapshot\" id=\"heroSnapshot\" role=\"img\" aria-label=\"BSL sign for 'name': index and middle fingers extended near the forehead, brushing outward.\">",
+          "target": [
+            "#heroSnapshot"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-valid-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute name is valid"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"c2-snapshot-card__play\" id=\"heroPlayBtn\" aria-pressed=\"false\" aria-controls=\"heroAvatarMount\" data-demo-play=\"hero\">",
+          "target": [
+            "#heroPlayBtn"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-valid-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute name is valid"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<section class=\"c2-why\" aria-label=\"Why this matters\">",
           "target": [
             ".c2-why"
@@ -6771,6 +7527,24 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<button type=\"button\" class=\"qs__suggest\" id=\"qsSuggestBtn\" aria-expanded=\"false\" aria-controls=\"suggestLanguageForm\">",
+          "target": [
+            "#qsSuggestBtn"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-valid-attr",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "ARIA attribute name is valid"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<nav class=\"kz-footer__cols\" aria-label=\"Footer\">",
           "target": [
             ".kz-footer__cols"
@@ -6817,6 +7591,24 @@
       "help": "Buttons must have discernible text",
       "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/button-name?application=axe-puppeteer",
       "nodes": [
+        {
+          "any": [
+            {
+              "id": "button-has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Element has inner text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"c2-snapshot-card__play\" id=\"heroPlayBtn\" aria-pressed=\"false\" aria-controls=\"heroAvatarMount\" data-demo-play=\"hero\">",
+          "target": [
+            "#heroPlayBtn"
+          ]
+        },
         {
           "any": [
             {
@@ -7027,6 +7819,24 @@
           "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"lsf\">",
           "target": [
             "button[data-lang=\"lsf\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "button-has-visible-text",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Element has inner text that is visible to screen readers"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"qs__suggest\" id=\"qsSuggestBtn\" aria-expanded=\"false\" aria-controls=\"suggestLanguageForm\">",
+          "target": [
+            "#qsSuggestBtn"
           ]
         },
         {
@@ -8344,7 +9154,7 @@
           "impact": null,
           "html": "<code>RAIN</code>",
           "target": [
-            "code:nth-child(2)"
+            "li:nth-child(1) > code:nth-child(2)"
           ]
         },
         {
@@ -8537,7 +9347,147 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<select id=\"pickerSelect\" class=\"field-input\" aria-describedby=\"pickerNote\"><option value=\"\" disabled=\"\">Choose a sign language…</option><option value=\"bsl\">BSL — British Sign Language (2406 signs)</option><option value=\"asl\">ASL — American Sign Language (1820 signs)</option></select>",
+          "html": "<input id=\"suggestNameInput\" name=\"name\" class=\"field-input\" type=\"text\" required=\"\" autocomplete=\"off\" maxlength=\"200\" aria-describedby=\"suggestNameHint\">",
+          "target": [
+            "#suggestNameInput"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "messageKey": "hidden"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element is hidden"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<input id=\"suggestEndonymInput\" name=\"endonym\" class=\"field-input\" type=\"text\" autocomplete=\"off\" maxlength=\"200\">",
+          "target": [
+            "#suggestEndonymInput"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "messageKey": "hidden"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element is hidden"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<input id=\"suggestIsoInput\" name=\"iso_639_3\" class=\"field-input\" type=\"text\" required=\"\" autocomplete=\"off\" maxlength=\"3\" pattern=\"[a-zA-Z]{3}\" aria-describedby=\"suggestIsoHint\">",
+          "target": [
+            "#suggestIsoInput"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "messageKey": "hidden"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element is hidden"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<input id=\"suggestRegionInput\" name=\"region\" class=\"field-input\" type=\"text\" autocomplete=\"off\" maxlength=\"200\">",
+          "target": [
+            "#suggestRegionInput"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "messageKey": "hidden"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element is hidden"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<input id=\"suggestCorpusInput\" name=\"corpus_url\" class=\"field-input\" type=\"url\" autocomplete=\"off\" maxlength=\"600\" placeholder=\"https://...\">",
+          "target": [
+            "#suggestCorpusInput"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "messageKey": "hidden"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element is hidden"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<textarea id=\"suggestMotivationInput\" name=\"motivation\" class=\"field-input\" required=\"\" maxlength=\"1000\" rows=\"3\" aria-describedby=\"suggestMotivationHint\"></textarea>",
+          "target": [
+            "#suggestMotivationInput"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "messageKey": "hidden"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element is hidden"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<input type=\"text\" name=\"website\" id=\"suggestWebsiteInput\" tabindex=\"-1\" autocomplete=\"off\">",
+          "target": [
+            "#suggestWebsiteInput"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "messageKey": "hidden"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element is hidden"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<select id=\"pickerSelect\" class=\"field-input\" aria-describedby=\"pickerNote\">",
           "target": [
             "#pickerSelect"
           ]
@@ -8700,6 +9650,46 @@
           "html": "<input type=\"text\" id=\"confirmationUrl\" class=\"field-input confirmation-link-input\" readonly=\"\">",
           "target": [
             "#confirmationUrl"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "messageKey": "hidden"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element is hidden"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<input id=\"proposalsAdminToken\" class=\"field-input\" type=\"password\" autocomplete=\"off\" spellcheck=\"false\">",
+          "target": [
+            "#proposalsAdminToken"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "messageKey": "hidden"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element is hidden"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<select id=\"proposalsAdminStatus\" class=\"field-input\">",
+          "target": [
+            "#proposalsAdminStatus"
           ]
         },
         {
@@ -9231,6 +10221,42 @@
           "any": [
             {
               "id": "duplicate-id-aria",
+              "data": "c2-hero-card-gloss",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"c2-hero__card-gloss\" id=\"c2-hero-card-gloss\">NAME</span>",
+          "target": [
+            "#c2-hero-card-gloss"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "heroAvatarMount",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"c2-hero__avatar c2-hero__cwasa CWASAAvatar av0\" id=\"heroAvatarMount\"></div>",
+          "target": [
+            "#heroAvatarMount"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
               "data": "c2-walk-heading",
               "relatedNodes": [],
               "impact": "critical",
@@ -9483,6 +10509,204 @@
           "any": [
             {
               "id": "duplicate-id-aria",
+              "data": "suggestLanguageHeading",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<h3 class=\"card-title\" id=\"suggestLanguageHeading\">Suggest a sign language</h3>",
+          "target": [
+            "#suggestLanguageHeading"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "suggestLanguageForm",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<form id=\"suggestLanguageForm\" class=\"suggest-language-form\" novalidate=\"\">",
+          "target": [
+            "#suggestLanguageForm"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "suggestNameInput",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<input id=\"suggestNameInput\" name=\"name\" class=\"field-input\" type=\"text\" required=\"\" autocomplete=\"off\" maxlength=\"200\" aria-describedby=\"suggestNameHint\">",
+          "target": [
+            "#suggestNameInput"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "suggestNameHint",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p id=\"suggestNameHint\" class=\"field-hint\">English name, e.g. \"Vietnamese Sign Language\".</p>",
+          "target": [
+            "#suggestNameHint"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "suggestEndonymInput",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<input id=\"suggestEndonymInput\" name=\"endonym\" class=\"field-input\" type=\"text\" autocomplete=\"off\" maxlength=\"200\">",
+          "target": [
+            "#suggestEndonymInput"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "suggestIsoInput",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<input id=\"suggestIsoInput\" name=\"iso_639_3\" class=\"field-input\" type=\"text\" required=\"\" autocomplete=\"off\" maxlength=\"3\" pattern=\"[a-zA-Z]{3}\" aria-describedby=\"suggestIsoHint\">",
+          "target": [
+            "#suggestIsoInput"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "suggestIsoHint",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p id=\"suggestIsoHint\" class=\"field-hint\">3 lowercase letters, e.g. <code>vie</code> for Vietnamese, <code>kaz</code> for Kazakh.</p>",
+          "target": [
+            "#suggestIsoHint"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "suggestRegionInput",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<input id=\"suggestRegionInput\" name=\"region\" class=\"field-input\" type=\"text\" autocomplete=\"off\" maxlength=\"200\">",
+          "target": [
+            "#suggestRegionInput"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "suggestCorpusInput",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<input id=\"suggestCorpusInput\" name=\"corpus_url\" class=\"field-input\" type=\"url\" autocomplete=\"off\" maxlength=\"600\" placeholder=\"https://...\">",
+          "target": [
+            "#suggestCorpusInput"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "suggestMotivationInput",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<textarea id=\"suggestMotivationInput\" name=\"motivation\" class=\"field-input\" required=\"\" maxlength=\"1000\" rows=\"3\" aria-describedby=\"suggestMotivationHint\"></textarea>",
+          "target": [
+            "#suggestMotivationInput"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "suggestMotivationHint",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p id=\"suggestMotivationHint\" class=\"field-hint\">One line is fine — what gap does this fill?</p>",
+          "target": [
+            "#suggestMotivationHint"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
               "data": "pickerSelect",
               "relatedNodes": [],
               "impact": "critical",
@@ -9492,7 +10716,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<select id=\"pickerSelect\" class=\"field-input\" aria-describedby=\"pickerNote\"><option value=\"\" disabled=\"\">Choose a sign language…</option><option value=\"bsl\">BSL — British Sign Language (2406 signs)</option><option value=\"asl\">ASL — American Sign Language (1820 signs)</option></select>",
+          "html": "<select id=\"pickerSelect\" class=\"field-input\" aria-describedby=\"pickerNote\">",
           "target": [
             "#pickerSelect"
           ]
@@ -9855,6 +11079,60 @@
           "html": "<input type=\"text\" id=\"confirmationUrl\" class=\"field-input confirmation-link-input\" readonly=\"\">",
           "target": [
             "#confirmationUrl"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "proposalsAdminHeading",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<h2 class=\"card-title\" id=\"proposalsAdminHeading\">Inbound language proposals</h2>",
+          "target": [
+            "#proposalsAdminHeading"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "proposalsAdminToken",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<input id=\"proposalsAdminToken\" class=\"field-input\" type=\"password\" autocomplete=\"off\" spellcheck=\"false\">",
+          "target": [
+            "#proposalsAdminToken"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "proposalsAdminStatus",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<select id=\"proposalsAdminStatus\" class=\"field-input\">",
+          "target": [
+            "#proposalsAdminStatus"
           ]
         },
         {
@@ -10456,6 +11734,39 @@
       ]
     },
     {
+      "id": "landmark-complementary-is-top-level",
+      "impact": null,
+      "tags": [
+        "cat.semantics",
+        "best-practice"
+      ],
+      "description": "Ensure the complementary landmark or aside is at top level",
+      "help": "Aside should not be contained in another landmark",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/landmark-complementary-is-top-level?application=axe-puppeteer",
+      "nodes": [
+        {
+          "any": [
+            {
+              "id": "landmark-is-top-level",
+              "data": {
+                "role": "complementary"
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "The complementary landmark is at the top level."
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<aside class=\"c2-hero__card c2-snapshot-card\" aria-labelledby=\"c2-hero-card-gloss\">",
+          "target": [
+            ".c2-hero__card"
+          ]
+        }
+      ]
+    },
+    {
       "id": "landmark-contentinfo-is-top-level",
       "impact": null,
       "tags": [
@@ -10710,6 +12021,27 @@
           "html": "<main id=\"main-content\" class=\"contribute-main\" role=\"main\">",
           "target": [
             "#main-content"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "landmark-is-unique",
+              "data": {
+                "role": "complementary",
+                "accessibleText": "name"
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "Landmarks must have a unique role or role/label/title (i.e. accessible name) combination"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<aside class=\"c2-hero__card c2-snapshot-card\" aria-labelledby=\"c2-hero-card-gloss\">",
+          "target": [
+            ".c2-hero__card"
           ]
         },
         {
@@ -11978,6 +13310,42 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<div class=\"c2-snapshot-card__snapshot\" id=\"heroSnapshot\" role=\"img\" aria-label=\"BSL sign for 'name': index and middle fingers extended near the forehead, brushing outward.\">",
+          "target": [
+            "#heroSnapshot"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "no-focusable-content",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element does not have focusable descendants"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"c2-snapshot-card__play\" id=\"heroPlayBtn\" aria-pressed=\"false\" aria-controls=\"heroAvatarMount\" data-demo-play=\"hero\">",
+          "target": [
+            "#heroPlayBtn"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "no-focusable-content",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element does not have focusable descendants"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<button type=\"button\" class=\"c2-walk__tab is-active\" role=\"tab\" data-step=\"1\" id=\"c2-tab-1\" aria-selected=\"true\" aria-controls=\"c2-panel-1\" tabindex=\"0\">",
           "target": [
             "#c2-tab-1"
@@ -12161,6 +13529,24 @@
           "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"lsf\">",
           "target": [
             "button[data-lang=\"lsf\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "no-focusable-content",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element does not have focusable descendants"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"qs__suggest\" id=\"qsSuggestBtn\" aria-expanded=\"false\" aria-controls=\"suggestLanguageForm\">",
+          "target": [
+            "#qsSuggestBtn"
           ]
         },
         {
@@ -12950,6 +14336,306 @@
           "html": "<span>before it goes live</span>",
           "target": [
             ".c2-hero__stats > li:nth-child(3) > span"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<aside class=\"c2-hero__card c2-snapshot-card\" aria-labelledby=\"c2-hero-card-gloss\">",
+          "target": [
+            ".c2-hero__card"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"c2-hero__card-head\">\n          <span class=\"c2-hero__card-chip\">BSL</span>\n          <span class=\"c2-hero__card-gloss\" id=\"c2-hero-card-gloss\">NAME</span>\n          <span class=\"c2-hero__card-state\">in dictionary</span>\n        </div>",
+          "target": [
+            ".c2-hero__card-head"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"c2-hero__card-chip\">BSL</span>",
+          "target": [
+            ".c2-hero__card-chip"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"c2-hero__card-gloss\" id=\"c2-hero-card-gloss\">NAME</span>",
+          "target": [
+            "#c2-hero-card-gloss"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"c2-hero__card-state\">in dictionary</span>",
+          "target": [
+            ".c2-hero__card-state"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"c2-hero__card-stage c2-snapshot-card__stage\" data-demo-card=\"hero\" data-gloss=\"name(v)#1\" data-corpus=\"hamnosys_bsl_version1.sigml\">",
+          "target": [
+            ".c2-hero__card-stage"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"c2-hero__avatar c2-hero__cwasa CWASAAvatar av0\" id=\"heroAvatarMount\"></div>",
+          "target": [
+            "#heroAvatarMount"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"c2-snapshot-card__snapshot\" id=\"heroSnapshot\" role=\"img\" aria-label=\"BSL sign for 'name': index and middle fingers extended near the forehead, brushing outward.\">",
+          "target": [
+            "#heroSnapshot"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p class=\"c2-snapshot-card__rubric\">HamNoSys · BSL · name(v)#1</p>",
+          "target": [
+            "#heroSnapshot > .c2-snapshot-card__rubric"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"c2-hero__card-glyphs c2-snapshot-card__cta\">",
+          "target": [
+            ".c2-hero__card-glyphs"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"c2-snapshot-card__play\" id=\"heroPlayBtn\" aria-pressed=\"false\" aria-controls=\"heroAvatarMount\" data-demo-play=\"hero\">",
+          "target": [
+            "#heroPlayBtn"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"c2-snapshot-card__play-label\">Play with avatar</span>",
+          "target": [
+            ".c2-snapshot-card__play-label"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"c2-snapshot-card__attribution\">BSL · DictaSign Corpus, CC&nbsp;BY-NC-SA</span>",
+          "target": [
+            ".c2-snapshot-card__attribution"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"c2-hero__card-meta\">\n          <span class=\"c2-hero__card-dot\" aria-hidden=\"true\"></span>\n          <span>Reviewed by Deaf signers</span>\n        </div>",
+          "target": [
+            ".c2-hero__card-meta"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span>Reviewed by Deaf signers</span>",
+          "target": [
+            ".c2-hero__card-meta > span:nth-child(2)"
           ]
         },
         {
@@ -13929,7 +15615,7 @@
           "impact": null,
           "html": "<code>RAIN</code>",
           "target": [
-            "code:nth-child(2)"
+            "li:nth-child(1) > code:nth-child(2)"
           ]
         },
         {
@@ -14610,6 +16296,46 @@
           "html": "<div class=\"qs__footer\">",
           "target": [
             ".qs__footer"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"qs__suggest\" id=\"qsSuggestBtn\" aria-expanded=\"false\" aria-controls=\"suggestLanguageForm\">",
+          "target": [
+            "#qsSuggestBtn"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "region",
+              "data": {
+                "isIframe": false
+              },
+              "relatedNodes": [],
+              "impact": "moderate",
+              "message": "All page content is contained by landmarks"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<span class=\"qs__suggest-label\">Don't see your sign language? Suggest one →</span>",
+          "target": [
+            ".qs__suggest-label"
           ]
         },
         {
@@ -15455,6 +17181,47 @@
       ]
     },
     {
+      "id": "role-img-alt",
+      "impact": null,
+      "tags": [
+        "cat.text-alternatives",
+        "wcag2a",
+        "wcag111",
+        "section508",
+        "section508.22.a",
+        "TTv5",
+        "TT7.a",
+        "EN-301-549",
+        "EN-9.1.1.1",
+        "ACT",
+        "RGAAv4",
+        "RGAA-1.1.1"
+      ],
+      "description": "Ensure [role=\"img\"] elements have alternative text",
+      "help": "[role=\"img\"] elements must have alternative text",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/role-img-alt?application=axe-puppeteer",
+      "nodes": [
+        {
+          "any": [
+            {
+              "id": "aria-label",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "aria-label attribute exists and is not empty"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<div class=\"c2-snapshot-card__snapshot\" id=\"heroSnapshot\" role=\"img\" aria-label=\"BSL sign for 'name': index and middle fingers extended near the forehead, brushing outward.\">",
+          "target": [
+            "#heroSnapshot"
+          ]
+        }
+      ]
+    },
+    {
       "id": "scrollable-region-focusable",
       "impact": null,
       "tags": [
@@ -15910,12 +17677,44 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 320,
-                "height": 50
+                "width": 163.3,
+                "height": 29.5
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (320px by 50px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (163.3px by 29.5px, should be at least 24px by 24px)"
+            },
+            {
+              "id": "target-offset",
+              "data": {
+                "closestOffset": 24,
+                "minOffset": 24
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Target has sufficient space from its closest neighbors. Safe clickable space has a diameter of 24px which is at least 24px."
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"c2-snapshot-card__play\" id=\"heroPlayBtn\" aria-pressed=\"false\" aria-controls=\"heroAvatarMount\" data-demo-play=\"hero\">",
+          "target": [
+            "#heroPlayBtn"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "target-size",
+              "data": {
+                "minSize": 24,
+                "width": 260,
+                "height": 66.4
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Control has sufficient size (260px by 66.4px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -15942,12 +17741,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 320,
-                "height": 50
+                "width": 260,
+                "height": 66.4
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (320px by 50px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (260px by 66.4px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -15974,12 +17773,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 320,
-                "height": 50
+                "width": 260,
+                "height": 66.4
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (320px by 50px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (260px by 66.4px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -16006,12 +17805,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 320,
-                "height": 50
+                "width": 260,
+                "height": 66.4
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (320px by 50px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (260px by 66.4px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -16038,12 +17837,12 @@
               "id": "target-size",
               "data": {
                 "minSize": 24,
-                "width": 320,
-                "height": 50
+                "width": 260,
+                "height": 66.4
               },
               "relatedNodes": [],
               "impact": "serious",
-              "message": "Control has sufficient size (320px by 50px, should be at least 24px by 24px)"
+              "message": "Control has sufficient size (260px by 66.4px, should be at least 24px by 24px)"
             },
             {
               "id": "target-offset",
@@ -16222,6 +18021,38 @@
           "html": "<button type=\"button\" class=\"qs__chip\" data-lang=\"lsf\">",
           "target": [
             "button[data-lang=\"lsf\"]"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "target-size",
+              "data": {
+                "minSize": 24,
+                "width": 326.4,
+                "height": 38
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Control has sufficient size (326.4px by 38px, should be at least 24px by 24px)"
+            },
+            {
+              "id": "target-offset",
+              "data": {
+                "closestOffset": 24,
+                "minOffset": 24
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Target has sufficient space from its closest neighbors. Safe clickable space has a diameter of 24px which is at least 24px."
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<button type=\"button\" class=\"qs__suggest\" id=\"qsSuggestBtn\" aria-expanded=\"false\" aria-controls=\"suggestLanguageForm\">",
+          "target": [
+            "#qsSuggestBtn"
           ]
         },
         {
@@ -16727,7 +18558,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<aside class=\"c2-hero__card\" aria-hidden=\"true\">",
+                  "html": "<aside class=\"c2-hero__card c2-snapshot-card\" aria-labelledby=\"c2-hero-card-gloss\">",
                   "target": [
                     ".c2-hero__card"
                   ]
@@ -16758,7 +18589,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<aside class=\"c2-hero__card\" aria-hidden=\"true\">",
+                  "html": "<aside class=\"c2-hero__card c2-snapshot-card\" aria-labelledby=\"c2-hero-card-gloss\">",
                   "target": [
                     ".c2-hero__card"
                   ]
@@ -16771,9 +18602,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span class=\"c2-hero__card-gloss\">ELECTRON</span>",
+          "html": "<span class=\"c2-hero__card-gloss\" id=\"c2-hero-card-gloss\">NAME</span>",
           "target": [
-            ".c2-hero__card-gloss"
+            "#c2-hero-card-gloss"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
         },
@@ -16789,7 +18620,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<aside class=\"c2-hero__card\" aria-hidden=\"true\">",
+                  "html": "<aside class=\"c2-hero__card c2-snapshot-card\" aria-labelledby=\"c2-hero-card-gloss\">",
                   "target": [
                     ".c2-hero__card"
                   ]
@@ -16802,9 +18633,40 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span class=\"c2-hero__card-state\">live</span>",
+          "html": "<span class=\"c2-hero__card-state\">in dictionary</span>",
           "target": [
             ".c2-hero__card-state"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "7.5pt (10px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<aside class=\"c2-hero__card c2-snapshot-card\" aria-labelledby=\"c2-hero-card-gloss\">",
+                  "target": [
+                    ".c2-hero__card"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<p class=\"c2-snapshot-card__rubric\">HamNoSys · BSL · name(v)#1</p>",
+          "target": [
+            "#heroSnapshot > .c2-snapshot-card__rubric"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
         },
@@ -16823,11 +18685,104 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span class=\"hamnosys\" lang=\"zxx\" aria-hidden=\"true\"></span>",
+          "html": "<span class=\"hamnosys c2-snapshot-card__glyphs\" lang=\"zxx\" aria-hidden=\"true\"></span>",
           "target": [
-            ".c2-hero__card-glyphs > .hamnosys[lang=\"zxx\"][aria-hidden=\"true\"]"
+            "#heroSnapshot > .c2-snapshot-card__glyphs.hamnosys[lang=\"zxx\"]"
           ],
           "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "6.8pt (9px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<aside class=\"c2-hero__card c2-snapshot-card\" aria-labelledby=\"c2-hero-card-gloss\">",
+                  "target": [
+                    ".c2-hero__card"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<code>",
+          "target": [
+            ".c2-snapshot-card__sigml > code"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<aside class=\"c2-hero__card c2-snapshot-card\" aria-labelledby=\"c2-hero-card-gloss\">",
+                  "target": [
+                    ".c2-hero__card"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"c2-snapshot-card__play-label\">Play with avatar</span>",
+          "target": [
+            ".c2-snapshot-card__play-label"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "7.5pt (10px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<aside class=\"c2-hero__card c2-snapshot-card\" aria-labelledby=\"c2-hero-card-gloss\">",
+                  "target": [
+                    ".c2-hero__card"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"c2-snapshot-card__attribution\">BSL · DictaSign Corpus, CC&nbsp;BY-NC-SA</span>",
+          "target": [
+            ".c2-snapshot-card__attribution"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
         },
         {
           "any": [
@@ -16841,7 +18796,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<aside class=\"c2-hero__card\" aria-hidden=\"true\">",
+                  "html": "<aside class=\"c2-hero__card c2-snapshot-card\" aria-labelledby=\"c2-hero-card-gloss\">",
                   "target": [
                     ".c2-hero__card"
                   ]
@@ -16854,7 +18809,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span>Reviewed by 2 Deaf signers</span>",
+          "html": "<span>Reviewed by Deaf signers</span>",
           "target": [
             ".c2-hero__card-meta > span:nth-child(2)"
           ],
@@ -17601,6 +19556,68 @@
             "button[data-lang=\"lsf\"] > .qs__chip-arrow[aria-hidden=\"true\"]"
           ],
           "failureSummary": "Fix any of the following:\n  Element content contains only non-text characters"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"qs__inner\">",
+                  "target": [
+                    ".qs__inner"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"qs__suggest-plus\" aria-hidden=\"true\">＋</span>",
+          "target": [
+            ".qs__suggest-plus"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "fontSize": "9.8pt (13px)",
+                "fontWeight": "normal",
+                "messageKey": "pseudoContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"qs__inner\">",
+                  "target": [
+                    ".qs__inner"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined due to a pseudo element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": "serious",
+          "html": "<span class=\"qs__suggest-label\">Don't see your sign language? Suggest one →</span>",
+          "target": [
+            ".qs__suggest-label"
+          ],
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element"
         },
         {
           "any": [

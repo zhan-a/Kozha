@@ -29,7 +29,11 @@ from uuid import UUID, uuid4
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
-SignLanguageLit = Literal["bsl", "asl", "dgs"]
+SignLanguageLit = Literal[
+    "bsl", "asl", "dgs",
+    "lsf", "lse", "pjm", "ngt", "gsl",
+    "ksl", "rsl", "usl", "tid", "jsl", "kvk", "csl", "arsl", "msl", "zei",
+]
 
 
 def _utcnow() -> datetime:

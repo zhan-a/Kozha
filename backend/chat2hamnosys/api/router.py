@@ -1160,21 +1160,23 @@ def post_accept(
             code="internal_error",
         )
     entry = sign_store.get(accepted[-1].sign_entry_id)
-    # Promote draft → pending_review when a reviewer competent for this
-    # sign's language is on the roster. See
+    # Always promote draft → pending_review on accept. For seed languages
+    # with no qualified reviewer on the roster, the entry remains parked
+    # in pending_review indefinitely (the export gate independently
+    # refuses without qualifying approvals — see ``storage.export_to_kozha_library``),
+    # which is the intended behavior for the rare-SL group: contributions
+    # are accepted, but stay out of the live library until a Deaf reviewer
+    # for that language is onboarded. The contributor-facing UI surfaces
+    # this via the per-language ``has_reviewers`` flag in
+    # ``public/contribute-languages.json``. See
     # docs/contribute-redesign/10-backend-gaps.md for the rationale.
-    # Defensive: if the reviewer DB is unavailable the accept still
-    # succeeds as a plain draft.
     if entry.status == "draft":
         try:
-            for reviewer in reviewer_store.list(only_active=True):
-                if reviewer.can_review(entry.sign_language, entry.regional_variant):
-                    entry.status = "pending_review"
-                    sign_store.put(entry)
-                    break
+            entry.status = "pending_review"
+            sign_store.put(entry)
         except Exception:
             logger.warning(
-                "reviewer-roster check failed during accept; leaving entry as draft",
+                "post-accept promotion to pending_review failed; leaving entry as draft",
                 exc_info=True,
             )
     return AcceptResponse(

@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-25T04:43:42.924Z",
-  "url": "http://127.0.0.1:65092/",
+  "timestamp": "2026-04-26T02:24:39.093Z",
+  "url": "http://127.0.0.1:53446/",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -3515,9 +3515,49 @@
           "all": [],
           "none": [],
           "impact": null,
+          "html": "<textarea id=\"heroMicTranscript\" class=\"demo-input kz-input\" rows=\"2\" readonly=\"\" placeholder=\"Transcription will appear here…\" style=\"font-size:13px;\"></textarea>",
+          "target": [
+            "#heroMicTranscript"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "messageKey": "hidden"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element is hidden"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
           "html": "<input type=\"file\" accept=\"video/*\" class=\"demo-file-input\" id=\"heroVideoFile\">",
           "target": [
             "#heroVideoFile"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "messageKey": "hidden"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element is hidden"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<textarea id=\"heroVideoTranscript\" class=\"demo-input kz-input\" rows=\"2\" readonly=\"\" placeholder=\"Transcription will appear here…\" style=\"font-size:13px;\"></textarea>",
+          "target": [
+            "#heroVideoTranscript"
           ]
         },
         {
@@ -4724,6 +4764,24 @@
           "any": [
             {
               "id": "duplicate-id-aria",
+              "data": "heroMicTranscript",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<textarea id=\"heroMicTranscript\" class=\"demo-input kz-input\" rows=\"2\" readonly=\"\" placeholder=\"Transcription will appear here…\" style=\"font-size:13px;\"></textarea>",
+          "target": [
+            "#heroMicTranscript"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
               "data": "heroVideoFile",
               "relatedNodes": [],
               "impact": "critical",
@@ -4736,6 +4794,24 @@
           "html": "<input type=\"file\" accept=\"video/*\" class=\"demo-file-input\" id=\"heroVideoFile\">",
           "target": [
             "#heroVideoFile"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "duplicate-id-aria",
+              "data": "heroVideoTranscript",
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Document has no elements referenced with ARIA or labels that share the same id attribute"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<textarea id=\"heroVideoTranscript\" class=\"demo-input kz-input\" rows=\"2\" readonly=\"\" placeholder=\"Transcription will appear here…\" style=\"font-size:13px;\"></textarea>",
+          "target": [
+            "#heroVideoTranscript"
           ]
         }
       ]

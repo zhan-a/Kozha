@@ -52,6 +52,16 @@
       <header class="panel-head">
         <h1 id="chatHead">Authoring conversation</h1>
         <p class="panel-sub" id="sessionMeta">No session yet</p>
+        <!-- Sign-language picker. Populated from /contribute-languages.json
+             on boot so adding a new language only requires a JSON edit.
+             Locked once a session is created — change-language ⇒ new session. -->
+        <div class="lang-select-row">
+          <label for="signLanguageSelect" class="lang-select-label">Sign language</label>
+          <select id="signLanguageSelect" class="lang-select" aria-describedby="signLanguageHint">
+            <option value="bsl">BSL — British Sign Language</option>
+          </select>
+          <p id="signLanguageHint" class="lang-select-hint" aria-live="polite"></p>
+        </div>
       </header>
 
       <div id="chatLog" class="chat-log" role="log" aria-live="polite" aria-relevant="additions" aria-atomic="false">

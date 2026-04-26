@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "portrait-primary"
   },
-  "timestamp": "2026-04-25T04:43:48.010Z",
-  "url": "http://127.0.0.1:65092/app.html",
+  "timestamp": "2026-04-26T02:24:44.886Z",
+  "url": "http://127.0.0.1:53446/app.html",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -1969,6 +1969,24 @@
           "html": "<span id=\"micStatus\" class=\"status-badge\" role=\"status\" aria-live=\"polite\">Idle</span>",
           "target": [
             "#micStatus"
+          ]
+        },
+        {
+          "any": [
+            {
+              "id": "aria-allowed-role",
+              "data": null,
+              "relatedNodes": [],
+              "impact": "minor",
+              "message": "ARIA role is allowed for given element"
+            }
+          ],
+          "all": [],
+          "none": [],
+          "impact": null,
+          "html": "<p id=\"micFallbackNote\" class=\"field-hint\" role=\"note\" hidden=\"\" style=\"margin:0 0 10px; color:var(--ink-3);\">Using the slower WASM speech model — WebGPU isn't available in this browser.</p>",
+          "target": [
+            "#micFallbackNote"
           ]
         },
         {

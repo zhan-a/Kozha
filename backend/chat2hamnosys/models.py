@@ -31,7 +31,19 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 from hamnosys import SYMBOLS, SymClass, classify, normalize, validate
 
 
-SignLanguage = Literal["bsl", "asl", "dgs"]
+# Sign-language codes accepted by the authoring + review pipeline. Kept in
+# sync with ``public/contribute-languages.json``: anything selectable in the
+# contributor UI must be valid here, otherwise ``POST /sessions`` rejects
+# the body. Codes are short ISO-flavoured slugs (BSL, ASL, DGS, KSL=Kazakh,
+# KVK=Korean, ZEI=Persian, etc.) — see the meta.json files in ``data/`` for
+# the canonical display names. New seed languages go in the ``rare`` group
+# of the JSON catalog; reviewer scoping (see ``review.actions._competent_or_raise``)
+# refuses to validate a sign without a reviewer registered for its language.
+SignLanguage = Literal[
+    "bsl", "asl", "dgs",
+    "lsf", "lse", "pjm", "ngt", "gsl",
+    "ksl", "rsl", "usl", "tid", "jsl", "kvk", "csl", "arsl", "msl", "zei",
+]
 SignStatus = Literal[
     "draft",
     "pending_review",
