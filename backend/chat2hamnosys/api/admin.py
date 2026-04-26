@@ -206,10 +206,13 @@ def get_ready() -> JSONResponse:
         all_ok = False
         checks["sign_store"] = {"ok": False, "error": type(exc).__name__}
 
-    # Token store
+    # Token store — TokenStore has no .stats(); just open a read-only
+    # cursor against the schema we wrote at init so a missing table or
+    # an unwritable parent dir surfaces as a probe failure.
     try:
         token_store = get_token_store()
-        token_store.stats()
+        with token_store._connect() as _conn:
+            _conn.execute("SELECT COUNT(*) FROM session_tokens").fetchone()
         checks["token_store"] = {"ok": True}
     except Exception as exc:
         all_ok = False
