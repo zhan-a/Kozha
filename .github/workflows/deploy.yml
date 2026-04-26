@@ -171,22 +171,21 @@ jobs:
             fi
           fi
 
-          # Inject TRANSCRIBE_KEY into kozha.service via a systemd
-          # drop-in. Drop-ins are additive: this only loads
-          # /etc/kozha-transcribe.env (a file containing ONLY
-          # TRANSCRIBE_KEY) and leaves whatever pre-existing
-          # mechanism was providing OPENAI_API_KEY to the unit
-          # untouched. Loading /etc/kozha.env from a drop-in would
-          # cause the host's deploy-time-refreshed OPENAI_API_KEY=
-          # line in that file to override the unit's own source,
-          # which silently broke the contribution pipeline.
-          #
-          # The dash before the path makes the file optional —
-          # systemd treats "missing" as a no-op, matching the rest
-          # of the deploy's "missing secret never fails" contract.
+          # systemd drop-in that loads BOTH env files into kozha.service:
+          #   * /etc/kozha.env           — OPENAI_API_KEY (existing
+          #     contract: refreshed by the deploy block above each run).
+          #   * /etc/kozha-transcribe.env — TRANSCRIBE_KEY only.
+          # The host's existing kozha.service unit has no EnvironmentFile=
+          # of its own (verified via systemctl cat) so the drop-in is the
+          # only path injecting either secret. Order matters: the
+          # transcribe file is loaded SECOND so its TRANSCRIBE_KEY
+          # cannot be silently overridden by a stale entry in
+          # /etc/kozha.env. The leading dash on each path makes the
+          # file optional — a missing secret never fails the deploy.
           DROPIN_DIR=/etc/systemd/system/kozha.service.d
-          DROPIN_FILE=\$DROPIN_DIR/10-transcribe-key.conf
+          DROPIN_FILE=\$DROPIN_DIR/10-kozha-env.conf
           DROPIN_BODY='[Service]
+          EnvironmentFile=-/etc/kozha.env
           EnvironmentFile=-/etc/kozha-transcribe.env'
           NEED_INSTALL=1
           if sudo test -f "\$DROPIN_FILE"; then
@@ -200,15 +199,13 @@ jobs:
             sudo chmod 644 "\$DROPIN_FILE"
             echo "[deploy] installed systemd drop-in: \$DROPIN_FILE"
           fi
-          # Remove the prior drop-in (10-kozha-env.conf) which loaded
-          # /etc/kozha.env and clobbered OPENAI_API_KEY. Also strip
-          # any TRANSCRIBE_KEY= line that previous deploys appended
-          # to /etc/kozha.env so OPENAI_API_KEY's source mechanism
-          # is fully restored to its pre-Gladia state.
-          if sudo test -f "\$DROPIN_DIR/10-kozha-env.conf"; then
-            sudo rm -f "\$DROPIN_DIR/10-kozha-env.conf"
-            echo "[deploy] removed superseded drop-in 10-kozha-env.conf"
+          # Remove the prior single-purpose drop-in if present.
+          if sudo test -f "\$DROPIN_DIR/10-transcribe-key.conf"; then
+            sudo rm -f "\$DROPIN_DIR/10-transcribe-key.conf"
+            echo "[deploy] removed superseded drop-in 10-transcribe-key.conf"
           fi
+          # Strip any stale TRANSCRIBE_KEY= line out of /etc/kozha.env
+          # so the dedicated file is the only source for that var.
           if sudo test -f /etc/kozha.env && sudo grep -q '^TRANSCRIBE_KEY=' /etc/kozha.env 2>/dev/null; then
             TMP=\$(sudo mktemp /etc/kozha.env.XXXXXX)
             sudo chmod 600 "\$TMP"
