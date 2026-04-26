@@ -31,6 +31,36 @@
   <link rel="stylesheet" href="/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script defer src="/sigml-validator.js"></script>
   <script defer src="/i18n.js"></script>
+  <!-- Snapshot the browser's native WebAssembly object before
+       /cwa/allcsa.js is injected. The avatar bundle is an Emscripten
+       WASM2JS build that overwrites the global WebAssembly with a
+       partial polyfill (Memory/Module/Instance only — no validate,
+       compile, instantiate). transformers.js needs the real one to
+       run Whisper, so the hero mic / video transcription flow saves
+       this reference now and restores it just before importing the
+       speech-recognition pipeline. Mirrors the same pattern in
+       app.html. -->
+  <script>
+    if (typeof window !== 'undefined' && window.WebAssembly && !window.__nativeWebAssembly) {
+      window.__nativeWebAssembly = window.WebAssembly;
+    }
+  </script>
+
+  <!-- Importmap pinning ORT 1.22.0 — required because
+       @huggingface/transformers@3.8.1's web bundle has top-level
+       `import * as ort from "onnxruntime-web"` and
+       `import { Tensor } from "onnxruntime-common"`, both bare
+       specifiers that fail to resolve without an importmap. Mirror
+       of the importmap in app.html. -->
+  <script type="importmap">
+  {
+    "imports": {
+      "onnxruntime-web": "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/ort.wasm.min.mjs",
+      "onnxruntime-web/wasm": "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/ort.wasm.min.mjs",
+      "onnxruntime-common": "https://cdn.jsdelivr.net/npm/onnxruntime-common@1.22.0/dist/esm/index.js"
+    }
+  }
+  </script>
   <script>
     // CWASA avatar bundle is ~4.6 MB — inject only on first user intent
     // so mobile LCP doesn't have to wait on the download. The hero demo
@@ -1737,11 +1767,31 @@
       }
     });
 
-    // Lazy-loads the @xenova/transformers pipeline for on-device Whisper ASR.
-    // Dynamic import via CDN so only the voice/video tabs pay the cost.
+    // Lazy-loads the @huggingface/transformers pipeline for on-device
+    // Whisper ASR. Dynamic import via CDN so only the voice/video tabs
+    // pay the cost. Pinned to 3.8.1 — the rebrand of @xenova/transformers
+    // with current model registry; matches public/app.html so we don't
+    // ship two transformers builds in one session.
     async function heroGetPipeline() {
       if (!window.__transformersPipeline) {
-        var mod = await import('https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2');
+        // Restore the native WebAssembly that allcsa.js's WASM2JS
+        // polyfill clobbered. Without this, ORT bails out with
+        // "no available backend found" / "Unsupported model type:
+        // whisper" before the pipeline can even initialise.
+        if (window.__nativeWebAssembly) {
+          window.WebAssembly = window.__nativeWebAssembly;
+        }
+        var mod = await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1/dist/transformers.web.min.js');
+        if (mod.env) {
+          mod.env.allowRemoteModels = true;
+          mod.env.allowLocalModels = false;
+          mod.env.useBrowserCache = true;
+          if (mod.env.backends && mod.env.backends.onnx && mod.env.backends.onnx.wasm) {
+            mod.env.backends.onnx.wasm.numThreads = 1;
+            mod.env.backends.onnx.wasm.wasmPaths =
+              'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/';
+          }
+        }
         window.__transformersPipeline = mod.pipeline;
       }
       return window.__transformersPipeline;

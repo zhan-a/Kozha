@@ -34,7 +34,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, '..');
 const PUBLIC_DIR = path.join(REPO_ROOT, 'public');
 
-const ORT_VERSION = '1.20.1';
+const ORT_VERSION = '1.22.0';
 
 const MIME: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',

@@ -19,22 +19,47 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 
+  <!-- Snapshot the browser's native WebAssembly object BEFORE allcsa.js
+       loads. The CWASA avatar bundle is an Emscripten WASM2JS build that
+       unconditionally overwrites the global WebAssembly with a partial
+       polyfill (only Memory/Module/Instance/instantiate; no validate,
+       no compile, no instantiateStreaming). That polyfill stops the
+       Whisper ASR pipeline from running — onnxruntime-web bails with
+       "no available backend found" because its SIMD probe calls
+       WebAssembly.validate(), and transformers.js bails with
+       "Unsupported model type: whisper" because the WASM EP never
+       initialises so model deserialisation never reaches the model
+       class registry. The avatar only needs the polyfill during its
+       own init; once it's running, restoring the native global is
+       safe — see getPipeline() below for the restore point. -->
+  <script>
+    if (typeof window !== 'undefined' && window.WebAssembly && !window.__nativeWebAssembly) {
+      window.__nativeWebAssembly = window.WebAssembly;
+    }
+  </script>
+
   <link rel="stylesheet" href="/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script defer src="/cwa/allcsa.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script defer src="/sigml-validator.js"></script>
 
-  <!-- Importmap pins onnxruntime-web @ 1.20.1 so the bare specifier
-       `onnxruntime-web` resolves identically across browsers and from
-       any sub-path the page is served from. Must precede every
-       <script type="module"> on the page. The `/wasm` entry resolves
-       to `ort.wasm.min.mjs` per the package's `exports` map (the
-       prompt's `ort.wasm.bundle.min.mjs` 404s on jsDelivr 1.20.1 —
-       see docs/translator-fix/onnxruntime-version.md). -->
+  <!-- Importmap pins onnxruntime-web @ 1.22.0 (matches the dep range of
+       @huggingface/transformers@3.8.1, which is what we load below).
+       Must precede every <script type="module"> on the page.
+
+       The transformers.js web bundle has TWO top-level static imports
+       that resolve as bare specifiers:
+         import * as ort from "onnxruntime-web"
+         import { Tensor } from "onnxruntime-common"
+       Both must be in the importmap or the bundle fails to evaluate.
+       (4.2.0 added a third bare import — "onnxruntime-web/webgpu" —
+       that pulls in a dev-version of ORT we cannot pin against a
+       stable onnxruntime-common. We use 3.8.1 to avoid that.) -->
   <script type="importmap">
   {
     "imports": {
-      "onnxruntime-web": "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/ort.bundle.min.mjs",
-      "onnxruntime-web/wasm": "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/ort.wasm.min.mjs"
+      "onnxruntime-web": "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/ort.wasm.min.mjs",
+      "onnxruntime-web/wasm": "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/ort.wasm.min.mjs",
+      "onnxruntime-common": "https://cdn.jsdelivr.net/npm/onnxruntime-common@1.22.0/dist/esm/index.js"
     }
   }
   </script>
@@ -88,6 +113,11 @@
       if (bootPromise) return bootPromise;
       bootPromise = (async () => {
         try {
+          // Restore the native WebAssembly object before importing ORT
+          // — see the snapshot script at the top of <head>.
+          if (window.__nativeWebAssembly) {
+            window.WebAssembly = window.__nativeWebAssembly;
+          }
           if (useWebGPU) {
             const ort = await import('onnxruntime-web');
             window.ort = ort;
@@ -3777,7 +3807,23 @@
     async function getPipeline(){
       if (window.__transformersPipeline) return window.__transformersPipeline;
       if (!window.__transformersPipelinePromise) {
-        var TRANSFORMERS_VERSION = '4.2.0';
+        // The CWASA avatar's WASM2JS polyfill replaced window.WebAssembly
+        // with a partial stub. transformers.js + onnxruntime-web need
+        // the real one (validate, compile, instantiate, etc.) — restore
+        // it here, just before the bundle's top-level code runs the
+        // SIMD/threads detection. The avatar has finished init by now
+        // and won't touch WebAssembly again.
+        if (window.__nativeWebAssembly) {
+          window.WebAssembly = window.__nativeWebAssembly;
+        }
+        // 3.8.1 deliberately — 4.x added an `onnxruntime-web/webgpu`
+        // bare-specifier import that we'd need a dev-version ORT to
+        // satisfy, and the matching onnxruntime-common dev tarball
+        // is not published, so the importmap couldn't be made
+        // consistent. 3.8.1 imports only `onnxruntime-web` and
+        // `onnxruntime-common` (both pinned to 1.22.0 in the importmap
+        // above) and resolves whisper just like 4.x does.
+        var TRANSFORMERS_VERSION = '3.8.1';
         var TRANSFORMERS_URL = 'https://cdn.jsdelivr.net/npm/@huggingface/transformers@' + TRANSFORMERS_VERSION + '/dist/transformers.web.min.js';
 
         window.__transformersPipelinePromise = import(TRANSFORMERS_URL)
@@ -3792,11 +3838,16 @@
               // Cache model weights in IndexedDB so a return visit
               // doesn't re-download 50+ MB.
               mod.env.useBrowserCache = true;
-              // Single-thread keeps us off the SharedArrayBuffer
-              // path. The asyncify WASM variant the bundle picks
-              // by default still runs SIMD perfectly single-threaded.
               if (mod.env.backends && mod.env.backends.onnx && mod.env.backends.onnx.wasm) {
+                // Single-thread keeps us off the SharedArrayBuffer
+                // path so we don't need COOP/COEP headers.
                 mod.env.backends.onnx.wasm.numThreads = 1;
+                // Point ORT at jsDelivr for its `ort-wasm-*.mjs`
+                // helpers. Without this, ORT tries to fetch them
+                // relative to the transformers.js bundle URL, which
+                // 404s (transformers.js doesn't ship those files).
+                mod.env.backends.onnx.wasm.wasmPaths =
+                  'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/';
               }
             }
             window.__transformersPipeline = mod.pipeline;
