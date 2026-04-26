@@ -132,27 +132,21 @@ jobs:
 
           # TRANSCRIBE_KEY (Gladia) — backs /api/transcribe, the
           # server-side fallback for the in-browser Whisper pipeline.
-          # Same gate-on-non-empty pattern as OPENAI_API_KEY: a missing
-          # secret never fails the deploy, the route just returns 503
-          # and the client surfaces the local Whisper error verbatim.
+          # Lives in its OWN file (/etc/kozha-transcribe.env), not in
+          # /etc/kozha.env, so the systemd drop-in below can load it
+          # without disturbing whatever pre-existing path was already
+          # providing OPENAI_API_KEY to the kozha.service process.
+          # Same gate-on-non-empty pattern: a missing secret never
+          # fails the deploy, the route just returns 503.
           if [ -n "\$TRANSCRIBE_KEY_NEW" ]; then
-            ENV_GROUP=kozha
-            if ! getent group "\$ENV_GROUP" >/dev/null 2>&1; then
-              ENV_GROUP=root
-            fi
-            if [ -f /etc/kozha.env ]; then
-              TMP=\$(sudo mktemp /etc/kozha.env.XXXXXX)
-              sudo chmod 600 "\$TMP"
-              sudo chown "root:\$ENV_GROUP" "\$TMP"
-              sudo sh -c "grep -v '^TRANSCRIBE_KEY=' /etc/kozha.env > '\$TMP' || true"
-              printf 'TRANSCRIBE_KEY=%s\n' "\$TRANSCRIBE_KEY_NEW" | sudo tee -a "\$TMP" >/dev/null
-              sudo mv "\$TMP" /etc/kozha.env
-              echo "[deploy] TRANSCRIBE_KEY refreshed in /etc/kozha.env."
-            else
-              echo "[deploy] /etc/kozha.env missing — skipping TRANSCRIBE_KEY refresh. /api/transcribe will return 503 until /etc/kozha.env exists."
-            fi
+            TMP=\$(sudo mktemp /etc/kozha-transcribe.env.XXXXXX)
+            sudo chmod 600 "\$TMP"
+            sudo chown root:root "\$TMP"
+            printf 'TRANSCRIBE_KEY=%s\n' "\$TRANSCRIBE_KEY_NEW" | sudo tee "\$TMP" >/dev/null
+            sudo mv "\$TMP" /etc/kozha-transcribe.env
+            echo "[deploy] /etc/kozha-transcribe.env refreshed."
           else
-            echo "[deploy] TRANSCRIBE_KEY secret not set — leaving /etc/kozha.env as-is. /api/transcribe will return 503; the in-browser Whisper pipeline still handles transcription."
+            echo "[deploy] TRANSCRIBE_KEY secret not set — /api/transcribe will return 503; the in-browser Whisper pipeline still handles transcription."
           fi
 
           # Sync the nginx site config when the repo template differs
@@ -177,17 +171,23 @@ jobs:
             fi
           fi
 
-          # Ensure systemd actually loads /etc/kozha.env into the
-          # service environment. The deployed kozha.service on this
-          # host predates the env-file pattern (custom ExecStart for
-          # /home/ubuntu/kozha-venv + gunicorn — see the EC2 host
-          # layout note), so it has no EnvironmentFile= directive.
-          # Replacing the unit would clobber those host-specific
-          # paths; a drop-in is additive and merges cleanly.
+          # Inject TRANSCRIBE_KEY into kozha.service via a systemd
+          # drop-in. Drop-ins are additive: this only loads
+          # /etc/kozha-transcribe.env (a file containing ONLY
+          # TRANSCRIBE_KEY) and leaves whatever pre-existing
+          # mechanism was providing OPENAI_API_KEY to the unit
+          # untouched. Loading /etc/kozha.env from a drop-in would
+          # cause the host's deploy-time-refreshed OPENAI_API_KEY=
+          # line in that file to override the unit's own source,
+          # which silently broke the contribution pipeline.
+          #
+          # The dash before the path makes the file optional —
+          # systemd treats "missing" as a no-op, matching the rest
+          # of the deploy's "missing secret never fails" contract.
           DROPIN_DIR=/etc/systemd/system/kozha.service.d
-          DROPIN_FILE=\$DROPIN_DIR/10-kozha-env.conf
+          DROPIN_FILE=\$DROPIN_DIR/10-transcribe-key.conf
           DROPIN_BODY='[Service]
-          EnvironmentFile=-/etc/kozha.env'
+          EnvironmentFile=-/etc/kozha-transcribe.env'
           NEED_INSTALL=1
           if sudo test -f "\$DROPIN_FILE"; then
             if echo "\$DROPIN_BODY" | sudo cmp -s - "\$DROPIN_FILE"; then
@@ -200,10 +200,40 @@ jobs:
             sudo chmod 644 "\$DROPIN_FILE"
             echo "[deploy] installed systemd drop-in: \$DROPIN_FILE"
           fi
+          # Remove the prior drop-in (10-kozha-env.conf) which loaded
+          # /etc/kozha.env and clobbered OPENAI_API_KEY. Also strip
+          # any TRANSCRIBE_KEY= line that previous deploys appended
+          # to /etc/kozha.env so OPENAI_API_KEY's source mechanism
+          # is fully restored to its pre-Gladia state.
+          if sudo test -f "\$DROPIN_DIR/10-kozha-env.conf"; then
+            sudo rm -f "\$DROPIN_DIR/10-kozha-env.conf"
+            echo "[deploy] removed superseded drop-in 10-kozha-env.conf"
+          fi
+          if sudo test -f /etc/kozha.env && sudo grep -q '^TRANSCRIBE_KEY=' /etc/kozha.env 2>/dev/null; then
+            TMP=\$(sudo mktemp /etc/kozha.env.XXXXXX)
+            sudo chmod 600 "\$TMP"
+            sudo sh -c "grep -v '^TRANSCRIBE_KEY=' /etc/kozha.env > '\$TMP' || true"
+            sudo mv "\$TMP" /etc/kozha.env
+            echo "[deploy] cleaned legacy TRANSCRIBE_KEY line out of /etc/kozha.env"
+          fi
 
           sudo systemctl daemon-reload
           sudo systemctl restart kozha.service
           sudo systemctl --no-pager status kozha.service
+
+          # DEBUG (one-shot — remove once OPENAI_API_KEY is verified):
+          # confirms BOTH keys reach the gunicorn process. Counts/
+          # lengths only — secret values never reach the workflow log.
+          (
+            set +e
+            set +o pipefail
+            KOZHA_PID=\$(systemctl show -p MainPID --value kozha.service 2>/dev/null)
+            if [ -n "\$KOZHA_PID" ] && [ "\$KOZHA_PID" != "0" ]; then
+              OK_LEN=\$(sudo awk 'BEGIN{RS="\0"; n=0} /^OPENAI_API_KEY=/ {n=length(\$0)-15; exit} END{print n}' /proc/\$KOZHA_PID/environ 2>/dev/null)
+              TK_LEN=\$(sudo awk 'BEGIN{RS="\0"; n=0} /^TRANSCRIBE_KEY=/ {n=length(\$0)-15; exit} END{print n}' /proc/\$KOZHA_PID/environ 2>/dev/null)
+              echo "[deploy-debug] kozha PID=\$KOZHA_PID env: OPENAI_API_KEY length=\$OK_LEN, TRANSCRIBE_KEY length=\$TK_LEN"
+            fi
+          ) || true
 
           # Polish-13 §6: deploy receipt for ``server/alerts.py``. The
           # host-side alerter reads ``data/last_deploy.json`` to tell
