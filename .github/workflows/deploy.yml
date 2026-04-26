@@ -171,6 +171,28 @@ jobs:
             fi
           fi
 
+          # Strip CHAT2HAMNOSYS_*_DB / CHAT2HAMNOSYS_DATA_DIR overrides
+          # out of /etc/kozha.env. The bootstrap template points them
+          # at /var/lib/kozha/... which the gunicorn user (ubuntu on
+          # this host) cannot write to, so loading those vars surfaces
+          # as "Could not start a session" on the contribute page
+          # (PermissionError on session_store / sign_store / token_store
+          # in /api/chat2hamnosys/health/ready). Stripping the lines
+          # makes chat2hamnosys fall back to its compiled-in defaults
+          # (<repo>/data/...), which the host user does own.
+          if sudo test -f /etc/kozha.env; then
+            if sudo grep -qE '^(CHAT2HAMNOSYS_(SESSION|SIGN|TOKEN)_DB|CHAT2HAMNOSYS_DATA_DIR|CHAT2HAMNOSYS_(EXPORT_AUDIT|REVIEWER_DB)|CHAT2HAMNOSYS_LOG_DIR)=' /etc/kozha.env 2>/dev/null; then
+              TMP=\$(sudo mktemp /etc/kozha.env.XXXXXX)
+              sudo chmod 600 "\$TMP"
+              sudo sh -c "grep -vE '^(CHAT2HAMNOSYS_(SESSION|SIGN|TOKEN)_DB|CHAT2HAMNOSYS_DATA_DIR|CHAT2HAMNOSYS_(EXPORT_AUDIT|REVIEWER_DB)|CHAT2HAMNOSYS_LOG_DIR)=' /etc/kozha.env > '\$TMP' || true"
+              sudo mv "\$TMP" /etc/kozha.env
+              echo "[deploy] stripped non-writable CHAT2HAMNOSYS_*_DB / DATA_DIR / LOG_DIR overrides from /etc/kozha.env"
+            fi
+          fi
+          # Make sure the chat2hamnosys subdir exists under <repo>/data
+          # so the SQLite connect doesn't fail on a missing parent dir.
+          mkdir -p /home/ubuntu/Kozha/data/chat2hamnosys || true
+
           # systemd drop-in that loads BOTH env files into kozha.service:
           #   * /etc/kozha.env           — OPENAI_API_KEY (existing
           #     contract: refreshed by the deploy block above each run).
