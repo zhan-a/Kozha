@@ -3843,6 +3843,13 @@ select.field-input { cursor: pointer; }
 
 /* ----- Step 5 visual: review timeline ----- */
 .c2-viz-5__card {
+  /* Containing block for the timeline's container query. The card is
+     narrow at desktop (the parent panel is a 2-col grid that leaves
+     this card ~250-280 px wide) AND at mobile, so we drive the
+     horizontal/vertical switch off the card width itself instead of
+     the viewport — that way one rule covers both crampings. */
+  container-type: inline-size;
+  container-name: c2-viz-5;
   background: var(--kozha-color-white);
   border: 1px solid var(--kozha-color-border);
   border-radius: 14px;
@@ -3883,42 +3890,63 @@ select.field-input { cursor: pointer; }
   background: var(--kozha-color-success-light);
 }
 .c2-viz-5__timeline {
+  /* `--c2-tl-gap` is reused by the connector math so the line meets
+     the next dot exactly regardless of which token sets the gap. */
+  --c2-tl-gap: var(--kozha-space-1);
+  --c2-tl-dot: 14px;
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 4px;
+  /* `minmax(0, 1fr)` is load-bearing — without the explicit `0`
+     minimum, a long label (e.g. `pending_review`) widens its column
+     past 1fr and the last node drifts past the card's right edge. */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--c2-tl-gap);
   position: relative;
 }
 .c2-viz-5__timeline li {
   position: relative;
-  padding: 22px 4px 0;
+  padding: calc(var(--c2-tl-dot) + var(--kozha-space-2)) 2px 0;
   text-align: center;
   font-family: var(--kozha-font-mono);
   font-size: 10px;
+  line-height: 1.3;
   font-weight: var(--kozha-weight-medium);
-  letter-spacing: 0.06em;
+  letter-spacing: 0.02em;
   color: var(--kozha-color-ink-3);
+  /* Long underscored labels carry no soft break opportunity, so allow
+     the wrap to fall anywhere rather than push the column wider. */
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  /* Reserve room for two wrapped lines so the dot row stays aligned
+     even when one label wraps and the others do not. */
+  min-height: calc(var(--c2-tl-dot) + var(--kozha-space-2) + 2.6em);
 }
 .c2-viz-5__timeline li::before {
   content: '';
   position: absolute;
   top: 2px; left: 50%;
   transform: translateX(-50%);
-  width: 14px; height: 14px;
+  width: var(--c2-tl-dot); height: var(--c2-tl-dot);
   border-radius: 50%;
   background: var(--kozha-color-paper-2);
   border: 2px solid var(--kozha-color-border);
+  z-index: 1;
 }
 .c2-viz-5__timeline li::after {
   content: '';
   position: absolute;
-  top: 9px;
-  left: calc(50% + 7px);
-  right: calc(-50% + 7px);
+  top: calc(2px + (var(--c2-tl-dot) - 2px) / 2);
+  left: calc(50% + var(--c2-tl-dot) / 2);
+  /* Reach from this dot's right edge to the next dot's left edge:
+     own width + gap − dot diameter. Using an explicit width (rather
+     than the previous `right: calc(-50% + 7px)` trick) keeps the
+     line strictly inside this column's outer bound. */
+  width: calc(100% + var(--c2-tl-gap) - var(--c2-tl-dot));
   height: 2px;
   background: var(--kozha-color-border);
+  z-index: 0;
 }
 .c2-viz-5__timeline li:last-child::after { display: none; }
 .c2-viz-5__timeline li.is-done { color: var(--kozha-color-ink-2); }
@@ -3932,6 +3960,44 @@ select.field-input { cursor: pointer; }
   background: var(--kozha-color-accent);
   border-color: var(--kozha-color-accent);
   animation: c2-ping 1.8s ease-out infinite;
+}
+
+/* Vertical layout when the card is too narrow for a 4-up horizontal
+   row of labels — a single column with the connecting line on the
+   left of the dot and the label to its right.
+
+   Threshold 540 px is set so the rule fires (a) on mobile viewports
+   ≤ 600 px (where the card resolves to ≈ 490 px) and (b) on desktop
+   when the card sits in the 2-col panel grid (≈ 250-280 px), but does
+   NOT fire on 1-col-panel mid-range widths (768 px viewport gives a
+   602 px card) where horizontal still reads cleanly. */
+@container c2-viz-5 (max-width: 540px) {
+  .c2-viz-5__timeline {
+    grid-template-columns: 1fr;
+    gap: var(--kozha-space-3);
+  }
+  .c2-viz-5__timeline li {
+    padding: 0 0 0 calc(var(--c2-tl-dot) + var(--kozha-space-3));
+    text-align: left;
+    line-height: var(--c2-tl-dot);
+    min-height: var(--c2-tl-dot);
+  }
+  .c2-viz-5__timeline li::before {
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+  }
+  .c2-viz-5__timeline li::after {
+    /* Vertical connector: from below this dot, straight down through
+       the row gap to the top of the next dot. `bottom: -gap` lets the
+       line stretch with the li, so a wrapped label cannot pull the
+       connector short of the next dot. */
+    top: calc(50% + var(--c2-tl-dot) / 2);
+    bottom: calc(-1 * var(--kozha-space-3));
+    left: calc((var(--c2-tl-dot) - 2px) / 2);
+    width: 2px;
+    height: auto;
+  }
 }
 .c2-viz-5__perma {
   display: flex;

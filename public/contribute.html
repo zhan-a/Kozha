@@ -452,12 +452,15 @@
                   <span class="c2-viz-5__title">ELECTRON <span>· BSL</span></span>
                   <span class="c2-viz-5__state c2-viz-5__state--ok">submitted</span>
                 </div>
-                <ol class="c2-viz-5__timeline">
-                  <li class="is-done"><span>Draft</span></li>
-                  <li class="is-done"><span>Queued</span></li>
-                  <li class="is-current"><span>Reviewer 1</span></li>
-                  <li><span>Reviewer 2</span></li>
-                  <li><span>Live</span></li>
+                <!-- Status names mirror backend/chat2hamnosys/models.py
+                     SignStatus + the post-validation "exported" event in
+                     review/router.py. Do not relabel without the backend
+                     changing first. -->
+                <ol class="c2-viz-5__timeline" aria-label="Review status timeline">
+                  <li class="is-done" data-status="draft"><span>draft</span></li>
+                  <li class="is-current" data-status="pending_review" aria-current="step"><span>pending_review</span></li>
+                  <li data-status="validated"><span>validated</span></li>
+                  <li data-status="exported"><span>exported</span></li>
                 </ol>
                 <p class="c2-viz-5__perma">
                   <span class="c2-viz-5__perma-label">permanent link</span>
