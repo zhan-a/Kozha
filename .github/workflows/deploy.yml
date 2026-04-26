@@ -181,6 +181,24 @@ jobs:
           sudo systemctl restart kozha.service
           sudo systemctl --no-pager status kozha.service
 
+          # DEBUG (one-shot — remove once /api/transcribe is verified):
+          # confirms WHERE the TRANSCRIBE_KEY value is being lost. All
+          # outputs are counts/lengths only — the secret value never
+          # reaches the workflow log.
+          TK_FILE_LINES=\$(sudo grep -c '^TRANSCRIBE_KEY=' /etc/kozha.env 2>/dev/null || echo 0)
+          TK_FILE_LEN=\$(sudo grep '^TRANSCRIBE_KEY=' /etc/kozha.env 2>/dev/null | head -1 | sed 's/^TRANSCRIBE_KEY=//' | tr -d '\n\r' | wc -c)
+          ENV_FILE_PATH=\$(systemctl cat kozha.service | grep '^EnvironmentFile=' | head -1 | sed 's/^EnvironmentFile=//')
+          echo "[deploy-debug] /etc/kozha.env: TRANSCRIBE_KEY lines=\$TK_FILE_LINES, value length=\$TK_FILE_LEN"
+          echo "[deploy-debug] kozha.service EnvironmentFile=\$ENV_FILE_PATH"
+          KOZHA_PID=\$(systemctl show -p MainPID --value kozha.service)
+          if [ -n "\$KOZHA_PID" ] && [ "\$KOZHA_PID" != "0" ]; then
+            TK_PROC_PRESENT=\$(sudo tr '\0' '\n' < /proc/\$KOZHA_PID/environ 2>/dev/null | grep -c '^TRANSCRIBE_KEY=' || echo 0)
+            TK_PROC_LEN=\$(sudo tr '\0' '\n' < /proc/\$KOZHA_PID/environ 2>/dev/null | grep '^TRANSCRIBE_KEY=' | head -1 | sed 's/^TRANSCRIBE_KEY=//' | tr -d '\n\r' | wc -c)
+            echo "[deploy-debug] kozha PID=\$KOZHA_PID: TRANSCRIBE_KEY in process env=\$TK_PROC_PRESENT, value length=\$TK_PROC_LEN"
+          else
+            echo "[deploy-debug] kozha PID could not be resolved"
+          fi
+
           # Polish-13 §6: deploy receipt for ``server/alerts.py``. The
           # host-side alerter reads ``data/last_deploy.json`` to tell
           # whether the most recent deploy attempt succeeded. Written
