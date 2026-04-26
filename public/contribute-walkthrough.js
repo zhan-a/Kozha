@@ -1,10 +1,10 @@
 // contribute-walkthrough.js
 //
 // Drives both demo cards on /contribute:
-//   1. The hero conversation snapshot card (BSL · ELECTRON, prompt 04) —
-//      bubbles + HamNoSys + SiGML rendered statically. The "Replay in
-//      avatar" button opens #heroReplayModal, lazy-loads CWASA, and
-//      plays the inline data-demo-payload SiGML at viewport scale.
+//   1. The hero conversation snapshot card (ASL · HOUSE) — bubbles +
+//      HamNoSys + SiGML rendered statically. The "Replay in avatar"
+//      button opens #heroReplayModal, lazy-loads CWASA, and plays the
+//      inline data-demo-payload SiGML at viewport scale.
 //   2. The walkthrough Step 4 ("Watch the avatar perform it") demo
 //      (DGS · HAMBURG2^, prompt 05) — also a snapshot card; the inline
 //      auto-play stage was retired because the cramped 220 px slot

@@ -153,40 +153,39 @@
       </div>
       <!-- Conversation snapshot card (Pattern B). The card narrates a
            real chat2hamnosys session — bubbles, HamNoSys, and SiGML are
-           sourced verbatim from backend/chat2hamnosys/examples/electron.json
-           (no invented dialogue, no fake silhouette). ELECTRON has zero
-           qualifying deaf-reviewer approvals — the previous "Reviewed by
-           2 Deaf signers" claim is removed; the badge reads "Demo ·
-           fixture" instead. The avatar plays in a fullscreen replay
-           modal (#heroReplayModal) on explicit click; no auto-play. See
-           docs/contrib-fix/prompts/04-... and contribute-walkthrough.js. -->
+           sourced verbatim from backend/chat2hamnosys/examples/house.json
+           (no invented dialogue, no fake silhouette). HOUSE has zero
+           qualifying deaf-reviewer approvals — the badge reads "Demo ·
+           fixture" rather than a reviewer count. The avatar plays in a
+           fullscreen replay modal (#heroReplayModal) on explicit click;
+           no auto-play. See contribute-walkthrough.js. -->
       <aside class="c2-hero__card c2-snapshot-card c2-conversation-card"
              role="region"
-             aria-label="Demo of the BSL sign for electron, recorded from a chat2hamnosys session"
+             aria-label="Demo of the ASL sign for HOUSE, recorded from a chat2hamnosys session"
              aria-describedby="c2-hero-card-trail">
         <div class="c2-hero__card-head">
-          <span class="c2-hero__card-chip">BSL</span>
-          <span class="c2-hero__card-gloss" id="c2-hero-card-gloss">ELECTRON</span>
+          <span class="c2-hero__card-chip">ASL</span>
+          <span class="c2-hero__card-gloss" id="c2-hero-card-gloss">HOUSE</span>
           <span class="c2-conversation-card__badge">Demo · fixture</span>
         </div>
 
         <ol class="c2-conversation-card__trail" id="c2-hero-card-trail"
-            aria-label="Recorded chat2hamnosys session for ELECTRON">
+            aria-label="Recorded chat2hamnosys session for HOUSE">
           <li class="c2-conversation-card__bubble c2-conversation-card__bubble--author">
             <span class="c2-conversation-card__author">You</span>
-            <p class="c2-conversation-card__text">ELECTRON is signed with a small round-O handshape, palm down, in neutral signing space. The hand makes a small circle to suggest orbiting motion.</p>
+            <p class="c2-conversation-card__text">HOUSE is a two-handed symmetrical sign with flat hands. The hands begin in contact at shoulder height, fingers up-and-out, palms angled down-and-out. They move together diagonally down-and-out, then continue straight down, with the fingers rotating to point outward.</p>
           </li>
           <li class="c2-conversation-card__bubble c2-conversation-card__bubble--system">
             <span class="c2-conversation-card__author">Kozha</span>
-            <p class="c2-conversation-card__text">How small is the circular movement?</p>
+            <p class="c2-conversation-card__text">Do the fingers rotate during the descent or only at the end?</p>
           </li>
           <li class="c2-conversation-card__bubble c2-conversation-card__bubble--author">
             <span class="c2-conversation-card__author">You</span>
-            <p class="c2-conversation-card__text">Fingertip-sized (very small).</p>
+            <p class="c2-conversation-card__text">During the descent — they rotate as the hands separate.</p>
           </li>
           <li class="c2-conversation-card__bubble c2-conversation-card__bubble--system">
             <span class="c2-conversation-card__author">Kozha</span>
-            <p class="c2-conversation-card__text">Generated · confidence 0.86</p>
+            <p class="c2-conversation-card__text">Generated · confidence 0.91</p>
           </li>
         </ol>
 
@@ -197,27 +196,30 @@
              expected_sign_entry.hamnosys mapping in the fixture. -->
         <div class="c2-conversation-card__notation"
              data-demo-card="hero"
-             data-gloss="electron"
-             data-corpus="backend/chat2hamnosys/examples/electron.json">
-          <p class="c2-snapshot-card__rubric c2-conversation-card__rubric">HamNoSys · BSL · electron</p>
-          <span class="hamnosys c2-snapshot-card__glyphs c2-conversation-card__glyphs" lang="zxx" aria-hidden="true">&#xE013;&#xE020;&#xE03A;&#xE051;&#xE079;&#xE093;&#xE0C5;</span>
+             data-gloss="HOUSE"
+             data-corpus="backend/chat2hamnosys/examples/house.json">
+          <p class="c2-snapshot-card__rubric c2-conversation-card__rubric">HamNoSys · ASL · HOUSE</p>
+          <span class="hamnosys c2-snapshot-card__glyphs c2-conversation-card__glyphs" lang="zxx" aria-hidden="true">&#xE0E9;&#xE001;&#xE031;&#xE03D;&#xE0ED;&#xE0D1;&#xE051;&#xE0E2;&#xE083;&#xE0AA;&#xE029;&#xE0E3;&#xE084;</span>
           <details class="c2-conversation-card__sigml-details">
             <summary class="c2-conversation-card__sigml-summary">show SiGML</summary>
-            <pre class="c2-snapshot-card__sigml c2-conversation-card__sigml" aria-hidden="true"><code>&lt;hns_sign gloss="electron"&gt;
+            <pre class="c2-snapshot-card__sigml c2-conversation-card__sigml" aria-hidden="true"><code>&lt;hns_sign gloss="HOUSE"&gt;
   &lt;hamnosys_manual&gt;
-    &lt;hamdoublebent/&gt;&lt;hamextfingeru/&gt;
-    &lt;hampalmr/&gt;&lt;hamshoulders/&gt;
-    &lt;hamfingerbase/&gt;&lt;hamcirclei/&gt;
-    &lt;hamdecreasing/&gt;
+    &lt;hamsymmlr/&gt;&lt;hamflathand/&gt;
+    &lt;hamextfingeruo/&gt;&lt;hampalmdl/&gt;
+    &lt;hamorirelative/&gt;&lt;hamtouch/&gt;
+    &lt;hamshoulders/&gt;&lt;hamparbegin/&gt;
+    &lt;hammovedr/&gt;&lt;hamreplace/&gt;
+    &lt;hamextfingero/&gt;&lt;hamparend/&gt;
+    &lt;hammoved/&gt;
   &lt;/hamnosys_manual&gt;
 &lt;/hns_sign&gt;</code></pre>
           </details>
-          <script type="application/xml" data-demo-payload="hero"><sigml><hns_sign gloss="electron"><hamnosys_nonmanual /><hamnosys_manual><hamdoublebent /><hamextfingeru /><hampalmr /><hamshoulders /><hamfingerbase /><hamcirclei /><hamdecreasing /></hamnosys_manual></hns_sign></sigml></script>
+          <script type="application/xml" data-demo-payload="hero"><sigml><hns_sign gloss="HOUSE"><hamnosys_nonmanual /><hamnosys_manual><hamsymmlr /><hamflathand /><hamextfingeruo /><hampalmdl /><hamorirelative /><hamtouch /><hamshoulders /><hamparbegin /><hammovedr /><hamreplace /><hamextfingero /><hamparend /><hammoved /></hamnosys_manual></hns_sign></sigml></script>
         </div>
 
         <div class="c2-conversation-card__footer">
           <span class="c2-snapshot-card__attribution c2-conversation-card__attribution">
-            Fixture · session <code>00000000…0e01</code>
+            Fixture · session <code>00000000…h06</code>
           </span>
           <button type="button"
                   class="c2-snapshot-card__play c2-conversation-card__replay"
@@ -1319,8 +1321,8 @@
     <div class="c2-replay-modal__panel" role="document">
       <header class="c2-replay-modal__head">
         <h2 class="c2-replay-modal__title" id="heroReplayTitle">
-          <span class="c2-hero__card-chip">BSL</span>
-          <span class="c2-replay-modal__gloss">ELECTRON</span>
+          <span class="c2-hero__card-chip">ASL</span>
+          <span class="c2-replay-modal__gloss">HOUSE</span>
         </h2>
         <button type="button"
                 class="c2-replay-modal__close"
@@ -1330,7 +1332,7 @@
       <div class="c2-replay-modal__stage CWASAAvatar av0" id="heroAvatarMount"></div>
       <p class="c2-replay-modal__caption">
         Plays the SiGML the chat2hamnosys pipeline produced for the
-        <code>electron</code> fixture session.
+        <code>house</code> fixture session.
       </p>
     </div>
   </div>

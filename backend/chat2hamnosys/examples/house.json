@@ -1,0 +1,93 @@
+{
+  "fixture_version": 1,
+  "name": "house",
+  "summary": "ASL HOUSE: two-handed symmetrical sign with flat hands forming a roof shape, then walls. Demo example referenced from the contribute hero card.",
+  "session": {
+    "id": "00000000-0000-4000-a000-000000000h06",
+    "sign_language": "asl",
+    "created_at": "2026-04-25T12:00:00+00:00",
+    "accepted_at": "2026-04-25T12:01:48+00:00",
+    "session_token": "demo-token-house"
+  },
+  "events": [
+    {
+      "type": "described",
+      "event_id": "11111111-0000-4000-a000-000000000h01",
+      "timestamp": "2026-04-25T12:00:05+00:00",
+      "prose": "HOUSE is a two-handed symmetrical sign with flat hands. The hands begin in contact at shoulder height, fingers up-and-out, palms angled down-and-out. They move together diagonally down-and-out, then continue straight down, with the fingers rotating to point outward.",
+      "gaps_found": 1
+    },
+    {
+      "type": "clarification_asked",
+      "event_id": "11111111-0000-4000-a000-000000000h02",
+      "timestamp": "2026-04-25T12:00:14+00:00",
+      "questions": [
+        {
+          "field": "movement.replace_phase",
+          "prompt": "Do the fingers rotate during the descent or only at the end?",
+          "kind": "multiple_choice",
+          "options": [
+            {"label": "During the descent — they rotate as the hands separate.", "value": "during"},
+            {"label": "Only at the end of the descent.", "value": "after"}
+          ],
+          "freeform_allowed": false
+        }
+      ]
+    },
+    {
+      "type": "clarification_answered",
+      "event_id": "11111111-0000-4000-a000-000000000h03",
+      "timestamp": "2026-04-25T12:00:22+00:00",
+      "question_field": "movement.replace_phase",
+      "answer": "during",
+      "resolved_value": ""
+    },
+    {
+      "type": "generated",
+      "event_id": "11111111-0000-4000-a000-000000000h04",
+      "timestamp": "2026-04-25T12:00:36+00:00",
+      "success": true,
+      "hamnosys": "",
+      "sigml": "<sigml><hns_sign gloss=\"HOUSE\"><hamnosys_manual><hamsymmlr/><hamflathand/><hamextfingeruo/><hampalmdl/><hamorirelative/><hamtouch/><hamshoulders/><hamparbegin/><hammovedr/><hamreplace/><hamextfingero/><hamparend/><hammoved/></hamnosys_manual></hns_sign></sigml>",
+      "confidence": 0.91,
+      "used_llm_fallback": false,
+      "errors": []
+    },
+    {
+      "type": "accepted",
+      "event_id": "11111111-0000-4000-a000-000000000h05",
+      "timestamp": "2026-04-25T12:01:48+00:00",
+      "sign_entry_id": "22222222-0000-4000-a000-000000000h06",
+      "status": "draft"
+    }
+  ],
+  "expected_sign_entry": {
+    "id": "22222222-0000-4000-a000-000000000h06",
+    "gloss": "HOUSE",
+    "sign_language": "asl",
+    "domain": "everyday",
+    "hamnosys": "",
+    "parameters": {
+      "symmetry": "",
+      "handshape_dominant": "",
+      "orientation_extended_finger_initial": "",
+      "orientation_palm": "",
+      "orientation_relative": "",
+      "contact": "",
+      "location": "",
+      "movement": [
+        {
+          "par_begin": "",
+          "path": "",
+          "replace": "",
+          "orientation_extended_finger_after": "",
+          "par_end": ""
+        },
+        {"path": ""}
+      ]
+    },
+    "description_prose": "HOUSE is a two-handed symmetrical sign with flat hands. The hands begin in contact at shoulder height, fingers up-and-out, palms angled down-and-out. They move together diagonally down-and-out, then continue straight down, with the fingers rotating to point outward.",
+    "status": "draft",
+    "author": {"signer_id": "demo-signer", "is_deaf_native": false, "display_name": "Demo (hearing)"}
+  }
+}

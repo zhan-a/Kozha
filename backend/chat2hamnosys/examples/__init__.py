@@ -29,6 +29,7 @@ EXAMPLE_NAMES = (
     "photon",
     "derivative",
     "integral",
+    "house",
 )
 
 

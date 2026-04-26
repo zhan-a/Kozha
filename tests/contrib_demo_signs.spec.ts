@@ -48,13 +48,25 @@ const DATA_DIR = path.join(REPO_ROOT, 'data');
 // because the test deliberately has no Python dependency. Keep it in
 // sync — drift would mean the test silently miscompares.
 const HAMNOSYS_SHORT_NAMES: Record<number, string> = {
+  0xe001: 'hamflathand',
   0xe013: 'hamdoublebent',
   0xe020: 'hamextfingeru',
+  0xe029: 'hamextfingero',
+  0xe031: 'hamextfingeruo',
   0xe03a: 'hampalmr',
+  0xe03d: 'hampalmdl',
   0xe051: 'hamshoulders',
   0xe079: 'hamfingerbase',
+  0xe083: 'hammovedr',
+  0xe084: 'hammoved',
   0xe093: 'hamcirclei',
+  0xe0aa: 'hamreplace',
   0xe0c5: 'hamdecreasing',
+  0xe0d1: 'hamtouch',
+  0xe0e2: 'hamparbegin',
+  0xe0e3: 'hamparend',
+  0xe0e9: 'hamsymmlr',
+  0xe0ed: 'hamorirelative',
 };
 
 interface DemoCard {
