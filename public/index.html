@@ -1017,7 +1017,7 @@
     <div class="hero-demo-card fade-up delay-3">
       <div class="demo-controls">
         <button class="demo-chip active" data-tab="text" id="chip-text">✏️ Text</button>
-        <button class="demo-chip" data-tab="voice" id="chip-mic">🎙 Voice</button>
+        <button class="demo-chip" data-tab="voice" id="chip-mic">🎙 Speech</button>
         <button class="demo-chip" data-tab="video" id="chip-video">🎬 Video</button>
         <button class="demo-translate-btn" id="heroTranslateBtn" disabled aria-label="Translate to sign language">Translate ▶</button>
       </div>
@@ -1105,7 +1105,7 @@
 
       <div class="demo-tab-panel" id="tab-voice">
         <button class="demo-record-btn" id="heroRecordBtn">● Start recording</button>
-        <div class="demo-status" id="heroMicStatus" role="status" aria-live="polite">Speech recognition runs locally in your browser.</div>
+        <div class="demo-status" id="heroMicStatus" role="status" aria-live="polite">Tap to record. We'll transcribe and translate.</div>
         <!-- Read-only preview of what the recogniser heard. Stays visible
              after the tab auto-switches to Text so users can verify the
              transcription matches their utterance before translating. -->
@@ -1750,6 +1750,59 @@
       }
     });
 
+    // Convert any audio Blob (webm/Opus from MediaRecorder, mp4/AAC
+    // from Safari, etc.) to a 16 kHz mono PCM WAV using Web Audio.
+    // WAV is the format Gladia handles most reliably end-to-end —
+    // posting raw webm/Opus from MediaRecorder produced a non-zero
+    // rate of upload-side rejections that surfaced as the user-
+    // visible "We couldn't transcribe this clip" copy.
+    async function heroBlobToWav(srcBlob) {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) throw new Error('AudioContext unavailable');
+      const arrayBuffer = await srcBlob.arrayBuffer();
+      const audioCtx = new Ctx();
+      let audioBuffer;
+      try {
+        audioBuffer = await audioCtx.decodeAudioData(arrayBuffer.slice(0));
+      } finally {
+        try { audioCtx.close(); } catch (_e) {}
+      }
+      // Down-mix any stereo input to mono by averaging channels.
+      const ch = audioBuffer.numberOfChannels;
+      const samples = audioBuffer.length;
+      const mono = new Float32Array(samples);
+      for (let c = 0; c < ch; c++) {
+        const data = audioBuffer.getChannelData(c);
+        for (let i = 0; i < samples; i++) mono[i] += data[i] / ch;
+      }
+      // 16-bit little-endian PCM WAV header + samples (no resample —
+      // Gladia accepts the source rate verbatim).
+      const sampleRate = audioBuffer.sampleRate;
+      const dataBytes = mono.length * 2;
+      const buffer = new ArrayBuffer(44 + dataBytes);
+      const view = new DataView(buffer);
+      const w = (off, str) => { for (let i = 0; i < str.length; i++) view.setUint8(off + i, str.charCodeAt(i)); };
+      w(0, 'RIFF');
+      view.setUint32(4, 36 + dataBytes, true);
+      w(8, 'WAVE'); w(12, 'fmt ');
+      view.setUint32(16, 16, true);   // PCM chunk size
+      view.setUint16(20, 1, true);    // format = PCM
+      view.setUint16(22, 1, true);    // channels = mono
+      view.setUint32(24, sampleRate, true);
+      view.setUint32(28, sampleRate * 2, true); // byte rate
+      view.setUint16(32, 2, true);    // block align
+      view.setUint16(34, 16, true);   // bits per sample
+      w(36, 'data');
+      view.setUint32(40, dataBytes, true);
+      let off = 44;
+      for (let i = 0; i < mono.length; i++) {
+        const s = Math.max(-1, Math.min(1, mono[i]));
+        view.setInt16(off, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+        off += 2;
+      }
+      return new Blob([buffer], { type: 'audio/wav' });
+    }
+
     // POST the audio Blob to /api/transcribe (Gladia proxy) and
     // return the transcript string. Throws an Error tagged with the
     // HTTP status on a non-2xx response, or a "No speech detected"
@@ -1760,13 +1813,21 @@
     // stripped from this surface. The full translator at /app.html
     // still has both legs; this surface intentionally does not.
     async function heroTranscribeWithFallback(blob) {
+      // Always send WAV to the server. If decode fails for some odd
+      // codec, fall back to the original blob and let Gladia try.
+      let toSend = blob;
+      try {
+        toSend = await heroBlobToWav(blob);
+      } catch (e) {
+        console.warn('[hero-asr] webm→wav failed, sending source blob as-is:', (e && e.message) || e);
+      }
       const lang = (getHeroInputLang && getHeroInputLang()) || '';
       const headers = {};
-      if (blob && blob.type) headers['content-type'] = blob.type;
+      if (toSend && toSend.type) headers['content-type'] = toSend.type;
       if (lang) headers['x-input-language'] = lang;
       let resp;
       try {
-        resp = await fetch('/api/transcribe', { method: 'POST', headers, body: blob });
+        resp = await fetch('/api/transcribe', { method: 'POST', headers, body: toSend });
       } catch (e) {
         // fetch() rejected — DNS, offline, certificate, etc.
         const why = (e && e.message) || String(e);
