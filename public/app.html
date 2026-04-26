@@ -3871,6 +3871,64 @@
       return window.__asr;
     }
 
+    // Server-side fallback for the on-device Whisper pipeline. The
+    // /api/transcribe route proxies the audio blob to Gladia using
+    // the host's TRANSCRIBE_KEY; on a 503 the route is unconfigured
+    // (no key) and we surface the original local error instead so
+    // the user copy stays accurate. The blob's MIME type (audio/webm
+    // for the mic, audio/wav for the upload after ffmpeg) is
+    // forwarded verbatim — Gladia auto-detects format from bytes,
+    // but the Content-Type lets their logs categorise correctly.
+    async function transcribeViaServer(blob){
+      var lang = (getInputLang && getInputLang()) || '';
+      var headers = {};
+      if (blob && blob.type) headers['content-type'] = blob.type;
+      if (lang) headers['x-input-language'] = lang;
+      var resp = await fetch('/api/transcribe', { method: 'POST', headers: headers, body: blob });
+      if (!resp.ok) {
+        var detail = '';
+        try { detail = await resp.text(); } catch (_e) {}
+        throw new Error('transcribe fallback ' + resp.status + (detail ? ': ' + detail.slice(0, 200) : ''));
+      }
+      var data = await resp.json();
+      return ((data && data.text) || '').trim();
+    }
+
+    // Wraps ensureASR + asr(blob) with a server-side fallback. If the
+    // local pipeline can't load (no SIMD, blocked CDN, an Emscripten
+    // build polluting WebAssembly, etc.), or if it returns empty for
+    // a clip the server can still handle, we re-try via /api/transcribe.
+    // The local error is preserved as `localError` so the caller can
+    // log both reasons when both legs fail.
+    async function transcribeWithFallback(blob){
+      var localError = null;
+      try {
+        var asr = await ensureASR();
+        var result = await asr(blob, getAsrOptions());
+        var text = ((result && result.text) || '').trim();
+        if (text) return text;
+        localError = new Error('local pipeline returned empty transcript');
+      } catch (e) {
+        localError = e;
+      }
+      try {
+        var serverText = await transcribeViaServer(blob);
+        if (serverText) return serverText;
+      } catch (serverError) {
+        var localWhy = window.describeError ? window.describeError(localError) : ((localError && localError.message) || String(localError));
+        var serverWhy = window.describeError ? window.describeError(serverError) : ((serverError && serverError.message) || String(serverError));
+        console.warn('[asr] both local and server transcription failed', { local: localWhy, server: serverWhy });
+        // Throw the LOCAL error — it carries the actionable hint
+        // (model load failure, no microphone, etc.) and the user
+        // copy mappers in /lib/error-copy.js already understand it.
+        throw localError;
+      }
+      // Server returned empty too — surface the local cause so the
+      // user gets "no speech detected" rather than a server-error
+      // copy for what's actually an audio-quality problem.
+      throw localError;
+    }
+
     function getAsrOptions(){
       const opts = { chunk_length_s: 30, stride_length_s: 5 };
       const lang = getInputLang();
@@ -3931,11 +3989,9 @@
       if (!recordedChunks.length){ micStatus.textContent = 'Nothing recorded.'; return; }
       micStatus.textContent = 'Loading speech model…'; micStatus.className = 'status-badge loading';
       try{
-        const asr = await ensureASR();
-        micStatus.textContent = 'Transcribing…';
         const blob = new Blob(recordedChunks, { type: 'audio/webm' });
-        const result = await asr(blob, getAsrOptions());
-        const rawText = (result?.text||'').trim();
+        micStatus.textContent = 'Transcribing…';
+        const rawText = await transcribeWithFallback(blob);
         transcription.value = rawText;
         if (!rawText) {
           micStatus.textContent = 'No speech detected — try recording again with a clearer voice.';
@@ -4222,11 +4278,8 @@
         // happy path; we just produce the input it expects.
         const wavBuffer = data.buffer ? data.buffer : data;
         const wavBlob = new Blob([wavBuffer], { type: 'audio/wav' });
-        videoStatus.textContent = 'Loading speech model…';
-        const asr = await ensureASR();
         videoStatus.textContent = 'Transcribing…';
-        const result = await asr(wavBlob, getAsrOptions());
-        const rawText = (result?.text||'').trim();
+        const rawText = await transcribeWithFallback(wavBlob);
         transcription.value = rawText;
         if (!rawText) {
           showVideoError('No speech detected. Try a clip with clearer audio.');

@@ -58,6 +58,7 @@ jobs:
       - name: Deploy to EC2
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          TRANSCRIBE_KEY: ${{ secrets.TRANSCRIBE_KEY }}
         run: |
           # Stream the deploy script into `bash -l -s` on the host. The
           # key is interpolated once here (Actions masks it as *** in
@@ -98,6 +99,7 @@ jobs:
           cd server
 
           OPENAI_API_KEY_NEW='$OPENAI_API_KEY'
+          TRANSCRIBE_KEY_NEW='$TRANSCRIBE_KEY'
           if [ -n "\$OPENAI_API_KEY_NEW" ]; then
             # Mode 600 means only the owner (root) can read, so the group
             # assignment is cosmetic for systemd's purposes — the service
@@ -126,6 +128,31 @@ jobs:
             fi
           else
             echo "[deploy] OPENAI_API_KEY secret not set — leaving /etc/kozha.env as-is. Contributors can still use the BYO-key field on contribute.html."
+          fi
+
+          # TRANSCRIBE_KEY (Gladia) — backs /api/transcribe, the
+          # server-side fallback for the in-browser Whisper pipeline.
+          # Same gate-on-non-empty pattern as OPENAI_API_KEY: a missing
+          # secret never fails the deploy, the route just returns 503
+          # and the client surfaces the local Whisper error verbatim.
+          if [ -n "\$TRANSCRIBE_KEY_NEW" ]; then
+            ENV_GROUP=kozha
+            if ! getent group "\$ENV_GROUP" >/dev/null 2>&1; then
+              ENV_GROUP=root
+            fi
+            if [ -f /etc/kozha.env ]; then
+              TMP=\$(sudo mktemp /etc/kozha.env.XXXXXX)
+              sudo chmod 600 "\$TMP"
+              sudo chown "root:\$ENV_GROUP" "\$TMP"
+              sudo sh -c "grep -v '^TRANSCRIBE_KEY=' /etc/kozha.env > '\$TMP' || true"
+              printf 'TRANSCRIBE_KEY=%s\n' "\$TRANSCRIBE_KEY_NEW" | sudo tee -a "\$TMP" >/dev/null
+              sudo mv "\$TMP" /etc/kozha.env
+              echo "[deploy] TRANSCRIBE_KEY refreshed in /etc/kozha.env."
+            else
+              echo "[deploy] /etc/kozha.env missing — skipping TRANSCRIBE_KEY refresh. /api/transcribe will return 503 until /etc/kozha.env exists."
+            fi
+          else
+            echo "[deploy] TRANSCRIBE_KEY secret not set — leaving /etc/kozha.env as-is. /api/transcribe will return 503; the in-browser Whisper pipeline still handles transcription."
           fi
 
           # Sync the nginx site config when the repo template differs

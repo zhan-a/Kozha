@@ -1815,6 +1815,48 @@
       return window.__asr;
     }
 
+    // Server-side fallback for the on-device Whisper pipeline. Mirrors
+    // the same helper in app.html — POSTs the raw audio Blob to
+    // /api/transcribe which proxies through Gladia using the host's
+    // TRANSCRIBE_KEY. Returns 503 when the key isn't configured, in
+    // which case the local error is surfaced verbatim so the user
+    // copy still reads correctly.
+    async function heroTranscribeViaServer(blob) {
+      const lang = (getHeroInputLang && getHeroInputLang()) || '';
+      const headers = {};
+      if (blob && blob.type) headers['content-type'] = blob.type;
+      if (lang) headers['x-input-language'] = lang;
+      const resp = await fetch('/api/transcribe', { method: 'POST', headers, body: blob });
+      if (!resp.ok) {
+        let detail = '';
+        try { detail = await resp.text(); } catch (_e) {}
+        throw new Error('transcribe fallback ' + resp.status + (detail ? ': ' + detail.slice(0, 200) : ''));
+      }
+      const data = await resp.json();
+      return ((data && data.text) || '').trim();
+    }
+
+    async function heroTranscribeWithFallback(blob) {
+      let localError = null;
+      try {
+        const asr = await ensureASR();
+        const result = await asr(blob, getAsrOptions());
+        const text = ((result && result.text) || '').trim();
+        if (text) return text;
+        localError = new Error('local pipeline returned empty transcript');
+      } catch (e) {
+        localError = e;
+      }
+      try {
+        const serverText = await heroTranscribeViaServer(blob);
+        if (serverText) return serverText;
+      } catch (serverError) {
+        console.warn('[asr] both local and server transcription failed', { local: localError && localError.message, server: serverError && serverError.message });
+        throw localError;
+      }
+      throw localError;
+    }
+
     function getAsrOptions() {
       const opts = { chunk_length_s: 30, stride_length_s: 5 };
       const lang = getHeroInputLang();
@@ -1853,11 +1895,9 @@
           micStatus.textContent = 'Preparing speech recognition…';
 
           try {
-            const asr = await ensureASR();
-            micStatus.textContent = 'Transcribing audio…';
             const blob = new Blob(recordedChunks, { type: 'audio/webm' });
-            const result = await asr(blob, getAsrOptions());
-            const rawText = (result?.text || '').trim();
+            micStatus.textContent = 'Transcribing audio…';
+            const rawText = await heroTranscribeWithFallback(blob);
             const text = await heroTranslateIfNeeded(rawText, (msg) => { micStatus.textContent = msg; });
             heroInput.value = text;
             micStatus.textContent = 'Transcribed! Hit Translate to see signs.';
@@ -1914,12 +1954,8 @@
           const data = ffmpeg.FS('readFile', 'out.wav');
           const wavBlob = new Blob([data.buffer], { type: 'audio/wav' });
 
-          videoStatus.textContent = 'Preparing speech recognition…';
-          const asr = await ensureASR();
-
           videoStatus.textContent = 'Transcribing audio…';
-          const result = await asr(wavBlob, getAsrOptions());
-          const rawText = (result?.text || '').trim();
+          const rawText = await heroTranscribeWithFallback(wavBlob);
           const text = await heroTranslateIfNeeded(rawText, (msg) => { videoStatus.textContent = msg; });
           heroInput.value = text;
           videoStatus.textContent = 'Transcribed! Hit Translate to see signs.';

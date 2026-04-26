@@ -988,6 +988,219 @@ def api_review_meta_lookup(sign_language: str, glosses: Dict[str, List[str]]):
         out[g] = info
     return {"sign_language": lang, "results": out}
 
+
+# ---------------------------------------------------------------------
+# /api/transcribe — Gladia fallback for the in-browser Whisper pipeline.
+#
+# The translator ships an on-device Whisper ASR via transformers.js +
+# onnxruntime-web (public/app.html, public/index.html). On browsers
+# where the local pipeline can't initialise (no SIMD, blocked CDN,
+# unsupported WebAssembly surface, etc.), the client POSTs the raw
+# audio blob here and we proxy through Gladia's pre-recorded API.
+#
+# The TRANSCRIBE_KEY env var is the only secret this route uses.
+# When it's missing the route returns 503 so the client can show a
+# clean error rather than receiving HTML — matches the same graceful-
+# degradation contract the OPENAI_API_KEY path uses (deploy.yml gates
+# the env-file write on the secret being non-empty).
+# ---------------------------------------------------------------------
+
+# Cap the proxy at 25 MB. The client-side surfaces already enforce a
+# 50 MB upload cap and a 60 s duration cap, but a raw WAV at 16 kHz mono
+# 16-bit comes out around 2 MB/min, so the practical Gladia payload is
+# ~2 MB; the 25 MB ceiling is a defence-in-depth budget that keeps a
+# malformed client from posting arbitrary blobs.
+_TRANSCRIBE_MAX_BYTES = 25 * 1024 * 1024
+
+# Total time we'll wait for Gladia's pre-recorded job to move from
+# "queued" → "done". For a 60 s clip the typical end-to-end is 3–6 s;
+# 90 s gives headroom for queue spikes without holding the connection
+# open indefinitely.
+_TRANSCRIBE_POLL_TIMEOUT_S = 90.0
+_TRANSCRIBE_POLL_INTERVAL_S = 1.0
+
+
+def _gladia_request(
+    method: str,
+    url: str,
+    api_key: str,
+    *,
+    json_body: Optional[dict] = None,
+    raw_body: Optional[bytes] = None,
+    raw_content_type: Optional[str] = None,
+    timeout: float = 30.0,
+) -> dict:
+    """Stdlib-only HTTP helper for Gladia's REST endpoints.
+
+    Returns the parsed JSON body. Raises ``RuntimeError`` with a short
+    message on transport failures or non-2xx responses. Using urllib
+    instead of httpx/requests keeps server/requirements.txt lean.
+    """
+    import urllib.request
+    import urllib.error
+
+    headers = {"x-gladia-key": api_key, "accept": "application/json"}
+    data: Optional[bytes] = None
+    if json_body is not None:
+        data = json.dumps(json_body).encode("utf-8")
+        headers["content-type"] = "application/json"
+    elif raw_body is not None:
+        data = raw_body
+        headers["content-type"] = raw_content_type or "application/octet-stream"
+
+    req = urllib.request.Request(url, data=data, headers=headers, method=method)
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            payload = resp.read()
+    except urllib.error.HTTPError as e:
+        # Drain the body so the server-side message reaches our log,
+        # but cap at 1 KB so a multi-megabyte HTML error page can't
+        # bloat the JSON we re-raise into.
+        try:
+            detail = e.read().decode("utf-8", errors="replace")[:1024]
+        except Exception:
+            detail = ""
+        raise RuntimeError(f"gladia HTTP {e.code}: {detail or e.reason}")
+    except urllib.error.URLError as e:
+        raise RuntimeError(f"gladia network error: {e.reason}")
+    except Exception as e:
+        raise RuntimeError(f"gladia request failed: {e}")
+
+    try:
+        return json.loads(payload.decode("utf-8"))
+    except Exception as e:
+        raise RuntimeError(f"gladia returned non-JSON: {e}")
+
+
+def _gladia_upload_audio(audio: bytes, content_type: str, api_key: str) -> str:
+    """Upload the raw audio bytes via Gladia's multipart /v2/upload.
+
+    Returns the ``audio_url`` Gladia hosts the file under (used as the
+    input for the transcribe job). We construct the multipart body by
+    hand so the server stays free of python-multipart at the proxy
+    layer.
+    """
+    boundary = "----kozha-gladia-" + _secrets.token_hex(16)
+    # Pick a filename extension Gladia recognises from the client's
+    # content-type; it's only used to hint the format and Gladia
+    # detects from the bytes anyway, so a wrong guess only affects
+    # logs on their side.
+    ext = "webm"
+    ct = (content_type or "").lower()
+    if "wav" in ct:
+        ext = "wav"
+    elif "mp4" in ct or "m4a" in ct:
+        ext = "mp4"
+    elif "mpeg" in ct or "mp3" in ct:
+        ext = "mp3"
+    elif "ogg" in ct:
+        ext = "ogg"
+
+    crlf = b"\r\n"
+    parts = [
+        f"--{boundary}".encode("ascii"),
+        f'Content-Disposition: form-data; name="audio"; filename="clip.{ext}"'.encode("ascii"),
+        f"Content-Type: {content_type or 'application/octet-stream'}".encode("ascii"),
+        b"",
+        audio,
+        f"--{boundary}--".encode("ascii"),
+        b"",
+    ]
+    body = crlf.join(parts)
+    payload = _gladia_request(
+        "POST",
+        "https://api.gladia.io/v2/upload",
+        api_key,
+        raw_body=body,
+        raw_content_type=f"multipart/form-data; boundary={boundary}",
+        timeout=60.0,
+    )
+    audio_url = payload.get("audio_url")
+    if not audio_url:
+        raise RuntimeError(f"gladia upload returned no audio_url: {payload}")
+    return audio_url
+
+
+def _gladia_transcribe(audio_url: str, api_key: str, language: Optional[str]) -> str:
+    """Submit a pre-recorded transcription job and poll until done.
+
+    ``language`` accepts a 2-letter code (en/de/pl/...) which Gladia
+    uses as a hint; ``None`` lets Gladia auto-detect.
+    """
+    body: dict = {"audio_url": audio_url, "diarization": False}
+    if language:
+        body["language_config"] = {"languages": [language]}
+    submit = _gladia_request(
+        "POST",
+        "https://api.gladia.io/v2/pre-recorded",
+        api_key,
+        json_body=body,
+        timeout=30.0,
+    )
+    result_url = submit.get("result_url") or submit.get("resultUrl")
+    if not result_url:
+        raise RuntimeError(f"gladia submit returned no result_url: {submit}")
+    deadline = time.monotonic() + _TRANSCRIBE_POLL_TIMEOUT_S
+    last_status = ""
+    while time.monotonic() < deadline:
+        poll = _gladia_request("GET", result_url, api_key, timeout=15.0)
+        status = (poll.get("status") or "").lower()
+        last_status = status
+        if status == "done":
+            result = poll.get("result") or {}
+            transcription = result.get("transcription") or {}
+            text = transcription.get("full_transcript")
+            if text is None:
+                # Some Gladia plans return per-utterance only; flatten.
+                utterances = transcription.get("utterances") or []
+                text = " ".join((u.get("text") or "").strip() for u in utterances).strip()
+            return (text or "").strip()
+        if status == "error":
+            raise RuntimeError(f"gladia job errored: {poll.get('error_code') or poll}")
+        time.sleep(_TRANSCRIBE_POLL_INTERVAL_S)
+    raise RuntimeError(f"gladia poll timeout after {_TRANSCRIBE_POLL_TIMEOUT_S:.0f}s (last status: {last_status or 'unknown'})")
+
+
+@app.post("/api/transcribe")
+async def api_transcribe(request: Request):
+    api_key = (os.environ.get("TRANSCRIBE_KEY") or "").strip()
+    if not api_key:
+        # 503 is the right shape: the route exists, it's just not
+        # configured. The client falls back to its own error copy
+        # rather than treating a missing key as a transient network
+        # blip worth retrying.
+        raise HTTPException(status_code=503, detail="Transcription fallback not configured")
+
+    body = await request.body()
+    if not body:
+        raise HTTPException(status_code=400, detail="Empty audio body")
+    if len(body) > _TRANSCRIBE_MAX_BYTES:
+        raise HTTPException(
+            status_code=413,
+            detail=f"Audio body exceeds {_TRANSCRIBE_MAX_BYTES // (1024 * 1024)} MB limit",
+        )
+
+    content_type = request.headers.get("content-type", "audio/webm")
+    # Optional input-language hint forwarded to Gladia's language_config.
+    # Sent as a header so the body stays raw audio (no multipart on the
+    # client side either).
+    language = (request.headers.get("x-input-language") or "").strip().lower() or None
+    if language and not re.match(r"^[a-z]{2}$", language):
+        language = None
+
+    try:
+        audio_url = _gladia_upload_audio(body, content_type, api_key)
+        text = _gladia_transcribe(audio_url, api_key, language)
+    except Exception as e:
+        logger.error(
+            "transcribe via gladia failed",
+            extra={"ctx": {"bytes": len(body), "content_type": content_type, "lang": language, "err": str(e)[:240]}},
+        )
+        raise HTTPException(status_code=502, detail="Transcription service failed")
+
+    return {"text": text, "provider": "gladia"}
+
+
 try:
     from api import create_app as _create_chat2hamnosys_app
     _chat2hamnosys_sub_app = _create_chat2hamnosys_app()
