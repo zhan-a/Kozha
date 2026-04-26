@@ -151,29 +151,65 @@
           <li><strong>Deaf-reviewed</strong><span>before it goes live</span></li>
         </ul>
       </div>
-      <aside class="c2-hero__card" aria-hidden="true">
+      <!-- SiGML + HamNoSys snapshot card. Default state shows the
+           linguistic artefact (gloss, HamNoSys glyphs, SiGML excerpt
+           pulled verbatim from data/hamnosys_bsl_version1.sigml entry
+           name(v)#1). The "Play with avatar" button claims the page's
+           CWASA canvas to this mount and plays the SiGML — see
+           contribute-walkthrough.js. The previous silhouette + invented
+           "ELECTRON" gloss were removed (no such BSL entry existed).
+           See docs/contrib-fix/prompts/03-fake-avatar-audit.md. -->
+      <aside class="c2-hero__card c2-snapshot-card"
+             aria-labelledby="c2-hero-card-gloss">
         <div class="c2-hero__card-head">
           <span class="c2-hero__card-chip">BSL</span>
-          <span class="c2-hero__card-gloss">ELECTRON</span>
-          <span class="c2-hero__card-state">live</span>
+          <span class="c2-hero__card-gloss" id="c2-hero-card-gloss">NAME</span>
+          <span class="c2-hero__card-state">in dictionary</span>
         </div>
-        <div class="c2-hero__card-stage">
-          <div class="c2-hero__avatar c2-hero__cwasa CWASAAvatar av0" id="heroAvatarMount" aria-hidden="true">
-            <svg class="c2-hero__cwasa-poster" viewBox="0 0 160 160" aria-hidden="true" focusable="false">
-              <circle class="c2-cwasa-poster-head"  cx="80" cy="44" r="22"/>
-              <path   class="c2-cwasa-poster-torso" d="M40 134 Q40 88 80 88 Q120 88 120 134 Z"/>
-              <rect   class="c2-cwasa-poster-arm-a" x="32"  y="80" width="22" height="58" rx="11" transform="rotate(20 43 109)"/>
-              <rect   class="c2-cwasa-poster-arm-b" x="106" y="80" width="22" height="58" rx="11" transform="rotate(-12 117 109)"/>
-            </svg>
+        <div class="c2-hero__card-stage c2-snapshot-card__stage"
+             data-demo-card="hero"
+             data-gloss="name(v)#1"
+             data-corpus="hamnosys_bsl_version1.sigml">
+          <div class="c2-hero__avatar c2-hero__cwasa CWASAAvatar av0"
+               id="heroAvatarMount"></div>
+          <div class="c2-snapshot-card__snapshot"
+               id="heroSnapshot"
+               role="img"
+               aria-label="BSL sign for 'name': index and middle fingers extended near the forehead, brushing outward.">
+            <p class="c2-snapshot-card__rubric">HamNoSys · BSL · name(v)#1</p>
+            <span class="hamnosys c2-snapshot-card__glyphs" lang="zxx" aria-hidden="true">&#xE003;&#xE027;&#xE03D;&#xE042;&#xE059;&#xE0D1;&#xE0E2;&#xE08A;&#xE0AA;&#xE031;&#xE03B;&#xE0E3;</span>
+            <pre class="c2-snapshot-card__sigml" aria-hidden="true"><code>&lt;hamnosys_manual&gt;
+  &lt;hamfinger23/&gt;&lt;hamextfingerul/&gt;
+  &lt;hampalmdl/&gt;&lt;hamforehead/&gt;
+  &lt;hamlrat/&gt;&lt;hamtouch/&gt;
+  &lt;hamparbegin/&gt;&lt;hammoveor/&gt;
+  &lt;hamreplace/&gt;&lt;hamextfingeruo/&gt;
+  &lt;hampalmdr/&gt;&lt;hamparend/&gt;
+&lt;/hamnosys_manual&gt;</code></pre>
           </div>
           <div class="c2-hero__pulse" aria-hidden="true"></div>
+          <!-- SiGML payload that the play button hands to CWASA. Kept as
+               an inline <script type="application/xml"> so there's a
+               single source of truth (no JS string duplication). The
+               test at tests/contrib_demo_signs.spec.ts asserts this
+               matches the entry in data/hamnosys_bsl_version1.sigml. -->
+          <script type="application/xml" data-demo-payload="hero"><sigml><hns_sign gloss="name(v)#1"><hamnosys_nonmanual /><hamnosys_manual><hamfinger23 /><hamextfingerul /><hampalmdl /><hamforehead /><hamlrat /><hamtouch /><hamparbegin /><hammoveor /><hamreplace /><hamextfingeruo /><hampalmdr /><hamparend /></hamnosys_manual></hns_sign></sigml></script>
         </div>
-        <div class="c2-hero__card-glyphs">
-          <span class="hamnosys" lang="zxx" aria-hidden="true">&#xE00A;&#xE00E;&#xE010;&#xE027;&#xE03D;&#xE042;&#xE059;</span>
+        <div class="c2-hero__card-glyphs c2-snapshot-card__cta">
+          <button type="button"
+                  class="c2-snapshot-card__play"
+                  id="heroPlayBtn"
+                  aria-pressed="false"
+                  aria-controls="heroAvatarMount"
+                  data-demo-play="hero">
+            <span class="c2-snapshot-card__play-icon" aria-hidden="true">▶</span>
+            <span class="c2-snapshot-card__play-label">Play with avatar</span>
+          </button>
+          <span class="c2-snapshot-card__attribution">BSL · DictaSign Corpus, CC&nbsp;BY-NC-SA</span>
         </div>
         <div class="c2-hero__card-meta">
           <span class="c2-hero__card-dot" aria-hidden="true"></span>
-          <span>Reviewed by 2 Deaf signers</span>
+          <span>Reviewed by Deaf signers</span>
         </div>
       </aside>
     </header>
@@ -341,19 +377,29 @@
               </ul>
             </div>
             <figure class="c2-walk__viz c2-viz-4">
-              <div class="c2-viz-4__avatar c2-viz-4__cwasa CWASAAvatar av0"
+              <!-- Step 4 demo card. Default state is the
+                   SiGML/HamNoSys snapshot — the silhouette SVG that
+                   used to live here was the only "fake" element on the
+                   page (see docs/contrib-fix/prompts/03-fake-avatar-audit.md).
+                   The Replay button claims the CWASA canvas; under
+                   prefers-reduced-motion the auto-play in viewport is
+                   suppressed and the button is the only entry point. -->
+              <div class="c2-viz-4__avatar c2-viz-4__cwasa CWASAAvatar av0 c2-snapshot-card__stage"
                    id="walkAvatarMount"
                    role="img"
-                   aria-label="HAMBURG sign — CWASA avatar demo">
-                <div class="c2-viz-4__avatar-poster" aria-hidden="true">
-                  <svg viewBox="0 0 160 140" focusable="false">
-                    <circle class="c2-cwasa-poster-head"  cx="80"  cy="34" r="18"/>
-                    <path   class="c2-cwasa-poster-torso" d="M48 116 Q48 76 80 76 Q112 76 112 116 Z"/>
-                    <rect   class="c2-cwasa-poster-arm-a" x="38"  y="68" width="16" height="44" rx="8" transform="rotate(20 46 90)"/>
-                    <rect   class="c2-cwasa-poster-arm-b" x="106" y="68" width="16" height="44" rx="8" transform="rotate(-15 114 90)"/>
-                  </svg>
-                  <span class="c2-viz-4__avatar-poster-label">avatar loads on first interaction</span>
+                   data-demo-card="walk"
+                   data-gloss="HAMBURG2^"
+                   data-corpus="German_SL_DGS.sigml"
+                   aria-label="DGS sign for 'Hamburg': open C-shape near the forehead opening to a pinched handshape moving outward.">
+                <div class="c2-snapshot-card__snapshot c2-viz-4__snapshot">
+                  <p class="c2-snapshot-card__rubric">HamNoSys · DGS · HAMBURG2^</p>
+                  <span class="hamnosys c2-snapshot-card__glyphs" lang="zxx" aria-hidden="true">&#xE00A;&#xE00E;&#xE010;&#xE027;&#xE03D;&#xE042;&#xE059;&#xE0D0;&#xE0E2;&#xE082;&#xE0AA;&#xE007;&#xE010;&#xE0E3;</span>
+                  <span class="c2-snapshot-card__hint" data-demo-hint>Press Replay to play with the avatar</span>
                 </div>
+                <!-- SiGML payload played when the canvas is claimed.
+                     contribute-walkthrough.js reads this in preference
+                     to the legacy hardcoded constant. -->
+                <script type="application/xml" data-demo-payload="walk"><sigml><hns_sign gloss="HAMBURG2^"><hamnosys_manual><hamceeall/><hamthumbopenmod/><hamfingerstraightmod/><hamextfingerul/><hampalmdl/><hamforehead/><hamlrat/><hamclose/><hamparbegin/><hammover/><hamreplace/><hampinchall/><hamfingerstraightmod/><hamparend/></hamnosys_manual></hns_sign></sigml></script>
               </div>
               <div class="c2-viz-4__controls">
                 <button type="button"

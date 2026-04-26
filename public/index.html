@@ -31,6 +31,19 @@
   <link rel="stylesheet" href="/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script defer src="/sigml-validator.js"></script>
   <script defer src="/i18n.js"></script>
+
+  <!-- Bridge the same error-mapping helpers app.html uses into globals
+       so the hero's classic <script> blocks can convert any caught
+       error into plain-language UI copy without leaking class names
+       or module paths. The full translator's mic flow has been working
+       with this exact wiring; the hero adopts it verbatim. -->
+  <script type="module">
+    import { describeError } from '/lib/describe-error.js';
+    import { userMessageForUpload, userMessageForMic } from '/lib/error-copy.js';
+    window.describeError = describeError;
+    window.userMessageForUpload = userMessageForUpload;
+    window.userMessageForMic = userMessageForMic;
+  </script>
   <!-- Snapshot the browser's native WebAssembly object before
        /cwa/allcsa.js is injected. The avatar bundle is an Emscripten
        WASM2JS build that overwrites the global WebAssembly with a
@@ -1843,23 +1856,33 @@
       return ((data && data.text) || '').trim();
     }
 
-    // The hero demo on the landing page goes STRAIGHT to the server-
-    // side Gladia proxy: the in-browser Whisper pipeline is fast in
-    // the happy case but produces opaque internal errors (e.g.
-    // "e.subarray is not a function") on enough browser/codec combos
-    // that exposing them on the marketing surface erodes trust. The
-    // full translator at /app.html still tries local first — that
-    // page is the one users have already opted in to.
-    //
-    // The server returns a clean string (possibly empty for silent
-    // clips). We surface generic copy on any failure — never the
-    // underlying provider name or internal stack — and the catch
-    // handlers at the call sites add an "Open full translator →"
-    // recovery link so the user is never stuck.
+    // Mirrors transcribeWithFallback in /public/app.html exactly —
+    // try the in-browser Whisper pipeline first, fall back to the
+    // server-side Gladia proxy at /api/transcribe on any local
+    // failure (or empty transcript). When BOTH legs fail we surface
+    // the local error string so /lib/error-copy.js's userMessageForMic
+    // produces the right plain-language hint at the call site.
     async function heroTranscribeWithFallback(blob) {
-      const text = await heroTranscribeViaServer(blob);
-      if (text) return text;
-      throw new Error('No speech detected — try recording again with a clearer voice.');
+      let localError = null;
+      try {
+        const asr = await ensureASR();
+        const result = await asr(blob, getAsrOptions());
+        const text = ((result && result.text) || '').trim();
+        if (text) return text;
+        localError = new Error('local pipeline returned empty transcript');
+      } catch (e) {
+        localError = e;
+      }
+      try {
+        const serverText = await heroTranscribeViaServer(blob);
+        if (serverText) return serverText;
+      } catch (serverError) {
+        const localWhy = window.describeError ? window.describeError(localError) : ((localError && localError.message) || String(localError));
+        const serverWhy = window.describeError ? window.describeError(serverError) : ((serverError && serverError.message) || String(serverError));
+        console.warn('[hero-asr] both local and server transcription failed', { local: localWhy, server: serverWhy });
+        throw localError;
+      }
+      throw localError;
     }
 
     function getAsrOptions() {
@@ -1887,35 +1910,24 @@
       el.appendChild(a);
     }
 
-    // Hero demo error copy. The hero is a marketing surface — it
-    // must never leak internal class names, provider names, or
-    // module paths into the UI. Map any caught exception to one of
-    // a small set of plain-language hints. Recording-time errors
-    // (mic permission, no device) are distinct from transcribe-time
-    // errors (network blip, no speech, generic processing failure).
-    function heroFriendlyMicCueRecord(err) {
-      const m = String(err && err.message || err || '').toLowerCase();
-      if (m.indexOf('permission') !== -1 || m.indexOf('notallowed') !== -1 || m.indexOf('denied') !== -1) {
-        return "Microphone access was blocked. Allow mic access in your browser's site settings and reload.";
-      }
-      if (m.indexOf('notfound') !== -1 || m.indexOf('no device') !== -1 || m.indexOf('overconstrained') !== -1) {
-        return 'No microphone found. Connect a microphone and reload.';
-      }
-      return 'Microphone capture failed. Reload the page and try again.';
+    // Route a caught exception through describeError() (the dev string)
+    // and then through one of the /lib/error-copy.js mappers — same
+    // path the working translator at /app.html uses, so the hero
+    // produces identical plain-language copy.
+    function heroPlainMicCue(err, kind) {
+      const why = (window.describeError && window.describeError(err))
+        || (err && err.message) || String(err);
+      const mapper = kind === 'transcribe'
+        ? (window.userMessageForMic || (() => "Couldn't transcribe this clip. Try again, or open the full translator."))
+        : (window.userMessageForMic || (() => 'Microphone capture failed. Reload the page and try again.'));
+      return mapper(kind === 'transcribe' ? ('transcribe failed: ' + why) : why);
     }
-    function heroFriendlyTranscribeCue(err) {
-      const m = String(err && err.message || err || '').toLowerCase();
-      if (m.indexOf('no speech detected') !== -1) {
-        // Already a clean message produced by heroTranscribeWithFallback.
-        return err.message;
-      }
-      if (m.indexOf('failed to fetch') !== -1 || m.indexOf('network') !== -1 || m.indexOf('offline') !== -1) {
-        return 'Network problem — check your connection and try again.';
-      }
-      if (m.indexOf('413') !== -1 || m.indexOf('too large') !== -1) {
-        return 'Clip is too long for the demo. Try something under a minute.';
-      }
-      return "Couldn't transcribe this clip. Try again, or open the full translator.";
+    function heroPlainUploadCue(err) {
+      const why = (window.describeError && window.describeError(err))
+        || (err && err.message) || String(err);
+      const mapper = window.userMessageForUpload
+        || (() => "Couldn't transcribe this clip. Try again, or open the full translator.");
+      return mapper(why);
     }
 
     (function() {
@@ -1941,7 +1953,7 @@
             if (micTranscript) micTranscript.value = '';
           } catch (e) {
             console.warn('[hero-mic] capture failed:', e);
-            setHeroStatusWithFallbackLink(micStatus, heroFriendlyMicCueRecord(e));
+            setHeroStatusWithFallbackLink(micStatus, heroPlainMicCue(e, 'record'));
           }
         } else {
           mediaRecorder.stop();
@@ -1968,7 +1980,7 @@
             document.getElementById('tab-text').classList.add('active');
           } catch (e) {
             console.warn('[hero-mic] transcribe failed:', e);
-            setHeroStatusWithFallbackLink(micStatus, heroFriendlyTranscribeCue(e));
+            setHeroStatusWithFallbackLink(micStatus, heroPlainMicCue(e, 'transcribe'));
           }
           recordBtn.textContent = '● Start recording';
           recordBtn.disabled = false;
@@ -2034,7 +2046,7 @@
           document.getElementById('tab-text').classList.add('active');
         } catch (e) {
           console.warn('[hero-video] processing failed:', e);
-          setHeroStatusWithFallbackLink(videoStatus, heroFriendlyTranscribeCue(e));
+          setHeroStatusWithFallbackLink(videoStatus, heroPlainUploadCue(e));
         }
         videoBtn.disabled = false;
       });

@@ -2974,16 +2974,16 @@ select.field-input { cursor: pointer; }
   justify-content: center;
 }
 
-/* Minimal CSS avatar silhouette. Head, shoulders, two "arms" at slightly
-   different angles so the composition reads as mid-sign. */
+/* CWASA mount on the hero snapshot card. Empty by default — the
+   .c2-snapshot-card__snapshot sibling holds the linguistic preview
+   (HamNoSys glyphs + SiGML excerpt) until the play button claims the
+   page's CWASA canvas. The previous SVG silhouette ("CSS-only avatar
+   mock") was removed; see docs/contrib-fix/prompts/03-fake-avatar-audit.md. */
 .c2-hero__avatar {
   position: relative;
-  width: 160px;
-  height: 160px;
+  width: 100%;
+  height: 100%;
 }
-/* CWASA mount on the hero card. The poster SVG below stays visible until
-   the CWASA bundle resolves and contribute-walkthrough.js claims the
-   canvas to the walkthrough stage. */
 .c2-hero__cwasa {
   display: flex;
   align-items: center;
@@ -2995,19 +2995,129 @@ select.field-input { cursor: pointer; }
   height: 100%;
   object-fit: contain;
 }
-.c2-hero__cwasa-poster {
-  width: 100%;
-  height: 100%;
+/* Snapshot-card pattern (Pattern B from the fake-avatar audit): an
+   honest, static representation of a sign — gloss, HamNoSys glyphs,
+   SiGML excerpt — that lives inside any CWASA mount until the live
+   avatar is requested. The :has(canvas) rule below hides the snapshot
+   the moment CWASA injects its WebGL canvas inside the same stage. */
+.c2-snapshot-card__stage {
+  position: relative;
 }
-/* Shared poster-fill rules so both hero and walkthrough fallback SVGs
-   read from the design tokens. SVG presentation attributes don't accept
-   var(), so the fill comes from CSS. */
-.c2-cwasa-poster-head  { fill: var(--kozha-color-ink-2); }
-.c2-cwasa-poster-torso { fill: var(--kozha-color-ink); }
-.c2-cwasa-poster-arm-a { fill: var(--kozha-color-accent); }
-.c2-cwasa-poster-arm-b { fill: var(--kozha-color-ink-2); }
-/* Hide the poster the moment CWASA injects a canvas inside the mount. */
-.c2-hero__cwasa:has(canvas) .c2-hero__cwasa-poster { display: none; }
+.c2-snapshot-card__snapshot {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 14px 16px;
+  box-sizing: border-box;
+  pointer-events: none;
+  text-align: center;
+}
+.c2-snapshot-card__rubric {
+  font-family: var(--kozha-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--kozha-color-ink-3);
+  margin: 0;
+}
+.c2-snapshot-card__glyphs {
+  font-family: 'HamNoSysUnicode', monospace;
+  font-size: 26px;
+  line-height: 1.1;
+  color: var(--kozha-color-ink);
+  word-break: break-all;
+  max-width: 100%;
+}
+.no-hamnosys-font .c2-snapshot-card__glyphs { display: none; }
+.c2-snapshot-card__sigml {
+  margin: 0;
+  width: 100%;
+  max-width: 220px;
+  max-height: 70px;
+  overflow: hidden;
+  font-family: var(--kozha-font-mono);
+  font-size: 9px;
+  line-height: 1.35;
+  color: var(--kozha-color-ink-2);
+  background: var(--kozha-color-paper-2);
+  border: 1px solid var(--kozha-color-border);
+  border-radius: 6px;
+  padding: 6px 8px;
+  text-align: left;
+  white-space: pre;
+}
+.c2-snapshot-card__sigml code {
+  font: inherit;
+  color: inherit;
+}
+.c2-snapshot-card__hint {
+  font-family: var(--kozha-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--kozha-color-ink-3);
+}
+.c2-snapshot-card__cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.c2-snapshot-card__play {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--kozha-font-sans);
+  font-size: 12px;
+  font-weight: var(--kozha-weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  /* Use --accent (#b3441b) — the WCAG-AA-passing shade on paper. The
+     bright variant (--accent-bright / #c96a2e) fails AA at small text. */
+  color: var(--kozha-color-accent);
+  background: transparent;
+  border: 1px solid var(--kozha-color-accent);
+  border-radius: 999px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+.c2-snapshot-card__play:hover {
+  background: var(--kozha-color-accent-light);
+  transform: translateY(-1px);
+}
+.c2-snapshot-card__play:focus-visible {
+  outline: 2px solid var(--kozha-color-accent);
+  outline-offset: 2px;
+}
+.c2-snapshot-card__play[aria-pressed="true"] {
+  color: var(--kozha-color-paper);
+  background: var(--kozha-color-accent);
+}
+.c2-snapshot-card__attribution {
+  font-family: var(--kozha-font-sans);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--kozha-color-ink-3);
+}
+/* Hide the snapshot when CWASA injects its canvas inside the same
+   stage — same pattern the legacy silhouette poster used. */
+.c2-snapshot-card__stage:has(canvas) .c2-snapshot-card__snapshot { display: none; }
+
+@media (max-width: 480px) {
+  .c2-snapshot-card__sigml { display: none; }
+  .c2-snapshot-card__glyphs { font-size: 22px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .c2-snapshot-card__play { transition: none; }
+  .c2-snapshot-card__play:hover { transform: none; }
+}
+
 .c2-hero__pulse {
   position: absolute;
   top: 24px; right: 34px;
@@ -3553,30 +3663,11 @@ select.field-input { cursor: pointer; }
   height: 100%;
   object-fit: contain;
 }
-.c2-viz-4__avatar-poster {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  height: 100%;
-  padding: 14px;
-  box-sizing: border-box;
-}
-.c2-viz-4__avatar-poster svg {
-  flex: 1 1 auto;
-  width: auto;
-  max-height: 140px;
-  opacity: 0.55;
-}
-.c2-viz-4__avatar-poster-label {
-  font-family: var(--kozha-font-mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--kozha-color-ink-3);
-}
-.c2-viz-4__cwasa:has(canvas) .c2-viz-4__avatar-poster { display: none; }
+/* The Step 4 mount used to ship an SVG silhouette poster as the
+   load-state placeholder; now it shows the SiGML/HamNoSys snapshot
+   (.c2-snapshot-card__snapshot) until CWASA injects a canvas. */
+.c2-viz-4__snapshot { padding: 14px; }
+.c2-viz-4__cwasa:has(canvas) .c2-snapshot-card__snapshot { display: none; }
 
 .c2-viz-4__controls {
   display: flex;

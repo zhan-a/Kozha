@@ -1,44 +1,44 @@
 // contribute-walkthrough.js
 //
-// Drives the playable HAMBURG demo on /contribute walkthrough step 4
-// ("Watch the avatar perform it"). Owns:
-//   - The single canonical HAMBURG SiGML constant for the page (also
-//     exposed as window.KOZHA_DEMO_HAMBURG so other surfaces don't
-//     bundle a second copy).
-//   - Reparenting CWASA's rendered <canvas> between the walkthrough
-//     mount and the live-preview mount so a single CWASA.init covers
-//     every visible stage on the page.
-//   - Autoplay-on-step-visible (IntersectionObserver + step-active
-//     MutationObserver), Replay button, and pause when the panel
-//     leaves view.
-//   - Building a keyboard-navigable chip strip — one chip per
-//     <ham*-/> tag in the SiGML, each carrying its semantic role from
-//     hamnosys-sigml-reference.md § 1, with a read-only inspector on
-//     Enter/click. Chip click-to-swap is prompt 05's job; this file
-//     stays read-only.
+// Drives both demo cards on /contribute:
+//   1. The hero snapshot card (BSL · name(v)#1) — Pattern B by default,
+//      swaps to a real CWASA mount on play-button click.
+//   2. The walkthrough Step 4 ("Watch the avatar perform it") demo
+//      (DGS · HAMBURG2^) — autoplays in-viewport on step-active,
+//      Replay button re-triggers, pauses when the panel leaves view.
+//
+// SiGML payloads live inside the cards as inline
+// <script type="application/xml" data-demo-payload="..."> elements so
+// the gloss/payload alignment is enforced by markup (the test at
+// tests/contrib_demo_signs.spec.ts asserts each payload matches the
+// named corpus entry). The fake silhouette posters that used to live
+// here were removed — see docs/contrib-fix/prompts/03-fake-avatar-audit.md.
+//
+// Reparents CWASA's rendered <canvas> between the hero mount, the
+// walkthrough mount, and the live-preview mount so a single CWASA.init
+// covers every visible stage on the page. Honors
+// prefers-reduced-motion (no auto-play; explicit click only) and small
+// viewports (auto-play suppressed below 600 px wide).
 (function () {
   'use strict';
 
-  // Canonical HAMBURG demo. Lifted verbatim from
-  // hamnosys-sigml-reference.md § 5.1 (the document cited as the
-  // ground-truth HamNoSys ↔ SiGML mapping). Keep this string the only
-  // copy on the page — the chat2hamnosys generator's few-shot example
-  // module reads its own copy server-side; we don't bundle a second
-  // browser-side duplicate.
-  var HAMBURG_SIGML = [
-    '<?xml version="1.0" encoding="utf-8"?>',
-    '<sigml>',
-    '  <hns_sign gloss="HAMBURG">',
-    '    <hamnosys_manual>',
-    '      <hamceeall/><hamthumbopenmod/><hamfingerstraightmod/><hamextfingerul/>',
-    '      <hampalmdl/><hamforehead/><hamlrat/><hamclose/>',
-    '      <hamparbegin/><hammover/><hamreplace/><hampinchall/>',
-    '      <hamfingerstraightmod/><hamparend/>',
-    '    </hamnosys_manual>',
-    '  </hns_sign>',
-    '</sigml>'
-  ].join('\n');
-  window.KOZHA_DEMO_HAMBURG = HAMBURG_SIGML;
+  // Read SiGML payload from the inline <script type="application/xml">
+  // anchored to a demo card. Returns null if the card or payload
+  // element isn't on the page. Single source of truth — the visible
+  // <pre> excerpt and the played SiGML are sourced from the same
+  // markup so they cannot drift.
+  function readPayload(slot) {
+    var el = document.querySelector('script[type="application/xml"][data-demo-payload="' + slot + '"]');
+    return el ? (el.textContent || '').trim() : null;
+  }
+
+  var HAMBURG_SIGML = readPayload('walk');
+  var HERO_SIGML    = readPayload('hero');
+
+  // Backward-compatible export: the chat2hamnosys generator and other
+  // surfaces previously read window.KOZHA_DEMO_HAMBURG to avoid bundling
+  // a second copy. Preserved here.
+  if (HAMBURG_SIGML) window.KOZHA_DEMO_HAMBURG = HAMBURG_SIGML;
 
   // Tag → { role, category }. Role text is taken verbatim from the
   // reference doc's `role:` field. The reference's category names are
@@ -61,7 +61,8 @@
 
   function extractHamTags(sigml) {
     var tags = [];
-    var re = /<(ham[a-z0-9]+)\/>/gi;
+    if (!sigml) return tags;
+    var re = /<(ham[a-z0-9]+)\s*\/>/gi;
     var m;
     while ((m = re.exec(sigml)) !== null) tags.push(m[1].toLowerCase());
     return tags;
@@ -71,6 +72,8 @@
   // walkthrough markup isn't on this page) ----------
 
   var walkMount      = document.getElementById('walkAvatarMount');
+  var heroMount      = document.getElementById('heroAvatarMount');
+  var heroPlayBtn    = document.getElementById('heroPlayBtn');
   var liveMount      = document.getElementById('avatarCanvas');
   var stepPanel      = document.getElementById('c2-panel-4');
   var replayBtn      = document.getElementById('walkReplayBtn');
@@ -83,6 +86,29 @@
   var previewSection = document.getElementById('avatarPreview');
 
   if (!walkMount || !stepPanel || !chipHost) return;
+
+  // ---------- Adaptive defaults (Pattern B fallback) ----------
+  //
+  // The fake-avatar audit (docs/contrib-fix/prompts/03-fake-avatar-audit.md)
+  // requires that prefers-reduced-motion AND small viewports default to
+  // the static snapshot card and only swap to the live avatar on
+  // explicit click. Both checks are evaluated lazily so a user changing
+  // their OS motion preference or rotating their device picks up the
+  // new state without reload.
+  function reduceMotion() {
+    return window.matchMedia &&
+           window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+  function tinyViewport() {
+    if (typeof window.innerWidth !== 'number') return false;
+    return window.innerWidth < 600;
+  }
+  function autoPlayAllowed() {
+    // Reduced motion always wins. Small viewports skip auto-play
+    // because the canvas would render under 200 px tall on phones —
+    // the snapshot card is more legible than a postage-stamp avatar.
+    return !reduceMotion() && !tinyViewport();
+  }
 
   // ---------- CWASA canvas ownership ----------
   //
@@ -140,16 +166,18 @@
   });
 
   var isPlaying = false;
-  function playHamburg() {
+  function playSigml(sigml) {
+    if (!sigml) return;
     if (!window.CWASA || typeof window.CWASA.playSiGMLText !== 'function') return;
     try { window.CWASA.stop(0); } catch (_e) {}
     try {
-      window.CWASA.playSiGMLText(HAMBURG_SIGML, 0);
+      window.CWASA.playSiGMLText(sigml, 0);
       isPlaying = true;
     } catch (e) {
       if (window.console) console.warn('[contribute-walkthrough] play failed:', e);
     }
   }
+  function playHamburg() { playSigml(HAMBURG_SIGML); }
   function pause() {
     if (!window.CWASA) return;
     try { window.CWASA.stop(0); } catch (_e) {}
@@ -215,7 +243,13 @@
   function isStepActive() {
     return stepPanel.classList.contains('is-active') && !stepPanel.hidden;
   }
-  function shouldPlay() { return isStepActive() && inViewport; }
+  // Auto-play requires the step to be active AND visible AND for the
+  // user not to have asked us to back off (reduced motion or tiny
+  // viewport — see autoPlayAllowed). The Replay button bypasses this
+  // gate so the user can always trigger playback explicitly.
+  function shouldPlay() {
+    return isStepActive() && inViewport && autoPlayAllowed();
+  }
 
   function update() {
     if (shouldPlay()) {
@@ -272,6 +306,51 @@
         playHamburg();
       });
     });
+  }
+
+  // ---------- Hero snapshot card play button ----------
+  //
+  // The hero card stays in Pattern B (HamNoSys + SiGML snapshot) until
+  // the user clicks "Play with avatar". On click we lazy-init CWASA
+  // (the head loader has likely already injected the bundle on the
+  // user's first interaction; ensureCwasaInit is idempotent), claim
+  // the canvas to the hero mount, and play the embedded payload.
+  // aria-pressed flips true/false to mirror visible play state.
+  if (heroPlayBtn && heroMount && HERO_SIGML) {
+    heroPlayBtn.addEventListener('click', function () {
+      var pressed = heroPlayBtn.getAttribute('aria-pressed') === 'true';
+      if (pressed) {
+        // Toggle off: stop playback and release the canvas back to the
+        // walkthrough so the chip strip / Replay button stay live.
+        pause();
+        heroPlayBtn.setAttribute('aria-pressed', 'false');
+        if (isStepActive() && inViewport && autoPlayAllowed()) {
+          claimCanvasFor(walkMount);
+        }
+        return;
+      }
+      heroPlayBtn.setAttribute('aria-pressed', 'true');
+      ensureCwasaInit();
+      cwasaReadyPromise.then(function (ok) {
+        if (!ok) {
+          heroPlayBtn.setAttribute('aria-pressed', 'false');
+          return;
+        }
+        claimCanvasFor(heroMount);
+        playSigml(HERO_SIGML);
+      });
+    });
+
+    // Reflect canvas hand-off back to the button: if the walkthrough
+    // step grabs the canvas, the hero is no longer playing — drop
+    // aria-pressed to false so the button label re-reads "▶ Play".
+    var heroOwnershipObserver = new MutationObserver(function () {
+      if (heroPlayBtn.getAttribute('aria-pressed') !== 'true') return;
+      if (!heroMount.querySelector('canvas')) {
+        heroPlayBtn.setAttribute('aria-pressed', 'false');
+      }
+    });
+    heroOwnershipObserver.observe(heroMount, { childList: true, subtree: true });
   }
 
   // Initial render: chips first (works without CWASA), then evaluate
