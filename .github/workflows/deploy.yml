@@ -177,6 +177,30 @@ jobs:
             fi
           fi
 
+          # Ensure systemd actually loads /etc/kozha.env into the
+          # service environment. The deployed kozha.service on this
+          # host predates the env-file pattern (custom ExecStart for
+          # /home/ubuntu/kozha-venv + gunicorn — see the EC2 host
+          # layout note), so it has no EnvironmentFile= directive.
+          # Replacing the unit would clobber those host-specific
+          # paths; a drop-in is additive and merges cleanly.
+          DROPIN_DIR=/etc/systemd/system/kozha.service.d
+          DROPIN_FILE=\$DROPIN_DIR/10-kozha-env.conf
+          DROPIN_BODY='[Service]
+          EnvironmentFile=-/etc/kozha.env'
+          NEED_INSTALL=1
+          if sudo test -f "\$DROPIN_FILE"; then
+            if echo "\$DROPIN_BODY" | sudo cmp -s - "\$DROPIN_FILE"; then
+              NEED_INSTALL=0
+            fi
+          fi
+          if [ "\$NEED_INSTALL" = "1" ]; then
+            sudo mkdir -p "\$DROPIN_DIR"
+            echo "\$DROPIN_BODY" | sudo tee "\$DROPIN_FILE" >/dev/null
+            sudo chmod 644 "\$DROPIN_FILE"
+            echo "[deploy] installed systemd drop-in: \$DROPIN_FILE"
+          fi
+
           sudo systemctl daemon-reload
           sudo systemctl restart kozha.service
           sudo systemctl --no-pager status kozha.service
