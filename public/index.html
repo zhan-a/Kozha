@@ -32,48 +32,11 @@
   <script defer src="/sigml-validator.js"></script>
   <script defer src="/i18n.js"></script>
 
-  <!-- Bridge the same error-mapping helpers app.html uses into globals
-       so the hero's classic <script> blocks can convert any caught
-       error into plain-language UI copy without leaking class names
-       or module paths. The full translator's mic flow has been working
-       with this exact wiring; the hero adopts it verbatim. -->
-  <script type="module">
-    import { describeError } from '/lib/describe-error.js';
-    import { userMessageForUpload, userMessageForMic } from '/lib/error-copy.js';
-    window.describeError = describeError;
-    window.userMessageForUpload = userMessageForUpload;
-    window.userMessageForMic = userMessageForMic;
-  </script>
-  <!-- Snapshot the browser's native WebAssembly object before
-       /cwa/allcsa.js is injected. The avatar bundle is an Emscripten
-       WASM2JS build that overwrites the global WebAssembly with a
-       partial polyfill (Memory/Module/Instance only — no validate,
-       compile, instantiate). transformers.js needs the real one to
-       run Whisper, so the hero mic / video transcription flow saves
-       this reference now and restores it just before importing the
-       speech-recognition pipeline. Mirrors the same pattern in
-       app.html. -->
-  <script>
-    if (typeof window !== 'undefined' && window.WebAssembly && !window.__nativeWebAssembly) {
-      window.__nativeWebAssembly = window.WebAssembly;
-    }
-  </script>
-
-  <!-- Importmap pinning ORT 1.22.0 — required because
-       @huggingface/transformers@3.8.1's web bundle has top-level
-       `import * as ort from "onnxruntime-web"` and
-       `import { Tensor } from "onnxruntime-common"`, both bare
-       specifiers that fail to resolve without an importmap. Mirror
-       of the importmap in app.html. -->
-  <script type="importmap">
-  {
-    "imports": {
-      "onnxruntime-web": "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/ort.wasm.min.mjs",
-      "onnxruntime-web/wasm": "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/ort.wasm.min.mjs",
-      "onnxruntime-common": "https://cdn.jsdelivr.net/npm/onnxruntime-common@1.22.0/dist/esm/index.js"
-    }
-  }
-  </script>
+  <!-- The landing-page hero uses the server-side Gladia proxy at
+       /api/transcribe for mic + video transcription. The in-browser
+       Whisper pipeline (transformers.js + onnxruntime-web) lives only
+       on /app.html; the imports / importmap / __nativeWebAssembly
+       snapshot it required have been removed from this page. -->
   <script>
     // CWASA avatar bundle is ~4.6 MB — inject only on first user intent
     // so mobile LCP doesn't have to wait on the download. The hero demo
@@ -1787,128 +1750,43 @@
       }
     });
 
-    // Lazy-loads the @huggingface/transformers pipeline for on-device
-    // Whisper ASR. Dynamic import via CDN so only the voice/video tabs
-    // pay the cost. Pinned to 3.8.1 — the rebrand of @xenova/transformers
-    // with current model registry; matches public/app.html so we don't
-    // ship two transformers builds in one session.
-    async function heroGetPipeline() {
-      if (!window.__transformersPipeline) {
-        // Restore the native WebAssembly that allcsa.js's WASM2JS
-        // polyfill clobbered. Without this, ORT bails out with
-        // "no available backend found" / "Unsupported model type:
-        // whisper" before the pipeline can even initialise.
-        if (window.__nativeWebAssembly) {
-          window.WebAssembly = window.__nativeWebAssembly;
-        }
-        var mod = await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1/dist/transformers.web.min.js');
-        if (mod.env) {
-          mod.env.allowRemoteModels = true;
-          mod.env.allowLocalModels = false;
-          mod.env.useBrowserCache = true;
-          if (mod.env.backends && mod.env.backends.onnx && mod.env.backends.onnx.wasm) {
-            mod.env.backends.onnx.wasm.numThreads = 1;
-            mod.env.backends.onnx.wasm.wasmPaths =
-              'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/';
-          }
-        }
-        window.__transformersPipeline = mod.pipeline;
-      }
-      return window.__transformersPipeline;
-    }
-
-    function pickAsrModel() {
-      const ua = navigator.userAgent || '';
-      const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(ua);
-      const lang = getHeroInputLang();
-      if (lang === 'en') return isMobile ? 'Xenova/whisper-tiny.en' : 'Xenova/whisper-small.en';
-      return isMobile ? 'Xenova/whisper-tiny' : 'Xenova/whisper-small';
-    }
-
-    async function ensureASR() {
-      const pipeline = await heroGetPipeline();
-      const model = pickAsrModel();
-      if (!window.__asr || window.__asrModelName !== model) {
-        window.__asr = await pipeline('automatic-speech-recognition', model);
-        window.__asrModelName = model;
-      }
-      return window.__asr;
-    }
-
-    // Server-side fallback for the on-device Whisper pipeline. Mirrors
-    // the same helper in app.html — POSTs the raw audio Blob to
-    // /api/transcribe which proxies through Gladia using the host's
-    // TRANSCRIBE_KEY. Returns 503 when the key isn't configured, in
-    // which case the local error is surfaced verbatim so the user
-    // copy still reads correctly.
-    async function heroTranscribeViaServer(blob) {
+    // POST the audio Blob to /api/transcribe (Gladia proxy) and
+    // return the transcript string. Throws an Error tagged with the
+    // HTTP status on a non-2xx response, or a "No speech detected"
+    // error when Gladia returned 200 but with empty text.
+    //
+    // This is the ONLY transcription path on the landing-page hero —
+    // the in-browser Whisper / transformers.js pipeline has been
+    // stripped from this surface. The full translator at /app.html
+    // still has both legs; this surface intentionally does not.
+    async function heroTranscribeWithFallback(blob) {
       const lang = (getHeroInputLang && getHeroInputLang()) || '';
       const headers = {};
       if (blob && blob.type) headers['content-type'] = blob.type;
       if (lang) headers['x-input-language'] = lang;
-      const resp = await fetch('/api/transcribe', { method: 'POST', headers, body: blob });
+      let resp;
+      try {
+        resp = await fetch('/api/transcribe', { method: 'POST', headers, body: blob });
+      } catch (e) {
+        // fetch() rejected — DNS, offline, certificate, etc.
+        const why = (e && e.message) || String(e);
+        console.warn('[hero-asr] /api/transcribe network error:', why);
+        throw new Error('NetworkError: ' + why);
+      }
       if (!resp.ok) {
         let detail = '';
         try { detail = await resp.text(); } catch (_e) {}
-        throw new Error('transcribe fallback ' + resp.status + (detail ? ': ' + detail.slice(0, 200) : ''));
+        const tag = resp.status === 413 ? '413 too large'
+                  : resp.status === 503 ? '503 unconfigured'
+                  : 'HTTP ' + resp.status;
+        // Server body logged for debugging; never surfaced to UI.
+        console.warn('[hero-asr] /api/transcribe failed', tag, detail.slice(0, 200));
+        throw new Error(tag);
       }
       const data = await resp.json();
-      return ((data && data.text) || '').trim();
-    }
-
-    // SERVER-FIRST on the landing-page hero. The in-browser Whisper
-    // pipeline produces opaque internal errors on enough browser /
-    // codec combinations (e.g. "e.subarray is not a function") that
-    // landing-page visitors hit them on first contact. Gladia at
-    // /api/transcribe handles WAV + WebM + Opus + MP3 + MOV uniformly
-    // server-side, so we hit it FIRST. Only on a network / 5xx /
-    // unconfigured-key failure do we fall through to the local
-    // pipeline as a best-effort last resort. The full translator at
-    // /app.html keeps its local-first ordering — that page is the
-    // one users have already opted in to.
-    //
-    // When all paths are exhausted we throw an Error whose .message
-    // is mapped by /lib/error-copy.js's userMessageForMic mapper at
-    // the call site, so the user sees the same plain-language copy
-    // the translator produces.
-    async function heroTranscribeWithFallback(blob) {
-      let serverError = null;
-      try {
-        const serverText = await heroTranscribeViaServer(blob);
-        if (serverText) return serverText;
-        // Server reached Gladia but no speech was detected.
-        throw new Error('No speech detected — try recording again with a clearer voice.');
-      } catch (e) {
-        serverError = e;
-      }
-
-      // Server leg failed (network, 5xx, key not configured, etc.).
-      // Try the local pipeline as a fallback.
-      let localError = null;
-      try {
-        const asr = await ensureASR();
-        const result = await asr(blob, getAsrOptions());
-        const text = ((result && result.text) || '').trim();
-        if (text) return text;
-        localError = new Error('local pipeline returned empty transcript');
-      } catch (e) {
-        localError = e;
-      }
-
-      const serverWhy = window.describeError ? window.describeError(serverError) : ((serverError && serverError.message) || String(serverError));
-      const localWhy = window.describeError ? window.describeError(localError) : ((localError && localError.message) || String(localError));
-      console.warn('[hero-asr] server-first transcription exhausted both legs', { server: serverWhy, local: localWhy });
-      // Surface the SERVER error string — Gladia is the path the
-      // hero relies on, and its message ("transcribe failed", "no
-      // speech detected", etc.) maps cleanly through userMessageForMic.
-      throw serverError;
-    }
-
-    function getAsrOptions() {
-      const opts = { chunk_length_s: 30, stride_length_s: 5 };
-      const lang = getHeroInputLang();
-      if (lang && lang !== 'en') { opts.language = lang; opts.task = 'transcribe'; }
-      return opts;
+      const text = ((data && data.text) || '').trim();
+      if (text) return text;
+      throw new Error('No speech detected — try recording again with a clearer voice.');
     }
 
     // Renders a status message with a trailing "Open full translator
