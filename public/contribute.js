@@ -507,16 +507,39 @@
   }
 
   function updateDescriptionMeta() {
-    var len = (els.descriptionInput.value || '').length;
-    els.descriptionCount.textContent = String(len);
-    els.descriptionHint.hidden = len >= DESCRIPTION_HINT_THRESHOLD;
+    var trimmedLen = (els.descriptionInput.value || '').trim().length;
+    var rawLen = (els.descriptionInput.value || '').length;
+    els.descriptionCount.textContent = String(rawLen);
+    // Below the submit threshold, swap the generic "more detail" copy
+    // for a concrete countdown so the user can see what's gating the
+    // button. Above the threshold, fall back to the gentle nudge until
+    // we've crossed the polish threshold.
+    if (trimmedLen < DESCRIPTION_MIN) {
+      var remaining = DESCRIPTION_MIN - trimmedLen;
+      var key = remaining === 1
+        ? 'contribute.authoring.description_hint_chars_remaining'
+        : 'contribute.authoring.description_hint_chars_remaining_plural';
+      var fallback = remaining === 1
+        ? '{{n}} more character to start authoring'
+        : '{{n}} more characters to start authoring';
+      els.descriptionHint.textContent = tr(key, fallback, { n: remaining });
+      els.descriptionHint.hidden = false;
+    } else if (trimmedLen < DESCRIPTION_HINT_THRESHOLD) {
+      els.descriptionHint.textContent = tr(
+        'contribute.authoring.description_hint_more_detail',
+        'a bit more detail helps'
+      );
+      els.descriptionHint.hidden = false;
+    } else {
+      els.descriptionHint.hidden = true;
+    }
     // Clear existing errors once the user crosses each threshold so the
     // message doesn't linger while they're actively fixing it.
     if (view.submitAttempted) {
       if ((els.glossInput.value || '').trim().length > 0) {
         hideInlineError(els.glossError);
       }
-      if (len >= DESCRIPTION_MIN) {
+      if (trimmedLen >= DESCRIPTION_MIN) {
         hideInlineError(els.descriptionError);
       }
     }

@@ -115,6 +115,8 @@
       "description_label": "Describe the sign in plain language.",
       "description_placeholder_generic": "e.g. describe the handshape, where the hand starts, how it moves, and which way the palm faces.",
       "description_hint_more_detail": "a bit more detail helps",
+      "description_hint_chars_remaining": "{{n}} more character to start authoring",
+      "description_hint_chars_remaining_plural": "{{n}} more characters to start authoring",
       "description_error_too_short": "Please add at least 20 characters of description.",
       "deaf_native_checkbox": "I am a Deaf native signer of this language.",
       "submit_button": "Start authoring",
