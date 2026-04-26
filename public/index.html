@@ -1941,15 +1941,33 @@
             setHeroStatusWithFallbackLink(micStatus, heroPlainMicCue(e, 'record'));
           }
         } else {
-          mediaRecorder.stop();
+          // MediaRecorder fires dataavailable + stop asynchronously
+          // *after* stop() returns. Reading recordedChunks
+          // synchronously here yields an empty array — the blob is
+          // 0 bytes, /api/transcribe replies 400 "Empty audio body",
+          // and the user sees "We couldn't transcribe this clip."
+          // The translator at /app.html avoids this because its
+          // separate Transcribe button fires well after dataavailable.
+          const recorder = mediaRecorder;
           mediaRecorder = null;
+          const stopped = new Promise((resolve) => {
+            recorder.addEventListener('stop', resolve, { once: true });
+          });
+          recorder.stop();
           recordBtn.textContent = 'Transcribing…';
           recordBtn.classList.remove('recording');
           recordBtn.disabled = true;
           micStatus.textContent = 'Preparing speech recognition…';
+          await stopped;
 
           try {
             const blob = new Blob(recordedChunks, { type: 'audio/webm' });
+            if (!blob.size) {
+              micStatus.textContent = 'Nothing was recorded — try again.';
+              recordBtn.textContent = '● Start recording';
+              recordBtn.disabled = false;
+              return;
+            }
             micStatus.textContent = 'Transcribing audio…';
             const rawText = await heroTranscribeWithFallback(blob);
             // Show the raw transcription in-panel BEFORE translating
