@@ -8,7 +8,17 @@
  * entry. Whatever a demo card says it plays, this spec asserts that
  *
  *   1. The `data-gloss` attribute names a real entry in the named
- *      `data-corpus` file under `data/`.
+ *      `data-corpus` file. Two corpus shapes are supported:
+ *
+ *        a. A SiGML corpus file under `data/` (e.g. the walkthrough
+ *           card's `hamnosys_bsl_version1.sigml`). The expected tag
+ *           list is parsed straight out of the matching `<hns_sign>`.
+ *        b. A chat2hamnosys fixture under
+ *           `backend/chat2hamnosys/examples/*.json` (e.g. the hero
+ *           card's `electron.json`). The expected tag list is derived
+ *           by mapping each PUA codepoint in the fixture's
+ *           `expected_sign_entry.hamnosys` to its symbol short_name.
+ *
  *   2. The SiGML payload embedded in the card (the
  *      `<script type="application/xml" data-demo-payload="<slot>">`
  *      element that contribute-walkthrough.js hands to CWASA) carries
@@ -28,6 +38,24 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, '..');
 const PUBLIC_DIR = path.join(REPO_ROOT, 'public');
 const DATA_DIR = path.join(REPO_ROOT, 'data');
+
+// Subset of backend/chat2hamnosys/hamnosys/symbols.py — only the
+// codepoints used by the fixtures the demo cards point at. If a new
+// fixture introduces a codepoint not in this map, the test throws
+// with the unmapped codepoint so the maintainer adds it here.
+//
+// Source of truth is the Python module; this map lives in the test
+// because the test deliberately has no Python dependency. Keep it in
+// sync — drift would mean the test silently miscompares.
+const HAMNOSYS_SHORT_NAMES: Record<number, string> = {
+  0xe013: 'hamdoublebent',
+  0xe020: 'hamextfingeru',
+  0xe03a: 'hampalmr',
+  0xe051: 'hamshoulders',
+  0xe079: 'hamfingerbase',
+  0xe093: 'hamcirclei',
+  0xe0c5: 'hamdecreasing',
+};
 
 interface DemoCard {
   slot: string;
@@ -76,7 +104,7 @@ function findCardsInHtml(html: string): DemoCard[] {
   return cards;
 }
 
-function loadCorpusEntryTags(corpus: string, gloss: string): string[] {
+function loadSigmlCorpusTags(corpus: string, gloss: string): string[] {
   const file = path.join(DATA_DIR, corpus);
   if (!fs.existsSync(file)) {
     throw new Error(`corpus file not found: ${file}`);
@@ -94,6 +122,44 @@ function loadCorpusEntryTags(corpus: string, gloss: string): string[] {
     throw new Error(`gloss "${gloss}" not found in data/${corpus}`);
   }
   return extractHamTags(m[1]);
+}
+
+function loadFixtureExpectedTags(corpus: string, gloss: string): string[] {
+  const file = path.join(REPO_ROOT, corpus);
+  if (!fs.existsSync(file)) {
+    throw new Error(`fixture not found: ${file}`);
+  }
+  const fixture = JSON.parse(fs.readFileSync(file, 'utf8'));
+  const expected = fixture.expected_sign_entry;
+  if (!expected || typeof expected.hamnosys !== 'string') {
+    throw new Error(`fixture missing expected_sign_entry.hamnosys: ${file}`);
+  }
+  if ((expected.gloss || '').toLowerCase() !== gloss.toLowerCase()) {
+    throw new Error(
+      `fixture gloss mismatch: card declares "${gloss}", fixture has "${expected.gloss}"`,
+    );
+  }
+  const tags: string[] = [];
+  for (const ch of expected.hamnosys as string) {
+    const cp = ch.codePointAt(0);
+    if (cp == null) continue;
+    const tag = HAMNOSYS_SHORT_NAMES[cp];
+    if (!tag) {
+      throw new Error(
+        `fixture ${path.basename(file)} uses HamNoSys codepoint ` +
+          `U+${cp.toString(16).padStart(4, '0').toUpperCase()} which is not in ` +
+          `HAMNOSYS_SHORT_NAMES; add it (mirror backend/chat2hamnosys/hamnosys/symbols.py)`,
+      );
+    }
+    tags.push(tag);
+  }
+  return tags;
+}
+
+function loadExpectedTags(corpus: string, gloss: string): string[] {
+  return corpus.endsWith('.json')
+    ? loadFixtureExpectedTags(corpus, gloss)
+    : loadSigmlCorpusTags(corpus, gloss);
 }
 
 const HTML = fs.readFileSync(path.join(PUBLIC_DIR, 'contribute.html'), 'utf8');
@@ -115,10 +181,19 @@ test.describe('contribute.html demo cards', () => {
     expect(HTML).not.toContain('c2-viz-4__avatar-poster');
   });
 
+  test('no unsubstantiated reviewer-count claim on the hero card', () => {
+    // The hero card's previous "Reviewed by 2 Deaf signers" caption
+    // was unsubstantiated — the ELECTRON fixture has 0 qualifying
+    // approvals. Prompt 04 requires the badge be removed entirely
+    // when no gloss qualifies. Catch any regression that re-asserts
+    // a Deaf-reviewer count without backing data.
+    expect(HTML).not.toMatch(/Reviewed by \d+ Deaf signers?/i);
+  });
+
   for (const card of CARDS) {
     test.describe(`card "${card.slot}" (${card.gloss})`, () => {
       test('payload tag list matches the corpus entry', () => {
-        const corpusTags = loadCorpusEntryTags(card.corpus, card.gloss);
+        const corpusTags = loadExpectedTags(card.corpus, card.gloss);
         expect(corpusTags.length).toBeGreaterThan(0);
         expect(card.payloadTags).toEqual(corpusTags);
       });

@@ -14,7 +14,47 @@
 
   <link rel="stylesheet" href="/chat2hamnosys/styles.css" />
   <link rel="stylesheet" href="/cwa/cwasa.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script defer src="/cwa/allcsa.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- Snapshot the browser's native WebAssembly object BEFORE allcsa.js
+       loads. The CWASA bundle is an Emscripten WASM2JS build that
+       overwrites the global with a partial polyfill (no validate, no
+       compile, no instantiateStreaming). Restoring the snapshot keeps
+       any future WASM consumer on this page unbroken. See app.html for
+       the longer comment + the matching restore step. -->
+  <script>
+    if (typeof window !== 'undefined' && window.WebAssembly && !window.__nativeWebAssembly) {
+      window.__nativeWebAssembly = window.WebAssembly;
+    }
+  </script>
+
+  <!-- CWASA avatar bundle is ~4.6 MB. Inject only on first user intent
+       so cold loads don't block first paint. The chat2hamnosys boot
+       fires `bridgn:cwasa-warmup` once the session is created — see
+       app.js — so the user does not have to interact twice (chat to
+       create the session, then click the page to wake the avatar). -->
+  <script>
+    (function () {
+      var injected = false;
+      function inject() {
+        if (injected) return;
+        injected = true;
+        var s = document.createElement('script');
+        s.src = '/cwa/allcsa.js';
+        s.crossOrigin = 'anonymous';
+        s.referrerPolicy = 'no-referrer';
+        s.async = true;
+        document.head.appendChild(s);
+        off();
+      }
+      var TRIGGERS = ['pointerdown', 'keydown', 'touchstart', 'scroll'];
+      function on()  { TRIGGERS.forEach(function (t) { window.addEventListener(t, inject, { passive: true, once: false }); }); }
+      function off() { TRIGGERS.forEach(function (t) { window.removeEventListener(t, inject); }); }
+      on();
+      window.addEventListener('bridgn:cwasa-warmup', inject, { once: true });
+      window.addEventListener('load', function () { setTimeout(inject, 2500); });
+      window.__bridgnInjectCWASA = inject;
+    })();
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#chat-input">Skip to chat input</a>
@@ -117,21 +157,48 @@
       </header>
 
       <div class="preview-stage">
+        <!-- Status chip mirrors session/avatar state — Idle / Loading
+             avatar… / Playing <gloss> / Awaiting reviewer / Avatar
+             unavailable. Owned by app.js setPreviewStatus(). -->
+        <div id="previewStatus" class="preview-status" data-state="idle" role="status" aria-live="polite">
+          <span class="preview-status-dot" aria-hidden="true"></span>
+          <span class="preview-status-text">Idle</span>
+        </div>
+
         <div id="previewMount" class="preview-mount" aria-busy="false">
           <video
             id="previewVideo"
+            class="preview-slot"
             playsinline
             preload="metadata"
             aria-label="Sign language avatar preview"
             hidden
           ></video>
 
-          <div id="cwasaMount" class="cwasa-mount" aria-label="CWASA avatar fallback" hidden>
+          <!-- CWASA mounts here on init. The .CWASAAvatar.av0 must be a
+               direct descendant for allcsa.js to find it. The mount is
+               position:absolute (see styles.css) so its 100%/100% chain
+               anchors to a definite parent. -->
+          <div id="cwasaMount" class="cwasa-mount preview-slot" aria-label="Sign language avatar" hidden>
             <div class="CWASAAvatar av0"></div>
             <div class="CWASAGUI av0" style="display:none"></div>
           </div>
 
-          <div id="previewPlaceholder" class="preview-placeholder">
+          <!-- Pattern B (prompt 03) snapshot fallback — shown when CWASA
+               doesn't reach ready within the 6 s deadline. Owned by
+               app.js renderSnapshotFallback(). -->
+          <div id="snapshotFallback" class="snapshot-fallback preview-slot" hidden>
+            <p class="snapshot-fallback__rubric" id="snapshotFallbackRubric">HamNoSys snapshot</p>
+            <span class="snapshot-fallback__glyphs hamnosys" id="snapshotFallbackGlyphs" lang="zxx" aria-hidden="true"></span>
+            <p class="snapshot-fallback__gloss" id="snapshotFallbackGloss"></p>
+            <details class="snapshot-fallback__details">
+              <summary>Show SiGML</summary>
+              <pre class="snapshot-fallback__sigml"><code id="snapshotFallbackSigml"></code></pre>
+            </details>
+            <p class="snapshot-fallback__note">Avatar engine could not load. Reviewers see the SiGML payload directly.</p>
+          </div>
+
+          <div id="previewPlaceholder" class="preview-placeholder preview-slot">
             <p>Send a description to generate a preview.</p>
           </div>
 

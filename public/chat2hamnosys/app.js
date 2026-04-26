@@ -61,8 +61,17 @@
     selectedTimeMs: null,        // captured playback ms | null
     isLooping: false,
     cwasaInited: false,
+    cwasaReady: false,
+    cwasaFailed: false,          // 6s timeout elapsed with no canvas
+    cwasaWatchdog: null,         // timeout handle, cleared once ready
     activeMobileTab: 'chat',
   };
+
+  // CWASA load timeout. Above the lazy-injector's 8s poll ceiling for
+  // the bundle download itself; deadline starts when we fire the warmup
+  // event, not when init eventually runs. Tuned to match prompt 03's
+  // Pattern B fallback.
+  const CWASA_FALLBACK_MS = 6000;
 
   // -----------------------------------------------------------------------
   // DOM refs
@@ -88,6 +97,12 @@
     previewVideo:    $('previewVideo'),
     cwasaMount:      $('cwasaMount'),
     previewPh:       $('previewPlaceholder'),
+    previewStatus:   $('previewStatus'),
+    snapshotFallback:        $('snapshotFallback'),
+    snapshotFallbackRubric:  $('snapshotFallbackRubric'),
+    snapshotFallbackGlyphs:  $('snapshotFallbackGlyphs'),
+    snapshotFallbackGloss:   $('snapshotFallbackGloss'),
+    snapshotFallbackSigml:   $('snapshotFallbackSigml'),
     regionOverlay:   $('regionOverlay'),
     regionPopover:   $('regionPopover'),
     regionPopoverLabel: $('regionPopoverLabel'),
@@ -349,6 +364,19 @@
         dom.languageSelect.disabled = true;
         updateLanguageHint();
       }
+      // Kick off the CWASA bundle download now (before the user's first
+      // send) so the first generation isn't blocked on a 4.6 MB cold
+      // load. The lazy-injector script in <head> listens for this event;
+      // ensureCWASA() then awaits window.CWASA, calls init, and arms
+      // the 6s fallback watchdog.
+      try { window.dispatchEvent(new Event('bridgn:cwasa-warmup')); } catch (_e) { /* ignore */ }
+      setPreviewStatus({ state: 'loading' });
+      ensureCWASA().then(() => {
+        // ensureCWASA resolves either when init runs or when the
+        // bundle gives up. If it's still loading inside CWASA, leave
+        // the chip on `loading` until CWASA.ready resolves
+        // (handled inside ensureCWASA).
+      });
       applyEnvelope(created.session);
       subscribeEvents();
       clearStatus();
@@ -654,6 +682,7 @@
     if (preview.video_url) {
       dom.previewPh.hidden = true;
       dom.cwasaMount.hidden = true;
+      if (dom.snapshotFallback) dom.snapshotFallback.hidden = true;
       dom.previewVideo.hidden = false;
       if (dom.previewVideo.dataset.url !== preview.video_url) {
         dom.previewVideo.src = preview.video_url;
@@ -664,24 +693,53 @@
       dom.regionOverlay.hidden = false;
       enablePlaybackControls(true);
       autoPlayOnce();
+      setPreviewStatus({
+        state: 'playing',
+        text: env.gloss ? `Playing ${env.gloss}` : 'Playing',
+      });
     } else if (preview.sigml) {
       dom.previewVideo.hidden = true;
       dom.previewPh.hidden = true;
-      dom.cwasaMount.hidden = false;
       dom.regionOverlay.hidden = false;
       enablePlaybackControls(true, /* timelineDisabled */ true);
-      maybeInitCWASA().then(() => {
-        if (window.CWASA && CWASA.playSiGMLText) {
-          try { CWASA.playSiGMLText(preview.sigml, 0); } catch (_e) {}
-        }
-      });
+      if (state.cwasaFailed) {
+        renderSnapshotFallback();
+        setPreviewStatus({ state: 'unavailable', text: 'Avatar unavailable — showing snapshot' });
+      } else {
+        if (dom.snapshotFallback) dom.snapshotFallback.hidden = true;
+        dom.cwasaMount.hidden = false;
+        if (!state.cwasaReady) setPreviewStatus({ state: 'loading' });
+        ensureCWASA().then(() => {
+          if (state.cwasaFailed) {
+            renderSnapshotFallback();
+            return;
+          }
+          const ok = playSiGML(preview.sigml);
+          if (ok) {
+            setPreviewStatus({
+              state: 'playing',
+              text: env.gloss ? `Playing ${env.gloss}` : 'Playing',
+            });
+          }
+        });
+      }
       dom.timelineLabel.textContent = preview.message || 'no timeline (server-side render unavailable)';
     } else {
       dom.previewVideo.hidden = true;
       dom.cwasaMount.hidden = true;
+      if (dom.snapshotFallback) dom.snapshotFallback.hidden = true;
       dom.previewPh.hidden = false;
       dom.regionOverlay.hidden = true;
       enablePlaybackControls(false);
+      // Resting state. Loading takes precedence so the user sees the
+      // bundle warming during the empty stage.
+      if (!state.cwasaReady && !state.cwasaFailed) {
+        setPreviewStatus({ state: 'loading' });
+      } else if (env.state === 'finalized') {
+        setPreviewStatus({ state: 'awaiting', text: 'Awaiting reviewer' });
+      } else {
+        setPreviewStatus({ state: 'idle' });
+      }
     }
   }
 
@@ -714,23 +772,244 @@
     if (p && typeof p.then === 'function') p.catch(() => { /* user gesture required */ });
   }
 
-  async function maybeInitCWASA() {
-    if (state.cwasaInited) return;
-    if (!window.CWASA || !CWASA.init) return;
-    try {
-      CWASA.init({
-        useClientConfig: false,
-        useCwaConfig: true,
-        avSettings: [{
-          width: 360, height: 300,
-          avList: 'avs', initAv: 'luna',
-          ambIdle: false, allowFrameSteps: false, allowSiGMLText: false,
-        }],
-      });
-      state.cwasaInited = true;
-    } catch (e) {
-      console.warn('CWASA init failed', e);
+  // CWASA lifecycle.
+  //
+  // Boot order (matches /index.html and /app.html):
+  //
+  //   1. The <head> snapshots window.WebAssembly to __nativeWebAssembly
+  //      and installs window.__bridgnInjectCWASA — a one-shot lazy
+  //      injector that appends /cwa/allcsa.js. Triggers: any user
+  //      input, the bridgn:cwasa-warmup event, or 2.5s after `load`.
+  //   2. boot() fires bridgn:cwasa-warmup the moment the session is
+  //      created so the bundle download starts before the user's
+  //      first send.
+  //   3. ensureCWASA() polls for window.CWASA, calls CWASA.init(...),
+  //      and arms a 6s watchdog. If the canvas isn't visible by then,
+  //      swapToSnapshotFallback() takes over.
+  //
+  // playSiGML() is the bridge from session output to playback — every
+  // generator step that ships SiGML routes through here, mirroring the
+  // identical call in app.html (window.CWASA.playSiGMLText(sigml, 0)).
+
+  function warmupCWASA() {
+    if (state.cwasaInited || state.cwasaFailed) return;
+    if (typeof window.__bridgnInjectCWASA === 'function') {
+      try { window.__bridgnInjectCWASA(); } catch (_e) { /* ignore */ }
+    } else {
+      // Lazy injector script didn't run (dev page hand-edited?). Inject
+      // directly so the page is still usable.
+      const s = document.createElement('script');
+      s.src = '/cwa/allcsa.js';
+      s.crossOrigin = 'anonymous';
+      s.referrerPolicy = 'no-referrer';
+      s.async = true;
+      document.head.appendChild(s);
     }
+    armCWASAWatchdog();
+  }
+
+  function armCWASAWatchdog() {
+    if (state.cwasaWatchdog || state.cwasaReady) return;
+    state.cwasaWatchdog = setTimeout(() => {
+      state.cwasaWatchdog = null;
+      if (state.cwasaReady) return;
+      const canvas = dom.cwasaMount && dom.cwasaMount.querySelector('canvas.canvasAv');
+      const rect = canvas ? canvas.getBoundingClientRect() : null;
+      if (canvas && rect && rect.width > 0 && rect.height > 0) {
+        markCWASAReady();
+        return;
+      }
+      console.warn('[chat2hamnosys] CWASA did not become visible within ' + CWASA_FALLBACK_MS + 'ms — falling back to snapshot card.');
+      swapToSnapshotFallback();
+    }, CWASA_FALLBACK_MS);
+  }
+
+  function markCWASAReady() {
+    state.cwasaReady = true;
+    if (state.cwasaWatchdog) {
+      clearTimeout(state.cwasaWatchdog);
+      state.cwasaWatchdog = null;
+    }
+  }
+
+  function awaitCWASAGlobal(cb) {
+    let waited = 0;
+    const tick = 200;
+    const limit = 8000;
+    (function check() {
+      if (window.CWASA && CWASA.init) { cb(true); return; }
+      waited += tick;
+      if (waited >= limit) { cb(false); return; }
+      setTimeout(check, tick);
+    })();
+  }
+
+  // Idempotent. Safe to call multiple times — CWASA.init() doesn't
+  // tolerate being re-entered, so the cwasaInited gate is load-bearing.
+  async function ensureCWASA() {
+    if (state.cwasaInited || state.cwasaFailed) return;
+    warmupCWASA();
+    return new Promise((resolve) => {
+      awaitCWASAGlobal((ok) => {
+        if (!ok) {
+          console.warn('[chat2hamnosys] CWASA bundle never resolved — falling back.');
+          swapToSnapshotFallback();
+          resolve();
+          return;
+        }
+        // Watchdog may have already failed over while we were waiting on
+        // a slow bundle download. Don't burn cycles initialising a
+        // canvas the user will never see.
+        if (state.cwasaFailed) { resolve(); return; }
+        try {
+          CWASA.init({
+            useClientConfig: false,
+            useCwaConfig: true,
+            avSettings: [{
+              width: 360, height: 360,
+              // 'avsfull' includes luna; 'avs' (the default in cwacfg.json)
+              // does not, so the hero pattern uses 'avsfull' to be safe.
+              avList: 'avsfull', initAv: 'luna',
+              ambIdle: false, allowFrameSteps: false, allowSiGMLText: false,
+            }],
+          });
+          state.cwasaInited = true;
+          // CWASA.ready is the post-init handshake (see /index.html
+          // initCWASA). When it resolves, the canvas is mounted and
+          // the watchdog can stand down.
+          if (CWASA.ready && typeof CWASA.ready.then === 'function') {
+            CWASA.ready.then(() => {
+              markCWASAReady();
+              setPreviewStatus(stateAfterReady());
+            }).catch((err) => {
+              console.warn('[chat2hamnosys] CWASA.ready rejected:', err);
+              swapToSnapshotFallback();
+            });
+          } else {
+            // Older CWASA builds expose no ready promise. Fall back to a
+            // short poll on the canvas mount; the watchdog still bounds
+            // total wait at CWASA_FALLBACK_MS.
+            setTimeout(markCWASAReady, 400);
+          }
+        } catch (e) {
+          console.warn('[chat2hamnosys] CWASA init failed:', e);
+          swapToSnapshotFallback();
+        }
+        resolve();
+      });
+    });
+  }
+
+  function playSiGML(sigml) {
+    if (!sigml) return false;
+    if (state.cwasaFailed || !window.CWASA || typeof CWASA.playSiGMLText !== 'function') {
+      return false;
+    }
+    try {
+      CWASA.playSiGMLText(sigml, 0);
+      return true;
+    } catch (e) {
+      console.warn('[chat2hamnosys] CWASA play failed:', e);
+      return false;
+    }
+  }
+
+  function swapToSnapshotFallback() {
+    if (state.cwasaFailed) return;
+    state.cwasaFailed = true;
+    if (state.cwasaWatchdog) {
+      clearTimeout(state.cwasaWatchdog);
+      state.cwasaWatchdog = null;
+    }
+    if (dom.cwasaMount) dom.cwasaMount.hidden = true;
+    renderSnapshotFallback();
+    setPreviewStatus({ state: 'unavailable', text: 'Avatar unavailable — showing snapshot' });
+  }
+
+  function renderSnapshotFallback() {
+    if (!dom.snapshotFallback) return;
+    const env = state.envelope;
+    const sigml = (env && env.preview && env.preview.sigml) || '';
+    if (!sigml) {
+      // No payload yet — keep the placeholder. Fallback only takes over
+      // once we have something to show.
+      dom.snapshotFallback.hidden = true;
+      if (dom.previewPh) dom.previewPh.hidden = false;
+      return;
+    }
+    if (dom.previewPh) dom.previewPh.hidden = true;
+    if (dom.snapshotFallbackGloss) {
+      const lang = (env && env.sign_language) ? env.sign_language.toUpperCase() : '';
+      const gloss = (env && env.gloss) ? env.gloss : '';
+      dom.snapshotFallbackGloss.textContent = lang && gloss ? `${lang} · ${gloss}` : gloss || lang;
+    }
+    if (dom.snapshotFallbackGlyphs) {
+      dom.snapshotFallbackGlyphs.textContent = extractHamGlyphs(sigml);
+    }
+    if (dom.snapshotFallbackSigml) {
+      dom.snapshotFallbackSigml.textContent = sigml;
+    }
+    dom.snapshotFallback.hidden = false;
+  }
+
+  // Pull the ham* tags from a SiGML payload and map them to the
+  // HamNoSys glyph range. The CWASA bundle's font ships those code
+  // points; this is just enough to display *something* recognisable
+  // when the avatar is offline. Falls back to the raw tag list.
+  function extractHamGlyphs(sigml) {
+    const tags = [];
+    const re = /<(ham[a-z0-9]+)\s*\/>/gi;
+    let m;
+    while ((m = re.exec(sigml)) !== null) tags.push(m[1].toLowerCase());
+    if (!tags.length) return '';
+    return tags.map((tag) => HAM_TAG_GLYPH[tag] || '').filter(Boolean).join('') ||
+      tags.map((t) => `<${t}/>`).join(' ');
+  }
+
+  // Subset of the HamNoSys Unicode mapping covering the tags this app
+  // is likely to emit. Sourced from the SiGML reference; missing tags
+  // fall through to the textual rendering above.
+  const HAM_TAG_GLYPH = {
+    hamfist: '', hamflathand: '', hamflatfist: '',
+    hamfinger2: '', hamfinger23: '', hamfinger23spread: '',
+    hamfinger2345: '', hamceeall: '', hampinchall: '',
+    hamthumboutmod: '', hamthumbopenmod: '', hamfingerstraightmod: '',
+    hamextfingerul: '', hampalmdl: '', hamforehead: '',
+    hamlrat: '', hamclose: '', hamparbegin: '',
+    hamparend: '', hammover: '', hamreplace: '',
+  };
+
+  function setPreviewStatus(opts) {
+    if (!dom.previewStatus) return;
+    const next = (opts && opts.state) || 'idle';
+    const text = (opts && opts.text) || statusTextFor(next);
+    dom.previewStatus.dataset.state = next;
+    const span = dom.previewStatus.querySelector('.preview-status-text');
+    if (span) span.textContent = text;
+  }
+
+  function statusTextFor(s) {
+    switch (s) {
+      case 'loading':     return 'Loading avatar…';
+      case 'playing':     return 'Playing';
+      case 'awaiting':    return 'Awaiting reviewer';
+      case 'unavailable': return 'Avatar unavailable';
+      case 'error':       return 'Playback error';
+      default:            return 'Idle';
+    }
+  }
+
+  // Pick the right post-init resting state. Used when CWASA.ready
+  // resolves after the user has already moved past the empty stage.
+  function stateAfterReady() {
+    const env = state.envelope;
+    if (!env) return { state: 'idle' };
+    if (env.state === 'rendered' || env.state === 'awaiting_correction') {
+      const gloss = env.gloss || 'sign';
+      return { state: 'playing', text: `Playing ${gloss}` };
+    }
+    if (env.state === 'finalized') return { state: 'awaiting', text: 'Awaiting reviewer' };
+    return { state: 'idle' };
   }
 
   // Playback control handlers
@@ -738,7 +1017,15 @@
     if (dom.previewVideo.hidden) {
       // CWASA replay
       const sigml = state.envelope && state.envelope.preview && state.envelope.preview.sigml;
-      if (sigml && window.CWASA) { try { CWASA.playSiGMLText(sigml, 0); } catch (_e) {} }
+      if (sigml) {
+        const ok = playSiGML(sigml);
+        if (ok && state.envelope) {
+          setPreviewStatus({
+            state: 'playing',
+            text: state.envelope.gloss ? `Playing ${state.envelope.gloss}` : 'Playing',
+          });
+        }
+      }
       return;
     }
     if (dom.previewVideo.paused) {

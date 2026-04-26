@@ -3118,6 +3118,273 @@ select.field-input { cursor: pointer; }
   .c2-snapshot-card__play:hover { transform: none; }
 }
 
+/* ----- Conversation snapshot card (hero, prompt 04) -----
+   Pattern B variant that shows the chat2hamnosys pipeline trail
+   verbatim from a fixture session: bubbles + HamNoSys + collapsible
+   SiGML + a "Replay in avatar" button that opens #heroReplayModal.
+   Lives inside .c2-hero__card; reuses the snapshot rubric/glyphs
+   typography but adds bubbles and a footer instead of a stage. */
+.c2-conversation-card {
+  /* Slightly tighter than the default hero card gap so the four
+     bubbles + notation + footer don't push the card past the lede
+     column on desktop. */
+  gap: var(--kozha-space-3);
+}
+.c2-conversation-card__badge {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: var(--kozha-weight-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  /* Honest "fixture session" framing — uses the unreviewed badge
+     family (ink-3 on paper-2) so it reads as informational metadata,
+     not a positive provenance signal. The previous "Reviewed by N
+     Deaf signers" badge was removed because the fixture entry has
+     status=draft and a hearing demo signer; the claim was false. */
+  color: var(--kozha-badge-unreviewed-fg);
+  background: var(--kozha-badge-unreviewed-bg);
+  border: 1px solid var(--kozha-badge-unreviewed-border);
+  border-radius: var(--kozha-radius-pill);
+  padding: 3px 10px;
+}
+.c2-conversation-card__trail {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+}
+.c2-conversation-card__bubble {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2px;
+  padding: 8px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--kozha-color-border);
+  font-size: var(--kozha-text-body-sm);
+  line-height: 1.4;
+  max-width: 92%;
+}
+.c2-conversation-card__bubble--author {
+  background: var(--kozha-color-white);
+  color: var(--kozha-color-ink);
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+.c2-conversation-card__bubble--system {
+  background: var(--kozha-color-paper-2);
+  color: var(--kozha-color-ink-2);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+.c2-conversation-card__author {
+  font-family: var(--kozha-font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--kozha-color-ink-3);
+}
+.c2-conversation-card__text {
+  margin: 0;
+  font-family: var(--kozha-font-sans);
+  color: inherit;
+}
+.c2-conversation-card__notation {
+  background: var(--kozha-color-paper);
+  border: 1px solid var(--kozha-color-border);
+  border-radius: var(--kozha-radius-sm);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  text-align: center;
+}
+.c2-conversation-card__rubric {
+  margin: 0;
+}
+.c2-conversation-card__glyphs {
+  font-size: 24px;
+  word-break: break-all;
+  max-width: 100%;
+}
+.c2-conversation-card__sigml-details {
+  width: 100%;
+  text-align: left;
+}
+.c2-conversation-card__sigml-summary {
+  font-family: var(--kozha-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--kozha-color-accent);
+  cursor: pointer;
+  list-style: none;
+  padding: 4px 0;
+}
+.c2-conversation-card__sigml-summary::-webkit-details-marker { display: none; }
+.c2-conversation-card__sigml-summary::before {
+  content: '+';
+  display: inline-block;
+  width: 0.9em;
+  font-weight: var(--kozha-weight-semibold);
+}
+.c2-conversation-card__sigml-details[open] .c2-conversation-card__sigml-summary::before {
+  content: '−';
+}
+.c2-conversation-card__sigml-summary:focus-visible {
+  outline: 2px solid var(--kozha-color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.c2-conversation-card__sigml {
+  margin-top: 6px;
+  /* Wider than the default snapshot variant — desktop card has more
+     breathing room and the SiGML text is the linguistic payload, not
+     metadata. Cap height at ~6 lines per the spec; overflow is hidden
+     because the details summary is the disclosure mechanism. */
+  max-width: 100%;
+  max-height: 96px;
+}
+.c2-conversation-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--kozha-space-2);
+  flex-wrap: wrap;
+}
+.c2-conversation-card__attribution {
+  /* The fixture path is the source-of-truth pointer; keep it scannable
+     but quiet. The session-id <code> is purely visual — the test
+     reads from the fixture's own session.id field, not this string. */
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.c2-conversation-card__attribution code {
+  font-family: var(--kozha-font-mono);
+  font-size: inherit;
+  color: var(--kozha-color-ink-2);
+}
+.c2-conversation-card__replay {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 480px) {
+  .c2-conversation-card__sigml-details { display: none; }
+  .c2-conversation-card__bubble { font-size: 13px; padding: 6px 10px; }
+  .c2-conversation-card__glyphs { font-size: 22px; }
+}
+
+/* ----- Avatar replay modal -----
+   Fullscreen overlay opened from the hero card's "Replay in avatar"
+   button. Hosts the live CWASA canvas at viewport scale so the avatar
+   is legible (the inline hero stage is only 150 px tall on phones).
+   Only entry point is the explicit button click — prefers-reduced-motion
+   is satisfied because nothing here auto-plays or auto-opens. */
+.c2-replay-modal {
+  position: fixed;
+  inset: 0;
+  z-index: var(--kozha-z-skip);
+  background: rgba(26, 22, 18, 0.62);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--kozha-space-4);
+}
+.c2-replay-modal[hidden] { display: none; }
+.c2-replay-modal__panel {
+  width: 100%;
+  max-width: 720px;
+  background: var(--kozha-color-white);
+  border: 1px solid var(--kozha-color-border);
+  border-radius: var(--kozha-radius);
+  box-shadow: 0 32px 80px rgba(26, 22, 18, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--kozha-space-3);
+  padding: var(--kozha-space-5);
+  max-height: calc(100vh - var(--kozha-space-8));
+}
+.c2-replay-modal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--kozha-space-3);
+}
+.c2-replay-modal__title {
+  margin: 0;
+  font-size: var(--kozha-text-h4, 18px);
+  font-family: var(--kozha-font-sans);
+  display: flex;
+  align-items: center;
+  gap: var(--kozha-space-2);
+  color: var(--kozha-color-ink);
+}
+.c2-replay-modal__gloss {
+  font-family: var(--kozha-font-mono);
+  letter-spacing: 0.1em;
+}
+.c2-replay-modal__close {
+  background: transparent;
+  border: 1px solid var(--kozha-color-border);
+  border-radius: 999px;
+  width: 36px;
+  height: 36px;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--kozha-color-ink-2);
+  cursor: pointer;
+}
+.c2-replay-modal__close:hover { background: var(--kozha-color-paper-2); }
+.c2-replay-modal__close:focus-visible {
+  outline: 2px solid var(--kozha-color-accent);
+  outline-offset: 2px;
+}
+.c2-replay-modal__stage {
+  position: relative;
+  width: 100%;
+  /* Square at small widths so the avatar canvas gets at least the
+     280×280 floor required by prompts 04 / 05. Caps at a 4:3 panel on
+     desktop to avoid an unbounded canvas that would scale past the
+     CWASA bundle's optimal render size. min-height enforces the floor
+     even when the panel collapses below 280 px (small viewports).
+     Width is the binding constraint: see the small-viewport @media
+     below where the modal padding is tuned so panel width ≥ 280 px at
+     viewport ≥ 320 px. */
+  min-height: 280px;
+  aspect-ratio: 1 / 1;
+  max-height: min(70vh, 520px);
+  background: var(--kozha-color-paper);
+  border: 1px solid var(--kozha-color-border);
+  border-radius: var(--kozha-radius-sm);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.c2-replay-modal__stage canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.c2-replay-modal__caption {
+  margin: 0;
+  font-size: var(--kozha-text-caption-lg);
+  color: var(--kozha-color-ink-3);
+}
+.c2-replay-modal__caption code {
+  font-family: var(--kozha-font-mono);
+  color: var(--kozha-color-ink-2);
+}
+@media (max-width: 480px) {
+  /* Stage width = viewport - modal_padding*2 - panel_padding*2.
+     At 320 px viewport: 320 - 16 - 24 = 280 px. Hits the floor. */
+  .c2-replay-modal { padding: var(--kozha-space-2); }
+  .c2-replay-modal__panel { padding: var(--kozha-space-3); gap: var(--kozha-space-2); }
+}
+
 .c2-hero__pulse {
   position: absolute;
   top: 24px; right: 34px;
@@ -3644,95 +3911,115 @@ select.field-input { cursor: pointer; }
 .c2-viz-3__dots span:nth-child(2) { animation-delay: 0.15s; }
 .c2-viz-3__dots span:nth-child(3) { animation-delay: 0.3s; }
 
-/* ----- Step 4 visual: real CWASA avatar + chip strip + inspector ----- */
-.c2-viz-4__avatar {
-  position: relative;
-  height: 220px;
-  background:
-    radial-gradient(circle at 50% 35%, rgba(201, 106, 46, 0.08), transparent 60%),
-    var(--kozha-color-white);
-  border: 1px solid var(--kozha-color-border);
-  border-radius: 12px;
+/* ----- Step 4 visual: snapshot card + chip strip + inspector -----
+   The 220 px inline CWASA stage was retired (prompt 05): it crammed the
+   avatar against the chips/inspector and never reached the 280×280
+   floor the spec requires. The playable canvas now lives in
+   #walkReplayModal at viewport scale; this snapshot card is the
+   inline-and-honest representation of the sign (glyphs + collapsible
+   SiGML + attribution + Play button). Heights are tuned to match the
+   step 3 chat log and the step 5 review timeline so the panel grid
+   doesn't wobble between steps. */
+.c2-viz-4__snapshot {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-.c2-viz-4__cwasa canvas {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-/* The Step 4 mount used to ship an SVG silhouette poster as the
-   load-state placeholder; now it shows the SiGML/HamNoSys snapshot
-   (.c2-snapshot-card__snapshot) until CWASA injects a canvas. */
-.c2-viz-4__snapshot { padding: 14px; }
-.c2-viz-4__cwasa:has(canvas) .c2-snapshot-card__snapshot { display: none; }
-
-.c2-viz-4__controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   gap: var(--kozha-space-3);
-  margin-top: 10px;
-}
-.c2-viz-4__replay {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--kozha-font-sans);
-  font-size: 12px;
-  font-weight: var(--kozha-weight-semibold);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--kozha-color-accent);
-  background: transparent;
-  border: 1px solid var(--kozha-color-accent);
-  border-radius: 999px;
-  padding: 6px 14px;
-  cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
-}
-.c2-viz-4__replay:hover {
-  background: var(--kozha-color-accent-light);
-  transform: translateY(-1px);
-}
-.c2-viz-4__replay:focus-visible {
-  outline: 2px solid var(--kozha-color-accent);
-  outline-offset: 2px;
-}
-.c2-viz-4__caption {
-  font-family: var(--kozha-font-mono);
-  font-size: 10px;
-  color: var(--kozha-color-ink-3);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.c2-viz-4__glyphs {
-  padding: 12px 14px;
+  padding: var(--kozha-space-4);
   background: var(--kozha-color-white);
   border: 1px solid var(--kozha-color-border);
-  border-radius: 12px;
-  overflow: hidden;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(26, 22, 18, 0.04);
 }
-.c2-viz-4__glyph-label {
-  display: block;
+.c2-viz-4__snapshot-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 180px;
+  padding: var(--kozha-space-4);
+  background:
+    radial-gradient(circle at 50% 32%, rgba(201, 106, 46, 0.10), transparent 60%),
+    var(--kozha-color-paper);
+  border: 1px solid var(--kozha-color-border);
+  border-radius: 10px;
+  text-align: center;
+}
+.c2-viz-4__snapshot-rubric {
+  margin: 0;
+}
+.c2-viz-4__snapshot-glyphs {
+  font-size: clamp(28px, 4.6vw, 44px);
+  line-height: 1.1;
+  word-break: break-all;
+  max-width: 100%;
+}
+/* Fallback shown only when the HamNoSys font fails to shape the PUA
+   glyphs (the .no-hamnosys-font sentinel set in contribute.html). The
+   stage still needs a legible label in that case so the snapshot card
+   doesn't render as a blank box. */
+.c2-viz-4__snapshot-gloss-fallback {
+  display: none;
+  font-family: var(--kozha-font-mono);
+  font-size: 18px;
+  letter-spacing: 0.08em;
+  color: var(--kozha-color-ink);
+}
+.no-hamnosys-font .c2-viz-4__snapshot-gloss-fallback { display: inline; }
+
+.c2-viz-4__snapshot-details {
+  width: 100%;
+}
+.c2-viz-4__snapshot-summary {
   font-family: var(--kozha-font-mono);
   font-size: 10px;
-  font-weight: var(--kozha-weight-semibold);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--kozha-color-ink-3);
-  margin-bottom: 6px;
+  color: var(--kozha-color-accent);
+  cursor: pointer;
+  list-style: none;
+  padding: 4px 0;
 }
-.c2-viz-4__glyph-row {
-  display: block;
-  font-size: 28px;
-  line-height: 1.1;
-  color: var(--kozha-color-ink);
-  letter-spacing: 0.04em;
-  word-break: break-all;
+.c2-viz-4__snapshot-summary::-webkit-details-marker { display: none; }
+.c2-viz-4__snapshot-summary::before {
+  content: '+';
+  display: inline-block;
+  width: 0.9em;
+  font-weight: var(--kozha-weight-semibold);
+}
+.c2-viz-4__snapshot-details[open] .c2-viz-4__snapshot-summary::before {
+  content: '\2212';
+}
+.c2-viz-4__snapshot-summary:focus-visible {
+  outline: 2px solid var(--kozha-color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.c2-viz-4__snapshot-sigml {
+  margin-top: 6px;
+  max-width: 100%;
+  max-height: 110px;
+}
+
+.c2-viz-4__snapshot-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--kozha-space-3);
+  flex-wrap: wrap;
+}
+.c2-viz-4__snapshot-attribution {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.c2-viz-4__snapshot-attribution code {
+  font-family: var(--kozha-font-mono);
+  font-size: inherit;
+  color: var(--kozha-color-ink-2);
+}
+.c2-viz-4__snapshot-play {
+  flex: 0 0 auto;
 }
 
 /* Chip strip — one chip per <ham*/> tag in HAMBURG SiGML. Each chip is
@@ -4468,7 +4755,9 @@ select.field-input { cursor: pointer; }
   }
   .c2-quickstart__chips { grid-template-columns: repeat(2, 1fr); }
   .c2-viz-4__tags { grid-template-columns: repeat(2, 1fr); }
-  .c2-viz-4__glyph-row { font-size: 22px; }
+  .c2-viz-4__snapshot-glyphs { font-size: clamp(24px, 7vw, 32px); }
+  .c2-viz-4__snapshot-stage { min-height: 160px; padding: var(--kozha-space-3); }
+  .c2-viz-4__snapshot-footer { gap: var(--kozha-space-2); }
 }
 
 /* ==================================================================

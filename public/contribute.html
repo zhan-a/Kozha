@@ -38,7 +38,7 @@
     // there's no flash of broken .notdef boxes before detection. We
     // then call document.fonts.load() to *force* the browser to fetch
     // the font, independent of any DOM rendering — without this the
-    // very fallback CSS (display: none on .c2-hero__card-glyphs)
+    // very fallback CSS (display: none on .c2-snapshot-card__glyphs)
     // would prevent the only PUA-bearing element from triggering the
     // font request, locking the page into the fallback state forever.
     // Once the load resolves we measure a glyph against monospace and
@@ -151,65 +151,83 @@
           <li><strong>Deaf-reviewed</strong><span>before it goes live</span></li>
         </ul>
       </div>
-      <!-- SiGML + HamNoSys snapshot card. Default state shows the
-           linguistic artefact (gloss, HamNoSys glyphs, SiGML excerpt
-           pulled verbatim from data/hamnosys_bsl_version1.sigml entry
-           name(v)#1). The "Play with avatar" button claims the page's
-           CWASA canvas to this mount and plays the SiGML — see
-           contribute-walkthrough.js. The previous silhouette + invented
-           "ELECTRON" gloss were removed (no such BSL entry existed).
-           See docs/contrib-fix/prompts/03-fake-avatar-audit.md. -->
-      <aside class="c2-hero__card c2-snapshot-card"
-             aria-labelledby="c2-hero-card-gloss">
+      <!-- Conversation snapshot card (Pattern B). The card narrates a
+           real chat2hamnosys session — bubbles, HamNoSys, and SiGML are
+           sourced verbatim from backend/chat2hamnosys/examples/electron.json
+           (no invented dialogue, no fake silhouette). ELECTRON has zero
+           qualifying deaf-reviewer approvals — the previous "Reviewed by
+           2 Deaf signers" claim is removed; the badge reads "Demo ·
+           fixture" instead. The avatar plays in a fullscreen replay
+           modal (#heroReplayModal) on explicit click; no auto-play. See
+           docs/contrib-fix/prompts/04-... and contribute-walkthrough.js. -->
+      <aside class="c2-hero__card c2-snapshot-card c2-conversation-card"
+             role="region"
+             aria-label="Demo of the BSL sign for electron, recorded from a chat2hamnosys session"
+             aria-describedby="c2-hero-card-trail">
         <div class="c2-hero__card-head">
           <span class="c2-hero__card-chip">BSL</span>
-          <span class="c2-hero__card-gloss" id="c2-hero-card-gloss">NAME</span>
-          <span class="c2-hero__card-state">in dictionary</span>
+          <span class="c2-hero__card-gloss" id="c2-hero-card-gloss">ELECTRON</span>
+          <span class="c2-conversation-card__badge">Demo · fixture</span>
         </div>
-        <div class="c2-hero__card-stage c2-snapshot-card__stage"
+
+        <ol class="c2-conversation-card__trail" id="c2-hero-card-trail"
+            aria-label="Recorded chat2hamnosys session for ELECTRON">
+          <li class="c2-conversation-card__bubble c2-conversation-card__bubble--author">
+            <span class="c2-conversation-card__author">You</span>
+            <p class="c2-conversation-card__text">ELECTRON is signed with a small round-O handshape, palm down, in neutral signing space. The hand makes a small circle to suggest orbiting motion.</p>
+          </li>
+          <li class="c2-conversation-card__bubble c2-conversation-card__bubble--system">
+            <span class="c2-conversation-card__author">Kozha</span>
+            <p class="c2-conversation-card__text">How small is the circular movement?</p>
+          </li>
+          <li class="c2-conversation-card__bubble c2-conversation-card__bubble--author">
+            <span class="c2-conversation-card__author">You</span>
+            <p class="c2-conversation-card__text">Fingertip-sized (very small).</p>
+          </li>
+          <li class="c2-conversation-card__bubble c2-conversation-card__bubble--system">
+            <span class="c2-conversation-card__author">Kozha</span>
+            <p class="c2-conversation-card__text">Generated · confidence 0.86</p>
+          </li>
+        </ol>
+
+        <!-- Linguistic artefact: HamNoSys glyphs + collapsible SiGML
+             excerpt + the inline payload the replay modal hands to
+             CWASA. The smoke test at tests/contrib_demo_signs.spec.ts
+             asserts the data-demo-payload tag list matches the
+             expected_sign_entry.hamnosys mapping in the fixture. -->
+        <div class="c2-conversation-card__notation"
              data-demo-card="hero"
-             data-gloss="name(v)#1"
-             data-corpus="hamnosys_bsl_version1.sigml">
-          <div class="c2-hero__avatar c2-hero__cwasa CWASAAvatar av0"
-               id="heroAvatarMount"></div>
-          <div class="c2-snapshot-card__snapshot"
-               id="heroSnapshot"
-               role="img"
-               aria-label="BSL sign for 'name': index and middle fingers extended near the forehead, brushing outward.">
-            <p class="c2-snapshot-card__rubric">HamNoSys · BSL · name(v)#1</p>
-            <span class="hamnosys c2-snapshot-card__glyphs" lang="zxx" aria-hidden="true">&#xE003;&#xE027;&#xE03D;&#xE042;&#xE059;&#xE0D1;&#xE0E2;&#xE08A;&#xE0AA;&#xE031;&#xE03B;&#xE0E3;</span>
-            <pre class="c2-snapshot-card__sigml" aria-hidden="true"><code>&lt;hamnosys_manual&gt;
-  &lt;hamfinger23/&gt;&lt;hamextfingerul/&gt;
-  &lt;hampalmdl/&gt;&lt;hamforehead/&gt;
-  &lt;hamlrat/&gt;&lt;hamtouch/&gt;
-  &lt;hamparbegin/&gt;&lt;hammoveor/&gt;
-  &lt;hamreplace/&gt;&lt;hamextfingeruo/&gt;
-  &lt;hampalmdr/&gt;&lt;hamparend/&gt;
-&lt;/hamnosys_manual&gt;</code></pre>
-          </div>
-          <div class="c2-hero__pulse" aria-hidden="true"></div>
-          <!-- SiGML payload that the play button hands to CWASA. Kept as
-               an inline <script type="application/xml"> so there's a
-               single source of truth (no JS string duplication). The
-               test at tests/contrib_demo_signs.spec.ts asserts this
-               matches the entry in data/hamnosys_bsl_version1.sigml. -->
-          <script type="application/xml" data-demo-payload="hero"><sigml><hns_sign gloss="name(v)#1"><hamnosys_nonmanual /><hamnosys_manual><hamfinger23 /><hamextfingerul /><hampalmdl /><hamforehead /><hamlrat /><hamtouch /><hamparbegin /><hammoveor /><hamreplace /><hamextfingeruo /><hampalmdr /><hamparend /></hamnosys_manual></hns_sign></sigml></script>
+             data-gloss="electron"
+             data-corpus="backend/chat2hamnosys/examples/electron.json">
+          <p class="c2-snapshot-card__rubric c2-conversation-card__rubric">HamNoSys · BSL · electron</p>
+          <span class="hamnosys c2-snapshot-card__glyphs c2-conversation-card__glyphs" lang="zxx" aria-hidden="true">&#xE013;&#xE020;&#xE03A;&#xE051;&#xE079;&#xE093;&#xE0C5;</span>
+          <details class="c2-conversation-card__sigml-details">
+            <summary class="c2-conversation-card__sigml-summary">show SiGML</summary>
+            <pre class="c2-snapshot-card__sigml c2-conversation-card__sigml" aria-hidden="true"><code>&lt;hns_sign gloss="electron"&gt;
+  &lt;hamnosys_manual&gt;
+    &lt;hamdoublebent/&gt;&lt;hamextfingeru/&gt;
+    &lt;hampalmr/&gt;&lt;hamshoulders/&gt;
+    &lt;hamfingerbase/&gt;&lt;hamcirclei/&gt;
+    &lt;hamdecreasing/&gt;
+  &lt;/hamnosys_manual&gt;
+&lt;/hns_sign&gt;</code></pre>
+          </details>
+          <script type="application/xml" data-demo-payload="hero"><sigml><hns_sign gloss="electron"><hamnosys_nonmanual /><hamnosys_manual><hamdoublebent /><hamextfingeru /><hampalmr /><hamshoulders /><hamfingerbase /><hamcirclei /><hamdecreasing /></hamnosys_manual></hns_sign></sigml></script>
         </div>
-        <div class="c2-hero__card-glyphs c2-snapshot-card__cta">
+
+        <div class="c2-conversation-card__footer">
+          <span class="c2-snapshot-card__attribution c2-conversation-card__attribution">
+            Fixture · session <code>00000000…0e01</code>
+          </span>
           <button type="button"
-                  class="c2-snapshot-card__play"
+                  class="c2-snapshot-card__play c2-conversation-card__replay"
                   id="heroPlayBtn"
-                  aria-pressed="false"
-                  aria-controls="heroAvatarMount"
+                  aria-haspopup="dialog"
+                  aria-controls="heroReplayModal"
                   data-demo-play="hero">
             <span class="c2-snapshot-card__play-icon" aria-hidden="true">▶</span>
-            <span class="c2-snapshot-card__play-label">Play with avatar</span>
+            <span class="c2-snapshot-card__play-label">Replay in avatar</span>
           </button>
-          <span class="c2-snapshot-card__attribution">BSL · DictaSign Corpus, CC&nbsp;BY-NC-SA</span>
-        </div>
-        <div class="c2-hero__card-meta">
-          <span class="c2-hero__card-dot" aria-hidden="true"></span>
-          <span>Reviewed by Deaf signers</span>
         </div>
       </aside>
     </header>
@@ -377,42 +395,60 @@
               </ul>
             </div>
             <figure class="c2-walk__viz c2-viz-4">
-              <!-- Step 4 demo card. Default state is the
-                   SiGML/HamNoSys snapshot — the silhouette SVG that
-                   used to live here was the only "fake" element on the
-                   page (see docs/contrib-fix/prompts/03-fake-avatar-audit.md).
-                   The Replay button claims the CWASA canvas; under
-                   prefers-reduced-motion the auto-play in viewport is
-                   suppressed and the button is the only entry point. -->
-              <div class="c2-viz-4__avatar c2-viz-4__cwasa CWASAAvatar av0 c2-snapshot-card__stage"
-                   id="walkAvatarMount"
-                   role="img"
+              <!-- Step 4 snapshot card (Pattern B from prompt 03). The
+                   prior layout shipped a 220 px CWASA mount competing
+                   with chips + glyphs + inspector inside the same flex
+                   column; the avatar rendered as a postage stamp at every
+                   tested viewport. The playable canvas now lives in
+                   #walkReplayModal at viewport scale, opened by the
+                   explicit Play button below. The smoke test
+                   (tests/contrib_demo_signs.spec.ts) reads
+                   data-gloss / data-corpus / data-demo-payload from this
+                   element — keep the attribute order intact. -->
+              <div class="c2-viz-4__snapshot c2-snapshot-card"
                    data-demo-card="walk"
                    data-gloss="HAMBURG2^"
                    data-corpus="German_SL_DGS.sigml"
-                   aria-label="DGS sign for 'Hamburg': open C-shape near the forehead opening to a pinched handshape moving outward.">
-                <div class="c2-snapshot-card__snapshot c2-viz-4__snapshot">
-                  <p class="c2-snapshot-card__rubric">HamNoSys · DGS · HAMBURG2^</p>
-                  <span class="hamnosys c2-snapshot-card__glyphs" lang="zxx" aria-hidden="true">&#xE00A;&#xE00E;&#xE010;&#xE027;&#xE03D;&#xE042;&#xE059;&#xE0D0;&#xE0E2;&#xE082;&#xE0AA;&#xE007;&#xE010;&#xE0E3;</span>
-                  <span class="c2-snapshot-card__hint" data-demo-hint>Press Replay to play with the avatar</span>
+                   role="region"
+                   aria-label="HamNoSys notation for the DGS sign for HAMBURG2^">
+                <div class="c2-viz-4__snapshot-stage">
+                  <p class="c2-snapshot-card__rubric c2-viz-4__snapshot-rubric">HamNoSys · DGS · HAMBURG2^</p>
+                  <span class="hamnosys c2-snapshot-card__glyphs c2-viz-4__snapshot-glyphs" lang="zxx" aria-hidden="true">&#xE00A;&#xE00E;&#xE010;&#xE027;&#xE03D;&#xE042;&#xE059;&#xE0D0;&#xE0E2;&#xE082;&#xE0AA;&#xE007;&#xE010;&#xE0E3;</span>
+                  <span class="c2-viz-4__snapshot-gloss-fallback" aria-hidden="true">HAMBURG2^ · DGS</span>
                 </div>
-                <!-- SiGML payload played when the canvas is claimed.
-                     contribute-walkthrough.js reads this in preference
-                     to the legacy hardcoded constant. -->
+                <details class="c2-viz-4__snapshot-details">
+                  <summary class="c2-viz-4__snapshot-summary">show SiGML</summary>
+                  <pre class="c2-snapshot-card__sigml c2-viz-4__snapshot-sigml" aria-hidden="true"><code>&lt;hns_sign gloss="HAMBURG2^"&gt;
+  &lt;hamnosys_manual&gt;
+    &lt;hamceeall/&gt;&lt;hamthumbopenmod/&gt;
+    &lt;hamfingerstraightmod/&gt;&lt;hamextfingerul/&gt;
+    &lt;hampalmdl/&gt;&lt;hamforehead/&gt;
+    &lt;hamlrat/&gt;&lt;hamclose/&gt;
+    &lt;hamparbegin/&gt;&lt;hammover/&gt;
+    &lt;hamreplace/&gt;&lt;hampinchall/&gt;
+    &lt;hamfingerstraightmod/&gt;&lt;hamparend/&gt;
+  &lt;/hamnosys_manual&gt;
+&lt;/hns_sign&gt;</code></pre>
+                </details>
+                <div class="c2-viz-4__snapshot-footer">
+                  <span class="c2-snapshot-card__attribution c2-viz-4__snapshot-attribution">
+                    Real DGS corpus entry · <code>data/German_SL_DGS.sigml</code>
+                  </span>
+                  <button type="button"
+                          class="c2-snapshot-card__play c2-viz-4__snapshot-play"
+                          id="walkPlayBtn"
+                          aria-haspopup="dialog"
+                          aria-controls="walkReplayModal"
+                          data-demo-play="walk">
+                    <span class="c2-snapshot-card__play-icon" aria-hidden="true">&#9654;</span>
+                    <span class="c2-snapshot-card__play-label">Play in avatar</span>
+                  </button>
+                </div>
+                <!-- SiGML payload played when the modal opens. The smoke
+                     test asserts the <ham*-/> tag list here matches the
+                     <hns_sign gloss="HAMBURG2^"> entry in
+                     data/German_SL_DGS.sigml, in the same order. -->
                 <script type="application/xml" data-demo-payload="walk"><sigml><hns_sign gloss="HAMBURG2^"><hamnosys_manual><hamceeall/><hamthumbopenmod/><hamfingerstraightmod/><hamextfingerul/><hampalmdl/><hamforehead/><hamlrat/><hamclose/><hamparbegin/><hammover/><hamreplace/><hampinchall/><hamfingerstraightmod/><hamparend/></hamnosys_manual></hns_sign></sigml></script>
-              </div>
-              <div class="c2-viz-4__controls">
-                <button type="button"
-                        class="c2-viz-4__replay"
-                        id="walkReplayBtn"
-                        aria-label="Replay HAMBURG demo">
-                  <span aria-hidden="true">↻</span> Replay
-                </button>
-                <span class="c2-viz-4__caption" id="walkAvatarCaption">HAMBURG · DGS reference example</span>
-              </div>
-              <div class="c2-viz-4__glyphs">
-                <span class="c2-viz-4__glyph-label">HamNoSys · DGS · HAMBURG</span>
-                <span class="hamnosys c2-viz-4__glyph-row" lang="zxx" aria-hidden="true">&#xE00A;&#xE00E;&#xE010;&#xE027;&#xE03D;&#xE042;&#xE059;&#xE0D0;&#xE0E2;&#xE082;&#xE0AA;&#xE007;&#xE010;&#xE0E3;</span>
               </div>
               <div class="c2-viz-4__chips"
                    role="group"
@@ -1268,6 +1304,61 @@
         <button type="button" id="modalCancelBtn" class="btn btn-secondary" data-i18n="common.modal_cancel">Cancel</button>
         <button type="button" id="modalDiscardBtn" class="btn btn-primary" data-i18n="common.modal_discard">Discard</button>
       </div>
+    </div>
+  </div>
+
+  <!-- Avatar replay modal. Hosts the live CWASA canvas; opened by the
+       hero card's "Replay in avatar" button so the avatar gets a
+       viewport-sized stage instead of the 150 px hero card slot. The
+       canvas reparents in/out via contribute-walkthrough.js so a single
+       CWASA.init keeps serving the walkthrough demo too. ESC, backdrop
+       click, or the close button dismisses; focus returns to the play
+       button. No auto-anything: prefers-reduced-motion is satisfied
+       because playback is gated entirely on the explicit click. -->
+  <div class="c2-replay-modal" id="heroReplayModal" hidden role="dialog" aria-modal="true" aria-labelledby="heroReplayTitle">
+    <div class="c2-replay-modal__panel" role="document">
+      <header class="c2-replay-modal__head">
+        <h2 class="c2-replay-modal__title" id="heroReplayTitle">
+          <span class="c2-hero__card-chip">BSL</span>
+          <span class="c2-replay-modal__gloss">ELECTRON</span>
+        </h2>
+        <button type="button"
+                class="c2-replay-modal__close"
+                id="heroReplayModalClose"
+                aria-label="Close avatar replay">&times;</button>
+      </header>
+      <div class="c2-replay-modal__stage CWASAAvatar av0" id="heroAvatarMount"></div>
+      <p class="c2-replay-modal__caption">
+        Plays the SiGML the chat2hamnosys pipeline produced for the
+        <code>electron</code> fixture session.
+      </p>
+    </div>
+  </div>
+
+  <!-- Walkthrough Step 4 replay modal. Mirror of #heroReplayModal so the
+       walkthrough's "Play in avatar" button gets the same viewport-scale
+       canvas (≥ 280×280) and prefers-reduced-motion guarantees the hero
+       modal already enforces — playback is gated entirely on the
+       explicit click. The CWASA canvas reparents into this mount on
+       open and back to the live preview when a real session opens. -->
+  <div class="c2-replay-modal" id="walkReplayModal" hidden role="dialog" aria-modal="true" aria-labelledby="walkReplayTitle">
+    <div class="c2-replay-modal__panel" role="document">
+      <header class="c2-replay-modal__head">
+        <h2 class="c2-replay-modal__title" id="walkReplayTitle">
+          <span class="c2-hero__card-chip">DGS</span>
+          <span class="c2-replay-modal__gloss">HAMBURG2^</span>
+        </h2>
+        <button type="button"
+                class="c2-replay-modal__close"
+                id="walkReplayModalClose"
+                aria-label="Close avatar replay">&times;</button>
+      </header>
+      <div class="c2-replay-modal__stage CWASAAvatar av0" id="walkReplayMount"></div>
+      <p class="c2-replay-modal__caption">
+        Plays the SiGML for the German Sign Language entry
+        <code>HAMBURG2^</code> recorded in the open DGS corpus
+        (<code>data/German_SL_DGS.sigml</code>).
+      </p>
     </div>
   </div>
 

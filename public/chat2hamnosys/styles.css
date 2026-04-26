@@ -5,9 +5,15 @@
   --paper: #f5f1eb;
   --paper-2: #ede8e0;
   --paper-3: #e4ddd3;
-  --accent: #c96a2e;
+  /* `--accent` is used wherever the accent meets text or interactive
+     ink on the paper background. #b3441b clears WCAG AA at small text
+     against both --paper (4.80:1) and --accent-light (4.74:1).
+     `--accent-bright` is the original brighter shade; reserve it for
+     button-hover lift, region-tint fills, and other non-text uses. */
+  --accent: #b3441b;
+  --accent-bright: #c96a2e;
   --accent-2: #e8843e;
-  --accent-light: #f5e4d6;
+  --accent-light: #faeee0;
   --green: #2d6a4f;
   --green-light: #d4edda;
   --amber: #b07a14;
@@ -372,16 +378,84 @@ body.hc .badge { border: 1px solid currentColor; }
   gap: 12px;
   min-height: 0;
 }
+
+/* Status chip mirrors session/avatar state. Owned by app.js
+   setPreviewStatus(); the data-state attribute drives the dot colour. */
+.preview-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  padding: 4px 10px 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  background: var(--paper-2);
+  border: 1px solid var(--border);
+  color: var(--ink-2);
+  max-width: 100%;
+}
+.preview-status-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--ink-3);
+  flex: none;
+}
+.preview-status-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.preview-status[data-state="loading"] .preview-status-dot {
+  background: var(--accent-bright);
+  animation: previewStatusPulse 1.4s ease-in-out infinite;
+}
+.preview-status[data-state="playing"] {
+  background: var(--accent-light);
+  color: var(--accent);
+  border-color: var(--accent-light);
+}
+.preview-status[data-state="playing"] .preview-status-dot { background: var(--accent); }
+.preview-status[data-state="awaiting"] {
+  background: var(--amber-light);
+  color: var(--amber);
+  border-color: var(--amber-light);
+}
+.preview-status[data-state="awaiting"] .preview-status-dot { background: var(--amber); }
+.preview-status[data-state="error"],
+.preview-status[data-state="unavailable"] {
+  background: var(--red-light);
+  color: var(--red);
+  border-color: var(--red-light);
+}
+.preview-status[data-state="error"] .preview-status-dot,
+.preview-status[data-state="unavailable"] .preview-status-dot {
+  background: var(--red);
+}
+@keyframes previewStatusPulse {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .preview-status[data-state="loading"] .preview-status-dot { animation: none; opacity: 1; }
+}
+
+/* The mount is the headline fix. Old layout used flex+percentages, which
+   collapsed the CWASA canvas to zero (see docs/contrib-fix/prompts/
+   07-authoring-avatar-debug.md). The container is now an aspect-ratio
+   box anchored at min-height: 320px; every slot stacks inside it via
+   `position: absolute; inset: 0` so the percentage chain through
+   .CWASAAvatar → .divAv → .canvasAv resolves against a definite
+   parent. */
 .preview-mount {
   position: relative;
-  flex: 1;
-  min-height: 280px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  min-height: 320px;
+  max-height: min(60vh, 520px);
   background: linear-gradient(180deg, var(--paper-2), var(--paper-3));
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
 }
 .preview-mount[aria-busy="true"]::after {
@@ -389,20 +463,101 @@ body.hc .badge { border: 1px solid currentColor; }
   position: absolute; inset: 0;
   background: rgba(245, 241, 235, 0.55);
   pointer-events: none;
+  z-index: 5;
 }
-#previewVideo {
+
+/* Every slot fills the mount. `display: none !important` on [hidden] is
+   load-bearing: author CSS that sets `display:` on a class wins over
+   the user-agent `[hidden] { display: none }` rule because both have
+   specificity (0,1,0); without !important the .cwasa-mount slot would
+   show through even when it should be hidden. */
+.preview-slot {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
+}
+.preview-mount > [hidden] { display: none !important; }
+
+#previewVideo.preview-slot {
   object-fit: contain;
   background: #000;
 }
-.cwasa-mount { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+.cwasa-mount {
+  display: block;
+  background: transparent;
+}
+.cwasa-mount > .CWASAAvatar {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
 .preview-placeholder {
   color: var(--ink-3);
   text-align: center;
   padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .preview-placeholder-text { color: var(--ink-3); font-size: 13px; }
+
+/* Snapshot fallback (Pattern B from prompt 03) — shown when CWASA
+   doesn't reach ready in 6s. Layout mirrors c2-snapshot-card so the
+   visual idiom is consistent with the rest of the contribution flow. */
+.snapshot-fallback {
+  padding: 18px 20px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  background: var(--paper);
+  overflow: auto;
+}
+.snapshot-fallback__rubric {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.snapshot-fallback__glyphs {
+  font-size: clamp(28px, 6vw, 44px);
+  line-height: 1.2;
+  word-break: break-all;
+  color: var(--ink);
+}
+.snapshot-fallback__gloss {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.snapshot-fallback__details {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--ink-3);
+}
+.snapshot-fallback__sigml {
+  margin-top: 6px;
+  padding: 8px 10px;
+  background: var(--paper-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: auto;
+  max-height: 180px;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 11px;
+  color: var(--ink-2);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.snapshot-fallback__note {
+  margin-top: auto;
+  font-size: 11px;
+  color: var(--ink-3);
+  font-style: italic;
+}
 
 .region-overlay {
   position: absolute;

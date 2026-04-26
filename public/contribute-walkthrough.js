@@ -1,24 +1,28 @@
 // contribute-walkthrough.js
 //
 // Drives both demo cards on /contribute:
-//   1. The hero snapshot card (BSL · name(v)#1) — Pattern B by default,
-//      swaps to a real CWASA mount on play-button click.
+//   1. The hero conversation snapshot card (BSL · ELECTRON, prompt 04) —
+//      bubbles + HamNoSys + SiGML rendered statically. The "Replay in
+//      avatar" button opens #heroReplayModal, lazy-loads CWASA, and
+//      plays the inline data-demo-payload SiGML at viewport scale.
 //   2. The walkthrough Step 4 ("Watch the avatar perform it") demo
-//      (DGS · HAMBURG2^) — autoplays in-viewport on step-active,
-//      Replay button re-triggers, pauses when the panel leaves view.
+//      (DGS · HAMBURG2^, prompt 05) — also a snapshot card; the inline
+//      auto-play stage was retired because the cramped 220 px slot
+//      never reached the spec's 280×280 floor and competed with the
+//      chip strip / inspector for vertical space. The Play button now
+//      opens #walkReplayModal at viewport scale.
 //
 // SiGML payloads live inside the cards as inline
 // <script type="application/xml" data-demo-payload="..."> elements so
 // the gloss/payload alignment is enforced by markup (the test at
 // tests/contrib_demo_signs.spec.ts asserts each payload matches the
-// named corpus entry). The fake silhouette posters that used to live
-// here were removed — see docs/contrib-fix/prompts/03-fake-avatar-audit.md.
+// named corpus entry or chat2hamnosys fixture).
 //
-// Reparents CWASA's rendered <canvas> between the hero mount, the
-// walkthrough mount, and the live-preview mount so a single CWASA.init
-// covers every visible stage on the page. Honors
-// prefers-reduced-motion (no auto-play; explicit click only) and small
-// viewports (auto-play suppressed below 600 px wide).
+// Reparents CWASA's rendered <canvas> between the hero modal mount,
+// the walk modal mount, and the live-preview mount so a single
+// CWASA.init covers every visible stage on the page. Honors
+// prefers-reduced-motion: nothing here auto-plays — every playback is
+// gated entirely on an explicit click.
 (function () {
   'use strict';
 
@@ -71,12 +75,17 @@
   // ---------- DOM resolution (every selector is optional; bail if the
   // walkthrough markup isn't on this page) ----------
 
-  var walkMount      = document.getElementById('walkAvatarMount');
-  var heroMount      = document.getElementById('heroAvatarMount');
   var heroPlayBtn    = document.getElementById('heroPlayBtn');
+  var heroModal      = document.getElementById('heroReplayModal');
+  var heroModalClose = document.getElementById('heroReplayModalClose');
+  var heroMount      = document.getElementById('heroAvatarMount');
+
+  var walkPlayBtn    = document.getElementById('walkPlayBtn');
+  var walkModal      = document.getElementById('walkReplayModal');
+  var walkModalClose = document.getElementById('walkReplayModalClose');
+  var walkMount      = document.getElementById('walkReplayMount');
+
   var liveMount      = document.getElementById('avatarCanvas');
-  var stepPanel      = document.getElementById('c2-panel-4');
-  var replayBtn      = document.getElementById('walkReplayBtn');
   var chipHost       = document.getElementById('walkChipStrip');
   var inspector      = document.getElementById('walkInspector');
   var inspectorTag   = inspector && inspector.querySelector('[data-walk-inspector-tag]');
@@ -85,37 +94,14 @@
   var inspectorClose = inspector && inspector.querySelector('[data-walk-inspector-close]');
   var previewSection = document.getElementById('avatarPreview');
 
-  if (!walkMount || !stepPanel || !chipHost) return;
-
-  // ---------- Adaptive defaults (Pattern B fallback) ----------
-  //
-  // The fake-avatar audit (docs/contrib-fix/prompts/03-fake-avatar-audit.md)
-  // requires that prefers-reduced-motion AND small viewports default to
-  // the static snapshot card and only swap to the live avatar on
-  // explicit click. Both checks are evaluated lazily so a user changing
-  // their OS motion preference or rotating their device picks up the
-  // new state without reload.
-  function reduceMotion() {
-    return window.matchMedia &&
-           window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  }
-  function tinyViewport() {
-    if (typeof window.innerWidth !== 'number') return false;
-    return window.innerWidth < 600;
-  }
-  function autoPlayAllowed() {
-    // Reduced motion always wins. Small viewports skip auto-play
-    // because the canvas would render under 200 px tall on phones —
-    // the snapshot card is more legible than a postage-stamp avatar.
-    return !reduceMotion() && !tinyViewport();
-  }
+  if (!chipHost && !heroPlayBtn && !walkPlayBtn) return;
 
   // ---------- CWASA canvas ownership ----------
   //
   // CWASA scans for `.CWASAAvatar.av0` at init time and writes its
   // canvas into the FIRST match (see cwa/allcsa.js: `avaDiv[0].innerHTML
   // = htmlgen.htmlForAv()`). The page now has multiple .CWASAAvatar.av0
-  // hosts (hero, walkthrough, live preview); we pick whichever one
+  // hosts (hero modal, walk modal, live preview); we pick whichever one
   // currently matches what the user is looking at and physically move
   // the rendered <canvas> into it. WebGL contexts survive reparenting,
   // so this doesn't lose the avatar's animation state.
@@ -156,9 +142,9 @@
       attempts++;
       if (window.CWASA && findCanvas()) { resolve(true); return; }
       // 60s ceiling — CWASA's bundle is ~4.6 MB and the lazy loader
-      // waits 2.5s after `load`. After ~60 polls @ 200ms = 12s without
-      // a canvas we give up; the chip strip and Replay button still
-      // work, just no playback.
+      // waits 2.5s after `load`. After ~300 polls @ 200ms = 60s without
+      // a canvas we give up; the chip strip and Play buttons still
+      // work (chip strip never needed CWASA), just no playback.
       if (attempts > 300) { resolve(false); return; }
       setTimeout(tick, 200);
     }
@@ -177,7 +163,6 @@
       if (window.console) console.warn('[contribute-walkthrough] play failed:', e);
     }
   }
-  function playHamburg() { playSigml(HAMBURG_SIGML); }
   function pause() {
     if (!window.CWASA) return;
     try { window.CWASA.stop(0); } catch (_e) {}
@@ -187,6 +172,7 @@
   // ---------- Chip strip + inspector ----------
 
   function buildChips() {
+    if (!chipHost) return;
     var tags = extractHamTags(HAMBURG_SIGML);
     chipHost.innerHTML = '';
     tags.forEach(function (tag) {
@@ -233,130 +219,135 @@
   function closeInspector() { if (inspector) inspector.hidden = true; }
   if (inspectorClose) inspectorClose.addEventListener('click', closeInspector);
 
-  // ---------- Visibility orchestration ----------
+  // ---------- Replay modal helper ----------
   //
-  // Step 4 must satisfy two conditions to play: the walkthrough has
-  // selected step 4 (panel is-active + not [hidden]) AND the panel sits
-  // in the viewport. Either condition flipping false pauses CWASA.
+  // Used by both the hero and walkthrough cards. Identical contract:
+  // play button opens a viewport-sized dialog, claims the CWASA canvas
+  // into the dialog's mount, plays the inline SiGML, and on close
+  // pauses + returns focus. No auto-anything, so prefers-reduced-motion
+  // is satisfied without an extra branch.
 
-  var inViewport = false;
-  function isStepActive() {
-    return stepPanel.classList.contains('is-active') && !stepPanel.hidden;
-  }
-  // Auto-play requires the step to be active AND visible AND for the
-  // user not to have asked us to back off (reduced motion or tiny
-  // viewport — see autoPlayAllowed). The Replay button bypasses this
-  // gate so the user can always trigger playback explicitly.
-  function shouldPlay() {
-    return isStepActive() && inViewport && autoPlayAllowed();
-  }
+  // Track which modal currently holds the canvas so a second open
+  // (e.g. walk while hero is open) closes the first one cleanly.
+  var openModals = [];
 
-  function update() {
-    if (shouldPlay()) {
+  function setupReplayModal(opts) {
+    var playBtn   = opts.playBtn;
+    var modal     = opts.modal;
+    var modalClose = opts.modalClose;
+    var mount     = opts.mount;
+    var sigml     = opts.sigml;
+    if (!playBtn || !modal || !modalClose || !mount || !sigml) return null;
+
+    var lastFocused = null;
+
+    function open() {
+      if (!modal.hidden) return;
+      // Dismiss any other open modal first — only one canvas exists,
+      // and reparenting it mid-playback into a hidden mount looks like
+      // a frozen frame.
+      openModals.slice().forEach(function (other) {
+        if (other !== api) other.close();
+      });
+
+      lastFocused = document.activeElement;
+      modal.hidden = false;
+      playBtn.setAttribute('aria-expanded', 'true');
+      document.addEventListener('keydown', onKey);
+      // Defer focus by a tick so assistive tech announces the dialog
+      // mount before the focus move.
+      setTimeout(function () { modalClose.focus(); }, 0);
+      openModals.push(api);
+
       ensureCwasaInit();
       cwasaReadyPromise.then(function (ok) {
-        if (!ok || !shouldPlay()) return;
-        if (claimCanvasFor(walkMount)) playHamburg();
+        // Modal may have been dismissed while the bundle was still
+        // loading — bail rather than yank the canvas in after the user
+        // has already moved on.
+        if (!ok || modal.hidden) return;
+        if (claimCanvasFor(mount)) playSigml(sigml);
       });
-    } else if (isPlaying) {
-      pause();
     }
+
+    function close() {
+      if (modal.hidden) return;
+      modal.hidden = true;
+      playBtn.setAttribute('aria-expanded', 'false');
+      document.removeEventListener('keydown', onKey);
+      if (isPlaying) pause();
+      var idx = openModals.indexOf(api);
+      if (idx >= 0) openModals.splice(idx, 1);
+      if (lastFocused && typeof lastFocused.focus === 'function') {
+        lastFocused.focus();
+      }
+      lastFocused = null;
+    }
+
+    function onKey(ev) {
+      if (ev.key === 'Escape') {
+        ev.preventDefault();
+        close();
+        return;
+      }
+      // The modal has exactly one focusable control (the close button);
+      // trap Tab/Shift+Tab on it so focus cannot escape into the page
+      // beneath.
+      if (ev.key === 'Tab') {
+        ev.preventDefault();
+        modalClose.focus();
+      }
+    }
+
+    playBtn.setAttribute('aria-expanded', 'false');
+    playBtn.addEventListener('click', open);
+    modalClose.addEventListener('click', close);
+    // Backdrop click — only when the user clicks the dimmed area
+    // outside .c2-replay-modal__panel. Inside-panel clicks bubble up
+    // with currentTarget !== target if they originated on a child.
+    modal.addEventListener('click', function (ev) {
+      if (ev.target === modal) close();
+    });
+
+    var api = { open: open, close: close, isOpen: function () { return !modal.hidden; } };
+    return api;
   }
 
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        // Use a generous threshold — the panel is full-width on desktop
-        // and effectively in-view long before 50% intersects. 0.25 is
-        // the "user can clearly see the avatar" cutoff in practice.
-        inViewport = entry.isIntersecting && entry.intersectionRatio > 0.25;
-      });
-      update();
-    }, { threshold: [0, 0.25, 0.5, 1] });
-    io.observe(stepPanel);
-  } else {
-    inViewport = true;
-  }
+  setupReplayModal({
+    playBtn:    heroPlayBtn,
+    modal:      heroModal,
+    modalClose: heroModalClose,
+    mount:      heroMount,
+    sigml:      HERO_SIGML
+  });
 
-  // The walkthrough stepper flips `is-active` and the `hidden` attr on
-  // the panel; observe both so a step change inside the page (no
-  // scroll) still flips playback.
-  var stepObserver = new MutationObserver(update);
-  stepObserver.observe(stepPanel, { attributes: true, attributeFilter: ['class', 'hidden'] });
+  setupReplayModal({
+    playBtn:    walkPlayBtn,
+    modal:      walkModal,
+    modalClose: walkModalClose,
+    mount:      walkMount,
+    sigml:      HAMBURG_SIGML
+  });
 
+  // ---------- Live preview hand-off ----------
+  //
   // Cede the canvas back to the live preview the moment the user
   // actually has a session and avatarPreview becomes visible — that's
-  // where contribute-preview.js expects to render playback.
+  // where contribute-preview.js expects to render playback. Any open
+  // demo modal is dismissed so the canvas isn't yanked mid-playback.
   if (previewSection) {
     var previewObserver = new MutationObserver(function () {
       if (!previewSection.hidden) {
         if (isPlaying) pause();
+        openModals.slice().forEach(function (m) { m.close(); });
         claimCanvasFor(liveMount);
       }
     });
     previewObserver.observe(previewSection, { attributes: true, attributeFilter: ['hidden'] });
   }
 
-  if (replayBtn) {
-    replayBtn.addEventListener('click', function () {
-      ensureCwasaInit();
-      cwasaReadyPromise.then(function (ok) {
-        if (!ok) return;
-        claimCanvasFor(walkMount);
-        playHamburg();
-      });
-    });
-  }
-
-  // ---------- Hero snapshot card play button ----------
-  //
-  // The hero card stays in Pattern B (HamNoSys + SiGML snapshot) until
-  // the user clicks "Play with avatar". On click we lazy-init CWASA
-  // (the head loader has likely already injected the bundle on the
-  // user's first interaction; ensureCwasaInit is idempotent), claim
-  // the canvas to the hero mount, and play the embedded payload.
-  // aria-pressed flips true/false to mirror visible play state.
-  if (heroPlayBtn && heroMount && HERO_SIGML) {
-    heroPlayBtn.addEventListener('click', function () {
-      var pressed = heroPlayBtn.getAttribute('aria-pressed') === 'true';
-      if (pressed) {
-        // Toggle off: stop playback and release the canvas back to the
-        // walkthrough so the chip strip / Replay button stay live.
-        pause();
-        heroPlayBtn.setAttribute('aria-pressed', 'false');
-        if (isStepActive() && inViewport && autoPlayAllowed()) {
-          claimCanvasFor(walkMount);
-        }
-        return;
-      }
-      heroPlayBtn.setAttribute('aria-pressed', 'true');
-      ensureCwasaInit();
-      cwasaReadyPromise.then(function (ok) {
-        if (!ok) {
-          heroPlayBtn.setAttribute('aria-pressed', 'false');
-          return;
-        }
-        claimCanvasFor(heroMount);
-        playSigml(HERO_SIGML);
-      });
-    });
-
-    // Reflect canvas hand-off back to the button: if the walkthrough
-    // step grabs the canvas, the hero is no longer playing — drop
-    // aria-pressed to false so the button label re-reads "▶ Play".
-    var heroOwnershipObserver = new MutationObserver(function () {
-      if (heroPlayBtn.getAttribute('aria-pressed') !== 'true') return;
-      if (!heroMount.querySelector('canvas')) {
-        heroPlayBtn.setAttribute('aria-pressed', 'false');
-      }
-    });
-    heroOwnershipObserver.observe(heroMount, { childList: true, subtree: true });
-  }
-
-  // Initial render: chips first (works without CWASA), then evaluate
-  // whether step 4 is the current step. The IntersectionObserver above
-  // fires its first callback synchronously after observe(), so the
-  // viewport flag is initialised before the first user-driven update.
+  // Initial render: chips first so the inspector affordance works
+  // independently of CWASA. Modal playback is gated on explicit clicks
+  // (no IntersectionObserver, no auto-play) — prefers-reduced-motion is
+  // respected by construction.
   buildChips();
-  update();
 })();
