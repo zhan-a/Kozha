@@ -1856,13 +1856,34 @@
       return ((data && data.text) || '').trim();
     }
 
-    // Mirrors transcribeWithFallback in /public/app.html exactly —
-    // try the in-browser Whisper pipeline first, fall back to the
-    // server-side Gladia proxy at /api/transcribe on any local
-    // failure (or empty transcript). When BOTH legs fail we surface
-    // the local error string so /lib/error-copy.js's userMessageForMic
-    // produces the right plain-language hint at the call site.
+    // SERVER-FIRST on the landing-page hero. The in-browser Whisper
+    // pipeline produces opaque internal errors on enough browser /
+    // codec combinations (e.g. "e.subarray is not a function") that
+    // landing-page visitors hit them on first contact. Gladia at
+    // /api/transcribe handles WAV + WebM + Opus + MP3 + MOV uniformly
+    // server-side, so we hit it FIRST. Only on a network / 5xx /
+    // unconfigured-key failure do we fall through to the local
+    // pipeline as a best-effort last resort. The full translator at
+    // /app.html keeps its local-first ordering — that page is the
+    // one users have already opted in to.
+    //
+    // When all paths are exhausted we throw an Error whose .message
+    // is mapped by /lib/error-copy.js's userMessageForMic mapper at
+    // the call site, so the user sees the same plain-language copy
+    // the translator produces.
     async function heroTranscribeWithFallback(blob) {
+      let serverError = null;
+      try {
+        const serverText = await heroTranscribeViaServer(blob);
+        if (serverText) return serverText;
+        // Server reached Gladia but no speech was detected.
+        throw new Error('No speech detected — try recording again with a clearer voice.');
+      } catch (e) {
+        serverError = e;
+      }
+
+      // Server leg failed (network, 5xx, key not configured, etc.).
+      // Try the local pipeline as a fallback.
       let localError = null;
       try {
         const asr = await ensureASR();
@@ -1873,16 +1894,14 @@
       } catch (e) {
         localError = e;
       }
-      try {
-        const serverText = await heroTranscribeViaServer(blob);
-        if (serverText) return serverText;
-      } catch (serverError) {
-        const localWhy = window.describeError ? window.describeError(localError) : ((localError && localError.message) || String(localError));
-        const serverWhy = window.describeError ? window.describeError(serverError) : ((serverError && serverError.message) || String(serverError));
-        console.warn('[hero-asr] both local and server transcription failed', { local: localWhy, server: serverWhy });
-        throw localError;
-      }
-      throw localError;
+
+      const serverWhy = window.describeError ? window.describeError(serverError) : ((serverError && serverError.message) || String(serverError));
+      const localWhy = window.describeError ? window.describeError(localError) : ((localError && localError.message) || String(localError));
+      console.warn('[hero-asr] server-first transcription exhausted both legs', { server: serverWhy, local: localWhy });
+      // Surface the SERVER error string — Gladia is the path the
+      // hero relies on, and its message ("transcribe failed", "no
+      // speech detected", etc.) maps cleanly through userMessageForMic.
+      throw serverError;
     }
 
     function getAsrOptions() {
