@@ -1130,6 +1130,11 @@
       <div class="demo-tab-panel" id="tab-voice">
         <button class="demo-record-btn" id="heroRecordBtn">● Start recording</button>
         <div class="demo-status" id="heroMicStatus" role="status" aria-live="polite">Speech recognition runs locally in your browser.</div>
+        <!-- Read-only preview of what the recogniser heard. Stays visible
+             after the tab auto-switches to Text so users can verify the
+             transcription matches their utterance before translating. -->
+        <label for="heroMicTranscript" class="demo-lang-label" style="display:block;margin:8px 0 6px;">Transcription</label>
+        <textarea id="heroMicTranscript" class="demo-input kz-input" rows="2" readonly placeholder="Transcription will appear here…" style="font-size:13px;"></textarea>
       </div>
 
       <div class="demo-tab-panel" id="tab-video">
@@ -1137,6 +1142,8 @@
         <input type="file" accept="video/*" class="demo-file-input" id="heroVideoFile" />
         <button class="demo-process-btn" id="heroVideoBtn">Process video</button>
         <div class="demo-status" id="heroVideoStatus" role="status" aria-live="polite">Upload a video to extract and transcribe audio.</div>
+        <label for="heroVideoTranscript" class="demo-lang-label" style="display:block;margin:8px 0 6px;">Transcription</label>
+        <textarea id="heroVideoTranscript" class="demo-input kz-input" rows="2" readonly placeholder="Transcription will appear here…" style="font-size:13px;"></textarea>
       </div>
       <div class="demo-avatar-area" id="avatarContainer" role="img" aria-label="Sign language avatar animation">
         <div class="avatar-loading" id="avatarLoading">
@@ -1847,14 +1854,26 @@
       } catch (e) {
         localError = e;
       }
+      // Local pipeline failed — try the server-side Gladia proxy. We
+      // distinguish three sub-outcomes so the UI surfaces the right
+      // copy: a successful non-empty transcript wins; a successful
+      // EMPTY transcript means the audio has no speech (clean copy);
+      // a server error falls back to the local error so the upload-
+      // mapper hint ("model load failed", etc.) still applies.
+      let serverError = null;
+      let serverText = null;
       try {
-        const serverText = await heroTranscribeViaServer(blob);
-        if (serverText) return serverText;
-      } catch (serverError) {
+        serverText = await heroTranscribeViaServer(blob);
+      } catch (e) {
+        serverError = e;
+      }
+      if (serverText) return serverText;
+      if (serverError) {
         console.warn('[asr] both local and server transcription failed', { local: localError && localError.message, server: serverError && serverError.message });
         throw localError;
       }
-      throw localError;
+      // Server reached Gladia but no speech was detected.
+      throw new Error('No speech detected — try recording again with a clearer voice.');
     }
 
     function getAsrOptions() {
@@ -1864,9 +1883,27 @@
       return opts;
     }
 
+    // Renders a status message with a "→ Open full translator" deep
+     // link inside it. Used on the hero mic + video tabs so a user
+     // who hits a failure on the demo widget always has a one-click
+     // route to /app.html instead of being stuck on a dead error.
+    function setHeroStatusWithFallbackLink(el, message) {
+      if (!el) return;
+      el.textContent = '';
+      el.appendChild(document.createTextNode(message + ' '));
+      const a = document.createElement('a');
+      a.href = '/app.html';
+      a.textContent = 'Open full translator →';
+      a.style.color = 'var(--accent)';
+      a.style.fontWeight = '600';
+      a.style.textDecoration = 'underline';
+      el.appendChild(a);
+    }
+
     (function() {
       const recordBtn = document.getElementById('heroRecordBtn');
       const micStatus = document.getElementById('heroMicStatus');
+      const micTranscript = document.getElementById('heroMicTranscript');
       const heroInput = document.getElementById('heroInput');
       let mediaRecorder = null;
       let recordedChunks = [];
@@ -1883,8 +1920,9 @@
             recordBtn.textContent = '■ Stop recording';
             recordBtn.classList.add('recording');
             micStatus.textContent = 'Recording…';
+            if (micTranscript) micTranscript.value = '';
           } catch (e) {
-            micStatus.textContent = 'Mic error: ' + e.message;
+            setHeroStatusWithFallbackLink(micStatus, 'Mic error: ' + e.message + '.');
           }
         } else {
           mediaRecorder.stop();
@@ -1898,6 +1936,10 @@
             const blob = new Blob(recordedChunks, { type: 'audio/webm' });
             micStatus.textContent = 'Transcribing audio…';
             const rawText = await heroTranscribeWithFallback(blob);
+            // Show the raw transcription in-panel BEFORE translating
+            // so the user can verify what was heard even if the
+            // subsequent translate or tab-switch fails.
+            if (micTranscript) micTranscript.value = rawText;
             const text = await heroTranslateIfNeeded(rawText, (msg) => { micStatus.textContent = msg; });
             heroInput.value = text;
             micStatus.textContent = 'Transcribed! Hit Translate to see signs.';
@@ -1906,7 +1948,7 @@
             document.querySelectorAll('.demo-tab-panel').forEach(p => p.classList.remove('active'));
             document.getElementById('tab-text').classList.add('active');
           } catch (e) {
-            micStatus.textContent = 'Transcription error: ' + e.message;
+            setHeroStatusWithFallbackLink(micStatus, 'Transcription error: ' + e.message);
           }
           recordBtn.textContent = '● Start recording';
           recordBtn.disabled = false;
@@ -1918,6 +1960,7 @@
       const videoFile = document.getElementById('heroVideoFile');
       const videoBtn = document.getElementById('heroVideoBtn');
       const videoStatus = document.getElementById('heroVideoStatus');
+      const videoTranscript = document.getElementById('heroVideoTranscript');
       const heroInput = document.getElementById('heroInput');
 
       async function ensureFFmpeg() {
@@ -1943,6 +1986,7 @@
         const file = videoFile?.files?.[0];
         if (!file) { videoStatus.textContent = 'Choose a video file first.'; return; }
         videoBtn.disabled = true;
+        if (videoTranscript) videoTranscript.value = '';
 
         try {
           videoStatus.textContent = 'Preparing…';
@@ -1956,6 +2000,10 @@
 
           videoStatus.textContent = 'Transcribing audio…';
           const rawText = await heroTranscribeWithFallback(wavBlob);
+          // Show the raw transcription on the Video panel itself
+          // before translating + switching tabs, so it's visible
+          // here even if translation or the tab swap fails.
+          if (videoTranscript) videoTranscript.value = rawText;
           const text = await heroTranslateIfNeeded(rawText, (msg) => { videoStatus.textContent = msg; });
           heroInput.value = text;
           videoStatus.textContent = 'Transcribed! Hit Translate to see signs.';
@@ -1965,7 +2013,7 @@
           document.querySelectorAll('.demo-tab-panel').forEach(p => p.classList.remove('active'));
           document.getElementById('tab-text').classList.add('active');
         } catch (e) {
-          videoStatus.textContent = 'Error: ' + e.message;
+          setHeroStatusWithFallbackLink(videoStatus, 'Error: ' + e.message);
         }
         videoBtn.disabled = false;
       });
