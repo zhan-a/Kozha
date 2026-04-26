@@ -39,7 +39,7 @@ var SIGN_LANG_DB = {
   ngt:      { sigml: ['/data/Dutch_SL_NGT.sigml'], csv: '/data/hamnosys_ngt.csv', alphabet: '/data/ngt_alphabet_sigml.sigml' },
   algerian: { sigml: [], csv: null, alphabet: null },
   bangla:   { sigml: ['/data/Bangla_SL.sigml'], csv: null, alphabet: null },
-  fsl:      { sigml: ['/data/Filipino_SL.sigml'], csv: null, alphabet: null },
+  fsl:      { sigml: [], csv: null, alphabet: null },
   isl:      { sigml: ['/data/Indian_SL.sigml'], csv: null, alphabet: null },
   kurdish:  { sigml: ['/data/Kurdish_SL.sigml'], csv: null, alphabet: null },
   vsl:      { sigml: ['/data/Vietnamese_SL.sigml'], csv: null, alphabet: null },

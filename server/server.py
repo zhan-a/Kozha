@@ -449,6 +449,7 @@ GRAMMAR_PROFILES = {
     "isl":      {"verb_final": False, "time_first": True},
     "kurdish":  {"verb_final": False, "time_first": True},
     "vsl":      {"verb_final": False, "time_first": True},
+    "ksl":      {"verb_final": True,  "time_first": True},
 }
 DEFAULT_GRAMMAR = {"verb_final": False, "time_first": True}
 
