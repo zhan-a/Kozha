@@ -49,7 +49,15 @@
   var TOAST_MS = 1800;
   var RESTORED_NOTICE_MS = 5000;
   var AUTOSAVE_DEBOUNCE_MS = 500;
-  var DESCRIPTION_MIN = 20;
+  // Hard gate for "Start authoring": any non-empty trimmed description.
+  // Matches backend/chat2hamnosys/api/models.py (prose: Field(min_length=1));
+  // a higher frontend gate just produces complaints about the button
+  // staying greyed out when fields look populated. The LLM works best
+  // with more detail, so we still nudge users via the soft hint
+  // threshold below — but we don't block them from trying.
+  var DESCRIPTION_MIN = 1;
+  // Soft hint: while the description is short of this threshold we keep
+  // "a bit more detail helps" visible. Above it, the hint hides.
   var DESCRIPTION_HINT_THRESHOLD = 40;
   var GENERIC_DESCRIPTION_PLACEHOLDER =
     "e.g. describe the handshape, where the hand starts, how it moves, and which way the palm faces.";
@@ -510,21 +518,11 @@
     var trimmedLen = (els.descriptionInput.value || '').trim().length;
     var rawLen = (els.descriptionInput.value || '').length;
     els.descriptionCount.textContent = String(rawLen);
-    // Below the submit threshold, swap the generic "more detail" copy
-    // for a concrete countdown so the user can see what's gating the
-    // button. Above the threshold, fall back to the gentle nudge until
-    // we've crossed the polish threshold.
-    if (trimmedLen < DESCRIPTION_MIN) {
-      var remaining = DESCRIPTION_MIN - trimmedLen;
-      var key = remaining === 1
-        ? 'contribute.authoring.description_hint_chars_remaining'
-        : 'contribute.authoring.description_hint_chars_remaining_plural';
-      var fallback = remaining === 1
-        ? '{{n}} more character to start authoring'
-        : '{{n}} more characters to start authoring';
-      els.descriptionHint.textContent = tr(key, fallback, { n: remaining });
-      els.descriptionHint.hidden = false;
-    } else if (trimmedLen < DESCRIPTION_HINT_THRESHOLD) {
+    // Show "a bit more detail helps" once the user has typed something
+    // but is still under the polish threshold. Empty field hides the
+    // hint (the placeholder + disabled button already say "type here"),
+    // and 40+ chars hides it because we've nudged enough.
+    if (trimmedLen > 0 && trimmedLen < DESCRIPTION_HINT_THRESHOLD) {
       els.descriptionHint.textContent = tr(
         'contribute.authoring.description_hint_more_detail',
         'a bit more detail helps'
@@ -533,8 +531,8 @@
     } else {
       els.descriptionHint.hidden = true;
     }
-    // Clear existing errors once the user crosses each threshold so the
-    // message doesn't linger while they're actively fixing it.
+    // Clear existing errors once the user has fixed the field, so the
+    // message doesn't linger while they're actively typing.
     if (view.submitAttempted) {
       if ((els.glossInput.value || '').trim().length > 0) {
         hideInlineError(els.glossError);
@@ -638,7 +636,7 @@
     if (!descOk) {
       showInlineError(
         els.descriptionError,
-        tr('contribute.authoring.description_error_too_short', 'Please add at least 20 characters of description.')
+        tr('contribute.authoring.description_error_required', 'Add a short description of the sign before starting.')
       );
     } else {
       hideInlineError(els.descriptionError);
