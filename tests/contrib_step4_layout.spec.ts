@@ -148,10 +148,15 @@ test.describe('contribute.html step 4 layout', () => {
       // captured by the "non-zero" check above plus a hard floor below.
 
       // 3. Hard absolute floor: the snapshot card needs at least enough
-      //    room for the rubric + glyph row + footer to fit without
-      //    overlapping. Empirical floor from the new layout is ~180 px
-      //    on the smallest tested viewport.
-      expect(step4Height, 'step 4 snapshot card minimum height').toBeGreaterThanOrEqual(160);
+      //    room for the rubric + Play button row + glyph row to render
+      //    without collapsing. The card was deliberately compacted (the
+      //    show-SiGML toggle + corpus-attribution caption were dropped
+      //    because they duplicated the hero card and stretched the
+      //    panel ~841px tall). Empirical floor of the new compact
+      //    layout is ~90 px on desktop / mobile, so 80 catches a
+      //    regression that fully collapses the card without flagging
+      //    the intended slim design.
+      expect(step4Height, 'step 4 snapshot card minimum height').toBeGreaterThanOrEqual(80);
     });
   }
 
@@ -162,7 +167,7 @@ test.describe('contribute.html step 4 layout', () => {
     });
     await page.click('#c2-tab-4');
     const card = page.locator('[data-demo-card="walk"]');
-    await expect(card).toHaveAttribute('data-gloss', 'HAMBURG2^');
+    await expect(card).toHaveAttribute('data-gloss', 'HAMBURG1^');
     await expect(card).toHaveAttribute('data-corpus', 'German_SL_DGS.sigml');
     // The inline payload script anchors the smoke test in
     // tests/contrib_demo_signs.spec.ts; if it disappears, payload/gloss

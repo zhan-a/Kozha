@@ -390,19 +390,15 @@
             <div class="c2-walk__copy">
               <span class="c2-walk__step-label">Step 4 of 5</span>
               <h3 class="c2-walk__copy-title">Watch the avatar perform it.</h3>
-              <p class="c2-walk__copy-body">A 3D avatar plays the sign. Something off — finger bend, wrong direction, palm flipped? Hit Play to watch the sign in the modal, then use the chips below or just tell the chat what to change.</p>
-              <ul class="c2-walk__bullets">
-                <li>Each chip is one HamNoSys tag — grouped by the slot it controls (handshape, orientation, location, movement). Click to see what it does.</li>
-              </ul>
+              <p class="c2-walk__copy-body">Tap Play to watch the sign. Click any chip to see what it controls, or tell the chat what to change.</p>
             </div>
             <figure class="c2-walk__viz c2-viz-4">
-              <!-- Step 4 snapshot card (Pattern B from prompt 03). The
-                   prior layout shipped a 220 px CWASA mount competing
-                   with chips + glyphs + inspector inside the same flex
-                   column; the avatar rendered as a postage stamp at every
-                   tested viewport. The playable canvas now lives in
-                   #walkReplayModal at viewport scale, opened by the
-                   explicit Play button below. The smoke test
+              <!-- Compact Step 4 snapshot card. The full SiGML excerpt
+                   and the corpus-attribution caption that used to live
+                   here are duplicates of the hero card and were just
+                   stretching the panel; this surface now keeps only the
+                   rubric + glyph row + Play button (the playable canvas
+                   itself is the modal). The smoke test
                    (tests/contrib_demo_signs.spec.ts) reads
                    data-gloss / data-corpus / data-demo-payload from this
                    element — keep the attribute order intact. -->
@@ -412,29 +408,8 @@
                    data-corpus="German_SL_DGS.sigml"
                    role="region"
                    aria-label="HamNoSys notation for the DGS sign for HAMBURG1^">
-                <div class="c2-viz-4__snapshot-stage">
+                <div class="c2-viz-4__snapshot-row">
                   <p class="c2-snapshot-card__rubric c2-viz-4__snapshot-rubric">HamNoSys · DGS · HAMBURG1^</p>
-                  <span class="hamnosys c2-snapshot-card__glyphs c2-viz-4__snapshot-glyphs" lang="zxx" aria-hidden="true">&#xE009;&#xE010;&#xE00E;&#xE027;&#xE03D;&#xE042;&#xE059;&#xE0D0;&#xE0E2;&#xE082;&#xE0AA;&#xE006;&#xE010;&#xE0E3;</span>
-                  <span class="c2-viz-4__snapshot-gloss-fallback" aria-hidden="true">HAMBURG1^ · DGS</span>
-                </div>
-                <details class="c2-viz-4__snapshot-details">
-                  <summary class="c2-viz-4__snapshot-summary">show SiGML</summary>
-                  <pre class="c2-snapshot-card__sigml c2-viz-4__snapshot-sigml" aria-hidden="true"><code>&lt;hns_sign gloss="HAMBURG1^"&gt;
-  &lt;hamnosys_manual&gt;
-    &lt;hamcee12/&gt;&lt;hamfingerstraightmod/&gt;
-    &lt;hamthumbopenmod/&gt;&lt;hamextfingerul/&gt;
-    &lt;hampalmdl/&gt;&lt;hamforehead/&gt;
-    &lt;hamlrat/&gt;&lt;hamclose/&gt;
-    &lt;hamparbegin/&gt;&lt;hammover/&gt;
-    &lt;hamreplace/&gt;&lt;hampinch12/&gt;
-    &lt;hamfingerstraightmod/&gt;&lt;hamparend/&gt;
-  &lt;/hamnosys_manual&gt;
-&lt;/hns_sign&gt;</code></pre>
-                </details>
-                <div class="c2-viz-4__snapshot-footer">
-                  <span class="c2-snapshot-card__attribution c2-viz-4__snapshot-attribution">
-                    Real DGS corpus entry · <code>data/German_SL_DGS.sigml</code>
-                  </span>
                   <button type="button"
                           class="c2-snapshot-card__play c2-viz-4__snapshot-play"
                           id="walkPlayBtn"
@@ -442,9 +417,11 @@
                           aria-controls="walkReplayModal"
                           data-demo-play="walk">
                     <span class="c2-snapshot-card__play-icon" aria-hidden="true">&#9654;</span>
-                    <span class="c2-snapshot-card__play-label">Play in avatar</span>
+                    <span class="c2-snapshot-card__play-label">Play</span>
                   </button>
                 </div>
+                <span class="hamnosys c2-snapshot-card__glyphs c2-viz-4__snapshot-glyphs" lang="zxx" aria-hidden="true">&#xE009;&#xE010;&#xE00E;&#xE027;&#xE03D;&#xE042;&#xE059;&#xE0D0;&#xE0E2;&#xE082;&#xE0AA;&#xE006;&#xE010;&#xE0E3;</span>
+                <span class="c2-viz-4__snapshot-gloss-fallback" aria-hidden="true">HAMBURG1^ · DGS</span>
                 <!-- SiGML payload played when the modal opens. The smoke
                      test asserts the <ham*-/> tag list here matches the
                      <hns_sign gloss="HAMBURG1^"> entry in
