@@ -177,41 +177,83 @@
 
   // ---------- Chip strip + inspector ----------
 
+  // Phonological grouping for the chip strip. Tags fall into a small
+  // number of slot categories; rendering them in slot order makes the
+  // 14-chip wall scannable instead of flat. Categories not in the map
+  // fall back to "Other" (won't trigger today, but defends against a
+  // new tag being added without a slot).
+  var SLOT_GROUPS = [
+    { key: 'handshape',     label: 'Handshape',   cats: ['handshape'] },
+    { key: 'modifier',      label: 'Modifiers',   cats: ['modifier'] },
+    { key: 'orientation',   label: 'Orientation', cats: ['finger dir.', 'palm'] },
+    { key: 'location',      label: 'Location',    cats: ['location', 'location mod.'] },
+    { key: 'movement',      label: 'Movement',    cats: ['movement', 'movement mod.'] },
+    { key: 'other',         label: 'Other',       cats: [] },
+  ];
+  function slotForCategory(cat) {
+    for (var i = 0; i < SLOT_GROUPS.length; i++) {
+      if (SLOT_GROUPS[i].cats.indexOf(cat) !== -1) return SLOT_GROUPS[i].key;
+    }
+    return 'other';
+  }
+
+  function makeChip(tag) {
+    var info = TAG_INFO[tag] || { role: tag, cat: 'tag' };
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'c2-viz-4__chip';
+    btn.setAttribute('tabindex', '0');
+    btn.dataset.tag = tag;
+    btn.dataset.role = info.role;
+    btn.dataset.category = info.cat;
+    btn.setAttribute(
+      'aria-label',
+      '<' + tag + '/>: ' + info.role + ' (' + info.cat + '). Press Enter to inspect.'
+    );
+    var name = document.createElement('span');
+    name.className = 'c2-viz-4__chip-name';
+    name.textContent = '<' + tag + '/>';
+    btn.appendChild(name);
+    btn.addEventListener('click', function () { openInspector(btn); });
+    btn.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Enter' || ev.key === ' ') {
+        ev.preventDefault();
+        openInspector(btn);
+      }
+    });
+    return btn;
+  }
+
   function buildChips() {
     if (!chipHost) return;
     var tags = extractHamTags(HAMBURG_SIGML);
     chipHost.innerHTML = '';
+
+    // Bucket tags into their phonological slot. Preserve the SiGML
+    // order within each slot (so "Movement" reads parbegin → mover →
+    // replace → fingerstraightmod → parend the way the avatar plays
+    // them, not alphabetical or random).
+    var buckets = {};
+    SLOT_GROUPS.forEach(function (g) { buckets[g.key] = []; });
     tags.forEach(function (tag) {
       var info = TAG_INFO[tag] || { role: tag, cat: 'tag' };
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'c2-viz-4__chip';
-      btn.setAttribute('tabindex', '0');
-      btn.dataset.tag = tag;
-      btn.dataset.role = info.role;
-      btn.dataset.category = info.cat;
-      btn.setAttribute(
-        'aria-label',
-        '<' + tag + '/>: ' + info.role + ' (' + info.cat + '). Press Enter to inspect.'
-      );
+      buckets[slotForCategory(info.cat)].push(tag);
+    });
 
-      var name = document.createElement('span');
-      name.className = 'c2-viz-4__chip-name';
-      name.textContent = '<' + tag + '/>';
-      var cat = document.createElement('span');
-      cat.className = 'c2-viz-4__chip-cat';
-      cat.textContent = info.cat;
-      btn.appendChild(name);
-      btn.appendChild(cat);
-
-      btn.addEventListener('click', function () { openInspector(btn); });
-      btn.addEventListener('keydown', function (ev) {
-        if (ev.key === 'Enter' || ev.key === ' ') {
-          ev.preventDefault();
-          openInspector(btn);
-        }
-      });
-      chipHost.appendChild(btn);
+    SLOT_GROUPS.forEach(function (group) {
+      var bucket = buckets[group.key];
+      if (!bucket.length) return;
+      var section = document.createElement('div');
+      section.className = 'c2-viz-4__chip-group';
+      var heading = document.createElement('span');
+      heading.className = 'c2-viz-4__chip-group-label';
+      heading.textContent = group.label;
+      section.appendChild(heading);
+      var row = document.createElement('div');
+      row.className = 'c2-viz-4__chip-group-row';
+      bucket.forEach(function (tag) { row.appendChild(makeChip(tag)); });
+      section.appendChild(row);
+      chipHost.appendChild(section);
     });
   }
 

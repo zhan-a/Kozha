@@ -3968,8 +3968,18 @@ select.field-input { cursor: pointer; }
 .c2-viz-4__snapshot-glyphs {
   font-size: clamp(28px, 4.6vw, 44px);
   line-height: 1.1;
-  word-break: break-all;
+  /* Same fix the hero glyph row needs: HamNoSysUnicode renders runs as
+     one uninterruptible cluster, so plain word-break on an inline span
+     doesn't actually wrap. Force inline-block + width:100% so max-width
+     binds, and overflow-wrap: anywhere so 14-codepoint sequences like
+     HAMBURG1^ break at any cell instead of spilling past the card. */
+  display: inline-block;
+  width: 100%;
   max-width: 100%;
+  box-sizing: border-box;
+  word-break: break-all;
+  overflow-wrap: anywhere;
+  text-align: center;
 }
 /* Fallback shown only when the HamNoSys font fails to shape the PUA
    glyphs (the .no-hamnosys-font sentinel set in contribute.html). The
@@ -4038,31 +4048,54 @@ select.field-input { cursor: pointer; }
   flex: 0 0 auto;
 }
 
-/* Chip strip — one chip per <ham*/> tag in HAMBURG SiGML. Each chip is
-   keyboard-focusable; Enter/Space opens the read-only inspector below. */
+/* Chip strip — one chip per <ham*/> tag in HAMBURG SiGML. Tags are
+   grouped by phonological slot (Handshape, Orientation, Location,
+   Movement, Modifiers) so the 14-chip wall reads as five short rows
+   instead of a flat scroll. Each chip is keyboard-focusable;
+   Enter/Space opens the read-only inspector below. */
 .c2-viz-4__chips {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  padding: 10px;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
   background: var(--kozha-color-paper-2);
   border: 1px solid var(--kozha-color-border);
   border-radius: 10px;
-  max-height: 158px;
-  overflow-y: auto;
+}
+.c2-viz-4__chip-group {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 10px;
+  align-items: start;
+}
+.c2-viz-4__chip-group + .c2-viz-4__chip-group {
+  padding-top: 8px;
+  border-top: 1px dashed var(--kozha-color-border);
+}
+.c2-viz-4__chip-group-label {
+  font-family: var(--kozha-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--kozha-color-ink-3);
+  padding-top: 5px;
+  white-space: nowrap;
+}
+.c2-viz-4__chip-group-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
 }
 .c2-viz-4__chip {
   display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1px;
-  padding: 5px 9px;
+  align-items: center;
+  padding: 4px 9px;
   background: var(--kozha-color-white);
   border: 1px solid var(--kozha-color-border);
   border-radius: 6px;
   cursor: pointer;
-  text-align: left;
-  font-family: var(--kozha-font-sans);
+  font-family: var(--kozha-font-mono);
   font-size: 11px;
   color: var(--kozha-color-ink);
   transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
@@ -4083,12 +4116,14 @@ select.field-input { cursor: pointer; }
   font-size: 11px;
   color: var(--kozha-color-ink);
 }
-.c2-viz-4__chip-cat {
-  font-family: var(--kozha-font-mono);
-  font-size: 9px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--kozha-color-ink-3);
+/* Narrow viewports: stack the slot label above its chip row so the
+   96px label gutter doesn't squeeze the chips into a single column. */
+@media (max-width: 639px) {
+  .c2-viz-4__chip-group {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .c2-viz-4__chip-group-label { padding-top: 0; }
 }
 
 /* Read-only inspector. Click-to-swap is prompt 05's job; this surface
