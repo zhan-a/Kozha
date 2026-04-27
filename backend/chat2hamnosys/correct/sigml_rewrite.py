@@ -241,22 +241,137 @@ def _match_palm_direction_swap(text: str, current_sigml: str) -> Optional[TagSwa
 # ---------------------------------------------------------------------------
 
 
+# Verb cues that disambiguate replacement vs. addition intent. The
+# bracketed/bare HamNoSys-tag matcher fires on replacement intent
+# only — "add/include/also/insert" indicates the user wants to
+# coexist a tag with whatever is already in the same slot, which is a
+# parameter-level edit best left to the LLM interpreter.
+_ADD_VERB_RE = re.compile(
+    r"\b(add|insert|include|also|append|alongside|coexist)\b",
+    re.IGNORECASE,
+)
+_SWAP_VERB_RE = re.compile(
+    r"(\b(change|swap|replace|use|make|set|switch|should\s+be|instead\s+of)\b|->|→)",
+    re.IGNORECASE,
+)
+
+
+# Bracketed-form HamNoSys tag references — what the chip strip
+# displays and what users tend to copy/paste back into the chat
+# ("change <hampalmr/> to <hampalmd/>"). The trailing slash and inner
+# whitespace are optional.
+_HAM_BRACKET_TAG_RE = re.compile(
+    r"<\s*(ham[a-z0-9_]+)\s*/?\s*>",
+    re.IGNORECASE,
+)
+# Bare-word references — "use hampalmd instead". Looser than the
+# bracketed form, so we additionally require the matched token to be
+# a known catalog name before treating it as a tag reference.
+_HAM_BARE_TAG_RE = re.compile(
+    r"\b(ham[a-z0-9_]+)\b",
+    re.IGNORECASE,
+)
+
+
+def _extract_ham_tag_refs(text: str) -> list[str]:
+    """Return ham-tag names referenced in ``text``, in order of appearance.
+
+    Bracketed references are gathered first because they're the form
+    the chip strip displays. Bare-word references are only kept if
+    they match a real catalog entry — that filter avoids false
+    positives on stray strings that happen to start with "ham".
+    """
+    refs = [m.group(1).lower() for m in _HAM_BRACKET_TAG_RE.finditer(text)]
+    if refs:
+        return refs
+    return [
+        m.group(1).lower()
+        for m in _HAM_BARE_TAG_RE.finditer(text)
+        if m.group(1).lower() in BY_NAME
+    ]
+
+
+def _match_tag_syntax_swap(text: str, current_sigml: str) -> Optional[TagSwap]:
+    """Match corrections that name HamNoSys tags directly.
+
+    Examples this catches:
+
+    - ``change <hampalmr/> to <hampalmd/>``
+    - ``swap <hamfist/> for <hamflathand/>``
+    - ``use <hampalmd/> instead``
+    - ``<hampalml/> → <hampalmd/>``
+    - ``make it <hampalmd/>``
+
+    Strategy: identify the TARGET tag (the last ham-tag mentioned —
+    every "change X to Y", "swap X for Y", "make it Y" phrasing puts
+    the target last), look up its category in :data:`BY_NAME`, and
+    find the current sign's tag in that same category. Emit a swap
+    from the actual current tag to the target.
+
+    Robust to the user naming a non-existent source tag — the chip
+    strip they were reading from might disagree with what they typed.
+    Production case that motivated this matcher: the user wrote
+    ``change <hampalmr/> to <hampalmd/>`` while the sign carried
+    ``<hampalml/>``; the LLM interpreter classified that as VAGUE
+    because old_value couldn't be matched against current parameters,
+    and the user got "did NOT change sigml/hamnosys" with no
+    animation update. We trust the target intent and let the source
+    claim be advisory.
+
+    Returns ``None`` if no recognisable tag is found, the target tag
+    isn't in the catalog, the current sign has no tag in that target
+    category to swap (correction would be ELABORATE, not APPLY_DIFF),
+    or the target tag is already the current tag (no-op).
+    """
+    if not text or not current_sigml:
+        return None
+    refs = _extract_ham_tag_refs(text)
+    if not refs:
+        return None
+    # Verbs of intent. "change/swap/replace/use/make/should/->" ⇒ swap.
+    # "add/include/also/insert" is intentionally NOT covered — adding
+    # a tag in a category that already has one is ambiguous (replace
+    # vs. coexist) and the LLM's parameter-level reasoning handles
+    # additions better than a deterministic same-category swap.
+    if _ADD_VERB_RE.search(text) and not _SWAP_VERB_RE.search(text):
+        return None
+    target_tag = refs[-1]
+    target_entry = BY_NAME.get(target_tag)
+    if not target_entry:
+        return None
+    target_category = target_entry.get("category")
+    if not target_category:
+        return None
+    cat_tag_names = {e["name"] for e in BY_CATEGORY.get(target_category, [])}
+    current_tags = extract_manual_tags(current_sigml)
+    current_in_cat = next((t for t in current_tags if t in cat_tag_names), None)
+    if not current_in_cat:
+        return None
+    if current_in_cat == target_tag:
+        return None
+    return TagSwap(from_tag=current_in_cat, to_tag=target_tag)
+
+
 def match_deterministic_swap(
     correction: Correction,
     current_sigml: Optional[str],
 ) -> Optional[TagSwap]:
     """Attempt to interpret ``correction`` as a deterministic SiGML swap.
 
-    Two routes:
+    Three routes, in order:
 
     - ``correction.target_region == "swap:from:to"`` — structured
       chip-swap payload encoded by the frontend's
       ``contribute-sigml-edit.js``. ``from`` and ``to`` are tag names
       (without angle brackets). An optional ``:index`` suffix targets
       a specific occurrence.
-    - ``correction.raw_text`` matches a known natural-language pattern
-      (currently: palm-direction). Returns the swap that would land
-      the caller in the requested state.
+    - ``correction.raw_text`` references HamNoSys tags directly
+      (``<hampalmd/>``, ``hampalmd``, …). The target tag's category
+      identifies which slot to swap; the user's named source is
+      advisory (a wrong source tag like ``<hampalmr/>`` when the sign
+      carries ``<hampalml/>`` still produces the correct swap).
+    - ``correction.raw_text`` matches a natural-language directional
+      pattern (currently: palm-direction in plain English).
 
     Returns ``None`` on miss — caller should fall through to the
     LLM-backed interpreter.
@@ -269,6 +384,9 @@ def match_deterministic_swap(
     text = (correction.raw_text or "").strip()
     if not text:
         return None
+    swap = _match_tag_syntax_swap(text, current_sigml)
+    if swap is not None:
+        return swap
     return _match_palm_direction_swap(text, current_sigml)
 
 
