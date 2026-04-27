@@ -143,14 +143,32 @@
   }
 
   var cwasaReadyPromise = new Promise(function (resolve) {
+    // Wait for the AVATAR MESH to be bound, not just for a canvas to
+    // appear in DOM. CWASA's _cwasaInitialise writes the canvas
+    // element synchronously into #avatarCanvas, but the avatar mesh
+    // (Character.avatarName, volMax, skeleton) is only populated
+    // later when the JAR is fetched + parsed. Calling
+    // CWASA.playSiGMLText before that point hits this.character.getName()
+    // → "" → SiGMLToCAS → AvCache.get('') which fetches /avatars/.jar
+    // (CORS) and the bundle's PrepInstance Promise chain leaks an
+    // undefined XMLs into AGI.SetAvatar (TypeError: reading '1' of
+    // undefined; see production debug log 2026-04-27T07:59:43).
+    //
+    // contribute-preview.js exposes a Promise that resolves only when
+    // its `avatarready` hook has fired. Poll for it (preview.js loads
+    // before walkthrough.js, but the hook is set on a class so the
+    // promise object exists at module load) and chain on it.
     var attempts = 0;
     function tick() {
       attempts++;
-      if (window.CWASA && findCanvas()) { resolve(true); return; }
-      // 60s ceiling — CWASA's bundle is ~4.6 MB and the lazy loader
-      // waits 2.5s after `load`. After ~300 polls @ 200ms = 60s without
-      // a canvas we give up; the chip strip and Play buttons still
-      // work (chip strip never needed CWASA), just no playback.
+      var hook = window.KOZHA_CONTRIB_PREVIEW;
+      if (hook && hook.avatarReady && typeof hook.avatarReady.then === 'function') {
+        hook.avatarReady.then(function () { resolve(true); });
+        return;
+      }
+      // 60s ceiling — preview.js doesn't load? Bail and let the chip
+      // strip / Play buttons still work (chips never needed CWASA),
+      // just no playback.
       if (attempts > 300) { resolve(false); return; }
       setTimeout(tick, 200);
     }

@@ -116,6 +116,21 @@
     return;
   }
 
+  // ---------- avatar-ready promise (consumed by walkthrough.js) ----------
+
+  // Resolves when CWASA fires `avatarready` — i.e., the avatar mesh is
+  // bound to its Character and Animgen has finished SetAvatar. Anything
+  // earlier (canvas-in-DOM, CWASA.ready) is too soon: playing SiGML
+  // before this fires sends an empty avatar name through SiGMLToCAS,
+  // CWASA fetches /avatars/.jar (404/CORS), and the bundle's
+  // .catch().then() chain in PrepInstance leaks an undefined XMLs into
+  // SetAvatar (TypeError: reading '1' of undefined).
+  var avatarReadyResolve;
+  var avatarReadyResolved = false;
+  var avatarReadyPromise = new Promise(function (resolve) {
+    avatarReadyResolve = resolve;
+  });
+
   // ---------- internal state ----------
 
   var state = {
@@ -274,6 +289,20 @@
     window.CWASA.addHook('avatarready', function () {
       DEBUG.log('preview: hook avatarready');
       state.cwasaReady = true;
+      // Resolve the public avatarReady promise so consumers that
+      // shouldn't call playSiGMLText before the mesh is bound (e.g.,
+      // contribute-walkthrough.js) can wait on a real "avatar mesh
+      // populated" signal instead of "canvas exists in DOM". Without
+      // this, walkthrough.js was firing playSiGMLText as soon as the
+      // canvas appeared, but at that point Character.avatarName is
+      // still undefined; the empty name flowed through SiGMLToCAS →
+      // AvCache.get('') which fetched /avatars/.jar (CORS) and the
+      // resulting Promise.all reject cascaded into AGI.SetAvatar with
+      // undefined XMLs.
+      if (!avatarReadyResolved) {
+        avatarReadyResolved = true;
+        if (avatarReadyResolve) avatarReadyResolve();
+      }
       applyReadyState();
       maybePlayPending();
     }, 0);
@@ -804,6 +833,10 @@
     // this hook, initCWASA only runs from onSnapshot and the walkthrough
     // would be silent until the user starts authoring.
     ensureCWASA: function () { initCWASA(); },
+    // Resolved when CWASA fires `avatarready` (avatar mesh fully
+    // bound). Anything earlier — canvas-in-DOM, CWASA.ready — is too
+    // soon for playSiGMLText (see comment by avatarReadyPromise above).
+    avatarReady: avatarReadyPromise,
   };
 
   // ---------- init ----------
