@@ -945,7 +945,12 @@ select.field-input { cursor: pointer; }
   width: 100%;
   height: 100%;
 }
-.CWASAAvatar.av0 canvas {
+/* Canvas styling targets every .CWASAAvatar host because the rendered
+   <canvas> is reparented between #avatarCanvas (live preview, the only
+   .av0 host), #heroAvatarMount, and #walkReplayMount. Scoping to .av0
+   would leave the canvas at its default 300x150 once it's reparented
+   into a modal stage. */
+.CWASAAvatar canvas {
   /* CWASA renders at the avSettings native resolution (we now request
      720x540 in contribute-preview.js — large enough that the canvas
      fills the contribute stage at typical desktop widths without
@@ -3029,8 +3034,19 @@ select.field-input { cursor: pointer; }
   font-size: 26px;
   line-height: 1.1;
   color: var(--kozha-color-ink);
-  word-break: break-all;
+  /* The HamNoSysUnicode font likes to render runs as a single
+     uninterruptible glyph cluster, so a plain word-break on this
+     <span> doesn't actually wrap. Force inline-block + width:100%
+     so max-width binds, and use overflow-wrap: anywhere so the
+     codepoints break at any cell. Long sequences (HOUSE has 13
+     codepoints) used to spill past the card on narrow viewports. */
+  display: inline-block;
+  width: 100%;
   max-width: 100%;
+  box-sizing: border-box;
+  word-break: break-all;
+  overflow-wrap: anywhere;
+  text-align: center;
 }
 .no-hamnosys-font .c2-snapshot-card__glyphs { display: none; }
 .c2-snapshot-card__sigml {

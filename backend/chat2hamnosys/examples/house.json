@@ -14,7 +14,7 @@
       "type": "described",
       "event_id": "11111111-0000-4000-a000-000000000h01",
       "timestamp": "2026-04-25T12:00:05+00:00",
-      "prose": "HOUSE is a two-handed symmetrical sign with flat hands. The hands begin in contact at shoulder height, fingers up-and-out, palms angled down-and-out. They move together diagonally down-and-out, then continue straight down, with the fingers rotating to point outward.",
+      "prose": "HOUSE is like sketching a little house in the air with both flat hands. They meet up at the peak — like a roof — then sweep down and out for the slanted sides, and finally drop straight down to draw the walls.",
       "gaps_found": 1
     },
     {
@@ -24,11 +24,11 @@
       "questions": [
         {
           "field": "movement.replace_phase",
-          "prompt": "Do the fingers rotate during the descent or only at the end?",
+          "prompt": "As the hands come down, do the fingertips tilt outward to follow the slope?",
           "kind": "multiple_choice",
           "options": [
-            {"label": "During the descent — they rotate as the hands separate.", "value": "during"},
-            {"label": "Only at the end of the descent.", "value": "after"}
+            {"label": "Yeah — they pivot outward as the hands separate and head down.", "value": "during"},
+            {"label": "No — they only flatten out once the hands have stopped.", "value": "after"}
           ],
           "freeform_allowed": false
         }
@@ -86,7 +86,7 @@
         {"path": ""}
       ]
     },
-    "description_prose": "HOUSE is a two-handed symmetrical sign with flat hands. The hands begin in contact at shoulder height, fingers up-and-out, palms angled down-and-out. They move together diagonally down-and-out, then continue straight down, with the fingers rotating to point outward.",
+    "description_prose": "HOUSE is like sketching a little house in the air with both flat hands. They meet up at the peak — like a roof — then sweep down and out for the slanted sides, and finally drop straight down to draw the walls.",
     "status": "draft",
     "author": {"signer_id": "demo-signer", "is_deaf_native": false, "display_name": "Demo (hearing)"}
   }

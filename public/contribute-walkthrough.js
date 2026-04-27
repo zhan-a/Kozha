@@ -48,7 +48,10 @@
   // reference doc's `role:` field. The reference's category names are
   // condensed to one display word so chips stay scannable.
   var TAG_INFO = {
+    hamcee12:             { role: 'C-shape (index + thumb only)',                     cat: 'handshape'      },
     hamceeall:            { role: 'C-shape using all fingers',                        cat: 'handshape'      },
+    hampinch12:           { role: 'Pinch: index + thumb only',                        cat: 'handshape'      },
+    hampinchall:          { role: 'All fingers pinched together with thumb',          cat: 'handshape'      },
     hamthumbopenmod:      { role: 'Thumb away from fingers (open)',                   cat: 'modifier'       },
     hamfingerstraightmod: { role: 'Fingers fully straight',                           cat: 'modifier'       },
     hamextfingerul:       { role: 'Fingers point up-left',                            cat: 'finger dir.'    },
@@ -59,7 +62,6 @@
     hamparbegin:          { role: 'Parallel-action group: begin',                     cat: 'movement'       },
     hammover:             { role: 'Movement: out (away from signer)',                 cat: 'movement'       },
     hamreplace:           { role: 'Replace handshape mid-sign',                       cat: 'movement'       },
-    hampinchall:          { role: 'All fingers pinched together with thumb',          cat: 'handshape'      },
     hamparend:            { role: 'Parallel-action group: end',                       cat: 'movement'       }
   };
 
@@ -98,16 +100,20 @@
 
   // ---------- CWASA canvas ownership ----------
   //
-  // CWASA scans for `.CWASAAvatar.av0` at init time and writes its
-  // canvas into the FIRST match (see cwa/allcsa.js: `avaDiv[0].innerHTML
-  // = htmlgen.htmlForAv()`). The page now has multiple .CWASAAvatar.av0
-  // hosts (hero modal, walk modal, live preview); we pick whichever one
-  // currently matches what the user is looking at and physically move
-  // the rendered <canvas> into it. WebGL contexts survive reparenting,
-  // so this doesn't lose the avatar's animation state.
+  // CWASA writes its <canvas> into the FIRST `.CWASAAvatar.avN` element
+  // it finds (cwa/allcsa.js: `avaDiv[0].innerHTML = htmlgen.htmlForAv()`).
+  // Only #avatarCanvas (the live-preview mount) carries the `av0` class —
+  // modal mounts use just `.CWASAAvatar` so CWASA's _cwasaInitialise scan
+  // doesn't pick them up as additional panels. With three .CWASAAvatar.av0
+  // mounts the resulting allavs becomes [0,0,0] and CWASA calls
+  // avPanels[0].startAvatar() three times, racing the mesh load and
+  // leaving Character.volMax/skeleton null (production debug log:
+  // getAdjustViewY and setBones both throw on null). To preview in a
+  // modal we move the canvas — not the marker class — into the modal
+  // mount; WebGL contexts survive reparenting.
 
   function findCanvas() {
-    return document.querySelector('.CWASAAvatar.av0 canvas');
+    return document.querySelector('.CWASAAvatar canvas');
   }
   function currentHost() {
     var c = findCanvas();
