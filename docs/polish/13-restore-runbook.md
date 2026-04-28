@@ -10,85 +10,65 @@ the solo maintainer) is who reads this page.
 
 ## Data/ backup and restore
 
-### What gets backed up
+### Manual snapshot refresh
 
-The `Snapshot & Backup` workflow
-(`.github/workflows/snapshot.yml`) zips the `data/` directory daily
-and uploads it as an Actions artifact with 90-day retention. Excluded
-from the zip (already in gitignore or runtime-only):
+The `Snapshot & Backup` cron workflow that used to commit
+`public/progress_snapshot.json` and `data/progress_log.jsonl` daily
+was retired — the `bridgn-snapshot-bot` push trail polluted the main
+branch's history. Refresh the snapshot by hand whenever you want the
+public progress dashboard to reflect new corpus state:
+
+```
+cd /home/ubuntu/Kozha && /home/ubuntu/kozha-venv/bin/python3 -m server.progress_snapshot
+git add public/progress_snapshot.json data/progress_log.jsonl
+git commit -m "chore(snapshot): refresh progress dashboard"
+git push
+```
+
+Locally:
+
+```
+python -m server.progress_snapshot
+```
+
+The script is stdlib-only — no spaCy / no argostranslate / no LLM
+key needed.
+
+### Data/ backup
+
+There is currently no scheduled `data/` zip artifact. If you need a
+point-in-time backup, the entire `data/` tree is in git history; use
+`git log --follow -p -- data/<path>` to see prior versions. Excluded
+from version control (and so not recoverable from git):
 
 - `data/chat2hamnosys/` — chat2hamnosys session SQLite stores.
 - `data/authored_signs.sqlite3*` — authored-signs runtime DB.
 - `data/alerts_state.json` — rolling state for the alerter.
 
-Everything else — `.sigml`, `.meta.json`, quarantine sidecars,
-`progress_log.jsonl` — is in the zip.
-
-### Restore from an artifact
-
-1. Go to Actions → `Snapshot & Backup` on GitHub.
-2. Pick the run closest to the target date (artifact names are
-   `bridgn-data-YYYYMMDD.zip`).
-3. Download and unzip:
-   ```
-   gh run download <RUN_ID> --name bridgn-data-20260422.zip
-   unzip bridgn-data-20260422.zip
-   ```
-4. Inspect the diff against HEAD:
-   ```
-   diff -r data/ /tmp/restore/data/ | head
-   ```
-5. Copy only the files you need. Never `rm -rf data/` and paste the
-   zip over it — the runtime subdirs we excluded are not in the zip
-   and would vanish.
-6. On the EC2 host, `sudo systemctl restart kozha.service` so the
-   review-metadata loader and snapshot pick up the replacements.
-7. Re-run the snapshot:
-   ```
-   cd /home/ubuntu/Kozha && /home/ubuntu/kozha-venv/bin/python3 -m server.progress_snapshot
-   ```
+If durable cold storage of those runtime files becomes a
+requirement, re-introduce a workflow that uploads them as a
+non-pushing artifact (no `git push` step — that was the issue).
 
 ### Restore a single `.meta.json`
 
 Most common case: someone overwrote a meta file and the diff in git
-is unhelpful because the edit was committed. Because `git log` is
-authoritative for anything under version control, prefer:
+is unhelpful because the edit was committed. `git log` is the
+authoritative source:
 
 ```
 git log -p -- data/Dutch_SL_NGT.sigml.meta.json | head -80
 git show <SHA>:data/Dutch_SL_NGT.sigml.meta.json > data/Dutch_SL_NGT.sigml.meta.json
 ```
 
-Only reach for the zipped artifact if the file never made it into a
-commit (community ingest with a short-lived branch, say).
-
 ---
 
 ## Snapshot staleness
 
-**Signal:** `server/alerts.py` emits `{"rule": "snapshot_stale"}` or
-`{"rule": "snapshot_missing"}`. Dashboard "generated at" timestamp is
-older than today's date.
-
-**Root cause:** The `Snapshot & Backup` workflow failed or is
-disabled.
-
-**Recovery:**
-
-1. Check the latest run: Actions → `Snapshot & Backup`.
-2. If the last run is older than 36 h, run the workflow manually:
-   Actions → `Snapshot & Backup` → `Run workflow`.
-3. If the workflow itself is failing (not just missed scheduling),
-   inspect the job log. Common failures:
-   - `git push` rejected because the bot lacks `contents: write`.
-     Check the workflow's `permissions:` block.
-   - Python import error because
-     `scripts/database_health_audit.py` moved.
-   - Disk full on the runner — unlikely, but the `zip` step fails
-     loudly if so.
-4. If nothing has changed for a while (weekend), the workflow silently
-   commits nothing — this is expected. The `progress_log.jsonl` will
-   still get a new row each day.
+The dedicated `snapshot_stale` / `snapshot_missing` alert rule was
+removed alongside the auto-push workflow — there is no longer an
+automation whose failure it could detect. If the dashboard's
+"generated at" timestamp drifts behind today's date, refresh it
+manually with the command in the section above.
 
 ---
 

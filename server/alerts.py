@@ -34,7 +34,6 @@ import json
 import os
 import re
 import sys
-import time
 import urllib.error
 import urllib.request
 from dataclasses import dataclass, field
@@ -46,14 +45,12 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = REPO_ROOT / "data"
 PUBLIC_DIR = REPO_ROOT / "public"
 STATE_PATH = DATA_DIR / "alerts_state.json"
-SNAPSHOT_PATH = PUBLIC_DIR / "progress_snapshot.json"
 
 DEFAULT_METRICS_URL = os.environ.get(
     "KOZHA_METRICS_URL", "http://127.0.0.1:8000/metrics"
 )
 ERROR_RATE_THRESHOLD = float(os.environ.get("KOZHA_ALERT_ERROR_RATE", "0.05"))
 UNKNOWN_SPIKE_RATIO = float(os.environ.get("KOZHA_ALERT_UNKNOWN_SPIKE", "3.0"))
-SNAPSHOT_MAX_AGE_SECONDS = int(os.environ.get("KOZHA_ALERT_SNAPSHOT_AGE_S", "129600"))  # 36h
 BASELINE_WINDOW = int(os.environ.get("KOZHA_ALERT_BASELINE_WINDOW", "12"))
 
 
@@ -219,31 +216,6 @@ def check_unknown_spike(
     return None
 
 
-def check_snapshot_age(max_age_s: int = SNAPSHOT_MAX_AGE_SECONDS) -> Optional[Violation]:
-    """If the snapshot file is older than ``max_age_s`` seconds the
-    cron failed, the scheduled action is disabled, or the runner has
-    no permissions.
-    """
-    if not SNAPSHOT_PATH.exists():
-        return Violation(
-            rule="snapshot_missing",
-            level="page",
-            message=f"{SNAPSHOT_PATH.relative_to(REPO_ROOT)} does not exist",
-        )
-    age = time.time() - SNAPSHOT_PATH.stat().st_mtime
-    if age > max_age_s:
-        return Violation(
-            rule="snapshot_stale",
-            level="warn",
-            message=(
-                f"{SNAPSHOT_PATH.relative_to(REPO_ROOT)} is "
-                f"{age / 3600:.1f}h old (> {max_age_s / 3600:.1f}h threshold)"
-            ),
-            detail={"age_s": int(age), "threshold_s": max_age_s},
-        )
-    return None
-
-
 def check_deploy_status(status_file: Optional[Path] = None) -> Optional[Violation]:
     """Inspect the most recent deploy receipt and alert on failure.
 
@@ -331,7 +303,6 @@ def run_rules(metrics_text: str, state: dict) -> list[Violation]:
     for rule in (
         lambda: check_error_rate(metrics, state),
         lambda: check_unknown_spike(metrics, state),
-        check_snapshot_age,
         check_deploy_status,
     ):
         try:
