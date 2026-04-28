@@ -150,18 +150,20 @@ jobs:
           fi
 
           # Heal the nginx site config so the public 80/443 surface
-          # comes back up.
+          # comes back up. (No backticks in this comment block: the
+          # heredoc that streams this script over SSH is unquoted, so
+          # any backtick pair triggers command substitution on the
+          # runner before the script ever reaches the host.)
           #
-          # The previous "sync from repo template" block overwrote the
-          # live ``/etc/nginx/sites-available/kozha`` with
-          # ``deploy/nginx/kozha.conf`` whenever the two files differed.
-          # That template intentionally omits ``ssl_certificate`` /
-          # ``ssl_certificate_key`` (the file's own comment says
-          # "certbot --nginx populates the ssl_certificate paths …
-          # on first run"). Once a deploy overwrote the certbot-edited
-          # live file with the bare template, ``nginx -t`` failed with
-          # ``no "ssl_certificate" is defined for the "listen ... ssl"
-          # directive``. The running nginx process kept serving from
+          # The previous sync-from-repo-template block overwrote the
+          # live /etc/nginx/sites-available/kozha with the repo
+          # template whenever the two files differed. The template
+          # intentionally omits ssl_certificate / ssl_certificate_key
+          # (its own comment says certbot is supposed to fill them
+          # in on first run). Once a deploy overwrote the certbot-
+          # edited live file with the bare template, nginx -t failed
+          # with: no ssl_certificate is defined for the listen-ssl
+          # directive. The running nginx process kept serving from
           # its in-memory config until it died for unrelated reasons
           # (OOM / reboot), at which point it could not restart and
           # the site went dark on 80 + 443.
@@ -169,15 +171,15 @@ jobs:
           # Self-healing approach: never blindly overwrite. Instead,
           # if the live file is missing or invalid, write it from the
           # repo template; then unconditionally pin the production
-          # ``server_name`` and re-inject the certbot certificate
-          # paths if they're missing. Idempotent — once the live file
-          # is well-formed, the patcher is a no-op on subsequent runs.
+          # server_name and re-inject the certbot certificate paths
+          # if they are missing. Idempotent — once the live file is
+          # well-formed, the patcher is a no-op on subsequent runs.
           NGINX_LIVE=/etc/nginx/sites-available/kozha
           NGINX_DOMAIN=kozha-translate.com
           CERT_FULLCHAIN=/etc/letsencrypt/live/\$NGINX_DOMAIN/fullchain.pem
           CERT_KEY=/etc/letsencrypt/live/\$NGINX_DOMAIN/privkey.pem
           if [ -f ../deploy/nginx/kozha.conf ]; then
-            # Only seed the live file when it doesn't exist yet —
+            # Only seed the live file when it does not exist yet —
             # never clobber whatever certbot/operator has already
             # written there. (The previous behaviour was to clobber.)
             if ! sudo test -f "\$NGINX_LIVE"; then
@@ -187,22 +189,22 @@ jobs:
           fi
           if sudo test -f "\$NGINX_LIVE"; then
             # Pin the production server_name. The repo template ships
-            # with the placeholder ``kozha.example``; live deploys use
-            # the real domain. ``sed`` is idempotent — when the file
+            # with the placeholder kozha.example; live deploys use
+            # the real domain. sed is idempotent — when the file
             # already has \$NGINX_DOMAIN this is a no-op.
             sudo sed -i "s/\\bkozha\\.example\\b/\$NGINX_DOMAIN/g" "\$NGINX_LIVE"
 
             # Inject the certbot certificate paths if the file is
-            # listening on 443 with ``ssl`` but has no ``ssl_certificate``
+            # listening on 443 with ssl but has no ssl_certificate
             # directive (the broken state we observed in production).
             if sudo grep -qE '^[[:space:]]*listen[^;]*ssl' "\$NGINX_LIVE" \
               && ! sudo grep -qE '^[[:space:]]*ssl_certificate ' "\$NGINX_LIVE"; then
               if sudo test -f "\$CERT_FULLCHAIN" && sudo test -f "\$CERT_KEY"; then
-                # Two consecutive single-line ``sed -i`` calls — both
+                # Two consecutive single-line sed -i calls — both
                 # append after the IPv6 listen line, so the file ends
                 # up with the directives in reverse insertion order
-                # (nginx doesn't care about order between these two).
-                # We avoid sed's multi-line ``a\`` form because the
+                # (nginx does not care about order between these two).
+                # We avoid sed multi-line append form because the
                 # required literal newline breaks the YAML scanner.
                 sudo sed -i "/listen \\[::\\]:443 ssl http2;/a \\    ssl_certificate_key \$CERT_KEY;" "\$NGINX_LIVE"
                 sudo sed -i "/listen \\[::\\]:443 ssl http2;/a \\    ssl_certificate \$CERT_FULLCHAIN;" "\$NGINX_LIVE"
