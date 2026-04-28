@@ -240,6 +240,28 @@ jobs:
           sudo systemctl restart kozha.service
           sudo systemctl --no-pager status kozha.service
 
+          # Ensure nginx is running. The reload-on-config-diff path
+          # earlier only fires when ../deploy/nginx/kozha.conf changed;
+          # it does NOT recover a dead nginx daemon (host OOM, an
+          # out-of-band edit, or a previous run that left it stopped).
+          # Without this, a deploy can finish "successfully" — kozha
+          # is active on 8000 — while the public site still returns
+          # connection-refused on 80/443. Pin a liveness check so the
+          # deploy step itself heals that case. Idempotent: when
+          # nginx is already active this is a no-op.
+          if ! sudo systemctl is-active --quiet nginx; then
+            echo "[deploy] nginx is not active — running config check + start"
+            sudo nginx -t
+            sudo systemctl start nginx
+            if sudo systemctl is-active --quiet nginx; then
+              echo "[deploy] nginx started"
+            else
+              echo "[deploy] nginx failed to start" >&2
+              sudo journalctl -u nginx --no-pager -n 30
+              exit 1
+            fi
+          fi
+
           # Polish-13 §6: deploy receipt for ``server/alerts.py``. The
           # host-side alerter reads ``data/last_deploy.json`` to tell
           # whether the most recent deploy attempt succeeded. Written
