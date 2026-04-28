@@ -195,14 +195,17 @@ jobs:
             # Inject the certbot certificate paths if the file is
             # listening on 443 with ``ssl`` but has no ``ssl_certificate``
             # directive (the broken state we observed in production).
-            if sudo grep -qE '^\\s*listen[^;]*ssl' "\$NGINX_LIVE" \
-              && ! sudo grep -q '^\\s*ssl_certificate ' "\$NGINX_LIVE"; then
+            if sudo grep -qE '^[[:space:]]*listen[^;]*ssl' "\$NGINX_LIVE" \
+              && ! sudo grep -qE '^[[:space:]]*ssl_certificate ' "\$NGINX_LIVE"; then
               if sudo test -f "\$CERT_FULLCHAIN" && sudo test -f "\$CERT_KEY"; then
-                # Insert the two directives right after the IPv6 listen
-                # line so they live inside the HTTPS server block.
-                sudo sed -i "/listen \\[::\\]:443 ssl http2;/a\\
-    ssl_certificate \$CERT_FULLCHAIN;\\
-    ssl_certificate_key \$CERT_KEY;" "\$NGINX_LIVE"
+                # Two consecutive single-line ``sed -i`` calls — both
+                # append after the IPv6 listen line, so the file ends
+                # up with the directives in reverse insertion order
+                # (nginx doesn't care about order between these two).
+                # We avoid sed's multi-line ``a\`` form because the
+                # required literal newline breaks the YAML scanner.
+                sudo sed -i "/listen \\[::\\]:443 ssl http2;/a \\    ssl_certificate_key \$CERT_KEY;" "\$NGINX_LIVE"
+                sudo sed -i "/listen \\[::\\]:443 ssl http2;/a \\    ssl_certificate \$CERT_FULLCHAIN;" "\$NGINX_LIVE"
                 echo "[deploy] injected ssl_certificate paths for \$NGINX_DOMAIN"
               else
                 echo "[deploy] cannot heal nginx config: certbot certs missing at \$CERT_FULLCHAIN" >&2
