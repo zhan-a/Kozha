@@ -343,6 +343,30 @@ TIME_WORDS = {
 }
 TIME_WORDS["default"] = TIME_WORDS["en"]
 
+# Adjectives/intensifiers that introduce a fixed-order greeting or
+# farewell phrase. When one of these is followed (within ~2 tokens, so
+# "happy new year" works as well as "good morning") by a TIME_WORD, the
+# time word is part of the phrase — NOT a sentence-level time topic —
+# and must NOT be reordered to the front by the time_first grammar
+# rule. Without this guard "good morning" lands at the avatar as
+# "morning good" because BSL/ASL/etc topicalization moves "morning" to
+# slot 0; users tested on BSL and reported the reversal.
+GREETING_STARTERS = {
+    "en": {"good", "nice", "happy", "merry"},
+    "de": {"guten", "gute", "schöne", "schönen", "frohe", "frohes", "fröhliche"},
+    "fr": {"bon", "bonne", "bons", "bonnes", "joyeux", "joyeuse"},
+    "es": {"buen", "buena", "buenos", "buenas", "feliz"},
+    "pl": {"dobry", "dobre", "dobra", "miłego", "wesołych", "szczęśliwego"},
+    "nl": {"goede", "goeden", "fijne", "prettige", "vrolijk", "vrolijke"},
+    "el": {"καλή", "καλό", "καλά", "ευτυχισμένο", "ευτυχισμένη"},
+}
+GREETING_STARTERS["default"] = GREETING_STARTERS["en"]
+
+
+def get_greeting_starters(lang: str) -> set:
+    return GREETING_STARTERS.get(lang, GREETING_STARTERS["default"])
+
+
 PRONOUNS = {
     "en": {
         "keep": {"you","we","they","them","us","my","your","our","their","not"},
@@ -492,21 +516,48 @@ def get_abbreviation_spans(doc) -> Dict[int, tuple[int, list[str]]]:
     return out
 
 def reorder_tokens(tokens_with_pos, sign_language: str, time_words: set,
-                    question_words: set = None) -> list:
+                    question_words: set = None, greeting_starters: set = None) -> list:
     grammar = get_grammar(sign_language)
+    if greeting_starters is None:
+        greeting_starters = set()
+
+    # Identify TIME_WORD indices that belong to a fixed-order greeting
+    # phrase (preceded within 2 tokens by "good", "happy", etc.). The
+    # 2-token lookback handles "happy new year" — "year" is a
+    # TIME_WORD but is part of the greeting, not a topic-frontable
+    # time reference. Without this guard the time_first rule below
+    # would lift the time word to slot 0 and "good morning" would
+    # render as "morning good".
+    locked_time_indices: set[int] = set()
+    if greeting_starters:
+        GREETING_LOOKBACK = 2
+        for i, (text, _pos) in enumerate(tokens_with_pos):
+            if text not in time_words:
+                continue
+            for k in range(1, GREETING_LOOKBACK + 1):
+                j = i - k
+                if j < 0:
+                    break
+                if tokens_with_pos[j][0] in greeting_starters:
+                    locked_time_indices.add(i)
+                    break
+
     time_tokens = []
     verb_tokens = []
     question_tokens = []
     other_tokens = []
 
-    for text, pos in tokens_with_pos:
-        if text in time_words:
+    for i, (text, pos) in enumerate(tokens_with_pos):
+        if text in time_words and i not in locked_time_indices:
             time_tokens.append(text)
         elif question_words and text in question_words:
             question_tokens.append(text)
         elif pos == "VERB" and grammar["verb_final"]:
             verb_tokens.append(text)
         else:
+            # Locked time tokens land here so they keep their adjacency
+            # to the greeting starter (e.g., "good morning" stays
+            # "good morning", not "morning good").
             other_tokens.append(text)
 
     result = []
@@ -526,7 +577,7 @@ def reorder_tokens(tokens_with_pos, sign_language: str, time_words: set,
 
 def process_sentence(doc_or_span, stopwords: set, time_words: set, pronouns: dict,
                      sign_language: str, abbr_spans: Optional[Dict[int, tuple[int, list[str]]]] = None,
-                     question_words: set = None) -> str:
+                     question_words: set = None, greeting_starters: set = None) -> str:
     tokens_with_pos = []
     pron_keep = pronouns.get("keep", set())
     pron_norm = pronouns.get("normalize", {})
@@ -576,7 +627,13 @@ def process_sentence(doc_or_span, stopwords: set, time_words: set, pronouns: dic
         tokens_with_pos.append((candidate, pos))
         j += 1
 
-    reordered = reorder_tokens(tokens_with_pos, sign_language, time_words, question_words)
+    reordered = reorder_tokens(
+        tokens_with_pos,
+        sign_language,
+        time_words,
+        question_words,
+        greeting_starters,
+    )
 
     seen = set()
     dedup = []
@@ -603,6 +660,7 @@ def process_text(text: str, language: str = "en", sign_language: str = "bsl") ->
     time_words = get_time_words(language)
     pronouns = get_pronouns(language)
     question_words = get_question_words(language)
+    greeting_starters = get_greeting_starters(language)
     doc = nlp(text)
 
     abbr_spans = {}
@@ -611,7 +669,16 @@ def process_text(text: str, language: str = "en", sign_language: str = "bsl") ->
 
     lines = []
     for sent in doc.sents:
-        line = process_sentence(sent, stopwords, time_words, pronouns, sign_language, abbr_spans, question_words)
+        line = process_sentence(
+            sent,
+            stopwords,
+            time_words,
+            pronouns,
+            sign_language,
+            abbr_spans,
+            question_words,
+            greeting_starters,
+        )
         if line and line != ".":
             lines.append(line)
     result = "\n".join(lines)

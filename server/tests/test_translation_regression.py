@@ -213,6 +213,81 @@ def test_scanner_flags_no_unknown_tags_in_active_lsf() -> None:
     )
 
 
+# ---------------------------------------------------------------------------
+# Greeting word-order regression
+# ---------------------------------------------------------------------------
+
+
+def _final_tokens(text: str, language: str = "en", sign_language: str = "bsl") -> list[str]:
+    """POST to /api/plan and return the ordered token list (excluding the
+    trailing sentence punctuation the pipeline appends)."""
+    resp = client.post(
+        "/api/plan",
+        json={"text": text, "language": language, "sign_language": sign_language},
+    )
+    assert resp.status_code == 200
+    final = resp.json().get("final") or ""
+    return [tok for tok in final.replace(".", " ").split() if tok]
+
+
+@pytest.mark.parametrize(
+    "sign_language",
+    ["bsl", "asl", "dgs", "lsf", "lse", "ksl"],
+)
+def test_good_morning_keeps_english_order(sign_language: str) -> None:
+    """The motivating production case: ``good morning`` was being signed
+    as ``MORNING GOOD`` because the time_first topicalization rule lifted
+    ``morning`` (a TIME_WORD) to slot 0. Greetings/farewells with a
+    starter adjective ("good", "happy", "merry", "nice") are fixed
+    phrases — preserve English order across every grammar that
+    topicalizes time.
+    """
+    tokens = _final_tokens("good morning", "en", sign_language)
+    assert tokens.index("good") < tokens.index("morning"), (
+        f"{sign_language!r}: expected 'good' before 'morning', got {tokens}"
+    )
+
+
+@pytest.mark.parametrize(
+    "phrase,first_word,second_word",
+    [
+        ("good morning",   "good", "morning"),
+        ("good afternoon", "good", "afternoon"),
+        ("good evening",   "good", "evening"),
+        ("good night",     "good", "night"),
+        ("happy new year", "happy", "year"),
+        ("merry christmas everyone", "merry", "christmas"),
+    ],
+)
+def test_greeting_phrases_preserve_order(
+    phrase: str, first_word: str, second_word: str
+) -> None:
+    tokens = _final_tokens(phrase, "en", "bsl")
+    # Both target words must be in the output in that order. Some
+    # phrases may not have both glosses populated (e.g., "christmas")
+    # but the order check is still meaningful when they are.
+    if first_word in tokens and second_word in tokens:
+        assert tokens.index(first_word) < tokens.index(second_word), (
+            f"{phrase!r}: expected {first_word!r} before {second_word!r}, "
+            f"got {tokens}"
+        )
+
+
+def test_time_topicalization_still_works_outside_greetings() -> None:
+    """Don't regress the legitimate topic-comment behaviour for
+    sentences where TIME isn't part of a fixed phrase. ``yesterday i
+    went home`` should still front-load the day reference under BSL.
+    """
+    tokens = _final_tokens("yesterday i went home", "en", "bsl")
+    assert tokens[0] == "yesterday", f"expected time-first, got {tokens}"
+
+
+def test_good_morning_everyone_keeps_phrase_intact() -> None:
+    """A trailing direct-address shouldn't split the greeting."""
+    tokens = _final_tokens("good morning everyone", "en", "bsl")
+    assert tokens.index("good") < tokens.index("morning"), tokens
+
+
 def test_scanner_still_sees_hampalmud_in_quarantine() -> None:
     """The broken entries are preserved, not deleted: the quarantine
     sidecar still surfaces ``hampalmud`` so community reviewers can find

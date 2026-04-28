@@ -2749,13 +2749,36 @@
 
     const STOPWORDS = new Set(['a','an','the','and','or','but','if','then','than','of','to','in','on','at','for','from','with','as','by','is','are','am','be','been','was','were','do','does','did','that','this','those','these','it','my','your','our']);
     const TOPIC_TIME = new Set(['today','yesterday','tomorrow','morning','afternoon','evening','night','noon','week','month','year','time']);
+    // Adjectives that introduce a fixed-order greeting/farewell. When
+    // a TOPIC_TIME token is preceded (within 2 positions, so "happy
+    // new year" works as well as "good morning") by one of these, the
+    // time token is locked in place — the topicalization rule below
+    // would otherwise lift it to slot 0 and "good morning" would
+    // render as "morning good". Mirrors GREETING_STARTERS in
+    // server/server.py so the local heuristic stays in sync with
+    // /api/plan.
+    const GREETING_STARTERS = new Set(['good','nice','happy','merry']);
 
     function normalizeText(str){
       try { return (str||'').toLowerCase().replace(/[\p{P}\p{S}]/gu,' ').split(/\s+/).filter(Boolean); }
       catch(e) { return (str||'').toLowerCase().replace(/[^\w\s]/g,' ').split(/\s+/).filter(Boolean); }
     }
 
-    function heuristicPlan(tokens){ const kept = tokens.filter(t => !STOPWORDS.has(t)); const front = kept.filter(t => TOPIC_TIME.has(t)); const rest = kept.filter(t => !TOPIC_TIME.has(t)); return [...front, ...rest]; }
+    function heuristicPlan(tokens){
+      const kept = tokens.filter(t => !STOPWORDS.has(t));
+      const lockedTime = new Set();
+      for (let i = 0; i < kept.length; i++) {
+        if (!TOPIC_TIME.has(kept[i])) continue;
+        for (let k = 1; k <= 2; k++) {
+          const j = i - k;
+          if (j < 0) break;
+          if (GREETING_STARTERS.has(kept[j])) { lockedTime.add(i); break; }
+        }
+      }
+      const front = kept.filter((t, i) => TOPIC_TIME.has(t) && !lockedTime.has(i));
+      const rest = kept.filter((t, i) => !TOPIC_TIME.has(t) || lockedTime.has(i));
+      return [...front, ...rest];
+    }
 
     function levenshtein(a,b){ const m=a.length, n=b.length; if(!m) return n; if(!n) return m; const dp = new Array(n+1); for(let j=0;j<=n;j++) dp[j]=j; for(let i=1;i<=m;i++){ let prev = dp[0]; dp[0]=i; for(let j=1;j<=n;j++){ const temp = dp[j]; dp[j] = Math.min(dp[j]+1, dp[j-1]+1, prev+(a[i-1]===b[j-1]?0:1)); prev = temp; } } return dp[n]; }
     function similarity(a,b){ if (!a||!b) return 0; const d = levenshtein(a,b); return 1 - d / Math.max(a.length, b.length); }
