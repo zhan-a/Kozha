@@ -149,25 +149,71 @@ jobs:
             echo "[deploy] TRANSCRIBE_KEY secret not set — /api/transcribe will return 503; the in-browser Whisper pipeline still handles transcription."
           fi
 
-          # Sync the nginx site config when the repo template differs
-          # from the live file. Gated on diff so we don't reload nginx
-          # on every deploy. ``nginx -t`` validates before reload; on
-          # any failure the existing config stays in place. The 60s
-          # default proxy_read_timeout used to kill /correct mid-LLM
-          # generation with a 504 — the template now bumps the
-          # describe/answer/correct/generate locations to 600s.
+          # Heal the nginx site config so the public 80/443 surface
+          # comes back up.
+          #
+          # The previous "sync from repo template" block overwrote the
+          # live ``/etc/nginx/sites-available/kozha`` with
+          # ``deploy/nginx/kozha.conf`` whenever the two files differed.
+          # That template intentionally omits ``ssl_certificate`` /
+          # ``ssl_certificate_key`` (the file's own comment says
+          # "certbot --nginx populates the ssl_certificate paths …
+          # on first run"). Once a deploy overwrote the certbot-edited
+          # live file with the bare template, ``nginx -t`` failed with
+          # ``no "ssl_certificate" is defined for the "listen ... ssl"
+          # directive``. The running nginx process kept serving from
+          # its in-memory config until it died for unrelated reasons
+          # (OOM / reboot), at which point it could not restart and
+          # the site went dark on 80 + 443.
+          #
+          # Self-healing approach: never blindly overwrite. Instead,
+          # if the live file is missing or invalid, write it from the
+          # repo template; then unconditionally pin the production
+          # ``server_name`` and re-inject the certbot certificate
+          # paths if they're missing. Idempotent — once the live file
+          # is well-formed, the patcher is a no-op on subsequent runs.
+          NGINX_LIVE=/etc/nginx/sites-available/kozha
+          NGINX_DOMAIN=kozha-translate.com
+          CERT_FULLCHAIN=/etc/letsencrypt/live/\$NGINX_DOMAIN/fullchain.pem
+          CERT_KEY=/etc/letsencrypt/live/\$NGINX_DOMAIN/privkey.pem
           if [ -f ../deploy/nginx/kozha.conf ]; then
-            NGINX_LIVE=/etc/nginx/sites-available/kozha
-            if ! sudo cmp -s ../deploy/nginx/kozha.conf "\$NGINX_LIVE" 2>/dev/null; then
-              echo "[deploy] nginx config changed — syncing and reloading"
+            # Only seed the live file when it doesn't exist yet —
+            # never clobber whatever certbot/operator has already
+            # written there. (The previous behaviour was to clobber.)
+            if ! sudo test -f "\$NGINX_LIVE"; then
+              echo "[deploy] seeding nginx site config from repo template"
               sudo install -o root -g root -m 644 ../deploy/nginx/kozha.conf "\$NGINX_LIVE"
-              if sudo nginx -t; then
-                sudo systemctl reload nginx
-                echo "[deploy] nginx reloaded with updated proxy timeouts"
+            fi
+          fi
+          if sudo test -f "\$NGINX_LIVE"; then
+            # Pin the production server_name. The repo template ships
+            # with the placeholder ``kozha.example``; live deploys use
+            # the real domain. ``sed`` is idempotent — when the file
+            # already has \$NGINX_DOMAIN this is a no-op.
+            sudo sed -i "s/\\bkozha\\.example\\b/\$NGINX_DOMAIN/g" "\$NGINX_LIVE"
+
+            # Inject the certbot certificate paths if the file is
+            # listening on 443 with ``ssl`` but has no ``ssl_certificate``
+            # directive (the broken state we observed in production).
+            if sudo grep -qE '^\\s*listen[^;]*ssl' "\$NGINX_LIVE" \
+              && ! sudo grep -q '^\\s*ssl_certificate ' "\$NGINX_LIVE"; then
+              if sudo test -f "\$CERT_FULLCHAIN" && sudo test -f "\$CERT_KEY"; then
+                # Insert the two directives right after the IPv6 listen
+                # line so they live inside the HTTPS server block.
+                sudo sed -i "/listen \\[::\\]:443 ssl http2;/a\\
+    ssl_certificate \$CERT_FULLCHAIN;\\
+    ssl_certificate_key \$CERT_KEY;" "\$NGINX_LIVE"
+                echo "[deploy] injected ssl_certificate paths for \$NGINX_DOMAIN"
               else
-                echo "[deploy] nginx -t failed — restoring previous config"
-                sudo cp "\$NGINX_LIVE.bak" "\$NGINX_LIVE" 2>/dev/null || true
+                echo "[deploy] cannot heal nginx config: certbot certs missing at \$CERT_FULLCHAIN" >&2
               fi
+            fi
+
+            if sudo nginx -t 2>&1; then
+              sudo systemctl reload nginx 2>/dev/null || true
+            else
+              echo "[deploy] nginx -t still failing after heal" >&2
+              sudo nginx -t 2>&1 | sed 's/^/[deploy nginx -t] /' >&2
             fi
           fi
 
