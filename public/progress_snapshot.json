@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-28T06:15:01Z",
+  "generated_at": "2026-04-28T04:11:36Z",
   "generator": "server/progress_snapshot.py",
   "schema_version": 1,
   "totals": {
@@ -25,7 +25,7 @@
       "top500_covered": 201,
       "top500_total": 437,
       "top500_coverage_pct": 46.0,
-      "last_updated": "2026-04-28",
+      "last_updated": "2026-04-22",
       "partial_data": false
     },
     {
@@ -44,7 +44,7 @@
       "top500_covered": 133,
       "top500_total": 437,
       "top500_coverage_pct": 30.4,
-      "last_updated": "2026-04-28",
+      "last_updated": "2026-04-22",
       "partial_data": false
     },
     {
@@ -63,7 +63,7 @@
       "top500_covered": 1,
       "top500_total": 437,
       "top500_coverage_pct": 0.2,
-      "last_updated": "2026-04-28",
+      "last_updated": "2026-04-22",
       "partial_data": false
     },
     {
@@ -82,7 +82,7 @@
       "top500_covered": 219,
       "top500_total": 437,
       "top500_coverage_pct": 50.1,
-      "last_updated": "2026-04-28",
+      "last_updated": "2026-04-22",
       "partial_data": false
     },
     {
@@ -101,7 +101,7 @@
       "top500_covered": 161,
       "top500_total": 437,
       "top500_coverage_pct": 36.8,
-      "last_updated": "2026-04-28",
+      "last_updated": "2026-04-22",
       "partial_data": false
     },
     {
@@ -120,7 +120,7 @@
       "top500_covered": null,
       "top500_total": 437,
       "top500_coverage_pct": null,
-      "last_updated": "2026-04-28",
+      "last_updated": "2026-04-22",
       "partial_data": false
     },
     {
@@ -139,7 +139,7 @@
       "top500_covered": 0,
       "top500_total": 437,
       "top500_coverage_pct": 0.0,
-      "last_updated": "2026-04-28",
+      "last_updated": "2026-04-22",
       "partial_data": false
     },
     {
@@ -158,7 +158,7 @@
       "top500_covered": 6,
       "top500_total": 437,
       "top500_coverage_pct": 1.4,
-      "last_updated": "2026-04-28",
+      "last_updated": "2026-04-22",
       "partial_data": false
     },
     {
@@ -177,7 +177,7 @@
       "top500_covered": 1,
       "top500_total": 437,
       "top500_coverage_pct": 0.2,
-      "last_updated": "2026-04-28",
+      "last_updated": "2026-04-22",
       "partial_data": false
     },
     {
@@ -196,7 +196,7 @@
       "top500_covered": 19,
       "top500_total": 437,
       "top500_coverage_pct": 4.3,
-      "last_updated": "2026-04-28",
+      "last_updated": "2026-04-22",
       "partial_data": false
     },
     {
@@ -215,7 +215,7 @@
       "top500_covered": 1,
       "top500_total": 437,
       "top500_coverage_pct": 0.2,
-      "last_updated": "2026-04-28",
+      "last_updated": "2026-04-22",
       "partial_data": false
     },
     {
@@ -234,7 +234,7 @@
       "top500_covered": 0,
       "top500_total": 437,
       "top500_coverage_pct": 0.0,
-      "last_updated": "2026-04-28",
+      "last_updated": "2026-04-22",
       "partial_data": false
     },
     {
@@ -253,7 +253,7 @@
       "top500_covered": null,
       "top500_total": 437,
       "top500_coverage_pct": null,
-      "last_updated": "2026-04-28",
+      "last_updated": "2026-04-26",
       "partial_data": false
     },
     {
@@ -272,7 +272,7 @@
       "top500_covered": null,
       "top500_total": 437,
       "top500_coverage_pct": null,
-      "last_updated": "2026-04-28",
+      "last_updated": "2026-04-26",
       "partial_data": false
     },
     {
@@ -291,7 +291,7 @@
       "top500_covered": null,
       "top500_total": 437,
       "top500_coverage_pct": null,
-      "last_updated": "2026-04-28",
+      "last_updated": "2026-04-22",
       "partial_data": false
     },
     {
@@ -310,7 +310,7 @@
       "top500_covered": null,
       "top500_total": 437,
       "top500_coverage_pct": null,
-      "last_updated": "2026-04-28",
+      "last_updated": "2026-04-26",
       "partial_data": false
     },
     {
@@ -329,7 +329,7 @@
       "top500_covered": null,
       "top500_total": 437,
       "top500_coverage_pct": null,
-      "last_updated": "2026-04-28",
+      "last_updated": "2026-04-26",
       "partial_data": false
     },
     {
@@ -348,7 +348,7 @@
       "top500_covered": null,
       "top500_total": 437,
       "top500_coverage_pct": null,
-      "last_updated": "2026-04-28",
+      "last_updated": "2026-04-26",
       "partial_data": false
     },
     {
@@ -367,7 +367,7 @@
       "top500_covered": null,
       "top500_total": 437,
       "top500_coverage_pct": null,
-      "last_updated": "2026-04-28",
+      "last_updated": "2026-04-26",
       "partial_data": false
     },
     {
@@ -386,7 +386,7 @@
       "top500_covered": null,
       "top500_total": 437,
       "top500_coverage_pct": null,
-      "last_updated": "2026-04-28",
+      "last_updated": "2026-04-26",
       "partial_data": false
     },
     {
@@ -405,7 +405,7 @@
       "top500_covered": null,
       "top500_total": 437,
       "top500_coverage_pct": null,
-      "last_updated": "2026-04-28",
+      "last_updated": "2026-04-26",
       "partial_data": false
     },
     {
@@ -424,7 +424,7 @@
       "top500_covered": null,
       "top500_total": 437,
       "top500_coverage_pct": null,
-      "last_updated": "2026-04-28",
+      "last_updated": "2026-04-26",
       "partial_data": false
     },
     {
@@ -443,7 +443,7 @@
       "top500_covered": null,
       "top500_total": 437,
       "top500_coverage_pct": null,
-      "last_updated": "2026-04-28",
+      "last_updated": "2026-04-26",
       "partial_data": false
     }
   ],
