@@ -21,6 +21,7 @@ import pytest
 
 from correct.sigml_rewrite import (
     TagSwap,
+    apply_tag_swap_to_sigml,
     extract_manual_tags,
     match_deterministic_swap,
 )
@@ -162,6 +163,93 @@ class TestTagSyntaxMatcher:
             HELLO_SIGML,
         )
         assert swap == TagSwap(from_tag="hampalml", to_tag="hampalmd")
+
+
+# ---------------------------------------------------------------------------
+# Structured chip-swap matcher — production-miss regression
+# ---------------------------------------------------------------------------
+
+
+class TestStructuredSwap:
+    """``target_region="swap:from:to[:index]"`` is the payload encoded
+    by ``contribute-sigml-edit.js`` when the contributor clicks a chip
+    in the annotated SiGML strip and picks an alternative. ``index`` is
+    the chip's *overall* position among every ``<ham*/>`` tag in
+    ``<hamnosys_manual>`` — not the occurrence-of-from_tag index that
+    :class:`TagSwap` carries forward to ``apply_tag_swap_to_sigml``.
+    The parser must convert between the two."""
+
+    def test_picker_swap_at_nonzero_overall_index(self) -> None:
+        # HELLO has hampalml at overall position 2 (after hamflathand
+        # and hamextfingeru). The chip strip sends index=2 because
+        # that's the chip's rank in the strip. There's only one
+        # hampalml occurrence, so TagSwap.index must come back as 0
+        # (or None) — index=2 would make apply_tag_swap_to_sigml look
+        # for a nonexistent third hampalml and raise.
+        swap = match_deterministic_swap(
+            _correction("chip swap", region="swap:hampalml:hampalmd:2"),
+            HELLO_SIGML,
+        )
+        assert swap is not None
+        assert swap.from_tag == "hampalml"
+        assert swap.to_tag == "hampalmd"
+        # Either 0 or None is correct (both mean "first occurrence").
+        assert swap.index in (0, None)
+        # End-to-end: the swap the matcher produces must apply cleanly
+        # to the source SiGML. Before the fix this raised ValueError
+        # and the router rolled the session back, reverting the chip.
+        rewritten = apply_tag_swap_to_sigml(HELLO_SIGML, swap)
+        assert "<hampalmd/>" in rewritten
+        assert "<hampalml/>" not in rewritten
+
+    def test_picker_swap_without_index(self) -> None:
+        swap = match_deterministic_swap(
+            _correction("chip swap", region="swap:hampalml:hampalmd"),
+            HELLO_SIGML,
+        )
+        assert swap == TagSwap(from_tag="hampalml", to_tag="hampalmd", index=None)
+
+    def test_picker_swap_unknown_index_falls_back_to_first(self) -> None:
+        # idx=4 isn't a hampalml position — parser drops the index and
+        # the swap targets the first (and only) occurrence.
+        swap = match_deterministic_swap(
+            _correction("chip swap", region="swap:hampalml:hampalmd:4"),
+            HELLO_SIGML,
+        )
+        assert swap is not None
+        assert swap.index is None
+
+    def test_picker_swap_from_tag_absent_returns_none(self) -> None:
+        # No hamflatfist in HELLO — caller should fall through.
+        swap = match_deterministic_swap(
+            _correction("chip swap", region="swap:hamflatfist:hamfist:0"),
+            HELLO_SIGML,
+        )
+        assert swap is None
+
+    def test_picker_swap_second_occurrence_maps_to_index_one(self) -> None:
+        # Pathological-but-legal sign with two palm-direction tags
+        # (e.g. dominant + non-dominant slots). The chip at overall
+        # position 4 is the *second* hampalml — TagSwap.index should
+        # be 1 so apply_tag_swap_to_sigml swaps the right one.
+        sigml_two_palms = (
+            "<sigml><hns_sign><hamnosys_manual>"
+            "<hamflathand/>"
+            "<hamextfingeru/>"
+            "<hampalml/>"
+            "<hamneutralspace/>"
+            "<hampalml/>"
+            "</hamnosys_manual></hns_sign></sigml>"
+        )
+        swap = match_deterministic_swap(
+            _correction("chip swap", region="swap:hampalml:hampalmd:4"),
+            sigml_two_palms,
+        )
+        assert swap == TagSwap(from_tag="hampalml", to_tag="hampalmd", index=1)
+        rewritten = apply_tag_swap_to_sigml(sigml_two_palms, swap)
+        # First hampalml stays, second flips to hampalmd.
+        assert rewritten.count("<hampalml/>") == 1
+        assert rewritten.count("<hampalmd/>") == 1
 
 
 # ---------------------------------------------------------------------------

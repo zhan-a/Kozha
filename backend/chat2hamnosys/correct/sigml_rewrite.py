@@ -421,7 +421,16 @@ def _parse_structured_swap(region: str, current_sigml: str) -> Optional[TagSwap]
         # Caller asked for an occurrence that doesn't exist; fall back
         # to the first one rather than 4xx-ing the contributor.
         idx = None
-    return TagSwap(from_tag=from_tag, to_tag=to_tag, index=idx)
+    # The frontend sends the chip's overall position in
+    # <hamnosys_manual> (its rank across every <ham*/> tag).
+    # TagSwap.index is the occurrence index *among from_tag matches*
+    # — so a chip at overall position 2 that's the only hampalmr in
+    # the sign maps to occurrence 0. Without this conversion the
+    # downstream apply_tag_swap_to_sigml looks for an Nth occurrence
+    # that doesn't exist and raises, the router rolls the session
+    # back, and the contributor's pick visibly reverts.
+    occurrence_idx = matching.index(idx) if idx is not None else None
+    return TagSwap(from_tag=from_tag, to_tag=to_tag, index=occurrence_idx)
 
 
 # ---------------------------------------------------------------------------
