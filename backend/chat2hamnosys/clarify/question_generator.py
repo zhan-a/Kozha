@@ -382,19 +382,36 @@ def _build_user_payload(
 ) -> dict[str, Any]:
     """Assemble the JSON payload the LLM consumes as the user message.
 
-    ``prose`` is drawn from the most recent author turn — ParseResult
-    itself only carries ``raw_response`` (the LLM's JSON reply), not the
-    original description. When no author turn is present the field is
-    left empty and the LLM falls back to generic template phrasing.
+    ``prose`` is the *first* author turn — the original natural-language
+    description the parser ran against. Later author turns are answers
+    to earlier clarifications and must not be confused with the prose;
+    they're surfaced separately in ``conversation`` so the LLM can see
+    what it already asked and what the author has already said. Without
+    this history the next clarification reads as if context resets every
+    turn (the symptom: questions re-quote a one-word answer like "up"
+    and ask the LLM to guess what slot it referred to).
     """
     prose = ""
-    for turn in reversed(prior_turns):
+    description_index: int | None = None
+    for idx, turn in enumerate(prior_turns):
         if turn.role == "author":
             prose = turn.text
+            description_index = idx
             break
+
+    conversation: list[dict[str, str]] = []
+    if description_index is not None:
+        for turn in prior_turns[description_index + 1:]:
+            conversation.append({"role": turn.role, "text": turn.text})
+    else:
+        # No author description yet — surface every prior turn so the
+        # LLM still sees any assistant questions already in flight.
+        for turn in prior_turns:
+            conversation.append({"role": turn.role, "text": turn.text})
 
     return {
         "prose": prose,
+        "conversation": conversation,
         "gaps": [
             {
                 "field": g.field,

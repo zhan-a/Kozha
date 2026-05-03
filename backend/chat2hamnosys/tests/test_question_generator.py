@@ -354,6 +354,108 @@ class TestGenerateQuestions:
         user_msg = fake.calls[0]["messages"][1]["content"]
         payload = json.loads(user_msg)
         assert payload["prose"] == prose
+        # First-turn payload has no follow-up dialogue yet.
+        assert payload["conversation"] == []
+
+    def test_prose_anchored_to_first_author_turn(self) -> None:
+        # A multi-turn conversation: the original description is the
+        # first author turn, subsequent author turns are answers to
+        # earlier clarifications. The payload must keep ``prose`` as
+        # the original description and surface the rest of the dialogue
+        # under ``conversation`` so the LLM sees what's been asked and
+        # answered. Regression test: the previous implementation pulled
+        # ``prose`` from the *most recent* author turn, so the LLM saw
+        # one-word replies like "Up" as the entire description and lost
+        # all earlier context.
+        #
+        # The remaining gap is ``orientation_palm`` so the prior
+        # assistant turns about handshape and fingertip direction (now
+        # answered) don't get filtered into "already asked" for the
+        # gap we still want to drive the LLM call.
+        pr = ParseResult(
+            parameters=PartialSignParameters(),
+            gaps=[
+                Gap(
+                    field="orientation_palm",
+                    reason="not specified",
+                    suggested_question="palm direction?",
+                )
+            ],
+        )
+        recorded = json.dumps(
+            {
+                "questions": [
+                    {
+                        "field": "orientation_palm",
+                        "text": "Q?",
+                        "options": None,
+                        "allow_freeform": True,
+                        "rationale": "",
+                    }
+                ]
+            }
+        )
+        fake = FakeLLMClient(content=recorded)
+        original = "Wave the hand in front of the signer."
+        turns = [
+            ClarificationTurn(role="author", text=original),
+            ClarificationTurn(
+                role="assistant",
+                text="What handshape — flat palm, spread five, or fist?",
+            ),
+            ClarificationTurn(role="author", text="Flat palm"),
+            ClarificationTurn(
+                role="assistant",
+                text="Which direction do the fingertips point?",
+            ),
+            ClarificationTurn(role="author", text="Up"),
+        ]
+        generate_questions(pr, turns, client=fake)
+        payload = json.loads(fake.calls[0]["messages"][1]["content"])
+        assert payload["prose"] == original
+        assert payload["conversation"] == [
+            {
+                "role": "assistant",
+                "text": "What handshape — flat palm, spread five, or fist?",
+            },
+            {"role": "author", "text": "Flat palm"},
+            {
+                "role": "assistant",
+                "text": "Which direction do the fingertips point?",
+            },
+            {"role": "author", "text": "Up"},
+        ]
+
+    def test_conversation_falls_back_to_full_history_when_no_author_turn(
+        self,
+    ) -> None:
+        # If somehow no author turn exists yet (e.g., a synthetic test
+        # state), prose stays empty but conversation still surfaces any
+        # assistant turns so the LLM at least sees prior questions.
+        pr = self._single_gap_result()
+        recorded = json.dumps(
+            {
+                "questions": [
+                    {
+                        "field": "handshape_dominant",
+                        "text": "Q?",
+                        "options": None,
+                        "allow_freeform": True,
+                        "rationale": "",
+                    }
+                ]
+            }
+        )
+        fake = FakeLLMClient(content=recorded)
+        turns = [
+            ClarificationTurn(role="assistant", text="Earlier prompt."),
+        ]
+        generate_questions(pr, turns, client=fake)
+        payload = json.loads(fake.calls[0]["messages"][1]["content"])
+        assert payload["prose"] == ""
+        assert payload["conversation"] == [
+            {"role": "assistant", "text": "Earlier prompt."},
+        ]
 
     def test_single_gap_produces_one_question(self) -> None:
         pr = self._single_gap_result()
