@@ -60,3 +60,6 @@ playwright-report/
 # external review docs). Kept out of git because it changes on every
 # copy edit and would balloon diffs.
 /site-text.txt
+
+# RESNA SDC presentation deck — kept local; not for the public repo.
+/resna updated.pptx

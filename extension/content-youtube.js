@@ -378,37 +378,28 @@ function emitCaption(sourceLang) {
 
 function findCaptionTarget() {
   return document.querySelector(".ytp-caption-window-container") ||
-         document.querySelector("#movie_player .caption-window") ||
-         document.querySelector("#movie_player");
+         document.querySelector("#movie_player .caption-window");
 }
 
+var captionRetryHandle = null;
 function startCaptionDomObserver(sourceLang) {
+  if (captionRetryHandle) { clearTimeout(captionRetryHandle); captionRetryHandle = null; }
   var target = findCaptionTarget();
   if (!target) {
-    setTimeout(function() { startCaptionDomObserver(sourceLang); }, 1000);
+    captionRetryHandle = setTimeout(function() { startCaptionDomObserver(sourceLang); }, 1000);
     return;
   }
   if (captionObserver) captionObserver.disconnect();
-  var isNarrow = target.classList && (target.classList.contains("ytp-caption-window-container") || target.classList.contains("caption-window"));
   captionObserver = new MutationObserver(function() {
     if (captionDebounceTimer) clearTimeout(captionDebounceTimer);
-    captionDebounceTimer = setTimeout(function() { emitCaption(sourceLang); }, 800);
+    captionDebounceTimer = setTimeout(function() { emitCaption(sourceLang); }, 500);
   });
   captionObserver.observe(target, {
     childList: true,
     subtree: true,
-    characterData: isNarrow,
+    characterData: true,
   });
-  console.log("[Kozha YT] MutationObserver attached to", target.className || target.id, "narrow:", isNarrow);
-
-  if (!isNarrow) {
-    setTimeout(function() {
-      var narrow = findCaptionTarget();
-      if (narrow && narrow !== target && (narrow.classList.contains("ytp-caption-window-container") || narrow.classList.contains("caption-window"))) {
-        startCaptionDomObserver(sourceLang);
-      }
-    }, 3000);
-  }
+  console.log("[Kozha YT] MutationObserver attached to", target.className || target.id);
 }
 
 function translateAndSign(text, sourceLang) {
@@ -490,16 +481,24 @@ function detectTextDirection(langCode) {
 function observeTheaterAndFullscreen() {
   var ytApp = document.querySelector("ytd-app");
   if (ytApp) {
-    var obs1 = new MutationObserver(Kozha.repositionPanel);
-    obs1.observe(ytApp, { attributes: true, attributeFilter: ["class", "masthead-hidden"] });
+    var obs1 = new MutationObserver(Kozha.scheduleReposition);
+    obs1.observe(ytApp, { attributes: true, attributeFilter: ["theater", "fullscreen", "masthead-hidden"] });
     theaterObservers.push(obs1);
   }
 
   var player = document.getElementById("movie_player");
   if (player) {
-    var obs2 = new MutationObserver(Kozha.repositionPanel);
-    obs2.observe(player, { attributes: true, attributeFilter: ["class"] });
-    theaterObservers.push(obs2);
+    var lastAd = player.classList.contains("ad-showing");
+    var adObs = new MutationObserver(function() {
+      var isAd = player.classList.contains("ad-showing");
+      if (lastAd && !isAd && isWatchPage() && segments.length === 0) {
+        console.log("[Kozha YT] ad ended, retrying init");
+        window._kozhaManualRetry();
+      }
+      lastAd = isAd;
+    });
+    adObs.observe(player, { attributes: true, attributeFilter: ["class"] });
+    theaterObservers.push(adObs);
   }
 
   Kozha.addDocListener(document, "fullscreenchange", function() {
@@ -512,7 +511,7 @@ function observeTheaterAndFullscreen() {
       if (panel) document.body.appendChild(panel);
       if (toggle) document.body.appendChild(toggle);
     }
-    setTimeout(Kozha.repositionPanel, 100);
+    setTimeout(Kozha.scheduleReposition, 100);
   });
 }
 
@@ -639,6 +638,7 @@ function cleanup() {
   theaterObservers = [];
   if (captionObserver) { captionObserver.disconnect(); captionObserver = null; }
   if (captionDebounceTimer) { clearTimeout(captionDebounceTimer); captionDebounceTimer = null; }
+  if (captionRetryHandle) { clearTimeout(captionRetryHandle); captionRetryHandle = null; }
   currentSegmentIndex = -1;
   translationCache = {};
   segments = [];
@@ -670,10 +670,8 @@ function onNavigate() {
 }
 
 var lastUrl = location.href;
-var navObserver = new MutationObserver(onNavigate);
-navObserver.observe(document.body, { childList: true, subtree: true });
-
 document.addEventListener("yt-navigate-finish", onNavigate);
+window.addEventListener("popstate", onNavigate);
 
 window._kozhaManualRetry = function() {
   if (pendingInit) clearTimeout(pendingInit);
@@ -684,23 +682,5 @@ window._kozhaManualRetry = function() {
   realtimeActive = false;
   if (isWatchPage()) init();
 };
-
-function watchForAdEnd() {
-  var video = findVideoElement();
-  if (!video) { setTimeout(watchForAdEnd, 1000); return; }
-  var lastVideoId = null;
-  setInterval(function() {
-    if (!isWatchPage()) return;
-    if (realtimeActive) return;
-    var currentVid = getVideoId();
-    if (!currentVid) return;
-    if (lastVideoId !== currentVid && document.querySelector(".ytp-caption-segment")) {
-      lastVideoId = currentVid;
-      console.log("[Kozha YT] captions appeared, triggering retry");
-      window._kozhaManualRetry();
-    }
-  }, 2000);
-}
-watchForAdEnd();
 
 init();

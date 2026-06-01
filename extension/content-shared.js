@@ -368,6 +368,16 @@ if (!window.Kozha) {
       if (!panel || panel.style.display === "none") return;
       Kozha.clampToViewport(panel);
     },
+
+    _repositionScheduled: false,
+    scheduleReposition: function() {
+      if (Kozha._repositionScheduled) return;
+      Kozha._repositionScheduled = true;
+      requestAnimationFrame(function() {
+        Kozha._repositionScheduled = false;
+        Kozha.repositionPanel();
+      });
+    },
   };
 
   window.addEventListener("message", function(e) {
@@ -388,7 +398,7 @@ if (!window.Kozha) {
   });
 
   window.addEventListener("resize", function() {
-    Kozha.repositionPanel();
+    Kozha.scheduleReposition();
   });
 
   chrome.storage.local.get("kozha_sign_lang", function(stored) {

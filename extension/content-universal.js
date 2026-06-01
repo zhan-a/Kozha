@@ -208,25 +208,6 @@ function stopPageReader() {
   Kozha.setSubtitle("");
 }
 
-var CHUNK_SIZE = 300;
-
-function splitIntoChunks(text, maxChars) {
-  var sentences = text.split(/(?<=[.!?])\s+/);
-  var chunks = [];
-  var current = "";
-  for (var i = 0; i < sentences.length; i++) {
-    var s = sentences[i];
-    if ((current + " " + s).length > maxChars && current) {
-      chunks.push(current.trim());
-      current = s;
-    } else {
-      current = current ? current + " " + s : s;
-    }
-  }
-  if (current.trim()) chunks.push(current.trim());
-  return chunks;
-}
-
 function signText(text, sourceLang) {
   if (!text || !text.trim()) {
     Kozha.injectPanel();
@@ -245,30 +226,15 @@ function signText(text, sourceLang) {
   _kozhaSigningAbort = session;
 
   var lang = sourceLang || detectLanguage(window.getSelection().anchorNode) || "en";
-  var chunks = splitIntoChunks(text, CHUNK_SIZE);
 
   Kozha.stopAvatar();
   Kozha.injectPanel();
   Kozha.showPanel();
   Kozha.setSubtitle(text.length > 200 ? text.substring(0, 200) + "…" : text);
-  Kozha.setStatus(chunks.length > 1 ? "Processing chunk 1/" + chunks.length : "Translating...");
-
-  signChunksSequentially(chunks, 0, lang, session);
-}
-
-function signChunksSequentially(chunks, idx, lang, session) {
-  if (session.aborted || idx >= chunks.length) {
-    if (!session.aborted) Kozha.setStatus("Done");
-    return;
-  }
-
-  if (chunks.length > 1) {
-    Kozha.setStatus("Processing chunk " + (idx + 1) + "/" + chunks.length);
-    Kozha.setSubtitle(chunks[idx]);
-  }
+  Kozha.setStatus("Translating...");
 
   chrome.runtime.sendMessage(
-    { type: "translate", text: chunks[idx], source_lang: lang },
+    { type: "translate", text: text, source_lang: lang },
     function(resp) {
       if (session.aborted) return;
 
@@ -285,12 +251,12 @@ function signChunksSequentially(chunks, idx, lang, session) {
       }
 
       var glosses = resp.data && resp.data.glosses;
-      if (glosses && glosses.length > 0) Kozha.sendToAvatar(glosses);
-
-      var delay = glosses ? Math.min(glosses.length * 800, 8000) : 500;
-      setTimeout(function() {
-        signChunksSequentially(chunks, idx + 1, lang, session);
-      }, delay);
+      if (glosses && glosses.length > 0) {
+        Kozha.sendToAvatar(glosses);
+        Kozha.setStatus("Signing " + glosses.length + " sign" + (glosses.length === 1 ? "" : "s"));
+      } else {
+        Kozha.setStatus("No signs found");
+      }
     }
   );
 }
@@ -308,7 +274,11 @@ if (!window._kozhaUniversalInit) {
     }
   };
 
-  chrome.runtime.onMessage.addListener(function(msg) {
+  chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
+    if (msg.type === "ping_kozha") {
+      sendResponse({ ok: true });
+      return false;
+    }
     if (msg.type === "sign_selection") {
       window._kozhaLastSelection = msg.text;
       signText(msg.text);

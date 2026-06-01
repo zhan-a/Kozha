@@ -11,7 +11,14 @@ chrome.runtime.onInstalled.addListener(function() {
 });
 
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
-  if (info.menuItemId === "kozha-sign-selection" && info.selectionText) {
+  if (info.menuItemId !== "kozha-sign-selection" || !info.selectionText) return;
+  var text = info.selectionText;
+
+  function send() {
+    chrome.tabs.sendMessage(tab.id, { type: "sign_selection", text: text });
+  }
+
+  function inject() {
     chrome.scripting.insertCSS({
       target: { tabId: tab.id },
       files: ["panel.css"]
@@ -20,16 +27,19 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
         target: { tabId: tab.id },
         files: ["content-shared.js", "content-universal.js"]
       });
-    }).then(function() {
-      chrome.tabs.sendMessage(tab.id, {
-        type: "sign_selection",
-        text: info.selectionText
-      });
-    }).catch(function() {
-      chrome.storage.local.set({ kozha_pending_text: info.selectionText });
+    }).then(send).catch(function() {
+      chrome.storage.local.set({ kozha_pending_text: text });
       chrome.action.openPopup();
     });
   }
+
+  chrome.tabs.sendMessage(tab.id, { type: "ping_kozha" }, function(resp) {
+    if (chrome.runtime.lastError || !resp) {
+      inject();
+    } else {
+      send();
+    }
+  });
 });
 
 function getCacheKey(videoId) {

@@ -23,7 +23,6 @@ function loadCwasaScript(callback) {
   s.onerror = function() {
     cwasaLoading = false;
     window.parent.postMessage({ type: "cwasa_failed" }, "*");
-    loadDatabase();
     if (pendingAction) { pendingAction(); pendingAction = null; }
   };
   document.head.appendChild(s);
@@ -113,12 +112,16 @@ function loadConceptCsv(txt) {
 }
 
 var API_BASE = "https://kozha-translate.com";
+var dbLoadingLang = null;
+var dbLoadedLang = null;
 
 function loadDatabase(lang) {
   lang = lang || currentLang;
+  if (dbLoadingLang === lang || dbLoadedLang === lang) return;
   var db = SIGN_LANG_DB[lang];
   if (!db) return;
 
+  dbLoadingLang = lang;
   glossToSign.clear();
   letterToSign.clear();
   conceptToGloss.clear();
@@ -144,12 +147,16 @@ function loadDatabase(lang) {
     if (db.csv) loadConceptCsv(results[idx++]);
     if (db.alphabet) loadAlphabetXml(results[idx++]);
     dbLoaded = true;
+    dbLoadingLang = null;
+    dbLoadedLang = lang;
     console.log("[Kozha panel] database loaded:", lang, "signs:", glossToSign.size, "letters:", letterToSign.size);
     window.parent.postMessage({ type: "db_ready", lang: lang }, "*");
     tryPlayPending();
   }).catch(function(err) {
     console.error("[Kozha panel] database load failed:", err);
     dbLoaded = true;
+    dbLoadingLang = null;
+    dbLoadedLang = lang;
     window.parent.postMessage({ type: "db_ready", lang: lang }, "*");
     tryPlayPending();
   });
@@ -241,10 +248,10 @@ function playGlossesWithSpeed(glosses) {
 }
 
 function initCwasa() {
+  loadDatabase();
   loadCwasaScript(function() {
     if (typeof CWASA === "undefined") {
       window.parent.postMessage({ type: "cwasa_failed" }, "*");
-      loadDatabase();
       return;
     }
 
@@ -269,7 +276,6 @@ function initCwasa() {
           cwasaAvailable = true;
           console.log("[Kozha panel] CWASA ready");
           window.parent.postMessage({ type: "cwasa_ready" }, "*");
-          loadDatabase();
           tryPlayPending();
 
           var canvas = document.querySelector("canvas");
@@ -287,7 +293,6 @@ function initCwasa() {
         });
       } catch(err) {
         window.parent.postMessage({ type: "cwasa_failed" }, "*");
-        loadDatabase();
       }
     }, 150);
   });
