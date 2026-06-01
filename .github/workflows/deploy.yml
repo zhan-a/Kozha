@@ -77,6 +77,17 @@ jobs:
               bash -l -s <<REMOTE_SCRIPT
           set -euo pipefail
           cd /home/ubuntu/Kozha
+          # Private-repo auth: the host previously pulled over anonymous
+          # HTTPS, which breaks once the repo is private. Install the
+          # read-only deploy key (base64 so it survives the streamed
+          # heredoc without indentation issues) and switch origin to SSH.
+          # Idempotent: re-runs each deploy, safe to leave in place.
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          echo '${{ secrets.REPO_DEPLOY_KEY_B64 }}' | base64 -d > ~/.ssh/kozha_deploy_key
+          chmod 600 ~/.ssh/kozha_deploy_key
+          grep -q github.com ~/.ssh/known_hosts 2>/dev/null || ssh-keyscan github.com >> ~/.ssh/known_hosts 2>/dev/null
+          export GIT_SSH_COMMAND="ssh -i ~/.ssh/kozha_deploy_key -o IdentitiesOnly=yes"
+          git remote set-url origin git@github.com:zhan-a/Kozha.git
           git fetch --prune origin
           git reset --hard origin/main
           git clean -fd -e ./data/
