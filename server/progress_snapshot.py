@@ -249,12 +249,13 @@ def _bases_for_language(index: ReviewMetadataIndex, code: str) -> set[str]:
 def _pick_main_source(payloads: list[tuple[Path, dict]]) -> tuple[str, str]:
     """Return the (citation, kind) to display in the per-language row.
 
-    Preference: corpus > community > alphabet. The alphabet files'
+    Preference: corpus > community > seed > alphabet. The alphabet files'
     "source" is a generic "X manual alphabet" which carries no
     provenance signal, so we only fall back to it when nothing better
-    exists.
+    exists — a ``seed`` lexicon (e.g. the ASL-LEX-derived corpus) names a
+    real phonological source and should outrank the alphabet.
     """
-    for wanted in ("corpus", "community", "alphabet"):
+    for wanted in ("corpus", "community", "seed", "alphabet"):
         for _, payload in payloads:
             if (payload.get("source_kind") or "").strip() == wanted:
                 return (

@@ -26,6 +26,10 @@ logs/
 data/chat2hamnosys/
 data/authored_signs.sqlite3*
 
+# Raw upstream corpora pulled for analysis (ASL-LEX, SignPuddle FSW, etc.)
+# License-gated / large — never commit the raw dictionary content.
+data/sources/
+
 # env + secrets (should already be gitignored, here for safety)
 .env
 .env.local
@@ -63,3 +67,7 @@ playwright-report/
 
 # RESNA SDC presentation deck — kept local; not for the public repo.
 /resna updated.pptx
+
+# RESNA/DEBUT final submission packet (briefs, signed letters, forms,
+# team photos, local venv) — kept local; not for the public repo.
+/final resna/

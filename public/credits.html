@@ -732,7 +732,7 @@
         </p>
         <ul class="cr-stats" aria-label="At a glance">
           <li class="cr-stat">
-            <span class="cr-stat__value">17</span>
+            <span class="cr-stat__value">18</span>
             <span class="cr-stat__label">Sources</span>
           </li>
           <li class="cr-stat">
@@ -898,7 +898,7 @@
         <span class="cr-section__num">Section 03</span>
         <h2 id="corpora-heading" class="cr-section__title">Sign-language <em>corpora.</em></h2>
         <p class="cr-section__note">
-          The signs Kozha can render come from twelve sources across twelve sign languages. Where the upstream repository does not declare a license, we say so plainly and mark the source until the author confirms permissions.
+          The signs Kozha can render come from thirteen sources across twelve sign languages. Where the upstream repository does not declare a license, we say so plainly and mark the source until the author confirms permissions.
         </p>
       </header>
 
@@ -1008,7 +1008,7 @@
             </div>
           </div>
           <p class="cr-card__body">
-            The European DictaSign project produced a comparable parallel corpus across four sign languages (BSL, DGS, GSL, LSF). Kozha's British Sign Language data is drawn directly from the DictaSign BSL portion. The same corpus is aliased to the ASL translator entry, since no dedicated ASL corpus is available yet — ASL output uses ASL fingerspelling, but lexical signs fall through to the BSL dataset.
+            The European DictaSign project produced a comparable parallel corpus across four sign languages (BSL, DGS, GSL, LSF). Kozha's British Sign Language data is drawn directly from the DictaSign BSL portion. (ASL previously fell back to this BSL set; it now loads its own ASL-LEX-derived lexical corpus — see the ASL-LEX card below.)
           </p>
           <dl class="cr-meta">
             <div class="cr-meta__row">
@@ -1034,6 +1034,45 @@
           <div class="cr-links">
             <a href="https://www.sign-lang.uni-hamburg.de/dicta-sign/portal/" rel="noopener">DictaSign portal</a>
             <a href="https://www.sign-lang.uni-hamburg.de/" rel="noopener">IDGS</a>
+          </div>
+        </article>
+
+        <article class="cr-card cr-card--flagged cr-card--wide" id="asl">
+          <div class="cr-card__head">
+            <div class="cr-card__heading">
+              <h3 class="cr-card__title">ASL-LEX 2.0</h3>
+              <p class="cr-card__sub">Sehyr, Caselli, Cohen-Goldberg &amp; Emmorey · San Diego State University / Tufts University</p>
+            </div>
+            <div class="cr-langs">
+              <span class="cr-tag cr-tag--lang">ASL</span>
+              <span class="cr-license cr-license--academic">CC BY-NC 4.0</span>
+            </div>
+          </div>
+          <p class="cr-card__body">
+            American Sign Language lexical signs are machine-converted from the ASL-LEX 2.0 phonological coding scheme. Handshape, location, symmetry, and movement-shape are derived deterministically from the ASL-LEX columns; palm/finger orientation and movement direction are rule-derived heuristics that ASL-LEX does not measure and that remain <strong>unverified</strong>. SignWriting/SignPuddle (FSW) orientation enrichment was evaluated but <strong>not used</strong> in this build, because the dictionary-content license is unconfirmed. The raw ASL-LEX corpus is not redistributed — only the derived SiGML encodings ship.
+          </p>
+          <dl class="cr-meta">
+            <div class="cr-meta__row">
+              <dt>Maintainer</dt>
+              <dd>The ASL-LEX Project (asl-lex.org)</dd>
+            </div>
+            <div class="cr-meta__row">
+              <dt>Entries</dt>
+              <dd>1,657 lexical signs (machine-converted seed), plus the 25-letter ASL fingerspelling alphabet</dd>
+            </div>
+            <div class="cr-meta__row">
+              <dt>Provenance</dt>
+              <dd>Machine-converted seed from ASL-LEX 2.0; orientation and movement direction are rule-derived heuristics; 0 Deaf-native reviews, awaiting review.</dd>
+            </div>
+          </dl>
+          <p class="cr-license-detail">
+            <strong>CC BY-NC 4.0</strong>, per asl-lex.org. (The ASL-LEX OSF node is tagged CC BY 4.0; we adopt the stricter non-commercial terms stated on asl-lex.org.) The emitted SiGML encodings are original derived works; the raw ASL-LEX database is not redistributed.
+          </p>
+          <p class="cr-citation">
+            Sehyr, Z. S., Caselli, N., Cohen-Goldberg, A. M., &amp; Emmorey, K. (2021). The ASL-LEX 2.0 Project. <em>Journal of Deaf Studies and Deaf Education</em>, 26(2), 263&ndash;277.
+          </p>
+          <div class="cr-links">
+            <a href="https://asl-lex.org" rel="noopener">ASL-LEX</a>
           </div>
         </article>
 

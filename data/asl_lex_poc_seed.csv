@@ -1,0 +1,16 @@
+EntryID,Gloss,SignType,Handshape,NonDominantHandshape,SelectedFingers,Flexion,ThumbPosition,MajorLocation,MinorLocation,Contact,PathMovement,RepeatedMovement
+asl-0001,MOTHER,OneHanded,5,,all,straight,open,Head,chin,yes,none,yes
+asl-0002,FATHER,OneHanded,5,,all,straight,open,Head,forehead,yes,none,yes
+asl-0003,YES,OneHanded,S,,all,closed,closed,Neutral,,no,none,yes
+asl-0004,NO,OneHanded,V,,im,straight,open,Neutral,,no,none,yes
+asl-0005,HELLO,OneHanded,B,,all,straight,across,Head,forehead,yes,straight,no
+asl-0006,THANK-YOU,OneHanded,B,,all,straight,across,Head,chin,yes,straight,no
+asl-0007,EAT,OneHanded,flat_O,,all,curved,closed,Head,lips,yes,straight,yes
+asl-0008,DRINK,OneHanded,C,,all,curved,open,Head,chin,yes,arc,no
+asl-0009,GOOD,OneHanded,B,,all,straight,across,Head,chin,yes,straight,no
+asl-0010,LEARN,TwoHanded_Asymmetrical_Different,flat_O,B,all,curved,open,Hand,palm,yes,straight,no
+asl-0011,HELP,TwoHanded_Asymmetrical_Same,A,B,all,straight,out,Hand,palm,yes,straight,no
+asl-0012,WANT,TwoHanded_Symmetrical,curved_5,curved_5,all,curved,open,Neutral,,no,straight,no
+asl-0013,HOUSE,TwoHanded_Symmetrical,B,B,all,straight,across,Neutral,,no,straight,no
+asl-0014,NAME,TwoHanded_Symmetrical,U,U,im,straight,closed,Hand,fingers,yes,straight,yes
+asl-0015,FINISH,TwoHanded_Symmetrical,5,5,all,straight,open,Neutral,,no,straight,no

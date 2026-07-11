@@ -1,0 +1,36 @@
+EntryID,Gloss,RawTags,SignType,Handshape,NonDominantHandshape,SelectedFingers,Flexion,ThumbPosition,MajorLocation,MinorLocation,Contact,Movement,MovementDirection,MovementSize,RepeatedMovement,FingerDirection,PalmOrientation,HandshapeEnd,PalmOrientationEnd,NonDomFingerDirection,NonDomPalmOrientation,FingerDirectionEnd
+c-0001,HELLO,,OneHanded,B,,all,straight,across,Head,forehead,yes,straight,r,,no,u,d
+c-0002,THANK-YOU,,OneHanded,B,,all,straight,across,Head,chin,yes,straight,o,,no,u,l
+c-0003,YES,,OneHanded,S,,all,closed,closed,Neutral,,no,straight,d,,yes,o,d
+c-0004,NO,,OneHanded,H,,im,straight,open,Neutral,,no,none,,,no,o,d,baby_O
+c-0005,PLEASE,,OneHanded,B,,all,straight,across,Body,chest,yes,circular,,,no,u,u
+c-0006,SORRY,,OneHanded,S,,all,closed,closed,Body,chest,yes,circular,,,no,u,u
+c-0007,MOTHER,,OneHanded,5,,all,straight,open,Head,chin,yes,none,,,yes,u,l
+c-0008,FATHER,,OneHanded,5,,all,straight,open,Head,forehead,near,none,,,yes,u,d
+c-0009,EAT,"hampinchall hamfingerbendmod hamextfingeri hampalmd hamlips hamlrat hammovei hamsmallmod hamtouch hamrepeatfromstart"
+c-0010,DRINK,,OneHanded,C,,all,curved,open,Head,chin,yes,,u,,no,u,l
+c-0011,GOOD,,TwoHanded_Asymmetrical_Same,B,B,all,straight,across,Head,chin,yes,straight,d,,no,u,u,,,o,u,o
+c-0012,HOME,"hampinchall hamfingerbendmod hamextfingeri hampalmd hamlips hamlrat hammoveu hamsmallmod hamcheek hamlrat"
+c-0013,NAME,"hamsymmlr hamfinger23 hamextfingero hampalmd hamneutralspace hammoved hamsmallmod hamcross hamrepeatfromstart"
+c-0014,WANT,,TwoHanded_Symmetrical,curved_5,curved_5,all,curved,open,Neutral,,no,straight,i,,no,o,u
+c-0015,FINISH,,TwoHanded_Symmetrical,5,5,all,straight,open,Neutral,,no,straight,o,,no,u,u,,d
+c-0016,HOUSE,"hamsymmlr hamflathand hamextfingerul hampalmd hamneutralspace hamseqbegin hammovedr hamreplace hamextfingeru hampalml hammoved hamseqend"
+c-0017,SCHOOL,,TwoHanded_Symmetrical,B,B,all,straight,across,Hand,palm,yes,straight,d,,yes,o,d
+c-0018,LOVE,"hamsymmlr hamfist hamextfingeru hampalmu hamchest hammoveu hamsmallmod hamcross"
+c-0019,LEARN,,TwoHanded_Asymmetrical_Different,flat_O,B,all,curved,open,Neutral,,no,straight,u,,no,d,d,,,o,u
+c-0020,HELP,,TwoHanded_Asymmetrical_Different,A,B,all,closed,out,Neutral,,no,straight,u,,no,u,u,,,o,u
+c-0021,ME,,OneHanded,1,,index,straight,closed,Body,chest,yes,none,,,no,i,l
+c-0022,YOU,,OneHanded,1,,index,straight,closed,Neutral,,no,straight,o,small,no,o,d
+c-0023,SEE,,OneHanded,V,,im,straight,open,Head,eyes,no,straight,o,,no,o,u
+c-0024,KNOW,,OneHanded,B,,all,straight,across,Head,forehead,yes,none,,,no,u,d
+c-0025,THINK,,OneHanded,1,,index,straight,closed,Head,forehead,yes,none,,,no,u,d
+c-0026,GO,,OneHanded,1,,index,straight,closed,Neutral,,no,straight,o,,no,o,d
+c-0027,COME,,OneHanded,1,,index,straight,closed,Neutral,,no,straight,i,,yes,u,u
+c-0028,GIVE,,OneHanded,flat_O,,all,curved,closed,Neutral,,no,straight,o,,no,o,u
+c-0029,WORK,,TwoHanded_Asymmetrical_Same,S,S,all,closed,closed,Arm,wrist,yes,straight,d,small,yes,o,d,,,o,d
+c-0030,HAPPY,,TwoHanded_Symmetrical,B,B,all,straight,across,Body,chest,yes,straight,u,,yes,o,u
+c-0031,SAD,,TwoHanded_Symmetrical,5,5,all,straight,open,Head,,no,straight,d,,no,u,u
+c-0032,BIG,,TwoHanded_Symmetrical,L,L,all,straight,open,Neutral,,no,straight,r,,no,o,d
+c-0033,WATER,,OneHanded,W,,im,straight,open,Head,chin,yes,none,,,yes,u,d
+c-0034,FRIEND,"hamsymmlr hamfinger2 hamfingerhookmod hamextfingerl hampalmd hamneutralspace hammovei hamsmallmod haminterlock hamrepeatreverse"
+c-0035,NICE,,TwoHanded_Asymmetrical_Same,B,B,all,straight,across,Hand,palm,yes,straight,o,,no,o,d,,,o,u
