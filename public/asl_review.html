@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ASL curated-batch review — Kozha</title>
+<link rel="stylesheet" href="/cwa/cwasa.css">
+<script defer src="/cwa/allcsa.js"></script>
+<style>
+  :root { color-scheme: light; }
+  body { margin:0; font:15px/1.5 system-ui,sans-serif; color:#1a1a1a; background:#fafafa; }
+  header { padding:12px 18px; background:#0f172a; color:#fff; }
+  header h1 { margin:0; font-size:16px; }
+  header small { opacity:.75; }
+  .wrap { display:flex; gap:18px; align-items:flex-start; padding:18px; flex-wrap:wrap; }
+  .stage { width:512px; height:512px; background:#fff; border:1px solid #ddd; border-radius:8px; }
+  .CWASAAvatar.av0 canvas { width:512px; height:512px; }
+  .panel { flex:1; min-width:340px; max-width:560px; }
+  .status { font-size:13px; color:#555; margin:0 0 10px; }
+  .now { font-size:18px; font-weight:600; margin:0 0 4px; }
+  .now .note { display:block; font-size:13px; font-weight:400; color:#b45309; }
+  code.tags { display:block; background:#f1f5f9; border-radius:6px; padding:8px 10px; font-size:12px;
+              white-space:pre-wrap; word-break:break-word; margin:6px 0 14px; color:#0f172a; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:8px; }
+  button.sign { padding:9px 8px; border:1px solid #cbd5e1; background:#fff; border-radius:7px; cursor:pointer;
+                font-size:13px; text-align:left; }
+  button.sign:hover { border-color:#0f172a; }
+  button.sign.flag { border-left:4px solid #f59e0b; }
+  button.sign.playing { background:#0f172a; color:#fff; }
+  .bar { margin:0 0 12px; display:flex; gap:8px; }
+  .bar button { padding:8px 14px; border:1px solid #0f172a; background:#0f172a; color:#fff; border-radius:7px; cursor:pointer; }
+  .bar button.secondary { background:#fff; color:#0f172a; }
+</style>
+</head>
+<body>
+<header>
+  <h1>ASL curated-batch review — watch &amp; compare</h1>
+  <small>20 hand-authored signs · orientation is curator-set (unverified) · ⚠ = I flagged this one</small>
+</header>
+
+<div class="wrap">
+  <div>
+    <div class="stage"><div class="CWASAAvatar av0"></div></div>
+    <div class="CWASAGUI av0" style="display:none" aria-hidden="true"></div>
+  </div>
+  <div class="panel">
+    <p class="status" id="status">Loading avatar…</p>
+    <div class="bar">
+      <button id="playAll">▶ Play all (sequential)</button>
+      <button id="replay" class="secondary">↻ Replay current</button>
+    </div>
+    <p class="now" id="nowGloss">Pick a sign →<span class="note" id="nowNote"></span></p>
+    <code class="tags" id="nowTags"></code>
+    <div class="grid" id="grid"></div>
+  </div>
+</div>
+
+<script>
+// My drafting notes per gloss (the ⚠ items from the review table). Shown while you watch.
+const NOTES = {
+  "THANK-YOU":"palm should face toward you — I set palm-left",
+  "NO":"real NO snaps index+middle onto the thumb — closing not captured",
+  "DRINK":"this one wedged the headless renderer before — watch it carefully",
+  "HOME":"real HOME = mouth → cheek (two spots); simplified to cheek",
+  "FINISH":"real FINISH flips palms up→down; flip not captured",
+  "HOUSE":"real HOUSE = roof peak → walls; simplified to one move",
+  "LOVE":"should be crossed fists over chest; crossing not captured",
+  "LEARN":"asymmetric — non-dominant base hand NOT emitted (converter limit)",
+  "HELP":"asymmetric — non-dominant base hand NOT emitted (converter limit)"
+};
+const SIGML_URL = "/data/American_SL_ASL_curated.sigml";
+let SIGNS = [];        // {gloss, block, tags}
+let cwasaReady = false;
+let current = -1;
+
+function setStatus(t){ document.getElementById('status').textContent = t; }
+
+async function loadSigns(){
+  const txt = await (await fetch(SIGML_URL, {cache:'no-store'})).text();
+  const re = /<hns_sign\b([^>]*)>([\s\S]*?)<\/hns_sign>/g;
+  let m;
+  while ((m = re.exec(txt))) {
+    const attrs = m[1], body = m[2];
+    const g = (attrs.match(/gloss="([^"]*)"/) || [])[1] || "(no gloss)";
+    const tags = (body.match(/<(ham[A-Za-z]\w*)\b/g) || []).map(s => s.slice(1));
+    SIGNS.push({ gloss:g, block:m[0], tags });
+  }
+}
+
+function renderGrid(){
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  SIGNS.forEach((s, i) => {
+    const b = document.createElement('button');
+    b.className = 'sign' + (NOTES[s.gloss] ? ' flag' : '');
+    b.textContent = (i+1) + '. ' + s.gloss;
+    b.onclick = () => play(i);
+    b.id = 'b'+i;
+    grid.appendChild(b);
+  });
+}
+
+function play(i){
+  if (!cwasaReady) { setStatus('avatar not ready yet…'); return; }
+  if (current >= 0) document.getElementById('b'+current)?.classList.remove('playing');
+  current = i;
+  const s = SIGNS[i];
+  document.getElementById('b'+i)?.classList.add('playing');
+  document.getElementById('nowGloss').firstChild.textContent = (i+1)+'. '+s.gloss+'  ';
+  document.getElementById('nowNote').textContent = NOTES[s.gloss] ? '⚠ '+NOTES[s.gloss] : '';
+  document.getElementById('nowTags').textContent = s.tags.join('  ');
+  const doc = '<?xml version="1.0" encoding="utf-8"?>\n<sigml>\n'+s.block+'\n</sigml>';
+  try { CWASA.playSiGMLText(doc, 0); } catch(e){ setStatus('play error: '+e); }
+}
+
+async function playAll(){
+  for (let i=0;i<SIGNS.length;i++){ play(i); await new Promise(r=>setTimeout(r,2600)); }
+}
+
+window.addEventListener('load', () => setTimeout(() => {
+  try {
+    CWASA.init({ useClientConfig:false, useCwaConfig:true, avSettings:[{
+      width:512, height:512, avList:'avs', initAv:'anna',
+      ambIdle:false, allowFrameSteps:false, allowSiGMLText:true
+    }]});
+    CWASA.addHook('avatarready', () => { cwasaReady = true; setStatus('Avatar ready — click a sign or “Play all”.'); }, 0);
+  } catch(e){ setStatus('CWASA init failed: '+e); }
+}, 50));
+
+document.getElementById('playAll').onclick = playAll;
+document.getElementById('replay').onclick = () => { if (current>=0) play(current); };
+
+loadSigns().then(() => { renderGrid(); setStatus(SIGNS.length + ' signs loaded — waiting for avatar…'); })
+           .catch(e => setStatus('failed to load signs: '+e));
+</script>
+</body>
+</html>

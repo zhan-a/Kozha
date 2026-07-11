@@ -30,7 +30,7 @@ function loadCwasaScript(callback) {
 
 var SIGN_LANG_DB = {
   bsl:      { sigml: ['/data/hamnosys_bsl_version1.sigml'], csv: '/data/hamnosys_bsl.csv', alphabet: '/data/bsl_alphabet_sigml.sigml' },
-  asl:      { sigml: [], csv: null, alphabet: '/data/asl_alphabet_sigml.sigml' },
+  asl:      { sigml: ['/data/American_SL_ASL.sigml'], csv: null, alphabet: '/data/asl_alphabet_sigml.sigml' },
   dgs:      { sigml: ['/data/German_SL_DGS.sigml'], csv: '/data/hamnosys_dgs.csv', alphabet: '/data/dgs_alphabet_sigml.sigml' },
   lsf:      { sigml: ['/data/French_SL_LSF.sigml'], csv: '/data/hamnosys_lsf.csv', alphabet: '/data/lsf_alphabet_sigml.sigml' },
   pjm:      { sigml: ['/data/Polish_SL_PJM.sigml'], csv: '/data/hamnosys_pjm.csv', alphabet: '/data/pjm_alphabet_sigml.sigml' },
