@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "language": "asl",
+  "iso_code": "ase",
+  "display_name": "American Sign Language",
+  "source": "ASL-LEX 2.0 phonological coding scheme (Sehyr, Caselli, Cohen-Goldberg & Emmorey 2021), asl-lex.org. Handshape, location, symmetry and movement-shape are derived deterministically from the ASL-LEX 2.0 phonological columns; the raw ASL-LEX corpus is NOT redistributed (gitignored under data/sources/).",
+  "source_kind": "seed",
+  "license": "CC BY-NC 4.0 (ASL-LEX 2.0 database, per asl-lex.org). Note: the ASL-LEX OSF node is tagged CC BY 4.0; we adopt the stricter non-commercial CC BY-NC 4.0 stated on asl-lex.org. Emitted SiGML encodings are original derived works.",
+  "data_completeness": "seed",
+  "accepts_first_contributions": true,
+  "review_required": true,
+  "conversion_note": "Handshape/location/symmetry/movement-shape derived deterministically from ASL-LEX 2.0 columns (provenance asl_lex). Palm+finger orientation and movement direction are rule-derived heuristics (provenance heuristic), NOT measured by ASL-LEX and UNVERIFIED. SignWriting/FSW orientation enrichment (stage 58) was NOT applied — the SignPuddle dictionary-content license is unconfirmed (data/sources/signpuddle/LICENSE_CLEARED absent), so no fsw-sourced field is present (fsw=0). No LLM repair was run (llm=0). Per-parameter provenance is in provenance_summary.",
+  "credits": [
+    {
+      "name": "ASL-LEX 2.0",
+      "role": "phonological source (handshape, location, symmetry, movement shape)",
+      "citation": "Sehyr ZS, Caselli N, Cohen-Goldberg AM, Emmorey K (2021). The ASL-LEX 2.0 Project. Journal of Deaf Studies and Deaf Education, 26(2), 263-277.",
+      "url": "https://asl-lex.org",
+      "license": "CC BY-NC 4.0"
+    },
+    {
+      "name": "SignWriting / SignPuddle (ISWA 2010 / FSW)",
+      "role": "orientation enrichment — EVALUATED but NOT used in this build (license gate closed); attribution carried for the deferred stage-58 path",
+      "url": "https://signpuddle.net",
+      "license": "dictionary-content license UNCONFIRMED — see proposals/reports/signpuddle-license-request.md"
+    }
+  ],
+  "provenance_summary": {
+    "tags_by_source": {
+      "asl_lex": 7150,
+      "heuristic": 5050,
+      "default": 216,
+      "override": 0,
+      "fsw": 0,
+      "llm": 0
+    },
+    "tags_total": 12416,
+    "share": {
+      "asl_lex": 0.5759,
+      "heuristic": 0.4067,
+      "default": 0.0174,
+      "override": 0.0,
+      "fsw": 0.0,
+      "llm": 0.0
+    },
+    "orientation_heuristic_signs": 1657,
+    "orientation_default_signs": 0,
+    "movement_dir_heuristic_signs": 1151,
+    "movement_dir_default_signs": 168,
+    "fsw_signs": 0,
+    "llm_signs": 0
+  },
+  "sigml_file": "American_SL_ASL.sigml",
+  "quarantine_file": "American_SL_ASL_quarantine.sigml",
+  "generated": "2026-06-03",
+  "default_review": {
+    "deaf_native_reviewed": false,
+    "reviewer_count": 0,
+    "reviewer_language_match": false,
+    "review_source": null,
+    "last_reviewed": null,
+    "notes": "machine-converted seed from ASL-LEX 2.0; orientation/direction are rule-derived heuristics; awaiting Deaf-native review"
+  },
+  "sign_count": 1657,
+  "signs": {}
+}
