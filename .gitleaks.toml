@@ -36,6 +36,10 @@ paths = [
   '''\.gitleaks\.toml$''',
   '''docs/chat2hamnosys/17-security\.md$''',
   '''docs/chat2hamnosys/17-injection-surface\.md$''',
+  # Vendored CWASA avatar engine (compiled/minified third-party JS under
+  # public/cwa/ and extension/cwa/). `var keyStr = '…'` in allcsa.js is a
+  # library constant flagged as a generic-api-key false positive.
+  '''(^|/)cwa/''',
   # The example key shape in docs/ may include `sk-...TRUNCATED` style
   # placeholders. Keep this tight — we still want real keys elsewhere
   # in docs/ to fail.
