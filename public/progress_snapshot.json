@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-07-11T08:36:38Z",
+  "generated_at": "2026-07-11T14:49:04Z",
   "generator": "server/progress_snapshot.py",
   "schema_version": 1,
   "totals": {
-    "signs": 9714,
+    "signs": 9693,
     "languages": 12,
     "reviewed": 4677,
-    "awaiting_review": 5037
+    "awaiting_review": 5016
   },
   "languages": [
     {
@@ -181,25 +181,6 @@
       "partial_data": false
     },
     {
-      "code": "asl",
-      "name": "American Sign Language",
-      "native_name": "American Sign Language",
-      "source": "ASL-LEX 2.0 phonological coding scheme (Sehyr, Caselli, Cohen-Goldberg & Emmorey 2021); PoC seed rows hand-curated from citation-form ASL, NOT redistributed ASL-LEX data",
-      "source_kind": "seed",
-      "total": 60,
-      "reviewed": 0,
-      "awaiting_review": 60,
-      "community_pending": 0,
-      "alphabet": "partial",
-      "alphabet_present": 25,
-      "alphabet_expected": 26,
-      "top500_covered": 32,
-      "top500_total": 437,
-      "top500_coverage_pct": 7.3,
-      "last_updated": "2026-07-11",
-      "partial_data": false
-    },
-    {
       "code": "bangla",
       "name": "Bangla Sign Language",
       "native_name": "বাংলা ইশারা ভাষা",
@@ -216,6 +197,25 @@
       "top500_total": 437,
       "top500_coverage_pct": 4.3,
       "last_updated": "2026-04-23",
+      "partial_data": false
+    },
+    {
+      "code": "asl",
+      "name": "American Sign Language",
+      "native_name": "American Sign Language",
+      "source": "ASL-LEX 2.0 phonological coding scheme (Sehyr, Caselli, Cohen-Goldberg & Emmorey 2021); PoC seed rows hand-curated from citation-form ASL, NOT redistributed ASL-LEX data",
+      "source_kind": "seed",
+      "total": 39,
+      "reviewed": 0,
+      "awaiting_review": 39,
+      "community_pending": 0,
+      "alphabet": "partial",
+      "alphabet_present": 25,
+      "alphabet_expected": 26,
+      "top500_covered": 13,
+      "top500_total": 437,
+      "top500_coverage_pct": 3.0,
+      "last_updated": "2026-07-11",
       "partial_data": false
     },
     {
@@ -485,6 +485,7 @@
   "coverage_gaps": {
     "bsl_missing_from_asl": [
       "with",
+      "you",
       "but",
       "we",
       "my",
@@ -493,26 +494,19 @@
       "up",
       "about",
       "who",
+      "me",
       "when",
       "make",
       "like",
       "time",
+      "know",
       "take",
       "people",
       "year",
-      "other",
-      "then",
-      "now",
-      "look"
+      "see"
     ],
     "asl_missing_from_bsl": [
-      "go",
-      "come",
-      "home",
       "learn",
-      "big",
-      "sad",
-      "sorry",
       "hello"
     ]
   }
