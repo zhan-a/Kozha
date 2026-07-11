@@ -2,8 +2,8 @@
 
 Feeds into the progress dashboard (prompt 8).
 
-- Total sign entries across all databases: **11637**
-- Kept in active files: **9714**
+- Total sign entries across all databases: **11616**
+- Kept in active files: **9693**
 - Quarantined (moved to sidecar): **1923**
 - Repaired in place: **0**
 
@@ -12,7 +12,7 @@ Feeds into the progress dashboard (prompt 8).
 | file | total | kept | quarantined | repaired | unique glosses |
 |---|---|---|---|---|---|
 | `Algerian_SL.sigml` | 418 | 1 | 417 | 0 | 1 |
-| `American_SL_ASL.sigml` | 35 | 35 | 0 | 0 | 35 |
+| `American_SL_ASL.sigml` | 14 | 14 | 0 | 0 | 14 |
 | `Arabic_SL_ArSL.sigml` | 0 | 0 | 0 | 0 | 0 |
 | `Bangla_SL.sigml` | 93 | 60 | 33 | 0 | 36 |
 | `Chinese_SL_CSL.sigml` | 0 | 0 | 0 | 0 | 0 |

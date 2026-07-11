@@ -2,8 +2,8 @@
   "generated_by": "scripts/database_health_audit.py",
   "prompt": 7,
   "totals": {
-    "entries": 11637,
-    "kept": 9714,
+    "entries": 11616,
+    "kept": 9693,
     "quarantined": 1923,
     "repaired": 0
   },
@@ -23,12 +23,12 @@
     },
     "American_SL_ASL.sigml": {
       "language_code": "American_SL_ASL",
-      "total": 35,
-      "kept": 35,
+      "total": 14,
+      "kept": 14,
       "quarantined": 0,
       "repaired": 0,
       "duplicate_flagged": 0,
-      "unique_glosses_active": 35,
+      "unique_glosses_active": 14,
       "issues": {},
       "repair_counts": {}
     },
@@ -362,8 +362,8 @@
       }
     },
     "asl": {
-      "total": 61,
-      "kept": 60,
+      "total": 40,
+      "kept": 39,
       "quarantined": 1,
       "repaired": 0,
       "duplicate_flagged": 0,
