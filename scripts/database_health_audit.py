@@ -117,6 +117,7 @@ EXPECTED_ALPHABETS: dict[str, dict] = {
 LANG_FILES: list[tuple[str, str, str]] = [
     # (file, lang_code, display_name)
     ("hamnosys_bsl_version1.sigml", "bsl", "British"),
+    ("American_SL_ASL.sigml", "asl", "American (ASL)"),
     ("French_SL_LSF.sigml", "lsf", "French (LSF)"),
     ("German_SL_DGS.sigml", "dgs", "German (DGS)"),
     ("Greek_SL_GSL.sigml", "gsl", "Greek"),

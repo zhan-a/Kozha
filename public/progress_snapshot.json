@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-07-11T06:17:26Z",
+  "generated_at": "2026-07-11T08:36:38Z",
   "generator": "server/progress_snapshot.py",
   "schema_version": 1,
   "totals": {
-    "signs": 11336,
+    "signs": 9714,
     "languages": 12,
     "reviewed": 4677,
-    "awaiting_review": 6659
+    "awaiting_review": 5037
   },
   "languages": [
     {
@@ -45,25 +45,6 @@
       "top500_total": 437,
       "top500_coverage_pct": 30.4,
       "last_updated": "2026-04-23",
-      "partial_data": false
-    },
-    {
-      "code": "asl",
-      "name": "American Sign Language",
-      "native_name": "American Sign Language",
-      "source": "ASL-LEX 2.0 phonological coding scheme (Sehyr, Caselli, Cohen-Goldberg & Emmorey 2021), asl-lex.org. Handshape, location, symmetry and movement-shape are derived deterministically from the ASL-LEX 2.0 phonological columns; the raw ASL-LEX corpus is NOT redistributed (gitignored under data/sources/).",
-      "source_kind": "seed",
-      "total": 1682,
-      "reviewed": 0,
-      "awaiting_review": 1682,
-      "community_pending": 0,
-      "alphabet": "partial",
-      "alphabet_present": 25,
-      "alphabet_expected": 26,
-      "top500_covered": 237,
-      "top500_total": 437,
-      "top500_coverage_pct": 54.2,
-      "last_updated": "2026-06-03",
       "partial_data": false
     },
     {
@@ -197,6 +178,25 @@
       "top500_total": 437,
       "top500_coverage_pct": 0.2,
       "last_updated": "2026-04-23",
+      "partial_data": false
+    },
+    {
+      "code": "asl",
+      "name": "American Sign Language",
+      "native_name": "American Sign Language",
+      "source": "ASL-LEX 2.0 phonological coding scheme (Sehyr, Caselli, Cohen-Goldberg & Emmorey 2021); PoC seed rows hand-curated from citation-form ASL, NOT redistributed ASL-LEX data",
+      "source_kind": "seed",
+      "total": 60,
+      "reviewed": 0,
+      "awaiting_review": 60,
+      "community_pending": 0,
+      "alphabet": "partial",
+      "alphabet_present": 25,
+      "alphabet_expected": 26,
+      "top500_covered": 32,
+      "top500_total": 437,
+      "top500_coverage_pct": 7.3,
+      "last_updated": "2026-07-11",
       "partial_data": false
     },
     {
@@ -484,48 +484,36 @@
   "recent_activity": [],
   "coverage_gaps": {
     "bsl_missing_from_asl": [
+      "with",
+      "but",
+      "we",
+      "my",
+      "one",
+      "what",
+      "up",
+      "about",
       "who",
+      "when",
+      "make",
       "like",
-      "no",
+      "time",
       "take",
       "people",
-      "see",
+      "year",
+      "other",
+      "then",
       "now",
-      "look",
-      "want",
-      "why",
-      "water",
-      "food",
-      "earth",
-      "air",
-      "sun",
-      "sky",
-      "sea",
-      "land",
-      "bread",
-      "milk"
+      "look"
     ],
     "asl_missing_from_bsl": [
-      "to",
-      "in",
-      "have",
-      "for",
-      "not",
-      "on",
-      "he",
-      "at",
-      "his",
-      "from",
-      "they",
-      "or",
-      "will",
-      "all",
-      "there",
-      "which",
       "go",
-      "can",
-      "your",
-      "some"
+      "come",
+      "home",
+      "learn",
+      "big",
+      "sad",
+      "sorry",
+      "hello"
     ]
   }
 }
