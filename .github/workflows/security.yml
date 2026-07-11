@@ -20,9 +20,11 @@ jobs:
           fetch-depth: 0
       - name: Run gitleaks
         uses: gitleaks/gitleaks-action@v2
-        with:
-          config-path: .gitleaks.toml
         env:
+          # gitleaks-action@v2 reads its config from GITLEAKS_CONFIG, not a
+          # `config-path` input (that input is rejected with a warning, and
+          # the repo allowlist would then be ignored).
+          GITLEAKS_CONFIG: ${{ github.workspace }}/.gitleaks.toml
           # gitleaks-action writes a SARIF file; no network token needed.
           GITLEAKS_NOTIFY_USER_LIST: ""
 
@@ -43,7 +45,6 @@ jobs:
         run: |
           pip-audit \
             --requirement backend/chat2hamnosys/requirements.txt \
-            --disable-pip \
             --strict \
             --vulnerability-service osv \
             || (echo "::error::pip-audit found vulnerabilities" && exit 1)
@@ -51,17 +52,22 @@ jobs:
   npm-audit:
     name: npm dependency audit
     runs-on: ubuntu-latest
-    # The repo has no package.json today; this job is a scaffold so a
-    # future frontend build step is automatically covered. It no-ops
-    # cleanly until a package.json appears.
-    if: ${{ hashFiles('package.json') != '' }}
+    # Audits the frontend/dev toolchain declared in package.json +
+    # package-lock.json. (Previously gated on a job-level hashFiles()
+    # if-condition, which GitHub's workflow compiler rejects — that
+    # invalid expression was failing the entire Security workflow at
+    # startup on every push. package.json now exists, so just run.)
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
       - name: npm audit (high+ critical)
-        run: npm audit --audit-level=high
+        # Only production deps reach the shipped site (static HTML +
+        # vendored CWASA + Python backend). package.json holds dev/CI
+        # tooling only (puppeteer, pa11y, …), so audit production scope —
+        # dev-only transitive advisories must not fail the security gate.
+        run: npm audit --omit=dev --audit-level=high
 
   tests:
     name: Security tests
