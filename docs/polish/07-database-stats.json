@@ -2,10 +2,10 @@
   "generated_by": "scripts/database_health_audit.py",
   "prompt": 7,
   "totals": {
-    "entries": 11602,
-    "kept": 9679,
+    "entries": 11637,
+    "kept": 9714,
     "quarantined": 1923,
-    "repaired": 25
+    "repaired": 0
   },
   "files": {
     "Algerian_SL.sigml": {
@@ -17,11 +17,31 @@
       "duplicate_flagged": 0,
       "unique_glosses_active": 1,
       "issues": {
-        "empty_gloss": 417
+        "previously_quarantined": 417
       },
-      "repair_counts": {
-        "hamupperarm": 1
-      }
+      "repair_counts": {}
+    },
+    "American_SL_ASL.sigml": {
+      "language_code": "American_SL_ASL",
+      "total": 35,
+      "kept": 35,
+      "quarantined": 0,
+      "repaired": 0,
+      "duplicate_flagged": 0,
+      "unique_glosses_active": 35,
+      "issues": {},
+      "repair_counts": {}
+    },
+    "Arabic_SL_ArSL.sigml": {
+      "language_code": "Arabic_SL_ArSL",
+      "total": 0,
+      "kept": 0,
+      "quarantined": 0,
+      "repaired": 0,
+      "duplicate_flagged": 0,
+      "unique_glosses_active": 0,
+      "issues": {},
+      "repair_counts": {}
     },
     "Bangla_SL.sigml": {
       "language_code": "Bangla_SL",
@@ -33,9 +53,19 @@
       "unique_glosses_active": 36,
       "issues": {
         "duplicate_gloss": 24,
-        "empty_gloss": 21,
-        "no_hamnosys_content": 12
+        "previously_quarantined": 33
       },
+      "repair_counts": {}
+    },
+    "Chinese_SL_CSL.sigml": {
+      "language_code": "Chinese_SL_CSL",
+      "total": 0,
+      "kept": 0,
+      "quarantined": 0,
+      "repaired": 0,
+      "duplicate_flagged": 0,
+      "unique_glosses_active": 0,
+      "issues": {},
       "repair_counts": {}
     },
     "Dutch_SL_NGT.sigml": {
@@ -58,8 +88,7 @@
       "duplicate_flagged": 0,
       "unique_glosses_active": 0,
       "issues": {
-        "gestural_sign_no_gloss": 14,
-        "no_hamnosys_content": 14
+        "previously_quarantined": 14
       },
       "repair_counts": {}
     },
@@ -68,29 +97,24 @@
       "total": 381,
       "kept": 224,
       "quarantined": 157,
-      "repaired": 2,
+      "repaired": 0,
       "duplicate_flagged": 0,
       "unique_glosses_active": 224,
       "issues": {
-        "unknown_tags_after_repair": 157,
-        "gloss_leading_trailing_whitespace": 5
+        "previously_quarantined": 157
       },
-      "repair_counts": {
-        "hamupperarm": 1
-      }
+      "repair_counts": {}
     },
     "German_SL_DGS.sigml": {
       "language_code": "German_SL_DGS",
       "total": 1914,
       "kept": 1914,
       "quarantined": 0,
-      "repaired": 9,
+      "repaired": 0,
       "duplicate_flagged": 0,
       "unique_glosses_active": 1914,
       "issues": {},
-      "repair_counts": {
-        "hamupperarm": 9
-      }
+      "repair_counts": {}
     },
     "Greek_SL_GSL.sigml": {
       "language_code": "Greek_SL_GSL",
@@ -101,11 +125,9 @@
       "duplicate_flagged": 0,
       "unique_glosses_active": 534,
       "issues": {
-        "unknown_tags_after_repair": 355
+        "previously_quarantined": 355
       },
-      "repair_counts": {
-        "hamupperarm": 3
-      }
+      "repair_counts": {}
     },
     "Indian_SL.sigml": {
       "language_code": "Indian_SL",
@@ -116,8 +138,41 @@
       "duplicate_flagged": 0,
       "unique_glosses_active": 729,
       "issues": {
-        "unknown_tags_after_repair": 34
+        "previously_quarantined": 34
       },
+      "repair_counts": {}
+    },
+    "Japanese_SL_JSL.sigml": {
+      "language_code": "Japanese_SL_JSL",
+      "total": 0,
+      "kept": 0,
+      "quarantined": 0,
+      "repaired": 0,
+      "duplicate_flagged": 0,
+      "unique_glosses_active": 0,
+      "issues": {},
+      "repair_counts": {}
+    },
+    "Kazakh_SL_KSL.sigml": {
+      "language_code": "Kazakh_SL_KSL",
+      "total": 0,
+      "kept": 0,
+      "quarantined": 0,
+      "repaired": 0,
+      "duplicate_flagged": 0,
+      "unique_glosses_active": 0,
+      "issues": {},
+      "repair_counts": {}
+    },
+    "Korean_SL_KVK.sigml": {
+      "language_code": "Korean_SL_KVK",
+      "total": 0,
+      "kept": 0,
+      "quarantined": 0,
+      "repaired": 0,
+      "duplicate_flagged": 0,
+      "unique_glosses_active": 0,
+      "issues": {},
       "repair_counts": {}
     },
     "Kurdish_SL.sigml": {
@@ -125,41 +180,90 @@
       "total": 558,
       "kept": 558,
       "quarantined": 0,
-      "repaired": 1,
+      "repaired": 0,
       "duplicate_flagged": 0,
       "unique_glosses_active": 558,
       "issues": {},
-      "repair_counts": {
-        "hamupperarm": 1
-      }
+      "repair_counts": {}
+    },
+    "Mongolian_SL_MSL.sigml": {
+      "language_code": "Mongolian_SL_MSL",
+      "total": 0,
+      "kept": 0,
+      "quarantined": 0,
+      "repaired": 0,
+      "duplicate_flagged": 0,
+      "unique_glosses_active": 0,
+      "issues": {},
+      "repair_counts": {}
+    },
+    "Persian_SL_ZEI.sigml": {
+      "language_code": "Persian_SL_ZEI",
+      "total": 0,
+      "kept": 0,
+      "quarantined": 0,
+      "repaired": 0,
+      "duplicate_flagged": 0,
+      "unique_glosses_active": 0,
+      "issues": {},
+      "repair_counts": {}
     },
     "Polish_SL_PJM.sigml": {
       "language_code": "Polish_SL_PJM",
       "total": 1932,
       "kept": 1020,
       "quarantined": 912,
-      "repaired": 9,
+      "repaired": 0,
       "duplicate_flagged": 0,
       "unique_glosses_active": 1020,
       "issues": {
-        "unknown_tags_after_repair": 912
+        "previously_quarantined": 912
       },
-      "repair_counts": {
-        "hamupperarm": 18
-      }
+      "repair_counts": {}
+    },
+    "Russian_SL_RSL.sigml": {
+      "language_code": "Russian_SL_RSL",
+      "total": 0,
+      "kept": 0,
+      "quarantined": 0,
+      "repaired": 0,
+      "duplicate_flagged": 0,
+      "unique_glosses_active": 0,
+      "issues": {},
+      "repair_counts": {}
+    },
+    "Turkish_SL_TID.sigml": {
+      "language_code": "Turkish_SL_TID",
+      "total": 0,
+      "kept": 0,
+      "quarantined": 0,
+      "repaired": 0,
+      "duplicate_flagged": 0,
+      "unique_glosses_active": 0,
+      "issues": {},
+      "repair_counts": {}
+    },
+    "Ukrainian_SL_USL.sigml": {
+      "language_code": "Ukrainian_SL_USL",
+      "total": 0,
+      "kept": 0,
+      "quarantined": 0,
+      "repaired": 0,
+      "duplicate_flagged": 0,
+      "unique_glosses_active": 0,
+      "issues": {},
+      "repair_counts": {}
     },
     "Vietnamese_SL.sigml": {
       "language_code": "Vietnamese_SL",
       "total": 3564,
       "kept": 3564,
       "quarantined": 0,
-      "repaired": 2,
+      "repaired": 0,
       "duplicate_flagged": 0,
       "unique_glosses_active": 3564,
       "issues": {},
-      "repair_counts": {
-        "hamindxfinger": 2
-      }
+      "repair_counts": {}
     },
     "asl_alphabet_sigml.sigml": {
       "language_code": "asl_alphabet_sigml",
@@ -170,7 +274,7 @@
       "duplicate_flagged": 0,
       "unique_glosses_active": 25,
       "issues": {
-        "unknown_tags_after_repair": 1
+        "previously_quarantined": 1
       },
       "repair_counts": {}
     },
@@ -201,13 +305,11 @@
       "total": 881,
       "kept": 881,
       "quarantined": 0,
-      "repaired": 2,
+      "repaired": 0,
       "duplicate_flagged": 0,
       "unique_glosses_active": 881,
       "issues": {},
-      "repair_counts": {
-        "hamupperarm": 2
-      }
+      "repair_counts": {}
     },
     "lsf_alphabet_sigml.sigml": {
       "language_code": "lsf_alphabet_sigml",
@@ -257,6 +359,24 @@
         "expected": 0,
         "present": 0,
         "missing": []
+      }
+    },
+    "asl": {
+      "total": 61,
+      "kept": 60,
+      "quarantined": 1,
+      "repaired": 0,
+      "duplicate_flagged": 0,
+      "files": [
+        "American_SL_ASL.sigml",
+        "asl_alphabet_sigml.sigml"
+      ],
+      "alphabet": {
+        "expected": 26,
+        "present": 25,
+        "missing": [
+          "W"
+        ]
       }
     },
     "bangla": {
@@ -309,7 +429,7 @@
       "total": 407,
       "kept": 250,
       "quarantined": 157,
-      "repaired": 2,
+      "repaired": 0,
       "duplicate_flagged": 0,
       "files": [
         "French_SL_LSF.sigml",
@@ -325,7 +445,7 @@
       "total": 1940,
       "kept": 1940,
       "quarantined": 0,
-      "repaired": 9,
+      "repaired": 0,
       "duplicate_flagged": 0,
       "files": [
         "German_SL_DGS.sigml",
@@ -376,7 +496,7 @@
       "total": 558,
       "kept": 558,
       "quarantined": 0,
-      "repaired": 1,
+      "repaired": 0,
       "duplicate_flagged": 0,
       "files": [
         "Kurdish_SL.sigml"
@@ -391,7 +511,7 @@
       "total": 1958,
       "kept": 1046,
       "quarantined": 912,
-      "repaired": 9,
+      "repaired": 0,
       "duplicate_flagged": 0,
       "files": [
         "Polish_SL_PJM.sigml",
@@ -417,7 +537,7 @@
       "total": 3564,
       "kept": 3564,
       "quarantined": 0,
-      "repaired": 2,
+      "repaired": 0,
       "duplicate_flagged": 0,
       "files": [
         "Vietnamese_SL.sigml"
@@ -428,28 +548,11 @@
         "missing": []
       }
     },
-    "asl": {
-      "total": 26,
-      "kept": 25,
-      "quarantined": 1,
-      "repaired": 0,
-      "duplicate_flagged": 0,
-      "files": [
-        "asl_alphabet_sigml.sigml"
-      ],
-      "alphabet": {
-        "expected": 26,
-        "present": 25,
-        "missing": [
-          "W"
-        ]
-      }
-    },
     "bsl": {
       "total": 907,
       "kept": 907,
       "quarantined": 0,
-      "repaired": 2,
+      "repaired": 0,
       "duplicate_flagged": 0,
       "files": [
         "bsl_alphabet_sigml.sigml",
