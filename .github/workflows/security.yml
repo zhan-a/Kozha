@@ -21,11 +21,14 @@ jobs:
       - name: Run gitleaks
         uses: gitleaks/gitleaks-action@v2
         env:
+          # gitleaks-action@v2 requires GITHUB_TOKEN to scan pull_request
+          # events (it diffs the PR commits via the API); without it the
+          # job hard-fails on every PR.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # gitleaks-action@v2 reads its config from GITLEAKS_CONFIG, not a
           # `config-path` input (that input is rejected with a warning, and
           # the repo allowlist would then be ignored).
           GITLEAKS_CONFIG: ${{ github.workspace }}/.gitleaks.toml
-          # gitleaks-action writes a SARIF file; no network token needed.
           GITLEAKS_NOTIFY_USER_LIST: ""
 
   pip-audit:
