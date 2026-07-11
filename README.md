@@ -219,6 +219,8 @@ Full attribution, license detail, per-corpus entry counts, and reviewer-provenan
 
 ### Sign-language databases
 
+> **Note:** the per-corpus counts in this section are **upstream source-corpus sizes**, not live-loaded sign totals. Fewer signs are actually served after quarantine and de-duplication — the [progress dashboard](https://kozha-translate.com/progress) carries the authoritative live totals.
+
 Corpora with declared licenses:
 
 - **BSL** — [DictaSign Corpus](https://www.sign-lang.uni-hamburg.de/dicta-sign/portal/), IDGS, Universität Hamburg. License: [CC BY-NC-SA 3.0 Unported](https://creativecommons.org/licenses/by-nc-sa/3.0/). 881 signs loaded.
