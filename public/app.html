@@ -883,59 +883,6 @@
       flex-wrap: wrap;
     }
 
-    /* Prompt-polish 10 §10: dismissible first-visit keyboard hint.
-       Uses localStorage to track the dismissal flag. */
-    .kb-hint-strip {
-      display: flex;
-      align-items: center;
-      gap: var(--kozha-space-3, 12px);
-      padding: var(--kozha-space-2, 8px) var(--kozha-space-4, 16px);
-      background: var(--kozha-color-accent-light, var(--accent-light));
-      border: 1px solid var(--kozha-color-border-accent, rgba(201,106,46,0.2));
-      border-radius: var(--radius-sm);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 12px;
-      line-height: 1.6;
-      color: var(--kozha-color-accent, var(--accent));
-    }
-    .kb-hint-strip[hidden] { display: none; }
-    .kb-hint-text {
-      flex: 1;
-      min-width: 0;
-      /* Keep each "kbd · phrase" chunk on one line so the arrow keys
-         never split across a wrap. The text inside is short — the
-         strip wraps cleanly between chunks separated by ` · `. */
-      word-spacing: 0.05em;
-    }
-    .kb-hint-text kbd {
-      background: var(--kozha-color-white, white);
-      border: 1px solid var(--kozha-color-border-accent, rgba(201,106,46,0.2));
-      border-radius: 4px;
-      padding: 1px 6px;
-      font-family: ui-monospace, 'Menlo', monospace;
-      font-size: 11px;
-      color: var(--kozha-color-accent, var(--accent));
-      margin: 0 2px;
-      white-space: nowrap;
-    }
-    .kb-hint-chunk { white-space: nowrap; }
-    .kb-hint-close {
-      background: transparent;
-      border: 0;
-      color: var(--kozha-color-accent, var(--accent));
-      font-size: 18px;
-      cursor: pointer;
-      padding: 4px 8px;
-      line-height: 1;
-      border-radius: var(--radius-sm);
-      min-width: 32px;
-    }
-    .kb-hint-close:hover { background: rgba(255,255,255,0.5); }
-    .kb-hint-close:focus-visible {
-      outline: 2px solid var(--kozha-color-accent, var(--accent));
-      outline-offset: 2px;
-    }
-
     /* Prompt-polish 10 §8/§9: textarea auto-grow cap + character counter
        that only appears once we're near the limit. */
     #textIn {
@@ -959,24 +906,6 @@
     .char-count.warn { color: var(--kozha-color-accent, var(--accent)); font-weight: 600; }
     .char-count.over { color: var(--kozha-color-danger, #c0392b); font-weight: 600; }
 
-    /* Opt-in auto-translate toggle. Off by default per prompt 10 §8. */
-    .auto-translate-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: 4px;
-      min-height: 24px;
-    }
-    .auto-translate-row label {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      color: var(--kozha-color-ink-3, var(--ink-3));
-      cursor: pointer;
-    }
-
     /* Prompt-polish 10 §2: lock the coverage counter + token list to
        predictable heights. Coverage-counter already had min-height 18px;
        token list gets a two-row floor so wrapping doesn't push controls. */
@@ -996,8 +925,7 @@
       .avatar-placeholder { transition: none; }
       .playback-btn,
       .playback-speed-btn,
-      .playback-progress-bar,
-      .kb-hint-close { transition: none; }
+      .playback-progress-bar { transition: none; }
       .btn, .btn-secondary, .btn-primary, .btn-translate, .sidebar-item {
         transition: none !important;
       }
@@ -1311,7 +1239,7 @@
     .lang-strip {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto auto auto auto;
+      grid-template-rows: auto auto auto;
       column-gap: var(--kozha-space-4, 16px);
       row-gap: 6px;
       padding: var(--kozha-space-3, 12px) var(--kozha-space-4, 16px);
@@ -1323,7 +1251,7 @@
     }
     /* The two select slots share the parent's row tracks via subgrid so
        label / select / note line up horizontally across both columns. */
-    .lang-slot:not(.route-display) {
+    .lang-slot {
       display: grid;
       grid-template-rows: subgrid;
       grid-row: 1 / span 3;
@@ -1364,61 +1292,16 @@
       color: var(--kozha-color-accent, #b3441b);
       font-weight: 500;
     }
-    /* Route slot: full-width compact banner on the row below the
-       selects. Eyebrow label sits inline with the route text so the
-       whole row reads as one short status sentence. */
-    .lang-slot.route-display {
-      grid-column: 1 / -1;
-      grid-row: 4;
-      display: flex;
-      align-items: baseline;
-      gap: var(--kozha-space-2, 8px);
-      padding: 8px 12px;
-      margin-top: 4px;
-      background: var(--kozha-color-paper, #f5f1eb);
-      border: 1px solid var(--kozha-color-border, rgba(26,22,18,0.12));
-      border-radius: var(--kozha-radius-sm, 10px);
-    }
-    .route-display .lang-slot-label {
-      flex-shrink: 0;
-    }
-    .route-display .route-text {
-      font-size: 13px;
-      color: var(--kozha-color-ink-2, #3d3630);
-      line-height: 1.4;
-      background: transparent;
-      border: 0;
-      padding: 0;
-      margin: 0;
-      min-height: 0;
-      display: inline;
-    }
-    .route-text.warning {
-      color: var(--kozha-color-accent, #b3441b);
-      font-weight: 500;
-    }
-    /* When the route text carries a warning, also tint the surrounding
-       banner so the cue is unmissable. :has() is well supported in
-       modern browsers; older browsers still get the colored text. */
-    .lang-slot.route-display:has(.route-text.warning) {
-      background: var(--kozha-color-accent-light, #faeee0);
-      border-color: var(--kozha-color-accent, #b3441b);
-    }
     @media (max-width: 700px) {
       .lang-strip {
         grid-template-columns: 1fr;
         grid-template-rows: auto;
       }
-      .lang-slot:not(.route-display) {
+      .lang-slot {
         display: flex;
         flex-direction: column;
         grid-template-rows: none;
         grid-row: auto;
-      }
-      .lang-slot.route-display {
-        grid-column: 1;
-        grid-row: auto;
-        flex-wrap: wrap;
       }
     }
 
@@ -1630,7 +1513,7 @@
           <div class="lang-strip" role="group" aria-label="Translation language settings">
             <div class="lang-slot">
               <label class="lang-slot-label" for="langHint">You write in</label>
-              <select id="langHint" aria-describedby="langHintNote">
+              <select id="langHint">
                 <optgroup label="Native NLP (spaCy)">
                   <option value="en">English</option>
                   <option value="de">German</option>
@@ -1679,7 +1562,6 @@
                   <option value="vi">Vietnamese</option>
                 </optgroup>
               </select>
-              <div id="langHintNote" class="lang-slot-note" aria-live="polite"></div>
             </div>
 
             <div class="lang-slot">
@@ -1687,24 +1569,11 @@
               <select id="signLangSelect" aria-describedby="signLangNote"></select>
               <div id="signLangNote" class="lang-slot-note" aria-live="polite"></div>
             </div>
-
-            <div class="lang-slot route-display">
-              <div class="lang-slot-label" id="routeLabel">Route</div>
-              <div id="translationRoute" class="route-text" role="status" aria-live="polite" aria-labelledby="routeLabel">Loading…</div>
-            </div>
           </div>
 
           <label class="field-label" for="textIn">Enter your phrase</label>
-          <textarea id="textIn" placeholder="Try something like: Hello, how are you?" rows="3" maxlength="10000" aria-describedby="charCount autoTranslateLabel"></textarea>
+          <textarea id="textIn" placeholder="Try something like: Hello, how are you?" rows="3" maxlength="10000" aria-describedby="charCount"></textarea>
           <div class="char-count" id="charCount" aria-live="polite"></div>
-
-          <div class="auto-translate-row">
-            <label id="autoTranslateLabel">
-              <input type="checkbox" id="autoTranslateToggle" />
-              Auto-translate as I type
-            </label>
-            <span class="hint" id="shortcutHintSm" aria-hidden="true">Enter to translate · Shift+Enter for newline</span>
-          </div>
 
           <button id="translateBtn" class="btn-translate" style="margin-top: 16px;" aria-label="Translate to sign language">
             🤟 Translate to Sign
@@ -1862,18 +1731,6 @@
 
     <section class="render-panel" aria-label="Sign preview and playback">
       <div class="avatar-wrapper">
-
-        <!-- Prompt-polish 10 §10: first-visit keyboard hint. Dismissal
-             is persisted in localStorage under bridgn.kbHintDismissed.
-             Hidden on subsequent visits. -->
-        <div class="kb-hint-strip" id="kbHintStrip" role="note" hidden>
-          <span class="kb-hint-text">
-            <span class="kb-hint-chunk"><kbd>Enter</kbd> to translate</span> ·
-            <span class="kb-hint-chunk"><kbd>Space</kbd> to play/pause</span> ·
-            <span class="kb-hint-chunk"><kbd>←</kbd> <kbd>→</kbd> to scrub</span>
-          </span>
-          <button type="button" class="kb-hint-close" id="kbHintClose" aria-label="Dismiss keyboard shortcut hint">×</button>
-        </div>
 
         <!-- Prompt-polish 10 §1: indeterminate progress bar above the
              avatar. Shown only when translation takes > 200ms. -->
@@ -2548,14 +2405,6 @@
       return ARGOS_SUPPORTED.has(src) && ARGOS_SUPPORTED.has(tgtBase);
     }
 
-    function updateSourceNote() {
-      const sel = document.getElementById('langHint');
-      const note = document.getElementById('langHintNote');
-      if (!sel || !note) return;
-      const native = new Set(['en','de','fr','es','pl','nl','el']).has(sel.value);
-      note.textContent = native ? 'Built-in support, no extra translation step.' : 'Will translate first, then sign.';
-    }
-
     function updateSignLangNote() {
       const sel = document.getElementById('signLangSelect');
       const note = document.getElementById('signLangNote');
@@ -2578,35 +2427,26 @@
       }
     }
 
+    // Gate the Translate button on whether a translation path exists for the
+    // current source→target pair. No on-page prose — an unsupported pair just
+    // disables the button (with a hover tooltip explaining why).
     function updateTranslationRoute() {
-      const route = document.getElementById('translationRoute');
       const btn = document.getElementById('translateBtn');
-      if (!route) return;
+      if (!btn) return;
       const src = document.getElementById('langHint').value;
       const tgtSign = document.getElementById('signLangSelect').value;
       const tgtBase = SIGN_LANG_GLOSS[tgtSign] || 'en';
-      const srcName = BASE_LANG_NAMES[src] || src.toUpperCase();
-      const tgtBaseName = BASE_LANG_NAMES[tgtBase] || tgtBase.toUpperCase();
-      const tgtSignName = SIGN_LANG_DISPLAY[tgtSign] || tgtSign.toUpperCase();
-      const supported = translationRouteSupported(src, tgtBase);
-      if (!supported) {
-        route.textContent = 'No translation path available. Try a different target language.';
-        route.classList.add('warning');
-        if (btn) { btn.disabled = true; btn.title = 'No translation path available for this source-to-target combination.'; }
-        return;
-      }
-      route.classList.remove('warning');
-      if (btn) { btn.disabled = false; btn.title = ''; }
-      if (src === tgtBase) {
-        route.textContent = 'Direct lookup in ' + tgtSignName + '. No intermediate translation needed.';
+      if (translationRouteSupported(src, tgtBase)) {
+        btn.disabled = false;
+        btn.title = '';
       } else {
-        route.textContent = 'Translating ' + srcName + ' → ' + tgtBaseName + ', then looking up ' + tgtSignName + ' signs.';
+        btn.disabled = true;
+        btn.title = 'No translation path available for this source-to-target combination.';
       }
     }
 
     function onSourceLangChanged() {
       saveLangChoices();
-      updateSourceNote();
       updateTranslationRoute();
     }
 
@@ -2643,7 +2483,6 @@
     // localStorage give us nothing.
     populateSignLangOptions();
     restoreLangChoices();
-    updateSourceNote();
     updateSignLangNote();
     updateTranslationRoute();
     document.getElementById('langHint').addEventListener('change', onSourceLangChanged);
@@ -2805,8 +2644,11 @@
 
     function currentAllowed(){ return Array.from(glossToSign.keys()).sort(); }
 
-    async function doPlan(mode, wasTranslated) {
-      const raw0 = textIn.value.trim();
+    async function doPlan(mode, wasTranslated, planText) {
+      // planText, when provided, is the internally-translated text to plan
+      // from. The visible textarea (textIn) always keeps the user's source
+      // language, so we plan from planText rather than reading it back out.
+      const raw0 = (typeof planText === 'string' ? planText : textIn.value).trim();
       if (!raw0) { log('Empty text.'); return; }
       const allowed = currentAllowed();
       if (allowed.length === 0) { log('No sign database loaded yet.'); return; }
@@ -3630,8 +3472,9 @@
           renderStatus.className = 'status-badge';
           announceTranslator('Translation failed. Try again or switch language pair.');
         }
-        textIn.value = translated;
-        await doPlan('spacy', translationExpected);
+        // Translation stays internal: the textarea keeps the user's source
+        // language; only the planner sees the translated text.
+        await doPlan('spacy', translationExpected, translated);
         const toks = window.__plannedTokens || [];
         if (!toks.length) {
           renderStatus.textContent = 'No matching signs found.';
@@ -4021,14 +3864,12 @@
           micStatus.className = 'status-badge';
           return;
         }
-        const translated = await translateIfNeeded(rawText, (msg) => { micStatus.textContent = msg; micStatus.className = 'status-badge loading'; });
-        const micTranslationExpected = getInputLang() !== getTargetLang();
-        if (micTranslationExpected && translated === rawText) {
-          micStatus.textContent = 'Translation failed — try again or enter text in ' + getTargetLang().toUpperCase();
-          micStatus.className = 'status-badge';
-        }
-        textIn.value = translated;
-        if (!micTranslationExpected || translated !== rawText) { micStatus.textContent = 'Done ✓'; micStatus.className = 'status-badge ready'; }
+        // Fill the textarea with the transcription in the input language.
+        // Translation to the target sign language happens internally when
+        // the user presses Translate — the text body stays in the source
+        // language (mirrors the text-tab flow).
+        textIn.value = rawText;
+        micStatus.textContent = 'Transcribed ✓ — open the Translate tab to sign it'; micStatus.className = 'status-badge ready';
       }catch(e){
         // Pass the dev string through the mic mapper. We tag the cue
         // with "transcribe" so the catch-all on this branch resolves to
@@ -4316,8 +4157,10 @@
           return;
         }
         videoStatus.textContent = 'Planning sign sequence…';
-        textIn.value = translated;
-        await doPlan('spacy', vidTranslationExpected);
+        // Show the transcription (input language) in the textarea; plan from
+        // the internal translation so the text body stays in the source language.
+        textIn.value = rawText;
+        await doPlan('spacy', vidTranslationExpected, translated);
         videoStatus.textContent = 'Ready to render ✓'; videoStatus.className = 'status-badge ready';
       } catch (e) {
         if (abortCtrl.signal.aborted) {
@@ -4402,31 +4245,9 @@
       textIn.style.height = Math.min(scrollH, cap) + 'px';
     }
 
-    // Opt-in auto-translate, default OFF (prompt-polish 10 §8). Debounce
-    // at 600ms after the last keystroke. Persisted per-browser.
-    const autoTranslateToggle = document.getElementById('autoTranslateToggle');
-    const AUTO_TRANSLATE_KEY = 'bridgn.autoTranslate';
-    try {
-      autoTranslateToggle.checked = localStorage.getItem(AUTO_TRANSLATE_KEY) === '1';
-    } catch (_e) {}
-    autoTranslateToggle.addEventListener('change', () => {
-      try { localStorage.setItem(AUTO_TRANSLATE_KEY, autoTranslateToggle.checked ? '1' : '0'); } catch (_e) {}
-    });
-    let _autoTranslateTimer = null;
-    function scheduleAutoTranslate() {
-      if (_autoTranslateTimer) { clearTimeout(_autoTranslateTimer); _autoTranslateTimer = null; }
-      if (!autoTranslateToggle.checked) return;
-      _autoTranslateTimer = setTimeout(() => {
-        if (!translateBtn.disabled && textIn.value.trim()) {
-          runTranslateFlow();
-        }
-      }, 600);
-    }
-
     textIn.addEventListener('input', () => {
       updateCharCount();
       autoGrowTextarea();
-      scheduleAutoTranslate();
     });
     textIn.addEventListener('keydown', (ev) => {
       if (ev.key === 'Enter' && !ev.shiftKey && !ev.isComposing) {
@@ -4440,24 +4261,6 @@
     document.getElementById('hamburgerBtn').addEventListener('click', () => {
       document.querySelector('.sidebar').classList.toggle('open');
     });
-
-    // -------------------------------------------------------------------
-    // Prompt-polish 10 §10: first-visit keyboard hint. Shown once, then
-    // dismissed forever via localStorage.
-    // -------------------------------------------------------------------
-    (function initKeyboardHint() {
-      const KEY = 'bridgn.kbHintDismissed';
-      const strip = document.getElementById('kbHintStrip');
-      const close = document.getElementById('kbHintClose');
-      if (!strip || !close) return;
-      let dismissed = false;
-      try { dismissed = localStorage.getItem(KEY) === '1'; } catch (_e) {}
-      if (!dismissed) strip.hidden = false;
-      close.addEventListener('click', () => {
-        strip.hidden = true;
-        try { localStorage.setItem(KEY, '1'); } catch (_e) {}
-      });
-    })();
 
     window.addEventListener('load', () => { textIn.focus(); });
   </script>
