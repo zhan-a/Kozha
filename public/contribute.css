@@ -3264,6 +3264,13 @@ select.field-input { cursor: pointer; }
   max-width: 100%;
   max-height: 96px;
 }
+/* Expanded: reveal the FULL SiGML. Overrides the max-height above and the
+   overflow:hidden inherited from .c2-snapshot-card__sigml, which together
+   were clipping the payload to ~6 lines even while the <details> was open. */
+.c2-conversation-card__sigml-details[open] .c2-conversation-card__sigml {
+  max-height: none;
+  overflow: visible;
+}
 .c2-conversation-card__footer {
   display: flex;
   align-items: center;
