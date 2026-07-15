@@ -2111,7 +2111,7 @@
       try{
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 15000);
-        const res = await fetch(url, { signal: controller.signal });
+        const res = await fetch(url, { signal: controller.signal, cache: 'no-cache' });
         clearTimeout(timeout);
         if (!res.ok){ if (isAutoload && res.status === 404){ log(`Optional DB missing: ${url}`); return; } throw new Error('HTTP ' + res.status); }
         const xmlText = await res.text();
@@ -2136,7 +2136,7 @@
       try{
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 15000);
-        const res = await fetch(url, { signal: controller.signal });
+        const res = await fetch(url, { signal: controller.signal, cache: 'no-cache' });
         clearTimeout(timeout);
         if (!res.ok){ if (isAutoload && res.status === 404){ log(`Optional alphabet DB missing: ${url}`); return; } throw new Error('HTTP ' + res.status); }
         const xmlText = await res.text();
@@ -2163,7 +2163,7 @@
       try{
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 15000);
-        const res = await fetch(url, { signal: controller.signal });
+        const res = await fetch(url, { signal: controller.signal, cache: 'no-cache' });
         clearTimeout(timeout);
         if (!res.ok){ if (isAutoload && res.status === 404){ log(`Optional DB missing: ${url}`); return; } throw new Error('HTTP ' + res.status); }
         const txt = await res.text();

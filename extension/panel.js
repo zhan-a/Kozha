@@ -128,15 +128,15 @@ function loadDatabase(lang) {
   dbLoaded = false;
 
   var fetches = db.sigml.map(function(url) {
-    return fetch(API_BASE + url).then(function(r) { return r.text(); });
+    return fetch(API_BASE + url, { cache: 'no-cache' }).then(function(r) { return r.text(); });
   });
 
   if (db.csv) {
-    fetches.push(fetch(API_BASE + db.csv).then(function(r) { return r.text(); }));
+    fetches.push(fetch(API_BASE + db.csv, { cache: 'no-cache' }).then(function(r) { return r.text(); }));
   }
 
   if (db.alphabet) {
-    fetches.push(fetch(API_BASE + db.alphabet).then(function(r) { return r.text(); }));
+    fetches.push(fetch(API_BASE + db.alphabet, { cache: 'no-cache' }).then(function(r) { return r.text(); }));
   }
 
   Promise.all(fetches).then(function(results) {

@@ -1,6 +1,6 @@
 # Polish 14 — End-to-end translator smoke
 
-Run at: 2026-07-15 23:37:03 UTC
+Run at: 2026-07-15 23:52:40 UTC
 Harness: headless Chromium via puppeteer against a local static server for `public/`.
 
 | Case | Lang | Input | Tokens | Gloss hits | Fingerspell | SiGML bytes | Console err | OK |

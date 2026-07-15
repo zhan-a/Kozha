@@ -116,6 +116,24 @@ async def _kozha_request_id_middleware(request: Request, call_next):
     response.headers["X-Request-ID"] = request.state.request_id
     return response
 
+
+# Sign-language databases and HTML shells must never go stale in a
+# browser. The static mounts emit only ETag/Last-Modified; without an
+# explicit Cache-Control, browsers apply heuristic freshness (~10% of
+# the file's age), so a lexicon untouched for months can keep being
+# served from local cache for days after a deploy changes it. no-cache
+# still allows caching but forces a conditional revalidation (a cheap
+# 304 when unchanged). Routes that set their own Cache-Control — e.g.
+# /progress_snapshot.json's 900 s window — are left untouched.
+@app.middleware("http")
+async def _kozha_no_stale_data_middleware(request: Request, call_next):
+    response = await call_next(request)
+    if "cache-control" not in response.headers:
+        content_type = response.headers.get("content-type", "")
+        if request.url.path.startswith("/data/") or content_type.startswith("text/html"):
+            response.headers["Cache-Control"] = "no-cache"
+    return response
+
 def load_abbreviations(filepath: Path) -> Dict[str, str]:
     if not filepath.exists():
         print(f"[WARN] Abbreviation file not found: {filepath}")
