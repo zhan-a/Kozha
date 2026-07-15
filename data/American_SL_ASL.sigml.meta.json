@@ -30,6 +30,7 @@
     "movement_dir_default_signs": 0
   },
   "sigml_file": "American_SL_ASL.sigml",
+  "post_generation_edits": "2026-07-15: THANK-YOU re-encoded with the manual tag sequence of BSL DictaSign please(r)#1 (data/hamnosys_bsl_version1.sigml) at curator direction — the prior encoding was judged incorrect for ASL THANK-YOU. Seed row c-0002 now carries the sequence as RawTags (override provenance). provenance_summary aggregates predate this edit (they describe an earlier emission). Render-verified 2026-07-15 via scripts/render_verify_asl.mjs: ok, non-static, no dropped tags.",
   "default_review": {
     "deaf_native_reviewed": false,
     "reviewer_count": 0,

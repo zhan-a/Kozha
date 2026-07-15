@@ -15,11 +15,24 @@
   <hns_sign gloss="THANK-YOU">
     <hamnosys_manual>
       <hamflathand />
+      <hamthumboutmod />
       <hamextfingeru />
+      <hambetween />
+      <hamextfingerul />
       <hampalml />
-      <hamchin />
-      <hamlrat />
-      <hammoveo />
+      <hamunderchin />
+      <hamseqbegin />
+      <hamtouch />
+      <hammiddlefinger />
+      <hamfingerpad />
+      <hamseqend />
+      <hamparbegin />
+      <hammovedo />
+      <hamsmallmod />
+      <hamreplace />
+      <hamfist />
+      <hamthumboutmod />
+      <hamparend />
     </hamnosys_manual>
   </hns_sign>
 

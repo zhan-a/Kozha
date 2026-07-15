@@ -1,6 +1,6 @@
 EntryID,Gloss,RawTags,SignType,Handshape,NonDominantHandshape,SelectedFingers,Flexion,ThumbPosition,MajorLocation,MinorLocation,Contact,Movement,MovementDirection,MovementSize,RepeatedMovement,FingerDirection,PalmOrientation,HandshapeEnd,PalmOrientationEnd,NonDomFingerDirection,NonDomPalmOrientation,FingerDirectionEnd
 c-0001,HELLO,,OneHanded,B,,all,straight,across,Head,forehead,yes,straight,r,,no,u,d
-c-0002,THANK-YOU,,OneHanded,B,,all,straight,across,Head,chin,yes,straight,o,,no,u,l
+c-0002,THANK-YOU,"hamflathand hamthumboutmod hamextfingeru hambetween hamextfingerul hampalml hamunderchin hamseqbegin hamtouch hammiddlefinger hamfingerpad hamseqend hamparbegin hammovedo hamsmallmod hamreplace hamfist hamthumboutmod hamparend"
 c-0003,YES,,OneHanded,S,,all,closed,closed,Neutral,,no,straight,d,,yes,o,d
 c-0004,NO,,OneHanded,H,,im,straight,open,Neutral,,no,none,,,no,o,d,baby_O
 c-0005,PLEASE,,OneHanded,B,,all,straight,across,Body,chest,yes,circular,,,no,u,u
