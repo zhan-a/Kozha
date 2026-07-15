@@ -53,6 +53,7 @@
   "sigml_file": "American_SL_ASL.sigml",
   "quarantine_file": "American_SL_ASL_quarantine.sigml",
   "generated": "2026-06-03",
+  "post_generation_edits": "2026-07-15: removed gloss thank_you (1 sign, 7 tags) — redundant with the verified THANK-YOU served in data/American_SL_ASL.sigml, and its bare hamarcd is ungrammatical per the current converter. provenance_summary still describes the original 1,657-sign emission; regenerating from ASL-LEX would re-emit the sign.",
   "default_review": {
     "deaf_native_reviewed": false,
     "reviewer_count": 0,
@@ -61,6 +62,6 @@
     "last_reviewed": null,
     "notes": "machine-converted seed from ASL-LEX 2.0; orientation/direction are rule-derived heuristics; awaiting Deaf-native review"
   },
-  "sign_count": 1657,
+  "sign_count": 1656,
   "signs": {}
 }

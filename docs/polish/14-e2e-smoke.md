@@ -1,6 +1,6 @@
 # Polish 14 — End-to-end translator smoke
 
-Run at: 2026-04-22 23:45:00 UTC
+Run at: 2026-07-15 21:48:40 UTC
 Harness: headless Chromium via puppeteer against a local static server for `public/`.
 
 | Case | Lang | Input | Tokens | Gloss hits | Fingerspell | SiGML bytes | Console err | OK |
@@ -8,7 +8,8 @@ Harness: headless Chromium via puppeteer against a local static server for `publ
 | English → BSL, common word | bsl | `hello` | 5 | 0 | 5 | 2963 | 0 | yes |
 | English → BSL, fingerspell candidate | bsl | `pneumonia` | 9 | 0 | 9 | 5504 | 0 | yes |
 | English → LSF, original bug word | lsf | `fruit` | 1 | 1 | 0 | 1179 | 0 | yes |
-| English → ASL, short sentence | asl | `good morning friend` | 3 | 3 | 0 | 1485 | 0 | yes |
+| English → ASL, short sentence | asl | `good morning friend` | 14 | 1 | 13 | 3344 | 0 | yes |
+| English → ASL, concept synonym | asl | `thanks` | 1 | 1 | 0 | 257 | 0 | yes |
 | English → DGS, basic word | dgs | `water` | 1 | 1 | 0 | 828 | 0 | yes |
 | English → PJM, basic word | pjm | `thank you` | 8 | 0 | 8 | 1759 | 0 | yes |
 

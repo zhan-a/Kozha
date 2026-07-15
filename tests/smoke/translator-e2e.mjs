@@ -161,6 +161,7 @@ const CASES = [
   { label: 'English → BSL, fingerspell candidate', lang: 'bsl', text: 'pneumonia' },
   { label: 'English → LSF, original bug word',   lang: 'lsf', text: 'fruit' },
   { label: 'English → ASL, short sentence',      lang: 'asl', text: 'good morning friend' },
+  { label: 'English → ASL, concept synonym',     lang: 'asl', text: 'thanks' },
   { label: 'English → DGS, basic word',          lang: 'dgs', text: 'water' },
   { label: 'English → PJM, basic word',          lang: 'pjm', text: 'thank you' },
 ];

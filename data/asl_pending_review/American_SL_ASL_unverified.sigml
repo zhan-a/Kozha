@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<sigml_collection language="American_SL_ASL" count="1657">
+<sigml_collection language="American_SL_ASL" count="1656">
 
   <hns_sign gloss="tree">
     <hamnosys_manual>
@@ -14565,18 +14565,6 @@
       <hamlrat />
       <hammoveo />
       <hamrepeatfromstart />
-    </hamnosys_manual>
-  </hns_sign>
-
-  <hns_sign gloss="thank_you">
-    <hamnosys_manual>
-      <hamflathand />
-      <hamthumboutmod />
-      <hamextfingeru />
-      <hampalmd />
-      <hamlips />
-      <hamlrat />
-      <hamarcd />
     </hamnosys_manual>
   </hns_sign>
 
