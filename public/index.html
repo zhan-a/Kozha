@@ -1678,7 +1678,14 @@
         var translatedText = await heroTranslateIfNeeded(inputText, function(msg) { btn.textContent = msg; });
 
         var planTokens = [];
-        try {
+        // Whole-input concept match (e.g. "Thank you!" → THANK-YOU): play that
+        // sign directly, mirroring app.html's concept-map short-circuit, so an
+        // exact phrase never round-trips through the backend planner.
+        var phraseGloss = conceptToGloss.get(glossBase(translatedText));
+        if (phraseGloss && glossToSign.has(phraseGloss)) {
+          planTokens = [phraseGloss];
+        }
+        if (!planTokens.length) try {
           var apiController = new AbortController();
           var apiTimeout = setTimeout(function() { apiController.abort(); }, 10000);
           var resp = await fetch('/api/plan', {
